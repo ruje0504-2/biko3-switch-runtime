@@ -36,6 +36,8 @@ typedef struct {
   BkSystemAudio *confirm;
   BkFrontEnd *front;
   BkEndingRecords ending_records;
+  uint8_t ending_unlock_flags[BK_UNLOCK_FLAGS];
+  int ending_unlock_valid;
   BkScene *game, *pause, *title, *retry, *checkpoint, *save, *ending;
   BkViewport viewport;
   BkCommonHudFrame common_frame;
@@ -102,6 +104,16 @@ static int release(void *context, uint8_t flow, char error[256]) {
     return 1;
   }
   if (flow == 0x10 && s->ending) {
+    const BkEndingState *ending_state =
+        bk_ending_normal_scene_state(s->ending);
+    if (!ending_state || ending_state->frame.group >= BK_UNLOCK_GROUPS) {
+      snprintf(error, 256, "play session: ending unlock row is unavailable");
+      return 0;
+    }
+    memcpy(s->ending_unlock_flags,
+           ending_state->working[ending_state->frame.group],
+           sizeof(s->ending_unlock_flags));
+    s->ending_unlock_valid = 1;
     s->retire_ending = 1;
     return 1;
   }
@@ -239,6 +251,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
                "play session: flow16 alternate ending loader is not implemented");
       return 0;
     }
+    s->ending_unlock_valid = 0;
     s->ending = bk_ending_normal_scene_create_story(
         &s->services, (unsigned)result.group, 0, &s->ending_records, error);
     if (!s->ending)
@@ -591,7 +604,9 @@ static BkScene *create(const BkSceneServices *services,
                           .photo_count = &s->game_state.hotkeys.photo_count,
                           .context = s,
                           .schedule = schedule,
-                          .unlock_file = unlock_file};
+                          .unlock_file = unlock_file,
+                          .ending_flags = s->ending_unlock_flags,
+                          .ending_flags_valid = &s->ending_unlock_valid};
     s->front = bk_front_end_create(&c, error);
     if (!s->front)
       goto bad;

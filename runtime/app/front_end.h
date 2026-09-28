@@ -19,6 +19,11 @@ typedef struct {
   void *context;
   int (*schedule)(void *, uint8_t, uint8_t, char error[256]);
   BkUnlockFile *unlock_file; /* optional borrowed port storage, never assets */
+  /* Row produced by the preceding real flow16 ending frame. The flag is
+   * borrowed until the dialogue callback executes; an absent/invalid row is
+   * an explicit storage boundary, never a zero-filled unlock. */
+  const uint8_t *ending_flags;
+  const int *ending_flags_valid;
 } BkFrontEndConfig;
 /* Original retail title1/selection38/dialogue8 owner. Retains menu globals
  * between entries; collects released GPU snapshots on the following step.

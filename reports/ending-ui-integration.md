@@ -15,7 +15,7 @@
 - 故事入口：`ending normal scene PASS entry=story variant=0 frames=64 draws=10725 skin=520 audio_frames=62400 allocations=624`。
 - 鉴赏入口 variant 0：同样 10,725 个绘制项、520 次蒙皮和 62,400 音频帧；variant 1：6,695 个绘制项、520 次蒙皮、62,400 音频帧和 774 次 GPU 分配，阶段图片已进入生产资源生命周期。
 - `build/asan` 全量 CTest：92/92 通过；主机 `test-host.sh local/game/MAINDIR` 全量检查通过，包含原标题→选人→雨天→游戏→拍照→暂停/恢复→返回标题、存档恢复和撞车失败重试路径。
-- `./build-switch.sh` 通过，当前源码 NRO SHA-256：`990b6273e752a7af35a772fd840db6a77d505f420ac1eb807c485b7044385a28`。这是指定 Mesa/NVK 交叉构建结果；尚不等于 Switch 实机结局验证。
+- `./build-switch.sh` 通过，当前源码 NRO SHA-256：`d0cef8772758f0486233679fdd044ce784621f1c79ddbf0825e27afa30b18562`。这是指定 Mesa/NVK 交叉构建结果；尚不等于 Switch 实机结局验证。
 
 ASan 使用 `detect_leaks=0`。主机 MoltenVK 检查和 Switch 交叉构建不能替代 Switch 实机性能/结局验收。Mac 防休眠保持，完整移植尚未结束。
 

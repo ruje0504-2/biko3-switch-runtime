@@ -61,9 +61,16 @@ static int schedule(void *p, uint8_t target, uint8_t mode, char e[256]) {
   return s->c.schedule(s->c.context, target, mode, e);
 }
 static int unlock(void *p, unsigned group, char e[256]) {
-  (void)p;
-  (void)group;
-  return fail(e, "ending unlock persistence is not implemented");
+  BkFrontEnd *s = p;
+  BkUnlockTable next;
+  if (!s || !s->c.unlock_file || !s->c.ending_flags ||
+      !s->c.ending_flags_valid || !*s->c.ending_flags_valid)
+    return fail(e, "ending unlock working row is not available");
+  if (!bk_unlock_file_store(s->c.unlock_file, group, s->c.ending_flags,
+                            &next, e))
+    return 0;
+  s->unlocked = next;
+  return 1;
 }
 BkFrontEnd *bk_front_end_create(const BkFrontEndConfig *c, char e[256]) {
   if (!c || !c->services.renderer || !c->services.resources ||
