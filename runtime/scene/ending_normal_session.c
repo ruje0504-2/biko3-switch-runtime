@@ -633,15 +633,18 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
                        char e[256]) {
   EndingNormalScene *s = context;
   unsigned variant;
+  BkEndingUiStageKind stage_kind;
   if (!s || argument != -1)
     return fail(e, "invalid normal loader argument");
   /* 4d00fa is the second normal gallery profile. The remaining loaders have
    * different scene topologies and must reach their own owners later. */
-  if (loader == BK_ENDING_LOAD_4CF318)
+  if (loader == BK_ENDING_LOAD_4CF318) {
     variant = 0;
-  else if (loader == BK_ENDING_LOAD_4D00FA)
+    stage_kind = BK_ENDING_UI_NORMAL;
+  } else if (loader == BK_ENDING_LOAD_4D00FA) {
     variant = 1;
-  else
+    stage_kind = BK_ENDING_UI_SECONDARY;
+  } else
     return fail(e, "normal scene does not own this ending loader");
   release_resources(s);
   uint32_t clocks[4] = {s->now_ms, s->now_ms, s->now_ms, s->now_ms};
@@ -675,13 +678,17 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
   unsigned width, height;
   bk_renderer_extent(s->services.renderer, &width, &height);
   if (!bk_ending_stage_ui_initialize(&s->ui, &s->stage_ui,
-                                     BK_ENDING_UI_NORMAL,
+                                     stage_kind,
                                      s->state.frame.group, variant, width, e) ||
       !(s->ui_render = bk_ending_ui_render_create(
             s->services.renderer, s->services.resources, e)) ||
       !(s->ui_curtain = bk_curtain_render_create(
             s->services.renderer, s->services.resources, e)) ||
       !(s->ui_batch = bk_ending_ui_batch_create(s->ui_curtain, e)))
+    goto bad;
+  if (s->stage_ui.loaded &&
+      !(s->ui_stage_render = bk_ending_ui_render_create_stage(
+            s->services.renderer, s->services.resources, &s->stage_ui, e)))
     goto bad;
   s->voice_volume = -1000;
   s->effect_volume = -600;
