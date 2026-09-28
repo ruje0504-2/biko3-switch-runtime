@@ -53,8 +53,8 @@ int main(int argc, char **argv) {
   BkScene *scene = NULL;
   BkEndingRecords *records = NULL;
   SinkState sink_state = {0};
-  const char *packs[] = {"bk3_02", "bk3_03", "bk3_04", "bk3_08",
-                         "bk3_18", "fambom"};
+  const char *packs[] = {"bk3_00", "bk3_02", "bk3_03", "bk3_04",
+                         "bk3_08", "bk3_18", "fambom"};
   BkSceneServices services;
   CHECK(renderer = bk_renderer_create(64, 48, stdout, error));
   CHECK(store = bk_resources_create(error));

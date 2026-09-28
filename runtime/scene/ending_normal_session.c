@@ -5,8 +5,17 @@
 #include "scene/ending_auxiliary.h"
 #include "scene/ending_normal_assets.h"
 #include "scene/ending_normal_render.h"
+#include "scene/ending_stage_ui.h"
+#include "scene/ending_ui_batch.h"
+#include "scene/ending_ui_cursor.h"
+#include "scene/ending_ui_render.h"
+#include "scene/common_hud.h"
+#include "scene/curtain_render.h"
 #include "scene/system_audio.h"
+#include "core/camera.h"
 #include "core/input.h"
+#include "core/matrix.h"
+#include "world/actor_pose.h"
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -32,6 +41,24 @@ typedef struct {
   BkEndingRecords *records;
   BkEndingCameraTransitions camera_transitions;
   BkEndingUi ui;
+  BkEndingStageUi stage_ui;
+  BkCommonHudState common;
+  BkEndingUiNoticeState ui_notices;
+  BkEndingUiCompositeFrame ui_frame;
+  BkEndingUiRender *ui_render;
+  BkEndingUiRender *ui_stage_render;
+  BkCurtainRender *ui_curtain;
+  BkEndingUiBatch *ui_batch;
+  BkEndingUiPickBindings ui_pick;
+  float ui_world[BK_ENDING_NORMAL_NODES][16];
+  uint8_t ui_present[BK_ENDING_NORMAL_NODES];
+  float ui_camera_local[16], ui_view[16], ui_projection[16], ui_viewport[16];
+  float ui_camera_position[3];
+  BkClipTiming ui_active_timing;
+  int32_t ui_active_clip;
+  int8_t previous_flow;
+  int32_t voice_volume, effect_volume;
+  uint8_t ui_flash_wanted, ui_item;
   BkEndingControlRect control_rects[BK_ENDING_CONTROL_RECTS];
   BkSystemAudio *control_audio[3];
   BkInput input;
@@ -58,6 +85,14 @@ static void release_resources(EndingNormalScene *s) {
   if (!s)
     return;
   char ignored[256];
+  bk_ending_ui_batch_destroy(s->ui_batch);
+  s->ui_batch = NULL;
+  bk_ending_ui_render_destroy(s->ui_stage_render);
+  s->ui_stage_render = NULL;
+  bk_ending_ui_render_destroy(s->ui_render);
+  s->ui_render = NULL;
+  bk_curtain_render_destroy(s->ui_curtain);
+  s->ui_curtain = NULL;
   if (s->audio)
     bk_ending_audio_stop(s->audio, ignored);
   bk_ending_audio_destroy(s->audio);
@@ -111,6 +146,318 @@ static int frame_clock(void *context, uint32_t *milliseconds, char e[256]) {
   if (!s || !milliseconds)
     return fail(e, "invalid ending frame clock request");
   *milliseconds = s->now_ms;
+  return 1;
+}
+
+static int ui_position(void *context, float out[2], char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !out || !isfinite(s->input.pointer_x) ||
+      !isfinite(s->input.pointer_y))
+    return fail(e, "invalid ending UI pointer");
+  out[0] = s->input.pointer_x;
+  out[1] = s->input.pointer_y;
+  return 1;
+}
+
+static int ui_motion(void *context, float out[2], char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !out || !isfinite(s->input.pointer_motion_x) ||
+      !isfinite(s->input.pointer_motion_y))
+    return fail(e, "invalid ending UI pointer motion");
+  out[0] = s->input.pointer_motion_x;
+  out[1] = s->input.pointer_motion_y;
+  return 1;
+}
+
+static uint32_t ui_button(unsigned code) {
+  if (code == 0)
+    return BK_BUTTON_CONFIRM;
+  if (code == 1 || code == 0x5a || code == 0x70)
+    return BK_BUTTON_BACK;
+  return BK_BUTTON_CONFIRM;
+}
+
+static int ui_key(void *context, unsigned code, unsigned mode,
+                  uint32_t *result, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !result || (mode != 1 && mode != 2))
+    return fail(e, "invalid ending UI key request");
+  uint32_t button = ui_button(code);
+  *result = mode == 1 ? !!(s->input.pressed & button)
+                      : !!(s->input.held & button);
+  return 1;
+}
+
+static int ui_voice_playing(void *context, int *playing, char e[256]) {
+  EndingNormalScene *s = context;
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_STATUS, .slot = 1};
+  if (!s || !s->audio || !playing)
+    return fail(e, "ending UI voice owner is missing");
+  return bk_ending_audio_call(s->audio, s->state.frame.group,
+                              s->state.auxiliary.variant,
+                              s->state.auxiliary.selection, &call, playing, e);
+}
+
+typedef struct {
+  EndingNormalScene *scene;
+} EndingUiTailContext;
+
+static int ui_tail_active(void *context, int32_t *slot, char e[256]) {
+  EndingUiTailContext *c = context;
+  BkClipState state;
+  if (!c || !c->scene || !slot ||
+      !bk_actor_pose_state(bk_ending_normal_assets_pose(c->scene->assets, 0),
+                           &state))
+    return fail(e, "ending UI active clip is unavailable");
+  *slot = (int32_t)state.slot;
+  return 1;
+}
+
+static int ui_tail_write(void *context, unsigned slot, BkEndingClipWrite kind,
+                         int32_t value, char e[256]) {
+  EndingUiTailContext *c = context;
+  BkActorPose *primary;
+  BkClipEdit edit = {.slot = slot};
+  if (!c || !c->scene || !(primary = bk_ending_normal_assets_pose(
+                                 c->scene->assets, 0)))
+    return fail(e, "ending UI clip owner is missing");
+  switch (kind) {
+  case BK_ENDING_CLIP_CHAIN:
+    edit.fields = BK_CLIP_EDIT_CHAIN;
+    edit.chain = value;
+    break;
+  case BK_ENDING_CLIP_NEXT:
+    edit.fields = BK_CLIP_EDIT_NEXT;
+    edit.next = value;
+    break;
+  case BK_ENDING_CLIP_REWIND: {
+    BkClipTiming timing;
+    if (!bk_actor_pose_timing(primary, slot, &timing))
+      return fail(e, "ending UI rewind clip is missing");
+    edit.fields = BK_CLIP_EDIT_SOURCE;
+    edit.source = timing.start;
+    break;
+  }
+  default:
+    return fail(e, "unknown ending UI clip write");
+  }
+  return bk_actor_pose_edit_clips(primary, &edit, 1, e);
+}
+
+static int ui_tail_request(void *context, unsigned slot, char e[256]) {
+  EndingUiTailContext *c = context;
+  BkActorPose *primary =
+      c ? bk_ending_normal_assets_pose(c->scene->assets, 0) : NULL;
+  if (!primary)
+    return fail(e, "ending UI clip request owner is missing");
+  return bk_actor_pose_request_mode(primary, slot, BK_CLIP_REQUEST_CONFIGURED,
+                                    e);
+}
+
+static int ui_tail_audio(void *context, const BkEndingAudioCall *call,
+                         int *playing, char e[256]) {
+  EndingUiTailContext *c = context;
+  EndingNormalScene *s = c ? c->scene : NULL;
+  if (!s || !s->audio || !call || !playing)
+    return fail(e, "ending UI audio owner is missing");
+  return bk_ending_audio_call(s->audio, s->state.frame.group,
+                              s->state.auxiliary.variant,
+                              s->state.auxiliary.selection, call, playing, e);
+}
+
+static int ui_tail_eyes(void *context, unsigned slot, char e[256]) {
+  EndingUiTailContext *c = context;
+  BkEyeAssets *eyes = c ? bk_ending_normal_assets_eyes(c->scene->assets) : NULL;
+  if (!eyes)
+    return fail(e, "ending UI eye owner is missing");
+  return bk_eye_assets_select(eyes, slot, e);
+}
+
+static int ui_tail_speech(void *context, unsigned slot, const char *name,
+                          int32_t volume, char e[256]) {
+  EndingUiTailContext *c = context;
+  EndingNormalScene *s = c ? c->scene : NULL;
+  if (!s || !s->audio)
+    return fail(e, "ending UI speech owner is missing");
+  return bk_ending_audio_speech(s->audio, slot, name, volume, e);
+}
+
+static int ui_reload_load(void *context, BkEndingLoader loader, int32_t argument,
+                          char e[256]) {
+  (void)context;
+  (void)loader;
+  (void)argument;
+  return fail(e, "ending resource reload is not implemented");
+}
+
+static int ui_reload_release(void *context, BkEndingLoader loader, char e[256]) {
+  (void)context;
+  (void)loader;
+  return fail(e, "ending resource release is not implemented");
+}
+
+static int ui_reload_final_image(void *context, int create, unsigned group,
+                                 char e[256]) {
+  (void)context;
+  (void)create;
+  (void)group;
+  return fail(e, "ending final image ownership is not implemented");
+}
+
+static int ui_reload_leave(void *context, BkEndingLeave leave, char e[256]) {
+  (void)context;
+  (void)leave;
+  return fail(e, "ending scene leave is not implemented");
+}
+
+static int ui_reload_lighting(void *context, BkEndingReloadLight operation,
+                              char e[256]) {
+  (void)context;
+  (void)operation;
+  return fail(e, "ending lighting reload is not implemented");
+}
+
+static int ui_reload_schedule(void *context, uint8_t target, uint8_t mode,
+                              char e[256]) {
+  (void)context;
+  (void)target;
+  (void)mode;
+  return fail(e, "ending flow scheduling is not implemented");
+}
+
+static int ui_reload_present(void *context, unsigned slot, int *present,
+                             char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !present)
+    return fail(e, "ending reload audio owner is missing");
+  if (slot >= 6) {
+    *present = 0;
+    return 1;
+  }
+  return bk_ending_audio_present(s->audio, slot, present);
+}
+
+static int ui_reload_status(void *context, unsigned slot, int *playing,
+                            char e[256]) {
+  EndingNormalScene *s = context;
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_STATUS, .slot = slot};
+  if (!s || !s->audio || !playing || slot >= 6)
+    return fail(e, "ending reload audio slot is unavailable");
+  return bk_ending_audio_call(s->audio, s->state.frame.group,
+                              s->state.auxiliary.variant,
+                              s->state.auxiliary.selection, &call, playing, e);
+}
+
+static int ui_reload_pause(void *context, unsigned slot, char e[256]) {
+  EndingNormalScene *s = context;
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_PAUSE, .slot = slot};
+  int playing = 0;
+  if (!s || !s->audio || slot >= 6)
+    return fail(e, "ending reload pause slot is unavailable");
+  return bk_ending_audio_call(s->audio, s->state.frame.group,
+                              s->state.auxiliary.variant,
+                              s->state.auxiliary.selection, &call, &playing, e);
+}
+
+static int ui_pose_root_local(BkActorPose *pose, float out[16], char e[256]) {
+  const BkModel *model;
+  if (!pose || !out || !(model = bk_actor_pose_model(pose)))
+    return fail(e, "ending camera track model is missing");
+  for (uint32_t frame = 0; frame < model->frame_count; ++frame)
+    if (model->frames[frame].parent_index == BK_MODEL_NONE) {
+      memcpy(out, bk_actor_pose_local(pose, frame), sizeof(float) * 16);
+      return 1;
+    }
+  return fail(e, "ending camera track root is missing");
+}
+
+static int prepare_ui_geometry(EndingNormalScene *s, unsigned width,
+                               unsigned height, char e[256]) {
+  BkActorForest *forest;
+  BkActorPose *primary, *track;
+  BkClipState clip;
+  const float *view;
+  if (!s || !s->assets || !(forest = bk_ending_normal_assets_forest(s->assets)) ||
+      !(primary = bk_ending_normal_assets_pose(s->assets, 0)) ||
+      !(track = bk_ending_normal_assets_pose(s->assets, 2)) || !width ||
+      !height || !bk_actor_pose_state(primary, &clip) ||
+      !bk_actor_pose_timing(primary, clip.slot, &s->ui_active_timing) ||
+      !ui_pose_root_local(track, s->ui_camera_local, e) ||
+      !(view = bk_actor_forest_view(forest)))
+    return fail(e, "ending UI geometry owner is unavailable");
+  s->ui_active_clip = (int32_t)clip.slot;
+  memcpy(s->ui_view, view, sizeof(s->ui_view));
+  if (!bk_camera_projection(
+          s->ui_projection,
+          &(BkCameraLens){s->camera.fov, .75f, .5f, 126384}))
+    return fail(e, "ending UI projection is invalid");
+  memset(s->ui_viewport, 0, sizeof(s->ui_viewport));
+  s->ui_viewport[0] = (float)width * .5f;
+  s->ui_viewport[5] = (float)height * -.5f;
+  s->ui_viewport[10] = s->ui_viewport[15] = 1;
+  s->ui_viewport[12] = (float)width * .5f;
+  s->ui_viewport[13] = (float)height * .5f;
+  memcpy(s->ui_camera_position, s->camera.pose.position,
+         sizeof(s->ui_camera_position));
+  memset(s->ui_present, 0, sizeof(s->ui_present));
+  for (unsigned i = 0; i < BK_ENDING_NORMAL_NODES; ++i) {
+    uint32_t frame = bk_ending_normal_assets_node(s->assets, i);
+    if (frame == BK_MODEL_NONE)
+      continue;
+    uint32_t node = bk_actor_forest_node(forest, 0, frame);
+    const float *world = bk_actor_forest_world(forest, node);
+    if (node == BK_FRAME_NONE || !world)
+      return fail(e, "ending UI target node is not published");
+    memcpy(s->ui_world[i], world, sizeof(s->ui_world[i]));
+    s->ui_present[i] = 1;
+  }
+  s->ui_pick = (BkEndingUiPickBindings){
+      s->ui_world,       s->ui_present, BK_ENDING_NORMAL_NODES,
+      s->ui_camera_position, s->ui_view, s->ui_projection, s->ui_viewport,
+      s->ui.sprites[50].rect[2]};
+  return 1;
+}
+
+static int prepare_ui_frame(EndingNormalScene *s, float seconds, unsigned width,
+                            unsigned height, char e[256]) {
+  BkEndingStateUiViews views;
+  BkEndingUiFrameBindings bindings;
+  EndingUiTailContext tail_context = {s};
+  BkEndingUiTailOps tail = {{&tail_context, ui_tail_active, ui_tail_write,
+                             ui_tail_request, ui_tail_audio, ui_tail_eyes},
+                            ui_tail_speech};
+  BkEndingReloadOps reload = {
+      s,          ui_reload_load,       ui_reload_release,
+      ui_reload_final_image, ui_reload_leave, ui_reload_lighting,
+      ui_reload_schedule, ui_reload_present, ui_reload_status, ui_reload_pause};
+  BkEndingUiFrameOps ops = {s, ui_position, ui_motion, ui_key,
+                            ui_voice_playing, reload, tail};
+  if (!s || !s->ui_render || !s->ui_batch || !s->ui_curtain ||
+      !prepare_ui_geometry(s, width, height, e) ||
+      !bk_ending_state_import_frame_aliases(&s->state, &s->common,
+                                            &s->stage_ui))
+    return fail(e, "ending UI frame preparation failed");
+  views = (BkEndingStateUiViews){
+      &s->ui_active_clip,
+      &s->ui_active_timing,
+      bk_ending_normal_assets_config(s->assets)->actions,
+      s->ui_camera_local,
+      &s->ui_pick,
+      &s->ui_notices,
+      &s->ui_flash_wanted,
+      &s->ui_item,
+      &s->previous_flow,
+      &s->voice_volume,
+      &s->random};
+  if (!bk_ending_state_ui_bindings(&s->state, &s->common, &views, &bindings))
+    return fail(e, "ending UI live bindings are unavailable");
+  float scale = (float)((double)width / 1280.0);
+  if (!bk_ending_ui_frame(&s->ui, &s->stage_ui, &s->state.ui_controller,
+                          &bindings, &ops, scale, seconds, &s->ui_frame, e) ||
+      !bk_ending_state_export_frame_requests(&s->state, &s->common) ||
+      !bk_ending_ui_batch_prepare(s->ui_batch, &s->ui_frame, s->ui_render,
+                                  s->ui_stage_render, width, height, e))
+    return 0;
   return 1;
 }
 
@@ -325,6 +672,19 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
       -900, e);
   if (!s->audio)
     goto bad;
+  unsigned width, height;
+  bk_renderer_extent(s->services.renderer, &width, &height);
+  if (!bk_ending_stage_ui_initialize(&s->ui, &s->stage_ui,
+                                     BK_ENDING_UI_NORMAL,
+                                     s->state.frame.group, variant, width, e) ||
+      !(s->ui_render = bk_ending_ui_render_create(
+            s->services.renderer, s->services.resources, e)) ||
+      !(s->ui_curtain = bk_curtain_render_create(
+            s->services.renderer, s->services.resources, e)) ||
+      !(s->ui_batch = bk_ending_ui_batch_create(s->ui_curtain, e)))
+    goto bad;
+  s->voice_volume = -1000;
+  s->effect_volume = -600;
   static const unsigned control_slots[3] = {0, 5, 3};
   for (unsigned i = 0; i < 3; ++i) {
     s->control_audio[i] = bk_system_audio_create_slot(
@@ -354,12 +714,17 @@ static int prepare_frame(EndingNormalScene *s, float seconds, char e[256]) {
   BkDrawDispatch dispatch;
   BkFog fog = {0};
   uint32_t roots[3] = {BK_MODEL_NONE, BK_MODEL_NONE, BK_MODEL_NONE};
+  unsigned width, height;
   if (!s || !s->assets || !s->render || !isfinite(seconds) || seconds <= 0 ||
       seconds > 1)
     return fail(e, "invalid live normal scene");
   s->active_seconds = seconds;
   uint32_t step_ms = (uint32_t)((double)seconds * 1000.0);
   s->now_ms += step_ms ? step_ms : 1;
+  bk_renderer_extent(s->services.renderer, &width, &height);
+  if (!bk_ending_ui_batch_begin(s->ui_batch, s->ui_render, s->ui_stage_render,
+                                e))
+    return 0;
   if (s->frame_active) {
     if (!prepare_story_frame(s, e))
       return 0;
@@ -428,6 +793,8 @@ static int prepare_frame(EndingNormalScene *s, float seconds, char e[256]) {
           s->render, &dispatch, &s->camera, &fog, s->materials, s->disabled,
           s->disabled_count, e))
     return 0;
+  if (!prepare_ui_frame(s, seconds, width, height, e))
+    return 0;
   s->pending = 1;
   s->valid = 1;
   s->drawn = 0;
@@ -453,6 +820,8 @@ static int draw(void *context, const BkSceneFrame *frame, char e[256]) {
   if (!s || (!s->pending && !s->valid) || !s->render)
     return fail(e, "no ending snapshot");
   if (!bk_ending_normal_render_draw(s->render, e))
+    return 0;
+  if (!bk_ending_ui_batch_draw(s->ui_batch, e))
     return 0;
   s->drawn = 1;
   return 1;
@@ -481,8 +850,10 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   s->variant = variant;
   s->records = records;
   s->frame_active = records != NULL;
+  s->previous_flow = records ? 8 : 0x18;
   s->random = UINT32_C(0x4cc582) ^ (group * UINT32_C(0x9e3779b9));
   s->overlay = (BkFadeSprite){0, 2, 0};
+  bk_common_hud_initialize(&s->common);
   BkEndingStateOps state_ops = {s, warp};
   if (!bk_ending_state_begin(&s->state, &s->overlay, group, variant, .5f,
                              (int32_t[2]){0, 0}, &state_ops, e))
