@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "frames": 24000,
+  "service_calls": 131741,
+  "sounds": [
+    27179,
+    0,
+    0,
+    9022,
+    0,
+    4932,
+    0,
+    0
+  ],
+  "auxiliary_calls": 692,
+  "warp_calls": 4854,
+  "region_hits": [
+    3181,
+    3170,
+    3174,
+    3142,
+    3192,
+    3149,
+    3110,
+    3145,
+    3200,
+    3248,
+    3220,
+    3236,
+    3216
+  ],
+  "byte_exact": true,
+  "scope": "Complete original4d7ac4..4d901b control,13 independent hit regions.\nKey,sound,warp and actual495d92 transition are required observed services.\nCompare snapshots at every call, including mutable auxiliary state. All\ncamera/target/flag/control arithmetic executes original instructions.\nRectangles and old actor node positions are explicit fixtures, not full UI.\n",
+  "unit": true,
+  "asan_unit": true,
+  "architecture_tests": 2,
+  "switch_nro_sha256": "5843a8c03833f2e422dc432ef73ed99e9c9b6b7821676b332cfb8c276252a720",
+  "undefined_symbols": 0,
+  "application_bound": false,
+  "hardware_verified": false
+}

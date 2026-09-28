@@ -1,0 +1,169 @@
+{
+  "passed": true,
+  "codec": {
+    "passed": true,
+    "reference": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+    "checks": [
+      {
+        "name": "poi.avi",
+        "source_sha256": "23a4d97682c8e8ef54030069d59f196164b9ba3511c91e866b7a1e28a353df28",
+        "width": 256,
+        "height": 256,
+        "frames": 90,
+        "checked_seeks": 300,
+        "rgb555_sha256": "ef782e167b57d33ed66c62a2c8893ac55645aad75272005309e11e096e6ff71d",
+        "max_pixel_error": 0
+      },
+      {
+        "name": "D_moza.avi",
+        "source_sha256": "886e3c60dbb5fa7695657d3f8a96ddb4bbdbc7bea5b24844fc487075311328fd",
+        "width": 256,
+        "height": 256,
+        "frames": 90,
+        "checked_seeks": 300,
+        "rgb555_sha256": "a7a0a255cf3d4100becbaa0029885974977c296d5f1e7e6e21e7911d2c32510a",
+        "max_pixel_error": 0
+      }
+    ],
+    "scope": "Independent FFmpeg RGB555 comparison for every MSV1 AVI frame and seeks.\n\nFFmpeg is a host-only verification tool; it is not linked into the runtime.\nThis checks codec pixels, not the game's VFW texture-copy orientation/layout.\n"
+  },
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 18000,
+    "surface_copies": 9113,
+    "loops": 4367,
+    "max_clock_error": 0,
+    "scope": "Run original521d78/521ed2, including clock selection and both surface copies.\n\nAVI/VFW/DDraw are explicit deterministic service fixtures, not codec proof.\nThe original code, including x87 conversion/copy loops, executes unchanged.\n",
+    "surface_format5": [
+      32,
+      64,
+      0,
+      16,
+      31744,
+      992,
+      31,
+      0
+    ],
+    "defined_surface_pixels": 273390,
+    "zero_tail_pixels": 18226,
+    "limitation": "VFW fixture proves source+44 copy. Compact positive RGB555 DIB, RGB555 device target, initial black and two black tail pixels are explicit portable policies; Windows codec layout is not proved"
+  },
+  "cpu_probe": {
+    "files": 2,
+    "decoded_and_seek_requests": 540,
+    "pixels": 35389440,
+    "fnv64": "d480bc55fd18db88",
+    "ordinary_asan_equal": true,
+    "mutations": 6000
+  },
+  "texture_upload": {
+    "frames": 81,
+    "readbacks": 40,
+    "max_pixel_error": 0,
+    "fnv64": "69ac4e9adc00ec3e",
+    "ordinary_asan_equal": true,
+    "covers": [
+      "queued/coalesced uploads",
+      "in-flight staging reuse",
+      "pending removal",
+      "capture/resume",
+      "stable descriptor/sort identity",
+      "foreign owner and active-frame rejection"
+    ]
+  },
+  "movie_gpu": {
+    "frames": 480,
+    "changed_requests": 474,
+    "held_requests": 28,
+    "rgba_fnv64": "ec300bf52ca640e1",
+    "max_pixel_error": 0,
+    "ordinary_asan_equal": true
+  },
+  "selection_gpu": {
+    "profiles": 25,
+    "native_camera_frames": 600,
+    "retained_replacement_snapshots": 20,
+    "visible_instances": 36360,
+    "colored_pixels": 45870720,
+    "rgba_fnv64": "db504d48d5b7835a",
+    "ordinary_asan_equal": true,
+    "diagnostic_frozen_camera_frames": 200,
+    "diagnostic_restore_frames": 25,
+    "changed_pixels": 365,
+    "groups_with_visible_change": [
+      0,
+      3,
+      4
+    ],
+    "scope": "All five authored texture bindings constructed. Frozen pose/lights with four explicit diagnostic viewpoints observes movie-only changes in three groups; does not prove every material visible in original camera."
+  },
+  "selection_session": {
+    "frames": 394,
+    "movie_actor_frames": 229,
+    "replacements": 8,
+    "inert_redraws": 2,
+    "exits": 2,
+    "rgba_fnv64": "f1eb56b43d6f4ca0",
+    "pcm_fnv64": "6dac0477cade1bf2",
+    "ordinary_asan_equal": true,
+    "screenshots_byte_equal": true
+  },
+  "normal_regression": {
+    "world_rgba": "b1fe7bfb62bf7df7",
+    "session_rgba": "b8090df06476d674",
+    "session_pcm": "6dac0477cade1bf2",
+    "unchanged": true
+  },
+  "checks": {
+    "ctest": [
+      "avi-decoder",
+      "avi-clock",
+      "selection-ui",
+      "lighting-pass"
+    ],
+    "architecture": 2,
+    "asan_ubsan": true,
+    "leak_sanitizer": false,
+    "nvk_cross_build": true
+  },
+  "nro_sha256": "854a416f7101d6f1dbd6d5ac342469cc40a84ccf61d802486f85aab0b3b4408e",
+  "portable_policies": [
+    "Compact positive-height40-byte RGB555 DIB with original source+44 and no row flip",
+    "Native supported format5 RGB555; original palette/device-dependent fallback not emulated",
+    "Opaque black before first native request, final2 out-of-DIB pixels explicitly black",
+    "RGBA8 normalized conversion; not Windows VFW/DirectDraw full-frame evidence"
+  ],
+  "limitations": [
+    "flow38 component supports retail special0, not special1 camera",
+    "Application title38/flow8 chain not registered yet",
+    "No new Switch hardware test; shipped FPS patch remains frozen"
+  ],
+  "source_sha256": {
+    "runtime/media/avi.c": "5f80351a381507f716f5af6bcdc6e43143174782d3292d66cd003c67d8d71712",
+    "runtime/media/avi.h": "7106ceca63f8bb93a582d96006195b9027fa7843b2cff08799b919f6d8b3f27f",
+    "runtime/media/avi_clock.c": "ad09b418cb93d88f63b11c10d2f282a6447d23308e99311701d0b35a0b08a0f0",
+    "runtime/media/avi_clock.h": "34e16a1fd73c6c13cfa4281e07740534dac43bd867b74009831a636dc7f67d91",
+    "runtime/media/avi_surface.c": "530ebba5a93bccee6d11d40385731435a295fadbd871ecb2af2d7e01a9831bc0",
+    "runtime/media/avi_surface.h": "6ef14c33436a2748fde64bb77545f7ac48f7a4e80b25889643236659c897b7a5",
+    "runtime/scene/avi_texture.c": "a5a87bae6e1fce8be76f0b4a81df588303b00dc72e053ca6ab80d807582bd3e8",
+    "runtime/scene/avi_texture.h": "40d0095367120635e3eb544e022688e847d4b4dd8ecc2f8ec07ab1ac495cdb9f",
+    "runtime/scene/actor_render.c": "b7f6fd2dbde8d6377feae11ad1a6ca42d6c4b27ecb6691a455b219f2a678b9ce",
+    "runtime/scene/actor_render.h": "2e1016847162f0cae33a46b1757e5df4ee082b791ce84e8396a75245450cd710",
+    "runtime/scene/selection_render.c": "818cb5f1700843ee7e41e9fbf7948d8f3d730569fb70d8ab12a0160bae281316",
+    "runtime/scene/selection_render.h": "973b4ec41b335d88c953a9b4ee4e65109a34be84f398042cdc73e517ffce7c3d",
+    "runtime/scene/selection_session.c": "c44db726ddfe51b0c9f2e725957114245a4bb52215098bd1071c14e8b2811a61",
+    "runtime/scene/selection_session.h": "547f0ec7ab43a5d491d62d95e3dfd70fda5b397b19c14a8eb236dc8a370f4026",
+    "runtime/render/renderer.h": "9b1e3fd8fb21a79a507e8d017746b6fb12cd0bda94f79c9bd998e7f111f48eee",
+    "runtime/render/vulkan/renderer.c": "c27c3c04550b5b556065d40cb6294eb292d45bdca0930038f358b9eb8cd6d7cb",
+    "tests/test_avi.c": "844c91cee20a920f08a2466a65522da9257e38451d8806374ce92ab00a8102cf",
+    "tests/test_avi_clock.c": "f033f25c03468efa64ed8895b783b6d14b956ae581a0558c94b63dfece2f7760",
+    "tests/original_avi_clock_oracle.py": "3c815db4ec8aa06ef93e875543f2cc3ef8fd03efda970cd99f0ac762b841f53c",
+    "tests/check_avi_decode.py": "1fcd007b004cdbb58226ce6a39894672e8d0d188c2bd837911dc61f2825a30bb",
+    "tools/avi_probe.c": "0dcffac71b92dfba71b9d4bd7a72b9e547c6725a752e5c231b33dbee1d08b6f1",
+    "tools/avi_render_probe.c": "cbbc54a490bfd0497abac3e0102c0ae1f53b981da3530c6bd3f81f76fd8047a5",
+    "tools/texture_update_probe.c": "01f3848bc91f596ce3493ee066a58def38913570c1c9cd751e533f953bdc4c78",
+    "tools/selection_render_probe.c": "9acd3bdc497cb04fd6cbc44625f2cdead72793b266391f8d2d6d836e0d9eed43",
+    "tools/selection_session_probe.c": "a81e11ce765c8b515e6c4161d74cd16eb7afb2212d687ceed910e2e555eb864e"
+  }
+}

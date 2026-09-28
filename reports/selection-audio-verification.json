@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "scope": "Real bg002 and five menu speech clips, selection world updates and audible-cursor envelope adapter. Offline consumer, not Switch speaker verification.",
+  "selection": {
+    "world_frames": 1200,
+    "envelope_samples": 960,
+    "audible": 317,
+    "inactive_or_underrun": 643,
+    "max_error": 0,
+    "pcm_samples": 2115840,
+    "pcm_fnv64": "e410f89b1c6058ae",
+    "ordinary_and_asan_ubsan": true
+  },
+  "gameplay_regression": {
+    "wav_sha256": "aca167bfe7236943db9bc0ab17fcc4442810c42b34c5ef59264be27e00cb1c03",
+    "before_after_wav_and_cursor_log_identical": true,
+    "gpu_steps": 240,
+    "gpu_readbacks": 48,
+    "voiced_images": 23,
+    "max_changed_body_pixels": 35,
+    "nonzero_pcm_samples": 376792
+  },
+  "checks": {
+    "audio_ctest": 2,
+    "architecture": 2
+  },
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "8ae19588045440c1466bcf557c45464c9a6d3f9fd778721195112f0257f582f0",
+    "undefined_symbols": 0
+  },
+  "source": {
+    "runtime/scene/voice_audio.c": "db754185e9138526c105ea3e79cf298eda2291a4b4465f26c41f25aa64c62ba4",
+    "runtime/scene/voice_audio.h": "1196fb30a81d5141e6c7ab36ac286701d2bdc0cb1ac8a041201dacfb563f070f",
+    "runtime/scene/selection_audio.c": "a7ecb5cb47e917d6d9b6b70f07961e90f2b6887365121cf270fdb832486824f0",
+    "runtime/scene/selection_audio.h": "a65ac88a2e08d47fb48fa1551d230fa5c61bded8d13954b5e62c00c88079b508",
+    "runtime/scene/npc_audio.c": "bee30d55350bd2fc1df7b2f512163e2706b8cda56ee43dd485c05eecb455a884",
+    "tools/selection_audio_probe.c": "1f89b0d83150c65d18d33b06c5bada1a4f5783b48076e03fda81af69fa4f651e"
+  },
+  "logs": {
+    "selection-audio-probe.log": "d3d9e3f1809a4796ee00f9dc656a528150ff5f9d827152b3362f7eb3f108094c",
+    "selection-audio-asan.log": "d3d9e3f1809a4796ee00f9dc656a528150ff5f9d827152b3362f7eb3f108094c",
+    "selection-audio-before.log": "e37b4e535d3b466ec2eec7026913ccfb584db74f5bc109a074b4c8644bc5da31",
+    "selection-audio-after.log": "e37b4e535d3b466ec2eec7026913ccfb584db74f5bc109a074b4c8644bc5da31",
+    "selection-audio-gameplay-gpu.log": "0c6d45989afcac29c0edef73d2ce1a6f20bbbee4f02d0dc7495443bbf2011ce7",
+    "selection-audio-switch-build.log": "61ee978c90bc1b65f3f144ee661f203916f1427ccfa5fe928df7f47079a7677e",
+    "selection-audio-ctest.log": "6335d0fc8df0b1f8e33a5303d984da97e52a14974182d603416bd563f20d04df",
+    "selection-audio-architecture.log": "b7830e67d61b451b902dcd12e4ef9244bd4afd9ed931be59cf980647e2f2344a"
+  }
+}

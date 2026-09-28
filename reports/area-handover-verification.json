@@ -1,0 +1,78 @@
+{
+  "status": "area-handover-components-not-application-flow20",
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "77df67907181541e3cc314722254b792211f6b76633e54190430a412e2975a33",
+    "undefined_symbols": 0
+  },
+  "created_utc": "2026-09-27T15:49:12.735832+00:00",
+  "native": {
+    "original-area-entry-oracle": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "profiles": 40,
+      "cases": 2560,
+      "rejections": 40,
+      "max_error": 0,
+      "scope": "Native4e94e4 actor/controller stores across40 next-area profiles. Runs\n4e952b..4e9706 (including original CKP loading and both4befc0 calls), mode2\ncontroller stores4b7d50..4b7e38,4e9715..4e973c and full4ebfd0 with existing\nUI/clip service hooks. Assets/scene-release ordering outside this CPU scope.\n"
+    },
+    "original-checkpoint-prompt-oracle": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "constructors": 25,
+      "steps": 10300,
+      "draws": 48164,
+      "events": 13297,
+      "natural_frames": 300,
+      "scope": "Original4e9210 five-sprite construction and51a7a2 checkpoint/save prompt.\nReal fades/cursor timer/flow scheduler/4cc320 HUD reserve reset. Hooks only\nresource-release services, image/GPU/audio/input/clock and release20 handover;\nthe actual area handover body is outside this UI component's scope.\n"
+    }
+  },
+  "source_sha256": {
+    "runtime/game/area_entry.c": "0fac560b25ca95af5ac676c5c3cf8e5f34b29274ce50a2d79ba6114e37c3c07c",
+    "runtime/game/area_entry.h": "3d4d79e701bf75ce36ef9b84240589396a5c0b05bd2f386f7824dfe47021ee60",
+    "runtime/game/frame_dispatch.h": "06353384c8db941996ba2763f3ba59d76b0f0e0ff107b9b06572771bac9c4258",
+    "runtime/scene/entry_assets.c": "bce713caaf38d2829bdb1decf26fb769a1f4503ca1ecaceb472dcddaaf684ab3",
+    "runtime/scene/entry_assets.h": "d359a1e68283dd35c8da4af73352e1bd3b31ed87a6d9bae25d599cd9031f6936",
+    "runtime/scene/checkpoint_prompt.c": "06303cfe04ac153dd29a62769ff16d8425e75da5bc0b0e77a1cea005671b0b2d",
+    "runtime/scene/checkpoint_prompt.h": "74eeca4ffba9cef5ad50fd95a58b5b3b1af5c9e27d2460ae3b65b227e1d815eb",
+    "runtime/scene/player_hud.c": "09a7366594cc149139fcd7b1823355c16f90180b11522144204256229f5f38c0",
+    "runtime/app/game_preview.c": "e0b1a3df50488c31aba9d27ea7bceec84cb6eef9148b5d7525f1c87be4fe7f4f",
+    "tools/area_entry_probe.c": "04c16c02f16ec32a3d3d32be4a19c0d179810366c5e95ae8075b1e00f8304ea3",
+    "tests/original_area_entry_oracle.py": "b43666fb1595fc58b494e499ec9b0dabe24d67ebffc0276f1633c5617b22e7e6",
+    "tests/original_checkpoint_prompt_oracle.py": "82831ef2eeac4ed6b238ca16e20470aae62d0f2faa9de739d45abeaa5c95745d",
+    "tests/test_checkpoint_prompt.c": "594f0d22becba4500f34921870f89f37ff189caf5313f90fd64508129f5f307a"
+  },
+  "evidence": {
+    "local/area-entry-probe-test.log": {
+      "sha256": "d8c7ca4902f62c2a8394149ac2467a6809def85ba45e4a645cce6512157aec47",
+      "tail": "PASS area-entry profiles=40 transitions=40 missing-resource-atomic=40 actors/poses/clips/face/eyes/shadows/metadata/inventory held"
+    },
+    "local/area-entry-probe-asan-test.log": {
+      "sha256": "d8c7ca4902f62c2a8394149ac2467a6809def85ba45e4a645cce6512157aec47",
+      "tail": "PASS area-entry profiles=40 transitions=40 missing-resource-atomic=40 actors/poses/clips/face/eyes/shadows/metadata/inventory held"
+    },
+    "local/checkpoint-test.log": {
+      "sha256": "8d1be89648cde13528441d31005879313f895072eba681458a3dd989dc008952",
+      "tail": "PASS checkpoint prompt fresh-pointer hits, callback prefixes, last snapshot and invalid input"
+    },
+    "local/checkpoint-asan-test.log": {
+      "sha256": "8d1be89648cde13528441d31005879313f895072eba681458a3dd989dc008952",
+      "tail": "PASS checkpoint prompt fresh-pointer hits, callback prefixes, last snapshot and invalid input"
+    },
+    "local/checkpoint-hud-app-test.log": {
+      "sha256": "c0480a002244ec6bf2186936d5b7c74b57169db38269e617fb350e1545d0c0ad",
+      "tail": "PASS application title/opening/game/photo/pause/resume/pause/title; 2 BMPs, pause removed"
+    },
+    "local/checkpoint-architecture.log": {
+      "sha256": "0cd07c4624fa266baf2b27514d8bfe5a4844cdb9df960116bc5623219cc3faca",
+      "tail": "OK"
+    },
+    "local/checkpoint-switch-build.log": {
+      "sha256": "e1353a5f2df57a8db82895be1f52963656e8c6fb1299b0eea7a4139625bbb2da",
+      "tail": "[100%] Built target biko3-preview"
+    }
+  },
+  "application_flow20_bound": false,
+  "switch_hardware_tested": false
+}

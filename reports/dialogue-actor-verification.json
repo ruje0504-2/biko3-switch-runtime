@@ -1,0 +1,423 @@
+{
+  "generated_at": "2026-09-27T20:12:36.707997+00:00",
+  "passed": true,
+  "native": {
+    "passed": true,
+    "eye_code_inventory": [
+      {
+        "name": "i02_01.txt",
+        "sha256": "1d9f721aaf7d46b4c189276d53020fd3596a0960398060af96dcbc85faa2f290",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i02_02.txt",
+        "sha256": "6956aec3d2b240e4a6f250d882080839fffbc2d0595dd7c04415962a8cdd1208",
+        "count": 168,
+        "values": [
+          0,
+          1,
+          5,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i02_03.txt",
+        "sha256": "ecf9ad647e54e84652c042195c1212a1e4391ae471316a5152c52b92cc5d071a",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i02_04.txt",
+        "sha256": "deb6923b681f02f28b02a6add697602702eac444124aec3906ec262943d4d643",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i03_00.txt",
+        "sha256": "9cdc2e42a19287f86d5aa89f717cb27ed18b5dda8f8ab6e42289d8d3c66140a4",
+        "count": 77,
+        "values": [
+          6,
+          9
+        ]
+      },
+      {
+        "name": "i03_01.txt",
+        "sha256": "22e2435da32abb324eaca2bc3208d2a1733022dd014d0bb583cbcf5ad2d02bf0",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i03_02.txt",
+        "sha256": "4913291411fdfd46a6e26e4a225601873563dfddb7236c382e42a6293308b908",
+        "count": 114,
+        "values": [
+          1,
+          6,
+          9
+        ]
+      },
+      {
+        "name": "i03_03.txt",
+        "sha256": "714a2668595c20a3bdbdcb7a535a41014850cad5614921c49a2cb0d85bc7b1b0",
+        "count": 87,
+        "values": [
+          1,
+          6,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i03_04.txt",
+        "sha256": "778a6bb7cad51a5c7fbe1ea1335c5f054aea2412c1a0ab0603ca15d300a95e8c",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i04_00.txt",
+        "sha256": "1ca20787cb21a24ca07fdf5485974e4dfc28bc026498ab5483fd8c44684e2a16",
+        "count": 74,
+        "values": [
+          1,
+          9
+        ]
+      },
+      {
+        "name": "i04_01.txt",
+        "sha256": "8020fbff991764c4f9db0e4b6dcce8679e3480ab490f4fdd3f2dc36e2e69bf9f",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i04_02.txt",
+        "sha256": "50726b1a9618d21a39504fa3639a0c2da6a9ef6fc548d0aa13e68c3daca9d3c5",
+        "count": 106,
+        "values": [
+          0,
+          1,
+          9
+        ]
+      },
+      {
+        "name": "i04_03.txt",
+        "sha256": "c4d62071b7e91d08e5f2df331ed1b3eee54f166330191ef8cf17e7ce55a54471",
+        "count": 39,
+        "values": [
+          0,
+          5,
+          9
+        ]
+      },
+      {
+        "name": "i04_04.txt",
+        "sha256": "d085a5a9e109f2fc512b022e7c5afdb550207d1e811e0fd395a6f3aeb32646ef",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i05_00.txt",
+        "sha256": "ccef5146223f5b86ea514da62b7fb0cf9c72fa6e9feefab1c6bd00bd77901344",
+        "count": 13,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i05_01.txt",
+        "sha256": "7615317a38cf3fbe6f2c0255ab54c6166c4b35644b4e953ae9dd05026b1b42fe",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i05_02.txt",
+        "sha256": "f465404eee738073002cc5359b4eef49c6a25ffe5dc4b96e6d6524acba494609",
+        "count": 98,
+        "values": [
+          0,
+          6,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i05_03.txt",
+        "sha256": "9587e69e638879c7feeb6a4c66127b0245369195d9496abe1e5f2a8c779d5f34",
+        "count": 127,
+        "values": [
+          1,
+          4,
+          5,
+          6,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i05_04.txt",
+        "sha256": "70fb28daa8bf6380be9007d90476e6926a03c3e3ce71f46f145d2e9785b0bb6e",
+        "count": 2,
+        "values": [
+          6
+        ]
+      },
+      {
+        "name": "i00_00.txt",
+        "sha256": "bb2acb0cb39ee6f5ff7ce4d82ae64bd2a35c67e3d2d38a63b2cf05bcfa26e329",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i00_10.txt",
+        "sha256": "f25511b1b6bdc26b521701d9b1dc6b8a42d1dbe8b84663da3b5b7335dd275958",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i01_00.txt",
+        "sha256": "f957836e2957b4c25dd78b655d3aebd2a534c3686f3264ac142edc49a8024c47",
+        "count": 148,
+        "values": [
+          1,
+          5,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "name": "i01_01.txt",
+        "sha256": "5045e602316895ff6c247989777b50b7cff2862d2e062cfa1c963a5453ca9ad0",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i01_02.txt",
+        "sha256": "29d17e48441c672ee0c753564c96bdd4f9ace978096d4842f749eadd2f4e3040",
+        "count": 112,
+        "values": [
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i01_03.txt",
+        "sha256": "ed0e8ebd0220affe37007b934948c5da27bb4c9bc85f4012da050277ebb343d0",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i01_04.txt",
+        "sha256": "edac431419b9a38f51d8c177f078318a652175abba6383cb899a61e4d38bc734",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i02_00.txt",
+        "sha256": "1ced60d33c8871686dd4b314d38c616dea76f62cb421a742e86fa26c001cf275",
+        "count": 95,
+        "values": [
+          0,
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "unsupported_scope": "Negative eye range can request negative MORP time; existing fail-closed behavior retained. All original #E values 0,1,4,5,6,7,8,9 covered, plus17 positive held-end fixture.",
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "policy": {
+      "rule_cases": 17457,
+      "camera_cases": 1200,
+      "max_error": 0
+    },
+    "steps": 1440,
+    "matrices": 2314920,
+    "face_vertices": 2397024,
+    "slot_loop_checks": 323200,
+    "hidden_frames": 300,
+    "one_shot_resets": 45,
+    "missing_body_cases": 256,
+    "max_error": 4.440892098500626e-16,
+    "records": [
+      {
+        "model": "h01_70",
+        "frames": 278,
+        "sha256": "13c5856cf5d71448f5f049a3fe5ed5e234859f58ae23d6aded3c0baf66c1d646"
+      },
+      {
+        "model": "h02_70",
+        "frames": 171,
+        "sha256": "bd0a882816bf5252ae73a4e9de8d0f630377ce4762d37e0064dcb530603ad2aa"
+      },
+      {
+        "model": "h03_70",
+        "frames": 213,
+        "sha256": "92b45da0183ab553a3b459180a4b4b6d02d55b6f011f1398fa3782f5936eb423"
+      },
+      {
+        "model": "h04_70",
+        "frames": 484,
+        "sha256": "287918379fede9469d1f5e8001d53cded51ea4b2e6a13c08121da5b6b3cc266e"
+      },
+      {
+        "model": "h05_70",
+        "frames": 382,
+        "sha256": "490db1b71b1fda1ec9075caa91733db3ff4b298b3ea3e772c402b54030e73572"
+      }
+    ],
+    "scope": "Original4f1b53,4bd641 and complete4f11f2 with five actual hNN_70 bodies.\n\nOriginal XAN, SRT, visibility, eyes and traversal execute in the caller VM.\nA separate original face-controller VM emits commands for a reference MORP\ninstance. OS clocks/audio envelope/eye texture are explicit service inputs;\nthis does not claim dialogue audio, UI, GPU or complete flow8 integration.\n"
+  },
+  "host_cpu_frames": 1800,
+  "asan_cpu_frames": 1800,
+  "gpu_frames_each": 600,
+  "gpu_rgba": "a22563e675227368",
+  "targeted_ctest_each": 4,
+  "architecture_checks": 2,
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "fca3726e20735dea3f39fcedddaa82c403acf1d836bab80a541cf833756855ff",
+    "undefined_symbols": 0
+  },
+  "sources": [
+    {
+      "path": "runtime/game/dialogue_actor.c",
+      "bytes": 769,
+      "sha256": "4e0319a1f6b6356aa8b7b14fa1a02212d71b41c47f13447deae800cfba403a9a"
+    },
+    {
+      "path": "runtime/game/dialogue_actor.h",
+      "bytes": 724,
+      "sha256": "f7b43b6828738af084c849bede9b67c2705c4f5f8311299b7860e68e75c43d19"
+    },
+    {
+      "path": "runtime/scene/dialogue_actor_assets.c",
+      "bytes": 6209,
+      "sha256": "6d1016222cded7e354094e849a58f436161703adbc63893f85490f25c843d154"
+    },
+    {
+      "path": "runtime/scene/dialogue_actor_assets.h",
+      "bytes": 2335,
+      "sha256": "10debd664e62088194110d2e28cf5b9945572bb56e5be7941238fdca089e2474"
+    },
+    {
+      "path": "runtime/model/clip.c",
+      "bytes": 15561,
+      "sha256": "c81e06e4a7700801ffec903c5568cbcb2a288c7c183c38eb2ece44be76591c10"
+    },
+    {
+      "path": "runtime/model/clip.h",
+      "bytes": 5225,
+      "sha256": "dd28fc48d6cd042c7a978300830f9ff613987739c667271d7a2fe0d2995ba6a4"
+    },
+    {
+      "path": "runtime/model/playback.c",
+      "bytes": 9753,
+      "sha256": "1ba9abd10e92bde162e0b3d911723ae9732b608a2313d22b6acbee308d4bc379"
+    },
+    {
+      "path": "runtime/model/playback.h",
+      "bytes": 5129,
+      "sha256": "d134a13d6ff16d2bb82c8869c5bcff991a0b05dd2ec54f1dd3471c9727240259"
+    },
+    {
+      "path": "runtime/world/actor_pose.c",
+      "bytes": 15632,
+      "sha256": "7ead561e26465bb68d8664f138dfcce1784dea08a1c0caa0755f4f87bcbc236d"
+    },
+    {
+      "path": "runtime/world/actor_pose.h",
+      "bytes": 7215,
+      "sha256": "e236fcc061f6ebb37d03a055d51c2af819ef62c754f33ffd5eb2ba4f2d0a4e0d"
+    },
+    {
+      "path": "runtime/world/menu_camera.c",
+      "bytes": 4265,
+      "sha256": "f99dd94163886fcb04b08c0f671936623f1bbfcf8f3a2fc482ed13cf96aa2280"
+    },
+    {
+      "path": "runtime/world/menu_camera.h",
+      "bytes": 1578,
+      "sha256": "a66171c7459713b88fc8461b3847d3d308b1a88fe1846ec35f4122fadf28d18e"
+    },
+    {
+      "path": "tools/dialogue_actor_probe.c",
+      "bytes": 4406,
+      "sha256": "f3443af17282bfa14c6ef9eed15cb97b4f3985feb34f27ad1cf513cc26728eb2"
+    },
+    {
+      "path": "tools/dialogue_actor_render_probe.c",
+      "bytes": 4694,
+      "sha256": "436276a35ba4b92fad9f55f69eb9879c73057bc54226c64689c387bb8da8721b"
+    },
+    {
+      "path": "tests/original_dialogue_actor_oracle.py",
+      "bytes": 17295,
+      "sha256": "993e418ee28e68a5480765ef8acfe1a6c409a2dd70e9997338f90591553d7172"
+    },
+    {
+      "path": "tests/test_clip.c",
+      "bytes": 11653,
+      "sha256": "7d911e74361a4a7c380cdceb8415a7ed064b00aba5a6b7355e6bc4737cf9ebaa"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 32458,
+      "sha256": "141e9bbfad07051b99479930a27e06b78dfe6b5d6cabbd113449fe040c5996d1"
+    },
+    {
+      "path": "test-host.sh",
+      "bytes": 4414,
+      "sha256": "c9b3f87d60762be97b3c88b114c8b547f9495aec900c743755edfac3194fc95a"
+    },
+    {
+      "path": "reports/dialogue-actor.md",
+      "bytes": 2687,
+      "sha256": "6f677c3bf0bec2970ec880b215a427e1284329229aa08f5cee6c36b3c3a0287b"
+    }
+  ],
+  "logs": [
+    {
+      "path": "local/original-dialogue-actor-oracle.log",
+      "bytes": 182,
+      "sha256": "5c471b6240ae08c19513493df18ec4954780fa7a1c682dd28f29284f4465eb99"
+    },
+    {
+      "path": "local/dialogue-actor-cpu.log",
+      "bytes": 92,
+      "sha256": "2816c4a19fc6310d0a5e1dfcff05ac468d6ea54240cd287c0956c2f485e4bf73"
+    },
+    {
+      "path": "local/dialogue-actor-cpu-asan.log",
+      "bytes": 92,
+      "sha256": "2816c4a19fc6310d0a5e1dfcff05ac468d6ea54240cd287c0956c2f485e4bf73"
+    },
+    {
+      "path": "local/dialogue-actor-gpu.log",
+      "bytes": 198,
+      "sha256": "100c1f5675c4baeb0ebe103487a33222786aac41c33dda2a435f1c014608fc5b"
+    },
+    {
+      "path": "local/dialogue-actor-gpu-asan.log",
+      "bytes": 198,
+      "sha256": "100c1f5675c4baeb0ebe103487a33222786aac41c33dda2a435f1c014608fc5b"
+    },
+    {
+      "path": "local/dialogue-actor-switch-build.log",
+      "bytes": 588,
+      "sha256": "54492f0729ad48433f231ce6787a3c9d50152afdbe9e5fa5d19453e881cfc104"
+    }
+  ],
+  "scope": "# 对话人物与固定镜头\n\n`game/dialogue_actor`恢复4f1b53控制码规则，`scene/dialogue_actor_assets`拥有五组h01_70..h05_70主体、XAN、真实FAM/hNN_20脸部与眼资源。4ef6a0的此子集按原slot0瞬选及五组放置位置初始化，保留共享状态中原未写字段；尚未恢复整个加载器。\n\n`world/menu_camera`恢复4bd641固定镜头(0,19,0)、朝向0、FOV .2。4f11f2组合顺序为固定镜头→规则→当前说话人包络→共享计时器→动作请求/完成检查→眼朝向/纹理→眼范围/表情/口型/眨眼→显隐→.2倍游戏秒数主体动画。口型来自显式消费游标输入，不在CPU资产层伪造播放。世界缓存仍由外层绘制发布，隐藏不等于零dt。完成检查读取请求槽自己的循环计数，不能用自动链后的活动槽代替；新增只读any-slot接口。\n\n固定中文EXE SHA a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e：17,457规则及1,200镜头对照误差0；五组1,440真实原调用者帧、2,314,920矩阵、2,397,024脸顶点、323,200槽计数通过，最大相对数值误差4.45e-16。原控制器使用独立VM，音频包络/时钟/纹理绑定是显式服务边界；不存在完整日文保护EXE或原Windows画面对照的声明。另256个缺主体分支保持共享状态，300隐藏帧、45次一次性动作完成已覆盖。\n\n27份日文文本共1,268条#E实际取值0/1/4/5/6/7/8/9均已覆盖，额外17验证正向超尾保持。之前合成-2会请求负MORP时间，现有组件继续明确拒绝；没有修改资源或静默钳制，负值不列入等价证明。完整原主体执行采用400M指令上限，与选择演员组合一致；小数学调用工具的20M上限不足以执行h02首帧混合。\n\n普通与ASan CPU诊断各1,800帧、300隐藏、4完成重置、1,100,160矩阵一致。新增Vulkan诊断以真实五组演员/镜头、显式环境光.65及合成口型运行600帧（100隐藏）；普通/ASan RGBA hash a22563e675227368一致，所有可见帧有实际像素、隐藏帧无主体像素。该诊断未恢复原场景灯光、背景或真实语音。4针对性CTest各普通/ASan与2架构检查通过；任意槽计数补充链后/非活动保存值/无效输入保持测试。ASan关闭LeakSanitizer。\n\n指定Mesa NVK交叉构建通过、undefined0。应用尚未引用这些新对话组件，因此NRO仍fca3726e20735dea3f39fcedddaa82c403acf1d836bab80a541cf833756855ff。GPU/CPU/镜头修复交付包以及更早FPS包保持冻结；Mac防休眠继续。下一项4f1503背景切换、对话推进/真实声音/UI，再原标题→38→8完整装配；不将flow8直接替换为进入游戏2。\n"
+}

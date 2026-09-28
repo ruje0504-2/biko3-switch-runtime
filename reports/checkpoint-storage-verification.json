@@ -1,0 +1,34 @@
+{
+  "status": "data component; application save/load pending",
+  "original": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_encodes": 1000,
+    "native_reads": 1000,
+    "records_compared": 10000,
+    "original_empty_banks": 5,
+    "port_crc_checks": 1000,
+    "scope": "Full509c25/509fd2 bank save/read,4af3dc timestamp and50d245 record xor.\nOnly Windows time/file I/O, path service and random source are intercepted.\nAll record copying, stores, string operations and xor execute original x86.\nSynthetic occupied records exercise all50 slots; shipped five banks are empty.\nPort envelope CRC is also compared independently with Python zlib.\n"
+  },
+  "normal_and_asan": true,
+  "leak_sanitizer": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "2b053b2ff10f58720d35daf52dc922134719472d3a09359888f19be310a789aa",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/save/checkpoint.h": "b5da57357ae64524319336c80f6eb5d0f5b3d883eff40071015a9f28a2cc6d16",
+    "runtime/save/checkpoint.c": "6e4df5a1719f9bbbe67bfee3ac5f7a30905e0b86ca64020ef72efff8d0cd0e3f",
+    "runtime/save/checkpoint_file.h": "5a1bfb36459a84856ff1a57523afa8e2167c9b27f0d44ad9631b25d36f66e2de",
+    "runtime/save/checkpoint_file.c": "4ffd21542d551275f0c16348c00e9affd6c8ae7c2eccd71b7b32e66ef7e748e3",
+    "tests/test_checkpoint_file.c": "3acf021d50503dc5f43d71a5d50f3d401b2484198d786bd14c4f434390d1c883",
+    "tests/original_checkpoint_oracle.py": "e0fa6ec3bac21fb06f41b8e2a1fb939d3f6a4a294569b194c52c932933acfd2a"
+  },
+  "logs": {
+    "local/checkpoint-storage-test.log": "ed330adbd492aafa8ad042b43b0c650beb33fbabf64d77fac7f8e2ba5b9e1835",
+    "local/checkpoint-storage-asan-test.log": "ed330adbd492aafa8ad042b43b0c650beb33fbabf64d77fac7f8e2ba5b9e1835",
+    "local/original-checkpoint-oracle.log": "e1d9507bc0b1736303681299ca333d9c5543e5ced64183020496668084b75eec"
+  }
+}

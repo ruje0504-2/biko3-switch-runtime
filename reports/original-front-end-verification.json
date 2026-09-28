@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "new_front_end_hardware_verified": false,
+  "default_scene": "game",
+  "first_flow": "original title1",
+  "flows": [
+    "1 -> 38 -> 8 -> 2 -> 4 -> 2 -> 4 -> 1",
+    "1 -> 28 -> 1"
+  ],
+  "five_real_introductions": "reports/dialogue-session-verification.json",
+  "end_to_end_game_group": 0,
+  "pointer_flow": {
+    "title": 212,
+    "selection": 253,
+    "dialogue": 1514,
+    "loading": 195,
+    "opening": 497,
+    "pause": 106,
+    "return_title": 111,
+    "photos": 2,
+    "asan_equal": true
+  },
+  "controller_flow": {
+    "title": 212,
+    "selection": 273,
+    "dialogue": 1514,
+    "loading": 195,
+    "opening": 498,
+    "pause": 106,
+    "return_title": 111,
+    "photos": 2
+  },
+  "actual_application": {
+    "real_clock_startup_frames": 160,
+    "title_load_cancel_frames": 800,
+    "normal_and_asan": true,
+    "isolated_saves_unchanged": true,
+    "old_development_replay_frames": 1700
+  },
+  "save_regression": {
+    "same_slot_writes": 4,
+    "groups_reentered": 5,
+    "frames": 5599,
+    "switch_no_overwrite_fs_simulation": true
+  },
+  "car_regression": {
+    "impact_fixture": true,
+    "outcomes": [
+      1,
+      1
+    ],
+    "game_frames": [
+      137,
+      137
+    ],
+    "retry_then_title": true
+  },
+  "regression_scope": "New full flow and actual application normal/ASan; existing save/car paths normal this revision, prior fix ordinary/ASan and user hardware confirmation retained. No claim of new Switch testing.",
+  "readback_sha256": {
+    "build/front-flow.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+    "build/front-flow-asan.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+    "build/front-controller.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f"
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "aca3370fa1bd6b7989065519749bc8f0a61f3facc6bccd4c0f4b394522635f56",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/app/front_end.c": "7253f7fb784c398203c820bee6e96641261dbfb66c414455598064ef745356a9",
+    "runtime/app/front_end.h": "354d212f2c3a08b905dc688cec39dde37166a48b71276c73b2ccdf3b464be6c9",
+    "runtime/app/play_session.c": "cca181e1dc94eb28ddf2fb3dfc59e7f76c45384f1d8398d4ce14ff934e575a5e",
+    "runtime/app/play_session.h": "54d4a71a1ac32b0b0ba9891af611e82b5fd86050e057ab2badb7207738d67d34",
+    "runtime/app/application.c": "498f41bc3c7f9afe4b95b602fa864cf72ff3b37bbdf3346cce782c2f8a027c95",
+    "runtime/platform/host.c": "9d5353015f00ef2bda7125e6691c8fca3cb054d0bff5d24ad26bd151acfb4500",
+    "runtime/platform/switch.c": "43a7c68154425e6441ef5b814c65d1b0b9e7eddb181357cb01ce322d7ce6ea50",
+    "runtime/scene/selection_session.c": "f044673856159050254e376ba2fa508f633760956e3398254eb23e0e35c326ea",
+    "tools/front_flow_probe.c": "92c9821d0ae4bded5942e3a8e415bd3671aac65f79ec91252023ff4ec5892750",
+    "tools/play_flow_probe.c": "1498ce0c9327dca98c6c60af9872909bd9eda7b48ab867685fd4de17c399d1d5",
+    "tools/save_flow_probe.c": "bd4d45f6ed43dd26235cdebccdca94901288837d2527745febf9a0cd1989253b",
+    "tools/failure_flow_probe.c": "8bea3b76a28266a3d1f745297229b13549415f1e64bfdd8ca09c2e37774d887e",
+    "tests/check_front_application.py": "c4395ca54ccae581d6a1b1836751def10ebba1460b95eeac5bb379306a8e30ea",
+    "tests/check_game_application.py": "513cf2fd09e2948fcda21911b2febf55cd83bbdc8393d4267d2e67a65fe6b779",
+    "test-host.sh": "2ac2455100ec31139bcd0f006eb0e5ed570932f39d4640a22526a5854a4fa8da",
+    "CMakeLists.txt": "8d3b0f347c51d16250c20f5a427c0be914ebba198e36961ecc565534be78013d",
+    "tools/package_sd.py": "ac5aa7dd1ab8f260fd3b125cc9581b958c3bb56d19930cf3762efb2e2c88da08",
+    "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "logs_sha256": {
+    "front-flow-final.log": "356de05262e2e618d69a9f431438e0343dc10b5c679957a984aff4005afa682c",
+    "front-flow-final-asan.log": "356de05262e2e618d69a9f431438e0343dc10b5c679957a984aff4005afa682c",
+    "front-controller.log": "c64cac224aa012f360bb399b6c8b04c0d27a3e0fcbabee80e5d9d13d39f5a8a8",
+    "front-save-regression.log": "15245cf97ed75a62cf8169edc39c423e5936e3fff13ae6929412246eff8cd2ac",
+    "front-car-regression.log": "884c94240c5b2c5709d1e68fc78276e9b7a928edbe830fff14bbe6dc9be36870",
+    "front-old-application.log": "cf015df19b0f977d390aedecd0578a2d84caa3029ac72e6997249dd7d4972559",
+    "front-application-final.log": "f80ea3ade3c630c5571d1350d7ac64b1d5e8e6101350f337847fe2b052489e9c",
+    "front-application-final-asan.log": "f80ea3ade3c630c5571d1350d7ac64b1d5e8e6101350f337847fe2b052489e9c",
+    "front-architecture.log": "26ac156b994e0ca622891b36ccd966a50a0e457a3a0b20fbaaaa96e23b6b13ec",
+    "original-front-end-switch-final.log": "9d2b0c23119293d23c54d401e34f462b3bdab87cc3c95146fc17bd82cdc9e374"
+  },
+  "pending": [
+    "settings30",
+    "gallery18/60",
+    "ending unlock persistence",
+    "remaining mission destinations/media/weather",
+    "new frontend on Switch"
+  ],
+  "awake_pid": 60608
+}

@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "full_ending_ui_integrated": false,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "angles": 4000,
+    "categories": [
+      0,
+      771,
+      2209,
+      305,
+      715
+    ],
+    "segments": 16000,
+    "segment_hits": 2693,
+    "picks": 1612,
+    "pick_hits": 99,
+    "selected_counts": [
+      31,
+      5,
+      6,
+      6,
+      5,
+      1,
+      9,
+      4,
+      3,
+      2,
+      21,
+      6
+    ],
+    "zero_w_input_cases": 99,
+    "zero_distance_input_cases": 76,
+    "focused_selection_cases": 12,
+    "max_error": 0,
+    "hooks": [],
+    "scope": "Unhooked4da3ca/4da4f7,4a7b26 and full4da76f including42d4b6.\nExplicit cached node worlds, camera LOCAL and device matrices; no target\nloading/animation/publication or full UI selection is implied. All24 required\nnodes exist in defined native samples. Missing-node stack data is rejected.\n"
+  },
+  "unit_tests": 1,
+  "asan_unit_tests": 1,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_ui_pick.c": "0001ecf270504500353c88eab55fed552cbeef68cbf724e9f73821d9bfcfb4a9",
+    "runtime/scene/ending_ui_pick.h": "5bc41d5ea19e62c84f6c4a34ebc82059d7228c947cb1cbf6aeaabecd404b4e9f",
+    "tests/test_ending_ui_pick.c": "aac184ce01921423fb07f3be55ebb4cb7738fe01fab81ea6b8a0face5ae866db",
+    "tests/original_ending_ui_pick_oracle.py": "42088306cdb15c814870e07e6ce339495443983b62bc3bd0ab98bbba833c0fdb",
+    "CMakeLists.txt": "ba1febc11b8154d2435694c668f368d1c9aca9483feada170b164cdbdd5690c2",
+    "test-host.sh": "ff3dbd43e05a5b9e46077e46508dafbadaca9e0fd03a40e6bd34140718f7f3a8"
+  },
+  "logs_sha256": {
+    "ending-ui-pick-unit": "ca8c1d1e14a679e515480aed67942938bdc84b7aadd25b3f66754f854e3587ca",
+    "ending-ui-pick-asan-unit": "1fb66eadebfbb1c84b766f58c2813c77366e7230419cdccac171ca1ef2491823",
+    "ending-ui-pick-oracle": "d53c5337e06ea5dd464cb9ae1ab0316ddc4f473558b5375179fe709d3af5e256",
+    "ending-ui-pick-architecture": "a2afe2a117463260275ede9ffa1f874a5bd98618dae5c738055bcf7750fb19f4",
+    "build-ending-ui-pick-switch": "9830e48a233d18529cae81fe35f0bf7b71d6efa19fbd91bcc139f75b321b8ab3"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Explicit cached node/matrix fixtures; production registry and actual selector not yet integrated",
+    "Missing nodes leave original stack values undefined; portable API explicitly rejects",
+    "No new GPU change or hardware ending validation",
+    "ASan detect_leaks=0"
+  ]
+}

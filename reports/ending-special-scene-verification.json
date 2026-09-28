@@ -1,0 +1,291 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "special_gpu_integrated": false,
+  "hardware_verified": false,
+  "native": {
+    "passed": true,
+    "profiles": 10,
+    "frames": 240,
+    "aim_cases": 4000,
+    "snapshots": 1920,
+    "matrices": 2559264,
+    "material_fields": 2049792,
+    "compared_float_fields": 42998016,
+    "walks": 1040,
+    "max_relative_error": 0.0,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "component_sha256": "e47053968a0291beaad9017f3e029b68a76c8acab6658c961049fded38334e86",
+    "scope": "Actual normal-ending forest with full native4d9898 camera/node/material\nmath.4a4701 is reduced to its ordered root walks (original42261a executes);\nGPU viewport/clear/pass boundaries are observed, not rendered. Shared actor\nlocals are explicit component inputs. Includes a separate named material\nfixture because ordinary normal assets do not contain the group4 material.\n"
+  },
+  "cpu": {
+    "passed": true,
+    "profiles": 10,
+    "frames": 1200,
+    "draws": 2410,
+    "render_boundaries": 6000,
+    "walks": 5230,
+    "failures": 30,
+    "hash": "b38c6950c3480f7f",
+    "asan_equal": true
+  },
+  "gpu_regression": {
+    "profiles": 10,
+    "frames": 320,
+    "queue_items": 22980,
+    "vertices": 1707968,
+    "max_relative_error": 3.68802e-07,
+    "redraws": 40,
+    "empty": 40,
+    "normal_asan_equal": true,
+    "stable_allocations": true
+  },
+  "bom_direction_inventory": [
+    {
+      "group": 0,
+      "variant": 0,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 33,
+          "count": 251
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 33,
+          "count": 252
+        }
+      ]
+    },
+    {
+      "group": 0,
+      "variant": 1,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 33,
+          "count": 251
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 33,
+          "count": 252
+        }
+      ]
+    },
+    {
+      "group": 1,
+      "variant": 0,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 2,
+          "count": 317
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 2,
+          "count": 318
+        }
+      ]
+    },
+    {
+      "group": 1,
+      "variant": 1,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 2,
+          "count": 317
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 2,
+          "count": 318
+        }
+      ]
+    },
+    {
+      "group": 2,
+      "variant": 0,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 1,
+          "count": 351
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 1,
+          "count": 343
+        }
+      ]
+    },
+    {
+      "group": 2,
+      "variant": 1,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 1,
+          "count": 351
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 1,
+          "count": 343
+        }
+      ]
+    },
+    {
+      "group": 3,
+      "variant": 0,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 14,
+          "count": 101
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 14,
+          "count": 101
+        }
+      ]
+    },
+    {
+      "group": 3,
+      "variant": 1,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 14,
+          "count": 101
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 14,
+          "count": 101
+        }
+      ]
+    },
+    {
+      "group": 4,
+      "variant": 0,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 0,
+          "count": 256
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 0,
+          "count": 258
+        }
+      ]
+    },
+    {
+      "group": 4,
+      "variant": 1,
+      "bindings": [
+        {
+          "source_actor": 1,
+          "source_submesh": 2,
+          "target_actor": 0,
+          "target_submesh": 0,
+          "count": 256
+        },
+        {
+          "source_actor": 1,
+          "source_submesh": 0,
+          "target_actor": 0,
+          "target_submesh": 0,
+          "count": 258
+        }
+      ]
+    }
+  ],
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "9c58594b1f057d4653ac840432bced1657318395180510b3524f343dcae629ad",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_special_scene.c": "9c05619d2ddaea859fa2e7d2951fd4e90a092cfa69f27f4d6894115eefb7356a",
+    "runtime/scene/ending_special_scene.h": "e97a8e6285487abdca9d6a094a228eac5b85ce5e47c9d28b1aff492293470ffc",
+    "runtime/world/actor_forest.c": "05d42b3e9b5512b7f9657f9fd1c2382383647d238c9a464052ba8fad4568a17e",
+    "runtime/world/actor_forest.h": "458199b259ebc69b45bef4b1f6d8784d8b7140b3aca865f24d3a097131bff496",
+    "runtime/world/actor_pose.c": "8167c5f78265f596f2533a8180be94da3e4da97b48c37e74ffd4dc6808491c61",
+    "runtime/world/actor_pose_internal.h": "9f99abcf11cb9af9af6902850134f8f8a5902a84e4d28f340f0dec13f1dc5e00",
+    "runtime/world/node_reference.c": "c7f3e2700864981bd04af2071254006c2457201496ad83b6d3e3aa28ede1a5ed",
+    "runtime/world/node_reference.h": "1a9e247ed6465284c1898ba4bae5018ddfe9c38d6da4f56737c436c478177eae",
+    "tests/test_actor_forest.c": "4be70a3fffe80a14b5a8bb127303291bbe044cf3cc43a5a43503e8b2cf35f6b6",
+    "tests/original_ending_special_scene_oracle.py": "6861caac021c00a4eea9fd7f508bdf804d5568012f12ffec928cc11b5eb6ce11",
+    "tools/ending_special_scene_probe.c": "74818f8b77d93ca8bfefdf56091f980120b2ff8591d8857879deac4721848a48",
+    "CMakeLists.txt": "c3363d9691c6c622f446d6adb516a95d830618365cd35a09e740080b4de58087",
+    "test-host.sh": "6b5460867c64f3cc3ecdc5d259a994f9a26145a6c3ba79d60e008be809f2730f"
+  },
+  "logs_sha256": {
+    "ending-special-scene-model-build": "285f57d02163d30a0d09623e7ccd451cee98c461fbdf0dcd0c5497d0b83e9ebb",
+    "ending-special-scene-oracle": "751bf423d8ec5374cec250f60c0edb87f6d9869f75952c20f5aad278ecbbb578",
+    "ending-special-scene-regression-build": "99169367578bef2d19bd06c6f2d3a8a54d6249ebfd8ec5df973b18dcd475f8ae",
+    "ending-special-scene-unit": "856aa99b1eae945a6d4aba316604c9bb8692ed065a9664138044e1c8b7824253",
+    "ending-special-scene-asan-test": "b0f7a5ac5f3ce76e40867ac990a214cc0ee441af0cea7a87e21fbd4993bf1e2a",
+    "ending-special-scene-probe-build": "e77fc58c5556c72e7bdb6a7c86dc429f5225f016f907084594bbaa38c07e8f0f",
+    "ending-special-scene-asan-probe-build": "8d07d44f65858cee402ea70def6b5f5ac9ded93bf63de8cb19a0dec4f94dc96a",
+    "ending-special-scene-gpu-regression": "5543cb2cc1cf96bca185e5d8aec66dd719fcda74b33f008dc33b5b5a47ec6f9e",
+    "ending-special-scene-asan-gpu-regression": "5543cb2cc1cf96bca185e5d8aec66dd719fcda74b33f008dc33b5b5a47ec6f9e",
+    "ending-special-scene-asan-gpu-build": "3c3de1b290c5105a6589b1ceda6882d5736c3d2dd3ed58af378b913d5ceb38dc",
+    "ending-special-scene-architecture": "11779e7fb102bcbb64688c4f75dbbbfc4537cca356e705f5f38e2e55622a6ff2",
+    "ending-special-scene-switch-build": "81eac15b32ace6fc775c4cc2caccdd58294a03337515b65cd91164caaefded28"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Special GPU snapshots and full flow16 remain unimplemented",
+    "Original4a4701 reduced to ordered native forest walks; not rasterization or full lighting oracle",
+    "Native group4 material behavior includes an explicitly separate duplicate-name fixture",
+    "Animation locals shared component inputs",
+    "ASan detect_leaks=0"
+  ]
+}

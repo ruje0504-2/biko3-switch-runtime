@@ -1,0 +1,194 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "36290e9fbfdd149dc42d76a1d13ce94d2567aa08d45590638c94674efc3ebbf3",
+    "undefined_symbols": 0
+  },
+  "group": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 700,
+    "blends": 462,
+    "vertices": 1158300,
+    "max_normalized_error": 0.0,
+    "records": [
+      {
+        "pack": 8,
+        "name": "h01_01.x",
+        "tracks": 4
+      },
+      {
+        "pack": 8,
+        "name": "h02_01.x",
+        "tracks": 4
+      },
+      {
+        "pack": 8,
+        "name": "h03_01.x",
+        "tracks": 4
+      },
+      {
+        "pack": 8,
+        "name": "h04_01.x",
+        "tracks": 4
+      },
+      {
+        "pack": 8,
+        "name": "h05_01.x",
+        "tracks": 4
+      },
+      {
+        "pack": 11,
+        "name": "h03_30.x",
+        "tracks": 3
+      },
+      {
+        "pack": 11,
+        "name": "h03_31.x",
+        "tracks": 2
+      }
+    ],
+    "scope": "Original433a7d/433cbe group masking, ordered blend and held plain clocks.\nSeven actual BOM auxiliaries; native track blending and raw vertex buffers.\n"
+  },
+  "actual": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "records": [
+      {
+        "name": "jouhansin.bom",
+        "bindings": 3,
+        "missing": 0,
+        "frames": 120,
+        "motion_calls": 880,
+        "completed": 80,
+        "followed": 360
+      },
+      {
+        "name": "h03_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 120,
+        "motion_calls": 640,
+        "completed": 4,
+        "followed": 240
+      },
+      {
+        "name": "h02_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 120,
+        "motion_calls": 640,
+        "completed": 4,
+        "followed": 240
+      },
+      {
+        "name": "h04_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 120,
+        "motion_calls": 640,
+        "completed": 4,
+        "followed": 240
+      },
+      {
+        "name": "kahansin.bom",
+        "bindings": 2,
+        "missing": 1,
+        "frames": 120,
+        "motion_calls": 640,
+        "completed": 80,
+        "followed": 240
+      },
+      {
+        "name": "h01_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 120,
+        "motion_calls": 640,
+        "completed": 4,
+        "followed": 240
+      },
+      {
+        "name": "h05_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 120,
+        "motion_calls": 640,
+        "completed": 4,
+        "followed": 240
+      }
+    ],
+    "frames": 840,
+    "matrices": 1996113,
+    "vertices": 2999997,
+    "mapped_vertices": 6241,
+    "material_checks": 74498,
+    "max_normalized_error": 2.842170943040401e-14,
+    "scope": "Actual4026fe clock/ANIM/MORP-blend/MATA/MORP sampling and hidden/publication on7 BOM owners. Includes original401b0a requests; no production ending dispatcher.",
+    "motion": true,
+    "seconds": true
+  },
+  "cpu": {
+    "frames": 1680,
+    "vertices": 2779920,
+    "fnv": "75837de64f3fb5f4",
+    "normal_asan_equal": true
+  },
+  "gpu": {
+    "frames": 504,
+    "vertices": 2580264,
+    "max_relative_error": 3.57628e-07,
+    "normal_asan_equal": true
+  },
+  "app_rgba_sha256": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+  "source_sha256": {
+    "runtime/model/morph_group.c": "67be0fa7eca704faf4e140d8a4c84f0ac912347ca0165aaaf093c5b4b38f803b",
+    "runtime/model/morph_group.h": "9d47aec6ef0c9281c9b7600dc70a1481aed8c11d1895862222bae8a43b364d0a",
+    "runtime/model/playback.c": "7d23b96f8cf6c12969782902bacf175d4efca9b0849c55ab3f1d1e5c5c3a93b6",
+    "runtime/model/playback.h": "4c76bbef58ba8dedf131644a8ff49a93b6f66fa7b9971aebc1cb69c04a02dcfe",
+    "runtime/world/actor_pose.c": "9dccd5ff9b78e216ca564cbd2a39b8e48854961502496dc914b95b3623aa8158",
+    "runtime/world/actor_pose.h": "b0fff8e9b32d76fc91270707343b087a93b10683f1f082c1014ef70be611b9a6",
+    "runtime/scene/bom_assets.c": "5c5edd1936ce4ce17f751bcf5592b33b3f4dc02d50a8722f86f6cc27613e45e0",
+    "runtime/scene/bom_assets.h": "d65cbb14f05706c25f0dd19ab09ce8c16cd69ac921759f9d0c567662ba0e0f46",
+    "tests/original_bom_assets_oracle.py": "4ae982a28e8136d6d7d2b01bc4e5e2f007ebff6ef48f6cdc2bdb06bf5939bbec",
+    "tests/original_morph_group_blend_oracle.py": "415c7926de11631476be0623f5c73181f955a0ed5f5916e96a1524be7703107c",
+    "tests/test_fixed_animation.c": "f4cb946b8f8a03d8322ca8276b71653c2270ae2b9d37ac2aad86dde0ce90818a",
+    "tests/test_animation.c": "411d2df341302d4a29567dd15ea4a093ef1eba265081cf37fa08f666c956ab01",
+    "tools/bom_assets_probe.c": "93d0b160dab7e1a621db278bc68fb063e9590c48ab59359eeb0f5076e7b911bb",
+    "tools/bom_render_probe.c": "2e6d2bba8f52c598882ef027fea84f18afa99a6a3d4809d2b6a890a8cf351dff",
+    "test-host.sh": "1eeaa80fe40b238a0d9c6d7020d043680004615832b03c182c3044da5104774f"
+  },
+  "logs_sha256": {
+    "bom-seconds-oracle": "a891a9e8602013d42625c59a9a3b986632306e615c304e78ef2a062a2d0ea1e7",
+    "morph-group-blend-oracle": "9e485574e849ed71ca9081625a19abccf869a11f9d787756f07db34863b288c9",
+    "bom-seconds-cpu": "c7fa412f6baea7a5ec5a847baf6602a2c8a5667b017510788fccebd483c0e66e",
+    "bom-seconds-cpu-asan": "c7fa412f6baea7a5ec5a847baf6602a2c8a5667b017510788fccebd483c0e66e",
+    "bom-seconds-gpu": "ab625ac7482b0d55813d0871b3cca67de4d833daffd17c5290f315dcfe1352c7",
+    "bom-seconds-gpu-asan": "ab625ac7482b0d55813d0871b3cca67de4d833daffd17c5290f315dcfe1352c7",
+    "bom-seconds-unit": "2619aa024104d432b689d0d9c3f8f835280db7a1969b16153563115d3d969f4b",
+    "bom-seconds-unit-asan": "8f35cc509e5e61ae0d821bf3503ee83913be7dd79b54f31d53b1445ac91ce0f2",
+    "bom-seconds-front": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "bom-seconds-front-asan": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "bom-seconds-architecture": "0b2adbbec688207fea41538700e92fd2306754057a20b5adbd43bdd8fee88fce",
+    "bom-seconds-build": "b3743a851cc198afd5e624bf1d511fbda094537ca8cd486a514c7cce87af8850",
+    "bom-seconds-asan-build": "0a1b15f68c5d04fb907c1dd57eedcb056936329b4a9fe9cca49e405623aa6a71",
+    "bom-seconds-asan-vk-build": "2a16bb471e4a43b6cffe0ffbd16c6830154913b7b2bc8b9a8529227f6612953d",
+    "bom-seconds-unit-build": "d0c59167db24a5d1692cfc8e7192ea93c2b0b687b20fd99f267b6cbb8bc25b13",
+    "bom-seconds-unit-asan-build": "f26a7b17428ce998a7e3e00f58df9ee88f967c1175559edaa25d26cc31191bae",
+    "bom-seconds-switch-build": "11c949ff623a449665e6ab5cfc396185f49314924e2a3387cf87ec0abde01362"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Explicit fixture selection; production ending loader/stage services remain incomplete",
+    "No new component Switch hardware test",
+    "MORP/ANIM/MATA only; unsupported auxiliary effect chunks remain explicit failures",
+    "ASan detect_leaks=0; resource counters are not LeakSanitizer"
+  ]
+}

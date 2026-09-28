@@ -1,0 +1,19 @@
+{
+  "project_version": "0.3.5",
+  "mesa": {
+    "commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "version": "26.2.2",
+    "github_run": 35860399051,
+    "github_artifact": 10750582639,
+    "archive": "mesa-sdk.zip",
+    "url": "https://nightly.link/danfromtico/mesa-switch/actions/runs/35860399051/mesa-26.2.2-switch-unified-horizon-sdk.zip",
+    "sha256": "230b777e49e6a7efa43b13897d7abc5eec54bea68ff1732e9ff1ef8c63b1adeb"
+  },
+  "rust": {
+    "nightly": "2026-09-23",
+    "core_library": "libcore-6bee545c019cdfef.rlib",
+    "archive": "rust-std.tar.xz",
+    "url": "https://static.rust-lang.org/dist/2026-09-23/rust-std-nightly-aarch64-unknown-linux-gnu.tar.xz",
+    "sha256": "d0bce065ca66bdd554f68f402869085e4c66ae1725e0e57bcd51afbb740dc45d"
+  }
+}

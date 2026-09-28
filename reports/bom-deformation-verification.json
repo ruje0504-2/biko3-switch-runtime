@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "gpu_bom_verified": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "b4fd1fef1bbf971db97d7d137aafd1ddeeb07630fe433eaa0254ef53712ba829",
+    "undefined_symbols": 0
+  },
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "node_calls": 2430,
+    "mapped_vertices": 8941,
+    "callbacks": 3140,
+    "checked_vertices": 788620,
+    "max_normalized_error": 0,
+    "actual": [
+      {
+        "name": "jouhansin.bom",
+        "meshes": 6,
+        "bindings": 3,
+        "selected": 3411,
+        "vertices": 8056,
+        "missing_selection_fixture": []
+      },
+      {
+        "name": "h03_00.bom",
+        "meshes": 3,
+        "bindings": 2,
+        "selected": 694,
+        "vertices": 6412,
+        "missing_selection_fixture": []
+      },
+      {
+        "name": "h02_00.bom",
+        "meshes": 3,
+        "bindings": 2,
+        "selected": 635,
+        "vertices": 6002,
+        "missing_selection_fixture": []
+      },
+      {
+        "name": "h04_00.bom",
+        "meshes": 3,
+        "bindings": 2,
+        "selected": 202,
+        "vertices": 4727,
+        "missing_selection_fixture": []
+      },
+      {
+        "name": "kahansin.bom",
+        "meshes": 4,
+        "bindings": 2,
+        "selected": 282,
+        "vertices": 1094,
+        "missing_selection_fixture": [
+          "mata.vix"
+        ]
+      },
+      {
+        "name": "h01_00.bom",
+        "meshes": 3,
+        "bindings": 2,
+        "selected": 503,
+        "vertices": 5900,
+        "missing_selection_fixture": []
+      },
+      {
+        "name": "h05_00.bom",
+        "meshes": 3,
+        "bindings": 2,
+        "selected": 514,
+        "vertices": 3646,
+        "missing_selection_fixture": []
+      }
+    ],
+    "fixture_sha256": "f9514cd0a5fb7bc3e7e1ebecbb80ae32bdcfef38c278098966c2a71b98d7b6d8",
+    "scope": "Original4aab5e mapping/grouping +4aaebb callback; native math unhooked.\nSynthetic shared-target, duplicate, alias, NULL and raw disabled flags, plus\nall seven real BOM/VIX mesh profiles in explicit aligned base-pose fixtures.\nAlso4a4dc3's node math422c49/4230bd, without a topology change.\n"
+  },
+  "actor_nodes": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "alignments": 600,
+    "matrices": 7400,
+    "max_normalized_error": 0,
+    "records": [
+      {
+        "config": "jouhansin.bom",
+        "alignments": 120,
+        "secondary_frames": 8
+      },
+      {
+        "config": "h03_00.bom",
+        "alignments": 80,
+        "secondary_frames": 8
+      },
+      {
+        "config": "h02_00.bom",
+        "alignments": 80,
+        "secondary_frames": 8
+      },
+      {
+        "config": "h04_00.bom",
+        "alignments": 80,
+        "secondary_frames": 13
+      },
+      {
+        "config": "kahansin.bom",
+        "alignments": 80,
+        "secondary_frames": 6
+      },
+      {
+        "config": "h01_00.bom",
+        "alignments": 80,
+        "secondary_frames": 16
+      },
+      {
+        "config": "h05_00.bom",
+        "alignments": 80,
+        "secondary_frames": 13
+      }
+    ],
+    "scope": "Real actor instances: BOM reference alignment preserves caches and topology.\nEvery call executes native422c49+4230bd; full publications use native522d9a.\nRoot motion and publication cadence are explicit test inputs, not ending AI.\n"
+  },
+  "asan": {
+    "profiles": 7,
+    "frames": 840,
+    "vertices": 4300440,
+    "fnv": "33e849f6a68b780c"
+  },
+  "source_sha256": {
+    "runtime/model/bom_deform.c": "b793594c23e24173506eb094f97b49ebe10af683c6d0708570f020b51e1d8ce2",
+    "runtime/model/bom_deform.h": "d19a0cd77f05c686267556aef05590117293d08ca94d9ef25bdfb58b65119bff",
+    "runtime/world/node_reference.c": "099071bd30323de2868fe9af79d5f408b68e548f834f2243909d4fbed6f9093d",
+    "runtime/world/node_reference.h": "e8b102d366e713be6992f50c72ce7631488868ada5fe03d6633759b50de07fb5",
+    "runtime/world/actor_pose.c": "983dccc971a751b016ae1ed10f567d1877550b2fb3528cdc9613dd3e365e2f9e",
+    "runtime/world/actor_pose.h": "b2820f7bfc4c4c82f0604570edddc2fbb6396045196710edecac919bf0e70f98",
+    "tests/original_bom_deform_oracle.py": "888001c39424083012dd58f2ec673141b91557e01bff80d2470d77fe21f2bb34",
+    "tests/original_bom_nodes_oracle.py": "396908bef8efa4130fbb4955b00602e8b9f4b0bd79a7094067293e575faaad27",
+    "tests/test_bom_deform.c": "0a17c736a4787772602827a194b38f271107eed16c786eeff96716fbada14044",
+    "tests/test_node_reference.c": "f3897abe10d1c370cd736fa407564bb90a0347d0f06e056caad4aaa8001a3067",
+    "tools/bom_deform_probe.c": "b0b0d31c0122e642f093a5a8295e6356e8a3b564dfa57aa323a13805cefb95de",
+    "CMakeLists.txt": "7b5bc119a1f55a420ebb496a0d65e89f941379765d7a5cf3be0db329ab37ebd1",
+    "test-host.sh": "82bbe25a71e8217e2d0dc26ef7d361aa05ac3392832483a0e9c3b13f50750f5b"
+  },
+  "logs_sha256": {
+    "bom-deform-oracle.log": "d24b5baa0ac2c21e2438d487229c9e1f76b474e23b4f45fd291cb7cc058c610f",
+    "bom-nodes-oracle.log": "0a6a96f65cd57bec6533c9553a1f234b854006c2f5ef154180741d1e7be0f790",
+    "bom-unit.log": "92eb47ae6436a04bebdf786c6df6bdfc38291f726e248e4b681efecf9a1892b4",
+    "bom-node-unit.log": "3f4c7084dd3f1b1f1789180c4993b6f07eaabf835b92e810c39a41a76cd18f66",
+    "bom-asan-unit.log": "34121cbe35270c86d066ef94dbd4a38a009c2c9df4907cc0164a22df944ce974",
+    "bom-probe.log": "ea3752f4f9de9d9472a4225410c2ec0b77c8b1d7994b0252aace814b82f592cb",
+    "bom-probe-asan.log": "ea3752f4f9de9d9472a4225410c2ec0b77c8b1d7994b0252aace814b82f592cb",
+    "bom-architecture.log": "7d5c9ab002d7c614c71e0655c1f64ea23d420dec69d8e37bf300ce249ba786bc",
+    "bom-switch-build.log": "b071880eb42e3b3057a4fb9a8e0fd1b0cd00192d55efa5315d5a7be8be5b7a21"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "kahansin/mata.vix missing: explicit empty-selection fixture, not a recovered resource",
+    "Actual asset poses and publication cadence are fixtures, not complete ending entry",
+    "Full4a4dc3 resource lifecycle, secondary fixed-tick sample and control updates not bound",
+    "GPU callback after ENVL, ending UI/scene and fullflow16 remain incomplete"
+  ]
+}

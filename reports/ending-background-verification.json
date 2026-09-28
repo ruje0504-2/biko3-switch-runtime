@@ -1,0 +1,626 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "native_background": {
+    "passed": true,
+    "loads": 10,
+    "matrices": 12618,
+    "morph_vertices": 14016,
+    "material_fields": 604,
+    "mapping_entries": 5096,
+    "face_states": 10,
+    "background_matrices": 13197,
+    "max_relative_error": 0.0,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "scope": "Original4cf318 packaged resource/pose load, including actual4a4dc3,\n40150c, configured clip requests,4b79e0, name lookup, cached targets and\nfixed camera. Resource decoding is the boundary; native global attachment,\nrefresh, math, auxiliary ANIM/MATA/MORP execute unchanged. Face warmup state/RNG additionally runs in its original controller VM.\nMedia/device work are observing boundaries (their output is excluded), not claims\nof a complete ending scene. Native caller resource names are asserted.\n"
+  },
+  "native_lighting": {
+    "passed": true,
+    "profiles": 20,
+    "submissions": 3456,
+    "snapshots": 1280,
+    "commands": 9024,
+    "records": [
+      {
+        "group": 0,
+        "variant": 0,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 0,
+        "variant": 0,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 0,
+        "variant": 1,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "group": 0,
+        "variant": 1,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 1,
+        "variant": 0,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "group": 1,
+        "variant": 0,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 1,
+        "variant": 1,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "group": 1,
+        "variant": 1,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 2,
+        "variant": 0,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 2,
+        "variant": 0,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 2,
+        "variant": 1,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 2,
+        "variant": 1,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 3,
+        "variant": 0,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ]
+      },
+      {
+        "group": 3,
+        "variant": 0,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 3,
+        "variant": 1,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 3,
+        "variant": 1,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 4,
+        "variant": 0,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 4,
+        "variant": 0,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 4,
+        "variant": 1,
+        "order": [
+          0,
+          1
+        ],
+        "groups": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "group": 4,
+        "variant": 1,
+        "order": [
+          1,
+          0
+        ],
+        "groups": [
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "ranks": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "max_error": 0,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "scope": "Two-model normal ending light registry and ordered original4a435a/4438/4701.\nUse real loaded actor/background caches and an explicit moving-light fixture.\nOriginal425f79/421dd4 supplies per-light D3D parameters; no rasterization or\ncomplete ending frame is claimed. Also exercise reversed source order to catch\nambient-priority/order assumptions; production remains primary then background.\n"
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "f1ff22eae11b17b6740e2c9a1c0693483022e561e5849bcfd2cf5ed4a3b8efa6",
+    "undefined_symbols": 0
+  },
+  "cpu": {
+    "loads": 30,
+    "component_frames": 1800,
+    "light_snapshots": 5400,
+    "fnv": "67b0813bb822e972",
+    "normal_asan_equal": true,
+    "missing_background_failures": 24,
+    "lighting_constructor_failures": 2,
+    "enabled_capacity_failure": 1
+  },
+  "source_sha256": {
+    "runtime/world/frame_tree.c": "c22f8b33c1169f71691b3f87521e1ac4eef2f5ceb66c6c3ac50bd5f351d4b5ba",
+    "runtime/world/frame_tree.h": "0b676d52132746060d3c150a74fc7e14af5348d709a2bc72dadb7816664a0953",
+    "runtime/world/actor_forest.c": "91eb74f99d747cdf162d3ffb548b397a442929da4f3735c28b9cc5993a6b00a1",
+    "runtime/world/actor_forest.h": "4fbdced1e821981afd906d34f8b5e92579a993390915aec24ce2f70bd651a4b9",
+    "runtime/game/ending_normal.c": "76cafd7d283d38c1bdcb55d9fc26c734d4e02e2e3c02c66960b6b5bf37bd8ef5",
+    "runtime/game/ending_normal.h": "90b0fadbe47e07427871f769aec51cbabcf750e36522c299247926cb7a992b3d",
+    "runtime/scene/ending_normal_assets.c": "00537153c2a142e0f70d55526167ede42d581c01adeda23e5038ebdd7774c414",
+    "runtime/scene/ending_normal_assets.h": "2a94d4ce99f29242714ee7848b4c9c47deb00d955fca34a5a910961614ef7061",
+    "runtime/scene/lighting_registry.c": "7393730cf4f724831a2d28f03ee3799af672af351a14f3d1b4ae4b73ca29148b",
+    "runtime/scene/lighting_registry.h": "af1c036d8780fb300a79a33e0e7443e4b1e0befc323fda0865465ca5b973b3df",
+    "tests/test_frame_tree.c": "a3fba1f4bb63c57f6808bc19d1a70e9bd6cd29f936f894d6e9dde405206a4e67",
+    "tests/test_actor_forest.c": "63a99adc2a60cf739b29eabdbcbd739456bc51fe942a03b8fd71c4e1fa4844af",
+    "tests/test_ending_normal.c": "45737dbb5ad20619d9731bf39c2da60c8f33406e9ea23d5ce8ad8455b8a262ba",
+    "tests/original_ending_normal_assets_oracle.py": "438c66f4d1a67aaf5532a6765acf32d30003b0cfd4f31d2ae2b35aeed53fb1c1",
+    "tests/original_ending_lighting_oracle.py": "5fd01b81de6608fc89726c3e59ba2248c5b745ba935ed0f6b9ade3349406707d",
+    "tools/ending_normal_probe.c": "cc762eada8be958d4d6762d319031e37793018c5ee16e805fb9de379d5506685",
+    "CMakeLists.txt": "50e5a10c76c41a8ab19a827ec51cf7cae4608082e4e59635a7fbe76fe1b0bb25",
+    "test-host.sh": "97afc38164996b8e9854569136b360a49f32cc279d21aedaf9bb36e823c9b5dc"
+  },
+  "logs_sha256": {
+    "ending-background-oracle": "fbf3d380d15350408e59e9f80c36e78ac0ed150015157842f8a9bb117f86afec",
+    "ending-background-lighting-oracle": "c903a1b86e67440bd37d2e9bf661292c49b8f173e7cef18b7e11408277656a3a",
+    "ending-background-final-probe": "fde145e5c0f110db293a80759fb02cafed74f77130fcc1752043cd0ae7697944",
+    "ending-background-final-asan-probe": "fde145e5c0f110db293a80759fb02cafed74f77130fcc1752043cd0ae7697944",
+    "ending-background-ctest": "27bd851500889a7a4f23e34c8feb79524177978d0905f18da8cf424e20d19ee4",
+    "ending-background-asan-test": "c2c6528c43c58f9ada135893b50cbf4ef159145096a009f699f8b55a7581dd45",
+    "ending-background-architecture": "79653f6bd6a50bf3c34fe777bae92cca36c726e8a6695c1cd5e576f85a032d8f",
+    "ending-background-front": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "ending-background-final-build": "11a46e336dd9f5b4fefda1de54d556e9576775e27230c10f0fb9aa0e285765b7",
+    "ending-background-final-asan-build": "4436c21c3ebd94040f682a9afb2497f3334cbd7dc3405db704817654dc1cc2d3",
+    "ending-background-switch-build": "5a80d564481cd8ae43fa9d8b041b518e215f10773aa738f3098cd0d0803b7b5b"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Background attachment/shared CPU lighting only; full flow16 app integration remains absent",
+    "Fog device state deliberately remains a separate outer-loader service",
+    "No new Switch ending hardware verification",
+    "Native background model decoding/media/device services excluded from native comparisons",
+    "ASan detect_leaks=0; no LeakSanitizer claim"
+  ]
+}

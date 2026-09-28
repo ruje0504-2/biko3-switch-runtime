@@ -1,0 +1,131 @@
+{
+  "recorded_date": "2026-09-27",
+  "status": "title-resource-preview-only",
+  "gameplay_implemented": false,
+  "switch_hardware_tested": false,
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "host": {
+    "os": "Darwin",
+    "arch": "arm64",
+    "gpu": "Apple M4",
+    "vulkan_driver": "MoltenVK 1.4.2",
+    "driver_id": 14
+  },
+  "assets": {
+    "archives": 22,
+    "entries": 7081,
+    "pixel_exact_images": 4162,
+    "original_native_tbl_comparisons": 15
+  },
+  "tests": {
+    "unittest_methods_passed": 6,
+    "asan_ubsan_malformed_cases": 12000,
+    "vulkan_cases": [
+      {
+        "width": 17,
+        "height": 13,
+        "frames": 16,
+        "max_component_error": 1,
+        "component_range": 255
+      },
+      {
+        "width": 1280,
+        "height": 960,
+        "frames": 16,
+        "max_component_error": 1,
+        "component_range": 255
+      },
+      {
+        "width": 256,
+        "height": 56,
+        "frames": 16,
+        "max_component_error": 1,
+        "component_range": 255
+      }
+    ]
+  },
+  "model_audit": {
+    "objm_models_structurally_checked": 247,
+    "text_models_not_parsed": [
+      {
+        "archive": "bk3_04.pp",
+        "name": "cam00_03.x",
+        "format": "DirectX text 0302",
+        "parsed": false
+      },
+      {
+        "archive": "bk3_04.pp",
+        "name": "cam00_60.x",
+        "format": "DirectX text 0302",
+        "parsed": false
+      },
+      {
+        "archive": "bk3_04.pp",
+        "name": "cam01_50.x",
+        "format": "DirectX text 0302",
+        "parsed": false
+      }
+    ],
+    "failures": [],
+    "chunks": {
+      "MATE": 247,
+      "TEXT": 235,
+      "MESH": 247,
+      "FRAM": 247,
+      "ANIM": 245,
+      "FOG ": 247,
+      "ENVL": 80,
+      "MORP": 84,
+      "LIGH": 140,
+      "MATA": 78,
+      "TEXA": 24,
+      "PART": 13
+    },
+    "geometry": {
+      "meshes": 5248,
+      "submeshes": 12344,
+      "vertices": 3110274,
+      "triangles": 3308998
+    },
+    "runtime_model_support": false
+  },
+  "switch_binary": {
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 14938168,
+    "sha256": "7f104d1757ebf39ec6b9d697ae1b7403139e8465eb3aeb2f7d0b7519b2f9287f",
+    "elf_machine": "AArch64",
+    "undefined_symbols": 0,
+    "nro_magic_valid": true
+  },
+  "evidence": [
+    "local/test-host.log",
+    "local/original-tbl-oracle.log",
+    "local/model-audit.json",
+    "local/build-switch.log",
+    "build-switch/undefined.txt"
+  ],
+  "source_sha256": {
+    "build-host.sh": "9c96536a4a14783d1a1300a70a405fe91f418f3c8493faad1731ef740cd612bc",
+    "build-switch.sh": "d6a8a8ffe896875b4e410dfcab9ccc527136dbab46032a7dcefdc125bf615cee",
+    "runtime/assets.c": "5117f6c0d8bee16d19a8e5b6711ba2201e06eae3992cfc6713d685313ef69204",
+    "runtime/assets.h": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3",
+    "runtime/preview.c": "3036aec6bd98f9fa1f6abb22592104244d4268fd48080594b32ddad1bb8387e3",
+    "runtime/render_vk.c": "18286d8df70e8624ef00c31db97a7e0db865d9cb4b57f3a3e6bcec7b1144f123",
+    "runtime/render_vk.h": "b4f906fe7f0b3a98980475f95a9db2c1a19c676b0cec9a965da6ba2defe254af",
+    "runtime/shaders/sprite.frag": "9f3f349852a9ded2ad612cd7d935871ba893110f86bec92ecd81275e4c49d09e",
+    "runtime/shaders/sprite.vert": "069791cd0ad3815ae94734a002f17764c67cdbe66afaced5c52f49f3f8d97eb8",
+    "test-host.sh": "9a2adfa62cf90ba5d824e35c8de2f887fe01b938af3ed0c31b1d8d7c647c5fbd",
+    "tests/audit_game.py": "36abc0d967c8ff425d475c23a4eeaf23dd827015a142d918591882b119a79505",
+    "tests/fuzz_assets.c": "90be6c4688acae99d0daa6880f6ba2fca748467b4cc7c222f0f68c93ecea151a",
+    "tests/original_tbl_oracle.py": "cea0c3c4ac5b60850e35ec2981fb00ba1006f8bdce20b8f973adf9d4c1ad6375",
+    "tests/test_assets.py": "8034ab6f2fa846fc869455b1d228fbd6cfde6bb80d24060525e5b90387a9ef33",
+    "tools/asset_probe.c": "42a5aeb0bf9bc2b1e13393e9d2f009d55711bfd042b2f104622d53986cc98379",
+    "tools/bk3_assets.py": "519ee8e4637b8a1c3c9a8b9a038e19b669e27ea3bb9d352bd11b709de1c59a77",
+    "tools/build_shaders.py": "c1c81dfc334b2d0b7eaa9ff6133aa0083efa283f06732a8e70526cdb40273711",
+    "tools/fetch_sdk.py": "a5b234a6b245810199f07e950e9adc14800422f66cb8fab8c44df10125a7a534",
+    "tools/inspect_objm.py": "364bebebde0b38b15f14b6ea0c4f96f83d901e355a2403826c5a0f1857b8ccc8",
+    "tools/package_sd.py": "5f2ec11a260f80805edbb01744ffcef47fe78840ffb8d93d849d2809219dd002",
+    "tools/prepare_game.py": "d5bee94de39c7d99e0f928f90be881815459049c4056c5f5dcb74c7a02d62491",
+    "tools/render_probe.c": "ce0718b1416817dba70b54db92d9ddff1500abc043dfa40b128e6a4d638347a4"
+  }
+}

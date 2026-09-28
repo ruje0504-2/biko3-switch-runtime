@@ -1,0 +1,39 @@
+{
+  "hud": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 12000,
+    "message_bindings": 438,
+    "release_calls": 4596,
+    "scope": "Original51AFCB failure HUD, all fade/request/reset and51C47E instructions.\nBoundaries: decoded confirm keys, sound, message/font binding, weather/text draw\nand actual scene release. No decision, sprite transition or flow hook.\n"
+  },
+  "camera": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "steps": 12000,
+    "arrivals": 4061,
+    "max_relative_error": 0,
+    "scope": "Five original failure-camera functions, including unhooked sin/cos, aim,\nworld setters and signed convergence tests. Only FOV device setter is hooked.\n"
+  },
+  "cpu_unit_tests": {
+    "normal": 2,
+    "asan_ubsan": 2
+  },
+  "application_failure_flow_integrated": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "107d86f9bc52485909b803ed7271d32fef237d40449dacbaa4292d268a68e452",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/failure_hud.c": "2f687b82aa278d043fdf86d31b96ee4400bfea9176068c84e90c439ff110dc55",
+    "runtime/scene/failure_hud.h": "19a2f1d832598bafc645fd0d6d9f5e016ee9e9d8aba1f4bb07ea7970746dca04",
+    "runtime/world/failure_camera.c": "824abd430767c252a20d764e0673a34c5ab172a69abdfc93c768de4fc3521b6b",
+    "runtime/world/failure_camera.h": "4e8a3c87b9e3bf9f009f1f0ce70d3aa43f56d6c6f64bb8d4d9ab1dda7ae088db",
+    "tests/original_failure_hud_oracle.py": "8cad557f0fd45efdb57ea542cee9e905460b001b32bb3df1ef2fa1a70766d815",
+    "tests/original_failure_camera_oracle.py": "980464659c2ea0ccd293c7066fea846da58cbd70bc07ecf3129a4c7b381988d7",
+    "tests/test_failure_hud.c": "53fe83c2fdfb176ddb474ac21245bfaf56f07e83b460e73d7bfdff7656732aa3",
+    "tests/test_failure_camera.c": "673aba20662bbce50f83f112038c848595477af7b865ac070848b32da29fe248"
+  }
+}

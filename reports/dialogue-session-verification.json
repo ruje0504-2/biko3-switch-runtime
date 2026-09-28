@@ -1,0 +1,314 @@
+{
+  "passed": true,
+  "native_world": {
+    "passed": true,
+    "world_adapter": true,
+    "eye_code_inventory": [
+      {
+        "name": "i02_01.txt",
+        "sha256": "1d9f721aaf7d46b4c189276d53020fd3596a0960398060af96dcbc85faa2f290",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i02_02.txt",
+        "sha256": "6956aec3d2b240e4a6f250d882080839fffbc2d0595dd7c04415962a8cdd1208",
+        "count": 168,
+        "values": [
+          0,
+          1,
+          5,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i02_03.txt",
+        "sha256": "ecf9ad647e54e84652c042195c1212a1e4391ae471316a5152c52b92cc5d071a",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i02_04.txt",
+        "sha256": "deb6923b681f02f28b02a6add697602702eac444124aec3906ec262943d4d643",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i03_00.txt",
+        "sha256": "9cdc2e42a19287f86d5aa89f717cb27ed18b5dda8f8ab6e42289d8d3c66140a4",
+        "count": 77,
+        "values": [
+          6,
+          9
+        ]
+      },
+      {
+        "name": "i03_01.txt",
+        "sha256": "22e2435da32abb324eaca2bc3208d2a1733022dd014d0bb583cbcf5ad2d02bf0",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i03_02.txt",
+        "sha256": "4913291411fdfd46a6e26e4a225601873563dfddb7236c382e42a6293308b908",
+        "count": 114,
+        "values": [
+          1,
+          6,
+          9
+        ]
+      },
+      {
+        "name": "i03_03.txt",
+        "sha256": "714a2668595c20a3bdbdcb7a535a41014850cad5614921c49a2cb0d85bc7b1b0",
+        "count": 87,
+        "values": [
+          1,
+          6,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i03_04.txt",
+        "sha256": "778a6bb7cad51a5c7fbe1ea1335c5f054aea2412c1a0ab0603ca15d300a95e8c",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i04_00.txt",
+        "sha256": "1ca20787cb21a24ca07fdf5485974e4dfc28bc026498ab5483fd8c44684e2a16",
+        "count": 74,
+        "values": [
+          1,
+          9
+        ]
+      },
+      {
+        "name": "i04_01.txt",
+        "sha256": "8020fbff991764c4f9db0e4b6dcce8679e3480ab490f4fdd3f2dc36e2e69bf9f",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i04_02.txt",
+        "sha256": "50726b1a9618d21a39504fa3639a0c2da6a9ef6fc548d0aa13e68c3daca9d3c5",
+        "count": 106,
+        "values": [
+          0,
+          1,
+          9
+        ]
+      },
+      {
+        "name": "i04_03.txt",
+        "sha256": "c4d62071b7e91d08e5f2df331ed1b3eee54f166330191ef8cf17e7ce55a54471",
+        "count": 39,
+        "values": [
+          0,
+          5,
+          9
+        ]
+      },
+      {
+        "name": "i04_04.txt",
+        "sha256": "d085a5a9e109f2fc512b022e7c5afdb550207d1e811e0fd395a6f3aeb32646ef",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i05_00.txt",
+        "sha256": "ccef5146223f5b86ea514da62b7fb0cf9c72fa6e9feefab1c6bd00bd77901344",
+        "count": 13,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i05_01.txt",
+        "sha256": "7615317a38cf3fbe6f2c0255ab54c6166c4b35644b4e953ae9dd05026b1b42fe",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i05_02.txt",
+        "sha256": "f465404eee738073002cc5359b4eef49c6a25ffe5dc4b96e6d6524acba494609",
+        "count": 98,
+        "values": [
+          0,
+          6,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i05_03.txt",
+        "sha256": "9587e69e638879c7feeb6a4c66127b0245369195d9496abe1e5f2a8c779d5f34",
+        "count": 127,
+        "values": [
+          1,
+          4,
+          5,
+          6,
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i05_04.txt",
+        "sha256": "70fb28daa8bf6380be9007d90476e6926a03c3e3ce71f46f145d2e9785b0bb6e",
+        "count": 2,
+        "values": [
+          6
+        ]
+      },
+      {
+        "name": "i00_00.txt",
+        "sha256": "bb2acb0cb39ee6f5ff7ce4d82ae64bd2a35c67e3d2d38a63b2cf05bcfa26e329",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i00_10.txt",
+        "sha256": "f25511b1b6bdc26b521701d9b1dc6b8a42d1dbe8b84663da3b5b7335dd275958",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i01_00.txt",
+        "sha256": "f957836e2957b4c25dd78b655d3aebd2a534c3686f3264ac142edc49a8024c47",
+        "count": 148,
+        "values": [
+          1,
+          5,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "name": "i01_01.txt",
+        "sha256": "5045e602316895ff6c247989777b50b7cff2862d2e062cfa1c963a5453ca9ad0",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i01_02.txt",
+        "sha256": "29d17e48441c672ee0c753564c96bdd4f9ace978096d4842f749eadd2f4e3040",
+        "count": 112,
+        "values": [
+          7,
+          9
+        ]
+      },
+      {
+        "name": "i01_03.txt",
+        "sha256": "ed0e8ebd0220affe37007b934948c5da27bb4c9bc85f4012da050277ebb343d0",
+        "count": 0,
+        "values": []
+      },
+      {
+        "name": "i01_04.txt",
+        "sha256": "edac431419b9a38f51d8c177f078318a652175abba6383cb899a61e4d38bc734",
+        "count": 2,
+        "values": [
+          9
+        ]
+      },
+      {
+        "name": "i02_00.txt",
+        "sha256": "1ced60d33c8871686dd4b314d38c616dea76f62cb421a742e86fa26c001cf275",
+        "count": 95,
+        "values": [
+          0,
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "unsupported_scope": "Negative eye range can request negative MORP time; existing fail-closed behavior retained. All original #E values 0,1,4,5,6,7,8,9 covered, plus17 positive held-end fixture.",
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "policy": {
+      "rule_cases": 17457,
+      "camera_cases": 1200,
+      "max_error": 0
+    },
+    "steps": 1440,
+    "matrices": 2314920,
+    "face_vertices": 2397024,
+    "slot_loop_checks": 323200,
+    "hidden_frames": 300,
+    "one_shot_resets": 45,
+    "missing_body_cases": 256,
+    "max_error": 4.440892098500626e-16,
+    "records": [
+      {
+        "model": "h01_70",
+        "frames": 278,
+        "sha256": "13c5856cf5d71448f5f049a3fe5ed5e234859f58ae23d6aded3c0baf66c1d646"
+      },
+      {
+        "model": "h02_70",
+        "frames": 171,
+        "sha256": "bd0a882816bf5252ae73a4e9de8d0f630377ce4762d37e0064dcb530603ad2aa"
+      },
+      {
+        "model": "h03_70",
+        "frames": 213,
+        "sha256": "92b45da0183ab553a3b459180a4b4b6d02d55b6f011f1398fa3782f5936eb423"
+      },
+      {
+        "model": "h04_70",
+        "frames": 484,
+        "sha256": "287918379fede9469d1f5e8001d53cded51ea4b2e6a13c08121da5b6b3cc266e"
+      },
+      {
+        "model": "h05_70",
+        "frames": 382,
+        "sha256": "490db1b71b1fda1ec9075caa91733db3ff4b298b3ea3e772c402b54030e73572"
+      }
+    ],
+    "scope": "Original4f1b53,4bd641 and complete4f11f2 with five actual hNN_70 bodies.\n\nOriginal XAN, SRT, visibility, eyes and traversal execute in the caller VM.\nA separate original face-controller VM emits commands for a reference MORP\ninstance. OS clocks/audio envelope/eye texture are explicit service inputs;\nthis does not claim dialogue audio, UI, GPU or complete flow8 integration.\n"
+  },
+  "gpu_pcm": {
+    "groups": 5,
+    "frames": 3097,
+    "pages": 813,
+    "visible_frames": 1251,
+    "mouth_frames": 378,
+    "zero_update_redraws": 5,
+    "transitions": 5,
+    "phase_mask": "0000003f",
+    "rgba_fnv64": "a05fbf855005ebde",
+    "pcm_fnv64": "955098fa1676e6a9",
+    "pcm_samples": 14870400,
+    "asan_equal": true,
+    "gpu_allocations_returned_to_baseline": true
+  },
+  "source_sha256": {
+    "runtime/scene/dialogue_world.c": "582adbf52efb8bc9a34049034284b580136a71fb1103c29caaa7f80c941de0ad",
+    "runtime/scene/dialogue_world.h": "ed0691746c9c37e0c75299aa75af861424455a9950ae2a82ce87a0414fb49c0d",
+    "runtime/scene/dialogue_render.c": "98bd6ebc84d5d317cd75d456b7ee35a001fd22d9a51e95b2d961bf330ddfa5b5",
+    "runtime/scene/dialogue_render.h": "b0d2df84c4a35716b00cbca008f7be8c72766ba8b45d66e5b1484011666d920c",
+    "runtime/scene/dialogue_session.c": "31f1f26df4eb21b6d4d6df073a6bddbe6f32e2c27d586f3e6c92fc391641c6f6",
+    "runtime/scene/dialogue_session.h": "18e95dbb6c2a29a7b1aedce50d955ae4610b51e6c609a477cf1c34e18fcbb498",
+    "runtime/scene/dialogue_audio.c": "83f95f1d52d558a233c2c8668cbb9b44a91523f6232dee18866e1d442632b20c",
+    "runtime/scene/dialogue_audio.h": "d80999db02b5922468cf1d9b893cf21bd0dc0ac56105ef9b32a0e7ef1934d9dc",
+    "tools/dialogue_session_probe.c": "bef8e094d44f22f03004a62a18717398395b6734596c2e0dc20bfa2ddf421ba8",
+    "tests/original_dialogue_actor_oracle.py": "2df86177a17bd8b36e17e222ccbdc0cbe03f4be5eb678aec34f7e95272ccd795"
+  },
+  "logs_sha256": {
+    "local/dialogue-world-oracle.log": "5c471b6240ae08c19513493df18ec4954780fa7a1c682dd28f29284f4465eb99",
+    "local/dialogue-session-final.log": "12c81c5708333307b8b444554645312e105d13c89139c27fe072f9bbcc141628",
+    "local/dialogue-session-final-asan.log": "12c81c5708333307b8b444554645312e105d13c89139c27fe072f9bbcc141628"
+  },
+  "switch_hardware_verified": false
+}

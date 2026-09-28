@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 12000,
+    "services": 319701,
+    "draws": 24000,
+    "visibility_calls": 62178,
+    "material_calls": 605,
+    "camera_table_rows": 540,
+    "base_names": 150,
+    "target_axes": [
+      48,
+      4885,
+      474,
+      6593
+    ],
+    "missing_lookup_fixtures": 64327,
+    "alias_fixtures": 218914,
+    "byte_exact": true,
+    "scope": "Full4d9898 orchestration against original instructions. Camera/node/GPU\nservices are observed boundaries, not an assertion of native rasterization.\nBoth draw descriptors, names (including empty), duplicate/missing lookups,\nordered visibility/material calls, live state edits, target arithmetic,\nviewport/pass boundaries and camera restoration are compared exactly.\n"
+  },
+  "device_forwarding": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "wrapper_cases": 54,
+    "clear_cases": 2000,
+    "viewport_cases": 500,
+    "clear_slot": "IDirect3DDevice7 vtable+0x28",
+    "flags": 2,
+    "default_depth": 1,
+    "byte_exact": true,
+    "scope": "Original BeginScene/EndScene guards, viewport construction and D3DX Clear\nforwarding. Execute constructor529b9c and52ab5d..52ab8f up to the real D3D7\nClear slot; only the device boundary is replaced. No Windows GPU claim.\n"
+  },
+  "gpu": {
+    "component_frames": 120,
+    "channels": 921600,
+    "capture_resumes": 120,
+    "normal_asan_equal": true,
+    "byte_exact": true,
+    "stable_allocations": true
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "947834127921ae617f366bd2f48e623c9c1a6f88b490f053da266da11f8d7c40",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/game/ending_special.c": "a1d56eef847c615b0ec250a861136607ece32ab481ee1b8d85da67712ebb47ae",
+    "runtime/game/ending_special.h": "8f1a6485a23334781b140fd4166ed155eb89e0e1d3188cb283aa7bb9b9c5b84b",
+    "runtime/game/ending_special_data.inc": "c84db59ff3e74089cf76d12c6bef0a4835354cfeae4a6537dcd88d81598d71d9",
+    "runtime/render/renderer.h": "e430d843d81962956d5559a45012a798d63de9096ef98faf1e98d4cac388261e",
+    "runtime/render/vulkan/renderer.c": "4d7fa7d4a4a35e66cc423f4e85834526c70fa9de70d52b37ccaf30c10be55cec",
+    "tools/depth_clear_probe.c": "bdc71d2b764ad8e2782faad2ca8cd86292f1eca9de726bd0e46165c38e0eab72",
+    "tests/test_ending_special.c": "0d5702389544465734fd8d067927e6cc07e3344f04b33e307e43b70364f6dafe",
+    "tests/original_ending_special_oracle.py": "574f10e9f00a794cb82e065df115168aebecc29d27a1c5e08887f8ea589677c9",
+    "tests/original_ending_clear_oracle.py": "af4769921a8b5216f6c609b31efa917eebded9e061c54dfb7ab0300f429ea99a",
+    "CMakeLists.txt": "7791ed6cbaa7a10322e75aaa52d00abca23d45bdfc8653af6dc5138df15d8e12",
+    "test-host.sh": "c7659977efcdbf80ec6628e8b1596d2356862523e105a07a2116515d2c2f526a"
+  },
+  "logs_sha256": {
+    "ending-special-build": "eabe1e1d72cbfeb8ee327b7b2271e362795fafe1a2449262b3d24ff69fdad122",
+    "ending-special-asan-build": "1cb1fb6bd34bf6ceb134ba51a35c3fc0b2bbfbd220d86c4e534b9322d6173ef9",
+    "ending-special-unit": "b7e1550793f2c240f029d61f58c16594c99e2482938a8771588356c554701107",
+    "ending-special-asan-test": "c8fc623f1c5c1dfa9150ed2df525293bfdf2a55a278edf64aab6371b6ff03ad0",
+    "ending-special-oracle": "fe957bc848e8d9fccf22dcc28e38a8c422cf4bd8a33412018754292fbb9012d3",
+    "ending-special-clear-oracle": "3d69442cfeaffdd44d57f4fd222d11493f8357f1cb59f7f4be0da0ab9e8b9e5c",
+    "ending-special-gpu": "be06da977a8294f48dddd8ac854c0827a2eb2ac358d7728ab0d7e4aea15694ca",
+    "ending-special-asan-gpu": "be06da977a8294f48dddd8ac854c0827a2eb2ac358d7728ab0d7e4aea15694ca",
+    "ending-special-gpu-build": "c8ebdbd347f0076e98d36b7d5d9cdb58f66937994ec866903fd01a18f50eaa5e",
+    "ending-special-asan-gpu-build": "4573b062a6ea06055c35fa3556cf75180b60423c6b1ab4c09320938f9c866b99",
+    "ending-special-architecture": "d944844ae478d06fa0be329673c278dca464d67b2a55fa3214f75bf6821b3d73",
+    "ending-special-switch-build": "9839018dc027f136d2f35717dac40abd2cecea7ad726967ed1c46f1d2acb503f"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Special scene production adapter and two-view GPU snapshots are not integrated",
+    "Native replay observes camera/node/GPU services; not a full geometry or rasterization oracle",
+    "Synthetic GPU rectangles only; no new ending Switch hardware validation",
+    "ASan detect_leaks=0"
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "stage": "M1.3",
+  "status": "original-office-static-integration-complete",
+  "project_version": "0.3.0",
+  "recorded_at": "2026-09-26T21:15:04.863362+00:00",
+  "m1_visual_acceptance_complete": false,
+  "original_mesh_rendering_connected": true,
+  "lighting_implemented": false,
+  "fog_implemented": false,
+  "original_camera_implemented": false,
+  "animation_implemented": false,
+  "gameplay_implemented": false,
+  "switch_hardware_tested": false,
+  "original_exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "scene": {
+    "archive": "bk3_03.pp",
+    "archive_sha256": "b44383b0b67dfcfcf80c4bd93f4a73da533a2c57303e8bf70c3770841340060b",
+    "entry": "m01_04.x",
+    "entry_sha256": "2c12fbb89271a894cce1b3d4c70ff198f753ee4078eab878ddd7614b8bdd42a2",
+    "mesh_count": 38,
+    "submesh_count": 66,
+    "material_count": 64,
+    "texture_count": 42,
+    "frame_count": 65,
+    "instance_count": 93,
+    "first_queue_instances": 63,
+    "sorted_queue_instances": 30,
+    "gpu_parts": 62,
+    "hidden_parts": 4,
+    "uploaded_vertices": 7657,
+    "uploaded_indices": 19572,
+    "texture_rgba_bytes": 6060032,
+    "pose": "FRAM base pose",
+    "camera": "development inspection camera; not original game camera"
+  },
+  "native_static_oracle": {
+    "passed": true,
+    "queue_checks": 1324,
+    "synthetic_queue_checks": 1192,
+    "original_office_queue_checks": 132,
+    "sort_cases": 102,
+    "native_regions": [
+      "0x4228de single mesh",
+      "0x422a17 group child",
+      "0x42c56a..0x42cbb9 sorting passes"
+    ],
+    "scope": "branch classification and prepared-key ordering only; not full frame traversal or distance calculation"
+  },
+  "gpu": {
+    "device": "Apple M4",
+    "driver": "MoltenVK 1.4.2",
+    "resolution": [
+      1280,
+      720
+    ],
+    "geometry_cases_passed": 6,
+    "geometry_cases": [
+      "clockwise visible under perspective",
+      "reverse winding culled",
+      "reverse winding visible with culling disabled",
+      "near-plane rejection",
+      "far-plane rejection",
+      "UV opposite corner sample"
+    ],
+    "static_identical_frames": 16,
+    "camera_movement_changes_pixels": true,
+    "camera_reset_byte_identical": true,
+    "office_title_office_cycles": 3,
+    "office_reload_byte_identical": true,
+    "missing_data_creation_rejected": true,
+    "existing_scene_usable_after_failed_creation": true,
+    "title_byte_identical_to_prior_baseline": true,
+    "application_office_byte_identical_to_scene_probe": true,
+    "rgba_sha256": {
+      "office": "30e3546ba05a85348dcaa120b621e29f8a04ba99351c1c2faa579735a1bd304f",
+      "moved": "48c287def81a78aa3dc72f7f642c0916cc4351ee9260148da73a7f2df63ae195",
+      "title": "8f6ed15f5f8df8c022d85cb6895f6c5fa7146930508bfc5c4bec7f0afb7e3b7d"
+    },
+    "original_windows_same_view_comparison": false
+  },
+  "tests": {
+    "host_ctest_passed": 8,
+    "python_passed": 20,
+    "asan_ubsan_ctest_passed": 8,
+    "asan_ubsan_original_scene_probe": "passed"
+  },
+  "switch": {
+    "version": "0.3.0",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "29df7daa3ce1d947da26d3753ff20295f8497497ceabbc7299d31faf09313731",
+    "undefined_symbols": 0,
+    "default_scene": "office",
+    "application_content": "unlit static office and title previews",
+    "hardware_tested": false
+  },
+  "artifacts_sha256": {
+    "build-switch/biko3-preview.nro": "29df7daa3ce1d947da26d3753ff20295f8497497ceabbc7299d31faf09313731",
+    "build-switch/libbk_model.a": "36310461032c82dedea8f88c5cc8e14191a2f7d65f07fcd8753c96a0e33c7f36",
+    "build-switch/libbk_scene.a": "22643ba74cf228093a7abe97622e857cb9bece500a08b6c53f59e1efe3f9239c",
+    "build-switch/libbk_render.a": "0cabb31493c479c074307f0d0052f70759b42da488961868fbbeb59098328b3d"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "dc62d3d3c676006ac26cc479907d0b5f091b75e2aa7724897e265d9f00c8f39b",
+    "config/dependencies.lock.json": "3b87bce068788185fed2e089ca0f586e77a5dc658fa60af692ba09a9f81527fc",
+    "runtime/app/application.c": "f990ae3f4a10b7bc59d6f723fab8196fe2a1919fbee56bb1a8b589f85238a7a0",
+    "runtime/app/application.h": "c019c51d075c356be8fd79a85228ff7a4409b848ccd9544e11c4947b313a9d9e",
+    "runtime/app/main.c": "40901c0d90da3c18091f29c3b1c41bd9c9bfbc48eb524907f5dad4ed8186a383",
+    "runtime/core/clock.c": "a14ad426db38ba325ef0319641d45f80113430e8835e5594940bc61ff5ba8882",
+    "runtime/core/clock.h": "a650ab2c6813fe3c2d10e2ecf2b0e2317c6bb003e2e95b9997b2a5fdc0893893",
+    "runtime/core/input.c": "cbb5ef491f2b7ea2354ca177cc89221b0b6d1565fa1cf6a53d0ed8f3f6937c94",
+    "runtime/core/input.h": "5b10dba1936f839544cee59d8ab8e7a80e4f9f1f8d195dee87e008a1faa76b70",
+    "runtime/core/matrix.c": "1e2fe88f2874d25a6d91ff70076a64e337c4b880ab26518ff05bc36673f2e21f",
+    "runtime/core/matrix.h": "b4ee995a387229f748b95140317143f5f1033f2514de24b2fb01ee0c42c1b85c",
+    "runtime/model/material.c": "bf3b884d0bc93af826b4671d0921712313db42d1874f1b94301f2339a0bda753",
+    "runtime/model/material.h": "a765824fff177ce339dadb18a222bae4efb8e26e8e97b50c8a10cab32912ffa1",
+    "runtime/model/model.c": "4fec871b533f47c949639b1a1258db0162d86c0161d74c614dd9c0af0ba34f72",
+    "runtime/model/model.h": "6d9eb36abf357a955557d82eb7307b94581bdd7a884ea487943fcc210d2f8f31",
+    "runtime/model/static_model.c": "9c77b075ca977c461d88e1a7e9fa282a0513b3768033476e2da6008544deb32e",
+    "runtime/model/static_model.h": "2b7dfaa35e8f7a047b4d4479e20b038adeb8ec5d57b773875c62435db51782e1",
+    "runtime/platform/host.c": "0c90ebec93cade8471950ebc78727ef67ad29dfa3c7775ae7873483fe2dabff1",
+    "runtime/platform/platform.h": "ca99e082e97564c0e197184f64ed477afd59a0d516a07b1a26afbcac916109a4",
+    "runtime/platform/switch.c": "bd468d9776d9afe91c342c8063afc9814e00db7f7b1a550441c0381d8a335eea",
+    "runtime/render/renderer.h": "d327a0b1dcc0aba40db0bc8e09d8b2db55d5de19e1624d807840329a74032dd5",
+    "runtime/render/shaders/sprite.frag": "9f3f349852a9ded2ad612cd7d935871ba893110f86bec92ecd81275e4c49d09e",
+    "runtime/render/shaders/sprite.vert": "069791cd0ad3815ae94734a002f17764c67cdbe66afaced5c52f49f3f8d97eb8",
+    "runtime/render/vulkan/renderer.c": "9bf61df44114e4b1d2120e765397464dd0e7067905a90e3c4d76ee6589f3c555",
+    "runtime/resource/assets.c": "575265ddec316ae87547108d7ba0d60cc2adc54abbfb14e529da1feeec0ae447",
+    "runtime/resource/assets.h": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3",
+    "runtime/resource/store.c": "dc241f2656867d5743fc063cf860fd38e52ee4e0aafc2dfa02017e95e6422c30",
+    "runtime/resource/store.h": "3114fa059f7eb8803ebc3d71181d073c3da056fa79f1eec38addb47b68d7b63b",
+    "runtime/scene/inspection_camera.c": "e8f78205eeb4b54d89c85f9f931aef27e64ad9c3199b6d6831bd6c045f82cd1c",
+    "runtime/scene/inspection_camera.h": "45f2ada694b8edcd9ac898513e708e2b6160019f95b7b0fb4223eff5e0959565",
+    "runtime/scene/scene.c": "cface2edcbc0385b976c9905e280efff790274b4854b1a74b735ef5104e051d8",
+    "runtime/scene/scene.h": "f86955e6d9d2b5dff41cc090dcee43e3e6c0a91f38e7c66411d6885288cf42ca",
+    "runtime/scene/scene_internal.h": "41cda73be1ea1af1c944fe25be888d6d1c56c9cae5aac283eecc579531e61426",
+    "runtime/scene/static_world.c": "16843550bf30098ef2a12bdf7e9b2494aa56eec9139b3d27f17ea8e12ab06a6b",
+    "runtime/scene/title.c": "9365977d39fdfd52f357a5dda0658f9951158de4ccb40dbd158a542b5fc85236",
+    "runtime/ui/debug_overlay.c": "b0ed2685bd7ec5e2f816395b2e5f376115a114849286455be8f43ec025cb9af3",
+    "runtime/ui/debug_overlay.h": "c48d1cb3eaa9569d824e2660c5f505979448005c772388f2bfb2d88c8f602fba",
+    "tests/original_static_oracle.py": "4e1eba9e6c8496699a8fad190412b608059ef5e08333cfa74d3ecea590b820b1",
+    "tests/static_binding.py": "499c423e21279fa7a4392b51a4b139c1656cee321d77d6086ab6d3f5fa9cfd22",
+    "tests/test_static.c": "de18d148f95dc4ef5ab773edcc5c1e0ae8b9e664dc22846f2847c89b64f61514",
+    "tests/test_static_model.py": "18f7d5e787652acedb4386d6239a15a30b9f2818ac3b514c275ba1dde0e33f8c",
+    "tools/package_sd.py": "369b132887e909af15ee556a19cccec526a990eaa5623e8e966f8a706defe345",
+    "tools/scene_probe.c": "94653d580d48fc0b5a7a994178afc9af025edd98c37ae8ab6411294129a08beb"
+  },
+  "evidence": [
+    "local/static-ctest.log",
+    "local/static-unit.log",
+    "local/static-oracle.log",
+    "local/original-static-oracle.json",
+    "local/static-scene-probe.log",
+    "local/static-asan-test.log",
+    "local/static-asan-scene.log",
+    "local/static-switch-build.log",
+    "local/static-office.log",
+    "local/static-packaged-office.log",
+    "local/static-packaged-title.log"
+  ],
+  "next_stage": "M1.4 original lighting/fog/camera, visual comparison and hardware evidence when available",
+  "package": {
+    "path": "交付/SD卡根目录/switch/biko3",
+    "status": "unlit-static-office-preview",
+    "files": [
+      {
+        "path": "biko3-preview.nro",
+        "sha256": "29df7daa3ce1d947da26d3753ff20295f8497497ceabbc7299d31faf09313731",
+        "size": 14970936
+      },
+      {
+        "path": "game/Data/bk3_00.pp",
+        "sha256": "bd20b2d0a83be7ea9075cb4faea12774e15e07f57e7abde08b857c518ea12dfd",
+        "size": 426356710
+      },
+      {
+        "path": "game/Data/bk3_00.tbl",
+        "sha256": "fcbfdf3de66221168af175d64a2a33f76b04ce7fe6d6d1a72d896429e65138d2",
+        "size": 8638
+      },
+      {
+        "path": "game/Data/bk3_03.pp",
+        "sha256": "b44383b0b67dfcfcf80c4bd93f4a73da533a2c57303e8bf70c3770841340060b",
+        "size": 155467744
+      },
+      {
+        "path": "game/Data/bk3_03.tbl",
+        "sha256": "e040aaac65e48eddfc0284cfc283732edd3cbde7946523af95faf26a6d201765",
+        "size": 23463
+      }
+    ],
+    "verified_size_sha256": true,
+    "binary_data_bytes": 596827491,
+    "host_frames_per_scene": 16,
+    "host_office_matches_source_data": true,
+    "host_title_matches_prior_baseline": true,
+    "switch_hardware_tested": false
+  }
+}

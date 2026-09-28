@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-09-27T20:41:32.756941+00:00",
+  "passed": true,
+  "native_state": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 16685,
+    "replacements": 1372,
+    "sequence_completions": 12,
+    "observed_phases": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      10,
+      11,
+      127,
+      128,
+      255
+    ],
+    "max_error": 0,
+    "scope": "Full4f1503 with original50e633/50e6ba fade state machines.\n\n4f19ec resource replacement is an explicit service boundary resetting its\nconstructed fade. No file/GPU output or full flow8 claim in this oracle.\n"
+  },
+  "native_layout": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "configurations": 16,
+    "draws": 960,
+    "vertices": 5760,
+    "max_error": 0,
+    "scope": "Original dialogue image/curtain construction and draw geometry.\n\nExecutes4f0c3c..4f0cb1,4e7033..4e70b0 and full4f19ec with original50de40,\n43ed45,443daa,50e633/50e6ba. Only resource/vertex-lock/draw services supplied.\n"
+  },
+  "gpu": {
+    "frames_each": 987,
+    "replacements_each": 21,
+    "rgb_samples_each": 18455724,
+    "max_error_byte": 1,
+    "rgba_fnv": "0788e8fa0cb56d81",
+    "ordinary_and_asan": true,
+    "owned_allocation_baseline_restored": true
+  },
+  "targeted_ctest_each": 1,
+  "architecture_checks": 2,
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "3052908add48ba748723df8f3bfb9b69589ec503d7c37e11c5153f985f469c1f",
+    "undefined_symbols": 0
+  },
+  "sources": [
+    {
+      "path": "runtime/scene/dialogue_backdrop.c",
+      "bytes": 2966,
+      "sha256": "89a24fe46ff4219de6cc109f98ca3a9f89e79bbea98789c501e4d635619653a2"
+    },
+    {
+      "path": "runtime/scene/dialogue_backdrop.h",
+      "bytes": 1920,
+      "sha256": "78b493c463dc51642bc4fc111ba06d4b5586c0de386b8119a629cee2940c46c3"
+    },
+    {
+      "path": "runtime/scene/dialogue_backdrop_render.c",
+      "bytes": 4619,
+      "sha256": "26d01b73902b0de002a47cee0f007c17be10831cef007af933ad75fa14c57721"
+    },
+    {
+      "path": "runtime/scene/dialogue_backdrop_render.h",
+      "bytes": 1554,
+      "sha256": "b311297d99ed35ff1acab440212bbe7765f8f3b0eb1cfa774d59e9c898358226"
+    },
+    {
+      "path": "tests/test_dialogue_backdrop.c",
+      "bytes": 2632,
+      "sha256": "b9aa80a56707daebf58e865e5087d931116835e48edb76bf7a7155e308fae746"
+    },
+    {
+      "path": "tests/original_dialogue_backdrop_oracle.py",
+      "bytes": 6462,
+      "sha256": "56731bf29c2b992e264fe9c3c85b505b917df8978fbf38a371e85918210afdef"
+    },
+    {
+      "path": "tests/original_dialogue_backdrop_layout_oracle.py",
+      "bytes": 3687,
+      "sha256": "a6033460a088a6ab6c51814facc39cf7635bd23d3cded8a6b5f16609aa8453ac"
+    },
+    {
+      "path": "tools/dialogue_backdrop_probe.c",
+      "bytes": 8118,
+      "sha256": "822e3d25edb96bd59cafd48945c65b2420ff02eb6293da3cd8ed30efb067c8ab"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 33523,
+      "sha256": "7ce7595ad19210572ad1b9296b8ae58893e52d0c87eadde3776fbd24b63a4ee9"
+    },
+    {
+      "path": "test-host.sh",
+      "bytes": 4917,
+      "sha256": "614c18d368df87857147d8299ef9b91e3aaa95c75424ecfd8ff7bc329a4ca53a"
+    },
+    {
+      "path": "reports/dialogue-backdrop.md",
+      "bytes": 2466,
+      "sha256": "b246c35671d9ae1213311478097dc0bdd8f10b3debdd6b6303d3b358de93c9fc"
+    }
+  ],
+  "logs": [
+    {
+      "path": "local/dialogue-backdrop-gpu.log",
+      "bytes": 305,
+      "sha256": "02e1978e6c1b3b14307736440990491202abbf2a9298fdfa8782c626a51ede38"
+    },
+    {
+      "path": "local/dialogue-backdrop-gpu-asan.log",
+      "bytes": 305,
+      "sha256": "02e1978e6c1b3b14307736440990491202abbf2a9298fdfa8782c626a51ede38"
+    },
+    {
+      "path": "local/dialogue-backdrop-unit.log",
+      "bytes": 314,
+      "sha256": "0504475cec4725ebdccf6c9180db3d333183d57166978ac080924a07864a0215"
+    },
+    {
+      "path": "local/dialogue-backdrop-unit-asan.log",
+      "bytes": 324,
+      "sha256": "8733c3a457c7fae180a625bda534c8e9daa9a46ebe75108cb1d73787510f3e5a"
+    },
+    {
+      "path": "local/dialogue-backdrop-layout-oracle.log",
+      "bytes": 404,
+      "sha256": "11c06e4493e5af2107ba4210ba395e8642ca0ef0e1d60de478dd3aa7b6324f23"
+    },
+    {
+      "path": "local/dialogue-backdrop-switch-build.log",
+      "bytes": 1014,
+      "sha256": "b876300699eb45c071aa2bf6a2bd642520e67c9e66d87830533e579db8fe8e50"
+    },
+    {
+      "path": "local/dialogue-backdrop-architecture.log",
+      "bytes": 100,
+      "sha256": "1aaf31b83bf7b44689091fd48bc2dec951071df6fbd06dac2e4a0ad077b0bdd7"
+    }
+  ],
+  "scope": "# 对话背景切换与独立黑幕\n\n`scene/dialogue_backdrop` 恢复原 `4f1503` 的背景切换阶段，借用人物共用的 phase/expression 和 `729c10` 独立黑幕；它不使用公共转场黑幕。先隐藏人物，经人物确认后淡出旧图，实际换图成功才初始化新图淡入；恢复表情后返回阶段0。大小写敏感的七字节 `SG00001` 前缀另走独立黑幕循环。背景先 request 再 advance，黑幕先 advance 再 request，绘制使用当次捕获的透明度。\n\n原 `4f19ec` 构造只重置图片内部淡出状态，保留外部 wanted 字节，不能把它一并清零。替换服务缺失或失败会明确终止当前帧；非法输入在状态变更前拒绝。图片初始构造使用1280×960，后续替换使用1024×768；两条路径的高度均乘宽度缩放，保留原 float 舍入和透明度字节截断。\n\n`scene/dialogue_backdrop_render` 拥有实际 `bk3_00` 图片及 `ma_02.tga` 纹理、两个网格。创建、替换和准备在活动绘制帧外进行；替换先完整加载新图，失败保留旧纹理及可重绘快照，成功后才退役旧图。绘制不推进状态，允许零更新重绘。缺图不伪造空白成功。\n\n固定中文 EXE SHA-256 `a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e`：完整 `4f1503` 连同原淡出函数回放16,685帧、1,372次替换和12段15/30/53/60Hz连续切换，误差0。原初始化片段及完整 `4f19ec` 执行16种配置、960次绘制、5,760顶点，尺寸、位置和透明度误差0。资源和绘制设备接口为显式服务边界，不是完整原版画面对照。\n\n真实六张背景及独立黑幕的 Vulkan 检查在普通/ASan下各运行987帧、21次替换、18,455,724个RGB采样，最大误差1/255，RGBA FNV均为 `0788e8fa0cb56d81`。覆盖三种视口、缺图后旧快照、非法输入、零更新重绘及实际淡出序列；人物隐藏确认是显式夹具。销毁后渲染器自有GPU分配回到基线。新增单元普通/ASan及两项架构检查通过，ASan关闭LeakSanitizer。\n\n指定 Mesa NVK 交叉构建通过、未解析符号0。新组件尚未接入应用完整 flow8，链接裁剪后的 NRO 仍为 `3052908add48ba748723df8f3bfb9b69589ec503d7c37e11c5153f985f469c1f`；已交付存档/撞车修正包保持冻结。本阶段不是 Switch 剧情实机验收。接下来恢复真实语音/音乐、文本推进及整个 flow8，再接原标题入口。Mac 防休眠继续。\n"
+}

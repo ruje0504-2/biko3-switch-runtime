@@ -1,0 +1,11 @@
+# 暂停背景与拍照截图
+
+render/bk_renderer_capture在活动帧内结束当前render pass，转移颜色图像到CPU可读缓冲，等待实际提交，然后以LOAD恢复颜色和深度。恢复视口/scissor、保留顶点流偏移，支持一帧多次截图；acquire信号量仅由首次提交消费，最后提交才发出present信号。Switch交换链需要TRANSFER_SRC；指定Mesa的wsi_common_switch调用wsi_caps_get_image_usage，包含该能力。失败必须终止当前渲染会话，不能继续使用半提交状态。
+
+scene/screenshot恢复49d085/49d094请求、取消及49d0eb服务，挂在操作HUD四个覆盖层之后，其余图标之前。pause配置来自4afeb0，photo配置来自4affb8；同帧最新请求覆盖之前的配置。游戏画幅裁剪到实际物理目标；photo读取真实bk3_15/cp.bmp，128×32，放在右下角留8像素处，以COLORREF0xff即纯红作透明色，不拉伸、不混合。输出失败保留pending并返回错误，成功才清除。此阶段没有宣称恢复通用mode0数字序号截图。
+
+resource/bitmap编码24位bottom-up BMP。原49c4f3的bfSize只填像素长度，奇数宽度也缺规范行填充；移植明确修复文件总长度并填充到4字节行，像素和2834像素每米等字段保持。app/capture_output将scene的字节输出服务接至save/capture_file，scene不越层写存档。pause原子替换独立输出根sy_99.bmp；photo写album下ri_/re_/cr_/ma_/mi_前缀、原日期时间格式及signed32 timeGetTime余数形成的名字，重复名字替换。临时文件失败不破坏原文件，拒绝路径穿越。照片名的group来自原B53954；实际平台时钟需由应用提供，探针中的日期是显式夹具。游戏存档格式仍未实现。
+
+原指令验证49c4f3、49c7e3、49c3f0及49cf48：16次24/32位源编码、695288像素、40组全前缀和有符号时钟边界文件名通过，规范修正后独立Pillow解码一致。GPU活动帧验证192次截图、6193152 RGBA字节，颜色/深度/视口保留精确一致。真实HUD探针5次pause覆盖、5张照片，7464960 RGB字节精确一致，确认93916个后续HUD像素没有进入截图；普通与ASan均通过。文件测试覆盖99个奇数尺寸往返和实际失败后旧文件保留。
+
+53host/28Python/44CPUASan通过。指定Mesa NVK交叉构建成功，NRO 879e6464a9a8784ce27c415c5aa7ea2ea52e93fe49741582a79ef5b3264d50d5，undefined0。主机MoltenVK像素验证不是Switch实机验证。暂停菜单、输入热键、flow50和可玩应用仍待装配；SD归档0.3.5未替换。原始游戏目录只读，防休眠继续。

@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "native_controllers": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "matrix_blends": 4000,
+    "preset_frames": 6000,
+    "zoom_frames": 6000,
+    "completions": [
+      2175,
+      2093
+    ],
+    "fov_changes": [
+      474,
+      2039
+    ],
+    "max_relative_error": 0.0,
+    "scope": "Original4ae043 matrix interpolation and complete4e0ecb/4bc444 controllers.\nFOV device call observed; native trig, matrix and frame code runs unchanged.\nCovers two independent clocks, retained +4a4, all FOV gates, three preset\nchoices and unused sixth argument of4e0ecb. No actor/event lifecycle implied.\n"
+  },
+  "native_real_assets": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "profiles": 50,
+    "native_loaders": 50,
+    "frames": 6000,
+    "matrices": 435550,
+    "integer_root_rotations": 1000,
+    "max_relative_error": 0.0,
+    "scope": "Retail flow16 camera loader and six controllers with actual two tracks.\nFull4b79e0/4be4f8 observes file/path/model/context boundaries, with decoded\nauthored frame trees supplied to the native loader. Native selection/root\nrotation/name lookup/presets run unchanged. Separate track VMs execute actual\nXAN/SRT/controllers/publication; the target is an explicit stationary fixture.\nText-X parsing has its own original447667 oracle; no ending body/UI implied.\n"
+  },
+  "host_probe": {
+    "profiles": 50,
+    "frames": 9000,
+    "held": 7650,
+    "updated": 1150,
+    "fnv64": "81628feeabe22993",
+    "asan_matches": true
+  },
+  "unit_tests": 2,
+  "architecture_tests": 2,
+  "switch_nro_sha256": "5843a8c03833f2e422dc432ef73ed99e9c9b6b7821676b332cfb8c276252a720",
+  "undefined_symbols": 0,
+  "application_bound": false,
+  "switch_hardware_verified": false
+}

@@ -1,0 +1,371 @@
+{
+  "stage": "M1.4-camera-foundation-substep",
+  "status": "original-projection-and-view-integration-complete",
+  "project_version": "0.3.2",
+  "recorded_at": "2026-09-26T22:22:16.574775+00:00",
+  "m1_visual_acceptance_complete": false,
+  "lighting_implemented": true,
+  "fog_implemented": false,
+  "original_projection_implemented": true,
+  "original_view_math_verified": true,
+  "original_camera_implemented": false,
+  "original_camera_track_sampling_implemented": false,
+  "animation_implemented": false,
+  "gameplay_implemented": false,
+  "switch_hardware_tested": false,
+  "original_exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "scene": {
+    "archive": "bk3_03.pp",
+    "archive_sha256": "b44383b0b67dfcfcf80c4bd93f4a73da533a2c57303e8bf70c3770841340060b",
+    "entry": "m01_04.x",
+    "entry_sha256": "2c12fbb89271a894cce1b3d4c70ff198f753ee4078eab878ddd7614b8bdd42a2",
+    "mesh_count": 38,
+    "submesh_count": 66,
+    "material_count": 64,
+    "texture_count": 42,
+    "frame_count": 65,
+    "instance_count": 93,
+    "first_queue_instances": 63,
+    "sorted_queue_instances": 30,
+    "gpu_parts": 62,
+    "hidden_parts": 4,
+    "uploaded_vertices": 7657,
+    "uploaded_indices": 19572,
+    "texture_rgba_bytes": 6060032,
+    "pose": "FRAM base pose",
+    "camera": "development inspection camera; not original game camera",
+    "ambient_lights": 1,
+    "point_lights": 6,
+    "ambient_argb": "0xff332619",
+    "lens": {
+      "fov_y_radians": 1,
+      "height_over_width": 0.75,
+      "near": 0.5,
+      "far": 126384
+    },
+    "scene_aspect": [
+      4,
+      3
+    ],
+    "viewport_1280x720": [
+      160,
+      0,
+      960,
+      720
+    ]
+  },
+  "native_camera_oracle": {
+    "passed": true,
+    "main_loop_lens": [
+      1.0,
+      0.75,
+      0.5,
+      126384.0
+    ],
+    "camera_advance_factor": 0.5,
+    "camera_advance_checks": 128,
+    "projection_checks": 259,
+    "view_checks": 277,
+    "original_base_camera_frames": [
+      {
+        "asset": "cam00_00.x",
+        "node": "Cam_AUTO",
+        "frame_index": 2
+      },
+      {
+        "asset": "cam00_00.x",
+        "node": "Cam_01",
+        "frame_index": 4
+      },
+      {
+        "asset": "cam00_00.x",
+        "node": "Cam_02",
+        "frame_index": 5
+      },
+      {
+        "asset": "cam00_00.x",
+        "node": "Cam_03",
+        "frame_index": 6
+      },
+      {
+        "asset": "cam00_01.x",
+        "node": "Cam_AUTO",
+        "frame_index": 7
+      },
+      {
+        "asset": "cam00_02.x",
+        "node": "Cam_AUTO",
+        "frame_index": 2
+      },
+      {
+        "asset": "cam00_02.x",
+        "node": "Cam_02",
+        "frame_index": 4
+      },
+      {
+        "asset": "cam00_02.x",
+        "node": "Cam_01",
+        "frame_index": 5
+      },
+      {
+        "asset": "cam00_02.x",
+        "node": "Cam_03",
+        "frame_index": 6
+      },
+      {
+        "asset": "cam01_55.x",
+        "node": "camloop",
+        "frame_index": 2
+      },
+      {
+        "asset": "cam01_55.x",
+        "node": "Cam_01",
+        "frame_index": 4
+      },
+      {
+        "asset": "cam01_55.x",
+        "node": "Cam_02",
+        "frame_index": 5
+      },
+      {
+        "asset": "cam01_55.x",
+        "node": "Cam_03",
+        "frame_index": 6
+      },
+      {
+        "asset": "cam02_50.x",
+        "node": "cam",
+        "frame_index": 7
+      },
+      {
+        "asset": "cam02_55.x",
+        "node": "camloop",
+        "frame_index": 7
+      },
+      {
+        "asset": "cam03_50.x",
+        "node": "cam",
+        "frame_index": 3
+      },
+      {
+        "asset": "cam03_55.x",
+        "node": "camloop",
+        "frame_index": 3
+      },
+      {
+        "asset": "cam04_50.x",
+        "node": "cam",
+        "frame_index": 7
+      },
+      {
+        "asset": "cam04_55.x",
+        "node": "camloop",
+        "frame_index": 7
+      },
+      {
+        "asset": "cam05_50.x",
+        "node": "cam",
+        "frame_index": 3
+      },
+      {
+        "asset": "cam05_55.x",
+        "node": "camloop",
+        "frame_index": 3
+      }
+    ],
+    "normalized_max_error": {
+      "projection": 0,
+      "view": 7.124353049373508e-07
+    },
+    "initialization_mode2_checks": 45,
+    "office_initialization": {
+      "group": 0,
+      "area": 8,
+      "camera_path": [
+        "\\cam00_02.xan"
+      ],
+      "nodes": [
+        "Cam_AUTO"
+      ],
+      "background_path": "\\m01_04\\m01_04.xan"
+    },
+    "selection_scope": "mode 2 loader branches with file/path/device boundaries mocked; not active gameplay/cutscene dispatch",
+    "math_scope": "original 0x523a10 projection; 0x4224cd -> 0x522eea view inverse and captured SetTransform(2); clip-Y adapted for Vulkan",
+    "camera_track_sampling_implemented": false,
+    "office_active_pose_verified": false,
+    "native_addresses": [
+      "0x523a10",
+      "0x4224cd",
+      "0x522eea",
+      "0x4b79e0",
+      "0x4bef54",
+      "0x4f6bfa..0x4f6c15",
+      "0x4662dd..0x466306",
+      "0x4bdc6c..0x4bdc8d"
+    ]
+  },
+  "gpu": {
+    "device": "Apple M4",
+    "driver": "MoltenVK 1.4.2",
+    "resolution": [
+      1280,
+      720
+    ],
+    "geometry_cases_passed": 6,
+    "geometry_cases": [
+      "clockwise visible under perspective",
+      "reverse winding culled",
+      "reverse winding visible with culling disabled",
+      "near-plane rejection",
+      "far-plane rejection",
+      "UV opposite corner sample"
+    ],
+    "static_identical_frames": 16,
+    "camera_movement_changes_pixels": true,
+    "camera_reset_byte_identical": true,
+    "office_title_office_cycles": 3,
+    "office_reload_byte_identical": true,
+    "missing_data_creation_rejected": true,
+    "existing_scene_usable_after_failed_creation": true,
+    "title_byte_identical_to_prior_baseline": true,
+    "application_office_byte_identical_to_scene_probe": true,
+    "rgba_sha256": {
+      "office": "4c4714a96b815012b5210124ee81b9bd31ea2611fdc267681b698e5ba36c947d",
+      "moved": "36cf0a0d23d39d8aba9bbca9ba197850a15fb82fd46ea14d90696d2c4abf8588",
+      "title": "8f6ed15f5f8df8c022d85cb6895f6c5fa7146930508bfc5c4bec7f0afb7e3b7d"
+    },
+    "original_windows_same_view_comparison": false,
+    "lighting_error_lsb_max": 2,
+    "immutable_light_descriptor_isolation": true,
+    "lit_mesh_format_guard": true,
+    "singular_world_matrix_rejected": true,
+    "ui_state_restored": true,
+    "viewport_shapes": [
+      [
+        128,
+        72
+      ],
+      [
+        80,
+        80
+      ],
+      [
+        81,
+        61
+      ]
+    ],
+    "viewport_scissor_every_pixel_verified": true,
+    "same_frame_ui_viewport_reset": true,
+    "next_frame_viewport_reset": true,
+    "original_lens_depth_cases": 18
+  },
+  "tests": {
+    "host_ctest_passed": 11,
+    "python_passed": 23,
+    "asan_ubsan_ctest_passed": 11,
+    "final_lens_affected_host_ctest_passed": 3,
+    "final_lens_affected_asan_ubsan_ctest_passed": 3,
+    "final_lens_original_scene_probe": "passed",
+    "final_lens_asan_ubsan_original_scene_probe": "passed"
+  },
+  "switch": {
+    "version": "0.3.2",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "34e33641028b09d50aa4812df77379eaa77aa68168e342034f97a393f9542ef4",
+    "undefined_symbols": 0,
+    "default_scene": "office",
+    "application_content": "point-lit static office with original lens and inspection pose; title preview",
+    "hardware_tested": false
+  },
+  "artifacts_sha256": {
+    "build-switch/biko3-preview.nro": "34e33641028b09d50aa4812df77379eaa77aa68168e342034f97a393f9542ef4",
+    "build-switch/libbk_core.a": "c2d8ae05d08892ad9feddc999ece37836ec585f5b107e6a2704f33fc26b5cf93",
+    "build-switch/libbk_model.a": "a54cbf560fbc398d05c9cdb883431743a7c997dd0f802c5f51245da050c55980",
+    "build-switch/libbk_render.a": "c83d75ca5575ea2aff13504e919c4b1b4e5de5d544743158c643be1951c284ad",
+    "build-switch/libbk_scene.a": "da6a5142a6b2792563523909b52e4e4d98bade1e2debb7386a9b20a8dd84ce5c"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "3b92941bbeb280db56615a33d25bd2bdbd2b5f6b083b784a6f332fa26b3d19d0",
+    "config/dependencies.lock.json": "2382ca30dd527ca08a856f8c5c12a85f978f9d0d2bdd7aa04f2fdcb1c24e9148",
+    "runtime/app/application.c": "f990ae3f4a10b7bc59d6f723fab8196fe2a1919fbee56bb1a8b589f85238a7a0",
+    "runtime/app/application.h": "c019c51d075c356be8fd79a85228ff7a4409b848ccd9544e11c4947b313a9d9e",
+    "runtime/app/main.c": "40901c0d90da3c18091f29c3b1c41bd9c9bfbc48eb524907f5dad4ed8186a383",
+    "runtime/core/camera.c": "352b377a7970783585120b188882c64fd52f9ac77cb1519fc174787428c224e6",
+    "runtime/core/camera.h": "7e0cee9a474fbbd6f80170ccee9f01eb9ec7066378b63725c995ce41a65202a7",
+    "runtime/core/clock.c": "a14ad426db38ba325ef0319641d45f80113430e8835e5594940bc61ff5ba8882",
+    "runtime/core/clock.h": "a650ab2c6813fe3c2d10e2ecf2b0e2317c6bb003e2e95b9997b2a5fdc0893893",
+    "runtime/core/input.c": "cbb5ef491f2b7ea2354ca177cc89221b0b6d1565fa1cf6a53d0ed8f3f6937c94",
+    "runtime/core/input.h": "5b10dba1936f839544cee59d8ab8e7a80e4f9f1f8d195dee87e008a1faa76b70",
+    "runtime/core/lighting.c": "16830369acd52ae828f4781dcab8d66f0ede18133d8ffff1dd757897b4118d31",
+    "runtime/core/lighting.h": "bbd5b52ada13560a8a0375a672594162ac80ada553d9f19c9b1e548c346ec961",
+    "runtime/core/matrix.c": "1e2fe88f2874d25a6d91ff70076a64e337c4b880ab26518ff05bc36673f2e21f",
+    "runtime/core/matrix.h": "b4ee995a387229f748b95140317143f5f1033f2514de24b2fb01ee0c42c1b85c",
+    "runtime/model/environment.c": "5aec31128f068f27dc49f99f1f1150f4ac5ae752feb9a0b6eed8acafb9075613",
+    "runtime/model/environment.h": "39896e1ba666ca57c5220c1e1e9addfcd1c0522cb9d89c6081b53cae7d5ff1ed",
+    "runtime/model/material.c": "bf3b884d0bc93af826b4671d0921712313db42d1874f1b94301f2339a0bda753",
+    "runtime/model/material.h": "a765824fff177ce339dadb18a222bae4efb8e26e8e97b50c8a10cab32912ffa1",
+    "runtime/model/model.c": "4fec871b533f47c949639b1a1258db0162d86c0161d74c614dd9c0af0ba34f72",
+    "runtime/model/model.h": "6d9eb36abf357a955557d82eb7307b94581bdd7a884ea487943fcc210d2f8f31",
+    "runtime/model/static_model.c": "9c77b075ca977c461d88e1a7e9fa282a0513b3768033476e2da6008544deb32e",
+    "runtime/model/static_model.h": "2b7dfaa35e8f7a047b4d4479e20b038adeb8ec5d57b773875c62435db51782e1",
+    "runtime/platform/host.c": "0c90ebec93cade8471950ebc78727ef67ad29dfa3c7775ae7873483fe2dabff1",
+    "runtime/platform/platform.h": "ca99e082e97564c0e197184f64ed477afd59a0d516a07b1a26afbcac916109a4",
+    "runtime/platform/switch.c": "bd468d9776d9afe91c342c8063afc9814e00db7f7b1a550441c0381d8a335eea",
+    "runtime/render/renderer.h": "cecb5f4878418d4d6872e8ac954c264dc92f92cc25d69f14449406034e80ce99",
+    "runtime/render/shaders/lit.vert": "7daf12ce0833ff64a1a69fe690cae54d3e2baad1b171db949c5fac766d39820a",
+    "runtime/render/shaders/sprite.frag": "9f3f349852a9ded2ad612cd7d935871ba893110f86bec92ecd81275e4c49d09e",
+    "runtime/render/shaders/sprite.vert": "069791cd0ad3815ae94734a002f17764c67cdbe66afaced5c52f49f3f8d97eb8",
+    "runtime/render/vulkan/renderer.c": "1791ca94877507fd689785ba7cfbae09c3ec40dcee8a0fd309bee2afc0d5f6a9",
+    "runtime/resource/assets.c": "575265ddec316ae87547108d7ba0d60cc2adc54abbfb14e529da1feeec0ae447",
+    "runtime/resource/assets.h": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3",
+    "runtime/resource/store.c": "dc241f2656867d5743fc063cf860fd38e52ee4e0aafc2dfa02017e95e6422c30",
+    "runtime/resource/store.h": "3114fa059f7eb8803ebc3d71181d073c3da056fa79f1eec38addb47b68d7b63b",
+    "runtime/scene/inspection_camera.c": "1b1edfbc54533981546f4b0943f99efc347738f3cb4046d570ca55d3d7856766",
+    "runtime/scene/inspection_camera.h": "90b1ed2e42b86902488e5e05bbec61b696b2854db6ee4f15a37d572b7af11c02",
+    "runtime/scene/scene.c": "cface2edcbc0385b976c9905e280efff790274b4854b1a74b735ef5104e051d8",
+    "runtime/scene/scene.h": "f86955e6d9d2b5dff41cc090dcee43e3e6c0a91f38e7c66411d6885288cf42ca",
+    "runtime/scene/scene_internal.h": "41cda73be1ea1af1c944fe25be888d6d1c56c9cae5aac283eecc579531e61426",
+    "runtime/scene/static_world.c": "f2ec060c6a585795de31cc22c538a524a3299f1a67e6310650a8949a7b2aae6f",
+    "runtime/scene/title.c": "9365977d39fdfd52f357a5dda0658f9951158de4ccb40dbd158a542b5fc85236",
+    "runtime/ui/debug_overlay.c": "b0ed2685bd7ec5e2f816395b2e5f376115a114849286455be8f43ec025cb9af3",
+    "runtime/ui/debug_overlay.h": "c48d1cb3eaa9569d824e2660c5f505979448005c772388f2bfb2d88c8f602fba",
+    "test-host.sh": "e0df64cca015cbe7965b4e3c4953a09f472fc685983c2b6f437e5c86c88562b5",
+    "tests/original_camera_oracle.py": "eccf9fef69790967626a116bfcb1e405bd99cf611c2a02c91ebe62ac597806ae",
+    "tests/test_camera.c": "d59250082490a61a54be185a93949042ff3a8e9c568bec9fc442cf2af932e027",
+    "tools/camera_render_probe.c": "7606b1b26232d7a69fbd85b7ebeabe4de0d994087bfe0d0805822917d64802c4",
+    "tools/package_sd.py": "637514521a921a70a3127066a19626a9cbdb76413a86c5cd8afeca48df4dc711"
+  },
+  "evidence": [
+    "local/camera-asan-build.log",
+    "local/camera-asan-scene.log",
+    "local/camera-asan-test.log",
+    "local/camera-build.log",
+    "local/camera-ctest.log",
+    "local/camera-final-asan-build.log",
+    "local/camera-final-asan-test.log",
+    "local/camera-final-build.log",
+    "local/camera-final-ctest.log",
+    "local/camera-office.log",
+    "local/camera-oracle.log",
+    "local/camera-scene-probe.log",
+    "local/camera-switch-build.log",
+    "local/camera-unit.log",
+    "local/original-camera-oracle.json",
+    "local/camera-packaged-office.log",
+    "local/camera-packaged-title.log"
+  ],
+  "next_stage": "M1.4 camera ANIM key types/units, native advance/sampling and active camera/actor anchor binding; same-view and hardware validation remain",
+  "package": {
+    "path": "交付/SD卡根目录/switch/biko3",
+    "status": "point-lit-office-original-lens-preview",
+    "files": 5,
+    "verified_size_sha256": true,
+    "binary_data_bytes": 596843875,
+    "host_frames_per_scene": 16,
+    "host_office_matches_source_data": true,
+    "host_title_matches_prior_baseline": true,
+    "source_and_artifact_hashes_match": true,
+    "copied_document_hashes_match": true,
+    "switch_hardware_tested": false
+  }
+}

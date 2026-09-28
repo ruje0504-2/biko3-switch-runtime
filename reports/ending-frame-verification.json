@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 20000,
+    "observed_calls": 60625,
+    "changed_flag_bytes": 8638,
+    "finish_requests": 721,
+    "operations": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "max_error": 0,
+    "scope": "Original4d74c9..4d7a95 event-stage dispatch, flags, end-wait and camera.\nInput capture/conversion/static constructor precede this kernel. Each missing\nchild controller is an explicit observing/mutating service, not implemented\nanimation/media. Captured11 words are explicit; no original stack-garbage\nmeaning or complete flow16 behavior is claimed.\n"
+  },
+  "unit": {
+    "normal": true,
+    "asan": true,
+    "branch_latching": true,
+    "callback_failure_prefix_retained": true,
+    "missing_services_fail": true,
+    "strict_30000ms": true,
+    "two_independent_clock_samples": true,
+    "unsigned_wrap": true,
+    "raw_float_bits": true,
+    "al_completion_only": true,
+    "bounds_rejection": true
+  },
+  "architecture_tests": 2,
+  "build": {
+    "nro_sha256": "a0a8a1221163505aaa81585693a24fe814005e57d5690424b53c96c232c23bb0",
+    "undefined_symbols": 0,
+    "new_dispatcher_app_bound": false,
+    "dead_stripped": true
+  },
+  "delivery": {
+    "path": "/Users/rujian/Documents/Codex/WX3/交付/开发验证版-20260928-原标题选人与剧情接入.zip",
+    "present": true,
+    "recorded_sha256": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "switch_hardware_verified": false,
+  "source_sha256": {
+    "runtime/game/ending_frame.h": "c696f5226904a6be14533d82aa3b5aa2e8f3ca40e13cffc10132582c3e19f98d",
+    "runtime/game/ending_frame.c": "c945052637673a1d6001b5751727e86a7cc5147a6a15d7fd84b3ac463ddec997",
+    "tests/test_ending_frame.c": "8d5911856a98b7c9ddd17008cd6ff58eb1ec372a121bdf8e172dc2afcfe639b6",
+    "tests/original_ending_frame_oracle.py": "59a4595416ce12e72fa8becac0710b3a4a0c655a7beed7746da14619e1e252d0",
+    "CMakeLists.txt": "6030538ac53fd8ddd207a2c9d749dba4e3bbbc83553e9d49bcd0ff1759e17ac1",
+    "test-host.sh": "b5b72199673ca1ef68d61165b43875eb952ea1048ffb83e5feae68fe7c764c0e"
+  },
+  "logs_sha256": {
+    "ending-frame-unit.log": "6fda5d850bab67054fe4ad954b2943259de66a04a50522ff786358511c4e7980",
+    "ending-frame-asan.log": "2a1a558f1cfd6939beeaa3955ca7a89ddc7a7fa4a935a0d7a45a547cfe1e7680",
+    "ending-frame-oracle.log": "60cf506df8b7cb754d8a43eef7a579ad1a1f4daa2f72d5891f4b655db51100df",
+    "ending-frame-architecture.log": "a2afe2a117463260275ede9ffa1f874a5bd98618dae5c738055bcf7750fb19f4",
+    "ending-frame-switch.log": "456cee9bea7167c522498e3c5278ed77e1c711128eaeffc12c6fe06011fdfe08"
+  }
+}

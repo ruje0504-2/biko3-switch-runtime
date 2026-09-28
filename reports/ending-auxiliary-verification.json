@@ -1,0 +1,141 @@
+{
+  "passed": true,
+  "scope": "Complete495d92 component and actual audio/eye/actor adapters; not full flow16 entry or ending playback.",
+  "dispatch": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 20000,
+    "service_calls": 37042,
+    "accepted": 12642,
+    "branches": [
+      2052,
+      2119,
+      2179,
+      2170
+    ],
+    "byte_exact": true,
+    "scope": "Complete495d92 scalar/clip-write dispatch vs original instructions.\nClip request4018c8 and media are observing service boundaries here; per-instance\nreal scheduler and assets are separately exercised by ending-auxiliary-probe.\n4dfb96/4a07a9 run original instructions with explicit eye-buffer fixtures.\n"
+  },
+  "clip": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "files": [
+      "h01_00.xan",
+      "h02_00.xan",
+      "h03_00.xan",
+      "h04_00.xan",
+      "h05_00.xan"
+    ],
+    "configs": [
+      {
+        "fam": "h02_00.fam",
+        "primary": "h02_00.xan",
+        "face_source": "h02_20.xan"
+      },
+      {
+        "fam": "h04_00.fam",
+        "primary": "h04_00.xan",
+        "face_source": "h04_20.xan"
+      },
+      {
+        "fam": "h03_00.fam",
+        "primary": "h03_00.xan",
+        "face_source": "h03_20.xan"
+      },
+      {
+        "fam": "h01_00.fam",
+        "primary": "h01_00.xan",
+        "face_source": "h01_20.xan"
+      },
+      {
+        "fam": "h05_00.fam",
+        "primary": "h05_00.xan",
+        "face_source": "h05_20.xan"
+      }
+    ],
+    "frames": 1500,
+    "changes": 215,
+    "automatic_chains": 29,
+    "max_relative_error": 0.0,
+    "scope": "Actual495d92 then4018c8/4026fe with five FAM-designated primary bk3_08 XANs.\nNo animation scheduler hook: only SRT submission, media and eye textures are\nservice boundaries. Dynamic slot links and all128 source clocks compared.\n"
+  },
+  "pose": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "actors": 5,
+    "frames": 600,
+    "changes": 150,
+    "matrices": 1410066,
+    "max_relative_error": 1.1102230246251565e-16,
+    "scope": "Full495d92 ->4018c8/4026fe ->original SRT and hierarchy publication.\nFive actual primary models from bk3_08. Audio is an observing boundary and\noptional eye target is absent; actual PCM/eye bindings have separate probes.\nExplicit action4 fixture at each run start; not full ending entry/stage logic.\n"
+  },
+  "audio_commands": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "calls": 1446,
+    "loads": 726,
+    "commands": 3612,
+    "resource_identity_exact": true,
+    "scope": "Original4946b4/49490a/4e0956/4ad2bf resource and buffer-command order.\nPackaged-file loader, Win32 string helpers and DirectSound buffer vtable are\nobserved boundaries; naming, slot selection and all original control run.\nEmits original commands for actual-PCM two-mixer replay (not Windows DSP).\n"
+  },
+  "audio_probe": {
+    "normal_asan_equal": true,
+    "samples": 2548800,
+    "nonzero_samples": 2547118,
+    "fnv": "1092d25cb4d5e81d",
+    "calls": 1446,
+    "commands": 3612
+  },
+  "asset_probe": {
+    "normal_asan_equal": true,
+    "primary_models": 5,
+    "audio_profiles": 30,
+    "frames": 3600,
+    "accepted": 232,
+    "gated": 128,
+    "eye_selections": 232,
+    "matrix_fnv": "efb11f3ce00589b1",
+    "pcm_samples": 6339840,
+    "pcm_fnv": "69f7f8469b311b11",
+    "entry_policy": "Explicit action4 reset per audio profile. Slots2..5 use real se004 as declared fixture; actual ending loader sounds not yet recovered."
+  },
+  "checks": {
+    "host_ctest": 3,
+    "architecture": 2,
+    "asan_new_unit": true,
+    "failed_service_prefixes": 70
+  },
+  "switch_build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "2ead894e616a18af4b91f72c0e8edc0f4043ba0cad015eff720288443d851954",
+    "undefined_symbols": 0
+  },
+  "frozen_artifacts": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982",
+    "build-switch/biko3-preview.nro": "2ead894e616a18af4b91f72c0e8edc0f4043ba0cad015eff720288443d851954"
+  },
+  "remaining": [
+    "Actual ending loader and retained initial states",
+    "Face update consuming expression fields",
+    "Other required ending stage/event services and UI",
+    "Full flow16 integration and unlock table production",
+    "Switch hardware verification"
+  ],
+  "evidence": {
+    "local/ending-aux-unit.log": "78cf261c36ac4262b7208813f8f7b0290501b2aa498887c44bc4a67cd3be25ef",
+    "local/ending-aux-unit-asan.log": "16ec3965dd3d2a3b24e73414c9b24e2d4eaab5525de50744789d441ae073fb14",
+    "local/ending-aux-architecture.log": "f6c7556120a6df693f3accdf7acfcede1c908b087adda8a5cacd64abd63927b9",
+    "local/ending-aux-oracle.log": "19c1a32be39d4b2d9732f2add8c85ad3c537e7295af0ee86baf9b6f09d5ac61f",
+    "local/ending-audio-oracle.log": "161fa478618750dfd2fda2eb81789dd930e9abb09357802e89c8ba50b0bdaf54",
+    "local/ending-aux-clips-oracle.log": "2fa7d064b79272d2600bb824f779757a7af393e8f26df6e05e71b4db43ee5e3f",
+    "local/ending-aux-pose-oracle.log": "8e92d905cf1cc4afff650c9a3f161f782d3b5bd5e474247914a79ec67c78492b",
+    "local/ending-audio-trace.txt": "593a999c6700c2bd533ee161e6be7ffd8381820aaf44e63ed1eee50f93b4ddd6",
+    "local/ending-audio-probe.log": "a4a8690d5b16d4cc844a44ec559f4da1ede429b272dd426c8fd0c838c3b7422e",
+    "local/ending-audio-probe-asan.log": "a4a8690d5b16d4cc844a44ec559f4da1ede429b272dd426c8fd0c838c3b7422e",
+    "local/ending-auxiliary-probe.log": "0b8d29f17728b8fec7fdf79d841c9a74b81c02a50ebd90bcd8eb53b0eb24a5c8",
+    "local/ending-auxiliary-probe-asan.log": "0b8d29f17728b8fec7fdf79d841c9a74b81c02a50ebd90bcd8eb53b0eb24a5c8",
+    "local/ending-aux-switch.log": "6183d266096ebc0547d3c45ffe9f8fae43e8782a905fdfe5c66363c317ea28a4"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "status": "failure-and-retry-integrated-not-full-port",
+  "created_utc": "2026-09-27T15:36:32.338034+00:00",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "71c453d1245c78136678daf5f50a573cc21c69bb3c5baa477f7274a010231ec9",
+    "undefined_symbols": 0
+  },
+  "hardware_tested": false,
+  "sanitizers": "ASan/UBSan; no LeakSanitizer claim",
+  "natural_input_only": true,
+  "natural_flow": {
+    "normal": "PASS natural-failure-retry opening=994 game=589/726 outcomes=3/2 menu=187/63 retry-opening=995 final=title",
+    "sanitizer": "PASS natural-failure-retry opening=994 game=589/726 outcomes=3/2 menu=187/63 retry-opening=995 final=title"
+  },
+  "oracles": {
+    "original-failure-entry-oracle": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "resource_profiles": 30,
+      "player_resets": 2400,
+      "max_error": 0,
+      "scope": "Failure4eb0ee resource tables/order and4bf7db represented player reset.\nOriginal x86 table construction and CPU stores execute; resource allocation,\npath expansion, font binding and DirectSound are captured service boundaries.\n"
+    },
+    "original-failure-frame-oracle": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 12000,
+      "callbacks": 56100,
+      "restarts": 978,
+      "failure_prefixes": 6,
+      "scope": "Full51b244 dispatcher with camera/audio/presentation boundary captures.\nCompare ordered callbacks plus live actor/prop/visibility bytes. Five camera\nimplementations and actor tails have separate native-instruction oracles.\n"
+    },
+    "original-retry-oracle": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "constructors": 25,
+      "steps": 10300,
+      "draws": 57352,
+      "events": 10129,
+      "natural_frames": 300,
+      "scope": "Original4eb9d4 construction and51bbe9 complete retry UI, real sprite fades,\ncursor timer and51c47e transitions. Hooks only image/GPU/audio/input/clock and\nscene release services. CPU snapshots and ordered service prefixes compared.\n"
+    }
+  },
+  "evidence": {
+    "local/failure-frame-oracle.log": "762372717e5ee9690ef79bdf26d7c94736a74a5932c821edbd97e95144823bba",
+    "local/failure-entry-oracle.log": "56f8b104c82c1520b933e552e3eb0f11c4abd4035268590c3f3b8c63396e9624",
+    "local/retry-oracle.log": "50ba2afba9b664dfb7bfada99e53c539409c8e28459e9ad5caf589369b4eff30",
+    "local/failure-session-current-test.log": "5ffd46e4b105d075780bed2d884bc0c8c3b6821bf80d3a0126466600c6c28d37",
+    "local/failure-session-current-asan-test.log": "5ffd46e4b105d075780bed2d884bc0c8c3b6821bf80d3a0126466600c6c28d37",
+    "local/failure-retry-flow-test.log": "701f48cdd0ec54708a7ff468b78fe6bc98b1bb5a0f43edd6cf3345e3ea652889",
+    "local/failure-retry-asan-flow-test.log": "701f48cdd0ec54708a7ff468b78fe6bc98b1bb5a0f43edd6cf3345e3ea652889",
+    "local/failure-retry-app-regression.log": "c0480a002244ec6bf2186936d5b7c74b57169db38269e617fb350e1545d0c0ad",
+    "local/retry-regression.log": "ee688668f967b8c8fd9e727dd9e60a3b54399612f790ad4be70aa6187ed579c1",
+    "local/retry-asan-unit-test.log": "9a690e809cb2b41faa88d965eb896d807d3cf197ca0608029fb871c30c9c15cc",
+    "local/failure-retry-architecture.log": "cb481be8f3d3b66b0be107f3a55b4cbf977850032f2c20b62c40fc7efc4ddff1",
+    "local/failure-retry-switch-build.log": "ab3799514f8c27a120572d4a17a5a187527616b234bbc60adf20ddd349b5a9bb"
+  },
+  "source_sha256": {
+    "runtime/game/failure_frame.c": "3b3817d8f2738a09ec24587cd7f6263cf69aee37bba9374ef1777ad12cd079ba",
+    "runtime/game/failure_frame.h": "088f5315b538ba5dbe205bed0dbd0ddd8e2832bded7a03d25de18b4fb7752512",
+    "runtime/game/actor_entry.c": "6f050b6bc581d33d5134cabbf9efe3be9676cbd3b5e4ccc056b47622ae3187f5",
+    "runtime/game/background.c": "2e93b52b886039d0517d2ba1f61f4f22aa8c04addf70f2b0c1fdf68453b3d74a",
+    "runtime/scene/background_audio.c": "c896d88a512b2be2d1d8525a5344dcdf5f24221d738fa9ff23833e7599c0430f",
+    "runtime/scene/failure_session.c": "66fc8e55e777026300af549c7ec8d0716af43f236474857d8141cafddaca1087",
+    "runtime/scene/failure_session.h": "f8aa214ef5ecee61b89c20015dca675699ed785fac3272599dd63c0d98bc0e71",
+    "runtime/scene/game_frame.c": "eab994285355c6bbf29b9d7a0f72f82d9529853420d9887665e17b0a8f3f068b",
+    "runtime/scene/entry_assets.c": "30a337f480f5c55f2e0416b174958518b1921e01571a966cc59c9b39f1fb4a1f",
+    "runtime/scene/entry_forest.c": "0d77e37db65c0c1b9f885bf8a65ad8ab4136b4d90a7ee4050b7605f99b4211c2",
+    "runtime/scene/npc_audio.c": "504c93e8070a83fb96308082073f1adba211cbd1c2dd341446db3f837ca6f311",
+    "runtime/scene/player_audio.c": "f6f0c98b11c9f4da33b8ce546b1b719382f63376db19efb1825ba1ab90756b5f",
+    "runtime/scene/prop_audio.c": "8a3bf9ad7bb76a50c6e5247fd884d506e3397bf8888bb742c4240fca2ef4cbb8",
+    "runtime/scene/item_feedback.c": "ea99f965441f4918b6a0623997bbbd4d7bccfd848ad1a2d0b31a9dc7d1f7df7d",
+    "runtime/scene/item_notice_render.c": "a9eebc1ccb31fbcf28266079ecd46a5d5fc29486a2ba0a796f334df1204ee723",
+    "runtime/scene/retry.c": "598a05743b258cbdf8aed56d1fc2f71a8ca63017ec7f358caa01debdb5fbba22",
+    "runtime/scene/retry.h": "21017980d1ea01c5f736fc89103b927769db76058ff03738088bdbfa12184ec1",
+    "runtime/scene/pause_render.c": "847cb0afe369065fde07386fe96250856816ef23fb8bf13996c44ebddf116ce6",
+    "runtime/app/game_preview.c": "02ec5998109cd7fd36b0c4bdefbd4b2afd2e2cb7732c920a244a4f2091949bac",
+    "runtime/app/play_session.c": "5819ce1a030747805c5348b32d12ec82c9a895e5a5baba6562bb432f14cd3d9d",
+    "runtime/app/retry_preview.c": "f008bd8e30fe2b757f5c57496ebde27d1594bd7ffda821c0d45f83e9162d16ad",
+    "runtime/app/retry_preview.h": "aa7a1cd279fec2cbfbb4343b9aabaa5abbf8ce02d6a78a232e3d5f451c83aa46",
+    "runtime/app/application.c": "c8e64902a0c13f315f8e8bbd33457cde269f10e0c5709ba1865b8a834375b106",
+    "tools/failure_flow_probe.c": "b938d77062a040d3c3aa2e3e743907218885ecd292958330983539cfe27d84b5",
+    "tools/failure_session_probe.c": "b63eacf46902b7d96051da3ef7a08aa3a00d5439f9e01bfe25a516f493344e9b",
+    "tests/test_retry.c": "ebdfdffd6aea00d6704e1fd7f47b787fe44902039f34f3aae46b7cb856c5cbdc",
+    "tests/original_retry_oracle.py": "e8e6f76597496ccbaca56286cc41a2939a27316d5789a761691a4957071cf5e6",
+    "tests/original_failure_frame_oracle.py": "a5552566eb59f465d3f4487f43137550081a29cb5525a248a88fb2e00742b0ae",
+    "tests/original_failure_entry_oracle.py": "0e5059b6c79b2a2a11c02cbf6185c0e8d13b7ca9fee5530b20c04bf170ea8c02",
+    "CMakeLists.txt": "bf7dfe070d9079a2d5e7ccb1e2844d13219741e932940c400f001545836a64fb"
+  },
+  "captures": {
+    "local/failure-retry-flow.rgba": "0f0648b84125f95d198f3469e490d81d7ae52560f3ed65750edbf55378e5a9ca",
+    "local/failure-retry-flow.rgba.retry.rgba": "35b0af580daf7ccb39ef07f12ac01555862c2c4edc886720d070b328d143f49e",
+    "local/failure-retry-asan-flow.rgba": "b38c7c39c605f638a4edb3ef06beea80b1c886b9b7a1f849b05d825adba13714",
+    "local/failure-retry-asan-flow.rgba.retry.rgba": "35b0af580daf7ccb39ef07f12ac01555862c2c4edc886720d070b328d143f49e"
+  }
+}

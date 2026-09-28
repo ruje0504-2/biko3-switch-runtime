@@ -1,0 +1,166 @@
+{
+  "passed": true,
+  "hardware_verified": false,
+  "full_ending_integrated": false,
+  "primitive": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "counts": {
+      "axis": 1500,
+      "node": 6000,
+      "manual": 6000,
+      "oscillator": 12000,
+      "single": 3000,
+      "multiple": 3000
+    },
+    "completed": 210,
+    "max_normalized_error": 0,
+    "scope": "Native5234e5/4241e3/42363b + complete49aa50/49ad16/49afde and\n49b28f/49b900/49b55f/49bde5. Real math and helpers execute unhooked.\nStatic constructor guard bits are pre-set; atexit registration is not run.\nExplicit cached matrices and retained state; no ending phase/actor dispatch.\n"
+  },
+  "actual": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "records": [
+      {
+        "name": "jouhansin.bom",
+        "bindings": 3,
+        "missing": 0,
+        "frames": 60,
+        "motion_calls": 440,
+        "completed": 40,
+        "followed": 180
+      },
+      {
+        "name": "h03_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60,
+        "motion_calls": 320,
+        "completed": 2,
+        "followed": 120
+      },
+      {
+        "name": "h02_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60,
+        "motion_calls": 320,
+        "completed": 2,
+        "followed": 120
+      },
+      {
+        "name": "h04_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60,
+        "motion_calls": 320,
+        "completed": 2,
+        "followed": 120
+      },
+      {
+        "name": "kahansin.bom",
+        "bindings": 2,
+        "missing": 1,
+        "frames": 60,
+        "motion_calls": 320,
+        "completed": 40,
+        "followed": 120
+      },
+      {
+        "name": "h01_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60,
+        "motion_calls": 320,
+        "completed": 2,
+        "followed": 120
+      },
+      {
+        "name": "h05_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60,
+        "motion_calls": 320,
+        "completed": 2,
+        "followed": 120
+      }
+    ],
+    "frames": 420,
+    "matrices": 1001910,
+    "vertices": 1505790,
+    "mapped_vertices": 6241,
+    "material_checks": 39260,
+    "max_normalized_error": 2.842170943040401e-14,
+    "scope": "Actual4a4dc3 binder, node lookup/math, global publication, registry mapping,\n40168c/4021a1 ANIM/MATA/MORP and hiding. Filesystem/heap/refcounts and matrix\nstack lifetime are boundaries; math, ordering and all animation run natively.\nExplicit7 actor pairs use BOM metadata only as test fixtures, not dispatch.\nActual actor adapter checks, layered on the independent native BOM loader.\nNo substitution of original control/math routines; only retained globals seeded.\n",
+    "motion": true
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "c9339ee8b4ad1e19cc7953d9fc8d881298ea6b78bc5565871e73c5fc98346bca",
+    "undefined_symbols": 0
+  },
+  "cpu": {
+    "frames": 1680,
+    "vertices": 2779920,
+    "fnv": "564a45e84bdbe0d3",
+    "normal_asan_equal": true
+  },
+  "gpu": {
+    "frames": 504,
+    "vertices": 2580264,
+    "max_relative_error": 3.57628e-07,
+    "normal_asan_equal": true
+  },
+  "app_rgba_sha256": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+  "source_sha256": {
+    "runtime/core/matrix.c": "3d17372a0c27218d9a1918420dc440938bff9a8086ec338ce2e6c9316e5ba134",
+    "runtime/core/matrix.h": "4f1824ca704012e119e3538654754be5d32d5258812c753ef3c426c4072464cf",
+    "runtime/world/node_reference.c": "7c32b7ae1817a95d91ae419f2795c709587d70cc12d63734ab9351197d85cc2e",
+    "runtime/world/node_reference.h": "e123bbb57b03971111a6d98c8dca3c6feab119ec1a07ad9a8044c5b65b0dc168",
+    "runtime/world/actor_pose.c": "f485386dfea7bdecadeea8f867118a8a60ea1efa392a088b3ff50ec78cdf7907",
+    "runtime/world/actor_pose.h": "176175abbc0a0146fc28baadccf94d07d1056ea93e893fb0a0c6ae9e02b6c6c5",
+    "runtime/world/bom_motion.c": "ff2b87fe8cdabc5cd38def15862a75a3836558eb9854aee217982b0b4950bcb1",
+    "runtime/world/bom_motion.h": "1a77995b3adfcec624645a0411c30578c70044aec7f42316d98365c2126e3002",
+    "runtime/scene/bom_motion.c": "d590ad29d024ca2623d43ef22f482cec450dbbecee7370514ffecdedbded8b51",
+    "runtime/scene/bom_assets.h": "38d915f8ec946795ccc167651f10b8867526659199449d9dc7c0783133dc1d50",
+    "tests/test_bom_motion.c": "98cdab76ec056a4a8d3071d30c2edb5a94f68189615ab162513edadd72f1f523",
+    "tests/original_bom_motion_oracle.py": "573e271c0b9120af0ad7026777e1f69ec194a728bd9a3a1b86c190fc92d35de0",
+    "tests/original_bom_assets_oracle.py": "6bde1f4e2081fe275e7f1194f6f6c84052320c01ecebbffdbf11e0156d1969c0",
+    "tests/bom_motion_binding.py": "1c5fa0c67d78c15ff1527565b4a33d715785f84ce46e9c0f646f3e347638ba2e",
+    "tools/bom_motion_fixture.h": "7f2b0770ddce686292ba886d7ca1f1881602452f337f03645e2b8571e6de4806",
+    "tools/bom_assets_probe.c": "6ac553c988c99f2d01132fd1ff698ea049064864dc8718665d143b7eed642d3f",
+    "tools/bom_render_probe.c": "fd09adac346d8f79e6c13b2b6853ae79e380ca3f8e91c98d6806a076b6262601",
+    "CMakeLists.txt": "13cf62e8c2b86f43bfdba351acd8e24f56b943e7df54d93e10a3b070bbaed77d",
+    "test-host.sh": "7445cd823e3955f57f13093503738295963b4885566da011e24c86600642535a"
+  },
+  "logs_sha256": {
+    "bom-motion-oracle": "ce64c499e959abd226261331f3e18358de1d61aeb7d7cbda85aa21c04cba21a6",
+    "bom-motion-assets-oracle": "6cde7c9de3a6ca1bca21b9da12fd6ebe9cccf18b22d1f80b81f265339151ab91",
+    "bom-motion-cpu": "f7e7e70bb0f1a0da9540dfeccc628ad930b06508483bd812fdc313bd227133c2",
+    "bom-motion-cpu-asan": "f7e7e70bb0f1a0da9540dfeccc628ad930b06508483bd812fdc313bd227133c2",
+    "bom-motion-gpu": "d14c34a8fe65dea0682d3513a23256acc06a3bcb6bfd9440d6d70e55d1703c1e",
+    "bom-motion-gpu-asan": "d14c34a8fe65dea0682d3513a23256acc06a3bcb6bfd9440d6d70e55d1703c1e",
+    "bom-motion-unit": "4332460d10c3735ef3f5fe3c12389a08e1dddf787d96176a56fc560e44dec848",
+    "bom-motion-unit-asan": "58f70bb883334dfe98e71d3d58c23b26a05189d4dab396b9371387ca2a8609e7",
+    "bom-motion-foundation": "1f81dd0df1bac3cbadaee0ed85960cf23b024cb33fafbb85262e42ddfe3c3227",
+    "bom-motion-foundation-asan": "1f81dd0df1bac3cbadaee0ed85960cf23b024cb33fafbb85262e42ddfe3c3227",
+    "bom-motion-front": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "bom-motion-front-asan": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "bom-motion-architecture": "f309c113a69c7d7043af5f2ba35e5a687578cb9651f03edf591b5d8e0166007a",
+    "bom-motion-build": "c98dd2b5840ac41e5383850d0d431537451b946626649ca662f33265a13ea68e",
+    "bom-motion-asan-build": "2c51cc92aeb9d10ec1d02a8999808a986ddba76ae8e88a72bf24461597978232",
+    "bom-motion-asan-vk-build": "1955b212a5f48a05df2fc8be867328cdb51513f5217cbdccef352f94860947d4",
+    "bom-motion-switch-build": "3ba7680bef5d5c67378b1de822e90285cce648f2c7d426cb839680a537f1b09a"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Explicit resource/controller fixtures, not production ending dispatch",
+    "No flow16/alternative4a52bc/seconds MORP blend/full loader integration",
+    "No current component Switch hardware test",
+    "ASan detect_leaks=0; allocation counters do not substitute for LeakSanitizer"
+  ]
+}

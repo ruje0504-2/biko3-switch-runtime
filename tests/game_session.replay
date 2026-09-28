@@ -1,0 +1,30 @@
+# Host deterministic replay: frame held-hex pressed-hex
+# Title -> opening -> camera/photo/move -> pause -> resume.
+1 0 1
+29 0 1
+59 0 1
+89 0 1
+119 0 1
+149 0 1
+179 0 1
+209 0 1
+239 0 1
+269 0 1
+299 0 1
+329 0 1
+1100 0 800
+1120 0 400
+1140 0 400
+1150 8 0
+1170 0 0
+1180 0 800
+1200 0 4
+1280 0 10
+1282 0 10
+1284 0 1
+# Reopen the same retained pause menu (row2), then confirm return to title.
+1460 0 4
+1550 0 10
+1552 0 1
+1554 0 20
+1556 0 1

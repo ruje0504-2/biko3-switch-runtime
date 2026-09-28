@@ -1,0 +1,136 @@
+{
+  "passed": true,
+  "full_ending_ui_integrated": false,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "oracles": {
+    "hints": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 3200,
+      "draws": 21106,
+      "vertices": 126636,
+      "profiles_with_hint_draws": [
+        638,
+        511,
+        650,
+        595
+      ],
+      "movement_ready_frames": 7,
+      "retained_ready_frames": 2550,
+      "all_points_skipped_frames": 322,
+      "meter_draws": 206,
+      "max_error": 0,
+      "scope": "Original4d4ed8..4d5e60 four hint branches, gauge and actual4971bd meter.\nOriginal calls, float-motion fabs, line/circle/animation and geometry execute\nunchanged; only device IO is substituted. Projected target arrays and primary\nclip are explicit inputs, not a recovered projection or complete ending.\n"
+    },
+    "prefix": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 800,
+      "draws": 26039,
+      "vertices": 156234,
+      "profiles_with_hint_draws": [
+        200,
+        200,
+        200,
+        200
+      ],
+      "movement_ready_frames": 0,
+      "retained_ready_frames": 638,
+      "all_points_skipped_frames": 80,
+      "meter_draws": 53,
+      "key_calls": 4,
+      "whole_prefix": true,
+      "max_error": 0,
+      "native_segment": "0x4d49a4..0x4d5e60",
+      "scope": "Original4d4ed8..4d5e60 four hint branches, gauge and actual4971bd meter.\nOriginal calls, float-motion fabs, line/circle/animation and geometry execute\nunchanged; only device IO is substituted. Projected target arrays and primary\nclip are explicit inputs, not a recovered projection or complete ending.\n Whole prefix includes actual pointer smoothing/capture and toolbar; port consumes captured float pointer/motion."
+    },
+    "cursor": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 2400,
+      "draws": 30240,
+      "vertices": 181440,
+      "null_device_policy_frames": 1444,
+      "absent_cursor8_frames": 1920,
+      "max_error": 0,
+      "scope": "Original4d6404..4d677b cursor/notice/popup ordering.\nSelection is explicit input from the preceding (still separate) selector.\nNo meaning is assigned to uninitialized caller stack values. The known native\nnull-device write policy is counted separately for unloaded popup images.\n"
+    }
+  },
+  "gpu": {
+    "hints": {
+      "profiles": 25,
+      "frames": 600,
+      "draws": 21980,
+      "samples": 18671760,
+      "fnv": "51c82bf597a581ac"
+    },
+    "cursors": {
+      "profiles": 25,
+      "frames": 600,
+      "draws": 29780,
+      "samples": 18565191,
+      "cursors": 4920,
+      "popups": 480,
+      "notices": 2400,
+      "fnv": "2b1aa0a6cecda642"
+    },
+    "max_unorm_error": 2,
+    "redraws_per_profile_set": 75,
+    "normal_asan_equal": true,
+    "allocations_stable": true,
+    "stage_regression_fnv": "d7ed665da77df4cb"
+  },
+  "unit_tests": 2,
+  "asan_unit_tests": 2,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_ui_hints.c": "57355d7d6aa1646aec86e2d700f8e2edb8ce60c96069873f5b65e12180a20533",
+    "runtime/scene/ending_ui_hints.h": "3f8509780b9eddb5d4f208260739f213c814d49a7ba7ca0488611a6a1d08e5da",
+    "runtime/scene/ending_ui_cursor.c": "b449298b79b2cf6b7367b7ee686622ec061913ba7de01c8257f5381aa46e27ac",
+    "runtime/scene/ending_ui_cursor.h": "c2a0b55b8244b30658937fd9ca61e2dd7272fb6683e9f345138969737e49dbf4",
+    "tests/test_ending_ui_hints.c": "3d5c6daea640f14bd690d8c462f34b92ae739ea460474055ed4319568348f9a3",
+    "tests/test_ending_stage_ui.c": "94e1c449cd97ee405956e43357fe3ecc4e637f9a68146720792e456e100c9301",
+    "tests/original_ending_ui_hints_oracle.py": "b76e746e35222b8c745df6ce134fffd6deba2b7849c1a3f4c4c919abcf353518",
+    "tests/original_ending_ui_cursor_oracle.py": "ff9ad8c6edc3a7295735548a3a7d0da1d2e33a6f65e7ddc9f12f27ddccf0f5be",
+    "tools/ending_ui_hints_render_probe.c": "7f20470bc61e94780fa54ebca4015a007ecbf0e4197c4dc5719c5ead6e145974",
+    "tools/ending_ui_render_oracle.h": "26026dfca33f72e18056bc4a8d3a30a12382a67e677b344faaf3a9f408bb0edf",
+    "tools/ending_stage_ui_render_probe.c": "da8b80fa84a0d512553a8b7214da50e7cad4d96fc36844b2ff44d3cdf1b67483",
+    "CMakeLists.txt": "679253f1ccd0f1a56fa2623701374291b9c6a15d76d5869440f9100f56084eff",
+    "test-host.sh": "dad41c09ac91c61142eb06a0bd98821b9965745f8a4b09764677af45e4c7bb17"
+  },
+  "logs_sha256": {
+    "ending-ui-hints-unit": "6c25d23db726e7ba04577f1ec629c6b9ee1b866a38c661b5be6cda3c0bc9a4a5",
+    "ending-ui-hints-asan-unit": "b6f328415b5d46ef07c023735448edf79755a3f0b56b98af381ece849bd972ba",
+    "ending-ui-cursor-unit": "c1d1c76900ac4237535121644682eb747002bfa3b34037db85af9bd587e07ae1",
+    "ending-ui-cursor-asan-unit": "1200f461237ffc86949a6b77a52ad6a3711179303e9d3d63132f9cbd4742e14c",
+    "ending-ui-hints-oracle": "b684b98f483b75bcb465bd4474d1a2e95ab213b989a93e245b2f7107c58cb5be",
+    "ending-ui-prefix-oracle": "985912cfb72b2a35dc050730816a88aedbffe6d4bf12f257f36e1d1554751d25",
+    "ending-ui-cursor-oracle": "cc5b2490659d6bf97e3c26c050361ec20f8e1ba24a502672b25f8d824878fa8f",
+    "ending-ui-hints-render": "552d5dcfa633b91784779ff35264f3a1fa14c6f44936aac6e1a3c31ff3c36eaf",
+    "ending-ui-hints-render-asan": "552d5dcfa633b91784779ff35264f3a1fa14c6f44936aac6e1a3c31ff3c36eaf",
+    "ending-ui-cursor-render": "74b29c14c43014ae4b27ad3c5addf337c640cf34e010553d8c944da924125b2a",
+    "ending-ui-cursor-render-asan": "74b29c14c43014ae4b27ad3c5addf337c640cf34e010553d8c944da924125b2a",
+    "ending-ui-hints-stage-regression": "9a8b7acd0bc9ec3dbdf765db6e8c8e6853669ae0540e50de1fb3c6d3a6766282",
+    "ending-ui-hints-final-architecture": "d2f08ec279e0ca14a0ad02d92ace1caec533d0ca1856c6ac3e20c0dcccba4785",
+    "build-ending-ui-hints-switch": "e742dc4c2fdfcfe752c5dcdd480d598bb35c9b88374f98530c2ac21925fceb21"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Projected points/targets and primary clip/timing are explicit fixture inputs, not complete scene binding",
+    "Actual cursor selection4d5e60..4d6404 and curtain/tail remain unintegrated",
+    "Prefix executes original pointer acquisition; portable component consumes captured float values",
+    "Native null-device suppression policy counted separately; no meaning assigned to uninitialized selection",
+    "No complete Windows screenshot or new Switch ending validation",
+    "GPU samples exclude ambiguous subpixel edges; ASan detect_leaks=0"
+  ]
+}

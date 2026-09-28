@@ -1,0 +1,26 @@
+#ifndef BK_SCENE_LIGHTING_ASSETS_H
+#define BK_SCENE_LIGHTING_ASSETS_H
+#include "game/lighting_pass.h"
+#include "model/environment.h"
+typedef struct BkSceneLighting BkSceneLighting;
+/* Owns environment, borrows model. Registry order follows its LIGH records.
+ * Initial ambient follows4a4438; all drawable pass modes explicitly set the
+ * non-ambient lights before drawing. No GPU object or implicit publication. */
+BkSceneLighting *bk_scene_lighting_create(const BkModel *, const float *world,
+                                          size_t floats, char error[256]);
+void bk_scene_lighting_destroy(BkSceneLighting *);
+const BkModelEnvironment *
+bk_scene_lighting_environment(const BkSceneLighting *);
+/* Replaces only the light array/count; caller owns root tokens/pass settings.
+ */
+int bk_scene_lighting_input(const BkSceneLighting *, BkLightingPassInput *);
+/* Accept only light/ambient commands. Object/flush/shadow remain the caller's
+ * ordered draw work. Each GPU pass needs its own light descriptor snapshot. */
+int bk_scene_lighting_command(BkSceneLighting *, const BkLightingCommand *);
+/* Native light attachment reads each light frame's current cached world
+ * translation and spotlight direction. Caller supplies that model's published
+ * world array. Failure preserves the output. Fog device state is separately
+ * retained. */
+int bk_scene_lighting_values(const BkSceneLighting *, const float *world,
+                             size_t floats, BkLighting *, char error[256]);
+#endif

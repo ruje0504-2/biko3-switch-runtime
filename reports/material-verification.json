@@ -1,0 +1,108 @@
+{
+  "stage": "M1.2",
+  "status": "material-and-texture-foundation-complete",
+  "project_version": "0.2.1",
+  "recorded_at": "2026-09-26T20:12:57.010162+00:00",
+  "m1_static_scene_complete": false,
+  "original_mesh_rendering_connected": false,
+  "lighting_fog_and_scene_order_verified": false,
+  "switch_hardware_tested": false,
+  "native_material_oracle": {
+    "passed": true,
+    "models": 247,
+    "original_material_checks": 19420,
+    "boundary_random_checks": 2074,
+    "checks": 21494,
+    "blend_counts": [
+      16590,
+      2268,
+      2636
+    ],
+    "unique_alpha_bits": 1069,
+    "native_functions": [
+      "0x43041a",
+      "0x43056d",
+      "0x444bc1 early visibility"
+    ],
+    "compared": [
+      "effective diffuse bytes",
+      "normalized encoded alpha bytes",
+      "source/destination factors",
+      "mesh visibility",
+      "alpha cache hint",
+      "specular flag"
+    ]
+  },
+  "original_exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "cpu_material_fixture": {
+    "archive": "bk3_03.pp",
+    "model": "m01_04.x",
+    "textures": 42,
+    "texture_alpha_flags": 3,
+    "decoded_bytes": 6060032,
+    "submeshes": 66,
+    "normal": 56,
+    "additive": 4,
+    "inverse_color": 6,
+    "hidden": 4
+  },
+  "gpu": {
+    "device": "Apple M4",
+    "driver": "MoltenVK 1.4.2",
+    "original_textures_uploaded": 42,
+    "original_material_swatches_checked": 66,
+    "swatch_scope": "synthetic quad, first texture pixel, material modulation/blending; not original geometry/lighting",
+    "max_allowed_rgba_error_255": 2,
+    "checks": [
+      "indexed mesh upload",
+      "three blend modes",
+      "zero-alpha visibility",
+      "depth write",
+      "repeat/clamp sampling",
+      "instance matrix",
+      "mesh/UI pipeline and vertex buffer restoration"
+    ],
+    "passed": true
+  },
+  "tests": {
+    "host_ctest_passed": 6,
+    "python_passed": 17,
+    "asan_ubsan_original_material_probe": "passed",
+    "title_frames": 16,
+    "title_rgba_equals_prior_baseline": true,
+    "title_rgba_sha256": "8f6ed15f5f8df8c022d85cb6895f6c5fa7146930508bfc5c4bec7f0afb7e3b7d"
+  },
+  "switch": {
+    "version": "0.2.1",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "51d01b48385da535ff56e21e3e460790082e8bc603797e1e937417bb061d9b55",
+    "undefined_symbols": 0,
+    "application_content": "title-resource-preview-only"
+  },
+  "switch_library_sha256": {
+    "build-switch/libbk_model.a": "4295623fa4b11ba435fa788dcc14d41d36fc3d4d01f17a7f4330d7e4da6deba0",
+    "build-switch/libbk_render.a": "d55d63b92f18ed3d960ad7f449d7533c00b47e857798e141edd914fc3a4d11aa"
+  },
+  "source_sha256": {
+    "runtime/model/material.h": "a765824fff177ce339dadb18a222bae4efb8e26e8e97b50c8a10cab32912ffa1",
+    "runtime/model/material.c": "bf3b884d0bc93af826b4671d0921712313db42d1874f1b94301f2339a0bda753",
+    "runtime/render/renderer.h": "5b2303f3813705219aabfc8afda34b90872b40ff37361c7950cbc0a46b57b8b2",
+    "runtime/render/vulkan/renderer.c": "d546f163b1f4e5562c54335ed794612868f0bc48f2416243aa5c19414dcbfdde",
+    "tools/material_probe.c": "6b311ac018c2e3d4d0a355d59ec3dcae21fb4882c8ed5a86c3567dcf2bcef41b",
+    "tools/material_render_probe.c": "a888be400e56d81392086115f7d40ab824f031aa56a5e9a2f617a1aba7666204",
+    "tests/original_material_oracle.py": "fb663853bd3763f3ab8471a761c23ee2d948fac1e3f429b48221adaec893f3a5",
+    "tests/test_material.py": "c18fd8358220c58519e559329e5c4a34572122db56d8a35f5739723e80f8976a",
+    "CMakeLists.txt": "aa55de680792d7ca10dee3523f634ddf1faed1af946d6ca466ab8dc340278df7",
+    "config/dependencies.lock.json": "96e2f86cdab8bc0a233b5ff2781bc422e8c6ab7326fee531c54e4a23bc8ed9a4"
+  },
+  "evidence": [
+    "local/material-oracle.log",
+    "local/original-material-oracle.json",
+    "local/material-ctest.log",
+    "local/material-unit.log",
+    "local/material-gpu.log",
+    "local/material-asan.log",
+    "local/material-title.log",
+    "local/material-switch-build.log"
+  ]
+}

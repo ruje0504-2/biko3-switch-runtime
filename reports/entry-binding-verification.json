@@ -1,0 +1,1738 @@
+{
+  "passed": true,
+  "recorded_utc": "2026-09-27T00:12:25.563884+00:00",
+  "status": "post-0.3.5 CPU entry binding snapshot; app scenes unchanged; SD package not replaced",
+  "scope": "CPU entry/pose/cache/camera dependency integration, not full gameplay or Switch hardware",
+  "source_sha256": {
+    "CMakeLists.txt": "3883f01c7a539cfffc1f6a8df725a58ecb2a87b73521431b845d7d546a170602",
+    "runtime/app/application.c": "d1186dade97474aed62c268d69a144a45ef2af93b8c15dab88cf1b6324ffa779",
+    "runtime/app/application.h": "c019c51d075c356be8fd79a85228ff7a4409b848ccd9544e11c4947b313a9d9e",
+    "runtime/app/main.c": "40901c0d90da3c18091f29c3b1c41bd9c9bfbc48eb524907f5dad4ed8186a383",
+    "runtime/core/camera.c": "35518c42386867ca6f5bf4ac1f07f3bc6dd3eed0ecc281c65e8d32d6d76a01f8",
+    "runtime/core/camera.h": "2dae3de7b1652a66a64cfe63188bf3077b8ce18bd7351e62abcabea1c6b69a21",
+    "runtime/core/clock.c": "a14ad426db38ba325ef0319641d45f80113430e8835e5594940bc61ff5ba8882",
+    "runtime/core/clock.h": "a650ab2c6813fe3c2d10e2ecf2b0e2317c6bb003e2e95b9997b2a5fdc0893893",
+    "runtime/core/input.c": "cbb5ef491f2b7ea2354ca177cc89221b0b6d1565fa1cf6a53d0ed8f3f6937c94",
+    "runtime/core/input.h": "5f9907f97eea16a60eed9d93a918c5df1aa3ed4b0c68325616fe7dcac61868f9",
+    "runtime/core/lighting.c": "16830369acd52ae828f4781dcab8d66f0ede18133d8ffff1dd757897b4118d31",
+    "runtime/core/lighting.h": "bbd5b52ada13560a8a0375a672594162ac80ada553d9f19c9b1e548c346ec961",
+    "runtime/core/matrix.c": "1e2fe88f2874d25a6d91ff70076a64e337c4b880ab26518ff05bc36673f2e21f",
+    "runtime/core/matrix.h": "b4ee995a387229f748b95140317143f5f1033f2514de24b2fb01ee0c42c1b85c",
+    "runtime/game/camera_policy.c": "6c10290eca0d3d26a3c77b50e9522fa88729d9b994a27af4b333c90a71ea49a0",
+    "runtime/game/camera_policy.h": "e3415f1060b155a32d84dd5457d867be6938c0459623654764c2a3f826c767c1",
+    "runtime/game/entry.c": "c8c9f4c93250e89977eebfac8dfd91f6a2bb64d0475287318ad5e1e76fb265e8",
+    "runtime/game/entry.h": "fd17e2251a41ccb39b02a75420da96297ee0e592aaad697fde4408bd6484039f",
+    "runtime/model/animation.c": "8696aa2802e4fc4aee6f07c044156819b66b44af421c9a9b2be4e487b8dfc009",
+    "runtime/model/animation.h": "847b362d087e56d93f21566508f99e50ad0fc1d53a2bf88bc48bea42c09fa4bb",
+    "runtime/model/clip.c": "6d3711709c8202283a74e0f61c70548d7f23d3f6750e9c0449d349baa5743761",
+    "runtime/model/clip.h": "17eec125e2f68492e670776033808747ce4bfa792a40a01ebcf690c555343b69",
+    "runtime/model/environment.c": "5aec31128f068f27dc49f99f1f1150f4ac5ae752feb9a0b6eed8acafb9075613",
+    "runtime/model/environment.h": "39896e1ba666ca57c5220c1e1e9addfcd1c0522cb9d89c6081b53cae7d5ff1ed",
+    "runtime/model/material.c": "bf3b884d0bc93af826b4671d0921712313db42d1874f1b94301f2339a0bda753",
+    "runtime/model/material.h": "a765824fff177ce339dadb18a222bae4efb8e26e8e97b50c8a10cab32912ffa1",
+    "runtime/model/model.c": "048a298c576c01eab9327e3d78120e7d5b833d381a1e0c4e3697ef657179386f",
+    "runtime/model/model.h": "9438c95f7f47520588270f2a2b766c5afe0df34bcf854ce1e0fc2f515fa523c7",
+    "runtime/model/playback.c": "a016fdffcfd61ac92b10249a58140b3faef53c1e874c2e763ec77262c2b5e38e",
+    "runtime/model/playback.h": "965877fa20c94a86ae6093d73d48a291d875b8125370eb25993fedc1f853b534",
+    "runtime/model/static_model.c": "9c77b075ca977c461d88e1a7e9fa282a0513b3768033476e2da6008544deb32e",
+    "runtime/model/static_model.h": "2b7dfaa35e8f7a047b4d4479e20b038adeb8ec5d57b773875c62435db51782e1",
+    "runtime/platform/host.c": "461662aba545943e8a6cc555e68f27623e3f83fa89c68d7059d630b785021f9a",
+    "runtime/platform/platform.h": "ca99e082e97564c0e197184f64ed477afd59a0d516a07b1a26afbcac916109a4",
+    "runtime/platform/switch.c": "5a2d22cec83f5122f13b4e218d162dc669b91bd3660b072cf0afeb150dc7c0fa",
+    "runtime/render/renderer.h": "cecb5f4878418d4d6872e8ac954c264dc92f92cc25d69f14449406034e80ce99",
+    "runtime/render/vulkan/renderer.c": "1791ca94877507fd689785ba7cfbae09c3ec40dcee8a0fd309bee2afc0d5f6a9",
+    "runtime/resource/assets.c": "575265ddec316ae87547108d7ba0d60cc2adc54abbfb14e529da1feeec0ae447",
+    "runtime/resource/assets.h": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3",
+    "runtime/resource/store.c": "da60fe8a47dbd06114646f5bff36cbab7358f1d04d2f8bf9543a900ad3f632e4",
+    "runtime/resource/store.h": "b7946de9b4092f2580f9751e62fc7bb1db25cd8f609c32d19401d2764b9b44a3",
+    "runtime/scene/entry_assets.c": "ebe1ce7bd1a244778fb809addaf2d97f6b39eb489f4036d55d24b4a168793b72",
+    "runtime/scene/entry_assets.h": "9152512c54772bfa572a0f1bff54ffcd112356fdab4f6715a62d839f0f11a7d9",
+    "runtime/scene/inspection_camera.c": "1b1edfbc54533981546f4b0943f99efc347738f3cb4046d570ca55d3d7856766",
+    "runtime/scene/inspection_camera.h": "90b1ed2e42b86902488e5e05bbec61b696b2854db6ee4f15a37d572b7af11c02",
+    "runtime/scene/scene.c": "74d590845059ef748e8e9a8a3bb8cf2d2c0094b653c92e0e62ce6374bb4e37e1",
+    "runtime/scene/scene.h": "f673f8121d448510c0b0de9ad1062156d21769c4605f3869701a0baba88e86a1",
+    "runtime/scene/scene_internal.h": "73fdaa11a1662bc9864ac3def546d23a470b5b5b019b93a9d0d6d2bfb44e682b",
+    "runtime/scene/static_world.c": "5904d1a60a31bac0f99973b0f6497bb872fc7d78f46c1a4f41fa47a307f3d493",
+    "runtime/scene/title.c": "9365977d39fdfd52f357a5dda0658f9951158de4ccb40dbd158a542b5fc85236",
+    "runtime/ui/debug_overlay.c": "b0ed2685bd7ec5e2f816395b2e5f376115a114849286455be8f43ec025cb9af3",
+    "runtime/ui/debug_overlay.h": "c48d1cb3eaa9569d824e2660c5f505979448005c772388f2bfb2d88c8f602fba",
+    "runtime/world/actor_pose.c": "99a0dc2aedc2a538a8c222f7ab3f28750ece7365c02339a04a6d81d504c68e0c",
+    "runtime/world/actor_pose.h": "7e915e0c5698c606c93ac2d94b4cba7754fe6b0986693547969e7ac06d6bff6e",
+    "runtime/world/follow_camera.c": "c5b2b40b46c72f8b90a04846ddb72de1c104160856a3cfb21c43bdc94d1491ca",
+    "runtime/world/follow_camera.h": "5781f7e3da64820fcec64404e66d1f76456baf4ac80c52bb31e9e6b102abce72",
+    "runtime/world/placement.c": "7c2fe631a69c5ded9d213a8c68e4403618854e10b7efd1d28a0fe4ef961eef58",
+    "runtime/world/placement.h": "9f00be5daec480ebf08d1e1b8c228a57cbf72ce554dd1aec34b3e6926b63622c",
+    "runtime/world/player_camera.c": "f076943a309f2512288437a5d17fea01d7af80ec219a62c5e0d59e7faa177e73",
+    "runtime/world/player_camera.h": "58e18f84aeec87c7fbd516aef9c584bdea83e8d729ed4e746a8421e3aa10b8d6",
+    "runtime/world/route.c": "7722311b1e7459d3a2d07f6f6b5aef272fca9860b0142de258b20d8c842db5cf",
+    "runtime/world/route.h": "ef8f130dbb29d2be05c33e40e830951eaaaa22847957ae2afb08bc791e75adce",
+    "test-host.sh": "2c640969b3efc417b766b36a4eb1c1823dc51e59ada947cc1a05914189557f9f",
+    "tools/entry_probe.c": "518df05edb97c3826b5ff2c2635e06809041b72f5d7b8949d2ae60a682efd51d"
+  },
+  "artifact_sha256": {
+    "build/libmodel-test.dylib": "0bf448d7ac7390e7eef98e29878e1b32924564b02c5dfd20eb2df4bc99d22d06",
+    "build/entry-probe": "82a391565aa46aba1a070600bca0902479737be378d982964e564c597275cc7f",
+    "build-switch/libbk_entry_assets.a": "5881dfcd8394bdd854412399ecb35bc11ce1eee6f773200ee67d87253b4dbab4",
+    "build-switch/libbk_game.a": "5728d024f7df8f99df168b303a0aa87babb62842f6f6f9ea4182b3bfcbaf454f",
+    "build-switch/libbk_world.a": "f0d81aac96f5568e0902bfecb48697440ce7bf704b2d4ce1444eb0103fab1e1e",
+    "build-switch/biko3-preview.nro": "8e69ce4335701195cb9ea9a7b7da997752990184de7659db0e58408c0d835a7d"
+  },
+  "checks": {
+    "host_ctest": 15,
+    "python_unittest": 23,
+    "cpu_sanitizer_ctest": 10,
+    "vulkan_sanitizer_ctest": 15,
+    "entry_profiles": 45
+  },
+  "oracles": {
+    "route": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "files": 53,
+      "active_points": 9086,
+      "selection_checks": 90,
+      "records": [
+        {
+          "file": "l01_00.ckp",
+          "size": 20480,
+          "sha256": "d0887e52a07b809da83df8619d2d93f789fa3c56e2f05c51c31fbfea8728b7dd",
+          "points": 30
+        },
+        {
+          "file": "l01_01.ckp",
+          "size": 20480,
+          "sha256": "e7193c69ca6769dc76c1c701d80164928f0065560d1e96f9eb9f4f1b0b0a38a3",
+          "points": 178
+        },
+        {
+          "file": "l01_02.ckp",
+          "size": 20480,
+          "sha256": "e8019a92206de7cefe31940a8a5ac9d88a4cbfe2d9f20cdda75cd0b3628b0f49",
+          "points": 42
+        },
+        {
+          "file": "l01_03.ckp",
+          "size": 20480,
+          "sha256": "021d3dd7066c507ccebd0b44b1a1f31e0498279af54d290db8984acf4fde3b3a",
+          "points": 178
+        },
+        {
+          "file": "l01_10.ckp",
+          "size": 20480,
+          "sha256": "97d29473d3ced65ddf67c70eeeb4a6bf90c333db9af2bc3d9626ed91af818b0f",
+          "points": 178
+        },
+        {
+          "file": "l01_11.ckp",
+          "size": 20480,
+          "sha256": "ea18b3dd9984ba16e39f6f2c309f8f6fce320f2408bdb459c71f7ef8903d8ce3",
+          "points": 234
+        },
+        {
+          "file": "l01_12.ckp",
+          "size": 20480,
+          "sha256": "3f972f83459c9409ea9338047465e97551c5f75ceef9a4291ff1aed8408a73d8",
+          "points": 246
+        },
+        {
+          "file": "l01_13.ckp",
+          "size": 20480,
+          "sha256": "cf99e2617911a5c149eb67d54527d6bc34e37c463fa03003013e782292644f5c",
+          "points": 246
+        },
+        {
+          "file": "l01_14.ckp",
+          "size": 20480,
+          "sha256": "444b60be5a89fceb2adf6bb3c81b7ac10fa4ebbecdaa60ac79bec969742b6019",
+          "points": 246
+        },
+        {
+          "file": "l02_00.ckp",
+          "size": 20480,
+          "sha256": "573e0dfdd13551fae2262cf85cd81628cbc5b8330abde1aaff569b5583667ed4",
+          "points": 246
+        },
+        {
+          "file": "l02_01.ckp",
+          "size": 20480,
+          "sha256": "1ad4f3b8b3f4fa7c9723bce2003ae6fca51c88ec3ebbbd3106f69f480d642ff0",
+          "points": 246
+        },
+        {
+          "file": "l02_02.ckp",
+          "size": 20480,
+          "sha256": "3d79789de3977aa0554cfa87457049b3c30fbf158f02ef2608bab349c018a4fb",
+          "points": 246
+        },
+        {
+          "file": "l02_03.ckp",
+          "size": 20480,
+          "sha256": "d6c27213df36a67966c2f37a428c834dd6eda14a1feac11f98f7d4e02d3211ac",
+          "points": 246
+        },
+        {
+          "file": "l02_10.ckp",
+          "size": 20480,
+          "sha256": "76e338a36c27dbef2b697b973dc175981f59ca1f8b8d5d5e1d35592effa86090",
+          "points": 246
+        },
+        {
+          "file": "l02_11.ckp",
+          "size": 20480,
+          "sha256": "f0ca8f5fe38c3906c30605fdd71acc7655c6cfff76953b66231465335744992b",
+          "points": 302
+        },
+        {
+          "file": "l02_12.ckp",
+          "size": 20480,
+          "sha256": "6f641f051ed8e438e8c64b37f76b5e653e561e7129943bc92566ce5b9024e1f5",
+          "points": 246
+        },
+        {
+          "file": "l02_13.ckp",
+          "size": 20480,
+          "sha256": "d0568bcecb333c41354f4cffd8340008a0aaf14f418ee366d8390b4869f57c8a",
+          "points": 246
+        },
+        {
+          "file": "l02_14.ckp",
+          "size": 20480,
+          "sha256": "80d30cb0954d1831823fa8c9f39ade358ab42b46ab1ad25a86ec3a6aa44b9e77",
+          "points": 246
+        },
+        {
+          "file": "l03_00.ckp",
+          "size": 20480,
+          "sha256": "26d2191f85e057d4cfa8a1f10b1e74e955e4fabb3ccbce7be424e89a51ea587c",
+          "points": 58
+        },
+        {
+          "file": "l03_01.ckp",
+          "size": 20480,
+          "sha256": "3f06560372afbcb42808c8547068170f6114860446e4818ea9d9a688bf39f2bd",
+          "points": 130
+        },
+        {
+          "file": "l03_02.ckp",
+          "size": 20480,
+          "sha256": "4c0c7cc0f8ef635afc6e4a4dd81d3370f9a310e0f5e1bea6b9a6b8d43bc42ee9",
+          "points": 82
+        },
+        {
+          "file": "l03_03.ckp",
+          "size": 20480,
+          "sha256": "57511930cf5a7d67b4359c6d2f523fb11d84d63b6d10db9d7e702b5a097cd985",
+          "points": 82
+        },
+        {
+          "file": "l03_10.ckp",
+          "size": 20480,
+          "sha256": "5c861417305543a8bde0e2a5c9ec393e62a87f1ac11066ee52d05180fe77d4ae",
+          "points": 174
+        },
+        {
+          "file": "l03_11.ckp",
+          "size": 20480,
+          "sha256": "fb6025ba9c2c37d092d3b681b3b23c1962b5aa4990634fea56da461bb7698a73",
+          "points": 290
+        },
+        {
+          "file": "l03_12.ckp",
+          "size": 20480,
+          "sha256": "3a8f1f6e5c6a12d94f7ea60baa1292a0ad6f169a09406fcdae4c6b316ee23648",
+          "points": 254
+        },
+        {
+          "file": "l03_13.ckp",
+          "size": 20480,
+          "sha256": "5e04a1e793e6b27529a412f8a3d4522b1a170f1e162f3be2b0c47821bd175ede",
+          "points": 318
+        },
+        {
+          "file": "l03_14.ckp",
+          "size": 20480,
+          "sha256": "1deee65fdcfd41fadd33101b9461824ca8ee83a4623e7d49dfc3aabd44e6d8bc",
+          "points": 174
+        },
+        {
+          "file": "l04_00.ckp",
+          "size": 20480,
+          "sha256": "3ab26ab7983872fb451971010854696aa8540e56b255dd8e29fbbdf5952291ad",
+          "points": 90
+        },
+        {
+          "file": "l04_01.ckp",
+          "size": 20480,
+          "sha256": "aebb0f14c0c83089a1eb569f6eec61fd2b2a450f318b16ed7af6bea8a2c6d4f8",
+          "points": 122
+        },
+        {
+          "file": "l04_02.ckp",
+          "size": 20480,
+          "sha256": "b58977e833fdcc8aba534e1eb928d004f1f3e0dccd73197acee0d9b4ee53ae8b",
+          "points": 122
+        },
+        {
+          "file": "l04_03.ckp",
+          "size": 20480,
+          "sha256": "af6d58c14105cd760358b155e8725a60dde9113da514539f377ec8647ea5e358",
+          "points": 122
+        },
+        {
+          "file": "l04_10.ckp",
+          "size": 20480,
+          "sha256": "0281945909185b11a83be013b3048977b0822ae73eec2df83c3d17596aa6e357",
+          "points": 362
+        },
+        {
+          "file": "l04_11.ckp",
+          "size": 20480,
+          "sha256": "c85a93a5fe6efdc1eb9dc848c70337879f63de4de2794c1bced4a41472602210",
+          "points": 298
+        },
+        {
+          "file": "l04_12.ckp",
+          "size": 20480,
+          "sha256": "c9fbbc09dc701831b40807ebd695229e168ab896d980d1250c0a78ed44404c81",
+          "points": 286
+        },
+        {
+          "file": "l04_13.ckp",
+          "size": 20480,
+          "sha256": "c926d129e3356f08128873c201458c2d02f30c43fd9cf0309704318227f560b9",
+          "points": 246
+        },
+        {
+          "file": "l04_14.ckp",
+          "size": 20480,
+          "sha256": "94e767ff157548f35f9cf39fd91c4c3a27c428eee3e51769ce498e6fbfc275b9",
+          "points": 1
+        },
+        {
+          "file": "l05_00.ckp",
+          "size": 20480,
+          "sha256": "419896146064088d6751c6edd0a2155c6ccde67cd77ed7f9db025cb9d1829119",
+          "points": 42
+        },
+        {
+          "file": "l05_01.ckp",
+          "size": 20480,
+          "sha256": "dfa295c47971acaa6219c08b2165a53ab51d2ad26152951db295d556d75626d6",
+          "points": 178
+        },
+        {
+          "file": "l05_02.ckp",
+          "size": 20480,
+          "sha256": "9becee3a0946f205229b61831734955d0348a3064b375cc24bb8c2016b437f03",
+          "points": 178
+        },
+        {
+          "file": "l05_03.ckp",
+          "size": 20480,
+          "sha256": "2cdf5d10cca1fbe70cf92c4bd221aeba2b116bb57a4a2caf7acdaf74dde03072",
+          "points": 178
+        },
+        {
+          "file": "l05_10.ckp",
+          "size": 20480,
+          "sha256": "d063e907fc65dcbda41275958faf4de18a25770130237fb085acd6cfbc7a87ee",
+          "points": 302
+        },
+        {
+          "file": "l05_11.ckp",
+          "size": 20480,
+          "sha256": "fd0423d42bf57c76ac808776fa5ebe5392ffe7c8006e6cb7bb39bd704f19661a",
+          "points": 350
+        },
+        {
+          "file": "l05_12.ckp",
+          "size": 20480,
+          "sha256": "6cf656a2024a034be0e2500b9c4e1c407be3e5e2bd53ecee768be8043ebb3b33",
+          "points": 258
+        },
+        {
+          "file": "l05_13.ckp",
+          "size": 20480,
+          "sha256": "eb8d6ca285bcfce859b1e16806b19abea64621ee36c62839423ae06886af716d",
+          "points": 342
+        },
+        {
+          "file": "l05_14.ckp",
+          "size": 20480,
+          "sha256": "bddc23d3a90056b4bced76b2d5c84512fffbe3307bad312a842ca626ed3efd52",
+          "points": 2
+        },
+        {
+          "file": "l93_00.ckp",
+          "size": 5120,
+          "sha256": "e27dfdf0fa5d29830fa7879c6116d60849fa606f630f56f64b3b81a20649dcf5",
+          "points": 15
+        },
+        {
+          "file": "l93_01.ckp",
+          "size": 5120,
+          "sha256": "9167701cbfb92579d99870cf478f8bab9a76d88b08b8f6630fada5c76c5fc29a",
+          "points": 14
+        },
+        {
+          "file": "l93_02.ckp",
+          "size": 5120,
+          "sha256": "f937fdd6dd324b822ef1733887a1260dbcbe8a42f75c32e7cf0ee630b2d6294b",
+          "points": 12
+        },
+        {
+          "file": "l93_03.ckp",
+          "size": 5120,
+          "sha256": "00785e1a750d4818cd273d1b85bbae767d1f12f0502f2296bacb3dfaa7bd7253",
+          "points": 12
+        },
+        {
+          "file": "l93_10.ckp",
+          "size": 5120,
+          "sha256": "0de4e4290516e599466efdeb0a7871f63e5e82086c51564fe994566fcd9917d0",
+          "points": 24
+        },
+        {
+          "file": "l93_11.ckp",
+          "size": 5120,
+          "sha256": "10467b372cc53e4ce86e9c19c4e4d603e9b64ae4efb2c409e38efe9753627184",
+          "points": 6
+        },
+        {
+          "file": "l93_20.ckp",
+          "size": 5120,
+          "sha256": "ba40af562acaf09e108e2e4955286f02a7a4ce50b70e605325143d731e3ff277",
+          "points": 58
+        },
+        {
+          "file": "l93_21.ckp",
+          "size": 5120,
+          "sha256": "e82b4f325aa216fc265947374c30b1c6edd7eb3bdc203c4d76d28f9ad70c7b62",
+          "points": 56
+        }
+      ],
+      "mapping": [
+        {
+          "group": 0,
+          "area": 0,
+          "file": "l01_00.ckp",
+          "points": 30
+        },
+        {
+          "group": 0,
+          "area": 1,
+          "file": "l01_01.ckp",
+          "points": 178
+        },
+        {
+          "group": 0,
+          "area": 2,
+          "file": "l01_03.ckp",
+          "points": 178
+        },
+        {
+          "group": 0,
+          "area": 3,
+          "file": "l01_02.ckp",
+          "points": 42
+        },
+        {
+          "group": 0,
+          "area": 4,
+          "file": "l01_10.ckp",
+          "points": 178
+        },
+        {
+          "group": 0,
+          "area": 5,
+          "file": "l01_11.ckp",
+          "points": 234
+        },
+        {
+          "group": 0,
+          "area": 6,
+          "file": "l01_12.ckp",
+          "points": 246
+        },
+        {
+          "group": 0,
+          "area": 7,
+          "file": "l01_13.ckp",
+          "points": 246
+        },
+        {
+          "group": 0,
+          "area": 8,
+          "file": "l01_14.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 0,
+          "file": "l02_02.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 1,
+          "file": "l02_00.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 2,
+          "file": "l02_01.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 3,
+          "file": "l02_03.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 4,
+          "file": "l02_10.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 5,
+          "file": "l02_11.ckp",
+          "points": 302
+        },
+        {
+          "group": 1,
+          "area": 6,
+          "file": "l02_12.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 7,
+          "file": "l02_13.ckp",
+          "points": 246
+        },
+        {
+          "group": 1,
+          "area": 8,
+          "file": "l02_14.ckp",
+          "points": 246
+        },
+        {
+          "group": 2,
+          "area": 0,
+          "file": "l03_01.ckp",
+          "points": 130
+        },
+        {
+          "group": 2,
+          "area": 1,
+          "file": "l03_00.ckp",
+          "points": 58
+        },
+        {
+          "group": 2,
+          "area": 2,
+          "file": "l03_02.ckp",
+          "points": 82
+        },
+        {
+          "group": 2,
+          "area": 3,
+          "file": "l03_03.ckp",
+          "points": 82
+        },
+        {
+          "group": 2,
+          "area": 4,
+          "file": "l03_10.ckp",
+          "points": 174
+        },
+        {
+          "group": 2,
+          "area": 5,
+          "file": "l03_11.ckp",
+          "points": 290
+        },
+        {
+          "group": 2,
+          "area": 6,
+          "file": "l03_12.ckp",
+          "points": 254
+        },
+        {
+          "group": 2,
+          "area": 7,
+          "file": "l03_13.ckp",
+          "points": 318
+        },
+        {
+          "group": 2,
+          "area": 8,
+          "file": "l03_14.ckp",
+          "points": 174
+        },
+        {
+          "group": 3,
+          "area": 0,
+          "file": "l04_03.ckp",
+          "points": 122
+        },
+        {
+          "group": 3,
+          "area": 1,
+          "file": "l04_01.ckp",
+          "points": 122
+        },
+        {
+          "group": 3,
+          "area": 2,
+          "file": "l04_00.ckp",
+          "points": 90
+        },
+        {
+          "group": 3,
+          "area": 3,
+          "file": "l04_02.ckp",
+          "points": 122
+        },
+        {
+          "group": 3,
+          "area": 4,
+          "file": "l04_10.ckp",
+          "points": 362
+        },
+        {
+          "group": 3,
+          "area": 5,
+          "file": "l04_11.ckp",
+          "points": 298
+        },
+        {
+          "group": 3,
+          "area": 6,
+          "file": "l04_12.ckp",
+          "points": 286
+        },
+        {
+          "group": 3,
+          "area": 7,
+          "file": "l04_13.ckp",
+          "points": 246
+        },
+        {
+          "group": 3,
+          "area": 8,
+          "file": "l04_14.ckp",
+          "points": 1
+        },
+        {
+          "group": 4,
+          "area": 0,
+          "file": "l05_00.ckp",
+          "points": 42
+        },
+        {
+          "group": 4,
+          "area": 1,
+          "file": "l05_02.ckp",
+          "points": 178
+        },
+        {
+          "group": 4,
+          "area": 2,
+          "file": "l05_03.ckp",
+          "points": 178
+        },
+        {
+          "group": 4,
+          "area": 3,
+          "file": "l05_01.ckp",
+          "points": 178
+        },
+        {
+          "group": 4,
+          "area": 4,
+          "file": "l05_10.ckp",
+          "points": 302
+        },
+        {
+          "group": 4,
+          "area": 5,
+          "file": "l05_11.ckp",
+          "points": 350
+        },
+        {
+          "group": 4,
+          "area": 6,
+          "file": "l05_12.ckp",
+          "points": 258
+        },
+        {
+          "group": 4,
+          "area": 7,
+          "file": "l05_13.ckp",
+          "points": 342
+        },
+        {
+          "group": 4,
+          "area": 8,
+          "file": "l05_14.ckp",
+          "points": 2
+        }
+      ],
+      "scope": "Native filename dispatch, file-read size/zero-extension, and actor active-count loop. Windows I/O/path prefix are boundary substitutes; route AI/movement not exercised."
+    },
+    "placement": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "heading_cases": 1033,
+      "route_placements": 9086,
+      "max_normalized_error": 0,
+      "records": [
+        {
+          "file": "l01_00.ckp",
+          "points": 30,
+          "sha256": "d0887e52a07b809da83df8619d2d93f789fa3c56e2f05c51c31fbfea8728b7dd"
+        },
+        {
+          "file": "l01_01.ckp",
+          "points": 178,
+          "sha256": "e7193c69ca6769dc76c1c701d80164928f0065560d1e96f9eb9f4f1b0b0a38a3"
+        },
+        {
+          "file": "l01_02.ckp",
+          "points": 42,
+          "sha256": "e8019a92206de7cefe31940a8a5ac9d88a4cbfe2d9f20cdda75cd0b3628b0f49"
+        },
+        {
+          "file": "l01_03.ckp",
+          "points": 178,
+          "sha256": "021d3dd7066c507ccebd0b44b1a1f31e0498279af54d290db8984acf4fde3b3a"
+        },
+        {
+          "file": "l01_10.ckp",
+          "points": 178,
+          "sha256": "97d29473d3ced65ddf67c70eeeb4a6bf90c333db9af2bc3d9626ed91af818b0f"
+        },
+        {
+          "file": "l01_11.ckp",
+          "points": 234,
+          "sha256": "ea18b3dd9984ba16e39f6f2c309f8f6fce320f2408bdb459c71f7ef8903d8ce3"
+        },
+        {
+          "file": "l01_12.ckp",
+          "points": 246,
+          "sha256": "3f972f83459c9409ea9338047465e97551c5f75ceef9a4291ff1aed8408a73d8"
+        },
+        {
+          "file": "l01_13.ckp",
+          "points": 246,
+          "sha256": "cf99e2617911a5c149eb67d54527d6bc34e37c463fa03003013e782292644f5c"
+        },
+        {
+          "file": "l01_14.ckp",
+          "points": 246,
+          "sha256": "444b60be5a89fceb2adf6bb3c81b7ac10fa4ebbecdaa60ac79bec969742b6019"
+        },
+        {
+          "file": "l02_00.ckp",
+          "points": 246,
+          "sha256": "573e0dfdd13551fae2262cf85cd81628cbc5b8330abde1aaff569b5583667ed4"
+        },
+        {
+          "file": "l02_01.ckp",
+          "points": 246,
+          "sha256": "1ad4f3b8b3f4fa7c9723bce2003ae6fca51c88ec3ebbbd3106f69f480d642ff0"
+        },
+        {
+          "file": "l02_02.ckp",
+          "points": 246,
+          "sha256": "3d79789de3977aa0554cfa87457049b3c30fbf158f02ef2608bab349c018a4fb"
+        },
+        {
+          "file": "l02_03.ckp",
+          "points": 246,
+          "sha256": "d6c27213df36a67966c2f37a428c834dd6eda14a1feac11f98f7d4e02d3211ac"
+        },
+        {
+          "file": "l02_10.ckp",
+          "points": 246,
+          "sha256": "76e338a36c27dbef2b697b973dc175981f59ca1f8b8d5d5e1d35592effa86090"
+        },
+        {
+          "file": "l02_11.ckp",
+          "points": 302,
+          "sha256": "f0ca8f5fe38c3906c30605fdd71acc7655c6cfff76953b66231465335744992b"
+        },
+        {
+          "file": "l02_12.ckp",
+          "points": 246,
+          "sha256": "6f641f051ed8e438e8c64b37f76b5e653e561e7129943bc92566ce5b9024e1f5"
+        },
+        {
+          "file": "l02_13.ckp",
+          "points": 246,
+          "sha256": "d0568bcecb333c41354f4cffd8340008a0aaf14f418ee366d8390b4869f57c8a"
+        },
+        {
+          "file": "l02_14.ckp",
+          "points": 246,
+          "sha256": "80d30cb0954d1831823fa8c9f39ade358ab42b46ab1ad25a86ec3a6aa44b9e77"
+        },
+        {
+          "file": "l03_00.ckp",
+          "points": 58,
+          "sha256": "26d2191f85e057d4cfa8a1f10b1e74e955e4fabb3ccbce7be424e89a51ea587c"
+        },
+        {
+          "file": "l03_01.ckp",
+          "points": 130,
+          "sha256": "3f06560372afbcb42808c8547068170f6114860446e4818ea9d9a688bf39f2bd"
+        },
+        {
+          "file": "l03_02.ckp",
+          "points": 82,
+          "sha256": "4c0c7cc0f8ef635afc6e4a4dd81d3370f9a310e0f5e1bea6b9a6b8d43bc42ee9"
+        },
+        {
+          "file": "l03_03.ckp",
+          "points": 82,
+          "sha256": "57511930cf5a7d67b4359c6d2f523fb11d84d63b6d10db9d7e702b5a097cd985"
+        },
+        {
+          "file": "l03_10.ckp",
+          "points": 174,
+          "sha256": "5c861417305543a8bde0e2a5c9ec393e62a87f1ac11066ee52d05180fe77d4ae"
+        },
+        {
+          "file": "l03_11.ckp",
+          "points": 290,
+          "sha256": "fb6025ba9c2c37d092d3b681b3b23c1962b5aa4990634fea56da461bb7698a73"
+        },
+        {
+          "file": "l03_12.ckp",
+          "points": 254,
+          "sha256": "3a8f1f6e5c6a12d94f7ea60baa1292a0ad6f169a09406fcdae4c6b316ee23648"
+        },
+        {
+          "file": "l03_13.ckp",
+          "points": 318,
+          "sha256": "5e04a1e793e6b27529a412f8a3d4522b1a170f1e162f3be2b0c47821bd175ede"
+        },
+        {
+          "file": "l03_14.ckp",
+          "points": 174,
+          "sha256": "1deee65fdcfd41fadd33101b9461824ca8ee83a4623e7d49dfc3aabd44e6d8bc"
+        },
+        {
+          "file": "l04_00.ckp",
+          "points": 90,
+          "sha256": "3ab26ab7983872fb451971010854696aa8540e56b255dd8e29fbbdf5952291ad"
+        },
+        {
+          "file": "l04_01.ckp",
+          "points": 122,
+          "sha256": "aebb0f14c0c83089a1eb569f6eec61fd2b2a450f318b16ed7af6bea8a2c6d4f8"
+        },
+        {
+          "file": "l04_02.ckp",
+          "points": 122,
+          "sha256": "b58977e833fdcc8aba534e1eb928d004f1f3e0dccd73197acee0d9b4ee53ae8b"
+        },
+        {
+          "file": "l04_03.ckp",
+          "points": 122,
+          "sha256": "af6d58c14105cd760358b155e8725a60dde9113da514539f377ec8647ea5e358"
+        },
+        {
+          "file": "l04_10.ckp",
+          "points": 362,
+          "sha256": "0281945909185b11a83be013b3048977b0822ae73eec2df83c3d17596aa6e357"
+        },
+        {
+          "file": "l04_11.ckp",
+          "points": 298,
+          "sha256": "c85a93a5fe6efdc1eb9dc848c70337879f63de4de2794c1bced4a41472602210"
+        },
+        {
+          "file": "l04_12.ckp",
+          "points": 286,
+          "sha256": "c9fbbc09dc701831b40807ebd695229e168ab896d980d1250c0a78ed44404c81"
+        },
+        {
+          "file": "l04_13.ckp",
+          "points": 246,
+          "sha256": "c926d129e3356f08128873c201458c2d02f30c43fd9cf0309704318227f560b9"
+        },
+        {
+          "file": "l04_14.ckp",
+          "points": 1,
+          "sha256": "94e767ff157548f35f9cf39fd91c4c3a27c428eee3e51769ce498e6fbfc275b9"
+        },
+        {
+          "file": "l05_00.ckp",
+          "points": 42,
+          "sha256": "419896146064088d6751c6edd0a2155c6ccde67cd77ed7f9db025cb9d1829119"
+        },
+        {
+          "file": "l05_01.ckp",
+          "points": 178,
+          "sha256": "dfa295c47971acaa6219c08b2165a53ab51d2ad26152951db295d556d75626d6"
+        },
+        {
+          "file": "l05_02.ckp",
+          "points": 178,
+          "sha256": "9becee3a0946f205229b61831734955d0348a3064b375cc24bb8c2016b437f03"
+        },
+        {
+          "file": "l05_03.ckp",
+          "points": 178,
+          "sha256": "2cdf5d10cca1fbe70cf92c4bd221aeba2b116bb57a4a2caf7acdaf74dde03072"
+        },
+        {
+          "file": "l05_10.ckp",
+          "points": 302,
+          "sha256": "d063e907fc65dcbda41275958faf4de18a25770130237fb085acd6cfbc7a87ee"
+        },
+        {
+          "file": "l05_11.ckp",
+          "points": 350,
+          "sha256": "fd0423d42bf57c76ac808776fa5ebe5392ffe7c8006e6cb7bb39bd704f19661a"
+        },
+        {
+          "file": "l05_12.ckp",
+          "points": 258,
+          "sha256": "6cf656a2024a034be0e2500b9c4e1c407be3e5e2bd53ecee768be8043ebb3b33"
+        },
+        {
+          "file": "l05_13.ckp",
+          "points": 342,
+          "sha256": "eb8d6ca285bcfce859b1e16806b19abea64621ee36c62839423ae06886af716d"
+        },
+        {
+          "file": "l05_14.ckp",
+          "points": 2,
+          "sha256": "bddc23d3a90056b4bced76b2d5c84512fffbe3307bad312a842ca626ed3efd52"
+        },
+        {
+          "file": "l93_00.ckp",
+          "points": 15,
+          "sha256": "e27dfdf0fa5d29830fa7879c6116d60849fa606f630f56f64b3b81a20649dcf5"
+        },
+        {
+          "file": "l93_01.ckp",
+          "points": 14,
+          "sha256": "9167701cbfb92579d99870cf478f8bab9a76d88b08b8f6630fada5c76c5fc29a"
+        },
+        {
+          "file": "l93_02.ckp",
+          "points": 12,
+          "sha256": "f937fdd6dd324b822ef1733887a1260dbcbe8a42f75c32e7cf0ee630b2d6294b"
+        },
+        {
+          "file": "l93_03.ckp",
+          "points": 12,
+          "sha256": "00785e1a750d4818cd273d1b85bbae767d1f12f0502f2296bacb3dfaa7bd7253"
+        },
+        {
+          "file": "l93_10.ckp",
+          "points": 24,
+          "sha256": "0de4e4290516e599466efdeb0a7871f63e5e82086c51564fe994566fcd9917d0"
+        },
+        {
+          "file": "l93_11.ckp",
+          "points": 6,
+          "sha256": "10467b372cc53e4ce86e9c19c4e4d603e9b64ae4efb2c409e38efe9753627184"
+        },
+        {
+          "file": "l93_20.ckp",
+          "points": 58,
+          "sha256": "ba40af562acaf09e108e2e4955286f02a7a4ce50b70e605325143d731e3ff277"
+        },
+        {
+          "file": "l93_21.ckp",
+          "points": 56,
+          "sha256": "e82b4f325aa216fc265947374c30b1c6edd7eb3bdc203c4d76d28f9ad70c7b62"
+        }
+      ],
+      "native_functions": [
+        "0x4aeba9",
+        "0x4fb93e..0x4fba03",
+        "0x4fbd9d..0x4fbe4a",
+        "0x5234e5",
+        "0x42407a"
+      ],
+      "scope": "Explicit route cursors and heights, original spawn arithmetic/root matrix/frame setter. No game/save cursor selection or actor update/render timing."
+    },
+    "entry": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "entry_cases": 11520,
+      "camera_initializations": 256,
+      "profiles": [
+        {
+          "group": 0,
+          "area": 0,
+          "route": "l01_00.ckp",
+          "head": "atama",
+          "player_spawn": [
+            387.0,
+            0.0,
+            -60.0,
+            270.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 1,
+          "route": "l01_01.ckp",
+          "head": "atama",
+          "player_spawn": [
+            103.0,
+            0.0,
+            45.0,
+            0.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 2,
+          "route": "l01_03.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -43.0,
+            0.0,
+            118.0,
+            270.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 3,
+          "route": "l01_02.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -197.0,
+            0.0,
+            -54.0,
+            180.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 4,
+          "route": "l01_10.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -418.0,
+            0.0,
+            -18.0,
+            90.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 5,
+          "route": "l01_11.ckp",
+          "head": "atama",
+          "player_spawn": [
+            10.0,
+            0.0,
+            0.0,
+            90.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 6,
+          "route": "l01_12.ckp",
+          "head": "atama",
+          "player_spawn": [
+            78.0,
+            30.0,
+            -239.0,
+            0.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 7,
+          "route": "l01_13.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -122.0,
+            -21.0,
+            -96.0,
+            0.0
+          ]
+        },
+        {
+          "group": 0,
+          "area": 8,
+          "route": "l01_14.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -112.0,
+            0.0,
+            0.0,
+            90.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 0,
+          "route": "l02_02.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -78.0,
+            0.0,
+            -333.0,
+            270.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 1,
+          "route": "l02_00.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            32.0,
+            0.0,
+            -215.0,
+            90.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 2,
+          "route": "l02_01.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            103.0,
+            0.0,
+            45.0,
+            0.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 3,
+          "route": "l02_03.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -43.0,
+            0.0,
+            305.0,
+            270.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 4,
+          "route": "l02_10.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -734.0,
+            0.0,
+            -60.0,
+            90.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 5,
+          "route": "l02_11.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            59.0,
+            0.0,
+            -463.0,
+            90.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 6,
+          "route": "l02_12.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            430.0,
+            0.0,
+            48.0,
+            0.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 7,
+          "route": "l02_13.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -114.0,
+            0.0,
+            144.0,
+            90.0
+          ]
+        },
+        {
+          "group": 1,
+          "area": 8,
+          "route": "l02_14.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            32.0,
+            0.0,
+            44.0,
+            180.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 0,
+          "route": "l03_01.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            278.0,
+            0.0,
+            388.0,
+            180.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 1,
+          "route": "l03_00.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            102.0,
+            0.0,
+            12.0,
+            180.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 2,
+          "route": "l03_02.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -63.0,
+            0.0,
+            -218.0,
+            270.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 3,
+          "route": "l03_03.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -90.0,
+            0.0,
+            8.0,
+            0.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 4,
+          "route": "l03_10.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -144.0,
+            0.0,
+            -154.0,
+            90.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 5,
+          "route": "l03_11.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -203.0,
+            0.0,
+            -219.0,
+            45.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 6,
+          "route": "l03_12.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -191.0,
+            0.0,
+            -137.0,
+            45.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 7,
+          "route": "l03_13.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -108.0,
+            0.0,
+            0.0,
+            90.0
+          ]
+        },
+        {
+          "group": 2,
+          "area": 8,
+          "route": "l03_14.ckp",
+          "head": "kubiX",
+          "player_spawn": [
+            -50.0,
+            0.0,
+            0.0,
+            90.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 0,
+          "route": "l04_03.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -202.0,
+            0.0,
+            357.0,
+            180.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 1,
+          "route": "l04_01.ckp",
+          "head": "atama",
+          "player_spawn": [
+            0.0,
+            0.0,
+            303.0,
+            90.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 2,
+          "route": "l04_00.ckp",
+          "head": "atama",
+          "player_spawn": [
+            102.0,
+            0.0,
+            12.0,
+            180.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 3,
+          "route": "l04_02.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -35.0,
+            0.0,
+            -218.0,
+            270.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 4,
+          "route": "l04_10.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -159.0,
+            0.0,
+            -3.0,
+            90.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 5,
+          "route": "l04_11.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -190.0,
+            0.0,
+            -1.0,
+            90.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 6,
+          "route": "l04_12.ckp",
+          "head": "atama",
+          "player_spawn": [
+            118.0,
+            0.0,
+            -271.0,
+            270.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 7,
+          "route": "l04_13.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -154.0,
+            0.0,
+            -47.0,
+            90.0
+          ]
+        },
+        {
+          "group": 3,
+          "area": 8,
+          "route": "l04_14.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -141.0,
+            0.0,
+            -108.0,
+            90.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 0,
+          "route": "l05_00.ckp",
+          "head": "atama",
+          "player_spawn": [
+            246.0,
+            0.0,
+            -313.0,
+            315.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 1,
+          "route": "l05_02.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -38.0,
+            0.0,
+            -217.0,
+            270.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 2,
+          "route": "l05_03.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -200.0,
+            0.0,
+            25.0,
+            0.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 3,
+          "route": "l05_01.ckp",
+          "head": "atama",
+          "player_spawn": [
+            5.0,
+            0.0,
+            303.0,
+            90.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 4,
+          "route": "l05_10.ckp",
+          "head": "atama",
+          "player_spawn": [
+            6.0,
+            0.0,
+            0.8999999761581421,
+            90.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 5,
+          "route": "l05_11.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -40.0,
+            0.0,
+            21.0,
+            90.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 6,
+          "route": "l05_12.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -217.0,
+            0.0,
+            3.0,
+            90.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 7,
+          "route": "l05_13.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -71.0,
+            0.0,
+            -2.0,
+            80.0
+          ]
+        },
+        {
+          "group": 4,
+          "area": 8,
+          "route": "l05_14.ckp",
+          "head": "atama",
+          "player_spawn": [
+            -308.0,
+            0.0,
+            -2.0,
+            90.0
+          ]
+        }
+      ],
+      "hooks": [
+        "0x401d24",
+        "0x517640",
+        "0x51765d",
+        "0x4aa32e",
+        "0x517c8e",
+        "0x4aa9f4",
+        "0x50e633",
+        "0x4ad8ec path prefix",
+        "Windows file APIs"
+      ],
+      "native_functions": [
+        "0x4ebfd0",
+        "0x4fb73e..0x4fb822",
+        "0x4e9538..0x4e95b4",
+        "0x4ff78e"
+      ],
+      "scope": "Full entry phase precedence for every byte value, explicit cursor overrides, route names/head bindings/player spawn metadata. Does not decode saves, execute dialogue/UI or prove initial global cursor contents."
+    },
+    "actor-phase": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "records": [
+        {
+          "entry": "h00_80",
+          "frames": 46,
+          "head": "qqq21_atama",
+          "steps": 90,
+          "matrices": 7912,
+          "rejected_steps": 270,
+          "max_normalized_error": 0,
+          "sha256": "5f3d4564182e3f5363f35dc5e26a23e1e10aeee6ebb381d1fcc43618e72bdf02"
+        },
+        {
+          "entry": "h01_80",
+          "frames": 274,
+          "head": "atama",
+          "steps": 90,
+          "matrices": 47128,
+          "rejected_steps": 270,
+          "max_normalized_error": 0,
+          "sha256": "09bad92a87bf541a48b15671b6d9d60f5b43ac340bff8e881b63a035b1eb224c"
+        },
+        {
+          "entry": "h02_80",
+          "frames": 172,
+          "head": "kubiX",
+          "steps": 90,
+          "matrices": 29584,
+          "rejected_steps": 270,
+          "max_normalized_error": 0,
+          "sha256": "53fa780008e3faf1cd8e81a55479158ac957ea0a81a2f970ac45a0b127324519"
+        },
+        {
+          "entry": "h03_80",
+          "frames": 213,
+          "head": "kubiX",
+          "steps": 90,
+          "matrices": 36636,
+          "rejected_steps": 270,
+          "max_normalized_error": 5.960464477539063e-08,
+          "sha256": "0434bb5afb5f3345a51c3f5c113a8f03d2fc336874e6efff0819c5192e3101a7"
+        },
+        {
+          "entry": "h04_80",
+          "frames": 481,
+          "head": "atama",
+          "steps": 90,
+          "matrices": 82732,
+          "rejected_steps": 270,
+          "max_normalized_error": 0,
+          "sha256": "96297cdaa7f33633f55a6cec0d45e3be981741f090c949b4c6714230be7a5153"
+        },
+        {
+          "entry": "h05_80",
+          "frames": 431,
+          "head": "atama",
+          "steps": 90,
+          "matrices": 74132,
+          "rejected_steps": 270,
+          "max_normalized_error": 0,
+          "sha256": "6eadc9617c4ebdba40432cffbfaa41a21b65b28d1b6dd722e8e05971bc5c3b53"
+        }
+      ],
+      "steps": 540,
+      "matrices": 278124,
+      "rejected_steps": 1620,
+      "max_normalized_error": 5.960464477539063e-08,
+      "native_functions": [
+        "0x4fbd9d..0x4fbe4a",
+        "0x4fc6c7..0x4fc6fd",
+        "0x401b0a",
+        "0x4026fe",
+        "ANIM SRT",
+        "0x42273b"
+      ],
+      "scope": "Six actual actor assets: root immediately visible, child/head caches held until traversal, base placement without timeline consumption, repeated requests and transactional rejection. Explicit pose/action inputs; not player/NPC policy, AI, physics, dynamic mesh, audio or complete gameplay."
+    },
+    "follow-phase": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "steps": 720,
+      "premature_pose_publication_diverges": 545,
+      "max_normalized_error": 0,
+      "native_functions": [
+        "0x4bdc12",
+        "0x4026fe",
+        "0x4097d6",
+        "0x409a94",
+        "0x406c6b",
+        "0x408927",
+        "0x42273b",
+        "0x425196",
+        "0x422c49"
+      ],
+      "hooks": [
+        "0x42cf0e FOV boundary",
+        "0x4bed86 no obstacle volume",
+        "0x4b61e5 no obstacle result"
+      ],
+      "scope": "One VM executes camera XAN/animation/controller/pose publication. Actor positions and cached head points are explicit synthetic inputs; no real actor route or gameplay dispatch."
+    },
+    "player-camera": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "cases": 4943,
+      "arrivals": 2205,
+      "max_normalized_error": 0,
+      "native_functions": [
+        "0x4bdfb0",
+        "0x4be290",
+        "0x4ade8f",
+        "0x4adcd9",
+        "0x42ee68",
+        "original D3DX rotations/multiply",
+        "0x42407a"
+      ],
+      "hooks": [
+        "0x42cf0e FOV service"
+      ],
+      "scope": "Both player-camera handovers, original matrix-angle interpolation and inclusive completion bounds. Explicit player input; no game branch selection/collision/player movement."
+    },
+    "camera-policy": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "cases": 12288,
+      "branch_counts": [
+        12216,
+        16,
+        48,
+        4,
+        4
+      ],
+      "native_functions": [
+        "0x51a682",
+        "0x4ec78d"
+      ],
+      "hooks": [
+        "0x4b26b8",
+        "0x4b2f41",
+        "0x4f737b",
+        "0x4c009b",
+        "0x4c1313",
+        "0x4bfea9",
+        "0x4fc8f9",
+        "0x4fc36d",
+        "0x5121ce",
+        "0x512102",
+        "0x4ef141",
+        "0x4ef095",
+        "0x4f4306",
+        "0x4f3c80",
+        "0x4f3d34",
+        "0x4f5c6a",
+        "0x4cc320",
+        "0x4bdc12",
+        "0x4b8a89",
+        "0x4bdfb0",
+        "0x4be290"
+      ],
+      "scope": "Original branch selection and camera-stage completion write. World/AI/UI/controller bodies replaced at boundaries; pose math independently checked by controller oracles."
+    }
+  },
+  "captures": [
+    {
+      "path": "build/entry-scene-clip-60-steps.rgba",
+      "sha256": "f0b24f47877b5a2db3604ef6627243be3b9d29b8123c27bac8366e525c5d2b97",
+      "matches_035": true,
+      "asan_matches": true
+    },
+    {
+      "path": "build/entry-scene-clip-end.rgba",
+      "sha256": "2b660ed64d52ab2ddd9054923722960c90bc5499a4f596323d8cbd78a527324b",
+      "matches_035": true,
+      "asan_matches": true
+    },
+    {
+      "path": "build/entry-scene-moved.rgba",
+      "sha256": "98c047ea64c4f150752eac62a0741869bb673a6cdf1878608606f7e332bcf5eb",
+      "matches_035": true,
+      "asan_matches": true
+    },
+    {
+      "path": "build/entry-scene-office.rgba",
+      "sha256": "ecedba8ffa6880677b5e1b131326f68a42425245b17e33b0aa583973e35c28af",
+      "matches_035": true,
+      "asan_matches": true
+    },
+    {
+      "path": "build/entry-scene-title.rgba",
+      "sha256": "8f6ed15f5f8df8c022d85cb6895f6c5fa7146930508bfc5c4bec7f0afb7e3b7d",
+      "matches_035": true,
+      "asan_matches": true
+    },
+    {
+      "path": "build/entry-scene-track-start.rgba",
+      "sha256": "9907e6d1073fe9cf584b7018fb3abc5b594547147f740aba4952e377ead28447",
+      "matches_035": true,
+      "asan_matches": true
+    }
+  ]
+}

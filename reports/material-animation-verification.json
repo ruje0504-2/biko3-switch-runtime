@@ -1,0 +1,538 @@
+{
+  "passed": true,
+  "hardware_verified": false,
+  "full_ending_integrated": false,
+  "full_native_model_dispatch": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "d1df27ad7aaebbd12bbcc93702c8358391fe537588c2f621eeb9dead1849356b",
+    "undefined_symbols": 0
+  },
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "models": 78,
+    "synthetic": 60,
+    "samples": 15360,
+    "tracks": 374,
+    "keys": 1659,
+    "defined_field_comparisons": 9843314,
+    "undefined_w_policy_checks": 63946,
+    "observed_undefined_w_patterns": [
+      "214365be",
+      "45230140",
+      "5634123e"
+    ],
+    "atomic_rejections": 1260,
+    "max_normalized_error": 0.0,
+    "records": [
+      {
+        "pack": "bk3_01.pp",
+        "name": "h02_20.x",
+        "sha256": "74b79e135c79a6e0d16faac4baecbfc95660745d26f707cbec36485a8a07eb6c"
+      },
+      {
+        "pack": "bk3_01.pp",
+        "name": "h03_20.x",
+        "sha256": "d083e05d125192d31bf24894172723e0678b772d5d17e3c8cc4c8351ea6de9ef"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m00_10.x",
+        "sha256": "78b0814558f1b26557b7a615406da2ea2aa7c996c7d7a258af005ccf2a9724c1"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m00_12.x",
+        "sha256": "586c0fac569cbf0213bd27144fa45e8b02ba08b8e3f9d794fab0dd8ba63e361a"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m00_13.x",
+        "sha256": "3ea08b1b439011fb68bfa29a269f9d760cbb73d9807fb717bb19635271b51bdf"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m01_01.x",
+        "sha256": "1baee39c02898752a142a36b40939f4f9ac491f92131a3ef30f59b61286d8de2"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m01_02.x",
+        "sha256": "8f5119ae807d42f5d3bf9557d29722ae13d5acbe04008060a41a3079a2e3637e"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m02_00.x",
+        "sha256": "78613e22c8c08339189d2e6963a5d75d30521f1d76b1f182b3ed39c198a4b65e"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m02_02.x",
+        "sha256": "b0e7b185bd8734049d149193f48c628b2008c2b092043bfbc716d84f4c438d26"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m03_04.x",
+        "sha256": "ab6cdcfbb34c069db49c9a8bcd793cd3c13ac4e735b8a39f864d772a96c24cb4"
+      },
+      {
+        "pack": "bk3_03.pp",
+        "name": "m04_02.x",
+        "sha256": "f99ee29d1635b2257515d309a319ffd45773b28eaf7aeff7b9471b163f769d30"
+      },
+      {
+        "pack": "bk3_08.pp",
+        "name": "h01_01.x",
+        "sha256": "533c0d333a8536b408e0f4825fb409c07c76e57ffe82bf35afd5dc9b3fa81625"
+      },
+      {
+        "pack": "bk3_08.pp",
+        "name": "h02_01.x",
+        "sha256": "8dacdc17440da40dc210db6d63f337d4e3d6c6f8f6807aa78c51b75d717e92d5"
+      },
+      {
+        "pack": "bk3_08.pp",
+        "name": "h02_20.x",
+        "sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158"
+      },
+      {
+        "pack": "bk3_08.pp",
+        "name": "h03_01.x",
+        "sha256": "46ba24bccceb17cfa2bba51ba0a700cc7781b9b724ebc855a68fb2a588f2cf3a"
+      },
+      {
+        "pack": "bk3_08.pp",
+        "name": "h03_20.x",
+        "sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580"
+      },
+      {
+        "pack": "bk3_08.pp",
+        "name": "h04_01.x",
+        "sha256": "f8c67a8064ea418800ad0438876a752617d7cdad81e9b81e0accc9ba6f6faa88"
+      },
+      {
+        "pack": "bk3_08.pp",
+        "name": "h05_01.x",
+        "sha256": "a98518d4b4cab075dcfc7c546189aacce2e86c5827e5a61b1853dd8c151ae689"
+      },
+      {
+        "pack": "bk3_09.pp",
+        "name": "h02_02.x",
+        "sha256": "eccaab1c32450a7c4228469634cddda58818fc1a7721473dd6e61744572b9a24"
+      },
+      {
+        "pack": "bk3_09.pp",
+        "name": "h02_20.x",
+        "sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158"
+      },
+      {
+        "pack": "bk3_09.pp",
+        "name": "h03_02.x",
+        "sha256": "c3cc3155c39292f1b65db3b130cec4e582654dccd5d3dd3937fc25712e9747fd"
+      },
+      {
+        "pack": "bk3_09.pp",
+        "name": "h03_20.x",
+        "sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580"
+      },
+      {
+        "pack": "bk3_09.pp",
+        "name": "h04_02.x",
+        "sha256": "46da5c21592dac2e1544235b283531977caff1655381aa8d1b5ba21ed77981a9"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h01_03.x",
+        "sha256": "234ab4b5b2629d2d3bf155dbd5a339e27e5d46761ea35c48693980cac922bf43"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h01_04.x",
+        "sha256": "e8eeaf664efb0bb74f9258b982b618512df370f7152bd6d08a2705de72ce823a"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h01_05.x",
+        "sha256": "5ff8e16ddeedcdc16d2a0c87bc35efebc2d1d43c047c30720c9bae082273c26c"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h02_03.x",
+        "sha256": "bf94dfcaa5b02f2a8401d2ee2f61f113ac66ffffba9bf5037c957cd8dbd04d08"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h02_04.x",
+        "sha256": "a29d208618a213c58292065025d95fca2fb03f0fe3977e00e23bc60dc771aae8"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h02_05.x",
+        "sha256": "2c8af5f51ff143baedbad615caeb529decf68ccb2a8bbc2233c358ef0e33479e"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h02_20.x",
+        "sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h03_03.x",
+        "sha256": "6bffec5cba6edbaeb099800d1b83a81411f42772762ea690b521f296c3cbe23b"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h03_04.x",
+        "sha256": "dc99595389f8d707ebfa5e6e81c3228975ff2a55c5fd1bbb97609e47abda60b1"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h03_05.x",
+        "sha256": "332f4f96fa9fe017e10c6183cf232511ccc7e82de603a7aecdead2075f043517"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h03_20.x",
+        "sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h04_03.x",
+        "sha256": "39e64aa4c17547c60972fc60e08c61dc326d7947b3e3986ec9f14169a1a31f42"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h04_04.x",
+        "sha256": "0a178d4d9c2fd96ccc44c928c7400935998157284f8fffe691460700fea3f68e"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h04_05.x",
+        "sha256": "155ad05e10e8069e238c3243efe295129fc43aa41196ed45b17b97b7aa519606"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h05_03.x",
+        "sha256": "5b8a962d324523f6473ca1695c4f3ab468e8bd1a3d8aacc224cf7b1742e787c9"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h05_04.x",
+        "sha256": "51fc6e77107f33c105000258d196f22ba2fa8b595d8a24bd4590e540b4ab3fd5"
+      },
+      {
+        "pack": "bk3_10.pp",
+        "name": "h05_05.x",
+        "sha256": "2f18c55ba5e051f357f39a7e02937da139ac2e4d5a0af2dc5f739bbe418134b3"
+      },
+      {
+        "pack": "bk3_11.pp",
+        "name": "h01_10.x",
+        "sha256": "5b60678b72b18fad8ac6eb2da416139e67a50b2e809692e0a9fcbfc2966e8919"
+      },
+      {
+        "pack": "bk3_11.pp",
+        "name": "h02_20.x",
+        "sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158"
+      },
+      {
+        "pack": "bk3_11.pp",
+        "name": "h03_20.x",
+        "sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580"
+      },
+      {
+        "pack": "bk3_11.pp",
+        "name": "h05_10.x",
+        "sha256": "7025cd8483ee8e2951cd51d7ae513cd80fdde59ffe127fb9ddcfd5e0d3110131"
+      },
+      {
+        "pack": "bk3_12.pp",
+        "name": "h01_12.x",
+        "sha256": "187e83d55eb4236fbf525a3949cde673198703d58fb656dc2533b113c75772c9"
+      },
+      {
+        "pack": "bk3_12.pp",
+        "name": "h02_12.x",
+        "sha256": "92aec3dd1ef4dbdec31d6d2b953f19e29841488be63eb6813ecd980bd92f1eae"
+      },
+      {
+        "pack": "bk3_12.pp",
+        "name": "h02_20.x",
+        "sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158"
+      },
+      {
+        "pack": "bk3_12.pp",
+        "name": "h03_12.x",
+        "sha256": "1a88cdba6df47912e43a86e1007b3c1c2952502f327d5913abd8b7e5b3546ac8"
+      },
+      {
+        "pack": "bk3_12.pp",
+        "name": "h03_20.x",
+        "sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580"
+      },
+      {
+        "pack": "bk3_12.pp",
+        "name": "h04_12.x",
+        "sha256": "45db6bf7514c291c8c482e81fc2fb6935f5e28bff0989bb9edaefe13cdaf4392"
+      },
+      {
+        "pack": "bk3_12.pp",
+        "name": "h05_12.x",
+        "sha256": "dbfd7e9fa45ba58c5f906b055597507be07695fa4a2d6c0a028ddead6b709aa9"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h01_13.x",
+        "sha256": "abe5a095708eed41be2ee4e1564282fa725eba9b5207bb16a104cd562a331443"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h01_14.x",
+        "sha256": "716d9d4ee9b15249693c403fc1448acb06c86d6341b6b7ea985c1adcbec59c0a"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h01_15.x",
+        "sha256": "f224cc94d94f9761c53694da6c53871862cd5af8e6b75722757e1cec48729fc6"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h02_13.x",
+        "sha256": "37ed78fda203ee07aa0d4a8ca8fd2c5f18099f2c092dbe99318cff6435227c99"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h02_14.x",
+        "sha256": "89702fb4b4c57cecf1eba281d0d7e67e82945764148d33ec598ae67eb475d6fd"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h02_15.x",
+        "sha256": "4ad8f3146af8316837292582450882042d65f5c6ca92f30782da42e6f8a93353"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h02_20.x",
+        "sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h03_13.x",
+        "sha256": "f2acbc1f8b1aff66468a6219b5cc41ac1ae9f8485f7b3f05d8d8d13953183099"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h03_14.x",
+        "sha256": "333d09f350dcdefd7b5fc31695b8e0159ab272b69d98de3915a7721e33d9ca02"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h03_15.x",
+        "sha256": "c16110e87e92dbfb87e6f4acf09124959ce0d003bce5b8bd0cffbb350515ef7a"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h03_20.x",
+        "sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h04_13.x",
+        "sha256": "3e2fe90d8952c11f80609a283d3c57b7b41403bf272b85cb43a49d5adc7b71fe"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h04_14.x",
+        "sha256": "398f6206d97ccdf3570f6a623d1cc3e17cd30a8c20b398fe2cfce55806aa3557"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h04_15.x",
+        "sha256": "c307264bf111fb906e2fb43fd5595c60a0868c8217716228daa80ef9558907d2"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h05_13.x",
+        "sha256": "9c61e9105ec5f22140a5e4b923e0084ef010a82edbc1678de7a5cd8a85dff7c7"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h05_14.x",
+        "sha256": "6be17308d97a1f995cc0a3066af6ebf23a6946581d1dfaebaf3939b0678f3633"
+      },
+      {
+        "pack": "bk3_13.pp",
+        "name": "h05_15.x",
+        "sha256": "62e54957ae0fe4980bac7238161c2d162186705ff2c9176e2ba3853443e5cc08"
+      },
+      {
+        "pack": "bk3_14.pp",
+        "name": "h01_55.x",
+        "sha256": "a095ed159f80b45f90057ea65013f5ebc30e7c32afd5252ba3433569ec6ddb1e"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m00_10.x",
+        "sha256": "bc32fbda7a61885e0c2f7e678e357950cac36c488e5bbd35dda8d01394119b53"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m00_12.x",
+        "sha256": "e1d6e5d647bdc87e0c07a9880fd5a19cbbbee0d9d951c257537564e9c0ea6025"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m00_13.x",
+        "sha256": "b595b47b765c78e4d99d341c7ec7403394ad4dfb69d2908f4e9b566a2388b55f"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m01_01.x",
+        "sha256": "d87b0050e913f9a5e8c930a51955b0d11b4bb1cdec62cfc04af0a94ae7cc1240"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m01_02.x",
+        "sha256": "09216b2c689a305d8c824be3f05600551df85d0e399cf4c13a9ac5adec542090"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m02_00.x",
+        "sha256": "0d9118106f47ea1e42c1a902d84dbdc4a7f629735e01c0182664fbffde5b1309"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m02_02.x",
+        "sha256": "22f9e1482272ce9027aa51e79adf88f6a2a6831af0330406ed7da27ccc56d29c"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m03_04.x",
+        "sha256": "a66d4f8dba5c82d2d63f773bd0687b3ab81a69b2cc9b050f33c6198ef7463383"
+      },
+      {
+        "pack": "bk3_17.pp",
+        "name": "m04_02.x",
+        "sha256": "405ef34e59446b3d1315613ab3e213dfc86485893182a34e695252764e09de3f"
+      }
+    ],
+    "scope": "Native MATA loader/key normalization, group sampler, setter and release.\nOnly heap allocation/free, exported ID lookup and registry detach are boundaries.\nNative interpolation leaves specular/emissive W uninitialized: compare all\nother fields, audit those two as explicit portable-zero policy when interpolated.\n"
+  },
+  "actor": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 840,
+    "hidden_frames": 77,
+    "matrices": 21024,
+    "vertices": 1691118,
+    "max_normalized_error": 0.0,
+    "assets": [
+      {
+        "pack": 8,
+        "name": "h01_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "533c0d333a8536b408e0f4825fb409c07c76e57ffe82bf35afd5dc9b3fa81625"
+      },
+      {
+        "pack": 8,
+        "name": "h02_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "8dacdc17440da40dc210db6d63f337d4e3d6c6f8f6807aa78c51b75d717e92d5"
+      },
+      {
+        "pack": 8,
+        "name": "h03_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "46ba24bccceb17cfa2bba51ba0a700cc7781b9b724ebc855a68fb2a588f2cf3a"
+      },
+      {
+        "pack": 8,
+        "name": "h04_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "f8c67a8064ea418800ad0438876a752617d7cdad81e9b81e0accc9ba6f6faa88"
+      },
+      {
+        "pack": 8,
+        "name": "h05_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "a98518d4b4cab075dcfc7c546189aacce2e86c5827e5a61b1853dd8c151ae689"
+      },
+      {
+        "pack": 11,
+        "name": "h03_30",
+        "tracks": 3,
+        "frames": 120,
+        "sha256": "8aacaa3a3bf4a59de7d1b3019f450b082efecab07a168b1eb0099270c5e81727"
+      },
+      {
+        "pack": 11,
+        "name": "h03_31",
+        "tracks": 2,
+        "frames": 120,
+        "sha256": "dbf7f59594fdacba5268a727a98366c3ec9e9af36bb568884318d84e6f355952"
+      }
+    ],
+    "material_checks": 42064,
+    "scope": "Actual native4021a1 ANIM/MATA/MORP dispatch on7 auxiliaries, hidden and publication; other effect slots absent; interpolated material specular/emissive W portable0 policy."
+  },
+  "cpu": {
+    "models": 78,
+    "tracks": 194,
+    "frames": 9360,
+    "materials": 517800,
+    "fnv": "63d646cba531d7c8"
+  },
+  "gpu": {
+    "fixtures": 7,
+    "frames": 420,
+    "rgb_checks": 80640,
+    "max_error_255": 0,
+    "changes": 165,
+    "fnv": "d51b58261b830ce5",
+    "diagnostic_geometry": true
+  },
+  "source_sha256": {
+    "runtime/model/material_animation.c": "cfd39d2ea783c52430e7e45a3dd1ae1917db3fe3c7dbbf76c8b963c3f2dda910",
+    "runtime/model/material_animation.h": "0c960c1a4dafc6f53baa277db8d9ad712f237fa26657edc040c9324b2b5e6136",
+    "runtime/model/material_pose.c": "292935205a1217f56b457202c6009239134c19f0d2f836b736c731a4e81fee4e",
+    "runtime/model/material_pose.h": "045e9619307130df77c98224280c63edfe58f965a3a7260dadd89f6c6c74ba13",
+    "tests/test_material_animation.c": "897d522bf61771fd40a10351f8748b7ffbd9fd274f77e9ad88ac513a1d0d5b68",
+    "tests/original_material_animation_oracle.py": "3024cb06a5ad52d45d8b94ab1e6f399999b5c1a2b4f8945f283cb8b843f7cd01",
+    "tests/original_fixed_actor_oracle.py": "f651c6c8c14133a51f65aa4bc603084729965adb075f4096e9f7cc045b20d7c9",
+    "tools/material_animation_probe.c": "3a329037c41b09da215959131d55cad4085c50aa03f5d03d26c4ed75580cf219",
+    "tools/material_animation_render_probe.c": "f44f1af631a09efac8d3d1d6a57e19e26427209008b52e8ecfc47b29a3e85f69",
+    "CMakeLists.txt": "af65247f40a59a5be1bb908d4720069c06aabee55f61f5ce0b776927bc85c7ad",
+    "test-host.sh": "b7960177ecc94d36d33944c033fbfd87aab145aa655fa5f1b12412a783722299"
+  },
+  "logs_sha256": {
+    "mata-unit.log": "b3e7d8beba8f3057d822609af59fe85c9e797f551f2d37e925fae8d77f8b6471",
+    "mata-asan-unit.log": "f3dd7c56fb2bc888aba2c2ee15dc935c0271a4b45b5a9702d7a46b8ef5464fb6",
+    "mata-probe.log": "16416581f29ff503e84d1ff0efb0c3c40f7c6b0095d5a9650cd6989fd4c87c81",
+    "mata-probe-asan.log": "16416581f29ff503e84d1ff0efb0c3c40f7c6b0095d5a9650cd6989fd4c87c81",
+    "mata-gpu.log": "d1c27f586ff07abcc6535525759e7d182905c9501ed67fe82cd77e94fe0175fe",
+    "mata-gpu-asan.log": "d1c27f586ff07abcc6535525759e7d182905c9501ed67fe82cd77e94fe0175fe",
+    "mata-oracle.log": "6764dede9c19feceaca24683aa30eee4484989b78e2a7ced477bede635932204",
+    "mata-auxiliary-oracle.log": "3c7e1df4e22208cec7be1e46db61ae1c2049da4e94a43661e8843bae01e13b7f",
+    "mata-architecture.log": "f139f670e46de80ad0e87e30337a2cbc6745602a8c2116a1585b3395935057f6",
+    "mata-switch-build.log": "143d813e7ea00fb9ad3cd9cf99279cea47f3912451d97f0d4de454f3edc6cf79"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Interpolated specular/emissive W are undefined in native code; portable zero policy is separate",
+    "Missing/ambiguous material targets and unsafe signed times explicitly rejected",
+    "Fixed ANIM/MATA/MORP combination only; other native effect slots absent",
+    "GPU probe uses real material tracks with synthetic quads, not ending visuals",
+    "Full BOM resource owner/post-ENVL GPU callbacks/seconds effects/ending application still missing",
+    "No new Switch hardware validation"
+  ]
+}

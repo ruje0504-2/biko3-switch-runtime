@@ -1,0 +1,68 @@
+{
+  "stage": "Japanese retail title controller and rendering dependency",
+  "date": "2026-09-28T01:12:41.609049+08:00",
+  "sources": {
+    "runtime/ui/zoom_sprite.h": "9c50d1827107ef720ea1271570e0a26b311c2dc66c5431e0b5cce5373669edc9",
+    "runtime/ui/zoom_sprite.c": "00cce504459737a731dde7ad9847217f20d35e18757cb2011cc48ccfecb0c2fa",
+    "runtime/scene/title_menu.h": "790e73b897793c0243a2591f480b5df9ec4518fd235edbdc1e62a40e544f777e",
+    "runtime/scene/title_menu.c": "3743d6256acbe44abf01c9b18f64dcda838a269312c25390e8f870bbd319fb49",
+    "runtime/scene/title_menu_render.h": "5d973b0cff0b5953db0c191e10c5787a8152f6debf4f56231b548eaac8294f0d",
+    "runtime/scene/title_menu_render.c": "7d3853a32f286da914198ef2e982e0588f159f4f54be60d5f6bffeb827add3d4",
+    "tests/original_zoom_sprite_oracle.py": "b8fc686cfb4e304a067c08e09c4b2977c2b82f5f0e0de92594639d1032c98834",
+    "tests/original_title_menu_oracle.py": "d473c4aa1ec052488c0ff9f3e0e5e8da28c1e6974d04ef40690c3b41d5fc0606",
+    "tests/test_title_menu.c": "00a206bcc890a7a4a57a93aceec64ce8480f60cd0f425e7c199bfd1c9ba2d372",
+    "tools/title_menu_probe.c": "7fe9ff04ee30b8d518a470f651f27841453b763657687f32f86bf6975633947e"
+  },
+  "oracles": {
+    "local/original-zoom-sprite-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "steps": 11760,
+      "vertices": 70560,
+      "max_error": 0,
+      "scope": "Original50e633/50e6ba enter2/exit0/idle0 and43ed45 geometry.\nOnly texture creation and vertex-buffer lock/unlock/draw are substituted.\nNo hooks in transition, scale, pivot, alpha or vertex calculations.\n"
+    },
+    "local/original-title-menu-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "constructors": 20,
+      "frames": 10352,
+      "draws": 84016,
+      "events": 19078,
+      "max_error": 0,
+      "scope": "Complete4e7917 construction and519476 title frame with actual50e6ba,\n43ed45,50db23,4adbb9 and51c47e. Boundaries: texture/audio creation,\nvertex-buffer lock/draw, DirectSound gain, input/clock and scene release.\nFixed analyzed Chinese EXE; not Japanese protected-EXE instruction evidence.\n"
+    }
+  },
+  "gpu": {
+    "normal_log": "local/title-menu-jp-test.log",
+    "asan_log": "local/title-menu-jp-asan-test.log",
+    "frames_each": 360,
+    "channels_each": 29476092,
+    "max_channel_error": 1,
+    "releases_each": 12,
+    "pcm_samples_each": 691200,
+    "pcm_hash": "0165f72720f9f3bf",
+    "redraws_each": 1,
+    "image": "local/title-menu-jp.png",
+    "scope": "Actual Japanese assets, CPU sampler/blend comparison. Endpoint releases are observers, not loaded destinations. No original Windows frame comparison."
+  },
+  "checks": [
+    "local/title-menu-ctest.log",
+    "local/title-unit-asan-test.log",
+    "local/title-menu-architecture.log",
+    "local/title-menu-switch-build.log"
+  ],
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "b9a44d44b54ff020b7b12ed5921e7c2215f834fab705eab4e9982d945afb6b61",
+    "undefined_symbols": 0
+  },
+  "limitations": [
+    "Title components not yet wired to default application; new game38/8 still under restoration",
+    "NRO unchanged by dead code elimination; package remains prior save-session snapshot",
+    "Japanese protected EXE not unpacked; original instruction evidence uses fixed Chinese EXE",
+    "Retail data missing demo te_10.bmp: fail explicitly, never substitute",
+    "ASan/UBSan only, no LeakSanitizer or Switch hardware evidence"
+  ]
+}

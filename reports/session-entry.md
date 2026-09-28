@@ -1,0 +1,11 @@
+# 外层入口目的地与进程初态
+
+新增 entry_resolve：flow48按4e8e3b先把area改为4/5/5/6/5，再读取该profile的cursor/start，当前cursor采用4fad20的66/82/194/46/230。普通flow沿用显式进度表。这样真实特殊返回不会把角色的覆盖游标应用到错误区域资源；直接actor API仍是已选择profile的低层接口。
+
+新增 game_frame_boot_state，仅用于进程首次创建，在关卡重入时禁止调用。原PE及27个游戏CRT构造器执行后，已映射actor/controller/route/latch/voice/prop/ambient/inventory相关全局为零，独立lean为10；平台传入原time(NULL)的低32位作为原srand种子。此接口不代表菜单“新游戏”或存档恢复；那些后续写入仍须按原流程实施。
+
+新增 entry_player_view_reset、game_frame_initialize_entry：演员部分重置后接原mode2相机初始化，yaw/pitch0，distance/target_distance40，实际frame和matrix为Y20的单位朝向，平滑位置随后从NPC body种入。probe/focus/rays/blocked/lean/selected_ray等保持，camera stage/transition不擅改。共享player wall distance同步为40。中央组合探针现调用这些真实入口规则，去掉手填distance40/lean10/prop alpha1与动作槽假值；仍有明确的测试时钟、seed和阶段/屏幕投影输入。
+
+验证：11520个全256flow×45profile原目的地/游标/起点对照，1024个原mode2+平滑seed重置保留缓存对照，最大误差0；27原游戏CRT构造器无hook执行，22个全局零区及lean10/5个seed值验证。实际45次特殊返回从任意原area到正确资源均通过，另166个直接演员入口、45profile1080中央帧在普通/ASan一致；PCM2073600采样hash201816ecf775411f。50host/28Python/42CPUASan/NVK构建通过，undefined0，NRO 1a4ed1b6a82210733a2b227072a7ef64cc92d3f08cd795b408da19b197f3cb63。
+
+下一项51a190开场对话/阶段推进及共享message状态，之后资源生命周期和应用场景注册。完整4e82b8还包含UI/音频资源装配等，不能把本报告视为完整游戏加载。SD归档仍0.3.5，无实机验证；防休眠继续。

@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "2ead894e616a18af4b91f72c0e8edc0f4043ba0cad015eff720288443d851954",
+    "undefined_symbols": 0
+  },
+  "hardware_verified": false,
+  "weather_enabled": true,
+  "rain_profiles": {
+    "group": 4,
+    "areas": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "snow_profiles": {
+    "group": 0,
+    "areas": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "actual_game_pixel_comparison": {
+    "normal_asan_equal": true,
+    "frames": 72,
+    "failure_frames": 24,
+    "rgb_checks": 8294400,
+    "changed_channels": 712064,
+    "max_error_out_of_255": 1,
+    "fnv": "0a64d878a6721920",
+    "fixture": "Pair actual game scenes with identical state; replace only rain texture with transparent TGA for the baseline. Independently composite real rain on the upper half outside opening/failure HUD. Rain/GPU state unchanged; no original EXE frame image comparison."
+  },
+  "area_menu_reloads": 40,
+  "profile_checks": {
+    "rain": 49,
+    "snow": 49,
+    "dry": 227
+  },
+  "original_front_rain": "title212 selection253 dialogue296 loading195 opening492 pause106 return111 photos2 normal/ASan",
+  "original_front_snow": "title212 selection273 dialogue1514 loading195 opening498 pause106 return111 photos2",
+  "save_regression": {
+    "frames": 5599,
+    "same_slot_writes": 4,
+    "checkpoint_groups": 5,
+    "no_replace_fs": true,
+    "gpu_returned_to_baseline": true
+  },
+  "car_regression": {
+    "normal_asan": true,
+    "injected_post_contact_outcome_fixture": true,
+    "failures": 2,
+    "gpu_returned_to_baseline": true
+  },
+  "zero_scale": "Exact zero3x3 world AND collapsed clip linear transform, positive constant W only: triangles produce zero fragments, no inverse-normal call. Other singular/inconsistent transforms still fail. Captured actual snow zero scale in local/weather-zero.log.",
+  "readbacks_sha256": {
+    "weather-area.rgba": "8a91e11b7ec876f29c6075a5bebbdd5a4f78b456ade4428061c7b37a4a79510a",
+    "weather-front-rain.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+    "weather-final-car.rgba": "18abe02d7c1cab7006888bbc375f802721318e5cd081ac4cb47be65592ce7db0"
+  },
+  "source_sha256": {
+    "runtime/app/game_preview.c": "2baadc77e7fa93c8669eb5f169dc34480f570580ab0e45a6feb9522f590dc170",
+    "runtime/app/game_preview.h": "ee3d67fd97a1b503c79911b330f34d60c2ed607f91a05ea4372f517d4db93561",
+    "runtime/app/application.c": "a3a2c1d1cb21925166cfdaac7781f64cc531eec8535911df693ec99560ba796d",
+    "runtime/render/vulkan/renderer.c": "ae284c11b22bd889ae3286b700e859840b624f4ac8ea9b8a0dc3384273a20dac",
+    "runtime/scene/background_assets.h": "c559c90c73c68c0e459c7f07d012dec63f1f4eb4d5084466bbf825b93436f75e",
+    "tools/weather_flow_probe.c": "5d84af3ad0c50eb20ac439d9ddb56a7eba664271760bea122e60d19c076ad0ed",
+    "tools/area_flow_probe.c": "f668b608f56963eb975fe924460dd680e17f71cb53a051343ee580b4da706362",
+    "tools/front_flow_probe.c": "c49e5e6dfd0c41f5357e17d61ddffa20ed720d34356185658a1d13124c3524d2",
+    "tools/failure_flow_probe.c": "c40f25defecde471316696422fc46cbee252625c4be777b89ad02f680de504c8",
+    "tools/save_flow_probe.c": "fef494ed05c0f85a914fbf8a210d33864b398770c034a5c516e2d489944abb63",
+    "tools/game_session_probe.c": "60ba4e5fe23abb2f3ac873965b8768530a49676d88382485fc046d7958ed9010",
+    "tools/play_flow_probe.c": "74849556c0926dc53e9fda3fc9a6bb11c5c16ed3dfd9449da63ddf7c03767b31",
+    "tools/lighting_render_probe.c": "6651d956c6dee9405a87fd4f68aee88231229fe17b574d864a31a1a9347d8a85",
+    "tools/package_sd.py": "e14443d4f3598ef07d93f9d680bc1b43ef1968fb6f3031629655c54ae2172306",
+    "CMakeLists.txt": "51a9fb2b4a6b9f240b91cb72ab1cf52b77bbbf60533341b6cd0c657cfe3bab2c",
+    "test-host.sh": "048034f325fe6c135fec22ff218ab775b319a6358eb7035543d8a638fddc79a1",
+    "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "logs_sha256": {
+    "weather-pixels.log": "dc36ee99470cf401089912f41d83a35697f74e0756bb43f35820645d8d6b356f",
+    "weather-pixels-asan.log": "dc36ee99470cf401089912f41d83a35697f74e0756bb43f35820645d8d6b356f",
+    "weather-areas.log": "26acf09cf5395cb5e3b976bbee858b5b670528291755fd027b366c730c0c7f84",
+    "weather-areas-asan.log": "26acf09cf5395cb5e3b976bbee858b5b670528291755fd027b366c730c0c7f84",
+    "weather-front-rain.log": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "weather-front-rain-asan.log": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "weather-front-snow.log": "c73fa1a73df2c04f855a17f7851738debb6d1d07c2392d03a9831dd218853622",
+    "weather-final-save.log": "e0a232cfb74f92c4455e0a3d576bae57dda02a031353b6bffd2ed5601aba3589",
+    "weather-final-car.log": "81045ff973a0a9a7e66e6119bf4a21aadec1778ac8f8d982364aa0216c1eaf08",
+    "weather-final-car-asan.log": "81045ff973a0a9a7e66e6119bf4a21aadec1778ac8f8d982364aa0216c1eaf08",
+    "weather-lighting.log": "1861a4dcad5ef8be769f190698d7c208b06544729975254d0fcea52fea0f8ce8",
+    "weather-lighting-asan.log": "1861a4dcad5ef8be769f190698d7c208b06544729975254d0fcea52fea0f8ce8",
+    "weather-application.log": "cde8bb394fdfc565b1fb50cab09fa21f6a44bf07cb3d8e6c2af6b2f8c93cf8b8",
+    "weather-final-architecture.log": "7cc15dd6772bdcde21d87257e3ebf40c0d31cf0fb71af4274d9dc1f0c578a0d6",
+    "weather-unit.log": "2982a15b71936df5b30663155263d8f97b64a94316379e6c14a7403462df2a05"
+  }
+}

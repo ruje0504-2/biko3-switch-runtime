@@ -1,0 +1,11 @@
+# flow50加载控制与真实加载界面
+
+scene/flow_loading恢复完整51c4bf。mode1先推进/记录正常ma_03背景或special1且previous38的te_01背景，然后推进/记录共享黑幕，再提交黑幕显隐请求。普通分支等待黑幕退出后先置blocked1再调用实际目标加载服务；黑幕恢复到stage3后清blocked并切到target。special分支黑幕退出后加载一次并置awaiting1，等待0/Z/33450 edge确认、调用se001重播服务，再关闭黑幕；确认当帧仍推进并绘制两个提示。mode0和mode2清blocked、加载、切target，mode3只清blocked并切target，其他mode保持但仍推进黑幕。请求51c47e仍负责前面的旧场景释放；二者不得合并而改变mode2所有权。
+
+状态借用common_hud的同一curtain/blocked及flow_transition字节。加载回调可能修改共享状态，函数保留原来的先后读写，绘制输出是加载之前的独立alpha快照。资源加载与确认声音回调为必需服务，失败返回并终止会话，保留已发生副作用；没有以空loader假装场景已创建。完整应用还需要把该加载服务绑定到各场景实际生命周期。
+
+持久四个加载精灵的4e6dee初始化保持awaiting和pulse direction；special背景仅special字节恰为1时重置。Vulkan加载渲染器使用真实bk3_00 ma_03.bmp、te_01.bmp、ma_01.tga、za_00.bmp、za_01.bmp，逐draw网格及8位alpha，线性repeat采样。背景几何按宽/1280；两个48像素提示按宽/1024、高/768分别缩放，不能套用HUD宽比例。尺寸、文件名与原4e6dee构造参数119组完全一致。普通实例不加载te_01，缺失目标资产明确失败。
+
+原51c4bf和原fade/pulse程序16769帧、4471加载回调、82确认、25626绘制快照全部一致；包括256个mode值、未知字节、零/长帧、加载回调更改全局、24条自然黑幕→加载→黑幕→目标序列。仅截输入、声音和资源加载边界，不替换状态/淡入逻辑。服务失败前缀和初始化保留由C测试覆盖。真实素材160GPU帧、4种窗口/子视口尺寸、22913460颜色通道，普通与ASan最大1/255；local/flow-loading.png已目视确认原加载页与提示。
+
+55host/28Python/46CPUASan及指定Mesa NVK构建通过。NRO 368033a0e23e626e4619815cb1471bd9ca786561c5ac6efdcef84b1108c1c35b，undefined0；新加载界面尚未注册到诊断应用，因此被链接裁剪。不是Switch实机验证。完整暂停菜单、目标场景资源生命周期及可玩应用仍在继续，SD归档0.3.5保持，原目录只读，Mac防休眠未解除。

@@ -1,0 +1,124 @@
+{
+  "version": "0.2.0",
+  "milestone": "M0-architecture",
+  "status": "complete",
+  "gameplay_implemented": false,
+  "switch_hardware_tested": false,
+  "shared_build_targets": [
+    "bk_core",
+    "bk_resource",
+    "bk_platform",
+    "bk_render",
+    "bk_ui",
+    "bk_scene",
+    "bk_app"
+  ],
+  "checks": {
+    "host_ctest": {
+      "passed": 4,
+      "failed": 0
+    },
+    "python_unittest": {
+      "passed": 8,
+      "failed": 0
+    },
+    "asan_ubsan_ctest": {
+      "passed": 3,
+      "failed": 0
+    },
+    "malformed_cases": 12000,
+    "original_archives": 22,
+    "original_entries": 7081,
+    "pixel_exact_images": 4162
+  },
+  "integration": {
+    "pixel_regression": {
+      "width": 1280,
+      "height": 720,
+      "frames": 16,
+      "exactly_equal_to_0_1_baseline": true,
+      "rgba_sha256": "8f6ed15f5f8df8c022d85cb6895f6c5fa7146930508bfc5c4bec7f0afb7e3b7d"
+    },
+    "bad_arguments": {
+      "exit_code": 1,
+      "expected_message": "usage:",
+      "passed": true
+    },
+    "missing_archive": {
+      "exit_code": 1,
+      "expected_message": "cannot open",
+      "passed": true
+    },
+    "capture_open_failure": {
+      "exit_code": 1,
+      "expected_message": "cannot open capture output",
+      "passed": true
+    }
+  },
+  "switch": {
+    "version": "0.2.0",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "6f849c1f9fe66d23a339409d4d4e0e24fafc6d0cdccbfcc0275df027e08e20af",
+    "undefined_symbols": 0,
+    "nro_size": 14942264,
+    "nro_magic_valid": true,
+    "elf_machine": "AArch64"
+  },
+  "evidence": [
+    "local/architecture-tests.log",
+    "local/architecture-build-switch.log",
+    "local/architecture-integration.json",
+    "build/Testing/Temporary/LastTest.log",
+    "build/asan/Testing/Temporary/LastTest.log"
+  ],
+  "next_milestone": "M1: CPU model decoding, material/frame evidence, static world scene",
+  "source_sha256": {
+    "CMakeLists.txt": "e12ad6bc4dba803a3be0da8a318d1f719a1d4e794c66799bb5c5d8adeeb935bb",
+    "build-host.sh": "a1433a1308122363064c7a19aeea41dfbbe94b9ad817deeed54138af3b6493b3",
+    "build-switch.sh": "80ec705d7fefdfbd232b13fdd726d8c6d865ea09c7bb8db6db7332c1cba77bad",
+    "cmake/build_info.h.in": "33eed95ec49e014fb763934ed04e7defa4497825d4fd4fec832fe33d646033e0",
+    "cmake/switch-toolchain.cmake": "0975bd3763481fd14bc9066f3247d1a65b86df50be6a85fa449175d8a1c08246",
+    "cmake/verify-switch.cmake": "9f99f9c35ff57413f43f6dd00d18f15497a1ca0d538ed4e3d406b71480f18ab6",
+    "config/dependencies.lock.json": "16b5a476863ca49f9d662f9901b31f2bf0448859f53f235d64110d5f8a70af3e",
+    "runtime/app/application.c": "e4da7ae86626f00af479dd0108c0ce794042417811e92a1bc7020fc939753398",
+    "runtime/app/application.h": "c019c51d075c356be8fd79a85228ff7a4409b848ccd9544e11c4947b313a9d9e",
+    "runtime/app/main.c": "40901c0d90da3c18091f29c3b1c41bd9c9bfbc48eb524907f5dad4ed8186a383",
+    "runtime/core/clock.c": "a14ad426db38ba325ef0319641d45f80113430e8835e5594940bc61ff5ba8882",
+    "runtime/core/clock.h": "a650ab2c6813fe3c2d10e2ecf2b0e2317c6bb003e2e95b9997b2a5fdc0893893",
+    "runtime/core/input.c": "cbb5ef491f2b7ea2354ca177cc89221b0b6d1565fa1cf6a53d0ed8f3f6937c94",
+    "runtime/core/input.h": "5b10dba1936f839544cee59d8ab8e7a80e4f9f1f8d195dee87e008a1faa76b70",
+    "runtime/platform/host.c": "e5ee02af9593c14dd7fc6cd7c2d46d357c870f40362a577e5d61371b1743368d",
+    "runtime/platform/platform.h": "13dd09d208e5d4f2b952ed66a1b96078f84df4fab2371a35387bec8a984eefe5",
+    "runtime/platform/switch.c": "e37852c49cbc835ac6232fba8c359f9da864c8c8f0a471eb2a3f7d17271844e7",
+    "runtime/render/renderer.h": "063b77535ceb05fc02611d9c0cde11f14e76cc83e151f2d1cca1dd729e5a8dac",
+    "runtime/render/shaders/sprite.frag": "9f3f349852a9ded2ad612cd7d935871ba893110f86bec92ecd81275e4c49d09e",
+    "runtime/render/shaders/sprite.vert": "069791cd0ad3815ae94734a002f17764c67cdbe66afaced5c52f49f3f8d97eb8",
+    "runtime/render/vulkan/renderer.c": "e3332d6cdbbb59e87874b7834a382844db6f1d9347d1738f59718606d7d38eb5",
+    "runtime/resource/assets.c": "575265ddec316ae87547108d7ba0d60cc2adc54abbfb14e529da1feeec0ae447",
+    "runtime/resource/assets.h": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3",
+    "runtime/resource/store.c": "dc241f2656867d5743fc063cf860fd38e52ee4e0aafc2dfa02017e95e6422c30",
+    "runtime/resource/store.h": "3114fa059f7eb8803ebc3d71181d073c3da056fa79f1eec38addb47b68d7b63b",
+    "runtime/scene/scene.c": "fefbfd4846a911b5a8f996502dcc8d95ebe0523b07a026eef679f4d10805bb31",
+    "runtime/scene/scene.h": "12466a5762cfad9661dc1775c4c047a730d8e124c62f8db64e92b3dd9b08f5a9",
+    "runtime/scene/scene_internal.h": "67e3263a32d248951f25e55b85a5d5e3ecc3b83679f504179d3617ac34bfe0a4",
+    "runtime/scene/title.c": "9365977d39fdfd52f357a5dda0658f9951158de4ccb40dbd158a542b5fc85236",
+    "runtime/ui/debug_overlay.c": "7bba2d6514bcc3326fa9b17c821d85afa21ebec765ec9c1523a4b489b0db90b1",
+    "runtime/ui/debug_overlay.h": "30d5e8a696eb34c582d70f4779600c9d40110d592dd506decb3f79deaccb129e",
+    "test-host.sh": "6d66f8f046cce4bc249ad3eaa1c6dc6ea1a30dd835cda18ee2282a59ce28bb96",
+    "tests/audit_game.py": "c1dcd0c22360098bcb91d86ee42b27b11475d567976115e5697af575ef104ba6",
+    "tests/fuzz_assets.c": "d3c3b193be2b8f323616694e8e5784b83001834a6fcaa9c997b209154b435651",
+    "tests/original_tbl_oracle.py": "cea0c3c4ac5b60850e35ec2981fb00ba1006f8bdce20b8f973adf9d4c1ad6375",
+    "tests/test_architecture.py": "e990c92efe620fa7f05fa90fdce09b24a02fb04779d3fe4979ead881a8b120f4",
+    "tests/test_assets.py": "f7a7f748abbd527060ede001862d5001bca109ca80d6f1278dee24394a5800c3",
+    "tests/test_core.c": "3b83bb2d2c6a8b82c15d263bf4be80eb49c29f926b85a66ef7efb94f415b20be",
+    "tests/test_store.c": "072339cbfb64aad233b7d392b2c806a1a3fe0d8969de74206df1f6a3c9527863",
+    "tools/asset_probe.c": "c53ca5874de04bd4574a55d91c8f91bd5f25d8f99e34cb431f5aea5dad30430f",
+    "tools/bk3_assets.py": "519ee8e4637b8a1c3c9a8b9a038e19b669e27ea3bb9d352bd11b709de1c59a77",
+    "tools/build_shaders.py": "39219b0832bfde6240264c9db02adc6dee8c3c191a4e5b26daa1033226d2b3d5",
+    "tools/fetch_sdk.py": "23772898dd99fb884ecbcc60c05a3ebe10d7da2dd47bd46c640e684868a144f3",
+    "tools/inspect_objm.py": "364bebebde0b38b15f14b6ea0c4f96f83d901e355a2403826c5a0f1857b8ccc8",
+    "tools/package_sd.py": "94a33b2c3f4df39395f60b0536f1c3acbb4f7ba2f2a8caf14295a1da21b64273",
+    "tools/prepare_game.py": "d5bee94de39c7d99e0f928f90be881815459049c4056c5f5dcb74c7a02d62491",
+    "tools/render_probe.c": "0f6afe39bec511470c76675cb003408450814352206280c3053bac0c5b794dc9"
+  }
+}

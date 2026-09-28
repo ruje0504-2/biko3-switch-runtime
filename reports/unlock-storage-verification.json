@@ -1,0 +1,170 @@
+{
+  "passed": true,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_writes": 6000,
+    "native_reads": 6001,
+    "working_copies": 6000,
+    "crc_checks": 6000,
+    "max_error": 0,
+    "shipped_file_sha256": "4129be8e0653ce4dbed47bf1bda12143ef4ecf1fbb982ddd69baa64ca87d53d0",
+    "shipped_flags": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "native_read_hazards": [
+      {
+        "handle": 0,
+        "io_success": true,
+        "bytes_read": 40,
+        "output_hex": "07070707070707070707070707070707070707070707070707070707070707070707070707070707",
+        "events": [
+          "open"
+        ],
+        "retained": true
+      },
+      {
+        "handle": -1,
+        "io_success": true,
+        "bytes_read": 40,
+        "output_hex": "b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300",
+        "events": [
+          "open",
+          "close"
+        ],
+        "retained": false
+      },
+      {
+        "handle": 123,
+        "io_success": false,
+        "bytes_read": 0,
+        "output_hex": "b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300",
+        "events": [
+          "open",
+          "read",
+          "close"
+        ],
+        "retained": false
+      },
+      {
+        "handle": 123,
+        "io_success": true,
+        "bytes_read": 7,
+        "output_hex": "0000000000000000b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300b11c0300",
+        "events": [
+          "open",
+          "read",
+          "close"
+        ],
+        "retained": false
+      }
+    ],
+    "native_write_mutates_memory_before_failed_io": true,
+    "scope": "Original50c6bc saved-row write,50c8a1 read,50ca48 working copy and50d245.\nOnly Windows file IO and path resolution are services. All table bytes/copy\nand XOR execute original instructions. Missing/short/error IO are separately\nobserved native hazards, not a claim that the port emulates corrupt progress.\n"
+  },
+  "storage": {
+    "normal_and_asan": true,
+    "no_overwrite_fs_normal_and_asan": true,
+    "consecutive_row_writes": 100,
+    "crc_mutations": 72,
+    "rename_fault_branches": 4,
+    "restart_points": 2,
+    "working_row_replace_not_or": true,
+    "corrupt_file_preserved": true,
+    "other_rows_preserved": true
+  },
+  "application": {
+    "default_missing_is_zero": true,
+    "valid_progress_read": true,
+    "corrupt_progress_fails_without_rewrite": true,
+    "normal_and_asan": true,
+    "selection_full_flow_uses_explicit_completed_progress_fixture": true,
+    "new_game_and_pause_title_regression": true,
+    "readback_sha256": {
+      "build/front-unlock.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+      "build/front-unlock-asan.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f"
+    },
+    "ending_event_producer_bound": false,
+    "ending_unlock_commit_bound": false
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "a0a8a1221163505aaa81585693a24fe814005e57d5690424b53c96c232c23bb0",
+    "undefined_symbols": 0
+  },
+  "switch_hardware_verified": false,
+  "delivery_unchanged": {
+    "zip": "/Users/rujian/Documents/Codex/WX3/交付/开发验证版-20260928-原标题选人与剧情接入.zip",
+    "present": true,
+    "recorded_sha256": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "source_sha256": {
+    "runtime/save/unlock.c": "3d3d00332a0dac6a86376ff5487cbb10630dc344e6cd8ffc9752aec93dbfef0a",
+    "runtime/save/unlock.h": "e29a2246a41972bdceea9ee91571da9eaf23b614492c65302aa762a6a2f98225",
+    "runtime/save/unlock_file.c": "d731b06e6277e61986abed4a6fcee91705556b81203c5be3c7d7cfbc7cf0f6e3",
+    "runtime/save/unlock_file.h": "544fc5535c38509731d5bf23769d3261ca2f867facd8cfc75e9b112f5c609cf7",
+    "runtime/app/front_end.c": "422d7824ba1c00de6f11ccc9afe404be91658696b8e01ce3708cfbf8eee09884",
+    "runtime/app/front_end.h": "bc20f0eebaae8aea546362e122b185d84f5dd7ca0427c8be3bb953987477968c",
+    "runtime/app/play_session.c": "5ec9341a47a5fe7aa4fe8327472c4814526ff7fc13845864565076ccaa42d50c",
+    "runtime/app/play_session.h": "8152350c2f22ecafeac7c27f643039b58713c3b499d11caa080031859eef109c",
+    "runtime/app/application.c": "dc2b8090cc1f81a91ebb24aa33fa8366c6067c2f984a267609d93c13b4f50379",
+    "tests/test_unlock_file.c": "a4ad5163e93943cd0f6b907a4761110a28f79e408a9c3c43373230318f76cfee",
+    "tests/original_unlock_oracle.py": "21702200737dfb19d2b6b3f22776cf0d90b403f1ec6687b90302a1f057afceec",
+    "tests/check_front_application.py": "0dc3eba15afe4f8d3f1f7bf5421f4acc83d8a0f31ce148eccf83385b20bc4748",
+    "tools/front_flow_probe.c": "cd169328f781878847f7eed4f2c3cc80aa4d551863ae0582c40c92be9e66eaa8",
+    "CMakeLists.txt": "64aab77efc23e8a12d5a73f25a35af884eb973ead71d038eef783fb32c489507",
+    "test-host.sh": "90f7b7e31fa5ac6e243731f57f8cd75362f805498b768e8e2415639aaa9f206d"
+  },
+  "logs_sha256": {
+    "unlock-build.log": "d9353b68a144d02887c3ccd59f79a5fccb1796f851642fb7eec332f8682d4a11",
+    "unlock-tests.log": "d609941d91db367ebd5ffe627c9f2301584f676c714ba4c43576d1c1c728c95a",
+    "unlock-asan-tests.log": "baf9387a2520c48a946dc110e36959c1e5081679f491399a3aeb2961abfe5af2",
+    "unlock-oracle.log": "1f25bee37fd4d93a9746acd186ca7c8a3329e78c51e8fdd421250f83ff59d131",
+    "unlock-front.log": "aeae8a933eedcd6e8541452f2b503c336535af04642f93a10a4d9b2aac45d10e",
+    "unlock-front-asan.log": "f49a47f6f93e07b1c67963663fe54e063c84c1998fb737c4438e01092d06f368",
+    "unlock-application.log": "88be22c2f8e6ed309378cad83b7d67cf72638b80eece3925d13a8aa59fd84927",
+    "unlock-application-asan.log": "71a628cafaacaaa34f5efcb71b441796a07eec1142f2b766c755c7b7499b117e",
+    "unlock-architecture.log": "a00815eb17f1f4d9c0f476fc54b9b7fedb096755a64cabb75b235f94cf83714b",
+    "unlock-switch.log": "22f57a9d86a16f4e000673d77d54577cac36d4fafd3ac50639b44417df989758"
+  }
+}

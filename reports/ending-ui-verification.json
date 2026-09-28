@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "full_ending_ui_integrated": false,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "effect_oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "steps": 17700,
+    "vertices": 106200,
+    "max_error": 0,
+    "scope": "Original50e633/50e6ba modes enter1..3/exit1..3/idle0,3,5 and43ed45.\nOnly device/vertex-buffer boundaries are substituted; original rotation,\ntransition, hit extents, alpha and geometry functions execute unmodified.\n"
+  },
+  "ui_oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "loads": 24,
+    "loaded_sprites": 1488,
+    "frames": 720,
+    "vertices": 267840,
+    "hover_frames": 6000,
+    "key_calls": 2782,
+    "max_error": 0,
+    "scope": "Original4ccabd..4ce7a9 constructors and full4d901c toolbar motion.\nTextures/device creation and held-key reads are substituted. Actual setters,\ntransition functions, rotation and geometry execute original instructions.\n"
+  },
+  "gpu": {
+    "images": 62,
+    "frames": 240,
+    "samples": 11135742,
+    "max_unorm_error": 1,
+    "redraws": 8,
+    "rejections": 10,
+    "fnv": "7dbe9e017f9983d0",
+    "normal_asan_equal": true,
+    "allocations_stable": true
+  },
+  "unit_tests": 1,
+  "asan_unit_tests": 1,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/ui/effect_sprite.c": "e49180235bb3783fe9e4ea03f50be3e3cfb47ca8e7795d5e9aad90a89fd642e1",
+    "runtime/ui/effect_sprite.h": "07ef561da2eb2285d69b95cb92bc519579cd3a57a961a28e46eba8e59ec8bf94",
+    "runtime/scene/ending_ui.c": "ca0c4b67a2df618a5217b05d5d6890c02bdd4e14b0856fda61a19c0ced5170cd",
+    "runtime/scene/ending_ui.h": "02155900e0c7c3efe3913ebb0e8cca10c2b552edd99f682148eedb5d378e12d9",
+    "runtime/scene/ending_ui_render.c": "9df4ddf2ecbf61ba2164518edd5f83235f39214a602c87f9d51408d2ade39fc3",
+    "runtime/scene/ending_ui_render.h": "6dd2755ee523b208977e15e578e3569c58096cc9ae30dbecb95936997dcdd26d",
+    "tests/test_ending_ui.c": "3065e30104d5a77c254bf1a04a68bd84be733093bc0290d86119c3381a370b4c",
+    "tests/original_effect_sprite_oracle.py": "8da7b1c2f1c54b1eab2b0f96316b7d22708cc706f9d6795583ea944bbf9061c6",
+    "tests/original_ending_ui_oracle.py": "b3dc854e47ef18de8834951e9dede4a043325d9ab601195ba766f0092448c15e",
+    "tools/ending_ui_render_probe.c": "c62025fcd571c8c64e782717c9ed8c0f4abdb94832a6d7988fa9938abd707e01",
+    "CMakeLists.txt": "3c041fa999828dd2d5061206a0f00f6140578c8e4d698d67001109a14275f736",
+    "test-host.sh": "49dc721f91a038f2d88dd46da6449e22f0f56b65adbeabd80492aaba93025b2b"
+  },
+  "logs_sha256": {
+    "effect-sprite-oracle": "ff9cf5238fd3842003682efbf5c78435a00b33b4070a904fad311c941bd6e5b9",
+    "ending-ui-oracle": "bf66a0f79605ccb5d79c2709a82f47d419a514c79f3b885bb0eb50cc6ca64606",
+    "ending-ui-render": "7a0445c13d76f917869590c5613aaab269591b6e5c63bad54fb68debeb77d94d",
+    "ending-ui-render-asan": "7a0445c13d76f917869590c5613aaab269591b6e5c63bad54fb68debeb77d94d",
+    "ending-ui-units": "f6601e77064570cb932ecfd5580f98643c1260ec462f17616576a65c00316ecc",
+    "ending-ui-asan-units": "d0163ab2ae7a0fd7050c812add7e1b4e2a9d6c1c5bc116276f1ce3581520bff8",
+    "ending-ui-architecture": "3aa8467fd70f3408ffe30d193bde5fc0c19f08d996e482ab713919298eef2c91",
+    "build-ending-ui-final": "b3e5ae5f478ad6347c890cb986a0694f2ac976f3699982a79512c06c759a2f4c",
+    "build-ending-ui-render-final": "74a83dc1749daffb9a3af25678c2a25364579a7d0cc7cb2d9c53f2d56e4c157b",
+    "build-ending-ui-asan-final": "a99c97a5e4839b5c91ff52bbe4046ecdf1a3833758a07a2c5f14fd66c355b62b",
+    "build-ending-ui-asan-vk-final": "014ebe0321e501b554f224a155944717b17feb03a8ed5ee94f3c97e00ca65c9f",
+    "build-ending-ui-switch-final": "f9c4cb51c362f4c190436afdfa02c72d2581598aa453a9e8bffef3ff4dc2ebfd"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Full4d499b conditional drawing/control/reloading and flow16 are not integrated",
+    "Other ending loaders/child controllers/settings/gallery remain incomplete",
+    "Native resource/device/key interfaces are observing boundaries; no Windows screenshot or Switch hardware oracle",
+    "GPU grid/orders explicitly diagnostic; exclude subpixel raster edge coverage from CPU sample oracle",
+    "Supported sprite modes enter/exit1..3 and idle0/3/5, single primary; others reject",
+    "Undefined integer conversions/nonfinite values reject explicitly",
+    "ASan detect_leaks=0"
+  ]
+}

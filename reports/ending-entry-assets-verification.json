@@ -1,0 +1,1958 @@
+{
+  "passed": true,
+  "scope": "Entry dispatch dependency, packaged BOM decode and ending4/3 FAM constructor. Full flow16 is still incomplete.",
+  "entry": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "cases": 8000,
+    "calls": 5008,
+    "loader_calls": [
+      1577,
+      396,
+      727,
+      568,
+      352
+    ],
+    "record_resets": 1000,
+    "final_prepares": 388,
+    "byte_exact": true,
+    "scope": "Original4cc7e6..4ccabd dispatch with live loader mutation snapshots.\nResource loaders and48d7f2 are required observing service boundaries, not\npretend implementations. Native record fill/counter reset execute unchanged.\n"
+  },
+  "bom": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "files": 7,
+    "synthetic": 5,
+    "records": [
+      {
+        "name": "jouhansin.bom",
+        "mode": 1,
+        "count": 3,
+        "sha256": "9f10da5f0a1c6c153c0516f9e6a119c6a3d28545ce4833c3639ade5d0b045224"
+      },
+      {
+        "name": "h03_00.bom",
+        "mode": 1,
+        "count": 2,
+        "sha256": "2923a39da50e4e7e4a3d3d7a7d5f9ca550195d572becaf5f17430860f41e8e9e"
+      },
+      {
+        "name": "h02_00.bom",
+        "mode": 1,
+        "count": 2,
+        "sha256": "5a177da2559652964e4bc9ef6d8b085bd64460e4b516bbc8fc8504150576c089"
+      },
+      {
+        "name": "h04_00.bom",
+        "mode": 0,
+        "count": 2,
+        "sha256": "5a51f1f7f75dec67520ba20cdc9d51104a39f395a2ededf958a82038e56d8cf5"
+      },
+      {
+        "name": "kahansin.bom",
+        "mode": 1,
+        "count": 2,
+        "sha256": "d22a2252f58e0333d9a29e117d69ab6d77fde69d66ca48b86e95e67404651b54"
+      },
+      {
+        "name": "h01_00.bom",
+        "mode": 0,
+        "count": 2,
+        "sha256": "1eee74970e01c8bf9634d58969dabc5c475fe158c70b7274a15d7247f710a5b9"
+      },
+      {
+        "name": "h05_00.bom",
+        "mode": 0,
+        "count": 2,
+        "sha256": "ca42bf263e775c447271d5b919079a08e62d1e3006a630d5d5a5170bec9b811a"
+      },
+      {
+        "name": "synthetic0",
+        "mode": 305419896,
+        "count": 0,
+        "sha256": "37d5c2b9a5b577561c37eb1ff87a8a2f2375329c6111ba1bf8643c38996b2b3c"
+      },
+      {
+        "name": "synthetic1",
+        "mode": 305419897,
+        "count": 1,
+        "sha256": "6ab162e7030b981c8156dc78ea2a86f37c2512c4e2df2304aac23130c255b283"
+      },
+      {
+        "name": "synthetic2",
+        "mode": 305419898,
+        "count": 2,
+        "sha256": "fda4d444e4b583a4d82b0e00633050e1242cf534ed97c44ba7ca5001bb33803b"
+      },
+      {
+        "name": "synthetic3",
+        "mode": 305419899,
+        "count": 3,
+        "sha256": "785b7a61de6212482efe4a73fbd0360d6c8ea12dc47b4a0e1146d7d57b10dbcc"
+      },
+      {
+        "name": "synthetic4",
+        "mode": 305419900,
+        "count": 4,
+        "sha256": "91a64bbe71b1ec2a737892f95b65c565c0d4f41277a9fc160168c422abe5176c"
+      }
+    ],
+    "malformed_cases": 4542,
+    "rejected": 3309,
+    "scope": "Original packaged BOM4a5870: real metadata and all8 binding fields.\nOnly packed file bytes/free and Windows string calls observed. No topology,\nnode binding, deformation or physics is claimed by this parser oracle.\n"
+  },
+  "ending_face": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "profiles": 50,
+    "bindings": 254,
+    "native_names": 3008,
+    "steps": 2050,
+    "morph_submissions": 20569,
+    "vertex_comparisons": 3483688,
+    "atomic_rejections": 500,
+    "max_normalized_error": 0,
+    "records": [
+      {
+        "pack": "bk3_10",
+        "config": "h01_04.fam",
+        "config_sha256": "045da631e3109d2069bcdd84496820d5f5cf7f28709fe39cae5b6d1ff2d8ea15",
+        "target": "h01_04.x",
+        "target_sha256": "e8eeaf664efb0bb74f9258b982b618512df370f7152bd6d08a2705de72ce823a",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          4,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h01_13.fam",
+        "config_sha256": "79cad14885bab90b089dbe1212df0bd6a45120461111f5121116915876a3597a",
+        "target": "h01_13.x",
+        "target_sha256": "abe5a095708eed41be2ee4e1564282fa725eba9b5207bb16a104cd562a331443",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          4,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h01_05.fam",
+        "config_sha256": "b47326fe971f4eed49d4f33e5cc6faaa2e0ca42de006caa76708d7ee18a983cb",
+        "target": "h01_05.x",
+        "target_sha256": "5ff8e16ddeedcdc16d2a0c87bc35efebc2d1d43c047c30720c9bae082273c26c",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          4,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h01_14.fam",
+        "config_sha256": "201c24c8a9edd556156fbf07cdb7a33abc3148bda127c419177054fbbcced73a",
+        "target": "h01_14.x",
+        "target_sha256": "716d9d4ee9b15249693c403fc1448acb06c86d6341b6b7ea985c1adcbec59c0a",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          4,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_12",
+        "config": "h01_12.fam",
+        "config_sha256": "247e7c86d46146697fe8c932d90d7c78bd65a098e994182207f8a680cb7a8d13",
+        "target": "h01_12.x",
+        "target_sha256": "187e83d55eb4236fbf525a3949cde673198703d58fb656dc2533b113c75772c9",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          4,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_11",
+        "config": "h01_10.fam",
+        "config_sha256": "9778f504cec6b6571d4cd74d808c55a4e78e23149c04bf1cb16b1b92e1b5f395",
+        "target": "h01_10.x",
+        "target_sha256": "5b60678b72b18fad8ac6eb2da416139e67a50b2e809692e0a9fcbfc2966e8919",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          4,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_09",
+        "config": "h02_02.fam",
+        "config_sha256": "ab0ee31c9ac09a0c0d023c865ea263bd7c71987cf9c8e40d494482086e3ef0b6",
+        "target": "h02_02.x",
+        "target_sha256": "eccaab1c32450a7c4228469634cddda58818fc1a7721473dd6e61744572b9a24",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h02_15.fam",
+        "config_sha256": "245c960d9cb531f7d2eb566b62adde60858634f955c70b8a3ada3664a05243a8",
+        "target": "h02_15.x",
+        "target_sha256": "4ad8f3146af8316837292582450882042d65f5c6ca92f30782da42e6f8a93353",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h02_14.fam",
+        "config_sha256": "7eee9871f9f17ca297b9c8c00f6d0c38c8aacca360831eb18d2ceeaf95102154",
+        "target": "h02_14.x",
+        "target_sha256": "89702fb4b4c57cecf1eba281d0d7e67e82945764148d33ec598ae67eb475d6fd",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h02_13.fam",
+        "config_sha256": "b62ea9363f0c8819896190cdeb368bf12d57ff31623c7cbc61bf2ee345af59f6",
+        "target": "h02_13.x",
+        "target_sha256": "37ed78fda203ee07aa0d4a8ca8fd2c5f18099f2c092dbe99318cff6435227c99",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_11",
+        "config": "h02_10.fam",
+        "config_sha256": "370ccc02a3ca608342727ea11291296163b2e0fe1bf23c9d818b0970c7b0c38f",
+        "target": "h02_10.x",
+        "target_sha256": "059de9fb326860de68b70fafc5afc7f2535261b58af36f857749450b64461b05",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h02_05.fam",
+        "config_sha256": "ecea934990c475f78522725e7818e393b540685032c3bfd42ce6ba2f33475f16",
+        "target": "h02_05.x",
+        "target_sha256": "2c8af5f51ff143baedbad615caeb529decf68ccb2a8bbc2233c358ef0e33479e",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h02_03.fam",
+        "config_sha256": "ef5e4be2ff18f28b27088985273a692d0db6d6114afa661387d4d089db736bf2",
+        "target": "h02_03.x",
+        "target_sha256": "bf94dfcaa5b02f2a8401d2ee2f61f113ac66ffffba9bf5037c957cd8dbd04d08",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_08",
+        "config": "h02_00.fam",
+        "config_sha256": "97626588b0257eb69e629f7c6dc135b95416c263c2fe6bf03e3383d6cb71b94f",
+        "target": "h02_00.x",
+        "target_sha256": "9bb4633f10ac45f0509cfb2db8c9c1462adc7ad1bb650d31d681b28ad8d1b062",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_09",
+        "config": "h04_02.fam",
+        "config_sha256": "f0939c84e0dd15e462a695bfc21a6f01cd2556286556d43408f036aa321523e9",
+        "target": "h04_02.x",
+        "target_sha256": "46da5c21592dac2e1544235b283531977caff1655381aa8d1b5ba21ed77981a9",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h01_15.fam",
+        "config_sha256": "198580be9c959c2e0ab388720205232c9e0218f9c43046a0b38985a8dca999c1",
+        "target": "h01_15.x",
+        "target_sha256": "f224cc94d94f9761c53694da6c53871862cd5af8e6b75722757e1cec48729fc6",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_12",
+        "config": "h02_12.fam",
+        "config_sha256": "38577127f8cab34c6def40b514b2bafa2056560d1ecbd4f6ba4f9c64b647634a",
+        "target": "h02_12.x",
+        "target_sha256": "92aec3dd1ef4dbdec31d6d2b953f19e29841488be63eb6813ecd980bd92f1eae",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h04_15.fam",
+        "config_sha256": "72d7ae317fc7d7a480b46d47e8b4e522045c87eb8fcddcc010995edaaba4e73e",
+        "target": "h04_15.x",
+        "target_sha256": "c307264bf111fb906e2fb43fd5595c60a0868c8217716228daa80ef9558907d2",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h04_14.fam",
+        "config_sha256": "847636bae438ea971e62aed8c73f6bd697fc7ff487647d3be4de4ce89925599e",
+        "target": "h04_14.x",
+        "target_sha256": "398f6206d97ccdf3570f6a623d1cc3e17cd30a8c20b398fe2cfce55806aa3557",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h04_13.fam",
+        "config_sha256": "6c3960dcaa2ee6cc9b1ceaab7e46573556ec2af4ad9ac3085c64f9e9a4a475d5",
+        "target": "h04_13.x",
+        "target_sha256": "3e2fe90d8952c11f80609a283d3c57b7b41403bf272b85cb43a49d5adc7b71fe",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_12",
+        "config": "h04_12.fam",
+        "config_sha256": "18ec59d3fff6b4a969492cfb89e6c51855f961af7fb9a88f047ee32479b8fe99",
+        "target": "h04_12.x",
+        "target_sha256": "45db6bf7514c291c8c482e81fc2fb6935f5e28bff0989bb9edaefe13cdaf4392",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_11",
+        "config": "h04_10.fam",
+        "config_sha256": "4f109f38ced7af8654154bb4b761bf325a069f23d5c57ceaf6abf4133f86780a",
+        "target": "h04_10.x",
+        "target_sha256": "55d02aece2c8ddaa82fbc2056dc0436cbdeead622652fde132378519777f151a",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h04_05.fam",
+        "config_sha256": "c622c548b46dd913cc9716da64e3c9027d0fddfe07dd33a05fc96d8063ca4450",
+        "target": "h04_05.x",
+        "target_sha256": "155ad05e10e8069e238c3243efe295129fc43aa41196ed45b17b97b7aa519606",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h04_04.fam",
+        "config_sha256": "293fbfc597f4112cab846d0cf99e99986713d9254f3bd4ee3a1ca0dd5d1ca8c9",
+        "target": "h04_04.x",
+        "target_sha256": "0a178d4d9c2fd96ccc44c928c7400935998157284f8fffe691460700fea3f68e",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h04_03.fam",
+        "config_sha256": "d64dc15f0814901f3690cee0d9e55c1ae62599182b07beb80e6692fff6d91e32",
+        "target": "h04_03.x",
+        "target_sha256": "39e64aa4c17547c60972fc60e08c61dc326d7947b3e3986ec9f14169a1a31f42",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_08",
+        "config": "h04_00.fam",
+        "config_sha256": "27ab8435cd2e4b854b451bd86803b0ded2de07510a0b43f3740d93f6ce6b9d1e",
+        "target": "h04_00.x",
+        "target_sha256": "08efcc20f16bd37bae59840902923308e227286e8bfa06eb3794b344ce234739",
+        "source": "h04_20.x",
+        "source_sha256": "826448858925698579ff8dbf706f6f81a1ad26ff2c304d4e92c1a9ea65ddebef",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_08",
+        "config": "h03_00.fam",
+        "config_sha256": "8d128ed426aa44168df73d50c1f292f343a19ab2eeda6094741e76ce5ef3e184",
+        "target": "h03_00.x",
+        "target_sha256": "f05db240a5e0227944e7a4f8d4e549db0951b92c532bf32721a3eb7a9187ed76",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h03_03.fam",
+        "config_sha256": "813f679bf5002667a2bcd1ebf7782291b4957ec5c6528163fa728750982a332f",
+        "target": "h03_03.x",
+        "target_sha256": "6bffec5cba6edbaeb099800d1b83a81411f42772762ea690b521f296c3cbe23b",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          3,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h02_04.fam",
+        "config_sha256": "c8849e5e2a1e8bfb8dbd385b418ad3b8d365e417086d37ef000ccd4a7bd5c375",
+        "target": "h02_04.x",
+        "target_sha256": "a29d208618a213c58292065025d95fca2fb03f0fe3977e00e23bc60dc771aae8",
+        "source": "h02_20.x",
+        "source_sha256": "1464afcfa59956f49e435b143a8f84a7cb2ca24198fc4c2483a6e0687df02158",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h02_02_e.vix",
+            "sha256": "d5d37c91a1942d170d94c40e7d0aab678392786d8cb70a1d6a298a5a736aad76",
+            "count": 345
+          },
+          {
+            "name": "h02_02_m.vix",
+            "sha256": "509b5960fa7c7a3d9355d3c09a7f785f3b8a10fba1d94a1b736303931d52456b",
+            "count": 642
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h01_03.fam",
+        "config_sha256": "644ae27bdc0a67d41ecc6d8e3c175074c860b8d37dbadf2244a74fac958cab5f",
+        "target": "h01_03.x",
+        "target_sha256": "234ab4b5b2629d2d3bf155dbd5a339e27e5d46761ea35c48693980cac922bf43",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          2,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_09",
+        "config": "h01_02.fam",
+        "config_sha256": "581ba9812d31aea393f18fc73fa5a939b8f91dbe551e61b45c851b1f5dbd9f67",
+        "target": "h01_02.x",
+        "target_sha256": "52cd0f70b3f98a047c4997835a6df84fb9780566522439c5bd369b42413e28d4",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          2,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_08",
+        "config": "h01_00.fam",
+        "config_sha256": "a5e87771aadacb3ae6426a4d6568e802c5177ed0f1d37dfedbe8ca8b008ece4b",
+        "target": "h01_00.x",
+        "target_sha256": "2d17a5abfa0e220127818ecd9ac4a8ff4bff9980b359806bb51b379e3d70e139",
+        "source": "h01_20.x",
+        "source_sha256": "a6be0e6335c4872244dc5469f18d8ee9d7ebca50ad6200a590f915ef59ae6c82",
+        "counts": [
+          2,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "708ad0e34fabd636b712b9e38d7609daef96b86ae78df5ce5aa74bdf4a5d4311",
+            "count": 461
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "c780b1db4730e2ff713a3a86ab784cf6ffc29f6ef51ceb506d1bcbfa814f57cd",
+            "count": 414
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h05_15.fam",
+        "config_sha256": "485716dc11129cf04c4b3a0e71cb9208506bae978effe75b9679ec373897a66c",
+        "target": "h05_15.x",
+        "target_sha256": "62e54957ae0fe4980bac7238161c2d162186705ff2c9176e2ba3853443e5cc08",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h05_14.fam",
+        "config_sha256": "52dfc88a02d44a0a55900fa68a75b1539fd0c5539dc7ee99999a3206ea5fc44f",
+        "target": "h05_14.x",
+        "target_sha256": "6be17308d97a1f995cc0a3066af6ebf23a6946581d1dfaebaf3939b0678f3633",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h05_13.fam",
+        "config_sha256": "b49447d3d7bf1a6613f1352b941626e313f45b32b5f212d5042bb8c5cdf71161",
+        "target": "h05_13.x",
+        "target_sha256": "9c61e9105ec5f22140a5e4b923e0084ef010a82edbc1678de7a5cd8a85dff7c7",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_12",
+        "config": "h05_12.fam",
+        "config_sha256": "6af23f09e55b1b0d055f0281280af1677c937997d2ec2a5e1e5bc1aec48f3ffa",
+        "target": "h05_12.x",
+        "target_sha256": "dbfd7e9fa45ba58c5f906b055597507be07695fa4a2d6c0a028ddead6b709aa9",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_11",
+        "config": "h05_10.fam",
+        "config_sha256": "32d6ac6cec6cd1ae07a8886c5975040853cef6a8aad38ecd3534f55bab6a5f81",
+        "target": "h05_10.x",
+        "target_sha256": "7025cd8483ee8e2951cd51d7ae513cd80fdde59ffe127fb9ddcfd5e0d3110131",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h05_05.fam",
+        "config_sha256": "338e540f4ed2fac96f68ee4b25c42076627f2ab6a8bed0a0b7125001c85905be",
+        "target": "h05_05.x",
+        "target_sha256": "2f18c55ba5e051f357f39a7e02937da139ac2e4d5a0af2dc5f739bbe418134b3",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h05_04.fam",
+        "config_sha256": "6a1d54905bf27c9b04581a82241018f5956e7a57987f5bd247caa31809304c38",
+        "target": "h05_04.x",
+        "target_sha256": "51fc6e77107f33c105000258d196f22ba2fa8b595d8a24bd4590e540b4ab3fd5",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h05_03.fam",
+        "config_sha256": "4f905dbea91f642cf4f0340f4ee980df7137cd90d2a32006b76f9bb996dcdf8b",
+        "target": "h05_03.x",
+        "target_sha256": "5b8a962d324523f6473ca1695c4f3ab468e8bd1a3d8aacc224cf7b1742e787c9",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_09",
+        "config": "h05_02.fam",
+        "config_sha256": "538cd2d8f50c57e5f50b1a0752504fa4626efa6976e576fd3bbd39e88ced18be",
+        "target": "h05_02.x",
+        "target_sha256": "bc35d6cffcbb6206751b981345f981b408461fa1422fcfcc3b84f0fdd460c287",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_08",
+        "config": "h05_00.fam",
+        "config_sha256": "dca1bbcfb2842b85de67cd5568be0cf29270c24f4eb9e89e0b463c9c146c6630",
+        "target": "h05_00.x",
+        "target_sha256": "ce71e1cf30dbb57b06cdf3ffecf091f07d6580ec20d33d96ff00529ac92106bf",
+        "source": "h05_20.x",
+        "source_sha256": "b401cfa3a380b902eadef5d0285442f1b7f7b4c73748782dc6ed958c7437d279",
+        "counts": [
+          4,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h03_15.fam",
+        "config_sha256": "938623ae61cc75eadabbae9653289f1f1d8f03a58d3c9236b28175596db52e1e",
+        "target": "h03_15.x",
+        "target_sha256": "c16110e87e92dbfb87e6f4acf09124959ce0d003bce5b8bd0cffbb350515ef7a",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h03_14.fam",
+        "config_sha256": "9715c31f1a80a788fb1217c781ab2b8d8f691902ca2fca8a4fb6c7309b8c55da",
+        "target": "h03_14.x",
+        "target_sha256": "333d09f350dcdefd7b5fc31695b8e0159ab272b69d98de3915a7721e33d9ca02",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_13",
+        "config": "h03_13.fam",
+        "config_sha256": "d978e6857d545bbb32a882c4630a4a91943dbb99c181da9958b7b8833d02870b",
+        "target": "h03_13.x",
+        "target_sha256": "f2acbc1f8b1aff66468a6219b5cc41ac1ae9f8485f7b3f05d8d8d13953183099",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_12",
+        "config": "h03_12.fam",
+        "config_sha256": "cd5e03d6fae36a8ff6819445a949600671d8b45fb5092b9e88e9bf9e3c604355",
+        "target": "h03_12.x",
+        "target_sha256": "1a88cdba6df47912e43a86e1007b3c1c2952502f327d5913abd8b7e5b3546ac8",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_11",
+        "config": "h03_10.fam",
+        "config_sha256": "36c665727dae915125e643c062d76de7c2dcbeea10df1cc70037b17e8b42c3f6",
+        "target": "h03_10.x",
+        "target_sha256": "747fe38c3f13d5f2ec410b8325210cabddefa0a124e6296607194d0a7e1f6ef5",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h03_05.fam",
+        "config_sha256": "311593751cbd8f4b9380b95ba857cb17ee9b68c2581c670c560ce747e12e6bc6",
+        "target": "h03_05.x",
+        "target_sha256": "332f4f96fa9fe017e10c6183cf232511ccc7e82de603a7aecdead2075f043517",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_10",
+        "config": "h03_04.fam",
+        "config_sha256": "1bc5222b3c77a78b73d231c92e2328d8e6ed167602da4fd2e41e9f8316951f10",
+        "target": "h03_04.x",
+        "target_sha256": "dc99595389f8d707ebfa5e6e81c3228975ff2a55c5fd1bbb97609e47abda60b1",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      },
+      {
+        "pack": "bk3_09",
+        "config": "h03_02.fam",
+        "config_sha256": "c275395afc31ea6fce84cd6e80819af99cf7490d03a0f089fef08fb13bd2ceb9",
+        "target": "h03_02.x",
+        "target_sha256": "c3cc3155c39292f1b65db3b130cec4e582654dccd5d3dd3937fc25712e9747fd",
+        "source": "h03_20.x",
+        "source_sha256": "1ea15eec58dd67ed8e2eb49f8518d9902afcab80ba69a9aa60ababdf04f7a580",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "h03_eye.vix",
+            "sha256": "ebd466a98d5ab4ee237922c592d5150459299f1eca50e4d94bbd398ef4caf554",
+            "count": 457
+          },
+          {
+            "name": "h03_kuti.vix",
+            "sha256": "3a0431c440e4c2980d9504667dd4021804e398ed524dda6426d2b8c68b5c393f",
+            "count": 510
+          }
+        ]
+      }
+    ],
+    "native_functions": [
+      "0x418043..0x41806b",
+      "0x4183f6..0x41843d",
+      "0x4f37cf",
+      "0x429c6b",
+      "0x433c55",
+      "0x430f70",
+      "0x430f8a",
+      "0x431028",
+      "0x410fd8",
+      "0x411985",
+      "0x4110ef",
+      "0x4316be",
+      "0x432642",
+      "0x4f33ae..0x4f34cb"
+    ],
+    "scope": "50 packaged ending FAM bindings including fourth eye slot. Original4f2dae setup/warm-up with eye IO boundary, real controller steps and MORP shared vertices. Primary/secondary asset placement and full ending frame remain separate."
+  },
+  "ordinary_face_regression": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "profiles": 20,
+    "bindings": 74,
+    "native_names": 902,
+    "steps": 820,
+    "morph_submissions": 3388,
+    "vertex_comparisons": 1371696,
+    "atomic_rejections": 200,
+    "max_normalized_error": 0,
+    "records": [
+      {
+        "pack": "bk3_01",
+        "config": "h01_60.fam",
+        "config_sha256": "4173006f3b77978a8fc7e4075519865e3c9960affa3c2762610d65cb3a68e7de",
+        "target": "h01_60.x",
+        "target_sha256": "4a40eed2ae5a78db29ac4e30f5590aa41b87e47eb1703c29239cf088175ed0cc",
+        "source": "h01_21.x",
+        "source_sha256": "6c06acaf67514eab265ffbb98af03bc6050243f1ece7cad642a62492da29d3b4",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "rin_me_lw.vix",
+            "sha256": "3ef1548e9920e0de4931c062216044cc1a5455cc44b6db8d4cf01f0209991b6f",
+            "count": 479
+          },
+          {
+            "name": "rin_kuti_lw.vix",
+            "sha256": "c72994707db084143259d60af6dc043e436410ec05fb91181ba75b7a8713b154",
+            "count": 517
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h01_61.fam",
+        "config_sha256": "b14adf85663a7213930ca21f69ca07d5cfd2f9cbeaa199ad83c583f2a2df4993",
+        "target": "h01_61.x",
+        "target_sha256": "85ddbdab57464e113cba7026bd038bb9add248f92d17d67a91887d95d21f9257",
+        "source": "h01_20.x",
+        "source_sha256": "166f592624fded5f53b0e27ebc87ce6716c90d7e0fa70ffe8362debb9ac3968c",
+        "counts": [
+          2,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "aa584e1546d84450268c84207728678015e161681d63761eac0eeb261920d242",
+            "count": 467
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "52ff77c0a821652c7aa010eb8d4924624fa0510bc0aa92cf0d53dd6025fc6006",
+            "count": 462
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h01_70.fam",
+        "config_sha256": "7c72075d3077705e121035b8f5c307c1895c0e6972a770954d2410efd7a44715",
+        "target": "h01_70.x",
+        "target_sha256": "13c5856cf5d71448f5f049a3fe5ed5e234859f58ae23d6aded3c0baf66c1d646",
+        "source": "h01_20.x",
+        "source_sha256": "166f592624fded5f53b0e27ebc87ce6716c90d7e0fa70ffe8362debb9ac3968c",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "aa584e1546d84450268c84207728678015e161681d63761eac0eeb261920d242",
+            "count": 467
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "52ff77c0a821652c7aa010eb8d4924624fa0510bc0aa92cf0d53dd6025fc6006",
+            "count": 462
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h01_80.fam",
+        "config_sha256": "d85f9b35a27e3c9778454f3823a38998abb055a605cfa320669ac489c7fdd169",
+        "target": "h01_80.x",
+        "target_sha256": "09bad92a87bf541a48b15671b6d9d60f5b43ac340bff8e881b63a035b1eb224c",
+        "source": "h01_20.x",
+        "source_sha256": "166f592624fded5f53b0e27ebc87ce6716c90d7e0fa70ffe8362debb9ac3968c",
+        "counts": [
+          2,
+          3
+        ],
+        "vix": [
+          {
+            "name": "rin_e.vix",
+            "sha256": "aa584e1546d84450268c84207728678015e161681d63761eac0eeb261920d242",
+            "count": 467
+          },
+          {
+            "name": "rin_m.vix",
+            "sha256": "52ff77c0a821652c7aa010eb8d4924624fa0510bc0aa92cf0d53dd6025fc6006",
+            "count": 462
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h02_60.fam",
+        "config_sha256": "e538b616498101e3bf3d1e2954ee6fae4f75faf655f852124846c1278d7362f0",
+        "target": "h02_60.x",
+        "target_sha256": "82a867a45dc07661d66d1bb31ae8a16651c018c1bb4e952dbac2b5f981913c8e",
+        "source": "h02_20.x",
+        "source_sha256": "74b79e135c79a6e0d16faac4baecbfc95660745d26f707cbec36485a8a07eb6c",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "reiko_me.vix",
+            "sha256": "cb231e54cd10b34c91f04822192f3f1bcda49ccaa3757b617d069b617906203a",
+            "count": 404
+          },
+          {
+            "name": "reiko_kuti.vix",
+            "sha256": "377d613bec924861bab57f994e9bb8ca163080b3a23bc97c538a887e55dc34b0",
+            "count": 591
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h02_61.fam",
+        "config_sha256": "5b612764e369be16d1fb81a6a18623a5a15170e7acfce63077928f2f1baa52ab",
+        "target": "h02_61.x",
+        "target_sha256": "35184b66dc63c96c99dfde857c014428cd1ecac9d84b1125ca1c699752483978",
+        "source": "h02_20.x",
+        "source_sha256": "74b79e135c79a6e0d16faac4baecbfc95660745d26f707cbec36485a8a07eb6c",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "reiko_me.vix",
+            "sha256": "cb231e54cd10b34c91f04822192f3f1bcda49ccaa3757b617d069b617906203a",
+            "count": 404
+          },
+          {
+            "name": "reiko_kuti.vix",
+            "sha256": "377d613bec924861bab57f994e9bb8ca163080b3a23bc97c538a887e55dc34b0",
+            "count": 591
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h02_70.fam",
+        "config_sha256": "85b15a41fe06ec7f914e15301b9956895b80f472b7acc598140570b5e97d03c6",
+        "target": "h02_70.x",
+        "target_sha256": "bd0a882816bf5252ae73a4e9de8d0f630377ce4762d37e0064dcb530603ad2aa",
+        "source": "h02_20.x",
+        "source_sha256": "74b79e135c79a6e0d16faac4baecbfc95660745d26f707cbec36485a8a07eb6c",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "reiko_me.vix",
+            "sha256": "cb231e54cd10b34c91f04822192f3f1bcda49ccaa3757b617d069b617906203a",
+            "count": 404
+          },
+          {
+            "name": "reiko_kuti.vix",
+            "sha256": "377d613bec924861bab57f994e9bb8ca163080b3a23bc97c538a887e55dc34b0",
+            "count": 591
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h02_80.fam",
+        "config_sha256": "0b7216566b92efd587e9cbbf3e9cd2c273f05ab09afb0d91365b9d60b4c503c7",
+        "target": "h02_80.x",
+        "target_sha256": "53fa780008e3faf1cd8e81a55479158ac957ea0a81a2f970ac45a0b127324519",
+        "source": "h02_20.x",
+        "source_sha256": "74b79e135c79a6e0d16faac4baecbfc95660745d26f707cbec36485a8a07eb6c",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "reiko_me.vix",
+            "sha256": "cb231e54cd10b34c91f04822192f3f1bcda49ccaa3757b617d069b617906203a",
+            "count": 404
+          },
+          {
+            "name": "reiko_kuti.vix",
+            "sha256": "377d613bec924861bab57f994e9bb8ca163080b3a23bc97c538a887e55dc34b0",
+            "count": 591
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h03_60.fam",
+        "config_sha256": "2adbdd59f6584e85c16bfcb9e31d716e572aac61c0cdae9b5699c76294c2ce97",
+        "target": "h03_60.x",
+        "target_sha256": "3669a22757233e8d32386ac11e9b5d86524f8638cbeefaad6a7a9df528e4fa2d",
+        "source": "h03_20.x",
+        "source_sha256": "d083e05d125192d31bf24894172723e0678b772d5d17e3c8cc4c8351ea6de9ef",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "clis_me.vix",
+            "sha256": "638eb74f7e145ed5146e9278ca6c5bb6982cabf7597aa0ef14330cab29124428",
+            "count": 407
+          },
+          {
+            "name": "clis_kuti.vix",
+            "sha256": "3864d06f3f7bbd8171b3f3143d47cd03f54d12f142182b2757ce56ec9b9f3daa",
+            "count": 520
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h03_61.fam",
+        "config_sha256": "3fbdd80c5dc934cb0d14f1725290c73056347d6388f8652f46285d7973a28040",
+        "target": "h03_61.x",
+        "target_sha256": "71db1dde20be7c4b98eb2026514a827c515c3d66851ba35dbaf486b91180da2c",
+        "source": "h03_20.x",
+        "source_sha256": "d083e05d125192d31bf24894172723e0678b772d5d17e3c8cc4c8351ea6de9ef",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "clis_me.vix",
+            "sha256": "638eb74f7e145ed5146e9278ca6c5bb6982cabf7597aa0ef14330cab29124428",
+            "count": 407
+          },
+          {
+            "name": "clis_kuti.vix",
+            "sha256": "3864d06f3f7bbd8171b3f3143d47cd03f54d12f142182b2757ce56ec9b9f3daa",
+            "count": 520
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h03_70.fam",
+        "config_sha256": "54fd0274e7202fe303ec3c38f172dc1400ed19458597ee6fa00d3ca978158e32",
+        "target": "h03_70.x",
+        "target_sha256": "92b45da0183ab553a3b459180a4b4b6d02d55b6f011f1398fa3782f5936eb423",
+        "source": "h03_20.x",
+        "source_sha256": "d083e05d125192d31bf24894172723e0678b772d5d17e3c8cc4c8351ea6de9ef",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "clis_me.vix",
+            "sha256": "638eb74f7e145ed5146e9278ca6c5bb6982cabf7597aa0ef14330cab29124428",
+            "count": 407
+          },
+          {
+            "name": "clis_kuti.vix",
+            "sha256": "3864d06f3f7bbd8171b3f3143d47cd03f54d12f142182b2757ce56ec9b9f3daa",
+            "count": 520
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h03_80.fam",
+        "config_sha256": "93d35ca57b145fcb71088205d97c37935cca2d265cc1bb0f18710babd68a0897",
+        "target": "h03_80.x",
+        "target_sha256": "0434bb5afb5f3345a51c3f5c113a8f03d2fc336874e6efff0819c5192e3101a7",
+        "source": "h03_20.x",
+        "source_sha256": "d083e05d125192d31bf24894172723e0678b772d5d17e3c8cc4c8351ea6de9ef",
+        "counts": [
+          2,
+          1
+        ],
+        "vix": [
+          {
+            "name": "clis_me.vix",
+            "sha256": "638eb74f7e145ed5146e9278ca6c5bb6982cabf7597aa0ef14330cab29124428",
+            "count": 407
+          },
+          {
+            "name": "clis_kuti.vix",
+            "sha256": "3864d06f3f7bbd8171b3f3143d47cd03f54d12f142182b2757ce56ec9b9f3daa",
+            "count": 520
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h04_60.fam",
+        "config_sha256": "c8e81b143ad8ba997b0d8ab0c669b027c2231bacfe2e90e2f690231de0aa5ebe",
+        "target": "h04_60.x",
+        "target_sha256": "df11958f49f04f0a0c5a176255acb780c1efd84052e717f63f85cd76a014f136",
+        "source": "h04_20.x",
+        "source_sha256": "aa7db8f36aed26b37aa915cc21c907356a99eedce5e01b5c5a68075ddb6954fc",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h04_61.fam",
+        "config_sha256": "89ed7d29ac39dc0d48875b15584b60fa989bdf5ebf43550b33f7d8cd3d536045",
+        "target": "h04_61.x",
+        "target_sha256": "de884b6d72d1f5b7b43ac9a4a6984d0bb5d5c3ad0e1f267146ebe5dcdfdcb393",
+        "source": "h04_20.x",
+        "source_sha256": "aa7db8f36aed26b37aa915cc21c907356a99eedce5e01b5c5a68075ddb6954fc",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h04_70.fam",
+        "config_sha256": "9b1182121c300eeddade33e366708205ef534d28716cc749503ab070de66e3dd",
+        "target": "h04_70.x",
+        "target_sha256": "287918379fede9469d1f5e8001d53cded51ea4b2e6a13c08121da5b6b3cc266e",
+        "source": "h04_20.x",
+        "source_sha256": "aa7db8f36aed26b37aa915cc21c907356a99eedce5e01b5c5a68075ddb6954fc",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h04_80.fam",
+        "config_sha256": "66cf82ba4dd56ffff6d2ca106ca5f6643dff8ab5a64a0102b3d92a68e81db2a7",
+        "target": "h04_80.x",
+        "target_sha256": "96297cdaa7f33633f55a6cec0d45e3be981741f090c949b4c6714230be7a5153",
+        "source": "h04_20.x",
+        "source_sha256": "aa7db8f36aed26b37aa915cc21c907356a99eedce5e01b5c5a68075ddb6954fc",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "mayu_me.vix",
+            "sha256": "51c5c568a31956183df2f7c14687989c60453cf8096481b73dc365cadd9fd475",
+            "count": 332
+          },
+          {
+            "name": "mayu_kuch.vix",
+            "sha256": "607dbb136c415ebda9302c90ff31af1c381e6344ae11d4c1420c80160138b0a6",
+            "count": 619
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h05_60.fam",
+        "config_sha256": "108b4b84a6229078475f41307b1f392778134c0529ce21981a12d3be1c8ddfc1",
+        "target": "h05_60.x",
+        "target_sha256": "f75a34d71e4e77bf3e1420d7c0ee234d2c6b0adb4caf0c78b016e2a708bb6407",
+        "source": "h05_20.x",
+        "source_sha256": "5ff50448fd0ffaae5d6d84cdd067c70109f4443e08b7719205eb68cca99ec83d",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h05_61.fam",
+        "config_sha256": "c5b41c34ca86a92dfc9dcab1dd6e6ebb2d860a7c27b7120d5e56f5ea9cd59cca",
+        "target": "h05_61.x",
+        "target_sha256": "7103baf8d7ef523e034e18d549dbce16f13bbe377b7f316465740ad8f4ddfb26",
+        "source": "h05_20.x",
+        "source_sha256": "5ff50448fd0ffaae5d6d84cdd067c70109f4443e08b7719205eb68cca99ec83d",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h05_70.fam",
+        "config_sha256": "c3644b5eac40d43071fca330cc181562d2557f4a684062a77c3a9b7d3621b9d9",
+        "target": "h05_70.x",
+        "target_sha256": "490db1b71b1fda1ec9075caa91733db3ff4b298b3ea3e772c402b54030e73572",
+        "source": "h05_20.x",
+        "source_sha256": "5ff50448fd0ffaae5d6d84cdd067c70109f4443e08b7719205eb68cca99ec83d",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      },
+      {
+        "pack": "bk3_01",
+        "config": "h05_80.fam",
+        "config_sha256": "9e389759cde129efec6c90452564af34216c6e992cd93b84c08121dc292c5838",
+        "target": "h05_80.x",
+        "target_sha256": "6eadc9617c4ebdba40432cffbfaa41a21b65b28d1b6dd722e8e05971bc5c3b53",
+        "source": "h05_20.x",
+        "source_sha256": "5ff50448fd0ffaae5d6d84cdd067c70109f4443e08b7719205eb68cca99ec83d",
+        "counts": [
+          2,
+          2
+        ],
+        "vix": [
+          {
+            "name": "h05_me.vix",
+            "sha256": "b5866e014ed963637d21f3973831c6a236bcbe0d8a1f4211c0fcffb26b9653f1",
+            "count": 476
+          },
+          {
+            "name": "h05_kuch.vix",
+            "sha256": "2a293b6d6fbc1c4e8a1e4ffd4772aa193fe63df2eb1afcf8f6f3ac405da8a96e",
+            "count": 458
+          }
+        ]
+      }
+    ],
+    "native_functions": [
+      "0x418043..0x41806b",
+      "0x4183f6..0x41843d",
+      "0x4f37cf",
+      "0x429c6b",
+      "0x433c55",
+      "0x430f70",
+      "0x430f8a",
+      "0x431028",
+      "0x410fd8",
+      "0x411985",
+      "0x4110ef",
+      "0x4316be",
+      "0x432642"
+    ],
+    "scope": "20 existing bk3_01 actor configurations. Native name creation, registry lookup, track retarget and VIX attachment; source loading/path/allocation/destruction boundaries substituted. Full native controller setup and consecutive request/mouth/blink commands, then real native MORP evaluation over shared CPU face meshes. Controller MORP calls captured and replayed; no eye texture animation, skinning, GPU or full app frame."
+  },
+  "asset_probe": {
+    "configs": 50,
+    "fourth_eye_configs": 27,
+    "bom_files": 7,
+    "frames": 6000,
+    "vertices": 10196160,
+    "normal_asan_fnv": "e35a98113a34273f"
+  },
+  "checks": {
+    "ctest_normal": 4,
+    "ctest_asan": 4,
+    "architecture": 2,
+    "ordinary_face_normal_asan_steps": 2000
+  },
+  "switch_build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "574d92a22c2861385ee4d51fc6e5f853706b32d2da12240f59f1603e5a68a160",
+    "undefined_symbols": 0
+  },
+  "frozen_artifacts": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "remaining": [
+    "BOM node attachment/orientation and vertex correspondence/callback",
+    "Actual ending resource loaders and full entry",
+    "Remaining stage control and actual UI/audio initialization",
+    "Working unlock flag production and full flow16 integration",
+    "Switch hardware validation"
+  ],
+  "evidence": {
+    "local/ending-entry-oracle.log": "b03e6c1f026f279f2cc073b84677c170365a9117839e11d789face70f984c2c7",
+    "local/ending-bom-oracle.log": "7ca07ffc89c38d34d7f39f8a3cecb98402a8dc0b39945403037f6241245ca60c",
+    "local/ending-face-assets-oracle.log": "7d5df335d26bf242af5cdca04444698740a36d37f6fdeb23b2443abe77e6425a",
+    "local/ending-face-ordinary-oracle.log": "6a558e0911cb3f9de69bfc7d0b8170d4a640cecea4ef4b7ff1d2ad831ce66ca4",
+    "local/ending-face-probe.log": "f62a39c55c7a3c99dc4359e2772341b7a743c56acab01745d2069b319f5cafb6",
+    "local/ending-face-probe-asan.log": "f62a39c55c7a3c99dc4359e2772341b7a743c56acab01745d2069b319f5cafb6",
+    "local/ending-entry-unit.log": "f0cbc397591db620f743bf89f25c1eca6700574f3049e99e06378b990706e565",
+    "local/ending-entry-unit-asan.log": "6c0fd31b5d63109c70410973e5479bcf9b46c85ede99dc1920a0da527da49fb8",
+    "local/ending-entry-architecture.log": "de546a2c0df932284ca0ebcd402a97159dfadd390d7d43c73e31c0bb13fd2e4e",
+    "local/ending-entry-switch.log": "f38a89d5496009f4edc1b260cfe8a0fe1e0be69085ecc43d1d580401d27e38cf"
+  }
+}

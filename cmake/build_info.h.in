@@ -1,0 +1,5 @@
+#ifndef BK_BUILD_INFO_H
+#define BK_BUILD_INFO_H
+#define BK_VERSION "@BK_VERSION@"
+#define BK_MESA_COMMIT "@BK_MESA_COMMIT@"
+#endif

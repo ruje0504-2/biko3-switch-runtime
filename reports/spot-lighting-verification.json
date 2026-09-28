@@ -1,0 +1,136 @@
+{
+  "passed": true,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "submissions": 4352,
+  "draw_snapshots": 2560,
+  "hdr_passes": 2048,
+  "max_error": 0,
+  "records": [
+    {
+      "name": "h01_60.x",
+      "sha256": "4a40eed2ae5a78db29ac4e30f5590aa41b87e47eb1703c29239cf088175ed0cc",
+      "lights": 4,
+      "spots": 2
+    },
+    {
+      "name": "h01_61.x",
+      "sha256": "85ddbdab57464e113cba7026bd038bb9add248f92d17d67a91887d95d21f9257",
+      "lights": 5,
+      "spots": 0
+    },
+    {
+      "name": "h02_60.x",
+      "sha256": "82a867a45dc07661d66d1bb31ae8a16651c018c1bb4e952dbac2b5f981913c8e",
+      "lights": 4,
+      "spots": 2
+    },
+    {
+      "name": "h02_61.x",
+      "sha256": "35184b66dc63c96c99dfde857c014428cd1ecac9d84b1125ca1c699752483978",
+      "lights": 4,
+      "spots": 0
+    },
+    {
+      "name": "h03_60.x",
+      "sha256": "3669a22757233e8d32386ac11e9b5d86524f8638cbeefaad6a7a9df528e4fa2d",
+      "lights": 4,
+      "spots": 2
+    },
+    {
+      "name": "h03_61.x",
+      "sha256": "71db1dde20be7c4b98eb2026514a827c515c3d66851ba35dbaf486b91180da2c",
+      "lights": 5,
+      "spots": 0
+    },
+    {
+      "name": "h04_60.x",
+      "sha256": "df11958f49f04f0a0c5a176255acb780c1efd84052e717f63f85cd76a014f136",
+      "lights": 4,
+      "spots": 2
+    },
+    {
+      "name": "h04_61.x",
+      "sha256": "de884b6d72d1f5b7b43ac9a4a6984d0bb5d5c3ad0e1f267146ebe5dcdfdcb393",
+      "lights": 5,
+      "spots": 0
+    },
+    {
+      "name": "h05_60.x",
+      "sha256": "f75a34d71e4e77bf3e1420d7c0ee234d2c6b0adb4caf0c78b016e2a708bb6407",
+      "lights": 4,
+      "spots": 2
+    },
+    {
+      "name": "h05_61.x",
+      "sha256": "7103baf8d7ef523e034e18d549dbce16f13bbe377b7f316465740ad8f4ddfb26",
+      "lights": 5,
+      "spots": 0
+    }
+  ],
+  "scope": "Original light frame attachment/submission for the ten selection actors.\nCaptured D3D state validates light parameters, not Windows rasterization.\n",
+  "gpu": {
+    "cases": 66,
+    "max_channel_error": 0.00784313725490196,
+    "ordinary_and_asan_ubsan": true,
+    "fog_perspective_samples": 320,
+    "background_entries": 90,
+    "background_frames": 720,
+    "background_instances": 145496,
+    "background_fog_entries": 6,
+    "background_colored_pixels": 54282087
+  },
+  "actor_cpu": {
+    "bodies": 10,
+    "frames": 1800,
+    "finite_matrices": 1167840,
+    "ordinary_and_asan_ubsan": true
+  },
+  "regression": {
+    "host_ctest": 67,
+    "python": 29,
+    "environment_final": 5,
+    "asan_lighting_pass": true,
+    "application_30hz_frames": 850,
+    "application_ordinary_and_asan_ubsan": true
+  },
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "c1200ed0cd23475f0fa591eb0614c8ed23e90120de136e39e3ac837eb6755aba",
+    "undefined_symbols": 0
+  },
+  "source": {
+    "runtime/core/lighting.c": "7708b7a87ccb709c4fe8c6c2a969b805730e838adc6eae064659ef72d4582e89",
+    "runtime/core/lighting.h": "1e63eab09ed072e3a3a43c22875f757fe1fe0f78f19ba6f3830b4ef472dccb0f",
+    "runtime/model/environment.c": "1ca2e251b7043595bb6647bcd4262720f9bcc26f1e93d966f2087f1579fbd5ab",
+    "runtime/model/environment.h": "801e413a6ad4c8aef958bf92bb856fa0417c58417f880784823c7bd8de1c80ff",
+    "runtime/scene/lighting_assets.c": "9eb6f645c06698289712ea177e6ffe16e0c1d564672e874c905a52fdc1f212f0",
+    "runtime/scene/lighting_assets.h": "3b3b527132017eab3fc41e5865d082d2ba6740da3ea1d4c2dd55355b4e5e742e",
+    "runtime/game/lighting_pass.c": "d985606ca8a383cc5988796063f256480e967bc0bf354726534c9391d575f9e2",
+    "runtime/render/vulkan/renderer.c": "b951467838803805a73ab76167e584a781e2d04a0fba5336d946ff13252d60a9",
+    "runtime/render/shaders/lit.vert": "733f3fb34b909a022b0a6a92d2013e04625dae254f0bb54e5184a0d83f8de445",
+    "runtime/render/shaders/lit.frag": "484d28666d246edb9b8146975dadb6023888983569416c9c4ba8b0fd360f23b0",
+    "tests/environment_binding.py": "504f210b6606e20d29473529e2655947c6fca8779b102fc55c3e7d277e4ed4f9",
+    "tests/test_environment.py": "f43ac86ac2926019e6ad75089938d03d9203fa9f29c38cb7150f49a68271365c",
+    "tests/original_spotlighting_oracle.py": "9427effeeb8da9a59f291bf0e40cd7d1831a2d9b2f0aaceb2443355ae85c36ac",
+    "tools/lighting_render_probe.c": "aa556bcb85a52e12b588ec097503aca904b9d45ed24f972b568a1fe2cf620093",
+    "tools/selection_actor_probe.c": "50b3cc0019c0f8e71ab0de7594992cdcfe44880ef806e900e3cb87918f4fb452"
+  },
+  "logs": {
+    "spot-lighting-gpu.log": "0cc8f040e87184b9b0dde18c89598bf8cca13d659a944eef81c63dbbcff242ce",
+    "spot-lighting-gpu-asan.log": "0cc8f040e87184b9b0dde18c89598bf8cca13d659a944eef81c63dbbcff242ce",
+    "spot-fog-gpu-asan.log": "0974d8727c229e8efb5d0d07387725dc36a84281af67b6c2ac4982b41b0d7af6",
+    "spot-background-gpu.log": "710cd708ca1c4a60f643925a665595e4386ff580734b744daedb7a24f2545961",
+    "spot-background-gpu-asan.log": "710cd708ca1c4a60f643925a665595e4386ff580734b744daedb7a24f2545961",
+    "spot-actor.log": "96ce1bb52da11a93a06a2711e12ecef41409db29930aa392ab7c700c607293cc",
+    "spot-actor-asan.log": "96ce1bb52da11a93a06a2711e12ecef41409db29930aa392ab7c700c607293cc",
+    "spot-pass-asan.log": "0377d0b3edd9d42c97f111edf3a3d1629bf3fa880ad08791c1d9d87b86335aae",
+    "spot-host-tests.log": "3b2d9e4409019967a5030b42fc24d6a7b0307f6a785fd3a7547433076aacf5ed",
+    "spot-python-tests.log": "1bd892d4a4e65915a442cf10fa5c7ab0c120276508bcbf907dad87bb84d08bf6",
+    "spot-application.log": "96cd9ddd0b0d12980535960e9cfdb73a5c590cdb9fda546e48fa9664d8a1e9b5",
+    "spot-application-asan.log": "18908a2b9e81fc964ab72cd865d23c76199615c6ffe9200f19384c65f54024fc",
+    "spot-final-environment-tests.log": "dbf765775f6f779970a4468dce9a7d5cad6d8470ec25eea522233db15c3bef8b",
+    "spot-final-switch-build.log": "eb71a040a9914694ddcd53e9746f123897ad7ed23f923e63bae2b2797d676584"
+  },
+  "delivery": "Source snapshot only; frozen delivered FPS NRO f530d4862662ed768ef06f14a77ff7a38f8a614e8423a72a4cbc0de0aca0b620 unchanged. No complete selection scene or Switch hardware evidence."
+}

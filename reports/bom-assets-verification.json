@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "hardware_verified": false,
+  "full_ending_integrated": false,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "records": [
+      {
+        "name": "jouhansin.bom",
+        "bindings": 3,
+        "missing": 0,
+        "frames": 60
+      },
+      {
+        "name": "h03_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60
+      },
+      {
+        "name": "h02_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60
+      },
+      {
+        "name": "h04_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60
+      },
+      {
+        "name": "kahansin.bom",
+        "bindings": 2,
+        "missing": 1,
+        "frames": 60
+      },
+      {
+        "name": "h01_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60
+      },
+      {
+        "name": "h05_00.bom",
+        "bindings": 2,
+        "missing": 0,
+        "frames": 60
+      }
+    ],
+    "frames": 420,
+    "matrices": 539490,
+    "vertices": 810810,
+    "mapped_vertices": 6241,
+    "material_checks": 21140,
+    "max_normalized_error": 0.0,
+    "scope": "Actual4a4dc3 binder, node lookup/math, global publication, registry mapping,\n40168c/4021a1 ANIM/MATA/MORP and hiding. Filesystem/heap/refcounts and matrix\nstack lifetime are boundaries; math, ordering and all animation run natively.\nExplicit7 actor pairs use BOM metadata only as test fixtures, not dispatch.\n"
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "d1df27ad7aaebbd12bbcc93702c8358391fe537588c2f621eeb9dead1849356b",
+    "undefined_symbols": 0
+  },
+  "cpu": {
+    "profiles": 7,
+    "frames": 1680,
+    "vertices": 2779920,
+    "mappings": 6241,
+    "missing_vix": 1,
+    "preflight_failures": 22,
+    "fnv": "ac2010275e22b6d2"
+  },
+  "source_sha256": {
+    "runtime/scene/bom_assets.c": "91be4dcb940885a2a55a2f33849ff5fbbe7c060b04928908da3038e1c633ac93",
+    "runtime/scene/bom_assets.h": "9e12d04ff0f4c3d8d02df4db1a56d660e7713e6c778df812dbb3f84066603809",
+    "runtime/model/bom_deform.c": "57ffbb8f94d0852a4114042d3ec6a207cec642d6beadc43cea505f2970f3ea2e",
+    "runtime/model/bom_deform.h": "6a8296ad7e2c9cf7749ad24b81a985d51283e7c9c1c4df0a173ad21952c2d11d",
+    "tools/bom_assets_probe.c": "7a2b997b86e43c557db3013e135b304345f1035720d70146b8b4dfd861df08ad",
+    "tests/test_bom_deform.c": "07fedba8295311c4850ef753e1710414a93a7636ddaab07edbad6b90a628bf38",
+    "tests/original_bom_assets_oracle.py": "4d3b7c642b00bf2ba2ffc6079e62224dbaaf8cc7134f2824a0413e125ddfa1fb",
+    "CMakeLists.txt": "7ee2442b3230395f6625a0847a4faa25db7db45f70e12bfeddd57bccd5b1c990",
+    "test-host.sh": "2a37e55b7c3e4d09826c0b49306d64cc47db1b198b1f91ccb152564b5b61223c"
+  },
+  "logs_sha256": {
+    "bom-owner-oracle.log": "24442971b0f7ab882d96c35e5c3a81e5303efdde52064ea125573cc9f5a65f12",
+    "bom-owner-probe.log": "ff63f33dafb5323d9b4a48a1eb7da54d6ddc08db1a2c67bd8c4b886d27bed6ea",
+    "bom-owner-probe-asan.log": "ff63f33dafb5323d9b4a48a1eb7da54d6ddc08db1a2c67bd8c4b886d27bed6ea",
+    "bom-owner-unit.log": "83e7eff3ca5ed65823f75f44389946fa053da2e2a0fd779032e47d422ab2b119",
+    "bom-owner-unit-asan.log": "600f0ae826781a4a9c6174d2a0f6097096bad7a15d99291509ffb91035d124d2",
+    "bom-owner-plan-unit.log": "1643f720d00f9c84f6e4ac57d8cb7e15f5f64f3fedaea846797dbc05ca35ce26",
+    "bom-owner-plan-unit-asan.log": "0e7ab1bb4a7374e20e3f6f903f53ac2ad2815676373084c26f8a8de2f89a6c5b",
+    "bom-owner-architecture.log": "cdd2700864d44a54f2c72ce2e79cdb1936fb480d0bf2513f01f7156938a38512",
+    "bom-owner-switch-build.log": "953da5ddac500793ef1de954f69a4fb1b27f78067523354bed2a6b2f0b65e5f4"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Fresh base meshes and two supplied actors only",
+    "No full ending loader or alternative4a52bc entry",
+    "No per-frame BOM controls/physics or seconds effects",
+    "No post-ENVL GPU BOM callback",
+    "Native undefined material W retains portable zero policy",
+    "No new Switch hardware validation"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "policy": {
+    "variants": 3840,
+    "rules": 10240,
+    "max_error": 0
+  },
+  "steps": 960,
+  "matrices": 1644708,
+  "face_vertices": 1608192,
+  "max_error": 5.551115123125783e-17,
+  "records": [
+    {
+      "model": "h01_60",
+      "alternate": 0,
+      "focus": "Frame27_kubiX",
+      "frames": 152,
+      "sha256": "4a40eed2ae5a78db29ac4e30f5590aa41b87e47eb1703c29239cf088175ed0cc"
+    },
+    {
+      "model": "h01_61",
+      "alternate": 1,
+      "focus": "atama",
+      "frames": 298,
+      "sha256": "85ddbdab57464e113cba7026bd038bb9add248f92d17d67a91887d95d21f9257"
+    },
+    {
+      "model": "h02_60",
+      "alternate": 0,
+      "focus": "Frame164_A_kao",
+      "frames": 173,
+      "sha256": "82a867a45dc07661d66d1bb31ae8a16651c018c1bb4e952dbac2b5f981913c8e"
+    },
+    {
+      "model": "h02_61",
+      "alternate": 1,
+      "focus": "kubiX",
+      "frames": 217,
+      "sha256": "35184b66dc63c96c99dfde857c014428cd1ecac9d84b1125ca1c699752483978"
+    },
+    {
+      "model": "h03_60",
+      "alternate": 0,
+      "focus": "kubiX",
+      "frames": 188,
+      "sha256": "3669a22757233e8d32386ac11e9b5d86524f8638cbeefaad6a7a9df528e4fa2d"
+    },
+    {
+      "model": "h03_61",
+      "alternate": 1,
+      "focus": "kubiX",
+      "frames": 241,
+      "sha256": "71db1dde20be7c4b98eb2026514a827c515c3d66851ba35dbaf486b91180da2c"
+    },
+    {
+      "model": "h04_60",
+      "alternate": 0,
+      "focus": "atama",
+      "frames": 353,
+      "sha256": "df11958f49f04f0a0c5a176255acb780c1efd84052e717f63f85cd76a014f136"
+    },
+    {
+      "model": "h04_61",
+      "alternate": 1,
+      "focus": "A_kao",
+      "frames": 534,
+      "sha256": "de884b6d72d1f5b7b43ac9a4a6984d0bb5d5c3ad0e1f267146ebe5dcdfdcb393"
+    },
+    {
+      "model": "h05_60",
+      "alternate": 0,
+      "focus": "atama",
+      "frames": 417,
+      "sha256": "f75a34d71e4e77bf3e1420d7c0ee234d2c6b0adb4caf0c78b016e2a708bb6407"
+    },
+    {
+      "model": "h05_61",
+      "alternate": 1,
+      "focus": "A_kao",
+      "frames": 671,
+      "sha256": "7103baf8d7ef523e034e18d549dbce16f13bbe377b7f316465740ad8f4ddfb26"
+    }
+  ],
+  "scope": "Native5073de/507193 and51ac5d body tail with actual ten menu bodies.\n\nXAN/SRT, visibility and gaze run in the original caller VM; original face\ncontroller runs in an independent VM and its commands drive a second MORP\ninstance. Camera mode2 holds the supplied camera; movie/envelope/eye-texture\nselection are explicit observed services. Stage is absent here. No complete\nselection scene, video playback or native GPU/audio claim.\n",
+  "cpu_probe": {
+    "bodies": 10,
+    "frames": 1800,
+    "held_world_frames": 1800,
+    "finite_matrices": 1167840,
+    "asan_ubsan": true
+  },
+  "source": {
+    "runtime/game/selection_actor.c": "13f704c904e66770f84465ef99a42a260934eaaca1ade6b09714847dea14a6ea",
+    "runtime/game/selection_actor.h": "294a38ebd1453395799a187b6fbdf2dd06bb0c0639b76ef9c4d828f6488d6c30",
+    "runtime/scene/selection_actor_assets.c": "62010e1de3bce0f8aa04fffa3403840a4165619c24f5c5a711320fe56991e0cf",
+    "runtime/scene/selection_actor_assets.h": "f4740749ff79daed79f58f7630a76a60cbac844f79910f2f8621a5bb36176f6a",
+    "tests/original_selection_actor_oracle.py": "d0ba50b9b57eab0cc25f007942b7dc7a13c362a272bc30a29928c2d755056ab8",
+    "tools/selection_actor_probe.c": "2d0d813a100b674e3bc64fe3ab4ee1f624df594a7dd4fbf5a4722bd0e54df723"
+  }
+}

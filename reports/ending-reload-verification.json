@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "full_ending_ui_integrated": false,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "load_cases": 2000,
+    "release_cases": 2000,
+    "curtain_cases": 10000,
+    "services": 579272,
+    "mutated_service_states": 1900,
+    "final_image_constructions": 1046,
+    "early_returns": 779,
+    "exact": true,
+    "scope": "Original4d9354/4d9575 and4d679d..4d6e6e resource/curtain transitions.\nNested selectors and45-effect loops execute native instructions unchanged.\nOnly actual IO/scene/light/scheduler/DirectSound leaves are observed services.\nFull4d499b UI and real resource lifecycles are not claimed by this oracle.\n"
+  },
+  "audio_trace": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "profiles": 10,
+    "frames": 2400,
+    "status_queries": 2540,
+    "pause_calls": 1640,
+    "voice_waits": 40,
+    "scope": "Native pause trace for the real PCM probe; resource phase0 is an explicit\nno-resource fixture. Does not model full ending UI or destructor lifetime.\n"
+  },
+  "audio": {
+    "profiles": 10,
+    "frames": 2400,
+    "pcm_samples": 3248640,
+    "fnv": "a147043ab2164e07",
+    "normal_asan_equal": true,
+    "resumes": 1720,
+    "shared_slot_replacements": 40
+  },
+  "unit_profiles": 36,
+  "failure_prefixes": 2274,
+  "unit_tests": 1,
+  "asan_unit_tests": 1,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/game/ending_reload.c": "caafe7618c9854bd404062b0e6d9d6e207d91ed2f05511de81fc21631439f015",
+    "runtime/game/ending_reload.h": "45f15a8e5f847c57c56ed30b83a9e59bb035b2782882da14ad6e870bf5949e91",
+    "tests/test_ending_reload.c": "569c3d58d8559d37830e400cc42738d8ee06cfde5882e947e8c5f946ccb76a93",
+    "tests/original_ending_reload_oracle.py": "7339fa250a3fefffe9e3ab95aed82fd8cae48a51d143269447ecdbd3c0f3f017",
+    "tests/original_ending_reload_audio_trace.py": "2a9fe60a4aa2f089018a93d2c9766ff2ae625c59015b4952a5f1695e1c9081ac",
+    "tools/ending_reload_audio_probe.c": "f0388bf78b3fcb0ae6c759a35ee50c4a2a2851f37bcb13c6f2b471eea0c62aba",
+    "CMakeLists.txt": "24b72385476032455888224fe310abc68bb9973aeecafb71058b09472c1ef2f3",
+    "test-host.sh": "523e2b8f664b5f2ad5040ad7d4344be77cadf7961a052dc8e6367b9cdd4ba760"
+  },
+  "logs_sha256": {
+    "original-ending-reload-oracle": "ae337fd98cdd591bafc031e340c937747cfe5ecb56365fb720aba0088656d6f5",
+    "ending-reload-audio-trace": "315577f280d87b3f96ac1667dc0e2e6045c362ad218c8bd05d1762a1d016d50a",
+    "ending-reload-units": "3e951c75b367b69a103685e0d0ac1f3941eb6b5a02cf2edafe645848fb60bc64",
+    "ending-reload-asan-units": "11198e752cb06a8a0fa5eb4f39a8048745d2d9a3bc44cfcf73ba8b944f6b596f",
+    "ending-reload-audio": "b1a844dcf5d20074e292a67c0ce338b355e048a4354d75f895a959448c84af75",
+    "ending-reload-audio-asan": "b1a844dcf5d20074e292a67c0ce338b355e048a4354d75f895a959448c84af75",
+    "ending-reload-architecture": "26677889cdd59fb5bb45401bd92072a8b90853e747802eb530affcc1c1c3d540",
+    "build-ending-reload-tests": "66497e32e436e3df2028ac42141cf6a79dc39ad21348965f1aa2ea19bc0bf823",
+    "build-ending-reload-asan": "2fdace73ac441376dd59f632e84e5703d1b3a960fa6584b1e80b0e0c4cfcc525",
+    "build-ending-reload-switch": "9a8f3f79dd2df1fac2eeda902c608d5812e7f182d6690a21b1a15b4c38e9ccb9"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Full4d499b/flow16 not integrated",
+    "Actual resource loader/destructor/final image/light/scheduler leaves remain required external services; no fake success",
+    "PCM fixture phase0 deliberately has no resource destructor; no complete scene lifecycle claim",
+    "No new Switch hardware verification; rain feedback applies only to delivered weather",
+    "Invalid final-image group rejected; native valid-group comparisons only",
+    "ASan detect_leaks=0"
+  ]
+}

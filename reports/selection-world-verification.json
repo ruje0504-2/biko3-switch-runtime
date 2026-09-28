@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "retained_groups": 5,
+  "replacements": 50,
+  "frames": 600,
+  "matrices": 2145630,
+  "max_relative_error": 0,
+  "scope": "Retail51ac5d with actual four-object selection forest and native components.\n\nOriginal caller/body, camera/XAN, stage/XAN and face control execute in separate\nVMs. A fifth original D3DX/frame-tree VM publishes their shared caches at the\nactual camera prepass and draw boundaries; its outputs are copied to the VMs.\nNo port matrices/timelines feed the reference after initialization. Movie and\nvoice-envelope are explicit recorded services, not playback implementations.\nSpecial1/4bb9de and GPU rasterization are outside this retail special0 test.\n",
+  "cpu_probe": {
+    "retained_camera_groups": 5,
+    "replacements": 50,
+    "frames": 2400,
+    "draw_snapshots": 4800,
+    "finite_matrices": 1855680,
+    "ordinary_and_asan_ubsan": true
+  },
+  "gpu_probe": {
+    "profiles": 25,
+    "frames": 600,
+    "retained_replacement_snapshots": 20,
+    "instances": 39240,
+    "colored_pixels": 45823340,
+    "rgba_fnv64": "b1fe7bfb62bf7df7",
+    "ordinary_and_asan_ubsan_equal": true,
+    "scope": "Normal60 only, explicit disabled fog; actual original camera, body, stage, face, light snapshots. Movie61 rejected. No UI/flow/real audio integration or Windows raster reference.",
+    "visual_review": "local/selection-render-sheet.png"
+  },
+  "regression": {
+    "ctest": [
+      "menu-camera",
+      "selection-ui",
+      "lighting-pass"
+    ],
+    "architecture": 2
+  },
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "c1200ed0cd23475f0fa591eb0614c8ed23e90120de136e39e3ac837eb6755aba",
+    "undefined_symbols": 0
+  },
+  "source": {
+    "runtime/scene/selection_world.c": "5df028f33a21b0dbb8247dd8fa0bf0de685277f3396326b38bd02fb2dc34302c",
+    "runtime/scene/selection_world.h": "3d20d53ab768ccab7dedae5e2aa78edcd8321178630f235e2299a3e7bbeff2cb",
+    "runtime/scene/selection_render.c": "4a1f3a2e46af3a4c1f20d54f03bbe7b7df7461ae0eb185f2d636d07c2e245fd0",
+    "runtime/scene/selection_render.h": "8c9233880a09ad8c2bac99420c8e69ca99c1dd633f34b29e2ae5dbb7790f5deb",
+    "tools/selection_world_probe.c": "592b836c9de7241b36fec409b993fe5da987007b296aedac8ee9cfb3813bcec4",
+    "tools/selection_render_probe.c": "df7ea196d578b37c792328019b95e608cf2120c6d667871ab46388c9acc6ae4c",
+    "tests/original_selection_world_oracle.py": "4f812f8ff9520dc7b7c3908e501af4594d37ae5420a2c9b6018571fb9b60caf5"
+  },
+  "logs": {
+    "selection-world-probe.log": "660744b0423b87af6735ca5f591b9277d33bcd615b9f0d9141000fe00cb38b88",
+    "selection-world-asan.log": "660744b0423b87af6735ca5f591b9277d33bcd615b9f0d9141000fe00cb38b88",
+    "selection-world-ctest.log": "02727f9fabd73f00396f07f1432181937bb50ec4ab69ad565950f6b13c085f10",
+    "selection-world-architecture.log": "220fe11aa6d891b1b2e1afbcce918036aa4c8ebb037b05fb3c244f65822f4f1e",
+    "selection-render-probe.log": "c05d0dc0cdda6cd4bea4f5703d47cb6752807daa30543980c3990c155e8559ce",
+    "selection-render-asan.log": "c05d0dc0cdda6cd4bea4f5703d47cb6752807daa30543980c3990c155e8559ce",
+    "selection-render-switch-build.log": "c6169520de86bea8960393acf9a12b4f1defce6451c66eb5a64783bb764b3be3"
+  },
+  "limitations": [
+    "Original Chinese EXE only; no protected Japanese opcode comparison",
+    "Movie and envelope callbacks are explicitly observed fixtures in the CPU oracle",
+    "New components not wired to app; original FPS package is frozen",
+    "ASan leak detection disabled",
+    "No new Switch hardware execution"
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "normal_special_gpu_integrated": true,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "original_behavior_dependencies": [
+    "reports/ending-special-verification.json",
+    "reports/ending-special-scene-verification.json",
+    "reports/bom-render-verification.json"
+  ],
+  "gpu": {
+    "profiles": 10,
+    "frames": 320,
+    "dual_frames": 280,
+    "empty": 40,
+    "redraws": 40,
+    "queue_items": 31924,
+    "vertices": 3415936,
+    "max_relative_error": 3.68802e-07,
+    "equivalent_secondary_meshes": 320,
+    "equivalent_secondary_bom_targets": 240,
+    "invalid_preflights": 20,
+    "normal_asan_equal": true,
+    "stable_allocations": true
+  },
+  "synthetic": {
+    "frames": 80,
+    "channels": 268800,
+    "max_error_255": 1,
+    "texture_free_clones": 8,
+    "retirement_rounds": 4,
+    "normal_asan_equal": true
+  },
+  "regular_regression": {
+    "frames": 320,
+    "queue_items": 22980,
+    "vertices": 1707968,
+    "max_relative_error": 3.68802e-07
+  },
+  "front_rgba_sha256": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "8f11bae1c309da65e5bea94008033922d61d62e18e0a660df738afdda1e930d6",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/actor_render.c": "ba1e07098515ef3015a9cf80bf702a038657b563cc3cbf01d376326863486733",
+    "runtime/scene/actor_render.h": "13f24dfe4e046207c0cdc7b6cd87feef9e6ae6842f37c9819481c591410b814b",
+    "runtime/scene/ending_normal_render.c": "e25b1fec7031a0feb38debdc8c0d6ddf2eb9a510b85238a76adc2cc4f9ec0a2c",
+    "runtime/scene/ending_normal_render.h": "8c120c1290cc6ad0a798c72d338e9edc7ab583f1deb8ce7be5998e320495fe42",
+    "tools/ending_render_probe.c": "790d5811c68c237f38d400ee8b16fde2a10bb32c77074b513ef9a8222c7e8be6",
+    "tools/actor_view_probe.c": "b820404bde519d7c1990a90565b43b22c5c82c967696d600d11d1c5b55753580",
+    "CMakeLists.txt": "4386c38f9b2adcf6998b4b21da8c5876a6e30009f073094afe6915bbf05ac34d",
+    "test-host.sh": "bfb822bb03287414ae8aaa3f3405439e998e5f548c060cbf930a18b3a7ce4fe0"
+  },
+  "logs_sha256": {
+    "ending-special-render-final-build": "ddd78a24cac1696e7b620c8c59647785abe506605b33f944cd9a60369a841690",
+    "ending-special-render-asan-final-build": "052a53b44d4de67e7c6945ada9d971c355271e6be9055ac22da18609414d034a",
+    "ending-special-render-probe-final-build": "2ba758c46b16cfb453535df7f96f1a00082c6b4e7ab04a63c9c737b944692a64",
+    "ending-special-render-asan-probe-final-build": "2cc171396571128e58ad74cf50fa9f4befbb5e8f9940d70a1dfbbd1172c2b087",
+    "ending-special-render-gpu": "2f95b13f1adaf38cbf7469793efbcd3908bd02f038a65849dfcb7e976e0c030f",
+    "ending-special-render-asan-gpu": "2f95b13f1adaf38cbf7469793efbcd3908bd02f038a65849dfcb7e976e0c030f",
+    "actor-view-build": "ff514514d818bbf2b1fa1c095fef2b160b28b6d2cdff3687196e92af0161a433",
+    "actor-view-gpu": "6a51d816cd181686918437ee4e84ba7e95a605fc3a2f730b7b436d834347ae47",
+    "actor-view-asan-gpu": "6a51d816cd181686918437ee4e84ba7e95a605fc3a2f730b7b436d834347ae47",
+    "ending-special-render-regular": "e094274e7f601ed657a7497e41b561312bdc2956a16a57edc84fbfe98363e578",
+    "ending-special-render-asan-regular": "e094274e7f601ed657a7497e41b561312bdc2956a16a57edc84fbfe98363e578",
+    "ending-special-render-front": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "ending-special-render-asan-front": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "ending-special-render-architecture": "1039f4d2c3d19f1da463040f356d718cb5975e3dd6dd830622821562609b7edf",
+    "ending-special-render-switch-build": "cf6715025958f68e8d26dcac6326ab1071f3e1e917c10b80536b5fe3362f8f29"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Only ordinary normal-ending asset/BOM profiles; other loaders require their actual resource contracts",
+    "Full flow16/UI/audio/controllers/application are not integrated",
+    "No new Windows complete-frame rasterization or Switch hardware/performance oracle",
+    "ASan detect_leaks=0"
+  ]
+}

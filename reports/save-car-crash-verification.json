@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "earlier_fps_zip_present": false,
+  "previous_gpu_zip_sha256": "2d64c4804feead275b9e570627d997709aacd62bff05e846adfa836e182981a4",
+  "hardware_verified": false,
+  "user_save_regression_root_cause_confirmed": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "3052908add48ba748723df8f3bfb9b69589ec503d7c37e11c5153f985f469c1f",
+    "undefined_symbols": 0
+  },
+  "car": {
+    "reproduced_host_cpu_error": "prop route: invalid state/geometry or nonterminating route",
+    "input": "explicit post-contact trigger fixture, not natural Switch contact",
+    "policy": "zero-distance stationary props preserve placement; original negative predecessor reads not reproduced",
+    "profiles": 45,
+    "props": 62,
+    "instance_frames": 14880,
+    "stationary_steps": 1860,
+    "pcm_stereo_frames": 8641920,
+    "pcm_fnv64": "b6510cc25a85b5c8",
+    "failure_outcomes": [
+      1,
+      1
+    ],
+    "failure_frames": [
+      137,
+      137
+    ]
+  },
+  "save": {
+    "contract": "host rename simulation: EEXIST if destination exists",
+    "writes": 100,
+    "injected_failure_branches": 4,
+    "interruption_points": 2,
+    "pause_capture_replacements": 10,
+    "application_frames": 5599,
+    "same_slot_menu_saves": 4,
+    "checkpoint_groups": 5,
+    "backup_suffix": ".bak",
+    "format_changed": false
+  },
+  "gpu": {
+    "skinning_default": true,
+    "allocation_baseline_restored": true,
+    "save_peak_app_allocations": 1326,
+    "save_peak_app_bytes": 102480392,
+    "car_peak_app_allocations": 1123,
+    "car_peak_app_bytes": 80202798,
+    "scope": "host Vulkan buffers/images owned by application; driver allocations and Switch hardware excluded"
+  },
+  "readback": [
+    {
+      "normal": "build/crash-save-switch-fs-final.rgba",
+      "asan": "build/crash-save-switch-fs-final-asan.rgba",
+      "sha256": "6d29aeda3ff5b9d3c5c7855220499cdb9bb387b4ce70fb4f52f9fd2112b16463"
+    },
+    {
+      "normal": "build/crash-car-final2.rgba",
+      "asan": "build/crash-car-final-asan.rgba",
+      "sha256": "fb7b75ab1b0b2f01a67d5bebb97f52a0ee3dcd451811f06cab12bca5d2486789"
+    },
+    {
+      "normal": "build/crash-car-final2.rgba.retry.rgba",
+      "asan": "build/crash-car-final-asan.rgba.retry.rgba",
+      "sha256": "23fc9b0bd74421bfe4499c520688b3ac54f39b1526cf6a0372bc9fb1aca3a06a"
+    }
+  ],
+  "source_sha256": {
+    "runtime/scene/prop_assets.c": "403068fc50e8b03a3bdb1a1135adb5443d8cf7bcddbd23be8b52c5eb85b7cb74",
+    "runtime/save/file_replace.c": "4efd0f7b7d05f6cbc96750289e927c402573d388853c4f51a3b9a3e905d9e379",
+    "runtime/save/file_replace_internal.h": "606444f6897fbc3d45f8b4b69cd4ae6c634e2920cfdf240f573e69842652afdd",
+    "runtime/save/checkpoint_file.c": "f247c3c0da36aa5edea5d44729b889f8ad91016cab82d09d89816d98090daa4e",
+    "runtime/save/capture_file.c": "85e90fcb6514ed60de77093038a3b243ee4f36854989f87f401c15d4f3a18947",
+    "runtime/app/save_preview.c": "8f3c32106548150e011702c238115571b79a3d037340edc4e7d91873b296e082",
+    "runtime/app/play_session.c": "b658dcca4a357ebe6ca39c4966110e1675fdc607877cc577c4f03ecf9cfdac3f",
+    "runtime/app/application.c": "5287e88f631381ee5b0db032dae916fdb2ee183bcf90ce7d32fa073372a198fd",
+    "runtime/render/renderer.h": "148242f19487705dbb4bb9657c8cf069117b37d1c86b9e221be95ac2c167e5d1",
+    "runtime/render/vulkan/renderer.c": "f392014012462bda75a4332c268871d79808a74c701d4367e35d0935c18df627",
+    "runtime/platform/switch.c": "e85f75fbb449d2169f1da774ffca7925724474f77de66bd4d771402443293cb7",
+    "tests/test_switch_file_replace.c": "a3f89fdf336aae4b04f9a4c223c98ab5ed94f1917197d8460e52c09df73fab55",
+    "tools/no_replace_rename.c": "4c54d563f18c1e67b93e97bd5ac7c40b1357c123b52ad514bb34869bd7e988ff",
+    "tools/failure_flow_probe.c": "74a978afd66b56562e84298348e0a21bf6f65b103087425baa214c2eebf393e6",
+    "tools/save_flow_probe.c": "c3f1d05a1bc6aee13502ef20c95b59d553819fca416392172c32dd702f8b57ce",
+    "tools/prop_probe.c": "f4baa06e3ef213bb19a97758ed35e6deafaf4b655f242c170d1b453c96c608d0",
+    "CMakeLists.txt": "4a31b3e8566258c08085005274bd9de0f0f917ab1ff00bc786c54e9fb27d136c",
+    "test-host.sh": "37241f62b12da791f2581ca339282688cee442afdce9fdfafeb83205444e165b",
+    "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "logs_sha256": {
+    "crash-fix-final-tests.log": "02b549cfcbb94e19ee2725f4e1fb81c9543b97f835a1be1671f68b9954158256",
+    "crash-fix-final-asan-tests.log": "1651f9ef92ff405ae42fcaf30f2c9f689d7d09db85adce290fe755234843d82a",
+    "crash-prop-unit.log": "11ffb450531d7b2793d64eb91f21627f0015b668a4540e46309035a54c282bbc",
+    "crash-prop-unit-asan.log": "7a5e6dda3e0cfc27de2c0c1f9d63fe3e8a3bd4d5d15aa16296a9a4bfdb7e9be9",
+    "crash-car-props.log": "d8d01d3a05f5115aa1322648dc0d8c19a0bf3f4bc2f334da33c4f8dc88ae495b",
+    "crash-car-props-asan.log": "d8d01d3a05f5115aa1322648dc0d8c19a0bf3f4bc2f334da33c4f8dc88ae495b",
+    "crash-save-switch-fs-final.log": "15245cf97ed75a62cf8169edc39c423e5936e3fff13ae6929412246eff8cd2ac",
+    "crash-save-switch-fs-final-asan.log": "15245cf97ed75a62cf8169edc39c423e5936e3fff13ae6929412246eff8cd2ac",
+    "crash-car-final2.log": "884c94240c5b2c5709d1e68fc78276e9b7a928edbe830fff14bbe6dc9be36870",
+    "crash-car-final-asan.log": "884c94240c5b2c5709d1e68fc78276e9b7a928edbe830fff14bbe6dc9be36870",
+    "crash-fix-architecture.log": "3ac748c7fc6dedd062d3f2967c58ff2fad5c801ee3613b7807a1bb2e5b228e09",
+    "crash-fix-switch-final-build.log": "8b31c24f3f3e91b4a07b26fe436be76ade03c66318294c2a7b7c33a9b04d5352"
+  },
+  "reproduction_log_sha256": "4384be9d6a8279865fc988fb1331d91187d9e829f020dbfbf5437e297310d78f"
+}

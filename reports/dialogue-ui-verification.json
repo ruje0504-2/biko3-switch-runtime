@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-09-27T21:06:41.821291+00:00",
+  "passed": true,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 12000,
+    "next_calls": 2713,
+    "transitions": 1813,
+    "unlock_requests": 308,
+    "target_checks": 6946,
+    "actual_text_pages": 2273,
+    "files": 26,
+    "max_error": 0,
+    "scope": "Complete4f0e44 dialogue UI with real parser, byte count and sprite fades.\n\nInput/font/media/persistent unlock/schedule are explicit service boundaries.\nFont-flow service executes original4758f7/474be3 in a separate VM. This does\nnot stand in for a full flow8 scene, persistent unlock IO or GPU integration.\n"
+  },
+  "layout": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "configurations": 32,
+    "draws": 640,
+    "vertices": 3840,
+    "max_error": 0,
+    "scope": "Original dialogue panel/prompt construction, fade geometry and font rectangle."
+  },
+  "gpu": {
+    "frames_each": 465,
+    "rgb_samples_each": 47069625,
+    "max_error_unorm8": 1,
+    "rgba_fnv": "bdf46a9f3b10d61e",
+    "ordinary_and_asan": true
+  },
+  "pulse_regression_steps": 6000,
+  "app_regression": {
+    "opening": 497,
+    "pause": 106,
+    "title": 111,
+    "loading": 65,
+    "reentry": 498,
+    "exit": 111,
+    "photos": 2,
+    "ordinary_and_asan": true,
+    "rgba_sha256": "e0198dd0e291a7f6b3bbc5ddfbdeeb48d6f0dfdc0ba5672794390912c0a72883"
+  },
+  "unit_tests_each": 1,
+  "architecture_checks": 2,
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "747ced95b24fdda12aba791647bbe56cd803b9622cb5f5f10228634ca29d8715",
+    "undefined_symbols": 0
+  },
+  "sources": [
+    {
+      "path": "runtime/scene/dialogue_ui.c",
+      "bytes": 5541,
+      "sha256": "12c203c20027ceef801e8e0e2a75b84b8d6a5b87d9d644a4b4d367e7ea6dfad8"
+    },
+    {
+      "path": "runtime/scene/dialogue_ui.h",
+      "bytes": 3153,
+      "sha256": "13cbe8c11e2cd7510ad66f87f0bcbcb381a4536aa17cffc4b267f00cade1e0a4"
+    },
+    {
+      "path": "runtime/scene/dialogue_ui_render.c",
+      "bytes": 5000,
+      "sha256": "e9e82f97ce26abe0f3f2693544b93780570b5de4e40320061ee013215d245def"
+    },
+    {
+      "path": "runtime/scene/dialogue_ui_render.h",
+      "bytes": 1476,
+      "sha256": "f2b830a223b824cd5c0a89f4631d71257215d0b24d952d8e8de75c5e81fd8502"
+    },
+    {
+      "path": "runtime/ui/fade_sprite.c",
+      "bytes": 2626,
+      "sha256": "f28e4dda233c930b9af200bc18db1d9da3cb37ece4a22bd33a30111177dc9a08"
+    },
+    {
+      "path": "runtime/ui/fade_sprite.h",
+      "bytes": 1428,
+      "sha256": "83ea4633bb7813554a650f24a5931ea2b9751cdca53572c171a09c96853fd76b"
+    },
+    {
+      "path": "tests/test_dialogue_ui.c",
+      "bytes": 3753,
+      "sha256": "c2a59474e73e7cecf828ce9e2c0bff32a0749280af4a07bb2f5fb08a084bbddb"
+    },
+    {
+      "path": "tests/original_dialogue_ui_oracle.py",
+      "bytes": 11212,
+      "sha256": "e0f53c37cc6ff62e959bde692eb70faf68c8e0e8c39d88bc5fb7e5dfa670b0ec"
+    },
+    {
+      "path": "tests/original_dialogue_ui_layout_oracle.py",
+      "bytes": 3791,
+      "sha256": "6579e066a7f9ecdc87b3eeabd38cf3a964e53107c98ee616c05a9b17d0d139b4"
+    },
+    {
+      "path": "tools/dialogue_ui_render_probe.c",
+      "bytes": 10361,
+      "sha256": "48e39aa47b24b7794be50ca1ee51a92478a846b7959b96e88a31aadeec4b263c"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 34308,
+      "sha256": "cc0aaa505d0811f0d64bb9ab5b29370551de291335e6fb50fec3c252de077a0b"
+    },
+    {
+      "path": "test-host.sh",
+      "bytes": 5258,
+      "sha256": "1df830c40db92c9f12e94d6fe6a65a45729b28d9360f145a29328c97cf30b32d"
+    },
+    {
+      "path": "reports/dialogue-ui.md",
+      "bytes": 3117,
+      "sha256": "ece4a2bc7010112adcdea15d6c51a3b0b11f40d013384e5800d028334fab26fe"
+    }
+  ],
+  "logs": [
+    {
+      "path": "local/dialogue-ui-oracle.log",
+      "bytes": 585,
+      "sha256": "d4bbc67f766f9bbea0ab3c32ab91ab036590fd0871bc291114af00889a70981b"
+    },
+    {
+      "path": "local/dialogue-ui-layout-oracle.log",
+      "bytes": 260,
+      "sha256": "9669916746f275e19e1c62a625864248fafdd408f470eba4d0e90c5d5a053db5"
+    },
+    {
+      "path": "local/dialogue-ui-pulse-regression.log",
+      "bytes": 31,
+      "sha256": "6859e85bac9b84ed4fa6169592d5645ea6a8a785f02a57f8cf07e27c79a9463f"
+    },
+    {
+      "path": "local/dialogue-ui-gpu.log",
+      "bytes": 273,
+      "sha256": "ff46cf85a7fd82b8eb1146db9b350e59864cea80167b0ce6985789226b21700d"
+    },
+    {
+      "path": "local/dialogue-ui-gpu-asan.log",
+      "bytes": 273,
+      "sha256": "ff46cf85a7fd82b8eb1146db9b350e59864cea80167b0ce6985789226b21700d"
+    },
+    {
+      "path": "local/dialogue-ui-unit.log",
+      "bytes": 308,
+      "sha256": "de6b66f28a2d9d15fbd010e07e1d70f25c265a59b253f06a0b0c0de54f814538"
+    },
+    {
+      "path": "local/dialogue-ui-unit-asan.log",
+      "bytes": 318,
+      "sha256": "d91f58d56b18459569ac837c1178804b3e5d7fd0849635bdcd0dc93a0de33991"
+    },
+    {
+      "path": "local/dialogue-ui-architecture.log",
+      "bytes": 100,
+      "sha256": "9898de66f29ddc2b980a6249de49afcd5c9985dcf8068994fc95ac27ff09e81f"
+    },
+    {
+      "path": "local/dialogue-ui-switch-build.log",
+      "bytes": 3999,
+      "sha256": "1ad0f547479cc814630bea78677fa093d35614633d74322d3d5aa4e1c4462005"
+    },
+    {
+      "path": "local/dialogue-ui-flow.log",
+      "bytes": 2594,
+      "sha256": "6a15e1a6c6b5c2d67284e9a5b7e6603c0c16b4dffe5cfe1eb4c5f9b2e09470e2"
+    },
+    {
+      "path": "local/dialogue-ui-flow-asan.log",
+      "bytes": 2594,
+      "sha256": "6a15e1a6c6b5c2d67284e9a5b7e6603c0c16b4dffe5cfe1eb4c5f9b2e09470e2"
+    }
+  ],
+  "scope": "# 剧情文字与结束分派\n\n`scene/dialogue_ui` 恢复完整 `4f0e44`：先推进面板和闪烁提示并捕获绘制透明度，再处理 phase0 的点击。点击先保位暂停已有语音；文字尚未滚到目标时只快进，已到目标才调用真实解析器翻页、重新绑定文字及计算滚动目标。背景指令1/2设置 phase1、背景类型0/1，并保存当页 code_f。文字准备、语音、音乐随后按原顺序执行。\n\n公共黑幕与背景内部黑幕分别保留。公共黑幕先 advance、捕获透明度，再 request；关闭后清 wanted，previous38 请求游戏2，previous2 写结果并请求16，previous16 必须先成功写入持久解锁再返回标题1。解锁及转场是必需服务，缺失即失败；当前组件没有假装完成尚缺的解锁文件适配。非法输入先拒绝，服务失败保留已执行前缀，不能当作整帧回滚。\n\n初页滚动目标用 strlen，后续页用原 `4f1ab4` 的字节 CR 扩展计数，再按 `(length-1)/2`、27列4行、step16计算。保留 Shift-JIS 原字节语义，不以通用 Unicode 排版替代。`4aaa17` 忽略表面传参并读取原游戏秒数。面板 ma_04、提示 ma_05、Type_S.FTT 文字矩形104,380,432,64由 `scene/dialogue_ui_render` 在帧外准备，帧内绘制面板→提示→原文字多遍混合；外层拥有公共 ma_01 黑幕。\n\n固定中文 EXE SHA-256 `a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e`，完整原控制函数与真实解析器、字节计数、fade/pulse及文字时序回放12,000帧，包含2,713次翻页、1,813次转场和308次解锁请求，最大误差0。6,946次目标检查包含26份实际日文脚本的2,273页；输入、媒体、GPU、持久解锁和调度为显式服务边界。另32种原布局构造、640次绘制、3,840顶点误差0。\n\n实际素材GPU探针在三种视口下覆盖面板/提示透明度、文字滚动裁剪、四遍字体混合、公共黑幕和无更新重绘。普通/ASan各465帧、47,069,625个RGB采样最大误差1/255，RGBA FNV均为 `bdf46a9f3b10d61e`，拥有的GPU分配恢复基线。参考像素由独立双线性采样/UNORM混合器产生，使用已另行对照的字形遮罩；这不是完整Windows游戏截图对照。ASan关闭LeakSanitizer。\n\n新增边界/故障注入单元普通和ASan通过，两项架构检查通过。共享 pulse 抽出 advance 接口，其原6,000步回归通过；既有应用普通/ASan各完成 opening497、pause106、title111、loading65、reentry498、exit111和两张照片，最终回读逐字节一致，SHA-256 `e0198dd0e291a7f6b3bbc5ddfbdeeb48d6f0dfdc0ba5672794390912c0a72883`。\n\n指定 Mesa NVK 交叉构建通过、未解析符号0。本次共享 pulse 重构使源码NRO变为 `747ced95b24fdda12aba791647bbe56cd803b9622cb5f5f10228634ca29d8715`；已交付的存档/撞车修复包仍冻结于3052908a…，没有覆盖。新剧情组件尚未接应用，不声称Switch已经出现原标题/选人/剧情。继续入口脚本选择、初态/灯光与完整flow8，再接原标题→38→8→2并另包交付；Mac防休眠保持。\n"
+}

@@ -1,0 +1,62 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "native": {
+    "passed": true,
+    "frames": 240,
+    "walks": 600,
+    "matrices": 529080,
+    "mesh_frame_submissions": 10578,
+    "max_relative_error": 0,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "scope": "Normal ending regular draws: actual bound topology, original42261a/42273b\npublication and mesh-frame submission order. Matrix stack/D3DX execute natively;\nGPU queue insertion is a marker per mesh-bearing frame, not rasterization.\nComponent animation/local edits are explicit shared inputs. Verify that a\nvisible final background publishes all caches needed by later regular draws,\nallowing one GPU geometry snapshot without changing original per-flush walks.\n"
+  },
+  "gpu": {
+    "profiles": 10,
+    "component_frames": 320,
+    "queue_items": 22980,
+    "vertices": 1707968,
+    "max_relative_error": 3.68802e-07,
+    "redraws": 40,
+    "empty_frames": 40,
+    "movie_changes": 320,
+    "missing_movie_cleanup": 10,
+    "normal_asan_equal": true,
+    "stable_allocations": true
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "f1ff22eae11b17b6740e2c9a1c0693483022e561e5849bcfd2cf5ed4a3b8efa6",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_normal_render.c": "f0bfb122c465255368e3e7444bfb787d065126002f45ba3961d12dbf26b7cd5d",
+    "runtime/scene/ending_normal_render.h": "4cb75c53c215d47be68ad0b0b91bff2e1dc76d00e669d62e992dad9132e64851",
+    "tools/ending_render_probe.c": "c98f521977e8abc5efef639556b60f0b1d8d9f35cf06b557caa8806869c7d728",
+    "tests/original_ending_regular_walk_oracle.py": "84bcbfb8fced163ba0d539117080e1cd2fee97d577af55ae2d0b48ce01adbdb4",
+    "CMakeLists.txt": "6593578144fda97f72dc7e9f73259384da9ea5d0b327bbf6c1a5c6287140c082",
+    "test-host.sh": "5771f17a5c8287dbc58c26de8f7f69e8941d3864aded3ac562f10f6e8b959ca0"
+  },
+  "logs_sha256": {
+    "ending-render-final-gpu": "5543cb2cc1cf96bca185e5d8aec66dd719fcda74b33f008dc33b5b5a47ec6f9e",
+    "ending-render-final-asan-gpu": "5543cb2cc1cf96bca185e5d8aec66dd719fcda74b33f008dc33b5b5a47ec6f9e",
+    "ending-render-final-build": "8a1e170d0ffd79bed0c3ef17e746e12b5d2b7c512d092d3aea715fa7639f3bf4",
+    "ending-render-final-asan-build": "95f4bc7957ff006494548d21b2b08ecbecdbf40f4b6e1a02a938463f70b464b3",
+    "ending-render-walk-oracle": "827df27bad47a41fe548752e4549195f5c49709e36ed7d7fce3b951da392435a",
+    "ending-render-switch-build": "2e89fa93bf03bc81979ee04df1dfbbc6a5966b89339f8dfed440b22d0f6a7022",
+    "ending-render-architecture": "cb481be8f3d3b66b0be107f3a55b4cbf977850032f2c20b62c40fc7efc4ddff1"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Only finalized regular mode1 descriptor; required event services/special4d9898 not implemented here",
+    "Visible final background root required for shared geometry snapshot; hidden background needs another path",
+    "No new Switch ending hardware verification; new GPU owner not referenced by application",
+    "Native queue markers validate mesh-frame traversal, not native rasterization or full submesh sort addresses",
+    "ASan detect_leaks=0"
+  ]
+}

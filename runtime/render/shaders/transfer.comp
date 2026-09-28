@@ -1,0 +1,22 @@
+#version 450
+layout(local_size_x=64) in;
+layout(set=0,binding=0,std430) coherent buffer Output { float vertices[]; } dest;
+layout(set=0,binding=1,std430) coherent readonly buffer Source { float vertices[]; } source;
+layout(set=0,binding=2,std430) readonly buffer Pairs { uvec2 indices[]; } pairs;
+layout(push_constant) uniform Parameters { mat4 world; uint count; uint serial; } pc;
+void transfer_vertex(uint i) {
+    uvec2 pair = pairs.indices[i];
+    uint s = pair.x*22, d = pair.y*22;
+    precise vec3 original = vec3(source.vertices[s],source.vertices[s+1],source.vertices[s+2]);
+    precise vec3 n = vec3(source.vertices[s+9],source.vertices[s+10],source.vertices[s+11]);
+    precise vec4 p = pc.world*vec4(original,1.0);
+    if (p.w-1.0 < -1e-5 || p.w-1.0 > 1e-5) p.xyz = p.xyz/p.w;
+    precise vec3 normal = mat3(pc.world)*n;
+    for (uint j=0;j<3;j++) { dest.vertices[d+j]=p[j]; dest.vertices[d+9+j]=normal[j]; }
+}
+void main() {
+    if (pc.serial != 0) {
+        if (gl_GlobalInvocationID.x != 0) return;
+        for (uint i=0;i<pc.count;i++) { transfer_vertex(i); memoryBarrierBuffer(); }
+    } else if (gl_GlobalInvocationID.x < pc.count) transfer_vertex(gl_GlobalInvocationID.x);
+}

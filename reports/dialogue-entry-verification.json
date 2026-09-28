@@ -1,0 +1,390 @@
+{
+  "passed": true,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "selectors": 18316,
+  "native_uninitialized_rejected": 116,
+  "initial_pages": 120,
+  "profiles": [
+    {
+      "previous": 56,
+      "group": 0,
+      "area": 0,
+      "response": 0,
+      "file": "i01_00.txt",
+      "first": 10000,
+      "last": 10200
+    },
+    {
+      "previous": 56,
+      "group": 1,
+      "area": 0,
+      "response": 0,
+      "file": "i02_00.txt",
+      "first": 20000,
+      "last": 20205
+    },
+    {
+      "previous": 56,
+      "group": 2,
+      "area": 0,
+      "response": 0,
+      "file": "i03_00.txt",
+      "first": 30000,
+      "last": 30228
+    },
+    {
+      "previous": 56,
+      "group": 3,
+      "area": 0,
+      "response": 0,
+      "file": "i04_00.txt",
+      "first": 40000,
+      "last": 40144
+    },
+    {
+      "previous": 56,
+      "group": 4,
+      "area": 0,
+      "response": 0,
+      "file": "i05_00.txt",
+      "first": 50000,
+      "last": 50033
+    },
+    {
+      "previous": 2,
+      "group": 0,
+      "area": 0,
+      "response": 0,
+      "file": "i01_03.txt",
+      "first": 10000,
+      "last": 10007
+    },
+    {
+      "previous": 2,
+      "group": 0,
+      "area": 8,
+      "response": 4,
+      "file": "i01_02.txt",
+      "first": 10000,
+      "last": 10121
+    },
+    {
+      "previous": 2,
+      "group": 0,
+      "area": 8,
+      "response": 3,
+      "file": "i01_03.txt",
+      "first": 10000,
+      "last": 10007
+    },
+    {
+      "previous": 2,
+      "group": 1,
+      "area": 0,
+      "response": 0,
+      "file": "i02_03.txt",
+      "first": 20000,
+      "last": 20014
+    },
+    {
+      "previous": 2,
+      "group": 1,
+      "area": 8,
+      "response": 4,
+      "file": "i02_02.txt",
+      "first": 20000,
+      "last": 20147
+    },
+    {
+      "previous": 2,
+      "group": 1,
+      "area": 8,
+      "response": 3,
+      "file": "i02_03.txt",
+      "first": 20000,
+      "last": 20014
+    },
+    {
+      "previous": 2,
+      "group": 2,
+      "area": 0,
+      "response": 0,
+      "file": "i03_03.txt",
+      "first": 30000,
+      "last": 30056
+    },
+    {
+      "previous": 2,
+      "group": 2,
+      "area": 8,
+      "response": 4,
+      "file": "i03_02.txt",
+      "first": 30000,
+      "last": 30109
+    },
+    {
+      "previous": 2,
+      "group": 2,
+      "area": 8,
+      "response": 3,
+      "file": "i03_03.txt",
+      "first": 30000,
+      "last": 30056
+    },
+    {
+      "previous": 2,
+      "group": 3,
+      "area": 0,
+      "response": 0,
+      "file": "i04_03.txt",
+      "first": 40000,
+      "last": 40013
+    },
+    {
+      "previous": 2,
+      "group": 3,
+      "area": 8,
+      "response": 4,
+      "file": "i04_02.txt",
+      "first": 40000,
+      "last": 40105
+    },
+    {
+      "previous": 2,
+      "group": 3,
+      "area": 8,
+      "response": 3,
+      "file": "i04_03.txt",
+      "first": 40000,
+      "last": 40013
+    },
+    {
+      "previous": 2,
+      "group": 4,
+      "area": 0,
+      "response": 0,
+      "file": "i05_03.txt",
+      "first": 50000,
+      "last": 50068
+    },
+    {
+      "previous": 2,
+      "group": 4,
+      "area": 8,
+      "response": 4,
+      "file": "i05_02.txt",
+      "first": 50000,
+      "last": 50063
+    },
+    {
+      "previous": 2,
+      "group": 4,
+      "area": 8,
+      "response": 3,
+      "file": "i05_03.txt",
+      "first": 50000,
+      "last": 50068
+    },
+    {
+      "previous": 16,
+      "group": 0,
+      "area": 0,
+      "response": 0,
+      "file": "i01_03.txt",
+      "first": 10008,
+      "last": 10041
+    },
+    {
+      "previous": 16,
+      "group": 0,
+      "area": 8,
+      "response": 4,
+      "file": "i01_02.txt",
+      "first": 10122,
+      "last": 10144
+    },
+    {
+      "previous": 16,
+      "group": 0,
+      "area": 8,
+      "response": 3,
+      "file": "i01_03.txt",
+      "first": 10008,
+      "last": 10041
+    },
+    {
+      "previous": 16,
+      "group": 1,
+      "area": 0,
+      "response": 0,
+      "file": "i02_03.txt",
+      "first": 20015,
+      "last": 20053
+    },
+    {
+      "previous": 16,
+      "group": 1,
+      "area": 8,
+      "response": 4,
+      "file": "i02_02.txt",
+      "first": 20148,
+      "last": 20218
+    },
+    {
+      "previous": 16,
+      "group": 1,
+      "area": 8,
+      "response": 3,
+      "file": "i02_03.txt",
+      "first": 20015,
+      "last": 20053
+    },
+    {
+      "previous": 16,
+      "group": 2,
+      "area": 0,
+      "response": 0,
+      "file": "i03_03.txt",
+      "first": 30057,
+      "last": 30152
+    },
+    {
+      "previous": 16,
+      "group": 2,
+      "area": 8,
+      "response": 4,
+      "file": "i03_02.txt",
+      "first": 30110,
+      "last": 30150
+    },
+    {
+      "previous": 16,
+      "group": 2,
+      "area": 8,
+      "response": 3,
+      "file": "i03_03.txt",
+      "first": 30057,
+      "last": 30152
+    },
+    {
+      "previous": 16,
+      "group": 3,
+      "area": 0,
+      "response": 0,
+      "file": "i04_03.txt",
+      "first": 40014,
+      "last": 40118
+    },
+    {
+      "previous": 16,
+      "group": 3,
+      "area": 8,
+      "response": 4,
+      "file": "i04_02.txt",
+      "first": 40106,
+      "last": 40146
+    },
+    {
+      "previous": 16,
+      "group": 3,
+      "area": 8,
+      "response": 3,
+      "file": "i04_03.txt",
+      "first": 40014,
+      "last": 40118
+    },
+    {
+      "previous": 16,
+      "group": 4,
+      "area": 0,
+      "response": 0,
+      "file": "i05_03.txt",
+      "first": 50069,
+      "last": 50174
+    },
+    {
+      "previous": 16,
+      "group": 4,
+      "area": 8,
+      "response": 4,
+      "file": "i05_02.txt",
+      "first": 50064,
+      "last": 50128
+    },
+    {
+      "previous": 16,
+      "group": 4,
+      "area": 8,
+      "response": 3,
+      "file": "i05_03.txt",
+      "first": 50069,
+      "last": 50174
+    },
+    {
+      "previous": 0,
+      "group": 0,
+      "area": 0,
+      "response": 0,
+      "file": "i02_00.txt",
+      "first": 20000,
+      "last": 20205
+    },
+    {
+      "previous": 0,
+      "group": 1,
+      "area": 0,
+      "response": 0,
+      "file": "i02_00.txt",
+      "first": 20000,
+      "last": 20205
+    },
+    {
+      "previous": 0,
+      "group": 2,
+      "area": 0,
+      "response": 0,
+      "file": "i02_00.txt",
+      "first": 20000,
+      "last": 20205
+    },
+    {
+      "previous": 0,
+      "group": 3,
+      "area": 0,
+      "response": 0,
+      "file": "i02_00.txt",
+      "first": 20000,
+      "last": 20205
+    },
+    {
+      "previous": 0,
+      "group": 4,
+      "area": 0,
+      "response": 0,
+      "file": "i02_00.txt",
+      "first": 20000,
+      "last": 20205
+    }
+  ],
+  "max_error": 0,
+  "scope": "Original retail dialogue selector and initial page with real parser.\n\nExecutes4efdfb..4f0955,51765d,4f0a8e..4f0c25 and4f0c9b..4f0ce7.\nPacked reads/allocation, font construction/binding and sprite construction\nare explicit service boundaries. Does not claim complete flow8 loading.\n",
+  "actual_assets": {
+    "entries": 40,
+    "pages": 3716,
+    "fnv64": "d297df448bf5bcbe",
+    "asan_equal": true
+  },
+  "source_sha256": {
+    "runtime/game/dialogue_entry.c": "c985e8da515132a3bc95af43294e0032f718a89a025afebf7b2326634de3edaa",
+    "runtime/game/dialogue_entry.h": "a67d39694fdca8c3613acabe194dc252c1decc2cc0d204861ef0200c5d6a18c7",
+    "runtime/scene/dialogue_entry.c": "cc34ae2f5eca195921671a1c862c44e341485b51fa25684b41f5daa68feffe6d",
+    "runtime/scene/dialogue_entry.h": "d0e405430aa69a03230b576d8d094e6375fd04379ed67cfc75c3a15ae6f1a292",
+    "tests/test_dialogue_entry.c": "eea632c0b69daa2b5e51b7221ec54a84245613c8e1b4acd302df1d674d2d97cc",
+    "tests/original_dialogue_entry_oracle.py": "b26e94289ecf5e7bc9a59e3d8a5a86f2703ac56e4df089835537974f37892661"
+  },
+  "logs_sha256": {
+    "local/dialogue-entry-oracle.log": "c770a846d3fb3c9b04e46ce2c876d567afc7812dd1ab5f794b26458ac2072d05",
+    "local/dialogue-entry-unit.log": "192eac557eb28af6ce668f953892bb8f19eeecdce4044405563f89a001572a1b",
+    "local/dialogue-entry-asan.log": "192eac557eb28af6ce668f953892bb8f19eeecdce4044405563f89a001572a1b"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "scope": "Full normal60/special0 selection component with actual UI, 3D world, speech/music, resource replacement and transition requests. Flow8 loading and alternate movie still unavailable.",
+  "frames": 394,
+  "replacements": 8,
+  "redraws": 2,
+  "exits": {
+    "start": "flow50 -> target8",
+    "cancel": "flow50 -> target1"
+  },
+  "rgba_fnv64": "b8090df06476d674",
+  "pcm_fnv64": "6dac0477cade1bf2",
+  "nonzero_pcm_samples": 1508626,
+  "ordinary_and_asan_ubsan_equal": true,
+  "screenshot": "local/selection-session.png",
+  "architecture_tests": 2,
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "8ae19588045440c1466bcf557c45464c9a6d3f9fd778721195112f0257f582f0",
+    "undefined_symbols": 0
+  },
+  "source": {
+    "runtime/scene/selection_session.c": "3c64710d558b5b0393a7bf6b1adc3319aebd924970d9c0ecb0453c8e300243d3",
+    "runtime/scene/selection_session.h": "8c43f44bfe81863af09e2aa5d34304010ce85b2f0853ddf94e852fa4873a786c",
+    "tools/selection_session_probe.c": "d6f802f6d6a18a63b7c9f7a09b014b5f7e86c5a5d06d42fb1d9ea425b4fae25a"
+  },
+  "logs": {
+    "selection-session-probe.log": "62cf87604f1857c23052d52579403ef8bc374d88e99df80907bd02b3bfbdc757",
+    "selection-session-asan.log": "62cf87604f1857c23052d52579403ef8bc374d88e99df80907bd02b3bfbdc757",
+    "selection-session-switch-build.log": "a442bfd7909a112a4439c2d81912cb1cad487d4c6a987d997587ef20f3793958",
+    "selection-session-architecture.log": "a67b5b4a8dce00edd60af8385d1d1634ff62391fee92380c1cdf1975e2e7fae7"
+  }
+}

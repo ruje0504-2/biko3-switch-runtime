@@ -1,0 +1,101 @@
+{
+  "passed": true,
+  "cpu_ending_ui_composition": true,
+  "full_ending_integrated": false,
+  "hardware_ending_verified": false,
+  "oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 1800,
+    "defined_selection_frames": 1600,
+    "phase7_selection_policy_frames": 200,
+    "null_device_policy_frames": 1135,
+    "draws": 78108,
+    "vertices": 468648,
+    "services": 22353,
+    "reloads": 240,
+    "mutated_load_callbacks": 80,
+    "early_returns": 60,
+    "phases": {
+      "1": 200,
+      "2": 200,
+      "3": 200,
+      "4": 200,
+      "5": 200,
+      "6": 200,
+      "7": 200,
+      "8": 200,
+      "9": 200
+    },
+    "native_child_calls": {
+      "0x4d901c": 800,
+      "0x4971bd": 50,
+      "0x4db3e4": 200,
+      "0x4797dc": 200,
+      "0x4da76f": 0,
+      "0x495567": 250,
+      "0x48cb8a": 300,
+      "0x4d9354": 300,
+      "0x4d9575": 300
+    },
+    "max_error": 0,
+    "scope": "Whole4d4979/4d499b with native UI children, pointer conversion, RNG and reload\nselectors. Device/input/scene-resource/media leaves are observed boundaries.\nPhase7's demonstrably uninitialized cursor is explicitly seeded -1 and counted\nas a portable policy, separately from defined native frames. Loaders mutate\nlive scalar state here; this is not their complete model/resource execution.\nNull-image device writes retain the previously documented policy.\n"
+  },
+  "gpu": {
+    "frames": 200,
+    "samples": 3180120,
+    "max_unorm_error": 1,
+    "redraws": 200,
+    "reloads": 25,
+    "rejections": 1025,
+    "hash": "a7863893d73ac8bd",
+    "normal_asan_equal": true,
+    "allocations_stable": true
+  },
+  "unit_tests": 3,
+  "asan_unit_tests": 3,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_ui_frame.c": "b2fef883d437613e9be2af7556bf8daf261d9178d72989a26d2edede32377243",
+    "runtime/scene/ending_ui_frame.h": "59f036ad9796d142801c7892541ec167afd0f8097a209b798c36d632737bbfe9",
+    "runtime/scene/ending_ui_batch.c": "65be6d33aa2b4c2eb333ff3219a4b7db5da25676fd160b1dd835a3bab2a57a7c",
+    "runtime/scene/ending_ui_batch.h": "f852bfa7ef9c83fcb2d6ef304980e1f9fa8721407e08d7a42905e0def6aa5997",
+    "runtime/scene/ending_ui_toolbar.c": "c293f36bc0ec3cb779e69b04c9ca7bf359eb679a3577e069081f236b9b5e55f3",
+    "runtime/scene/ending_ui_toolbar.h": "a672ef7049bfdc3ca902efc7790a14607a959ae7ec15bc172fc4b48f3c8ac9e3",
+    "runtime/scene/ending_ui_render.c": "1418bd87ee78797e839bca8b6dd66eb1f7b5bdf3541737bee6c7b5f580f0e830",
+    "runtime/scene/ending_ui_render.h": "609357d2899575532d8bd18c8cd8dbce2c43387295fed6abf9b417ad17eb7837",
+    "tests/test_ending_ui_frame.c": "27b0b7e5805a5d4bcea182659c10ce0339ebb8553ea5fc7b5d9e8bb3b122d7f2",
+    "tests/original_ending_ui_frame_oracle.py": "9c20a3844a63df79f4fa03f2b7e44029c13d1c786ed0e2403d23863f8fc0890b",
+    "tools/ending_ui_batch_probe.c": "1ead7e400ff1436b835928abfa0feccb98b7abab859facbd4f3249639c508761",
+    "CMakeLists.txt": "dc69c52fadb6a56121ad67ddbf0c795fa18f095ec659f2b45a4493af6bfad3b5",
+    "test-host.sh": "9d8b1be5e96322a7ae9c9b299dda9be60749a1df52cee525da4654626c7fa6ab"
+  },
+  "logs_sha256": {
+    "ending-ui-frame-oracle": "6c7e7a477a0594067b08e4e8a08c5dd7319881208e06a8f0c49c689f6baba0c9",
+    "ending-ui-frame-unit": "b2300c66ac7562c857c5b968cde37969c1c5dc0c7892c1d97ef2744dd5cf31c6",
+    "ending-ui-frame-asan-unit": "c774916cd82d149d86ceec64640bb964795fa8b97a06c4c68af935dde0615ef5",
+    "ending-ui-frame-render": "b0fe6550ce4011cb0272536c843cd5b496bd397058589e1a86a61711d400a997",
+    "ending-ui-frame-render-asan": "b0fe6550ce4011cb0272536c843cd5b496bd397058589e1a86a61711d400a997",
+    "ending-ui-frame-render-regression": "7a0445c13d76f917869590c5613aaab269591b6e5c63bad54fb68debeb77d94d",
+    "ending-ui-frame-architecture": "d1f50911f11dec3e5bca7bdaa397785a76b8fe1cbc7b5d2dac9be327565e26f4",
+    "build-ending-ui-frame-switch": "8d453ff68724374a15a1368f4047a6b9daa290645c3e1672f4426af2b13331bc"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Phase7 uninitialized selection policy and null image device policy explicitly separated",
+    "Resource loader callbacks are observed scalar fixtures, not all original scene loaders",
+    "GPU batch uses explicit snapshot fixtures, not full ending playthrough",
+    "Per-frame diagnostic aliases require actual application adapter synchronization",
+    "No Switch ending or full Windows screenshot verification",
+    "ASan detect_leaks=0; GPU live allocations measured separately"
+  ]
+}

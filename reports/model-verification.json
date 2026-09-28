@@ -1,0 +1,116 @@
+{
+  "stage": "M1.1",
+  "status": "complete",
+  "m1_static_scene_complete": false,
+  "model_rendering_connected": false,
+  "switch_hardware_tested": false,
+  "audit": {
+    "objm_models": 247,
+    "unsupported_text_models": [
+      {
+        "archive": "bk3_04.pp",
+        "name": "cam00_03.x",
+        "format": "DirectX text"
+      },
+      {
+        "archive": "bk3_04.pp",
+        "name": "cam00_60.x",
+        "format": "DirectX text"
+      },
+      {
+        "archive": "bk3_04.pp",
+        "name": "cam01_50.x",
+        "format": "DirectX text"
+      }
+    ],
+    "failures": [],
+    "totals": {
+      "meshes": 5248,
+      "submeshes": 12344,
+      "vertices": 3110274,
+      "triangles": 3308998,
+      "materials": 9710,
+      "textures": 5657,
+      "frames": 34378
+    },
+    "checks": [
+      "owned source bytes",
+      "all vertex/index bytes",
+      "material values",
+      "texture names/IDs",
+      "frame matrices/IDs/links",
+      "all world matrices computed without overflow"
+    ]
+  },
+  "native_matrix_oracle": {
+    "checks": [
+      {
+        "archive": "bk3_03.pp",
+        "name": "m00_10.x",
+        "frames": 93,
+        "native_compositions": 92,
+        "max_absolute_error": 0
+      },
+      {
+        "archive": "bk3_03.pp",
+        "name": "m01_04.x",
+        "frames": 65,
+        "native_compositions": 64,
+        "max_absolute_error": 0
+      },
+      {
+        "archive": "bk3_07.pp",
+        "name": "train_4ryou.x",
+        "frames": 12,
+        "native_compositions": 11,
+        "max_absolute_error": 0
+      },
+      {
+        "archive": "bk3_01.pp",
+        "name": "h00_80.x",
+        "frames": 46,
+        "native_compositions": 45,
+        "max_absolute_error": 0
+      }
+    ],
+    "native_function": "0x522d9a",
+    "native_compositions": 212,
+    "passed": true
+  },
+  "tests": {
+    "python_total_passed": 14,
+    "new_model_test_methods": 6,
+    "asan_ubsan_mutated_cases": 12000,
+    "asan_original_models": [
+      "bk3_03.pp/m00_10.x",
+      "bk3_08.pp/h05_00.x",
+      "bk3_07.pp/train_4ryou.x"
+    ]
+  },
+  "switch_cpu_library": {
+    "path": "build-switch/libbk_model.a",
+    "sha256": "719da04e076cddf25fa560fb11f7a0575bfa0366bcdf38995f9f56485eb20740",
+    "bytes": 79100,
+    "linked_into_preview_nro": false
+  },
+  "evidence": [
+    "local/model-all-unit.log",
+    "local/model-asan.log",
+    "local/model-asan-original.log",
+    "local/cpu-model-audit.json",
+    "local/original-matrix-oracle.json",
+    "local/model-switch-build.log"
+  ],
+  "source_sha256": {
+    "runtime/model/model.h": "6d9eb36abf357a955557d82eb7307b94581bdd7a884ea487943fcc210d2f8f31",
+    "runtime/model/model.c": "4fec871b533f47c949639b1a1258db0162d86c0161d74c614dd9c0af0ba34f72",
+    "tools/model_probe.c": "054a4cf6a9c5a42cb4c11d9450f1357935c95186f0911f6d51d60cbb24506cb3",
+    "tests/model_binding.py": "08bf220e7c22a562e57b2ef891119a89ed5346b3540e0139bc590620608e6783",
+    "tests/test_model.py": "eb2b7a44034395ae616a797dcf8d0b80089c17fd3f0ffb0575a18238c70c1281",
+    "tests/fuzz_model.c": "e82e0f4eea06068222bd24d97336d3e9a04d149fe8fe3c0abb61c7e24cf121f4",
+    "tests/audit_models.py": "b9f54de1ee71211b51819e1b00a8e8c806cdf7b7f8bd401c12037fe129998ee8",
+    "tests/original_matrix_oracle.py": "ed3da1a4936fd3fad04065962edb2587bf91af396c21ba80a30f6caed81d766a",
+    "CMakeLists.txt": "92ac2e4520b68520d829d7bf8a1ea8f5b15e8a2dc62dde85c35fee386b526b9f",
+    "test-host.sh": "bca7eee4c97cd8026c488a400551a03013b2ae68884fb66f22e41075845b0a3e"
+  }
+}

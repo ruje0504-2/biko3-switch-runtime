@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "hardware_verified": false,
+  "trigger": "User still observes slow motion with20260928 timing/audio package and requests original FPS display",
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "f530d4862662ed768ef06f14a77ff7a38f8a614e8423a72a4cbc0de0aca0b620",
+    "undefined_symbols": 0
+  },
+  "original": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 17820,
+    "max_step_error": 0,
+    "traces": [
+      {
+        "name": "15Hz",
+        "frames": 180,
+        "steady_game_per_wall": 1.9999091205271808,
+        "fps": 16
+      },
+      {
+        "name": "20Hz",
+        "frames": 240,
+        "steady_game_per_wall": 2.0000000298023224,
+        "fps": 21
+      },
+      {
+        "name": "30Hz",
+        "frames": 360,
+        "steady_game_per_wall": 2.0000000298023224,
+        "fps": 31
+      },
+      {
+        "name": "60Hz",
+        "frames": 720,
+        "steady_game_per_wall": 2.0000000298023224,
+        "fps": 61
+      },
+      {
+        "name": "120Hz",
+        "frames": 1440,
+        "steady_game_per_wall": 2.0000001043081284,
+        "fps": 121
+      },
+      {
+        "name": "240Hz",
+        "frames": 2880,
+        "steady_game_per_wall": 2.0000000298023224,
+        "fps": 241
+      },
+      {
+        "name": "variable-0",
+        "frames": 2400,
+        "steady_game_per_wall": null,
+        "fps": 3
+      },
+      {
+        "name": "variable-1000",
+        "frames": 2400,
+        "steady_game_per_wall": null,
+        "fps": 2
+      },
+      {
+        "name": "variable-16774216",
+        "frames": 2400,
+        "steady_game_per_wall": null,
+        "fps": 8
+      },
+      {
+        "name": "variable-2147480648",
+        "frames": 2400,
+        "steady_game_per_wall": null,
+        "fps": 7
+      },
+      {
+        "name": "variable-4294964296",
+        "frames": 2400,
+        "steady_game_per_wall": null,
+        "fps": 10
+      }
+    ],
+    "scope": "Execute original4adc16/4adc96 with deterministic GetTickCount traces.\n\nThis recovers caller-level wall->game timing, which component oracles taking\nan already supplied733700 delta cannot verify. No rendering/audio hooks.\n"
+  },
+  "checks": {
+    "application_hz": [
+      60,
+      30,
+      15
+    ],
+    "asan_application_hz": 30,
+    "native_play_flow": {
+      "opening": 497,
+      "pause": 106,
+      "title": 111,
+      "loading": 65,
+      "reentry": 498,
+      "exit": 111,
+      "photos": 2,
+      "asan_equal": true
+    },
+    "native_save_flow": {
+      "frames": 5362,
+      "checkpoints": 5,
+      "asan_equal": true,
+      "area_completion_fixture": true
+    },
+    "fps_game_readback_sha256": "34007c88aa06afc4bf3d978246147ffff24af4931afca962c1208fc20a77af71",
+    "fps_final_inspection_readback_sha256": "8f06fe7a9ae6c76f5dc18c6bf6809b47048889f656622f79f8e8df2173d1511c",
+    "core_asan": true,
+    "core_audio_ctest": 3,
+    "architecture_checks": 2
+  },
+  "source": {
+    "runtime/core/game_clock.c": "4366e056be4301f537fe7faaab70d2118655d17143512e9dde2ec06bc0805ca9",
+    "runtime/core/game_clock.h": "06b07bddbde1d5543bb8b7f71eec92918a897b2a85d877888446b665248cf609",
+    "runtime/app/application.c": "153ccbfbb4cf64db1d6ca8e87cb4cdc7adc0b455fbbe28fb92f9a810fec0615c",
+    "runtime/app/play_session.c": "e2df83d72bce56e7bc0c86e617e7cf9381e41018cb9ee28ad7dd392067a89fee",
+    "runtime/app/play_session.h": "e64799537ff6dc2a118ace96c0072533edfb2ff7d5ddcb1675f66feace8a7dbc",
+    "runtime/app/pause_preview.c": "2c042461aa053c3764aba624184163bcb68695c1ded6fd5d0ea0ffcf481f4192",
+    "runtime/app/pause_preview.h": "e91c40d2e89b0f0a181b915cd4b627e401d45733c7cb5da18954d3ddfa481c4f",
+    "runtime/app/retry_preview.c": "1dca1c66f25640f0bac75adcd3aa2e3c05ec7d77665d17e8427e4b3e372c45be",
+    "runtime/app/retry_preview.h": "177b961d50f2f6406967b1587fd56ee34d365490a45123d8e62f68a9ea7cfdf0",
+    "runtime/app/save_preview.c": "11efadc9790f1cb97ce5b2ec041e8b2eb84ae57a41b40dd33c7615a6a8d3fe6d",
+    "runtime/app/save_preview.h": "a91ba832aba5ddfe70a2f7391c0ab592643a67e1017321acd80c822ce9a8fcfa",
+    "runtime/scene/fps_overlay.c": "d0ef0ea691dce679f1c0a5039a6adba829cf2825fb6c285a034644f7cf45ac3a",
+    "runtime/scene/fps_overlay.h": "ecf17805a8fa6fcfcc35f99edcf02997c99c5cf655e3f4a01bd92444094e6923",
+    "runtime/ui/debug_overlay.c": "f72d885e14b2db922f99de8bc17784337e5a85467bbd11410b98d6df0269bf65",
+    "runtime/ui/debug_overlay.h": "0f464c4e38efac2a9e32c417d5e148464055dc65aeaa4ad01ea073587d78d291",
+    "runtime/platform/host.c": "c0224107f69aad565c2b7404802d2096d379b7a650ac1a824386997e398caccb",
+    "runtime/platform/switch.c": "71099ce2acd1286b734e286f623d692b37d51fafae4943cba1f0d072afe67fb2",
+    "runtime/platform/platform.h": "849b0b2d8c8ad2ca85d6031aa7abd684e5c86680da35f2a9808b45b6a79aa346",
+    "CMakeLists.txt": "22ab75515b3b4134fdccb3da785effe3323e2496e7e780123985ea94b9b69571",
+    "tests/test_core.c": "044068434ff52733797f55d090554768f1dce7bb18fc6fea56cd82ac7d8954ed",
+    "tests/original_game_clock_oracle.py": "b98ba79c432f0b0f29876593533de3c67fb3815a64767f628d7befd90b048683",
+    "tools/play_flow_probe.c": "613fe25a3fbca7de89e13cae584e6c88cf91caa0c16b5eee39b9f5d92c82cf18",
+    "tools/save_flow_probe.c": "ffdbf4fb10312951481a78b9da9af0fd08895d3a4b3c19eb0cd12a9fc91180ed",
+    "test-host.sh": "84f0f2afed1771412a1e6b808d2b4e00b9c4d9552e5ef8bc0725ccc403c94521"
+  },
+  "logs": {
+    "original-game-clock-oracle.log": "69e1d2dac367902518541b634175214ba66591d4e617ca4d3f6ccf398dfc81df",
+    "native-rate-application60.log": "1e5e73767666442d093674ec5c2cce58febc4cc9fe62c3f2432e53cb16020399",
+    "native-rate-application30.log": "6fb1de8f1936bf276d26d10c637fd84a2c93846d5f3ada31e3f8860b3942b8d0",
+    "native-rate-application15.log": "e735e934a6054b153623352bd2af525582a9b39d120b3e73d6f782992706d20b",
+    "native-rate-application-asan30.log": "71d3012c17033beca1c7053cb6c9ef919468466529768073977e69bb69c5bd30",
+    "native-rate-flow.log": "b772beac23c6d53a5165aaafccb4abbd1d03fa955bd2b4b501f466cc6fa97153",
+    "native-rate-flow-asan.log": "b772beac23c6d53a5165aaafccb4abbd1d03fa955bd2b4b501f466cc6fa97153",
+    "native-rate-save-native.log": "eb16bf08d79d572d4a66cb18a5f70986abce4d2a0cc9ff944b1279d8610b2077",
+    "native-rate-save-asan.log": "eb16bf08d79d572d4a66cb18a5f70986abce4d2a0cc9ff944b1279d8610b2077",
+    "native-rate-fps.log": "5c7a33cb7dfc95094886f44256698c563179a4d972be08c366dd6e3a2b731fa2",
+    "native-rate-fps-asan.log": "30e2f075d505d0650a6aad54daf7f7fb345ca950061a9069a8b0e5c155d4bfec",
+    "native-rate-fps-final.log": "25d6af6fb5249b5acf31af19be6557f0f8588efa58aca545ab678e43247b22f6",
+    "native-rate-fps-final-asan.log": "25d6af6fb5249b5acf31af19be6557f0f8588efa58aca545ab678e43247b22f6",
+    "native-rate-core-asan.log": "1f81dd0df1bac3cbadaee0ed85960cf23b024cb33fafbb85262e42ddfe3c3227",
+    "native-rate-architecture.log": "2cd005245142da75bcfe6ab4c50e26cd8214b9e7f1f2212fcc65e3214e3b5969",
+    "native-rate-core-audio-tests.log": "92ba374dc6eb6824a126eaf4d0f8b8ad2a479b875ca95a19f91b322866328731",
+    "native-rate-final-switch-build.log": "ee5a62234333fb13501b17d8c35c9e1e764a898e7174535673f82de395543e37"
+  }
+}

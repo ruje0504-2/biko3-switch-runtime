@@ -1,0 +1,144 @@
+{
+  "passed": true,
+  "full_ending_ui_integrated": false,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "oracles": {
+    "detached": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "independent_cases": 13824,
+      "defined_native_cases": 11424,
+      "policy_cases": 2400,
+      "absent_cases": 6912,
+      "loaded_vertices": 41472,
+      "proven_null_faults": [
+        "0x43f2fd",
+        "0x43f2fd",
+        "0x43f239",
+        "0x43f239"
+      ],
+      "popup_frames": 2400,
+      "popup_draws": 2120,
+      "popup_policy_frames": 1069,
+      "max_scalar_error": 0,
+      "scope": "Image-absent50e6ba and cold mode0, plus the real4d66ab..4d66ed popup pair.\nDefined native cases run without animation substitutions. Some original paths\ncall43f230/43f2f7 on null: prove the access fault separately, then suppress ONLY\nthose invalid device writes as an explicit portable policy. Report separately.\n"
+    },
+    "geometry": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "line_calls": 6000,
+      "vertices": 36000,
+      "circle_calls": 16000,
+      "circle_hits": 7765,
+      "scroll_at_reset": 3000,
+      "max_error": 0,
+      "scope": "Original47da89/479f15 line transforms/UV and4a777e strict circle tests.\nOriginal4a7908,472420,acos/sqrt CRT and sprite setters execute unchanged.\nOnly texture/device IO is substituted. Independent line calls include axes,\ncoincident anchors, integer-to-float rounding and distinct retained scrolls.\n"
+    },
+    "toolbar": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 2400,
+      "draws": 57855,
+      "vertices": 347130,
+      "key_calls": 1099,
+      "mutated_key_frames": 293,
+      "repeated_button_frames": 1832,
+      "max_error": 0,
+      "scope": "Actual4d4a06..4d4ed8 toolbar scheduling with live UI/control owners.\nOriginal hover, requests, animation and geometry execute unchanged. Only\nkey and device IO are substituted; real key callbacks may mutate live mode\nfields. This is the common prefix, not full4d499b or a complete ending.\n"
+    },
+    "effect_regression": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "steps": 17700,
+      "vertices": 106200,
+      "max_error": 0,
+      "scope": "Original50e633/50e6ba modes enter1..3/exit1..3/idle0,3,5 and43ed45.\nOnly device/vertex-buffer boundaries are substituted; original rotation,\ntransition, hit extents, alpha and geometry functions execute unmodified.\n"
+    },
+    "stage_regression": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "loads": 240,
+      "images": 51,
+      "steps": 30600,
+      "vertices": 183600,
+      "releases": 1360,
+      "max_error": 0,
+      "scope": "Actual UI portions of4d00fa/4d1025/4d2320/4d39e6 and final-image load.\nOriginal constructors,setters,50e6ba and geometry run unchanged; only device\nIO is substituted. Shared cursor8 and all13 stage slots retain scalar caches\nacross selective release/reload. This is not full4d499b or a whole loader.\n"
+    }
+  },
+  "gpu": {
+    "profiles": 30,
+    "frames": 480,
+    "line_draws": 800,
+    "samples": 14975382,
+    "max_unorm_error": 2,
+    "redraws": 60,
+    "retained_snapshots": 30,
+    "rejections": 93,
+    "fnv": "d7ed665da77df4cb",
+    "normal_asan_equal": true,
+    "allocations_stable": true
+  },
+  "unit_tests": 3,
+  "asan_unit_tests": 3,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/ui/effect_sprite.c": "32f30d76233ddd7f90430e0cafcf54d33aa6a655174a6f787be7ae22ffb6511c",
+    "runtime/ui/effect_sprite.h": "f899e1c62c508fa1de46c45377ac0ef6b95a73d18401536cde0fb6956b81ab99",
+    "runtime/scene/ending_stage_ui.c": "08cd847152cb34542891d0d1a07fcb97603526783a4b0b91913267431999120b",
+    "runtime/scene/ending_stage_ui.h": "de5524ad1209ab5b4bc81bcb63cdd6ba0334d1a9789987279c4b5813286618d3",
+    "runtime/scene/ending_ui_geometry.c": "7e4d0099ea283d529135ee75180a2f155cb443e5bd9c4a951f50f8405c85664c",
+    "runtime/scene/ending_ui_geometry.h": "c139035c51c28fb9fb30afe05bc92b3fe2b98c4b323f6171269fc990ecd74a34",
+    "runtime/scene/ending_ui_toolbar.c": "6d597b7aded2ca8515046cff9ea31c38b654722acbfefdc6bd84658058ce381c",
+    "runtime/scene/ending_ui_toolbar.h": "ac1f0423433256a14bcbe7382707b0bed7433914e46ec10c05e663835039196b",
+    "tests/test_ending_ui.c": "986192af46c06dc1d07c10afdd3d847b60863f91f060b9ca4e33fdd85b45e67d",
+    "tests/test_ending_stage_ui.c": "f953cd6a7097011eda66dc493d6631a6f92e21fad8a5f9c0d1c5050407e5c866",
+    "tests/test_ending_ui_geometry.c": "44dfe5cbfcb12da4bdd16a173fb4c9e6927bd84c407b2bcb2d3ad847bca0c102",
+    "tests/original_detached_sprite_oracle.py": "3f2fca8e870bfbc708a11d1299ef003b102e3f3e3173ab8fc6f67a6202e708e8",
+    "tests/original_ending_ui_geometry_oracle.py": "3ddaf888b347705930bffbd4f94a3e2904ae1b6aaf4eb4e711423329b9bfe501",
+    "tests/original_ending_ui_toolbar_oracle.py": "2ed811e76287f41f0f09b4e7ae888dfbda476d691df9f54994062fa425529fc9",
+    "tools/ending_stage_ui_render_probe.c": "ded7057e90c11832edba4d9e2ef036e4df1e24c316df4139157b7d242d786797",
+    "CMakeLists.txt": "2308af0ac27bd658b9276f3c95093472ddd018ce1ef7752f933cdec217b75e1f",
+    "test-host.sh": "5bb0c6d213d6f6c25173e804a1e167564ea47b6fd27279bac2d4235c09d747c1"
+  },
+  "logs_sha256": {
+    "detached-sprite-units": "8d269c7d097c6845bb828a82894df53d2fddf0b190066e1ad356e6347da07bcd",
+    "detached-sprite-asan-units": "7bcd99b9edc3d0087c46308a86450c440d55878cef316425d1ac753d83d401d7",
+    "ending-ui-geometry-units": "b7474f65cf3bbb37e42351500b7706db924eaf6b283293d6f08337e1c5780e1d",
+    "ending-ui-geometry-asan-units": "5f52c4eca65bc05fd9e95060f4c3c6ef68e235652d0a713f6fd643b1ee0bbd29",
+    "ending-ui-toolbar-unit": "f09c8dc44b0d4e0703f1f74152c1fc51aed6bf1e5e7928604b61d5ac17dcd55f",
+    "ending-ui-toolbar-asan-unit": "80f11e664f8727d8c94f10153bb3503f774ded463e4182222be43e2a82448e7b",
+    "detached-sprite-oracle": "78ddebd22949239420d0edf59da9a55a2171ff31fca3d1bf02adf7c50b7ce792",
+    "detached-sprite-effect-oracle": "ff9cf5238fd3842003682efbf5c78435a00b33b4070a904fad311c941bd6e5b9",
+    "detached-sprite-stage-oracle": "9a5eeb52ef8d01c33ad932d448ea1c133d254e3f2fc640060351f71a013bd265",
+    "detached-sprite-render": "89eac4cb1ca5a7dd6f57ed12e5dc39fb1e1c94a41b17b5dffd674de1c66f0d2e",
+    "detached-sprite-render-asan": "89eac4cb1ca5a7dd6f57ed12e5dc39fb1e1c94a41b17b5dffd674de1c66f0d2e",
+    "detached-sprite-base-render": "7a0445c13d76f917869590c5613aaab269591b6e5c63bad54fb68debeb77d94d",
+    "detached-sprite-base-render-asan": "7a0445c13d76f917869590c5613aaab269591b6e5c63bad54fb68debeb77d94d",
+    "ending-ui-geometry-oracle": "ef9372e2f14cc1eb001d99ae1dce9696b4b86f5c125d131e80662e810092f677",
+    "ending-ui-geometry-render": "9a8b7acd0bc9ec3dbdf765db6e8c8e6853669ae0540e50de1fb3c6d3a6766282",
+    "ending-ui-geometry-render-asan": "9a8b7acd0bc9ec3dbdf765db6e8c8e6853669ae0540e50de1fb3c6d3a6766282",
+    "ending-ui-toolbar-oracle": "99de836cd261c3481ca7db4c3cf8c09fa47aff6921bb117675c10d6e60669911",
+    "build-ending-ui-primitives-switch": "3c733c284f41947ac0aa8acb86b2388f869ad4a46b593434dbb523e12d1ed457",
+    "ending-ui-primitives-architecture": "d944844ae478d06fa0be329673c278dca464d67b2a55fa3214f75bf6821b3d73"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Native null alpha/rotation calls are proven faults; suppression is explicit portable policy, reported separately",
+    "Toolbar covers4d4a06..4d4ed8 only; later branch hints/cursor/curtain/actions and fullflow16 remain unintegrated",
+    "Original device/resource IO and keys are service boundaries",
+    "No full ending Windows screenshots or new Switch hardware comparison",
+    "Geometry rejects nonfinite/overflow or invalid resource inputs atomically",
+    "GPU samples exclude ambiguous subpixel edges; ASan detect_leaks=0"
+  ]
+}

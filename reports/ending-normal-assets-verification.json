@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "native": {
+    "passed": true,
+    "loads": 10,
+    "matrices": 12618,
+    "morph_vertices": 14016,
+    "material_fields": 604,
+    "mapping_entries": 5096,
+    "face_states": 10,
+    "max_relative_error": 0.0,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "scope": "Original4cf318 packaged resource/pose load, including actual4a4dc3,\n40150c, configured clip requests,4b79e0, name lookup, cached targets and\nfixed camera. Resource decoding is the boundary; native global attachment,\nrefresh, math, auxiliary ANIM/MATA/MORP execute unchanged. Face warmup state/RNG additionally runs in its original controller VM.\nMedia/device work are observing boundaries (their output is excluded), not claims\nof a complete ending scene. Native caller resource names are asserted.\n"
+  },
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "5743e95a71110f7ae1dfcea6665256d6870327f7b9607c87b8a33dbf5dfdf5da",
+    "undefined_symbols": 0
+  },
+  "cpu": {
+    "loads": 30,
+    "component_frames": 1800,
+    "fnv": "185c0a6e9d0433ca",
+    "normal_asan_equal": true,
+    "missing_resource_failures": 5
+  },
+  "bom_regression": {
+    "profiles": 7,
+    "frames": 1680,
+    "vertices": 2779920,
+    "fnv": "75837de64f3fb5f4",
+    "normal_asan_equal": true
+  },
+  "source_sha256": {
+    "runtime/game/ending_normal.c": "b01e8b2ded8136976db4e896350a490dda2e9bd8a5beb21e7020e6b5e4d6e1ee",
+    "runtime/game/ending_normal.h": "4f4f20955be204e91fdf455dcabae83cdddb99e86ff65fa0f7588e0bc55d758d",
+    "runtime/scene/ending_normal_assets.c": "47b65879e352d186a7d3828b8ea5f74e45ee0111c4c423ffe84df51c0b0619af",
+    "runtime/scene/ending_normal_assets.h": "56318e24b5f1ef78669e5a2fd549f393049f611d057419064d86fca78c5783ea",
+    "runtime/model/model.c": "51d272edaf401c8a8d0d66eb76ea747c7ad6a63bfd58a349c77a323a7f63a096",
+    "runtime/model/model.h": "eb504f5876250e3582194c8c5848bc8ffdbb0b7d96512bf41b101f5f13a94157",
+    "runtime/scene/bom_assets.c": "b9e2c79ccd9a428eeccf89d151217f2117578f983e1e62cfac004b3bf81a6cbf",
+    "tests/test_ending_normal.c": "e4def7f4de3c55aac1fa377418eda6d12841d4b06399a158ee91934d08fb5226",
+    "tests/original_ending_normal_assets_oracle.py": "e71e5b587653f40ae491e4f9251281acee531b8b2173f3166d8ea6be589e7ba3",
+    "tools/ending_normal_probe.c": "3f1355ed570ac95c5b18563980a51214b7cf21ee456ca941d2762704aa2552dc",
+    "CMakeLists.txt": "8fb67d14a3cb727fe9dad0670199a6fa98c24489f7e5a3ac03e773575b462906",
+    "test-host.sh": "b1d05d7be22f5b53f51e3d0e8d13feaa5c67c257c1c28bbe02eccf92ea3f8a66"
+  },
+  "logs_sha256": {
+    "ending-normal-oracle": "cfbe12b56d7446ce947ef50233f5048ec361a3ac2e2a588289aebccbd9aaf04e",
+    "ending-normal-probe": "52cc86de498dcf223cce589bb16cf2398d7ca88258c7e3bf6384bb8d7daaed3a",
+    "ending-normal-asan-probe": "52cc86de498dcf223cce589bb16cf2398d7ca88258c7e3bf6384bb8d7daaed3a",
+    "ending-normal-bom-regression": "c7fa412f6baea7a5ec5a847baf6602a2c8a5667b017510788fccebd483c0e66e",
+    "ending-normal-asan-bom": "c7fa412f6baea7a5ec5a847baf6602a2c8a5667b017510788fccebd483c0e66e",
+    "ending-normal-ctest": "42405135ad60cf2b58470ab8a30e35f8e563b42b733af02fdf4a489131219efd",
+    "ending-normal-asan-ctest": "2d157866776a5ea9b8bbdac52bc7befa4b0e8adb37fd25dbddce2aa6b0974a30",
+    "ending-normal-architecture": "a00815eb17f1f4d9c0f476fc54b9b7fedb096755a64cabb75b235f94cf83714b",
+    "ending-normal-host-build": "7a1a267ce4ee946baafcda7bd19d1f7a54a9afb0f8318d86767c599bba266086",
+    "ending-normal-asan-build": "5a1d7b6e230cff90b807b0b3460a4484b29aa5d3138a41f7ff910652b5a3d393",
+    "ending-normal-switch-build": "d78d0e1ac160d953c4ca2f7da4ffd0c176639c50f4d3298d0b84038301d191b1"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "CPU production assets only; video/GPU/UI/audio/process-state lifecycle not wired to app",
+    "No new Switch ending hardware test",
+    "Native loader I/O/media boundaries explicitly substituted and excluded from comparisons",
+    "ASan detect_leaks=0; not LeakSanitizer"
+  ]
+}

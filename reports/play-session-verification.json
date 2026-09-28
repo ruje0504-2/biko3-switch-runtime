@@ -1,0 +1,67 @@
+{
+  "scope": "Partial first-mission application and retained native common/pause/loading flows; not complete port",
+  "switch_hardware_tested": false,
+  "asan_ubsan_passed": true,
+  "leak_sanitizer_tested": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "107d86f9bc52485909b803ed7271d32fef237d40449dacbaa4292d268a68e452",
+    "undefined_symbols": 0
+  },
+  "application_replay": {
+    "frames": 1700,
+    "photos": 2,
+    "final_flow": 1,
+    "logs": [
+      "local/play-session-title-test.log",
+      "local/play-flow-asan-app.log"
+    ]
+  },
+  "final_flow_probe": {
+    "opening_frames": 994,
+    "pause_frames": 136,
+    "title_frames": 141,
+    "loading_frames": 125,
+    "reentry_frames": 995,
+    "photos": 2,
+    "logs": [
+      "local/play-flow-exit-test.log",
+      "local/play-flow-exit-asan-test.log"
+    ],
+    "exit_frames": 141
+  },
+  "source_sha256": {
+    "runtime/app/application.c": "8039634253fc83b61c84745f10a5a3696ef3a521c375091b304fbf2e31530610",
+    "runtime/app/game_preview.c": "cfc55f0b915e0576320a3b879961ed8e909031e983f11746460b38f4c0893513",
+    "runtime/app/game_preview.h": "f5fc3b3c1692e42f13e0c61b00bb23adc571ec28d9e3196cf60146a106470362",
+    "runtime/app/play_session.c": "7f32229ff1810124bb486828666edfa4841b9ec911ac1853d7f380396e610b63",
+    "runtime/app/play_session.h": "b155252a2f0cf2644a6077b3633438189e2f9178a7f133a37db51605907cfaad",
+    "runtime/app/pause_preview.c": "0684559c6090bffaffdf04ce7bb8e63674b94e7b7d00d5ce28e75d1301bd328b",
+    "runtime/app/pause_preview.h": "a7f568d38253c0b36f1ec18ba870f2f5960c6d8234cecc7e060e982838c5d4f6",
+    "runtime/app/pause_session.c": "103cedd4cd314514ff5be19eaed8ceebcb64e6225fbfb4d5fefb5408fa99e300",
+    "runtime/platform/host.c": "0173be00d85b9fdedec4c30bb0c154040bc24acd8e1b73d5909d4e52f9bcea12",
+    "runtime/platform/switch.c": "21b32ef1d60dabecea8ab1f9537123bd2375c4bf171fed0e9ec60b98d96a9650",
+    "runtime/platform/platform.h": "af1c77f0d40977512cbe65d34b59ed158d5f688bb70219147fb2f0b2e7434dab",
+    "runtime/core/input.h": "0029bbf807ca7e70e55e36ad091356d334ec7c52f944df6ac7ceef7381c9e7e2",
+    "tools/game_session_probe.c": "086e0b002fab2868c7b5ee7bb46d114c47500824ef8f72136e1707ceb8ebac8b",
+    "tools/play_flow_probe.c": "d41b8fff1fc5714493ee16bf1441216b0a40f625d7361feef60971c2838ae9fe",
+    "tests/check_game_application.py": "3cbc4542a43fc55c5a2a9b2a7ed74154a688fca11b0559a1e6b57061e831be0a",
+    "tests/game_session.replay": "8bf4e404df95b2c67efca6de3f9b50aaf6a4d1e8a127288aeee67f9b8f4dd40c",
+    "CMakeLists.txt": "69530e96f8b150626a89d109bf37eaf1febe7e2bd836fee2372629b2f5c3ccbb"
+  },
+  "pending": [
+    "save/load",
+    "mission outcomes and transitions",
+    "full media",
+    "configuration/weather",
+    "Chinese overlay",
+    "Switch validation"
+  ],
+  "packaged_asset_replay": {
+    "frames": 1621,
+    "final_flow": 88,
+    "photos": 2,
+    "log": "local/play-flow-packaged-data-test.log"
+  }
+}

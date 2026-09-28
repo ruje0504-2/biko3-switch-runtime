@@ -1,0 +1,79 @@
+{
+  "stage": "Retail menu camera assets and text X pose dependency",
+  "date": "2026-09-28T01:31:23.445884+08:00",
+  "sources": {
+    "runtime/model/x_pose.c": "a300664caab7eef717e54914c91b51d89c586d8a1e232e2f450974e1c26ed6da",
+    "runtime/model/x_pose.h": "4784a421970888e43ccb5b186a08f9d1f50d7143b2c1bdc66861055d7bc0ec30",
+    "runtime/scene/menu_camera_assets.c": "debb8712c09c0e30964b90287b6f6501dff8dd5fe07ccf83e073b688d63bd281",
+    "runtime/scene/menu_camera_assets.h": "0bb3f1f3206181e186e3e78c99168033c3a6fc9fcde44ea7186ef4cd59ecf2a2",
+    "tests/test_x_pose.c": "9fd33105be102dcd6bb08e16234bf1f415cf6c8a33f7b493f65208231c14e42a",
+    "tests/original_x_pose_oracle.py": "4234852fd58a574afd93ee55660c6af8b240374f164f62c350f64515de4ec361",
+    "tests/original_menu_track_oracle.py": "5ceb27207e64b2c8a83919e1b78b495a17478e1596c79b479cb36f57ab2479ba",
+    "tools/menu_camera_probe.c": "4c835e5155c9e3a8174b68b107f6d72b45995ac506ad1aec49f27f1b98ed3556"
+  },
+  "oracles": {
+    "local/original-x-pose-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "records": [
+        {
+          "name": "cam00_03.x",
+          "sha256": "205c9c8fddf70171d1cbf025352bbae632fb744a4910baf188a3154bd3c163c9",
+          "frames": 10,
+          "keys": 402,
+          "samples": 180
+        },
+        {
+          "name": "cam00_60.x",
+          "sha256": "781b8dfb3475893418ab69d6af4f86a99b8787601694a16de780e3adc6ee3c09",
+          "frames": 10,
+          "keys": 701,
+          "samples": 180
+        },
+        {
+          "name": "cam01_50.x",
+          "sha256": "e45ac0ff30f0b10b6e1557374c94fc6048f7f5579fe7b2cce344cd297a8b5af6",
+          "frames": 10,
+          "keys": 200,
+          "samples": 180
+        }
+      ],
+      "keys": 1303,
+      "matrices": 5427,
+      "max_relative_error": 0.0,
+      "scope": "Text X camera pose import vs original447667 text/key parser and sampler.\nGeometry/material bodies intentionally remain opaque in the pose-only API.\nNative heap, registry and sprintf are service boundaries; decimal conversion,\nkey insertion, W sign conversion, sparse completion and SRT are unmodified.\nFrame matrix decimals additionally pass original44b671 and D3DX composition.\n"
+    },
+    "local/original-menu-track-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "groups": 5,
+      "frames": 1200,
+      "matrices": 83763,
+      "max_relative_error": 0.0,
+      "scope": "Real retail menu camera assets, original4bb612/4bac5b with live XAN/SRT\nand423be2 global refresh in one VM for primary; second independent original\nVM verifies per-group secondary selection and one loading advance. Geometry\nand other menu actors are absent. Heap/stack GPU and input boundaries only.\n"
+    }
+  },
+  "checks": [
+    "local/menu-camera-assets-ctest.log",
+    "local/x-pose-asan-test.log",
+    "local/menu-camera-assets-test.log",
+    "local/menu-camera-assets-asan-test.log",
+    "local/menu-camera-assets-architecture.log",
+    "local/menu-camera-assets-switch-build.log"
+  ],
+  "runtime_probe": {
+    "profiles": 5,
+    "frames_each": 1800,
+    "held_orbit_frames": 900,
+    "fresh_track_frames": 835
+  },
+  "switch": {
+    "nro_sha256": "b9a44d44b54ff020b7b12ed5921e7c2215f834fab705eab4e9982d945afb6b61",
+    "undefined_symbols": 0
+  },
+  "limitations": [
+    "Text X pose-only decoder intentionally does not decode geometry/materials; generic decoder remains unsupported",
+    "Full menu UI/actor/audio/flow38-8 application integration pending",
+    "No Japanese EXE opcode, original Windows full-frame or Switch hardware validation"
+  ]
+}

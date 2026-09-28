@@ -1,0 +1,28 @@
+#version 450
+layout(local_size_x=64) in;
+layout(set=0,binding=0,std430) buffer Output { float vertices[]; } dest;
+layout(set=0,binding=1,std430) readonly buffer Source { float vertices[]; } source;
+layout(set=0,binding=2,std430) readonly buffer Weights { uint words[]; } skin;
+layout(set=0,binding=3,std430) readonly buffer Palette { mat4 world[]; } bones;
+void main() {
+    uint v = gl_GlobalInvocationID.x, count = skin.words[0];
+    if (v >= count) return;
+    uint base = v*22;
+    for (uint i=0;i<22;i++) dest.vertices[base+i] = source.vertices[base+i];
+    uint first = skin.words[1+v], last = skin.words[2+v];
+    if (first == last) return;
+    precise vec3 position = vec3(0.0), normal = vec3(0.0);
+    for (uint i=first;i<last;i++) {
+        uint w = count+2+i*9;
+        mat4 bone = bones.world[skin.words[w]];
+        float weight = uintBitsToFloat(skin.words[w+2]);
+        vec3 p = vec3(uintBitsToFloat(skin.words[w+3]),uintBitsToFloat(skin.words[w+4]),uintBitsToFloat(skin.words[w+5]));
+        vec3 n = vec3(uintBitsToFloat(skin.words[w+6]),uintBitsToFloat(skin.words[w+7]),uintBitsToFloat(skin.words[w+8]));
+        precise vec3 transformed_position = (bone*vec4(p,1.0)).xyz;
+        precise vec3 transformed_normal = mat3(bone)*n;
+        if (skin.words[w+1] != 0) { position=vec3(0.0); normal=vec3(0.0); }
+        position = position + transformed_position*weight;
+        normal = normal + transformed_normal*weight;
+    }
+    for (uint i=0;i<3;i++) { dest.vertices[base+i]=position[i]; dest.vertices[base+9+i]=normal[i]; }
+}

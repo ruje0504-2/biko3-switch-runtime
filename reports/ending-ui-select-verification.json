@@ -1,0 +1,462 @@
+{
+  "passed": true,
+  "full_ending_ui_integrated": false,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "oracles": {
+    "select": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "normal_frames": 2000,
+      "third_frames": 2000,
+      "caller_frames": 1585,
+      "unknown_phase_rejections": 415,
+      "selected_counts": [
+        2132,
+        378,
+        122,
+        2476,
+        326,
+        9,
+        7,
+        123,
+        12
+      ],
+      "draws": 168,
+      "vertices": 1008,
+      "key_calls": 1737,
+      "voice_calls": 424,
+      "mutated_callback_frames": 114,
+      "native_child_calls": {
+        "0x4db3e4": 2164,
+        "0x4797dc": 2184,
+        "0x4da76f": 903,
+        "0x4da3ca": 886,
+        "0x4da4f7": 1602
+      },
+      "retail_tables": 10,
+      "row14_targets": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "max_error": 0,
+      "cursor_composition": false,
+      "null_device_policy_frames": 0,
+      "scope": "Actual4db3e4/4797dc and4d5e60..4d6420, with unhooked geometry.\nOnly graphics IO, keys and DirectSound status are boundaries. Shared original\nnormal action tables, actual camera-local/target math, live callbacks and ring\nsnapshots are compared. Node matrices remain explicit fixtures, not loaders.\n"
+    },
+    "select_cursor": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "normal_frames": 0,
+      "third_frames": 0,
+      "caller_frames": 1885,
+      "unknown_phase_rejections": 515,
+      "selected_counts": [
+        1210,
+        435,
+        173,
+        25,
+        25,
+        1,
+        0,
+        14,
+        2
+      ],
+      "draws": 24587,
+      "vertices": 147522,
+      "key_calls": 2063,
+      "voice_calls": 501,
+      "mutated_callback_frames": 137,
+      "native_child_calls": {
+        "0x4db3e4": 173,
+        "0x4797dc": 234,
+        "0x4da76f": 80,
+        "0x4da3ca": 77,
+        "0x4da4f7": 177
+      },
+      "retail_tables": 10,
+      "row14_targets": [
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "max_error": 0,
+      "cursor_composition": true,
+      "null_device_policy_frames": 0,
+      "scope": "Actual4db3e4/4797dc and4d5e60..4d6420, with unhooked geometry.\nOnly graphics IO, keys and DirectSound status are boundaries. Shared original\nnormal action tables, actual camera-local/target math, live callbacks and ring\nsnapshots are compared. Node matrices remain explicit fixtures, not loaders.\n"
+    }
+  },
+  "retail_action_tables": [
+    {
+      "group": 0,
+      "variant": 0,
+      "address": "0x56f7f4",
+      "targets": [
+        12,
+        11,
+        27,
+        26,
+        5,
+        9,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        10,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 0,
+      "variant": 1,
+      "address": "0x56f934",
+      "targets": [
+        17,
+        0,
+        13,
+        5,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 1,
+      "variant": 0,
+      "address": "0x56fa74",
+      "targets": [
+        12,
+        11,
+        -1,
+        -1,
+        -1,
+        9,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        10,
+        5,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 1,
+      "variant": 1,
+      "address": "0x56fbb4",
+      "targets": [
+        32,
+        0,
+        13,
+        5,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 2,
+      "variant": 0,
+      "address": "0x56fcf4",
+      "targets": [
+        12,
+        11,
+        -1,
+        -1,
+        -1,
+        9,
+        5,
+        -1,
+        -1,
+        -1,
+        1,
+        10,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 2,
+      "variant": 1,
+      "address": "0x56fe34",
+      "targets": [
+        17,
+        0,
+        13,
+        5,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 3,
+      "variant": 0,
+      "address": "0x56ff74",
+      "targets": [
+        12,
+        11,
+        27,
+        26,
+        5,
+        9,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        10,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 3,
+      "variant": 1,
+      "address": "0x5700b4",
+      "targets": [
+        17,
+        0,
+        7,
+        5,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 4,
+      "variant": 0,
+      "address": "0x5701f4",
+      "targets": [
+        12,
+        11,
+        27,
+        26,
+        5,
+        10,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        9,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    },
+    {
+      "group": 4,
+      "variant": 1,
+      "address": "0x570334",
+      "targets": [
+        32,
+        0,
+        12,
+        5,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        6
+      ],
+      "row14": [
+        -1,
+        -1,
+        -1,
+        -1,
+        0
+      ]
+    }
+  ],
+  "gpu": {
+    "profiles": 25,
+    "frames": 600,
+    "draws": 26480,
+    "samples": 18588567,
+    "max_unorm_error": 2,
+    "redraws": 75,
+    "fnv": "a805b067f0cb87e9",
+    "pcm_status_queries": 360,
+    "pcm_samples": 2304000,
+    "pcm_fnv": "9f73ccf45a412b05",
+    "normal_asan_equal": true,
+    "allocations_stable": true,
+    "prior_cursor_regression_fnv": "2b1aa0a6cecda642"
+  },
+  "unit_tests": 1,
+  "asan_unit_tests": 1,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_ui_select.c": "234815e43291349ce21e0c94bf1367b20a8882345fb5a4160592c15de491c45e",
+    "runtime/scene/ending_ui_select.h": "d412074c83767742a9bec82eee46411fc27e6927a0e0d6f500cea3a1d3d83e0d",
+    "tests/test_ending_ui_select.c": "ac6f9d23a6cf5993c5ec476c2eacac8f2c390c61e93f6e448fa1165083556c16",
+    "tests/original_ending_ui_select_oracle.py": "df3b3e8f7693e028df97e04dd4b9caf653d32a690c3038123cc90439f1239a99",
+    "tools/ending_ui_hints_render_probe.c": "f44458deb4a91c8c6ee17f356c038851fc31e6cec62e7b92dea9ec682aa25844",
+    "CMakeLists.txt": "84a689ab8d4f4bc482020d944e784e4419ed7f4268f061ec43a623c318543fee",
+    "test-host.sh": "cc63afade51ef53449690ee1772a308a34892322c0eae12c06b085736a053304"
+  },
+  "logs_sha256": {
+    "ending-ui-select-unit": "15062c8e63f490e04c6851f54c54abd2bd4205e213e5c76bccd4aa00bd40becc",
+    "ending-ui-select-asan-unit": "d272f4e042dd99837f037e2ef3a3d3933f6ce466e1c4dc74b6c6e75a97037f22",
+    "ending-ui-select-oracle": "e03da5d5bc56d9876b6abda1de9c44f9683dfbccd9a593731f8a8968e8ecd727",
+    "ending-ui-select-cursor-oracle": "09808354481878fbc517e5f79bfb79d7853dcd57b5dbe85e971856fc785b3a30",
+    "ending-ui-select-render": "82375bdec0ac0b421cc9f71c6c84a5978ed8d6e456b438e5618ea535d11c4d45",
+    "ending-ui-select-render-asan": "82375bdec0ac0b421cc9f71c6c84a5978ed8d6e456b438e5618ea535d11c4d45",
+    "ending-ui-select-render-regression": "74b29c14c43014ae4b27ad3c5addf337c640cf34e010553d8c944da924125b2a",
+    "ending-ui-select-architecture": "bf85bdf594d30e52eace196bb43fa4510a5dc1cece4acc1692efb3a78c636d9a",
+    "build-ending-ui-select-switch": "569ec008a6ef318f44af323f2f3806715e97a6f7c45430ed8ba2084b656cdc5d"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Explicit cached node/matrix/stage fixtures; production registry and complete flow16 not yet integrated",
+    "Third-stage oracle uses nonzero-variant normal-entry tables; variant0/negative-index cross-combinations are rejected by bounded interface",
+    "Unknown phases lacking final cursor override remain undefined in original and explicitly rejected",
+    "Row14 is unreachable in ten original initial tables; mutated live tables remain subject to explicit rejection",
+    "No complete Windows/Switch ending comparison",
+    "GPU samples exclude ambiguous subpixel edges; ASan detect_leaks=0"
+  ]
+}

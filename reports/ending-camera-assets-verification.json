@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "profiles": 50,
+  "native_loaders": 50,
+  "frames": 4000,
+  "matrices": 291550,
+  "integer_root_rotations": 1000,
+  "max_relative_error": 0.0,
+  "scope": "Retail flow16 camera loader and four controllers with actual two tracks.\nFull4b79e0/4be4f8 observes file/path/model/context boundaries, with decoded\nauthored frame trees supplied to the native loader. Native selection/root\nrotation/name lookup/presets run unchanged. Separate track VMs execute actual\nXAN/SRT/controllers/publication; the target is an explicit stationary fixture.\nText-X parsing has its own original447667 oracle; no ending body/UI implied.\n",
+  "host_probe": {
+    "profiles": 50,
+    "frames": 6000,
+    "held": 4650,
+    "updated": 1150,
+    "fnv64": "953c44bfb7fbb56a",
+    "asan_matches": true
+  },
+  "unit_tests": 1,
+  "architecture_tests": 2,
+  "switch_nro_sha256": "dfa9beb0e030e8cb2545c3f953d39ae0ced9945371d2bbc25cd09236523c4de4",
+  "undefined_symbols": 0,
+  "application_bound": false,
+  "hardware_verified": false
+}

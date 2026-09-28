@@ -1,0 +1,101 @@
+{
+  "status": "Japanese checkpoint UI and application flow implemented; complete port pending",
+  "language": "Japanese original resources; explicit CP932 label localization",
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "b9a44d44b54ff020b7b12ed5921e7c2215f834fab705eab4e9982d945afb6b61",
+    "undefined_symbols": 0
+  },
+  "normal_and_asan_application_frames": 9464,
+  "menu_frames": 1282,
+  "natural_completion": false,
+  "switch_hardware_tested": false,
+  "leak_sanitizer": false,
+  "source_sha256": {
+    "CMakeLists.txt": "0de39626903a2d6f4478888c1ba96caa2e4afe79a3b47d6ef1921321b5114507",
+    "test-host.sh": "27cf76f9c0c43d3d145c31a016b4dba9ae75c7f7f70e88bbbe632db54754dc23",
+    "tools/package_sd.py": "592536cb841403b681c6ba7531af3ebf3b2da9920810b0fe1f6c17a6f512ab52",
+    "runtime/app/save_preview.c": "9ebe6cc757264e7bf04b7e7020f341ddfc159c056317c8d96bfa622f39a25f61",
+    "runtime/app/save_preview.h": "a525bbbf0a73120384e168e63930cb38eaaf514c8644dc54f9262f7871c63c22",
+    "runtime/app/play_session.c": "0866bda90d212807e02787387ecd6572a1d4d91eccd157dcfb745556289a471c",
+    "runtime/app/play_session.h": "81ff3ad19676333c9aaf759f50d00696a20d2b4e98bf914c4238e4896c4d9561",
+    "runtime/app/game_preview.c": "15dbbb31fcfdeaab366289662e9d5dabd4c198b49c52344fa836bb5e82343a61",
+    "runtime/app/game_preview.h": "eb798082cb1d9e04c8c57693a12448b8a1f23409e981f012c86e4c9fe485983b",
+    "runtime/app/application.c": "a37e551ff06486f55830fefae4d28440aaf7288ada6ce499008bd1831bf85d1f",
+    "runtime/scene/save_menu_labels.h": "761002879f3ae6ebc17d8cf3ef8a08f4b2d21a8ac79f449a10be76dbd63ef2ee",
+    "runtime/scene/save_menu_view.c": "e352ad9c2b2eeec997163b4b070bf2af7483fd34266e4815aaf8e3936bca6677",
+    "runtime/scene/save_menu_render.h": "944cc9c19a61f3e001abe4a35c1a83fd175cc46deb4df69934975e2ce29c2434",
+    "runtime/scene/save_menu_control.h": "f46d483f26f51b2475907eb45ce5ca7036397fec1367b0845e24980c1e323a0a",
+    "runtime/scene/save_menu_view.h": "5d42225cea66527c0203b9caf3a8c0a07b89d9dcfc32a9b2490cae195342f0f1",
+    "runtime/scene/save_menu_render.c": "019c1ab1ccefe65cb7dad1886f639125a685519401fccb537b68e2b030fc17ec",
+    "runtime/scene/save_menu_labels.c": "2c854db19a3a03f3dce6a4e65e32ad143491a74a6d630e06003bce2affc458a9",
+    "runtime/scene/save_menu_control.c": "835126774d7bbc04f9572efa5933d2d22fc516a6413a60f6aeec56dc2739f9c8",
+    "runtime/save/checkpoint.h": "b5da57357ae64524319336c80f6eb5d0f5b3d883eff40071015a9f28a2cc6d16",
+    "runtime/save/checkpoint_file.h": "5a1bfb36459a84856ff1a57523afa8e2167c9b27f0d44ad9631b25d36f66e2de",
+    "runtime/save/checkpoint.c": "6e4df5a1719f9bbbe67bfee3ac5f7a30905e0b86ca64020ef72efff8d0cd0e3f",
+    "runtime/save/checkpoint_file.c": "4ffd21542d551275f0c16348c00e9affd6c8ae7c2eccd71b7b32e66ef7e748e3",
+    "tools/save_menu_probe.c": "a1d75eaa6894cd2de31a39f67a30fb27549b59df796f1b3e85e9cd045d9e1592",
+    "tools/save_flow_probe.c": "1590d58a0e46541cc4354fb3e25e43ef044fc6a4e8793ae4067ee92d6d97a3a7",
+    "tests/test_save_menu_control.c": "4fba0d6f1a76f4b9f12a42be2dc075adfe3e39a9325302e1346a2f21abe0c064",
+    "tests/test_save_menu_view.c": "d197ccde0bdb715ca6c442a99d01e1527f1c70297aebbf5c53cc4f449ddef7ce",
+    "tests/test_checkpoint_file.c": "7e65f24cd411be4bbf0b2a14dbecb3ba27d37430559dce2867ec850568d35b2d",
+    "tests/original_save_menu_control_oracle.py": "4baee21826eba83ad935c22ab99aa385bed3a36195444b33d768cf383930fa9f",
+    "tests/original_save_menu_view_oracle.py": "20efb691f2cc09622badaccdda0757377a67075ec1232495d1cd683c465ca713",
+    "tests/original_save_menu_labels_oracle.py": "1fbdb2780aa793004c23ac50f85b76da89839a3a479125460e68e3bd496f9eda",
+    "tests/original_save_font_oracle.py": "4d7000887cfd1e2e069576555e7731e1422df732c3c3cd45b2f39ec49b72b1c0"
+  },
+  "logs": {
+    "local/save-menu-jp-test.log": "849d89bd8eddfe1b273945c1bee5787b82a492db81c3dbeb97d1da4b9631dfae",
+    "local/save-menu-jp-asan-test.log": "849d89bd8eddfe1b273945c1bee5787b82a492db81c3dbeb97d1da4b9631dfae",
+    "local/save-flow-jp-test.log": "0d6964d2d47adcf12311d5e26326da9bf22577258e155b31d0e0b171963aaaa1",
+    "local/save-flow-jp-asan-test.log": "0d6964d2d47adcf12311d5e26326da9bf22577258e155b31d0e0b171963aaaa1",
+    "local/save-jp-ctest.log": "7a4db2589fbe208d989a7dfafaf6be0674ceb54854b6a7d61bea623316b8be16",
+    "local/save-jp-unit-asan-test.log": "9a0aad152cb6dfc7021cfff42e7e927b2b6a5513be9889bc9b75515a72e83a55",
+    "local/save-jp-architecture.log": "26ac156b994e0ca622891b36ccd966a50a0e457a3a0b20fbaaaa96e23b6b13ec",
+    "local/save-jp-switch-build.log": "de5cae00a3f96d528012691460f7bab690d638c38489d00cda4ea4562afb8043",
+    "local/original-save-menu-labels-jp-oracle.log": "8b83dbd11ed57ad042e5d6410597acd2dd5f174331a386382c164cc1ede06e8f",
+    "local/original-save-font-jp-oracle.log": "ea7e481d2629df70ec00488bc20f9b4dca1964634f17551e8b54feae1b4bd2c4"
+  },
+  "oracles": {
+    "local/original-save-menu-control-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "steps": 12000,
+      "events": 25833,
+      "loads": 928,
+      "stores": 827,
+      "scope": "Original507540 full save/load list and confirmation input dispatcher.\nNo rendering is invoked by this component. File, detail-resource, text-reset,\npause-reentry and release services are traced boundaries; original bank copying\ninto gameplay fields and flow scheduler run natively. Codec has separate oracle.\n"
+    },
+    "local/original-save-menu-view-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "constructors": 50,
+      "frames": 6000,
+      "draws": 143357,
+      "scope": "Original4e97fd/50ace3 geometry and5095d5+50c371 sprite UI draw policy.\nOnly GPU/font/time/input/resource I/O are boundaries. Real56 sprite requests,\ninstant/fading transitions, detail selection, cursor timer and curtain run x86.\nText glyphs and save-slot label bytes are separate pending integration work.\n"
+    },
+    "local/original-save-menu-labels-jp-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "banks": 1500,
+      "rows": 15000,
+      "bytes_compared": 621318,
+      "scope": "Original50a2ae ten save rows,with only its509fd2 disk refresh intercepted.\nOriginal string copies, fullwidth GBK digit/punctuation selection and fixed\nstamp[2..15] traversal run x86. The port's explicit Japanese localization is\nindependently checked with Python GBK->Unicode, 场景号->エリア, then CP932.\nThis does not claim unpacked Japanese executable literal or screenshot parity.\n"
+    },
+    "local/original-save-font-jp-oracle.json": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "font_sha256": "6fb20b626008b367d18e8f7277cbe39bbd3a0deb98f6c2d6cc06bb7c74399dd8",
+      "glyphs": 16,
+      "pixels": 10560,
+      "scope": "Japanese checkpoint alphabet using original Type_G.FTT, original474a58 and\n475514 instructions. Surface allocation/blits are boundary hooks; original\nmetrics and every used glyph bitmap execute unmodified. No new font is drawn.\n"
+    }
+  },
+  "readback": {
+    "path": "local/save-menu-jp.png",
+    "sha256": "a27abd166f2c0bb95dca22423954e8a7c4640aa60482e4365ce21e6a17651b9f",
+    "visual_inspection": "Japanese area/date labels readable; original character/menu textures"
+  },
+  "limits": "# 日文存读档页面与真实会话\n\nflow28现已注册到应用：区域完成20选择保存后先按4e94e4交接至下一区域，再进入保存页；保存/覆盖成功后刷新五个银行，返回游戏保留已交接的演员和世界。暂停菜单可进入读取页，取消会恢复物品消息/字体并回到原暂停状态；确认读取会释放旧游戏入口，通过flow50创建所选group/area，再走实际开场交接至phase1。\n\n`scene/save_menu_control`恢复507540列表、五角色标签、十槽位、确认页和有序回调；`save_menu_view`恢复5095d5/50c371精灵请求、细节、共享光标和黑幕，`save_menu_render`使用真实素材与字库，按text_after插入文字。页面保留CPU状态，最后快照提交后才释放GPU资源；零步重绘不重复文件操作。空槽不允许读取，损坏文件报错，不会当成空银行覆盖。\n\n文件写入显式端口输出根的`save/checkpoint-0..4.bks`。数据格式和原子替换见`checkpoint-storage.md`。记录保存区域和八个库存字节；五个活动道具与三个原版保留字节分别绑定，避免越界复制。新游戏入口原4bf268清八字节，已在两个拥有层对应处理。这是区域检查点，不是任意运行帧、完整全局解锁或结局进度存档。原`.b3f`文件不自动导入，也不写回。\n\n当前优先日文版：不挂载汉化PP或Dest.ftt，标签用Shift-JIS全角数字、符号和「エリア」，字体为原始Type_G.FTT。先前GBK标签直接配日文字库会乱码，已在GPU回读中发现并修正。运行资源来自日文安装包。分析依据仍为固定中文EXE SHA-256 `a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e`；日文安装EXE SHA-256 `ad353d250ebb04cc38fc78894111427a20780162e371914b00234c44a7b72606`的代码/数据段受保护壳封装，当前没有其解包指令或Windows完整帧对照。日文标签是明确的语言适配，不声称来自日文EXE字面量提取。\n\n验证证据：\n\n- 原507540完整输入：12,000帧、25,833回调、928读取/827保存路径；原4e97fd/50ace3/5095d5：50构造、6,000帧、143,357绘制条目一致。这里文件/平台服务是边界，真实文件和GPU另测。\n- 原50a2ae：1,500银行、15,000行、621,318字节；以Python独立GBK解码→「场景号」替换为「エリア」→CP932编码核对日文输出。Type_G的16种实际标签字形、10,560位图像素与原字形代码一致。\n- `save-menu-probe`普通及ASan/UBSan均通过：五银行50槽首次保存及覆盖共100次、重开文件适配器后50次读取、57次菜单释放、25次暂停游戏释放、取消返回和空槽/损坏文件拒绝，共1,282帧。实际字库/图片/音效/文件/GPU均接入，零步重绘像素与CPU状态一致；回读图片已检查。\n- `save-flow-probe`普通及ASan/UBSan均9,464帧通过：显式注入一次区域完成与库存夹具，其余由真实菜单输入驱动；区域保存→继续、暂停读取→取消→原暂停状态逐字节保持（仅允许原规则音乐音量变化）、五角色存档重建入口→phase1。group0文件由菜单写入，另外四银行是明确的文件夹具；不是自然通关证据，也不声称跨执行像素/RNG相同。\n- 7项相关CTest、3项ASan/UBSan单元和2项架构检查通过。ASAN_OPTIONS=detect_leaks=0，不声称LeakSanitizer通过。\n- 指定Mesa NVK Switch构建通过；NRO SHA-256 `b9a44d44b54ff020b7b12ed5921e7c2215f834fab705eab4e9982d945afb6b61`，未解析符号0。没有Switch实机验证证据。\n\n完整移植仍未结束。下一项恢复完整标题、新游戏38与任务选择8等目标资源和控制，再继续任务结算、媒体及设置。当前开发标题仍直接进入首关；完整任务进度、全局解锁、任意结局和完整媒体不能由上述检查点测试推出。Mac防休眠继续保持。\n"
+}

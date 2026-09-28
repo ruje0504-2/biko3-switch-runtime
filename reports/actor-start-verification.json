@@ -1,0 +1,2108 @@
+{
+  "generated_at": "2026-09-27T03:32:05.166833+00:00",
+  "scope": "Authored actor load+initial selection; unmodified XAN, fullgame/hardware unverified, SD unchanged.",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "verification": {
+    "host_ctest": 27,
+    "python_unittests": 23,
+    "cpu_sanitizer_ctest": 21,
+    "xan_files": 26,
+    "states": 17712,
+    "samples": 17280,
+    "previously_rejected": 2,
+    "actor_gaze_steps": 360,
+    "actor_gaze_matrices": 995955,
+    "entry_profiles": 45,
+    "entry_sanitizer": true,
+    "switch_cross_build": true,
+    "switch_hardware": false
+  },
+  "oracles": [
+    {
+      "path": "local/original-actor-start-oracle.json",
+      "bytes": 11113,
+      "sha256": "e3578241d7da0450ec6f5bf3b769a7e48e73c0ce9cd305822553ae25379019e9",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "files": 26,
+        "previously_rejected": 2,
+        "states": 17712,
+        "samples": 17280,
+        "records": [
+          {
+            "archive": "bk3_01",
+            "entry": "h00_80.xan",
+            "sha256": "8c6efa1d61a900c2c7852a1ebcb91972a8604f3a133f131a544ecb388962284b",
+            "original_current": 0,
+            "original_requested": 14,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25
+            ],
+            "state_comparisons": 1968
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h01_60.xan",
+            "sha256": "7d9d24c6c2aaaa80a0a9ad1a748e95600f0e1c55b7082e9241edb5fb7f40d9fd",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1
+            ],
+            "state_comparisons": 164
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h01_61.xan",
+            "sha256": "202dbaa4c579dc571190db46f7aae6060b1c0100d40ceb64e68bf89e19d1e446",
+            "original_current": 7,
+            "original_requested": 6,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "state_comparisons": 902
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h01_70.xan",
+            "sha256": "65e21928ee6147977d4a642ea1074842b66da80a6424dbf3a842e9d7d96a39af",
+            "original_current": 8,
+            "original_requested": 8,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "state_comparisons": 738
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h01_80.xan",
+            "sha256": "82613bb46d66028facf8a9bee1888b5e6032dd4f2fcff3e0175048b07ac99ef8",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "state_comparisons": 1066
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h02_60.xan",
+            "sha256": "57a7ae7d8b0b3000e93e7f8ab47797f7b08e58dec1c7ebb51372385c609067f5",
+            "original_current": 3,
+            "original_requested": 3,
+            "strict_authored_valid": false,
+            "active_slots": [
+              0,
+              1
+            ],
+            "state_comparisons": 164
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h02_61.xan",
+            "sha256": "db4eb00251b221bc426009d7eb606fd7460414af9b01094c94f53c913d30dc99",
+            "original_current": 0,
+            "original_requested": 4,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "state_comparisons": 656
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h02_70.xan",
+            "sha256": "19c6b46a7548aa6f4170c3f7f3cafdfdc8c85d6979a2a0c4a63b549e4ace776b",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "state_comparisons": 738
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h02_80.xan",
+            "sha256": "3db8caf66798bd3739974c4f468378f1393e681c811b22deebce5ab207bc6463",
+            "original_current": 12,
+            "original_requested": 12,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "state_comparisons": 1066
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h03_60.xan",
+            "sha256": "8bcb45190b26259ac5c3052780891fcc59cb3826c26745771e12f2f31f2a4abc",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0
+            ],
+            "state_comparisons": 82
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h03_61.xan",
+            "sha256": "08264502387961a87c16fac465f691ff42516c864501f58c021dbeaea124e980",
+            "original_current": 40,
+            "original_requested": 40,
+            "strict_authored_valid": false,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "state_comparisons": 656
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h03_70.xan",
+            "sha256": "e0e466b5433dd1326ef9cb730ae857a93629ae9217cf098b3d2366672be73af1",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "state_comparisons": 738
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h03_80.xan",
+            "sha256": "1391535622be098685a0ca0f7d0617d2ce0754e00555141e93660cc59324b54e",
+            "original_current": 11,
+            "original_requested": 12,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "state_comparisons": 1066
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h04_60.xan",
+            "sha256": "025cb7cd36d97270476fd998ade794db9b674b65e81b212919927de75bf8bc90",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0
+            ],
+            "state_comparisons": 82
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h04_61.xan",
+            "sha256": "40a9f93c6fa5a3238ef1181eb880dd1407d2122ed8c8f8e30da6c7c9bf677ec1",
+            "original_current": 1,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "state_comparisons": 492
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h04_70.xan",
+            "sha256": "5abaf49b5b05a1b57e47046ca2626a4a6876fa5ecacda2bc2d0e70da563862c4",
+            "original_current": 3,
+            "original_requested": 3,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "state_comparisons": 738
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h04_80.xan",
+            "sha256": "66b8b09435687867a7ed46b0a7cc0a379b4ec924677d99ce93fadc9d3cf95768",
+            "original_current": 12,
+            "original_requested": 12,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "state_comparisons": 1066
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h05_60.xan",
+            "sha256": "c13e780240e88a14fe5ddb0724dc2d7e152a237e3d4105b1b63d983d624fa474",
+            "original_current": 1,
+            "original_requested": 1,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1
+            ],
+            "state_comparisons": 164
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h05_61.xan",
+            "sha256": "a3e3479aade403803b1fe95b07f49cdbb6b508c77d4973aad1626f49dc43ce61",
+            "original_current": 8,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ],
+            "state_comparisons": 1394
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h05_70.xan",
+            "sha256": "6b1ca185945bd22f84aa0d41c1c15c96766009a01c1d4a42e3d3e295bf5f894e",
+            "original_current": 3,
+            "original_requested": 3,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "state_comparisons": 738
+          },
+          {
+            "archive": "bk3_01",
+            "entry": "h05_80.xan",
+            "sha256": "b1e66662b7bcc41a965557680210816782e66644b2211141c597914bceaa6f51",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "state_comparisons": 1066
+          },
+          {
+            "archive": "bk3_14",
+            "entry": "h01_55.xan",
+            "sha256": "aba2e6fa80a08c5ba8b849bc4a7ffdf88a3d307a41c0f4a0c7b68c3264cafaa8",
+            "original_current": 2,
+            "original_requested": 2,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "state_comparisons": 328
+          },
+          {
+            "archive": "bk3_14",
+            "entry": "h02_55.xan",
+            "sha256": "6f4e76ca7b2963ae287401264a7268d05f3cca5f28958eb9ea119dc6827b0ed0",
+            "original_current": 1,
+            "original_requested": 2,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "state_comparisons": 410
+          },
+          {
+            "archive": "bk3_14",
+            "entry": "h03_55.xan",
+            "sha256": "3ae00f088b35e84cff6e8c0423f63119fbe21ed78b8109c250902bed2e30edba",
+            "original_current": 0,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "state_comparisons": 328
+          },
+          {
+            "archive": "bk3_14",
+            "entry": "h04_55.xan",
+            "sha256": "4ed67881cee2475a6a0f70fa9386b92979a5f0080e765ccad633a37ef2554de7",
+            "original_current": 1,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "state_comparisons": 328
+          },
+          {
+            "archive": "bk3_14",
+            "entry": "h05_55.xan",
+            "sha256": "8b0d40755328091a7034add723708afa10bc08d996c8dfe5a0123bd18970fa1e",
+            "original_current": 3,
+            "original_requested": 0,
+            "strict_authored_valid": true,
+            "active_slots": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "state_comparisons": 574
+          }
+        ],
+        "native_functions": [
+          "0x401b0a",
+          "0x401d24",
+          "0x4026fe"
+        ],
+        "scope": "Unmodified actual XAN header/counters, load then initial request/instant select, subsequent scheduler/repeated requests. Only SRT submissions substituted. Inactive old source is retained for the transition; same-request invalid seeds still reject."
+      }
+    },
+    {
+      "path": "local/original-eye-phase-oracle.json",
+      "bytes": 5824,
+      "sha256": "6f9c590e3ab372a6e9bfa59c647d53c6e9674df5cbf3540ce05264be4990a131",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "profiles": 15,
+        "steps": 360,
+        "matrices": 995955,
+        "atomic_rejections": 360,
+        "max_normalized_error": 7.105427357601002e-15,
+        "records": [
+          {
+            "config": "h01_60.fam",
+            "model": "h01_60.x",
+            "model_sha256": "4a40eed2ae5a78db29ac4e30f5590aa41b87e47eb1703c29239cf088175ed0cc",
+            "xan_sha256": "7d9d24c6c2aaaa80a0a9ad1a748e95600f0e1c55b7082e9241edb5fb7f40d9fd",
+            "frames": 152,
+            "eyes": [
+              64,
+              66
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h01_70.fam",
+            "model": "h01_70.x",
+            "model_sha256": "13c5856cf5d71448f5f049a3fe5ed5e234859f58ae23d6aded3c0baf66c1d646",
+            "xan_sha256": "65e21928ee6147977d4a642ea1074842b66da80a6424dbf3a842e9d7d96a39af",
+            "frames": 278,
+            "eyes": [
+              89,
+              87
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h02_60.fam",
+            "model": "h02_60.x",
+            "model_sha256": "82a867a45dc07661d66d1bb31ae8a16651c018c1bb4e952dbac2b5f981913c8e",
+            "xan_sha256": "57a7ae7d8b0b3000e93e7f8ab47797f7b08e58dec1c7ebb51372385c609067f5",
+            "frames": 173,
+            "eyes": [
+              49,
+              47
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h02_61.fam",
+            "model": "h02_61.x",
+            "model_sha256": "35184b66dc63c96c99dfde857c014428cd1ecac9d84b1125ca1c699752483978",
+            "xan_sha256": "db4eb00251b221bc426009d7eb606fd7460414af9b01094c94f53c913d30dc99",
+            "frames": 217,
+            "eyes": [
+              98,
+              100
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h02_70.fam",
+            "model": "h02_70.x",
+            "model_sha256": "bd0a882816bf5252ae73a4e9de8d0f630377ce4762d37e0064dcb530603ad2aa",
+            "xan_sha256": "19c6b46a7548aa6f4170c3f7f3cafdfdc8c85d6979a2a0c4a63b549e4ace776b",
+            "frames": 171,
+            "eyes": [
+              81,
+              79
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h03_60.fam",
+            "model": "h03_60.x",
+            "model_sha256": "3669a22757233e8d32386ac11e9b5d86524f8638cbeefaad6a7a9df528e4fa2d",
+            "xan_sha256": "8bcb45190b26259ac5c3052780891fcc59cb3826c26745771e12f2f31f2a4abc",
+            "frames": 188,
+            "eyes": [
+              35,
+              37
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h03_61.fam",
+            "model": "h03_61.x",
+            "model_sha256": "71db1dde20be7c4b98eb2026514a827c515c3d66851ba35dbaf486b91180da2c",
+            "xan_sha256": "08264502387961a87c16fac465f691ff42516c864501f58c021dbeaea124e980",
+            "frames": 241,
+            "eyes": [
+              83,
+              85
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h03_70.fam",
+            "model": "h03_70.x",
+            "model_sha256": "92b45da0183ab553a3b459180a4b4b6d02d55b6f011f1398fa3782f5936eb423",
+            "xan_sha256": "e0e466b5433dd1326ef9cb730ae857a93629ae9217cf098b3d2366672be73af1",
+            "frames": 213,
+            "eyes": [
+              67,
+              69
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h04_60.fam",
+            "model": "h04_60.x",
+            "model_sha256": "df11958f49f04f0a0c5a176255acb780c1efd84052e717f63f85cd76a014f136",
+            "xan_sha256": "025cb7cd36d97270476fd998ade794db9b674b65e81b212919927de75bf8bc90",
+            "frames": 353,
+            "eyes": [
+              128,
+              130
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h04_61.fam",
+            "model": "h04_61.x",
+            "model_sha256": "de884b6d72d1f5b7b43ac9a4a6984d0bb5d5c3ad0e1f267146ebe5dcdfdcb393",
+            "xan_sha256": "40a9f93c6fa5a3238ef1181eb880dd1407d2122ed8c8f8e30da6c7c9bf677ec1",
+            "frames": 534,
+            "eyes": [
+              268,
+              270
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h04_70.fam",
+            "model": "h04_70.x",
+            "model_sha256": "287918379fede9469d1f5e8001d53cded51ea4b2e6a13c08121da5b6b3cc266e",
+            "xan_sha256": "5abaf49b5b05a1b57e47046ca2626a4a6876fa5ecacda2bc2d0e70da563862c4",
+            "frames": 484,
+            "eyes": [
+              279,
+              281
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h04_80.fam",
+            "model": "h04_80.x",
+            "model_sha256": "96297cdaa7f33633f55a6cec0d45e3be981741f090c949b4c6714230be7a5153",
+            "xan_sha256": "66b8b09435687867a7ed46b0a7cc0a379b4ec924677d99ce93fadc9d3cf95768",
+            "frames": 481,
+            "eyes": [
+              281,
+              283
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h05_60.fam",
+            "model": "h05_60.x",
+            "model_sha256": "f75a34d71e4e77bf3e1420d7c0ee234d2c6b0adb4caf0c78b016e2a708bb6407",
+            "xan_sha256": "c13e780240e88a14fe5ddb0724dc2d7e152a237e3d4105b1b63d983d624fa474",
+            "frames": 417,
+            "eyes": [
+              187,
+              189
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h05_61.fam",
+            "model": "h05_61.x",
+            "model_sha256": "7103baf8d7ef523e034e18d549dbce16f13bbe377b7f316465740ad8f4ddfb26",
+            "xan_sha256": "a3e3479aade403803b1fe95b07f49cdbb6b508c77d4973aad1626f49dc43ce61",
+            "frames": 671,
+            "eyes": [
+              179,
+              181
+            ],
+            "steps": 24
+          },
+          {
+            "config": "h05_70.fam",
+            "model": "h05_70.x",
+            "model_sha256": "490db1b71b1fda1ec9075caa91733db3ff4b298b3ea3e772c402b54030e73572",
+            "xan_sha256": "6b1ca185945bd22f84aa0d41c1c15c96766009a01c1d4a42e3d3e295bf5f894e",
+            "frames": 382,
+            "eyes": [
+              95,
+              97
+            ],
+            "steps": 24
+          }
+        ],
+        "native_functions": [
+          "0x4fc6c7..0x4fc6fd",
+          "0x401b0a",
+          "0x4026fe",
+          "ANIM SRT",
+          "0x4f3bb9",
+          "0x4a0823",
+          "0x423a99",
+          "0x42273b"
+        ],
+        "scope": "Same VM executes unmodified authored actor XAN and original ANIM, native gaze dispatch and full matrix-stack traversal. Submitted local, published world and cached parent matrices compared throughout hidden pauses, skipped traversals and gaze edits. Explicit camera/placement/command fixtures; complete game-loop call-site conditions not recovered."
+      }
+    }
+  ],
+  "sources": [
+    {
+      "path": "cmake/build_info.h.in",
+      "bytes": 131,
+      "sha256": "33eed95ec49e014fb763934ed04e7defa4497825d4fd4fec832fe33d646033e0"
+    },
+    {
+      "path": "cmake/switch-toolchain.cmake",
+      "bytes": 833,
+      "sha256": "0975bd3763481fd14bc9066f3247d1a65b86df50be6a85fa449175d8a1c08246"
+    },
+    {
+      "path": "cmake/verify-switch.cmake",
+      "bytes": 612,
+      "sha256": "9f99f9c35ff57413f43f6dd00d18f15497a1ca0d538ed4e3d406b71480f18ab6"
+    },
+    {
+      "path": "runtime/app/application.c",
+      "bytes": 6582,
+      "sha256": "557cae3dd8785d8c92dd2f6031d5fc7cdd5ef69cc5bb0263deba8c9f7add2ccd"
+    },
+    {
+      "path": "runtime/app/application.h",
+      "bytes": 104,
+      "sha256": "c019c51d075c356be8fd79a85228ff7a4409b848ccd9544e11c4947b313a9d9e"
+    },
+    {
+      "path": "runtime/app/main.c",
+      "bytes": 104,
+      "sha256": "40901c0d90da3c18091f29c3b1c41bd9c9bfbc48eb524907f5dad4ed8186a383"
+    },
+    {
+      "path": "runtime/core/camera.c",
+      "bytes": 9078,
+      "sha256": "35518c42386867ca6f5bf4ac1f07f3bc6dd3eed0ecc281c65e8d32d6d76a01f8"
+    },
+    {
+      "path": "runtime/core/camera.h",
+      "bytes": 2460,
+      "sha256": "2dae3de7b1652a66a64cfe63188bf3077b8ce18bd7351e62abcabea1c6b69a21"
+    },
+    {
+      "path": "runtime/core/clock.c",
+      "bytes": 1067,
+      "sha256": "a14ad426db38ba325ef0319641d45f80113430e8835e5594940bc61ff5ba8882"
+    },
+    {
+      "path": "runtime/core/clock.h",
+      "bytes": 468,
+      "sha256": "a650ab2c6813fe3c2d10e2ecf2b0e2317c6bb003e2e95b9997b2a5fdc0893893"
+    },
+    {
+      "path": "runtime/core/input.c",
+      "bytes": 427,
+      "sha256": "cbb5ef491f2b7ea2354ca177cc89221b0b6d1565fa1cf6a53d0ed8f3f6937c94"
+    },
+    {
+      "path": "runtime/core/input.h",
+      "bytes": 618,
+      "sha256": "0f196e4b9c8984aaae5d94070247bd57123e53c08686ff14cf2173a3850ddec5"
+    },
+    {
+      "path": "runtime/core/lighting.c",
+      "bytes": 1096,
+      "sha256": "617ff530428aa3a6abefe3ca3f33410b8bc1f46b7702631e4ced6283a7a3f3e7"
+    },
+    {
+      "path": "runtime/core/lighting.h",
+      "bytes": 590,
+      "sha256": "975a7c1aabf7d579197beef09f679636274299f44a09e172e607ba2ba5b5cf46"
+    },
+    {
+      "path": "runtime/core/matrix.c",
+      "bytes": 5609,
+      "sha256": "6d4bfbaf098a3d797d969c905838696c95a7402944e240ead659b1befb9f956a"
+    },
+    {
+      "path": "runtime/core/matrix.h",
+      "bytes": 1237,
+      "sha256": "8fb08adb96c9b0cda3775b7ddb238af6c31c959942c81617cd248e4f31c47aaf"
+    },
+    {
+      "path": "runtime/core/random.c",
+      "bytes": 212,
+      "sha256": "d55ffa82e26afdad5e95615c135784c18e12250d8d0a500a14b7cea63b5533d2"
+    },
+    {
+      "path": "runtime/core/random.h",
+      "bytes": 197,
+      "sha256": "e092363418207ddff0d735b3ba6606ee191b582296c37540204950b64cf4c26e"
+    },
+    {
+      "path": "runtime/core/timer.c",
+      "bytes": 346,
+      "sha256": "daf5b800b79e916327182993b5dac2e751473f4cb8748617d9ae7d066d282a14"
+    },
+    {
+      "path": "runtime/core/timer.h",
+      "bytes": 427,
+      "sha256": "2f79a9236b297f9359fa69b4cd411ab01cd3ae068a7d9fd2cfacfd38706959fa"
+    },
+    {
+      "path": "runtime/game/camera_policy.c",
+      "bytes": 920,
+      "sha256": "6c10290eca0d3d26a3c77b50e9522fa88729d9b994a27af4b333c90a71ea49a0"
+    },
+    {
+      "path": "runtime/game/camera_policy.h",
+      "bytes": 803,
+      "sha256": "e3415f1060b155a32d84dd5457d867be6938c0459623654764c2a3f826c767c1"
+    },
+    {
+      "path": "runtime/game/entry.c",
+      "bytes": 7168,
+      "sha256": "af6ec1660c211443b189850a6e16dce7ea7fadba42d70ce70aba8d37c1426136"
+    },
+    {
+      "path": "runtime/game/entry.h",
+      "bytes": 1330,
+      "sha256": "3ed3d38635411be97e785cdefc73a71f65b2bbb2910572bf0e1f37cc381b8cc1"
+    },
+    {
+      "path": "runtime/game/npc_action.c",
+      "bytes": 1978,
+      "sha256": "bc355d375740c4a3c50efcd8b824472d492721c96dcaeb97bebe9766aee239cb"
+    },
+    {
+      "path": "runtime/game/npc_action.h",
+      "bytes": 499,
+      "sha256": "5e19bcc8730cfde233dd33b967ccb7d15ff937e9bb14da82388911f217b84d4b"
+    },
+    {
+      "path": "runtime/game/npc_ai.c",
+      "bytes": 5132,
+      "sha256": "1258835adb9b1222bf80f70993625a55fd6f1d929b36eceae588a2d1a6bd888c"
+    },
+    {
+      "path": "runtime/game/npc_ai.h",
+      "bytes": 1314,
+      "sha256": "fbe31b3880d0c9ab221379592c26c9d43b2c3b8c1e05e033d8b29f915cbacd43"
+    },
+    {
+      "path": "runtime/game/npc_contact.c",
+      "bytes": 2614,
+      "sha256": "0094e0724baddcc85684df506e12dc8a77fa1ff6546d2f5f2a06f3cb316c503d"
+    },
+    {
+      "path": "runtime/game/npc_contact.h",
+      "bytes": 1243,
+      "sha256": "8dad7b4715ab81a994134234ba2db751b39d763b5d6b9cc64e627b9a044536f2"
+    },
+    {
+      "path": "runtime/game/npc_fade.c",
+      "bytes": 975,
+      "sha256": "d51e62847f4495c34ce3848df35627e0ad686aac89a0b0d7f98d6a194e9c9a7c"
+    },
+    {
+      "path": "runtime/game/npc_fade.h",
+      "bytes": 846,
+      "sha256": "54adb041323137cba5078b10f04712eed4be87905f0efefb6bbfc760a170ea7f"
+    },
+    {
+      "path": "runtime/game/npc_head.c",
+      "bytes": 2549,
+      "sha256": "8be0662012a59634f2b67f4bb67ecd0e79c6f8f2c5c9d96bd0b830a279712afb"
+    },
+    {
+      "path": "runtime/game/npc_head.h",
+      "bytes": 827,
+      "sha256": "2c999631b2e55a32bd9fdea46c9d579f929ec01dd2ae7fa87d11400fa643a7fe"
+    },
+    {
+      "path": "runtime/game/npc_motion.c",
+      "bytes": 1549,
+      "sha256": "959b6b08ea7cd9b7312132824be2dec943e34ba02b23a59f748c58384d4096d8"
+    },
+    {
+      "path": "runtime/game/npc_motion.h",
+      "bytes": 1033,
+      "sha256": "b05d3a4599c08b90a0502bddd97360ae30e3fa03a7759885b48e9c4d6608494d"
+    },
+    {
+      "path": "runtime/game/npc_point.c",
+      "bytes": 2348,
+      "sha256": "86dc791883986aef07864792e3650ae69cec0f0c0a3e895f5045933e5fcb4149"
+    },
+    {
+      "path": "runtime/game/npc_point.h",
+      "bytes": 922,
+      "sha256": "08ebe36a9b769bee86db8ce954fbb7505ae1aab3a819a8b7324c05ee96385972"
+    },
+    {
+      "path": "runtime/game/npc_route.c",
+      "bytes": 1570,
+      "sha256": "23a66d410450ae86b8c53e346a2e45db47b43dd79c64398fd8519ebda9e92dc8"
+    },
+    {
+      "path": "runtime/game/npc_route.h",
+      "bytes": 1034,
+      "sha256": "46a62c4d6e00a9cfa07a2567c858d4ab29adcbf8b08a4d104da21178de417187"
+    },
+    {
+      "path": "runtime/game/npc_scene.c",
+      "bytes": 2415,
+      "sha256": "43d6f8e7bebd575d3db04d4d2b9e317f4f7e4ea37ef18e8b7cdb0aec50190612"
+    },
+    {
+      "path": "runtime/game/npc_scene.h",
+      "bytes": 954,
+      "sha256": "fe3f4585898267101ec7e606649d67d26d31048fe859059dc663374d595d9d7c"
+    },
+    {
+      "path": "runtime/game/npc_spatial.c",
+      "bytes": 4620,
+      "sha256": "900d6128795e667d37faf42ec3ac82d08c0a00a321fef8df3f0d9f0b36fdef9a"
+    },
+    {
+      "path": "runtime/game/npc_spatial.h",
+      "bytes": 1954,
+      "sha256": "44f8f2c6781f1c1b597b8ff5fdab398c8c57c72e45752827adb80252b8ed2c9b"
+    },
+    {
+      "path": "runtime/game/npc_visibility.c",
+      "bytes": 1588,
+      "sha256": "d151519ccadcf39afaadead466f7e3010152aeca17b89041dcdd79a68da16560"
+    },
+    {
+      "path": "runtime/game/npc_visibility.h",
+      "bytes": 1033,
+      "sha256": "77dcaa8faa8767e2019d223d4c93ce499dd8d401fd611474ac438c088d664dd9"
+    },
+    {
+      "path": "runtime/game/player_animation.c",
+      "bytes": 1116,
+      "sha256": "f960983da276b7e9a4e837e0c3040ca9c6daa95b787a3aaf43e7d60a6e32dfea"
+    },
+    {
+      "path": "runtime/game/player_animation.h",
+      "bytes": 878,
+      "sha256": "709f39d311d3675e837ca97826d798b07dd3cc5b71c57db541a487e492d21300"
+    },
+    {
+      "path": "runtime/model/animation.c",
+      "bytes": 14746,
+      "sha256": "df915afe2d043599f87f014ef0fae44d143f0816f90ba844e46856fb160bd81a"
+    },
+    {
+      "path": "runtime/model/animation.h",
+      "bytes": 4375,
+      "sha256": "1aecd744d20168bd595ebc00936ae7c88be743e41a28690bda0cecafcbeaabbf"
+    },
+    {
+      "path": "runtime/model/clip.c",
+      "bytes": 13161,
+      "sha256": "fd6e29507b365e262c1b124482e864e3fc748cf240afbed7f670ce40cc261f9d"
+    },
+    {
+      "path": "runtime/model/clip.h",
+      "bytes": 3877,
+      "sha256": "62bef406ef1c30f15d7c05fc0994c1b31bdfd55e06d9ab99619cf45f9a3e0e70"
+    },
+    {
+      "path": "runtime/model/environment.c",
+      "bytes": 5187,
+      "sha256": "fbe4be3e29338d667bc0522b9d44cf8654d17840c8917a5f0c48e4fca89eca9b"
+    },
+    {
+      "path": "runtime/model/environment.h",
+      "bytes": 1087,
+      "sha256": "39896e1ba666ca57c5220c1e1e9addfcd1c0522cb9d89c6081b53cae7d5ff1ed"
+    },
+    {
+      "path": "runtime/model/material.c",
+      "bytes": 3168,
+      "sha256": "bf3b884d0bc93af826b4671d0921712313db42d1874f1b94301f2339a0bda753"
+    },
+    {
+      "path": "runtime/model/material.h",
+      "bytes": 1352,
+      "sha256": "a765824fff177ce339dadb18a222bae4efb8e26e8e97b50c8a10cab32912ffa1"
+    },
+    {
+      "path": "runtime/model/material_pose.c",
+      "bytes": 4869,
+      "sha256": "640dcb29e919bafc23503628456b714817c37dbfcd2079f84460b70f21f673fa"
+    },
+    {
+      "path": "runtime/model/material_pose.h",
+      "bytes": 1378,
+      "sha256": "f57d05990d6a64cd224441312ef1e586a68fc3d32ffdceeed1dca9788476ad66"
+    },
+    {
+      "path": "runtime/model/mesh_name.c",
+      "bytes": 2228,
+      "sha256": "d4e311713e06f0d94bb4e463bec2a889b0ae0ac9a7732e09ae17acb235218333"
+    },
+    {
+      "path": "runtime/model/model.c",
+      "bytes": 16816,
+      "sha256": "048a298c576c01eab9327e3d78120e7d5b833d381a1e0c4e3697ef657179386f"
+    },
+    {
+      "path": "runtime/model/model.h",
+      "bytes": 3722,
+      "sha256": "e59db61b9be48ad87fd3f70d2b274a34ca566a7ebc85fd9437d8f764b3c7386d"
+    },
+    {
+      "path": "runtime/model/morph.c",
+      "bytes": 5672,
+      "sha256": "bf56d5ab51aa75a4ab7cac0c2bd10340aaefad1436e95e8ce1d034796510d64e"
+    },
+    {
+      "path": "runtime/model/morph.h",
+      "bytes": 1205,
+      "sha256": "2d37c294eebb567a374db31b811276873a3acc8b0b7b162293f3921bb743fba8"
+    },
+    {
+      "path": "runtime/model/morph_pose.c",
+      "bytes": 10302,
+      "sha256": "d775091eb5d0dccd5aa96b03e13024b1009689b8f2d53807ca4755913df4145c"
+    },
+    {
+      "path": "runtime/model/morph_pose.h",
+      "bytes": 2933,
+      "sha256": "35e6dd4a730cc546010536bb103dae4ec4cd2a0ffe81c4c8918da3a7c5822e5d"
+    },
+    {
+      "path": "runtime/model/playback.c",
+      "bytes": 9060,
+      "sha256": "469578f9fe484398902a349e05d36359e001527423d9a67cfcfdc250d13f2eb4"
+    },
+    {
+      "path": "runtime/model/playback.h",
+      "bytes": 4724,
+      "sha256": "2c571279d8152370b2bdfa4a03a5844d29ad06fe2d645520357519686e3c0579"
+    },
+    {
+      "path": "runtime/model/skin.c",
+      "bytes": 10068,
+      "sha256": "bc8a015f20d3879c2e5ccd6b56c6dad86040267bfac79d618faebd2bd216f8c9"
+    },
+    {
+      "path": "runtime/model/skin.h",
+      "bytes": 2311,
+      "sha256": "19740312b06ca60e48f44f37499444f97df9379222fbd931c33cec4970c1c394"
+    },
+    {
+      "path": "runtime/model/static_model.c",
+      "bytes": 5752,
+      "sha256": "52ae32386121133c14054d2b2d19c04865dbda144be5c177828e2de9d0e46a23"
+    },
+    {
+      "path": "runtime/model/static_model.h",
+      "bytes": 1525,
+      "sha256": "81246cb276fdc8baf0f86a73180536efc1b06baec2433b02c4e71d8d9416e01c"
+    },
+    {
+      "path": "runtime/model/triangles.c",
+      "bytes": 1944,
+      "sha256": "3e2186d957306dc5f51ef0aa9c1b70ed5b9ea2797dca4702c5166bb151e6f782"
+    },
+    {
+      "path": "runtime/model/triangles.h",
+      "bytes": 724,
+      "sha256": "96d94f48a7cc6ad9177388f8c214db697a79a3bdef8fdaa293f191fa19ea3e75"
+    },
+    {
+      "path": "runtime/platform/host.c",
+      "bytes": 2051,
+      "sha256": "9968c91ca98bc2f2c5c6c6664a5a50752fb2e68d76c89ad7a639234e5ca1f1ae"
+    },
+    {
+      "path": "runtime/platform/platform.h",
+      "bytes": 913,
+      "sha256": "ca99e082e97564c0e197184f64ed477afd59a0d516a07b1a26afbcac916109a4"
+    },
+    {
+      "path": "runtime/platform/switch.c",
+      "bytes": 2913,
+      "sha256": "b4855b4cc3adcac87adacadc1f2e3f45910c109c72780fe981d0a3dc38fc07f8"
+    },
+    {
+      "path": "runtime/render/renderer.h",
+      "bytes": 5211,
+      "sha256": "4a1c31284134bb0eda6364bd9e245a26bc53c1e2b6b0c372d7b5a3388b054fb9"
+    },
+    {
+      "path": "runtime/render/shaders/lit.frag",
+      "bytes": 352,
+      "sha256": "dbaa4a2773df5574de54987d742d9cdb6db08fdab772ac593beff44fb3cb1357"
+    },
+    {
+      "path": "runtime/render/shaders/lit.vert",
+      "bytes": 2571,
+      "sha256": "c74b96d9dca2c604798aaf7958859883b748e8fecd892d5a5f9ed1ea8db9ad69"
+    },
+    {
+      "path": "runtime/render/shaders/sprite.frag",
+      "bytes": 245,
+      "sha256": "9f3f349852a9ded2ad612cd7d935871ba893110f86bec92ecd81275e4c49d09e"
+    },
+    {
+      "path": "runtime/render/shaders/sprite.vert",
+      "bytes": 366,
+      "sha256": "069791cd0ad3815ae94734a002f17764c67cdbe66afaced5c52f49f3f8d97eb8"
+    },
+    {
+      "path": "runtime/render/vulkan/renderer.c",
+      "bytes": 55984,
+      "sha256": "99dd06335e3ca62c4a19972e50b627c7dc478a70795b5396febc61faa91693ae"
+    },
+    {
+      "path": "runtime/resource/assets.c",
+      "bytes": 10271,
+      "sha256": "575265ddec316ae87547108d7ba0d60cc2adc54abbfb14e529da1feeec0ae447"
+    },
+    {
+      "path": "runtime/resource/assets.h",
+      "bytes": 895,
+      "sha256": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3"
+    },
+    {
+      "path": "runtime/resource/face_config.c",
+      "bytes": 1886,
+      "sha256": "34494065fcf77e36d32b90ecb2e9c603cd66ad0a3664044fec62c0ddf0cada34"
+    },
+    {
+      "path": "runtime/resource/face_config.h",
+      "bytes": 889,
+      "sha256": "a77774cc919443fb8d504d2905446b8e4f3b1f7ba2a349f7b5978ef281f8a242"
+    },
+    {
+      "path": "runtime/resource/store.c",
+      "bytes": 6241,
+      "sha256": "da60fe8a47dbd06114646f5bff36cbab7358f1d04d2f8bf9543a900ad3f632e4"
+    },
+    {
+      "path": "runtime/resource/store.h",
+      "bytes": 1525,
+      "sha256": "b7946de9b4092f2580f9751e62fc7bb1db25cd8f609c32d19401d2764b9b44a3"
+    },
+    {
+      "path": "runtime/scene/actor_preview.c",
+      "bytes": 6621,
+      "sha256": "3b3371363367a95b2818e6463c2ad351a18ef9a30e075172d7f4afcf87451f30"
+    },
+    {
+      "path": "runtime/scene/actor_render.c",
+      "bytes": 11925,
+      "sha256": "472e59be7ec5d595b2ffb377ff2cb34ce8914d2f0b609771c9b6cc75ee909928"
+    },
+    {
+      "path": "runtime/scene/actor_render.h",
+      "bytes": 2243,
+      "sha256": "3f9afc59d05d3f3a79868f045c345907c4dd2489f488c38ef88488454e53316d"
+    },
+    {
+      "path": "runtime/scene/entry_assets.c",
+      "bytes": 13552,
+      "sha256": "c4bdb718a3e7518a8d38cf7f84371088ef9b9a6f87a65b6473bc8b35fea0126d"
+    },
+    {
+      "path": "runtime/scene/entry_assets.h",
+      "bytes": 4389,
+      "sha256": "44828159d0af57ebb27d73aedfd26939f571b8ce2d2dc043511ee9efe49f963b"
+    },
+    {
+      "path": "runtime/scene/eye_assets.c",
+      "bytes": 4247,
+      "sha256": "a7574aa5af0141d8c94e8cdf73d383daf172a529258081c04feba98d0f9fafc2"
+    },
+    {
+      "path": "runtime/scene/eye_assets.h",
+      "bytes": 2333,
+      "sha256": "3ace249ed18befeb4d0dd55c50ea07a3105ad83b718f0e301aa7426e79eb3595"
+    },
+    {
+      "path": "runtime/scene/face_assets.c",
+      "bytes": 7530,
+      "sha256": "7e9f96cd294cf8ba58ad9bbb82d9d782e36e3a9c145e3e86f9cf96a4e6983475"
+    },
+    {
+      "path": "runtime/scene/face_assets.h",
+      "bytes": 2577,
+      "sha256": "e7f76391692164d7a7ea2deda649ca8e86e6db1e69b78794b921972f9d784260"
+    },
+    {
+      "path": "runtime/scene/inspection_camera.c",
+      "bytes": 2051,
+      "sha256": "1b1edfbc54533981546f4b0943f99efc347738f3cb4046d570ca55d3d7856766"
+    },
+    {
+      "path": "runtime/scene/inspection_camera.h",
+      "bytes": 500,
+      "sha256": "90b1ed2e42b86902488e5e05bbec61b696b2854db6ee4f15a37d572b7af11c02"
+    },
+    {
+      "path": "runtime/scene/npc_material.c",
+      "bytes": 1094,
+      "sha256": "35dbdf03091e0e41d282ce56b9938620011665d71ad57b2428bec090ed42e516"
+    },
+    {
+      "path": "runtime/scene/npc_material.h",
+      "bytes": 529,
+      "sha256": "9eafcfec6ef10a3fc783f13982c44e3bdf396d0d3ae05977e6f73f16ab2d0d00"
+    },
+    {
+      "path": "runtime/scene/scene.c",
+      "bytes": 1369,
+      "sha256": "146c2b5b630a754165725c68dd99722a54ab4611810c496ac444472c4382a215"
+    },
+    {
+      "path": "runtime/scene/scene.h",
+      "bytes": 1309,
+      "sha256": "671159c64d3f7bc34041d3cb2d3551464cb205346248ae06b50a4e6c5e37a600"
+    },
+    {
+      "path": "runtime/scene/scene_internal.h",
+      "bytes": 773,
+      "sha256": "c8f324f25d267449bc503065b68e2cb71f78ef6431679df94f4994b3918d789b"
+    },
+    {
+      "path": "runtime/scene/static_world.c",
+      "bytes": 12121,
+      "sha256": "0006cec20d451d20c6e5b73bd028d7873026d3085973203d415fdf8ee53a13a1"
+    },
+    {
+      "path": "runtime/scene/title.c",
+      "bytes": 2298,
+      "sha256": "9365977d39fdfd52f357a5dda0658f9951158de4ccb40dbd158a542b5fc85236"
+    },
+    {
+      "path": "runtime/ui/debug_overlay.c",
+      "bytes": 3028,
+      "sha256": "b0ed2685bd7ec5e2f816395b2e5f376115a114849286455be8f43ec025cb9af3"
+    },
+    {
+      "path": "runtime/ui/debug_overlay.h",
+      "bytes": 346,
+      "sha256": "c48d1cb3eaa9569d824e2660c5f505979448005c772388f2bfb2d88c8f602fba"
+    },
+    {
+      "path": "runtime/world/actor_pose.c",
+      "bytes": 8643,
+      "sha256": "54a0ceed0a3f77b8c23e7accab6815dd91d63a7f1b4442d2891cd42ce4a0b28e"
+    },
+    {
+      "path": "runtime/world/actor_pose.h",
+      "bytes": 3915,
+      "sha256": "195f2f250af74c78afc4924d031864c2792a729964b8570e12aa46fbb7544266"
+    },
+    {
+      "path": "runtime/world/collision.c",
+      "bytes": 7974,
+      "sha256": "268074d07fde625639382a957c50b4f6e807da634caf7c857c65da6a8abcfd23"
+    },
+    {
+      "path": "runtime/world/collision.h",
+      "bytes": 1694,
+      "sha256": "42cbc59f26499957f3bd8dbb6b171b0cc06119e72e2fa8c247fad75b0ad1bf83"
+    },
+    {
+      "path": "runtime/world/eye_pose.c",
+      "bytes": 4586,
+      "sha256": "de6754c792042c0145e442692f903f3e4a6b48ff12fb6ee2ac474203fb714ce2"
+    },
+    {
+      "path": "runtime/world/eye_pose.h",
+      "bytes": 896,
+      "sha256": "1a39ea2c98b3d0f04c492245d5bab7b4f01d0154a9eec0d3a6e9941d06f1d081"
+    },
+    {
+      "path": "runtime/world/face_controller.c",
+      "bytes": 8757,
+      "sha256": "f56317c3d1b6bb93e8e8b0df4a9580df8d8eb929c931bc030520ef484f1107f0"
+    },
+    {
+      "path": "runtime/world/face_controller.h",
+      "bytes": 2505,
+      "sha256": "2983a5c7538b4804b6dd71f0717e809aa87b397a12ae8de7677444ebc2ea33e7"
+    },
+    {
+      "path": "runtime/world/follow_camera.c",
+      "bytes": 4433,
+      "sha256": "c5b2b40b46c72f8b90a04846ddb72de1c104160856a3cfb21c43bdc94d1491ca"
+    },
+    {
+      "path": "runtime/world/follow_camera.h",
+      "bytes": 2367,
+      "sha256": "5781f7e3da64820fcec64404e66d1f76456baf4ac80c52bb31e9e6b102abce72"
+    },
+    {
+      "path": "runtime/world/ground.c",
+      "bytes": 4290,
+      "sha256": "e647669449a4f7f08472e6f643820c9b9339c9e1faf703cca4a853159d3be23a"
+    },
+    {
+      "path": "runtime/world/ground.h",
+      "bytes": 516,
+      "sha256": "814c3acae02f74e7315bc90fa6f616ec0f4af237b1e04c2ccdb2dd9a53fb7945"
+    },
+    {
+      "path": "runtime/world/placement.c",
+      "bytes": 2715,
+      "sha256": "7c2fe631a69c5ded9d213a8c68e4403618854e10b7efd1d28a0fe4ef961eef58"
+    },
+    {
+      "path": "runtime/world/placement.h",
+      "bytes": 1040,
+      "sha256": "9f00be5daec480ebf08d1e1b8c228a57cbf72ce554dd1aec34b3e6926b63622c"
+    },
+    {
+      "path": "runtime/world/player_camera.c",
+      "bytes": 1261,
+      "sha256": "f076943a309f2512288437a5d17fea01d7af80ec219a62c5e0d59e7faa177e73"
+    },
+    {
+      "path": "runtime/world/player_camera.h",
+      "bytes": 718,
+      "sha256": "58e18f84aeec87c7fbd516aef9c584bdea83e8d729ed4e746a8421e3aa10b8d6"
+    },
+    {
+      "path": "runtime/world/proximity.c",
+      "bytes": 1708,
+      "sha256": "418a3c2acd2ccd62d1d0abd6677cee28aee7072f134193df7f6ad7a3442e51ba"
+    },
+    {
+      "path": "runtime/world/proximity.h",
+      "bytes": 669,
+      "sha256": "6b6f3a95a160ef92df1955768f660c5f14b70de217b9cf49712ce554e0dce331"
+    },
+    {
+      "path": "runtime/world/route.c",
+      "bytes": 1973,
+      "sha256": "7722311b1e7459d3a2d07f6f6b5aef272fca9860b0142de258b20d8c842db5cf"
+    },
+    {
+      "path": "runtime/world/route.h",
+      "bytes": 820,
+      "sha256": "ef8f130dbb29d2be05c33e40e830951eaaaa22847957ae2afb08bc791e75adce"
+    },
+    {
+      "path": "runtime/world/route_motion.c",
+      "bytes": 4619,
+      "sha256": "645195f25ea0443275556d3c511d1c49262a55f4854d1bf5ac2125a8faea7d37"
+    },
+    {
+      "path": "runtime/world/route_motion.h",
+      "bytes": 779,
+      "sha256": "915935aa7baaf42a327d648d690ec396ca125cb5739ccc0375d3ec9091be1255"
+    },
+    {
+      "path": "runtime/world/visibility.c",
+      "bytes": 3164,
+      "sha256": "3ea393027372833c9b37e99f8a2e14e1a97270c753f366b135529f9a7562b1de"
+    },
+    {
+      "path": "runtime/world/visibility.h",
+      "bytes": 1162,
+      "sha256": "4f12be19fb855cfdcda1808119f8696b35011ef9c0f6d335995f63f0d0f1b657"
+    },
+    {
+      "path": "runtime/world/voice_envelope.c",
+      "bytes": 2247,
+      "sha256": "6e5f4d2a2b591abe586e7bc35a4eec3c00e7b03c78b02b9576766e299ec48c90"
+    },
+    {
+      "path": "runtime/world/voice_envelope.h",
+      "bytes": 1290,
+      "sha256": "db07b011b0c515051931fbda9213490e40cc81364c960e7c0623eeb64f4988ba"
+    },
+    {
+      "path": "tests/animation_binding.py",
+      "bytes": 1550,
+      "sha256": "80bd8e96e16ac31345be3a2f567db5be72c067e6f5df7431e2ed3951ebe685b7"
+    },
+    {
+      "path": "tests/audit_game.py",
+      "bytes": 3419,
+      "sha256": "c1dcd0c22360098bcb91d86ee42b27b11475d567976115e5697af575ef104ba6"
+    },
+    {
+      "path": "tests/audit_models.py",
+      "bytes": 5382,
+      "sha256": "b9f54de1ee71211b51819e1b00a8e8c806cdf7b7f8bd401c12037fe129998ee8"
+    },
+    {
+      "path": "tests/clip_binding.py",
+      "bytes": 1675,
+      "sha256": "aca80415a789c945d76236aa89a2194c81917d8d121478eade6227876bd8054b"
+    },
+    {
+      "path": "tests/environment_binding.py",
+      "bytes": 1415,
+      "sha256": "9f846edfe5b4d7b34036afd3376264ac0540d82939b457d562547c2057bd8f02"
+    },
+    {
+      "path": "tests/fuzz_assets.c",
+      "bytes": 1096,
+      "sha256": "d3c3b193be2b8f323616694e8e5784b83001834a6fcaa9c997b209154b435651"
+    },
+    {
+      "path": "tests/fuzz_model.c",
+      "bytes": 2556,
+      "sha256": "e82e0f4eea06068222bd24d97336d3e9a04d149fe8fe3c0abb61c7e24cf121f4"
+    },
+    {
+      "path": "tests/model_binding.py",
+      "bytes": 2957,
+      "sha256": "08bf220e7c22a562e57b2ef891119a89ed5346b3540e0139bc590620608e6783"
+    },
+    {
+      "path": "tests/original_actor_clip_oracle.py",
+      "bytes": 2623,
+      "sha256": "be45b62d90e697dab07616fb996965c94fbe57ec48a3b3006e49a5cc4c65685c"
+    },
+    {
+      "path": "tests/original_actor_phase_oracle.py",
+      "bytes": 7687,
+      "sha256": "1fa5eb33f56caed0d2108d354998178481575e306358474b031255ec9468556a"
+    },
+    {
+      "path": "tests/original_actor_pose_oracle.py",
+      "bytes": 5394,
+      "sha256": "d96cbdd938e6cc5abcd00f8b7f6b2fa7b40dca562791cc630d7dfb5dbc3be950"
+    },
+    {
+      "path": "tests/original_actor_start_oracle.py",
+      "bytes": 4233,
+      "sha256": "336b05577f0e489f9bb53dada23211b9ee737e123e6235a07da5167c7a5694d0"
+    },
+    {
+      "path": "tests/original_aim_oracle.py",
+      "bytes": 5837,
+      "sha256": "322c65edbff9ba9ff7fef13ead82a7e6e4af62611c427ac5a36f49ef84c7be8b"
+    },
+    {
+      "path": "tests/original_animation_oracle.py",
+      "bytes": 8521,
+      "sha256": "16f874a1ed77b37ba465363225adf5ce0f529989f04b8ebe980e647b91b32e48"
+    },
+    {
+      "path": "tests/original_blend_oracle.py",
+      "bytes": 3910,
+      "sha256": "bdd9a53f99f10f4e9076289903f723aa6bc083bc380d1e8781b9704abbecdca9"
+    },
+    {
+      "path": "tests/original_camera_controller_oracle.py",
+      "bytes": 5316,
+      "sha256": "7427b6b82fcec65c487d46b7c7ba87f46cc6284ecb3fe852feb9b8c8b9bf4e61"
+    },
+    {
+      "path": "tests/original_camera_oracle.py",
+      "bytes": 10343,
+      "sha256": "eccf9fef69790967626a116bfcb1e405bd99cf611c2a02c91ebe62ac597806ae"
+    },
+    {
+      "path": "tests/original_camera_policy_oracle.py",
+      "bytes": 3289,
+      "sha256": "9c2dec035727b7e3b5fd03c66f05427e29f652ee8abb4dd677ba5017f69a1879"
+    },
+    {
+      "path": "tests/original_clip_oracle.py",
+      "bytes": 7894,
+      "sha256": "0e69ce76f5381a17a47f346dd234c457a0f85863a1d461c3fbc79efa7c841854"
+    },
+    {
+      "path": "tests/original_collision_oracle.py",
+      "bytes": 11321,
+      "sha256": "54b58f5c7136813a79169a795401635e053b1741465acbd1da04f4ec7683045e"
+    },
+    {
+      "path": "tests/original_configured_request_oracle.py",
+      "bytes": 2608,
+      "sha256": "0258f286a70c8228ef42a07625aa5c1efb3b1f5d9ce70c95969faf2f159da9c6"
+    },
+    {
+      "path": "tests/original_entry_fade_oracle.py",
+      "bytes": 6992,
+      "sha256": "a9780bc3af1578a19a0d8a87f59bf321b08d1d668d779e88ca91fc6a1ab54d59"
+    },
+    {
+      "path": "tests/original_entry_head_oracle.py",
+      "bytes": 6669,
+      "sha256": "f5e91ed117263f2b04dd6d0286d37418c928ff8ec043bc31af7267009d31da76"
+    },
+    {
+      "path": "tests/original_entry_oracle.py",
+      "bytes": 6600,
+      "sha256": "f1425097cfeaf6a2bcf8f664c91ca4a760e09469b5de665b10b071cb7fe6d031"
+    },
+    {
+      "path": "tests/original_entry_spatial_oracle.py",
+      "bytes": 9175,
+      "sha256": "c38c15bc6666a807d7676c76a4d206dc509b400315214aa8fefdfdde1574f059"
+    },
+    {
+      "path": "tests/original_eye_assets_oracle.py",
+      "bytes": 8253,
+      "sha256": "2393700f0960bceb31e41e93969a53c708acc5cc4badf8678e6c65c411aaf845"
+    },
+    {
+      "path": "tests/original_eye_phase_oracle.py",
+      "bytes": 7653,
+      "sha256": "73596bd42449e122b2687ff59fbf7e5caf5637cc2b45da6efb972d4a197c4da6"
+    },
+    {
+      "path": "tests/original_eye_pose_oracle.py",
+      "bytes": 7487,
+      "sha256": "cb25f557ac1a6f61219726db40273a658863b40509c62e3cd7a5d05be0d8c929"
+    },
+    {
+      "path": "tests/original_face_assets_oracle.py",
+      "bytes": 14848,
+      "sha256": "8ee8ca2f6e60b3d39f265ebf9c48d5be8830d930cbd42f19ff3f38b107278990"
+    },
+    {
+      "path": "tests/original_face_config_oracle.py",
+      "bytes": 5409,
+      "sha256": "74fdc923ec11a1568ab279f6acca9c83be5769063941d07920248f3e703eb8be"
+    },
+    {
+      "path": "tests/original_face_controller_oracle.py",
+      "bytes": 11521,
+      "sha256": "c88f851383c2a675ab38d5d259e37ee17fc9acdcd53a92985049340469662ef9"
+    },
+    {
+      "path": "tests/original_follow_phase_oracle.py",
+      "bytes": 8777,
+      "sha256": "0cec9ec6109d68e8ddd8e50b49f26762f18a00f27ea127a4a0ef4a2679cc73c4"
+    },
+    {
+      "path": "tests/original_ground_oracle.py",
+      "bytes": 3543,
+      "sha256": "ad48aded048a1e237c22d51eb503b8195a987eda675ec0097b23002c507184b0"
+    },
+    {
+      "path": "tests/original_lighting_oracle.py",
+      "bytes": 7095,
+      "sha256": "dd96eee5eea61f9ccbc45e1f9f31d5c49a8f3f54dcd852f6aa55286c781c6baa"
+    },
+    {
+      "path": "tests/original_material_oracle.py",
+      "bytes": 7243,
+      "sha256": "fb663853bd3763f3ab8471a761c23ee2d948fac1e3f429b48221adaec893f3a5"
+    },
+    {
+      "path": "tests/original_matrix_oracle.py",
+      "bytes": 3700,
+      "sha256": "ed3da1a4936fd3fad04065962edb2587bf91af396c21ba80a30f6caed81d766a"
+    },
+    {
+      "path": "tests/original_mesh_draw_oracle.py",
+      "bytes": 6011,
+      "sha256": "b05ede616ca9bff1d2a6ed7c4285d92f360fdac0551c50a894cc6cbedc2f5d19"
+    },
+    {
+      "path": "tests/original_morph_decode_oracle.py",
+      "bytes": 7640,
+      "sha256": "68e42daaead0067bf48d4d56a3b160b0fa474b4d2129e13f2a12fcd4501a3255"
+    },
+    {
+      "path": "tests/original_morph_pose_oracle.py",
+      "bytes": 11098,
+      "sha256": "97c866a15960e031a2fde5c9bc6a189cfc2461d18640f4a70b6b43bfe917c109"
+    },
+    {
+      "path": "tests/original_npc_action_oracle.py",
+      "bytes": 3719,
+      "sha256": "a5a68cfca3a5aeb1ace2ae4c41a7b305eabf7e261a72a02e8403b0789a35899c"
+    },
+    {
+      "path": "tests/original_npc_ai_oracle.py",
+      "bytes": 10309,
+      "sha256": "81e36fa3672fe133283cada583eb874f2a579e4454e60e1b7769c4cd23964383"
+    },
+    {
+      "path": "tests/original_npc_contact_oracle.py",
+      "bytes": 4320,
+      "sha256": "518af9e551aa35909851e42ce726116006929d0c56b73d9fdb91e545b723eaaf"
+    },
+    {
+      "path": "tests/original_npc_fade_oracle.py",
+      "bytes": 8504,
+      "sha256": "ba952c482416b9b2e397e9d518fcdc587af77223fe05ced38496f10b9a17005c"
+    },
+    {
+      "path": "tests/original_npc_head_oracle.py",
+      "bytes": 4911,
+      "sha256": "ec459a2539e58426d4ab2d931cf8d96a6eaa09ea222d39300ee7e1b0dae50f61"
+    },
+    {
+      "path": "tests/original_npc_motion_oracle.py",
+      "bytes": 7525,
+      "sha256": "452e3370c46a7fdd58931c35fd76ec2fe928bb1fb983ca8325695142ccd7032b"
+    },
+    {
+      "path": "tests/original_npc_point_oracle.py",
+      "bytes": 5652,
+      "sha256": "ce95f265bd23c8552b9f178ff91e74717935a02dc6dd5e8bf5c82a057f42ea0b"
+    },
+    {
+      "path": "tests/original_npc_route_oracle.py",
+      "bytes": 7470,
+      "sha256": "4b45feca0240d6a4745760d05094c5a103a9b1a13ca855a4545a172f49d9c5f1"
+    },
+    {
+      "path": "tests/original_npc_scene_oracle.py",
+      "bytes": 6682,
+      "sha256": "655d39d4948b74b8d9286e6bb5b8fabe7f8951cf89a049873aee7f71042ca74c"
+    },
+    {
+      "path": "tests/original_npc_spatial_oracle.py",
+      "bytes": 17645,
+      "sha256": "87ac126a46409b6776e8c51cc8c050ca5b11ec6f8647be5f34df59ac77e73418"
+    },
+    {
+      "path": "tests/original_npc_visibility_oracle.py",
+      "bytes": 7834,
+      "sha256": "8843b50e931f94663de9b6dfd3e631a4e25c69f32c437a28cde1d69eaf55245e"
+    },
+    {
+      "path": "tests/original_placed_pose_oracle.py",
+      "bytes": 7227,
+      "sha256": "a1615f6a246e7f3f762002689bddbc0ecbb75f4eca91750443ecf1d945f4d7b0"
+    },
+    {
+      "path": "tests/original_placement_oracle.py",
+      "bytes": 5696,
+      "sha256": "7785bd7e52c9489303abcf4ea49d33c5b230567c47c294bf775752824b5b551e"
+    },
+    {
+      "path": "tests/original_playback_cache_oracle.py",
+      "bytes": 4639,
+      "sha256": "bfb8d8e226abc69f98cd535d69d575c6e542d58f6eceb3fb54fa2a7ab888e1a1"
+    },
+    {
+      "path": "tests/original_playback_oracle.py",
+      "bytes": 4841,
+      "sha256": "d664cfe921285f72260817fd17e98fab8caf7f2894be6c26c94c1d9c975203b2"
+    },
+    {
+      "path": "tests/original_player_animation_oracle.py",
+      "bytes": 5521,
+      "sha256": "4763d98589f749bf59e78e5c359fae8bc5f9f8a65a653683bba5acbb084332c9"
+    },
+    {
+      "path": "tests/original_player_camera_oracle.py",
+      "bytes": 5386,
+      "sha256": "24fee7403e1e715521aa3d2fcabd6c616079d8874fa6880648c653489fe0ba9d"
+    },
+    {
+      "path": "tests/original_proximity_oracle.py",
+      "bytes": 3486,
+      "sha256": "d1372232e66eca10af6c19534684aeef088def74615708cae0bb4a2c4c9b3173"
+    },
+    {
+      "path": "tests/original_route_motion_oracle.py",
+      "bytes": 6459,
+      "sha256": "a1bfc5330e44a82cc1fc6ee9867bb75fd402ed6b998848371a40f9a33e2b9381"
+    },
+    {
+      "path": "tests/original_route_oracle.py",
+      "bytes": 5465,
+      "sha256": "aa6a340a8ea8f8f7d5f710c50f1c501d35973132310f30170a33391a43999089"
+    },
+    {
+      "path": "tests/original_skin_oracle.py",
+      "bytes": 10597,
+      "sha256": "6e4c38b20dfac47324f7a4c827adb9682fcc8263b8f513816b5e02013b723327"
+    },
+    {
+      "path": "tests/original_skin_weights_oracle.py",
+      "bytes": 3978,
+      "sha256": "24a4fd9ed74a466c9051758a54517f9bc6df535084c8cf75a2550009e6bb1b42"
+    },
+    {
+      "path": "tests/original_sparse_oracle.py",
+      "bytes": 3148,
+      "sha256": "df74e58d50e9fd906453fd6630b49a0e5bb7366cef410b6a8a578f382d5962b2"
+    },
+    {
+      "path": "tests/original_static_oracle.py",
+      "bytes": 6815,
+      "sha256": "4e1eba9e6c8496699a8fad190412b608059ef5e08333cfa74d3ecea590b820b1"
+    },
+    {
+      "path": "tests/original_tbl_oracle.py",
+      "bytes": 3006,
+      "sha256": "cea0c3c4ac5b60850e35ec2981fb00ba1006f8bdce20b8f973adf9d4c1ad6375"
+    },
+    {
+      "path": "tests/original_visibility_oracle.py",
+      "bytes": 5262,
+      "sha256": "63d98796fcc03c5a0aa1003a42323a20769b9bdc911960bcdc592facdf0c7e08"
+    },
+    {
+      "path": "tests/original_voice_envelope_oracle.py",
+      "bytes": 6919,
+      "sha256": "6dd89a6dfb3527ac6da0d06ad214982e62371cd9509c5a0526cc5df684922add"
+    },
+    {
+      "path": "tests/playback_binding.py",
+      "bytes": 1144,
+      "sha256": "3eeee0a4a34f4c20695fcbf7b32b315c154a483c97a61f9310820356c577623a"
+    },
+    {
+      "path": "tests/static_binding.py",
+      "bytes": 1260,
+      "sha256": "499c423e21279fa7a4392b51a4b139c1656cee321d77d6086ab6d3f5fa9cfd22"
+    },
+    {
+      "path": "tests/test_animation.c",
+      "bytes": 12770,
+      "sha256": "b020ff729188b6a89dbbbd2385c7f5825f91ca6c728d2085a8fa864cda31ab79"
+    },
+    {
+      "path": "tests/test_architecture.py",
+      "bytes": 2146,
+      "sha256": "3c20d054acff8ce12ca0bf739bc4d6302b991768bdb6e04252a9ab8f572a32f7"
+    },
+    {
+      "path": "tests/test_assets.py",
+      "bytes": 5336,
+      "sha256": "f7a7f748abbd527060ede001862d5001bca109ca80d6f1278dee24394a5800c3"
+    },
+    {
+      "path": "tests/test_camera.c",
+      "bytes": 5768,
+      "sha256": "24248f1a75ba6dbac26dfdded6f267fff1a977d836b58040b61f1c8a5f10be8f"
+    },
+    {
+      "path": "tests/test_clip.c",
+      "bytes": 8302,
+      "sha256": "0c21ee1a4b9c0192634db5b6e04f64c99e0632e71b767f4a8a15f41b05fdcb8b"
+    },
+    {
+      "path": "tests/test_collision.c",
+      "bytes": 9227,
+      "sha256": "2dcd9a9e9965ea657f84cb659a7a498242f332cff67283798a353d48a73e9e18"
+    },
+    {
+      "path": "tests/test_core.c",
+      "bytes": 2076,
+      "sha256": "3b83bb2d2c6a8b82c15d263bf4be80eb49c29f926b85a66ef7efb94f415b20be"
+    },
+    {
+      "path": "tests/test_environment.py",
+      "bytes": 2857,
+      "sha256": "21e697758971fe023e69200da365907ed38e721b8a8d965e460fadb147b23889"
+    },
+    {
+      "path": "tests/test_eye_assets.c",
+      "bytes": 4086,
+      "sha256": "d6fe5647c8f288f33471eadfcbc55f64fbc44a0e98c632af42be09020fd98bcc"
+    },
+    {
+      "path": "tests/test_eye_pose.c",
+      "bytes": 5489,
+      "sha256": "2c95252b571bd3d5b89e6a39b7cee956f7a492d93b994254ccaf49d63cc78323"
+    },
+    {
+      "path": "tests/test_face.c",
+      "bytes": 2683,
+      "sha256": "0b0b55202b96bd49fc6900a4314b48b44494876191931b76bdca06caa93e61b1"
+    },
+    {
+      "path": "tests/test_face_assets.c",
+      "bytes": 3192,
+      "sha256": "06339ad26f3e6c0b56e43c3ee814d4b7bb58f97e8e447647adcb007a4444c6e8"
+    },
+    {
+      "path": "tests/test_follow_camera.c",
+      "bytes": 9525,
+      "sha256": "7e2d96dc83dd7696d5d5b6304969fb4f55f06d87331e2ea8e5104ab3d0f23bc4"
+    },
+    {
+      "path": "tests/test_material.py",
+      "bytes": 4753,
+      "sha256": "c18fd8358220c58519e559329e5c4a34572122db56d8a35f5739723e80f8976a"
+    },
+    {
+      "path": "tests/test_material_pose.c",
+      "bytes": 4482,
+      "sha256": "9745b59cda2a0d56b73a3fe2d8d3fdde4555168b6a2c1631d2198f1115031c2d"
+    },
+    {
+      "path": "tests/test_model.py",
+      "bytes": 4880,
+      "sha256": "eb2b7a44034395ae616a797dcf8d0b80089c17fd3f0ffb0575a18238c70c1281"
+    },
+    {
+      "path": "tests/test_morph.c",
+      "bytes": 7318,
+      "sha256": "cbc22998300515157ee54d0352d033cec6f73c5331accb021236fb2ca50e1879"
+    },
+    {
+      "path": "tests/test_npc_motion.c",
+      "bytes": 12070,
+      "sha256": "3cdc29172d493295723240a03dccc58b196da3b2207408801803cf8d4fc9c32e"
+    },
+    {
+      "path": "tests/test_route.c",
+      "bytes": 4418,
+      "sha256": "2d11cb4aaa5b1093b081181a7fe7b9ccc3069c7ffa3d080e5296bb8d86657add"
+    },
+    {
+      "path": "tests/test_skin.c",
+      "bytes": 4272,
+      "sha256": "05e35ed90bbdfac28bce79ee2a1c1404fc25b2b13d1cf6570b8ec7f938e0316c"
+    },
+    {
+      "path": "tests/test_static.c",
+      "bytes": 3494,
+      "sha256": "de18d148f95dc4ef5ab773edcc5c1e0ae8b9e664dc22846f2847c89b64f61514"
+    },
+    {
+      "path": "tests/test_static_model.py",
+      "bytes": 2909,
+      "sha256": "3f27501d071d1da9c76856e3eb8b46076378c7db4999fea15a8b21a294dbccc5"
+    },
+    {
+      "path": "tests/test_store.c",
+      "bytes": 5682,
+      "sha256": "0ec1a8ce5913f4753a0292a06cf44ff8167a9b36dba95583e1b8eec659b5fe16"
+    },
+    {
+      "path": "tests/test_triangles.c",
+      "bytes": 2477,
+      "sha256": "a20e1ac524624af8f01e41fadd39535db780224f7474e9824cd303cc6e7db199"
+    },
+    {
+      "path": "tests/test_voice.c",
+      "bytes": 1815,
+      "sha256": "b223f75a834626d0742f80080def02987c68e1799af6a69dc6d986e6e225f360"
+    },
+    {
+      "path": "tools/actor_render_probe.c",
+      "bytes": 11257,
+      "sha256": "57297c034219cbbe7a838bbd37b3d316e98b133d0e9dca623ee4f1952751b5b8"
+    },
+    {
+      "path": "tools/asset_probe.c",
+      "bytes": 2162,
+      "sha256": "c53ca5874de04bd4574a55d91c8f91bd5f25d8f99e34cb431f5aea5dad30430f"
+    },
+    {
+      "path": "tools/bk3_assets.py",
+      "bytes": 6635,
+      "sha256": "519ee8e4637b8a1c3c9a8b9a038e19b669e27ea3bb9d352bd11b709de1c59a77"
+    },
+    {
+      "path": "tools/build_shaders.py",
+      "bytes": 1423,
+      "sha256": "a5f658f35bb4e9d51efe40a08cb9f317feb1e52129c35a9c52e42f2ef448d160"
+    },
+    {
+      "path": "tools/camera_render_probe.c",
+      "bytes": 4330,
+      "sha256": "7606b1b26232d7a69fbd85b7ebeabe4de0d994087bfe0d0805822917d64802c4"
+    },
+    {
+      "path": "tools/collision_probe.c",
+      "bytes": 4443,
+      "sha256": "a74a2c1573404083bd2df3be6082daeed5ede7339d3544ab7bdfd9562fd32ed6"
+    },
+    {
+      "path": "tools/dynamic_render_probe.c",
+      "bytes": 5208,
+      "sha256": "555084af9a154816331c6dfe8e26bef05fe30357add78719e215778d5b95149d"
+    },
+    {
+      "path": "tools/entry_probe.c",
+      "bytes": 12284,
+      "sha256": "7875f88a0b344ce60de96d3cc6502ba579197f082ef0f906ba62ae065c1121aa"
+    },
+    {
+      "path": "tools/face_probe.c",
+      "bytes": 2819,
+      "sha256": "da6b2a35301d4431420651de6c343b2867526278ad3565c146bbd0dc6ca403d3"
+    },
+    {
+      "path": "tools/fetch_sdk.py",
+      "bytes": 2700,
+      "sha256": "23772898dd99fb884ecbcc60c05a3ebe10d7da2dd47bd46c640e684868a144f3"
+    },
+    {
+      "path": "tools/inspect_cameras.py",
+      "bytes": 2209,
+      "sha256": "9a0c9bbfdda1a2149cca29d9e960ec237607042abcd6c9c44842dbb7e201a4cc"
+    },
+    {
+      "path": "tools/inspect_objm.py",
+      "bytes": 4430,
+      "sha256": "364bebebde0b38b15f14b6ea0c4f96f83d901e355a2403826c5a0f1857b8ccc8"
+    },
+    {
+      "path": "tools/lighting_render_probe.c",
+      "bytes": 12187,
+      "sha256": "ea2bdb48936abc3097aba000ed4a324a153a04873cd24d1adaf254bd064d540a"
+    },
+    {
+      "path": "tools/material_probe.c",
+      "bytes": 2282,
+      "sha256": "6b311ac018c2e3d4d0a355d59ec3dcae21fb4882c8ed5a86c3567dcf2bcef41b"
+    },
+    {
+      "path": "tools/material_render_probe.c",
+      "bytes": 10428,
+      "sha256": "8c629b25c6714c9ba45309aceaad387651675909874779d07ad46d3aa829de32"
+    },
+    {
+      "path": "tools/model_probe.c",
+      "bytes": 1147,
+      "sha256": "054a4cf6a9c5a42cb4c11d9450f1357935c95186f0911f6d51d60cbb24506cb3"
+    },
+    {
+      "path": "tools/package_sd.py",
+      "bytes": 4964,
+      "sha256": "af6a4d550d373d723f8cf2d683fb9f987f3c2e36172e1f1b310998c4da69e6f3"
+    },
+    {
+      "path": "tools/prepare_game.py",
+      "bytes": 2285,
+      "sha256": "d5bee94de39c7d99e0f928f90be881815459049c4056c5f5dcb74c7a02d62491"
+    },
+    {
+      "path": "tools/render_probe.c",
+      "bytes": 3284,
+      "sha256": "0f6afe39bec511470c76675cb003408450814352206280c3053bac0c5b794dc9"
+    },
+    {
+      "path": "tools/scene_probe.c",
+      "bytes": 11890,
+      "sha256": "b7197db75873839571ee854d79beb345c6bcf00b5e938546c6ea2e71bdebfcba"
+    },
+    {
+      "path": "tools/skin_probe.c",
+      "bytes": 2367,
+      "sha256": "13202675ee7a4402375ca55f9c4789e5d7efa2fb9e6e58e7f19ab7c9d1d8d832"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 13601,
+      "sha256": "53cb2960f969bc5d1f64ffd18ef493fe3502458b5f4098af6fa92b1a965e4214"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 14117,
+      "sha256": "8455333fc3f4b1c95a03f4d150bf511cc7e88a13a6be32b5aad2cbcfff9e7531"
+    },
+    {
+      "path": "config/dependencies.lock.json",
+      "bytes": 762,
+      "sha256": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+    },
+    {
+      "path": "build-host.sh",
+      "bytes": 319,
+      "sha256": "a1433a1308122363064c7a19aeea41dfbbe94b9ad817deeed54138af3b6493b3"
+    },
+    {
+      "path": "build-switch.sh",
+      "bytes": 219,
+      "sha256": "80ec705d7fefdfbd232b13fdd726d8c6d865ea09c7bb8db6db7332c1cba77bad"
+    },
+    {
+      "path": "test-host.sh",
+      "bytes": 1826,
+      "sha256": "bba89e4e9d88b8f3e10db33d2921755d2601b4e03e9bc5b8be666f58a98df6ae"
+    },
+    {
+      "path": "docs/architecture.md",
+      "bytes": 22893,
+      "sha256": "b22fb4dfbe0848556096beb452eb526783ac8d9299a1fc2da54053c8707aa4de"
+    },
+    {
+      "path": "docs/roadmap.md",
+      "bytes": 10999,
+      "sha256": "18d7b25635b2af784bb1a9cc22122d07763afcbae05666ca561722a22357d2ee"
+    },
+    {
+      "path": "reports/actor-start.md",
+      "bytes": 1763,
+      "sha256": "542c78b0d99a14dc423bd1ba43065f83624b1aa8b309e4fea929d3c38a12d1e5"
+    }
+  ],
+  "logs": [
+    {
+      "path": "local/actor-start-host-tests.log",
+      "bytes": 13501,
+      "sha256": "50f9e6fa0780e311c93099587e91b5b3d9f939f202e2bd40b9caaa39ddcf6461"
+    },
+    {
+      "path": "local/actor-start-oracle.log",
+      "bytes": 970,
+      "sha256": "3f2882666ab0931491e757fd9a771bedb93271d4b4e87ce3185a9e7ebe7af41b"
+    },
+    {
+      "path": "local/actor-start-eye-phase.log",
+      "bytes": 315,
+      "sha256": "be351119940e5cd2c54e68f25d8820910c48c141b26e764d53b3f76dc2e04954"
+    },
+    {
+      "path": "local/actor-start-entry.log",
+      "bytes": 2357,
+      "sha256": "b5c03903b1dc96133d4d4a0e8b3d57515cbbcbafbf3b6d75fb0557a3da062190"
+    },
+    {
+      "path": "local/actor-start-entry-asan.log",
+      "bytes": 2357,
+      "sha256": "b5c03903b1dc96133d4d4a0e8b3d57515cbbcbafbf3b6d75fb0557a3da062190"
+    },
+    {
+      "path": "local/actor-start-switch-build.log",
+      "bytes": 1898,
+      "sha256": "df1206d1e840db2838c56a504c087dd86bb17dab540d56aafac1e52c41a1a54b"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "build/libmodel-test.dylib",
+      "bytes": 192624,
+      "sha256": "4e4ce900acb31cd33daa69d950c0a3090d238e61189bf4295fc422128cc20617"
+    },
+    {
+      "path": "build/test-clip",
+      "bytes": 42216,
+      "sha256": "6594a9dd6f956ac131d38a268cfb14fbaf189d191a1ab4cf30563b95c0faf6cb"
+    },
+    {
+      "path": "build/entry-probe",
+      "bytes": 171272,
+      "sha256": "0420b8c643cdd747c4d636da7b010323552d6087d964a8c7a7359af69ded33a7"
+    },
+    {
+      "path": "build/asan/test-clip",
+      "bytes": 182248,
+      "sha256": "95e491c11365ce0a13009c8cbcab33232eb3ded7279db01e969b17885a67af9e"
+    },
+    {
+      "path": "build/asan/entry-probe",
+      "bytes": 1590440,
+      "sha256": "7ccbf01f4aedc65ff496ce3e5cb197228019a4a25c8f1c5f04217c50ab90e94d"
+    },
+    {
+      "path": "build-switch/biko3-preview.nro",
+      "bytes": 15093816,
+      "sha256": "5bdf2693de0be64692da99afadcaebd3b5ea775dc5557b9b1facc2711d462567"
+    },
+    {
+      "path": "build-switch/build-manifest.json",
+      "bytes": 192,
+      "sha256": "ec751948041551c6f66109d7ce51e571c7c6564ea140d7f7c5ebe1dfc86ee660"
+    }
+  ]
+}

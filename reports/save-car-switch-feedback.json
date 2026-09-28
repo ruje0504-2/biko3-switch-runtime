@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-28",
+  "source": "user report in this thread",
+  "quote": "现在switch存档不闪退了",
+  "interpreted_build": "开发验证版-20260928-存档保护与撞车修正",
+  "build_identity": "inferred from immediately preceding delivery; no device hash supplied",
+  "nro_sha256_of_delivered_package": "3052908add48ba748723df8f3bfb9b69589ec503d7c37e11c5153f985f469c1f",
+  "save_crash_resolved_reported": true,
+  "car_fix_hardware_verified": true,
+  "root_cause_proven": false,
+  "scope": "User reports saving and car collision now work on Switch; no claim of all slots/reloads/car variants/full-port validation.",
+  "car_feedback_quote": "撞车也正常了",
+  "car_feedback_scope": "User reports normal car collision on Switch; no device hash or exhaustive outcomes provided."
+}

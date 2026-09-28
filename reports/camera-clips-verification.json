@@ -1,0 +1,587 @@
+{
+  "stage": "M1.4-camera-clip-scheduling-and-pose-math",
+  "project_version": "0.3.4",
+  "recorded_at": "2026-09-26T23:10:29.576571+00:00",
+  "status": "XAN-camera-clips-integrated; follow-pose-math-implemented-but-not-actor-bound",
+  "m1_visual_acceptance_complete": false,
+  "original_projection_implemented": true,
+  "lighting_implemented": true,
+  "original_camera_track_sampling_implemented": true,
+  "original_clip_scheduler_implemented": true,
+  "clip_scheduler_scope": "15 camera XAN assets, fresh runtime state, positive clip durations; discrete legacy frames and saved runtime state unsupported",
+  "camera_follow_pose_math_implemented": true,
+  "camera_follow_pose_integrated": false,
+  "original_camera_implemented": false,
+  "camera_track_actor_binding_implemented": false,
+  "character_animation_implemented": false,
+  "gameplay_implemented": false,
+  "switch_hardware_tested": false,
+  "native_clip_oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_functions": [
+      "0x401d24",
+      "0x401f71",
+      "0x4025b9",
+      "0x4026fe"
+    ],
+    "scope": "Fresh camera clip playback; SRT dispatch boundary hooked, actual scheduler unhooked. Disk pointers/counters deliberately not restored. Does not test gameplay dispatch.",
+    "assets": 15,
+    "checks": 77976,
+    "synthetic_checks": 36720,
+    "max_normalized_error": 0,
+    "records": [
+      {
+        "entry": "cam00_00.xan",
+        "sha256": "c4069c04583c74d07c47f28eeb5cd502d5f0dd31fcafe7de4368e7c5fb2fee0b",
+        "slots": [
+          0,
+          2,
+          4
+        ],
+        "checks": 6498,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_01.xan",
+        "sha256": "6776594e9f447c0f127251b06cc8746e869206cdf85cdb173720746051162d0d",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_02.xan",
+        "sha256": "713f0eb5fcaac348eaa765232e7d20bf7f82a01e5825bacd894f99476448b807",
+        "slots": [
+          0,
+          2,
+          4,
+          10
+        ],
+        "checks": 8664,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_03.xan",
+        "sha256": "c519eeaafe498da8c55d73265ce6add4679d3754acaebbe9d97e871d01c1bad9",
+        "slots": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "checks": 8664,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_60.xan",
+        "sha256": "a1dc8afb016a6dd5fcac6a499ed3922ec16c8a1c1c6c55e79d209f681dbeda6c",
+        "slots": [
+          0,
+          1,
+          2
+        ],
+        "checks": 6498,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam01_50.xan",
+        "sha256": "49bcdcd6b657291539dcba0c8692a0d20a464e5dd7565505b8d574438c2cf4a4",
+        "slots": [
+          0
+        ],
+        "checks": 2166,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam01_55.xan",
+        "sha256": "9a4bd605cc3a978e1c9245db7c77f0de5ddb6d4bf9da787e2c89480789f61fae",
+        "slots": [
+          0,
+          2,
+          4
+        ],
+        "checks": 6498,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam02_50.xan",
+        "sha256": "c376a0d7faa2da86337aa7289125a7ee49e8a0472351a057aac401875023c636",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam02_55.xan",
+        "sha256": "a579e9cc4ca721fdfea3ecceb61850432a6fbd8e8475ac92bebbb3c4b03a254e",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam03_50.xan",
+        "sha256": "d1fc0a53fbc532db3ec6017132c91f806e089b3a8fab828552366187f15d0584",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam03_55.xan",
+        "sha256": "754195b4f0eb1e163c061874c576140ae4c74a5fd3baeb0aa2befd981a8a6cde",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam04_50.xan",
+        "sha256": "eed8f1c11f567a70ffedd8ca19a24949b6a8eb36846b488a33ccd2949b7d0d35",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam04_55.xan",
+        "sha256": "cbd49b2f780763ede33c15c5a5c14e17a244eea7c3db6471de0e29f649051e39",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam05_50.xan",
+        "sha256": "9911520630aeb6adaedaf3c650bd752266c0b74a717e71e57c9e03eae839b15d",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam05_55.xan",
+        "sha256": "98d6486e87af8806bb5bf7840f3d8f94cb217b40935bb1991134900b0a938bda",
+        "slots": [
+          0,
+          1
+        ],
+        "checks": 4332,
+        "max_normalized_error": 0
+      }
+    ]
+  },
+  "native_blend_oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_functions": [
+      "0x408927",
+      "0x4072d9",
+      "0x523d9c",
+      "0x42d92f",
+      "0x409520",
+      "0x407d71",
+      "0x522d9a"
+    ],
+    "scope": "Full SRT transition sampler and hierarchy; no native math hooks; complete linear-position tracks only.",
+    "asset_checks": 3840,
+    "synthetic_checks": 16000,
+    "max_normalized_error": 0,
+    "records": [
+      {
+        "entry": "cam00_00.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_01.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_02.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam01_55.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam02_50.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam02_55.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam03_50.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam03_55.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam04_50.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam04_55.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam05_50.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam05_55.x",
+        "checks": 320,
+        "max_normalized_error": 0
+      }
+    ]
+  },
+  "native_aim_oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_functions": [
+      "0x425196(mode 0)",
+      "0x522922",
+      "0x425aa0",
+      "0x4bdc12",
+      "0x422c49",
+      "0x424020"
+    ],
+    "aim_checks": 2048,
+    "follow_pose_checks": 2048,
+    "max_normalized_error": 0,
+    "scope": "Actual mode-0 world aim, controller smoothing, native position setter and matrix snapshot; frame parents use identity. Actor/model traversal, animation advance, obstacle query and FOV setter are boundary mocks. Gameplay dispatch is not covered."
+  },
+  "native_animation_regression": {
+    "synthetic": {
+      "pose_samples": 1800,
+      "max_normalized_error": 0,
+      "passed": true
+    },
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_sampler": "0x406c6b",
+    "native_preparation": "0x4072d9",
+    "native_world_composition": "0x522d9a",
+    "scope": "220-byte complete SRT keys; original math unhooked; game dispatch/actor anchoring not exercised",
+    "models": 12,
+    "tracks": 19,
+    "keys": 3966,
+    "pose_samples": 12422,
+    "records": [
+      {
+        "entry": "cam00_00.x",
+        "sha256": "3d5b50bd1f66cbdc62f747f467cc453cd02f2ee02701f0f8f535fdd28d1db885",
+        "tracks": 3,
+        "keys": 1134,
+        "duration_ticks": 377.0,
+        "pose_samples": 1652,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_01.x",
+        "sha256": "372d6aa43fd1e787dad58e81002a65a2f66c274a32075fb91fd9a4591269648e",
+        "tracks": 1,
+        "keys": 111,
+        "duration_ticks": 110.0,
+        "pose_samples": 584,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam00_02.x",
+        "sha256": "1beeb1f631e51cbd99e5fabd048a498a7b0280e22b499756bd9ba243e97590a6",
+        "tracks": 4,
+        "keys": 688,
+        "duration_ticks": 171.0,
+        "pose_samples": 828,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam01_55.x",
+        "sha256": "7b371c72d38300aedf835dc4374133f6ca198f0e96d35a62ef037fb2f2aa7d04",
+        "tracks": 3,
+        "keys": 385,
+        "duration_ticks": 377.0,
+        "pose_samples": 1646,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam02_50.x",
+        "sha256": "398b4d53c11a94f3ddbf2a4ded339403d4733ec80c831e9119025a995df50fe4",
+        "tracks": 1,
+        "keys": 211,
+        "duration_ticks": 210.0,
+        "pose_samples": 984,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam02_55.x",
+        "sha256": "42e4bc301cf793ae39694f1d78056652232bd539b37a1c57588c13ab899c10f4",
+        "tracks": 1,
+        "keys": 201,
+        "duration_ticks": 200.0,
+        "pose_samples": 944,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam03_50.x",
+        "sha256": "5f32c61f1c8d374ebfd7bc5a594f7187d096e27d3d122f05a59fb176da945348",
+        "tracks": 1,
+        "keys": 211,
+        "duration_ticks": 210.0,
+        "pose_samples": 984,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam03_55.x",
+        "sha256": "5fca892946fbecdd5718aef7ffcf94316ad239a36304901557f04b7fef046121",
+        "tracks": 1,
+        "keys": 201,
+        "duration_ticks": 200.0,
+        "pose_samples": 944,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam04_50.x",
+        "sha256": "efd235b527c0866cd30ba18f7ca3d12536c99ea6aa4111cb7874d4e94f254038",
+        "tracks": 1,
+        "keys": 211,
+        "duration_ticks": 210.0,
+        "pose_samples": 984,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam04_55.x",
+        "sha256": "7a962f909bf5e635e7c627e0ebea0638a9500e5c1264297ed870cc85a197ea88",
+        "tracks": 1,
+        "keys": 201,
+        "duration_ticks": 200.0,
+        "pose_samples": 944,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam05_50.x",
+        "sha256": "7e899107b312b65a563a9e46d7dfe285c430b5dc3c257d032a6ad5964dedf958",
+        "tracks": 1,
+        "keys": 211,
+        "duration_ticks": 210.0,
+        "pose_samples": 984,
+        "max_normalized_error": 0
+      },
+      {
+        "entry": "cam05_55.x",
+        "sha256": "ddc376df9f25121f47fd3400ad51b945c6204189a9f3486aadad6716b31c3240",
+        "tracks": 1,
+        "keys": 201,
+        "duration_ticks": 200.0,
+        "pose_samples": 944,
+        "max_normalized_error": 0
+      }
+    ]
+  },
+  "runtime": {
+    "default_scene": "office",
+    "scenes": [
+      "office",
+      "title",
+      "camera-track"
+    ],
+    "clip_asset": "bk3_04/cam00_02.xan",
+    "clip_slot": 0,
+    "source_model": "cam00_02.x",
+    "node": "Cam_AUTO",
+    "source_range": [
+      151,
+      166
+    ],
+    "timeline_duration_ticks": 400,
+    "timeline_ticks_per_camera_second": 60,
+    "camera_seconds_factor": 0.5,
+    "fixed_step_seconds": 0.016666666666666666,
+    "once_then_hold": true,
+    "actor_anchor_and_aim_applied": false,
+    "fresh_player_initial_source": 0,
+    "switch_controls": {
+      "X": "office/XAN clip toggle",
+      "A_in_clip": "restart slot 0",
+      "B": "title",
+      "Plus": "exit"
+    }
+  },
+  "tests": {
+    "host_ctest_passed": 13,
+    "python_passed": 23,
+    "cpu_asan_ubsan_ctest_passed": 8,
+    "vulkan_asan_ubsan_ctest_passed": 13,
+    "malformed_XAN_mutations": 6000,
+    "all_XAN_fixture_truncations_rejected": true,
+    "malformed_ANIM_mutations": 6000,
+    "normal_and_sanitizer_original_scene_probe": "passed"
+  },
+  "gpu": {
+    "device": "Apple M4",
+    "driver": "MoltenVK 1.4.2",
+    "resolution": [
+      1280,
+      720
+    ],
+    "office_static_identical_frames": 16,
+    "office_title_cycles": 3,
+    "clip_office_cycles": 3,
+    "clip_60_steps_changes_pixels": true,
+    "clip_reset_byte_identical": true,
+    "clip_400_timeline_ticks_reaches_end": true,
+    "clip_end_holds_for_60_steps": true,
+    "missing_camera_pack_creation_rejected": true,
+    "existing_office_survives_failed_camera_creation": true,
+    "normal_and_sanitizer_captures_byte_identical": true,
+    "title_matches_prior_baseline": true,
+    "office_pixels_above_banner_match_0_3_3": true,
+    "original_windows_same_view_comparison": false,
+    "rgba_sha256": {
+      "office": "ecedba8ffa6880677b5e1b131326f68a42425245b17e33b0aa583973e35c28af",
+      "moved": "98c047ea64c4f150752eac62a0741869bb673a6cdf1878608606f7e332bcf5eb",
+      "title": "8f6ed15f5f8df8c022d85cb6895f6c5fa7146930508bfc5c4bec7f0afb7e3b7d",
+      "track-start": "9907e6d1073fe9cf584b7018fb3abc5b594547147f740aba4952e377ead28447",
+      "clip-60-steps": "f0b24f47877b5a2db3604ef6627243be3b9d29b8123c27bac8366e525c5d2b97",
+      "clip-end": "2b660ed64d52ab2ddd9054923722960c90bc5499a4f596323d8cbd78a527324b"
+    }
+  },
+  "switch": {
+    "version": "0.3.4",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "85ffdb5882bcb72aaf46d0f8157a0c291cbacbd044d7ad3e3af3ea3165a54fd5",
+    "undefined_symbols": 0,
+    "hardware_tested": false
+  },
+  "artifacts_sha256": {
+    "build-switch/biko3-preview.nro": "85ffdb5882bcb72aaf46d0f8157a0c291cbacbd044d7ad3e3af3ea3165a54fd5",
+    "build-switch/libbk_model.a": "12340f713ae1c054bd5d45dba50f47906a43fcf8090dd842e5cda1c580d12f3e",
+    "build-switch/libbk_core.a": "5cd605259d029ca22928fcfcd824b605eedeea954b10352f369ad06a6452ea03",
+    "build-switch/libbk_scene.a": "8f76ceb06ad91f36a8747bced0bfeb822e8736019f7bfcc651e2eeba6fd9b46a"
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "1480dd30805352aea1ed13b8abae8dc0a3d1dc8cc4f9531d83cfd7e21c487bfc",
+    "config/dependencies.lock.json": "78fdd67f8e3f5524c088ede6e07fa2e444e9b11169fdf135b405504620e90dc9",
+    "runtime/app/application.c": "d1186dade97474aed62c268d69a144a45ef2af93b8c15dab88cf1b6324ffa779",
+    "runtime/app/application.h": "c019c51d075c356be8fd79a85228ff7a4409b848ccd9544e11c4947b313a9d9e",
+    "runtime/app/main.c": "40901c0d90da3c18091f29c3b1c41bd9c9bfbc48eb524907f5dad4ed8186a383",
+    "runtime/core/camera.c": "434708b678163ea52e5cf615f16e07b28f4ffc280ac1be4c7740ea1bcb8df5a0",
+    "runtime/core/camera.h": "8833b2114f4fb98911dee80565f5ed12666f33bb1b6361736914d85f5e2c34fd",
+    "runtime/core/clock.c": "a14ad426db38ba325ef0319641d45f80113430e8835e5594940bc61ff5ba8882",
+    "runtime/core/clock.h": "a650ab2c6813fe3c2d10e2ecf2b0e2317c6bb003e2e95b9997b2a5fdc0893893",
+    "runtime/core/input.c": "cbb5ef491f2b7ea2354ca177cc89221b0b6d1565fa1cf6a53d0ed8f3f6937c94",
+    "runtime/core/input.h": "5f9907f97eea16a60eed9d93a918c5df1aa3ed4b0c68325616fe7dcac61868f9",
+    "runtime/core/lighting.c": "16830369acd52ae828f4781dcab8d66f0ede18133d8ffff1dd757897b4118d31",
+    "runtime/core/lighting.h": "bbd5b52ada13560a8a0375a672594162ac80ada553d9f19c9b1e548c346ec961",
+    "runtime/core/matrix.c": "1e2fe88f2874d25a6d91ff70076a64e337c4b880ab26518ff05bc36673f2e21f",
+    "runtime/core/matrix.h": "b4ee995a387229f748b95140317143f5f1033f2514de24b2fb01ee0c42c1b85c",
+    "runtime/model/animation.c": "f5790a25678eed40d45ac20803c82360ec5df6d9f9a34ad7ddebf5506b7f1a94",
+    "runtime/model/animation.h": "3b7dfc820dc8b9f93e2c072648d0245b76c78b175546d322ba7d2a6d539f0574",
+    "runtime/model/clip.c": "182185da31f09b8a44e136e3dda5bd13752410e61050156918b44359b2f5ba87",
+    "runtime/model/clip.h": "4fdc013f65aae8342d72c493ede18cf3f3cf318c9920e5737ee43fcee6e75f55",
+    "runtime/model/environment.c": "5aec31128f068f27dc49f99f1f1150f4ac5ae752feb9a0b6eed8acafb9075613",
+    "runtime/model/environment.h": "39896e1ba666ca57c5220c1e1e9addfcd1c0522cb9d89c6081b53cae7d5ff1ed",
+    "runtime/model/material.c": "bf3b884d0bc93af826b4671d0921712313db42d1874f1b94301f2339a0bda753",
+    "runtime/model/material.h": "a765824fff177ce339dadb18a222bae4efb8e26e8e97b50c8a10cab32912ffa1",
+    "runtime/model/model.c": "82bf6893cc3d3315eb6ac92581de2ea3d19a7d1c955895fad98b34a4faec86f8",
+    "runtime/model/model.h": "93c17bd623e8291767af77a1f4a72a49dd6f7af31aa59bd4130caf6cee16caad",
+    "runtime/model/static_model.c": "9c77b075ca977c461d88e1a7e9fa282a0513b3768033476e2da6008544deb32e",
+    "runtime/model/static_model.h": "2b7dfaa35e8f7a047b4d4479e20b038adeb8ec5d57b773875c62435db51782e1",
+    "runtime/platform/host.c": "461662aba545943e8a6cc555e68f27623e3f83fa89c68d7059d630b785021f9a",
+    "runtime/platform/platform.h": "ca99e082e97564c0e197184f64ed477afd59a0d516a07b1a26afbcac916109a4",
+    "runtime/platform/switch.c": "5a2d22cec83f5122f13b4e218d162dc669b91bd3660b072cf0afeb150dc7c0fa",
+    "runtime/render/renderer.h": "cecb5f4878418d4d6872e8ac954c264dc92f92cc25d69f14449406034e80ce99",
+    "runtime/render/vulkan/renderer.c": "1791ca94877507fd689785ba7cfbae09c3ec40dcee8a0fd309bee2afc0d5f6a9",
+    "runtime/resource/assets.c": "575265ddec316ae87547108d7ba0d60cc2adc54abbfb14e529da1feeec0ae447",
+    "runtime/resource/assets.h": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3",
+    "runtime/resource/store.c": "dc241f2656867d5743fc063cf860fd38e52ee4e0aafc2dfa02017e95e6422c30",
+    "runtime/resource/store.h": "3114fa059f7eb8803ebc3d71181d073c3da056fa79f1eec38addb47b68d7b63b",
+    "runtime/scene/inspection_camera.c": "1b1edfbc54533981546f4b0943f99efc347738f3cb4046d570ca55d3d7856766",
+    "runtime/scene/inspection_camera.h": "90b1ed2e42b86902488e5e05bbec61b696b2854db6ee4f15a37d572b7af11c02",
+    "runtime/scene/scene.c": "74d590845059ef748e8e9a8a3bb8cf2d2c0094b653c92e0e62ce6374bb4e37e1",
+    "runtime/scene/scene.h": "f673f8121d448510c0b0de9ad1062156d21769c4605f3869701a0baba88e86a1",
+    "runtime/scene/scene_internal.h": "73fdaa11a1662bc9864ac3def546d23a470b5b5b019b93a9d0d6d2bfb44e682b",
+    "runtime/scene/static_world.c": "5d2f4926569c043c52f1ef24c4513884f9f9e12c46eeb54833cad3839b933d44",
+    "runtime/scene/title.c": "9365977d39fdfd52f357a5dda0658f9951158de4ccb40dbd158a542b5fc85236",
+    "runtime/ui/debug_overlay.c": "b0ed2685bd7ec5e2f816395b2e5f376115a114849286455be8f43ec025cb9af3",
+    "runtime/ui/debug_overlay.h": "c48d1cb3eaa9569d824e2660c5f505979448005c772388f2bfb2d88c8f602fba",
+    "test-host.sh": "c68ed83e6532504a84b07dc1855fc4b27ece810f578f1db303439f95c1e41e1d",
+    "tests/animation_binding.py": "49568300b1cb8777ef98f3ce5d1a2d5717a585e15acba0090aae36003020eafd",
+    "tests/clip_binding.py": "38973a9290a930cf5934f98031ead5448169aec34874a940a38fd03496426056",
+    "tests/original_aim_oracle.py": "322c65edbff9ba9ff7fef13ead82a7e6e4af62611c427ac5a36f49ef84c7be8b",
+    "tests/original_animation_oracle.py": "e3c911a5e9dfd399e991d5ddde611e80884aebe1f752bdf16bcb4b93e578bbf0",
+    "tests/original_blend_oracle.py": "bdd9a53f99f10f4e9076289903f723aa6bc083bc380d1e8781b9704abbecdca9",
+    "tests/original_clip_oracle.py": "74b9c3f7c6b3beafee32c05c3f4ebe72dea6e70228b42ac5328735426e6ed46e",
+    "tests/test_animation.c": "0c1610d63107d75fd25f82df4ffda8b6116a63123c89d7f33d3671ace201e21d",
+    "tests/test_camera.c": "532648d30f012f76a7c7fdabf946e7cb92f5df7ffc6cf80a388f201933ac5724",
+    "tests/test_clip.c": "d4844f3d9dda5a10aa709241a6d051328c5075f1ad05cc9c5f4ad4ddaa0beceb",
+    "tools/package_sd.py": "d155be1c7aeb142a00a8f0c8368c7df43a3fa33cade76a14bcf1029bbd1dd46b",
+    "tools/scene_probe.c": "c7c812dcefee77902ba14e3324b1412e64fa8b20a729187824852b56b333678d"
+  },
+  "evidence": [
+    "local/clip-oracle.log",
+    "local/blend-oracle.log",
+    "local/aim-oracle.log",
+    "local/clip-animation-regression.log",
+    "local/clip-test-host.log",
+    "local/clip-asan-build.log",
+    "local/clip-asan-test.log",
+    "local/clip-scene.log",
+    "local/clip-asan-scene.log",
+    "local/clip-final-switch-build.log"
+  ],
+  "next_dependencies": [
+    "Actual actor/head node model and live pose",
+    "Animation-root anchor transform and active gameplay camera dispatch",
+    "Same-view original rendering comparison",
+    "Accessible Switch hardware for NVK/device validation"
+  ],
+  "package": {
+    "path": "交付/SD卡根目录/switch/biko3",
+    "files": 7,
+    "binary_data_bytes": 603650693,
+    "verified_size_sha256": true,
+    "source_and_artifact_hashes_match": true,
+    "application_readback_scenes": [
+      "office",
+      "title",
+      "camera-track"
+    ],
+    "readback_frames_per_scene": 1,
+    "readback_matches_original_data": true,
+    "switch_hardware_tested": false
+  }
+}

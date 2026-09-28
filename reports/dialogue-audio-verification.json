@@ -1,0 +1,142 @@
+{
+  "generated_at": "2026-09-27T20:49:59.882172+00:00",
+  "passed": true,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "speech_calls": 6000,
+    "music_frames": 18504,
+    "initializations": 2000,
+    "commands": 23063,
+    "sequences": 12,
+    "max_error": 0,
+    "scope": "Full4f175d/4f18cd and initial4f0ce7..4f0d9c packed-media control.\n\nReal50db23 and46435e execute. Resource decode and DirectSound operations\nare explicit service boundaries. Compares ordered commands and retained\nstate; does not claim the full dialogue/UI or original audio device output.\n"
+  },
+  "trace": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 1800,
+    "initializations": 5,
+    "commands": 1930,
+    "trace_sha256": "cb63c20ba4b5331d579344d4c06d098bcfe588c6a0564a029cd1a7dfa446a0d4",
+    "scope": "Export original media commands for two-mixer real PCM integration checks."
+  },
+  "pcm": {
+    "actor_frames_each": 1800,
+    "commands_each": 1930,
+    "exact_envelopes_each": 1540,
+    "nonzero_envelopes_each": 572,
+    "pauses_each": 10,
+    "exact_pcm_samples_each": 3171840,
+    "fnv": "47a141ec115c4f31",
+    "ordinary_and_asan": true
+  },
+  "unit_tests_each": 1,
+  "architecture_checks": 2,
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "3052908add48ba748723df8f3bfb9b69589ec503d7c37e11c5153f985f469c1f",
+    "undefined_symbols": 0
+  },
+  "sources": [
+    {
+      "path": "runtime/scene/dialogue_media.c",
+      "bytes": 3078,
+      "sha256": "b24324df96c6b8cd699fc6800e9800aa0b6c72394975b9f81fd2b432769092ee"
+    },
+    {
+      "path": "runtime/scene/dialogue_media.h",
+      "bytes": 1988,
+      "sha256": "b72a5d00cd7c8537dd7fac558cc499fbaf31a166126a42aa1d6bff65a2e009f7"
+    },
+    {
+      "path": "runtime/scene/dialogue_audio.c",
+      "bytes": 4893,
+      "sha256": "d913f74bfe438f8225af7dc153f8cf8523fc7e3a047b7785523b44a3584d892c"
+    },
+    {
+      "path": "runtime/scene/dialogue_audio.h",
+      "bytes": 1596,
+      "sha256": "e430a3008f2e4b5ea40a5bffb345341e9268867a69f329769d665037887f6137"
+    },
+    {
+      "path": "tests/test_dialogue_media.c",
+      "bytes": 2643,
+      "sha256": "dc8343c83f944c32e3f21bba8c4c09354c179efa46fce8eac63fa09b6404c344"
+    },
+    {
+      "path": "tests/original_dialogue_media_oracle.py",
+      "bytes": 6343,
+      "sha256": "3839fbe5bc7a88f4f10249b9e64f525843e6531fd76ca77454a9650b4c21f8c8"
+    },
+    {
+      "path": "tests/original_dialogue_audio_trace.py",
+      "bytes": 2111,
+      "sha256": "531c53edd32e3f55a7b3a711eada2d9969b07fe79994e5b980d6e269e68d46d5"
+    },
+    {
+      "path": "tools/dialogue_audio_probe.c",
+      "bytes": 12419,
+      "sha256": "eb2cfe0f49043369f7d566a6569541d12961511da372d3226afa3bf842605bf6"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 33918,
+      "sha256": "6dc11b0d475fdf838814584791ae4c86faeb44a101a962ff0cf9f9faea8873fc"
+    },
+    {
+      "path": "test-host.sh",
+      "bytes": 5196,
+      "sha256": "f8da05b0b325ec0ffb5bc5dd28bfd591b4cf3fa800d4121d416c82dcad3edec0"
+    },
+    {
+      "path": "reports/dialogue-audio.md",
+      "bytes": 3350,
+      "sha256": "6074db8521acfc3a5c69d88c3082a918058cf580ae58813c044dc30e764c2921"
+    }
+  ],
+  "logs": [
+    {
+      "path": "local/dialogue-media-oracle.log",
+      "bytes": 527,
+      "sha256": "af3bcbb2a17983502fdea80959c98b601e10aa42d80b7641356d8f67e191f9ed"
+    },
+    {
+      "path": "local/dialogue-audio-trace.log",
+      "bytes": 325,
+      "sha256": "ce1f3dd4badac5d68db5fd992f47e441623c2b45993703704dd345c5402f4165"
+    },
+    {
+      "path": "local/dialogue-audio-probe.log",
+      "bytes": 192,
+      "sha256": "c653847ff6c5939d73f0c109631059565ea23dfdc1be22ca31d474c15a2d1b41"
+    },
+    {
+      "path": "local/dialogue-audio-probe-asan.log",
+      "bytes": 192,
+      "sha256": "c653847ff6c5939d73f0c109631059565ea23dfdc1be22ca31d474c15a2d1b41"
+    },
+    {
+      "path": "local/dialogue-media-unit.log",
+      "bytes": 311,
+      "sha256": "674d3b2ab5c3163f875e1caf4be3acf1f9ca0f29a655a4722b914c58b6477bcd"
+    },
+    {
+      "path": "local/dialogue-media-unit-asan.log",
+      "bytes": 321,
+      "sha256": "5e2246118d605374e54eae8a056905ed69d945015e7b88bca927d656a7463b1b"
+    },
+    {
+      "path": "local/dialogue-media-architecture.log",
+      "bytes": 100,
+      "sha256": "95cbc72d036411d99c0ee1b6e94206ee9b9d2d6bda632f3f01eaaea636bcb31e"
+    },
+    {
+      "path": "local/dialogue-media-switch-build.log",
+      "bytes": 962,
+      "sha256": "a21634c4e0061a3f4174ddb459d2c78a447252b3afc22814a617f73df71d8c44"
+    }
+  ],
+  "scope": "# 剧情语音与音乐\n\n`scene/dialogue_media` 恢复打包素材路径下的原 `4f175d`、`4f18cd` 及初始音乐段 `4f0ce7..4f0d9c`。语音请求严格按释放旧缓冲→加载停止状态的新缓冲→从位置0播放→清 pending 执行。大小写敏感的 `se` 前缀选择 `bk3_02`，其他名字使用 `bk3_06`；字节值不为1的 pending 保持原值。实际资源缺失明确失败，不把空声音视为成功。\n\n音乐先按旧 wanted 推进音量并提交 gain，再处理换曲请求。原 `50db23` 使用截断后的 float(800×游戏秒数)，最小步进1；wanted 只有0/1改变音量，其他字节仍提交当前 gain。换曲先请求淡出，当前音量到达 -6000 后暂停旧缓冲；非空名字加载 `bk3_02` 的新音乐并从头循环，空名字保留已暂停缓冲。初始化的空音乐名也不释放已有缓冲，只写原来的 pending/wanted/volume 字段。非法输入在变更前拒绝；服务失败保留已执行前缀，调用方必须终止失败帧。\n\n`scene/dialogue_audio` 拥有真实解码的语音和音乐，借用既有混音器、资源仓库及两个独立声音槽。加载语音不会通过 play→pause 模拟停止，避免音频线程在两次命令之间误播放。点击停止使用保位 pause；新语音请求才从0重播。新音乐加载失败时保留旧对象供清理，pending 不会被误清。口型复用 `scene/voice_audio`，读取实际消费游标的220个PCM样本，继续保持共享包络；停止/资源退役后的旧排队声音由混音器独立保留到消费结束。\n\n固定中文 EXE SHA-256 `a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e`：完整原调用者、原 `50db23` 和 `46435e` 回放6,000次语音、18,504帧音乐、2,000次初始化、23,063条有序命令，状态和参数误差0。含12段15/30/53/60Hz连续换曲/停止过程；资源解码和 DirectSound 为显式服务边界，没有运行原 Windows 音频设备。\n\n另从原指令导出五组真实素材用的1,930条命令，参考混音器直接消费此轨迹，新混音器消费当前剧情适配器。在不同消费步长、同名重播、换曲、空曲停止和10次语音暂停下，普通/ASan各1,800帧、3,171,840个PCM样本逐值相等，FNV均为 `47a141ec115c4f31`。五名实际 `hNN_70` 人物接收1,540次独立计算吻合的包络（572次非零）；这是CPU人物/声音组合，尚非完整剧情时序或GPU场景。实际缺语音/音乐文件时，已执行的清除/暂停前缀及 pending 保留检查通过。\n\n新增故障注入/边界单元普通和ASan通过，覆盖三处语音/音乐服务失败、旧 wanted 顺序、零dt最小增量、非有限/超大时间、未终止名字和缺失服务。ASan关闭LeakSanitizer。两项架构检查、指定 Mesa NVK 交叉构建通过，未解析符号0。检查入口支持 `BK3_DIALOGUE_AUDIO_TRACE` 指向原指令导出的轨迹，不把手写控制器作为参考混音器的命令来源。\n\n应用完整 flow8 仍未装配，新组件在 NRO 中被裁剪，因此NRO保持 `3052908add48ba748723df8f3bfb9b69589ec503d7c37e11c5153f985f469c1f`，已交付包不变。下一项 `4f0e44` 翻页/文字滚动/公共黑幕和结束分派，之后组合真实剧情场景；此处不声称 Switch 新剧情声音或完整移植已验收。Mac 防休眠保持。\n"
+}

@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "full_ending_ui_integrated": false,
+  "full_ending_integrated": false,
+  "hardware_verified": false,
+  "oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "loads": 240,
+    "images": 51,
+    "steps": 30600,
+    "vertices": 183600,
+    "releases": 1360,
+    "max_error": 0,
+    "scope": "Actual UI portions of4d00fa/4d1025/4d2320/4d39e6 and final-image load.\nOriginal constructors,setters,50e6ba and geometry run unchanged; only device\nIO is substituted. Shared cursor8 and all13 stage slots retain scalar caches\nacross selective release/reload. This is not full4d499b or a whole loader.\n"
+  },
+  "base_oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "loads": 24,
+    "loaded_sprites": 1488,
+    "frames": 720,
+    "vertices": 267840,
+    "hover_frames": 6000,
+    "key_calls": 2782,
+    "max_error": 0,
+    "scope": "Original4ccabd..4ce7a9 constructors and full4d901c toolbar motion.\nTextures/device creation and held-key reads are substituted. Actual setters,\ntransition functions, rotation and geometry execute original instructions.\n"
+  },
+  "gpu": {
+    "profiles": 30,
+    "frames": 480,
+    "images": 51,
+    "samples": 14976444,
+    "max_unorm_error": 2,
+    "redraws": 60,
+    "retained_snapshots": 30,
+    "rejections": 93,
+    "fnv": "b37ec6d5349fa642",
+    "normal_asan_equal": true,
+    "allocations_stable": true
+  },
+  "cpu_profiles": 30,
+  "cpu_steps": 20400,
+  "unit_tests": 2,
+  "asan_unit_tests": 2,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_stage_ui.c": "7f994d146bff579e5498a9a89454fe4bb02a6bb79ae0f09b5d2c009d6910c7c4",
+    "runtime/scene/ending_stage_ui.h": "255f7f7d008997b4b082955b05c2ef7e05444216c06815659b29bf84779c8c71",
+    "runtime/scene/ending_ui.c": "0f0f3f3b08434eb3ce6a28ebc7893bf3a57372b17af593988349b3bbf0dac0fc",
+    "runtime/scene/ending_ui.h": "db3d61b7be49c0cfac127c49bc168a48456a4c0daa79877d8683b74f85b50c86",
+    "runtime/scene/ending_ui_render.c": "0b884c4a533a56d382e29c2c72a3d356588e0196db6b81ac9fef43903fa06e3f",
+    "runtime/scene/ending_ui_render.h": "509deea918d574b843a1e02e13324bf93d202a1c00069ac9965e46439cfbe77a",
+    "tests/test_ending_stage_ui.c": "1d94dd9310c93e39f1413d0be722865ec21beba7a0b7dba9d69800a1470eff0f",
+    "tests/original_ending_stage_ui_oracle.py": "7e6da6e84715a6556c0780bd2c36ac9147092aa3941b74eb15ad9504465b94d2",
+    "tools/ending_stage_ui_render_probe.c": "9aeccdc7c9df0128b79d5717f673108c3f5ee3fe2faf464605fd669a994bf317",
+    "CMakeLists.txt": "c10bc99fb613e9ed6884bdbdb48b7811bc23396f3e0a66050b14092a43010017",
+    "test-host.sh": "648611bddfcb4a4c123e5d6a3a165a8dcc047be694db3f3843614e5dd585d1ee"
+  },
+  "logs_sha256": {
+    "ending-stage-ui-oracle": "9a5eeb52ef8d01c33ad932d448ea1c133d254e3f2fc640060351f71a013bd265",
+    "ending-stage-ui-base-oracle": "bf66a0f79605ccb5d79c2709a82f47d419a514c79f3b885bb0eb50cc6ca64606",
+    "ending-stage-ui-units": "3fa48b90b899cb4c0fd2c0a0f4401836cab41a83092460df09b6b6798f8b5fb1",
+    "ending-stage-ui-asan-units": "0426cc0cc36db977a093e1fea1c01b4368fefbb697ae4ac6e5841fea78a42c84",
+    "ending-stage-ui-render": "89eac4cb1ca5a7dd6f57ed12e5dc39fb1e1c94a41b17b5dffd674de1c66f0d2e",
+    "ending-stage-ui-render-asan": "89eac4cb1ca5a7dd6f57ed12e5dc39fb1e1c94a41b17b5dffd674de1c66f0d2e",
+    "ending-stage-ui-base-render": "7a0445c13d76f917869590c5613aaab269591b6e5c63bad54fb68debeb77d94d",
+    "ending-stage-ui-base-render-asan": "7a0445c13d76f917869590c5613aaab269591b6e5c63bad54fb68debeb77d94d",
+    "ending-stage-ui-architecture": "777a82bfc1aa7e45bcad5ddc6a0eb4db74743c4941cb85fa69f3ed79355b4257",
+    "build-ending-stage-ui-unit": "11e9a00654f6a05e2d6d37a488150d819223999485b2a5f48ef43e6b28a98486",
+    "build-ending-stage-ui-render-final": "39173598489916f9db4dbe24e640d29d57fa89ca95da635465a8d064483be8a4",
+    "build-ending-stage-ui-asan": "f0594f2da096fa8fb6739b88b72cfe10b32e296579ab0e6480e9c66a364030de",
+    "build-ending-stage-ui-asan-vk": "3a2de4daec8b0d88c3efc1b60d29be2fc3ad4821d2a159d0148052f24bf4218b",
+    "build-ending-stage-ui-switch": "cc2cbf0872e0f9da79fb8d1020a2017eea5620c6cc938d535f6040562ed095b6"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Full4d499b and flow16 not integrated",
+    "Only actual UI portions of loaders; actor/camera/audio reset and remaining loaders still incomplete",
+    "Handle-absent50e6ba update semantics still required before full UI; loaded-only step currently rejects missing images",
+    "Native device/resource IO is boundary; no Windows screenshot or Switch hardware comparison",
+    "GPU prompt placements are diagnostic; exclude subpixel edge ambiguity",
+    "ASan detect_leaks=0"
+  ]
+}

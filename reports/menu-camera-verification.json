@@ -1,0 +1,35 @@
+{
+  "stage": "Menu orbit and track camera math",
+  "date": "2026-09-28T01:19:41.342618+08:00",
+  "sources": {
+    "runtime/world/menu_camera.h": "8cd0cc02a83c9ca624ff6398c12bde54dc536014c628384e73e56f0df9a239f1",
+    "runtime/world/menu_camera.c": "2b2fce03de698dca15ff03c95c43e610cbc2813f4a98c92e71a99629eae6f957",
+    "tests/test_menu_camera.c": "6a3cc8fb49aa14e4168f79a2f842e92346492af8e6178f2119e5d294bc14dc16",
+    "tests/original_menu_camera_oracle.py": "7ee4a8202d2aee2102bf95c56ab7b77fde19cf962116ce0d76996839d5c06392"
+  },
+  "oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "orbit_steps": 6000,
+    "track_steps": 6000,
+    "atomic_rejections": 120,
+    "max_relative_error": 0.0,
+    "scope": "Original4bac5b and4bb612 with actual native trig/D3DX/frame/aim math.\nInput, FOV and XAN request/advance/pre-publication are explicit boundaries;\ntrack/focus values supplied by fixtures are not a real animated menu scene.\n"
+  },
+  "checks": [
+    "local/menu-camera-ctest.log",
+    "local/menu-camera-asan-test.log",
+    "local/menu-camera-architecture.log",
+    "local/menu-camera-switch-build.log"
+  ],
+  "switch": {
+    "nro_sha256": "b9a44d44b54ff020b7b12ed5921e7c2215f834fab705eab4e9982d945afb6b61",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0
+  },
+  "limitations": [
+    "Track and focus are explicit fixtures; actual menu XAN/forest assembly pending",
+    "Chinese analyzed EXE instruction evidence, not protected Japanese EXE evidence",
+    "Application unchanged; no hardware verification"
+  ]
+}

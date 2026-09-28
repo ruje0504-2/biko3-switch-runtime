@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "orbit_steps": 5000,
+    "fixed_steps": 5000,
+    "track_steps": 5000,
+    "manual_steps": 5000,
+    "atomic_rejections": 200,
+    "max_relative_error": 0.0,
+    "scope": "Original4bb0a4,4df411,4e1711,4e1d16 with native trig/D3DX/frame/aim arithmetic.\nInput and FOV are observed boundaries. 4e1711 animation advance is an explicit\nservice; track/target values are previously published fixtures, not a complete\nanimated event scene. No request or pre-publication is allowed in that path.\n"
+  },
+  "shared_math_menu_regression": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "orbit_steps": 6000,
+    "track_steps": 6000,
+    "atomic_rejections": 120,
+    "max_relative_error": 0.0,
+    "scope": "Original4bac5b and4bb612 with actual native trig/D3DX/frame/aim math.\nInput, FOV and XAN request/advance/pre-publication are explicit boundaries;\ntrack/focus values supplied by fixtures are not a real animated menu scene.\n"
+  },
+  "unit": {
+    "normal": true,
+    "asan": true,
+    "offset_alias": true,
+    "atomic_failure": true,
+    "distinct_manual_matrix_and_world": true,
+    "retained_focus": true
+  },
+  "menu_real_asset_regression": {
+    "normal": true,
+    "asan": true,
+    "profiles": 5,
+    "frames": 1800,
+    "held": 900,
+    "fresh": 835
+  },
+  "application_regression": {
+    "normal": true,
+    "asan": true,
+    "controller_only": true,
+    "photos": 2,
+    "native_clock_readback_sha256": {
+      "build/ending-camera-native-front.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+      "build/ending-camera-native-front-asan.rgba": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f"
+    },
+    "fixed_step_readback_sha256": {
+      "build/ending-camera-front.rgba": "3e0c8a1d314f573ecfb41c320be49ad27ccaa14de87fec428897ff8b70264474",
+      "build/ending-camera-front-asan.rgba": "3e0c8a1d314f573ecfb41c320be49ad27ccaa14de87fec428897ff8b70264474"
+    },
+    "native_clock_same_as_delivered_baseline": true,
+    "fixture_clocks_are_distinct": true
+  },
+  "architecture_tests": 2,
+  "build": {
+    "nro_sha256": "dfa9beb0e030e8cb2545c3f953d39ae0ced9945371d2bbc25cd09236523c4de4",
+    "undefined_symbols": 0,
+    "ending_scene_bound": false,
+    "shared_orbit_math_used_by_existing_menu": true
+  },
+  "delivery": {
+    "path": "/Users/rujian/Documents/Codex/WX3/交付/开发验证版-20260928-原标题选人与剧情接入.zip",
+    "present": true,
+    "sha256": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "switch_hardware_verified": false,
+  "source_sha256": {
+    "runtime/world/ending_camera.c": "60786a681e01101a6ab95bcb07f3b832ae70f0196a39542d32386bcf09bf7c91",
+    "runtime/world/ending_camera.h": "54bf2da60e78acc1b2fc6df95eefd6e13ebbd7aba29b977495ed648b8c53810c",
+    "runtime/world/orbit.c": "396e023950037a003ea3099878a481e8e1066d33596841ea79a4b6cc4ca2fbbd",
+    "runtime/world/orbit_internal.h": "10cc9807281d4dc77717063deffdd06a7a1dc9bd41573133017d494fbcae893d",
+    "runtime/world/menu_camera.c": "716b7892c9e4df8a1906fd63d41176196016f0490f63d7fb09ae44805411feb7",
+    "tests/test_ending_camera.c": "56e5f8397d6ef442bc8a06f393eeb29e5c8074b025c330502111adafa3f0fc36",
+    "tests/original_ending_camera_oracle.py": "c75a1c47a066baa248179076184dfb80ce15d246663961e75589d4127c98fc33",
+    "CMakeLists.txt": "0e0cd6be4187b2e3536118f64dc661d0b8f038359e4b17b7c6690fd5f8bc634d",
+    "test-host.sh": "c976d471f2c600fb3e3e1d9087c752c57fffc3f99588395ce48768769475a710"
+  },
+  "logs_sha256": {
+    "ending-camera-final-unit.log": "5c504f65200b4dcdc0a6dc2995f37f3f9ec637975484a69048be6a0c6988d75d",
+    "ending-camera-final-asan.log": "cd07a25b4fa6315fa925dbaecd8885693a92c5ed59524b83a1c62ea369e0a514",
+    "ending-camera-final-oracle.log": "150fb5ea2d9b651d02373fe4670e53365773f88386f5f94c6b644b52c44092f1",
+    "ending-camera-menu-regression.log": "53eaba6955fd2c0068e4a1ecce547ae4798b00b197bffd443897bf97c0b7a620",
+    "ending-camera-menu-assets.log": "0d3e3f83b2390354b0c04e555c8b19e86f36da97e547b4ff32d61ad3151050e1",
+    "ending-camera-menu-assets-asan.log": "0d3e3f83b2390354b0c04e555c8b19e86f36da97e547b4ff32d61ad3151050e1",
+    "ending-camera-native-front.log": "c64cac224aa012f360bb399b6c8b04c0d27a3e0fcbabee80e5d9d13d39f5a8a8",
+    "ending-camera-native-front-asan.log": "c64cac224aa012f360bb399b6c8b04c0d27a3e0fcbabee80e5d9d13d39f5a8a8",
+    "ending-camera-front.log": "3261e1b542d06189d0b520248679cd73268b905ea99e486aa023fd609332f363",
+    "ending-camera-front-asan.log": "3261e1b542d06189d0b520248679cd73268b905ea99e486aa023fd609332f363",
+    "ending-camera-final-architecture.log": "f6c7556120a6df693f3accdf7acfcede1c908b087adda8a5cacd64abd63927b9",
+    "ending-camera-final-switch.log": "24109f82b5c2b1d60a271bf378f1ca74c095f8595d458ba33498752b99821e8f"
+  }
+}

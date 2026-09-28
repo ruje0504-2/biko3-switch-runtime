@@ -1,0 +1,539 @@
+{
+  "archive": "bk3_04.pp",
+  "assets": [
+    {
+      "entry": "cam00_00.x",
+      "sha256": "3d5b50bd1f66cbdc62f747f467cc453cd02f2ee02701f0f8f535fdd28d1db885",
+      "bytes": 254536,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 2772
+        },
+        {
+          "tag": "ANIM",
+          "size": 249624
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_3_",
+        "Frame_SCENE_ROOT",
+        "Cam_AUTO",
+        "Frame2_box_Layer1",
+        "Cam_01",
+        "Cam_02",
+        "Cam_03"
+      ],
+      "candidate_nodes_by_name_only": [
+        "Cam_AUTO",
+        "Cam_01",
+        "Cam_02",
+        "Cam_03"
+      ]
+    },
+    {
+      "entry": "cam00_01.x",
+      "sha256": "372d6aa43fd1e787dad58e81002a65a2f66c274a32075fb91fd9a4591269648e",
+      "bytes": 30220,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 24516
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_1_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "persp",
+        "top",
+        "front",
+        "side",
+        "Cam_AUTO",
+        "pCube1"
+      ],
+      "candidate_nodes_by_name_only": [
+        "Cam_AUTO"
+      ]
+    },
+    {
+      "entry": "cam00_02.x",
+      "sha256": "1beeb1f631e51cbd99e5fabd048a498a7b0280e22b499756bd9ba243e97590a6",
+      "bytes": 156440,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 2772
+        },
+        {
+          "tag": "ANIM",
+          "size": 151528
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_1_",
+        "Frame_SCENE_ROOT",
+        "Cam_AUTO",
+        "box_Layer1",
+        "Cam_02",
+        "Cam_01",
+        "Cam_03"
+      ],
+      "candidate_nodes_by_name_only": [
+        "Cam_AUTO",
+        "Cam_02",
+        "Cam_01",
+        "Cam_03"
+      ]
+    },
+    {
+      "entry": "cam00_03.x",
+      "sha256": "205c9c8fddf70171d1cbf025352bbae632fb744a4910baf188a3154bd3c163c9",
+      "bytes": 1737746,
+      "format": "DirectX text",
+      "parsed": false
+    },
+    {
+      "entry": "cam00_60.x",
+      "sha256": "781b8dfb3475893418ab69d6af4f86a99b8787601694a16de780e3adc6ee3c09",
+      "bytes": 1772641,
+      "format": "DirectX text",
+      "parsed": false
+    },
+    {
+      "entry": "cam01_50.x",
+      "sha256": "e45ac0ff30f0b10b6e1557374c94fc6048f7f5579fe7b2cce344cd297a8b5af6",
+      "bytes": 1950849,
+      "format": "DirectX text",
+      "parsed": false
+    },
+    {
+      "entry": "cam01_55.x",
+      "sha256": "7b371c72d38300aedf835dc4374133f6ca198f0e96d35a62ef037fb2f2aa7d04",
+      "bytes": 89756,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 2772
+        },
+        {
+          "tag": "ANIM",
+          "size": 84844
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_3_",
+        "Frame_SCENE_ROOT",
+        "camloop",
+        "Frame2_box_Layer1",
+        "Cam_01",
+        "Cam_02",
+        "Cam_03"
+      ],
+      "candidate_nodes_by_name_only": [
+        "camloop",
+        "Cam_01",
+        "Cam_02",
+        "Cam_03"
+      ]
+    },
+    {
+      "entry": "cam02_50.x",
+      "sha256": "398b4d53c11a94f3ddbf2a4ded339403d4733ec80c831e9119025a995df50fe4",
+      "bytes": 52220,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 46516
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_3_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "persp",
+        "top",
+        "front",
+        "side",
+        "cam",
+        "pCube1"
+      ],
+      "candidate_nodes_by_name_only": [
+        "cam"
+      ]
+    },
+    {
+      "entry": "cam02_55.x",
+      "sha256": "42e4bc301cf793ae39694f1d78056652232bd539b37a1c57588c13ab899c10f4",
+      "bytes": 50020,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 44316
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_1_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "persp",
+        "top",
+        "front",
+        "side",
+        "camloop",
+        "pCube1"
+      ],
+      "candidate_nodes_by_name_only": [
+        "camloop"
+      ]
+    },
+    {
+      "entry": "cam03_50.x",
+      "sha256": "5f32c61f1c8d374ebfd7bc5a594f7187d096e27d3d122f05a59fb176da945348",
+      "bytes": 52220,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 46516
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_1_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "cam",
+        "pCube1",
+        "persp",
+        "top",
+        "front",
+        "side"
+      ],
+      "candidate_nodes_by_name_only": [
+        "cam"
+      ]
+    },
+    {
+      "entry": "cam03_55.x",
+      "sha256": "5fca892946fbecdd5718aef7ffcf94316ad239a36304901557f04b7fef046121",
+      "bytes": 50020,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 44316
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_1_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "camloop",
+        "pCube1",
+        "persp",
+        "top",
+        "front",
+        "side"
+      ],
+      "candidate_nodes_by_name_only": [
+        "camloop"
+      ]
+    },
+    {
+      "entry": "cam04_50.x",
+      "sha256": "efd235b527c0866cd30ba18f7ca3d12536c99ea6aa4111cb7874d4e94f254038",
+      "bytes": 52220,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 46516
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_2_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "persp",
+        "top",
+        "front",
+        "side",
+        "cam",
+        "pCube1"
+      ],
+      "candidate_nodes_by_name_only": [
+        "cam"
+      ]
+    },
+    {
+      "entry": "cam04_55.x",
+      "sha256": "7a962f909bf5e635e7c627e0ebea0638a9500e5c1264297ed870cc85a197ea88",
+      "bytes": 50020,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 44316
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_1_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "persp",
+        "top",
+        "front",
+        "side",
+        "camloop",
+        "pCube1"
+      ],
+      "candidate_nodes_by_name_only": [
+        "camloop"
+      ]
+    },
+    {
+      "entry": "cam05_50.x",
+      "sha256": "7e899107b312b65a563a9e46d7dfe285c430b5dc3c257d032a6ad5964dedf958",
+      "bytes": 52220,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 46516
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_2_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "cam",
+        "pCube1",
+        "persp",
+        "top",
+        "front",
+        "side"
+      ],
+      "candidate_nodes_by_name_only": [
+        "cam"
+      ]
+    },
+    {
+      "entry": "cam05_55.x",
+      "sha256": "ddc376df9f25121f47fd3400ad51b945c6204189a9f3486aadad6716b31c3240",
+      "bytes": 50020,
+      "format": "OBJM",
+      "chunks": [
+        {
+          "tag": "MATE",
+          "size": 140
+        },
+        {
+          "tag": "MESH",
+          "size": 1916
+        },
+        {
+          "tag": "FRAM",
+          "size": 3564
+        },
+        {
+          "tag": "ANIM",
+          "size": 44316
+        },
+        {
+          "tag": "FOG ",
+          "size": 32
+        }
+      ],
+      "frame_names": [
+        "_TopFrame_1_",
+        "SCENE_ROOT",
+        "groundPlane_transform",
+        "camloop",
+        "pCube1",
+        "persp",
+        "top",
+        "front",
+        "side"
+      ],
+      "candidate_nodes_by_name_only": [
+        "camloop"
+      ]
+    }
+  ],
+  "asset_count": 15,
+  "objm_count": 12,
+  "text_count": 3,
+  "office_scene_binding_verified": false,
+  "animation_time_mapping_verified": false,
+  "scope": "asset structure and node names only; no playable camera or original pose claimed"
+}

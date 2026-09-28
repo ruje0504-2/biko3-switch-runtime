@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "full_ending_integrated": false,
+  "hardware_ending_verified": false,
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 6000,
+    "mapped_regions": 103,
+    "bytes_per_snapshot": 5668,
+    "compared_bytes": 34008000,
+    "mutable_warp_callbacks": 858,
+    "tables_sha256": "f4022c9111f97cfd9e86d5205bd81e77e175b77905537c0ccd5b41d0ea8250b4",
+    "max_error": 0,
+    "scope": "Actual4cc582..4cc7e6 prefix: original memset/memcpy, fade request and table\nselection. Only platform pointer warp is observed. All mapped scalar fields\nare compared, including preserved addresses outside the native clear block.\nNo x86 resource-pointer clearing is claimed as portable object destruction.\n"
+  },
+  "resource": {
+    "loads": 30,
+    "model_paths": 50,
+    "rejections": 60,
+    "hash": "727ad2424318847e",
+    "normal_and_asan_equal": true
+  },
+  "unit_tests": 3,
+  "asan_unit_tests": 3,
+  "architecture_tests": 2,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "771b9109ae5b761799ddd76c7e1bdfbb24a212369ef6f3832bca52dfabf37fa1",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_state.c": "d8b700c83972041718a20744f68cd8c18d864ecbbb7618ec9d5d415d2d799d8b",
+    "runtime/scene/ending_state.h": "cc2d54246c2bd962553e4696a1d4989d09c2337fcfec522184bf13c63f69d550",
+    "tests/test_ending_state.c": "f261a8a14151566431292ac998733172b3c3de35a7ec022267334e76d738aeb5",
+    "tests/original_ending_state_oracle.py": "9d6fe9c9e3254532648aef63f97eac2f8fb2fa414c4540f3f741ffbece8c8321",
+    "tools/ending_state_probe.c": "2e98c56000f5723bf220fd131f5d67536c96a1c28bad98ab1fe23b4f32e9c909",
+    "CMakeLists.txt": "f39036e312f402fe8be4870abc6927c7d1a886b566ffadf66bd46c19fd20b6d5",
+    "test-host.sh": "72ec587a70f0d213ca2169922ea74ac3688bfbf2929270fa2fed47072cea2660"
+  },
+  "logs_sha256": {
+    "ending-state-oracle": "3d4edf729f26cddb5285173c99b4572ba1ebc9421feee1525cee39767f895f83",
+    "ending-state-unit": "ce460d3de2b4c1fd911fd28238fb560fde3795a4dfdc5d83eed2505916af8b17",
+    "ending-state-asan-unit": "dcfdd425e082fc590236a12444e679d26df972cebd9549594d964a593c5e5c1d",
+    "ending-state-assets": "c44c569f84669e653de0080c35009d9e3a9a7fc12b1993393d2a4e065de4805a",
+    "ending-state-assets-asan": "c44c569f84669e653de0080c35009d9e3a9a7fc12b1993393d2a4e065de4805a",
+    "ending-state-architecture": "92b391eabf11e0e952252fb6ee05522765579df0b6b0a838ff1f3e4150550b42",
+    "ending-state-build": "bbd9045dd0174229c0c91421d84450b56ce0bffdf6c101955b6bea1aaa64f058",
+    "ending-state-asan-build": "0b3f9b72f2ba6758b2575afe8969edd374a6306eff21bf632833be7dc776c339",
+    "build-ending-state-switch": "8b8c5b7bb481868eef0ca6f2fd3d00ea7bda7f1dd489073520f355b8ad6cc69b"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Only the 4cc582..4cc7e6 scalar/table entry prefix and its live bindings are integrated",
+    "Resource ownership is verified through the normal ending asset owner, not the application flow16",
+    "GPU, video, full ending UI/audio scheduling, gallery unlock production and Switch ending hardware remain separate",
+    "ASan uses detect_leaks=0; this is not a LeakSanitizer claim"
+  ]
+}

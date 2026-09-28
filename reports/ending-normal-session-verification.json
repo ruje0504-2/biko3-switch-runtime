@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "normal_session_integrated": true,
+  "full_ending_flow16_integrated": false,
+  "switch_hardware_verified": false,
+  "entry": {
+    "scene": "ending",
+    "previous_flow": "0x18",
+    "supported_gallery_variants": [
+      0,
+      1
+    ],
+    "unsupported_loaders_fail_explicitly": true
+  },
+  "host": {
+    "ordinary_ctest": 100,
+    "asan_ctest": 91,
+    "python_unittest": 29,
+    "normal_variants": 2,
+    "asan_vulkan_variants": 2,
+    "application_frames": 8
+  },
+  "probe": {
+    "frames_per_variant": 64,
+    "draws": {
+      "variant0": 8060,
+      "variant1": 4030
+    },
+    "skin_dispatches": 520,
+    "audio_frames": 62400,
+    "allocation_counts": {
+      "variant0": 303,
+      "variant1": 190
+    }
+  },
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "6139f31076f21a53553b3a25aa03caf837e4d816dfd41590147822e9e750acf3",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/scene/ending_normal_session.c": "5ecfd8e4d285d7d2cf697080f9bad91285bbcbc955ab93b9308f67ac98be23ec",
+    "runtime/scene/ending_normal_session.h": "3b4e86ba9ead77d7768a077fc00b142b391dc9af8ed77015f559ef35db021a20",
+    "runtime/app/application.c": "3a8d711cf03a5d8be284cba742b4c5ebf9d6791db9cf87c87089bb0fc1b392cd",
+    "runtime/scene/scene.h": "43749bdd7bfb07b16d4ed4fd1456560d059be51e1fc288c95a3677cd585f9f01",
+    "tools/ending_normal_scene_probe.c": "f4912416471fc11971a137ffcc76e50151b190d040dfe102ddf0107502c58d44",
+    "CMakeLists.txt": "341d5e3b92d1ffc226ebc005c7b110ce6b2e171b3baf23ff8a667f1bd83a9b47",
+    "test-host.sh": "4876f858bfb75d69a1f6bb96018c2fb79bec11690e7bbc843d2023c2a4391708"
+  },
+  "logs_sha256": {
+    "ending-normal-scene-v0.log": "4a11ef60a8f9cccad6edb84fdd5b52ef46bb98745a8790be01c45d927da93fb2",
+    "ending-normal-scene-v1.log": "087c85e8a7a5acbf64f844b8d47a68534bdce08220d4f5d0b2ced61c488388ea",
+    "ending-normal-scene-asan-v0.log": "4a11ef60a8f9cccad6edb84fdd5b52ef46bb98745a8790be01c45d927da93fb2",
+    "ending-normal-scene-asan-v1.log": "087c85e8a7a5acbf64f844b8d47a68534bdce08220d4f5d0b2ced61c488388ea",
+    "ending-normal-application.log": "9125ab830cbb2c0d13a05149e028850f17ccd9578f8134013b4df69c820c3791",
+    "ending-normal-application-asan.log": "9125ab830cbb2c0d13a05149e028850f17ccd9578f8134013b4df69c820c3791",
+    "ending-normal-ctest.log": "22cb2269b0d31ef6e8944a98ab8aac9781aa8c3b0f3bda9e87097717772e4720",
+    "ending-normal-asan-ctest.log": "e598d4355269cc1adc76fd36bcc78cadc32840f4a8e45a2d0731c8539cf90997",
+    "ending-normal-python-tests.log": "fa285c5537ad2913d38a0e5910283dd5abad2e27809718defba2e35235f7fb07",
+    "ending-normal-switch-sha256.log": "414473eae852c29513ba12932ec2494d262e53ab96db938e6301382f9b4a89a6"
+  },
+  "limitations": [
+    "Only the ordinary 4cf318 and 4d00fa gallery profiles are owned by this scene.",
+    "The application entry is a normal-ending preview; flow16 save/reset, special ending, full ending UI/audio scheduling, unlock production, and video tail remain separate owners.",
+    "No Switch hardware run was performed in this turn; the prior rain real-hardware result remains valid and unchanged.",
+    "ASan runs use detect_leaks=0 and are not a LeakSanitizer claim."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "host area handover implemented; save page28 pending",
+  "natural_mission_progress": false,
+  "explicit_area_fixtures": 40,
+  "frames": 6400,
+  "normal_and_asan": true,
+  "leak_sanitizer": false,
+  "switch_hardware_tested": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "2b053b2ff10f58720d35daf52dc922134719472d3a09359888f19be310a789aa",
+    "undefined_symbols": 0
+  },
+  "source_sha256": {
+    "runtime/app/game_preview.c": "1c87136544e79df5d40017f2a43f6be8175a7e3effd367c8420c03e25c460d21",
+    "runtime/app/play_session.c": "e4d4ef60ec309d7a1e9dec826383342792eff4daf4cc745f68c926e7d8f69b5b",
+    "runtime/app/retry_preview.c": "d4c3de89811fab525ce4e98f4861c68e7bf885356426450c91f70ea240c53f9d",
+    "runtime/scene/pause_render.c": "0276c8b0435ab14f80c3701d1b04fcdd5fe50dbf470ccf7a19f0838cc7136fcc",
+    "runtime/scene/item_feedback.c": "9a59d55bb76cede91b0348961835baa233d299adada2c9d55d9e698c024ab126",
+    "runtime/scene/entry_assets.c": "911dd7ef6ef1ef47ef7b6b33ab196acd158636cbf9491bbae2617182cbbe4602",
+    "tools/area_flow_probe.c": "b46cdea762ce7a64c955da95edcc05294d6535f61bf4e5bdacbb843d1acad0c4"
+  },
+  "logs": {
+    "local/area-flow-test.log": "a26e4fe4b98ebe9d7d12d3b59e3aff3634b953ad19c5806a0c2740ce5d862287",
+    "local/area-flow-asan-test.log": "a26e4fe4b98ebe9d7d12d3b59e3aff3634b953ad19c5806a0c2740ce5d862287",
+    "local/area-entry-current-test.log": "d8c7ca4902f62c2a8394149ac2467a6809def85ba45e4a645cce6512157aec47",
+    "local/area-entry-current-asan-test.log": "d8c7ca4902f62c2a8394149ac2467a6809def85ba45e4a645cce6512157aec47",
+    "local/failure-after-area-test.log": "7b0597acf7a109712745353514b26b257de4bf2eafecad97a1703291dfdbd451",
+    "local/failure-after-area-asan-test.log": "f2eb25fb96bbcf362f924f480ca0b8ee02e09fbda91fa39b511accc0817c9378",
+    "local/area-world-app-test.log": "c0480a002244ec6bf2186936d5b7c74b57169db38269e617fb350e1545d0c0ad"
+  }
+}

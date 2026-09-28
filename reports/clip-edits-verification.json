@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "clip": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "assets": [
+      "h01_00.xan",
+      "h01_01.xan",
+      "h01_20.xan",
+      "h02_00.xan",
+      "h02_01.xan",
+      "h02_20.xan",
+      "h03_00.xan",
+      "h03_01.xan",
+      "h03_20.xan",
+      "h04_00.xan",
+      "h04_01.xan",
+      "h04_20.xan",
+      "h05_00.xan",
+      "h05_01.xan",
+      "h05_20.xan"
+    ],
+    "frames": 12000,
+    "edits": 6900,
+    "automatic_chains": 1541,
+    "instance_copies": 420,
+    "max_relative_error": 0.0,
+    "scope": "Per-instance XAN chain/next/source writes then original4018c8/4026fe.\nFifteen real bk3_08 XANs, immutable sibling/copy checks; original scheduler\nand automatic chain run unchanged, only pose-submission observed here.\nThese are explicit edit sequences, not recovered full495d92 gameplay.\n"
+  },
+  "actor": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "actors": 5,
+    "frames": 900,
+    "matrices": 2113146,
+    "max_relative_error": 1.1102230246251565e-16,
+    "scope": "Five real bk3_08 actors with original runtime clip writes,4018c8 and4026fe.\nOriginal SRT and hierarchy publication run with actual authored tracks.\nExplicit edit sequences and placements, not full ending event simulation.\n"
+  },
+  "probe": {
+    "frames": 3600,
+    "actors": 15,
+    "normal_asan_fnv": "c6831d7109897d54"
+  },
+  "front_rgba_sha256": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+  "switch_build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "8a2735dd42658684fda136d86d0591f150636e0ab23c851a5a009b0c3ceb5b0b",
+    "undefined_symbols": 0
+  },
+  "ending_action_495d92_implemented": false,
+  "source_sha256": {
+    "runtime/model/clip.c": "ba818147bcf8a9286fa8f759c7f4bb22904edf2d8fc09e43fc3e9483e4c1b20a",
+    "runtime/model/clip.h": "4211e4a688b82be7e6c2160d565bcdfe9eb2f1c0a7fdd4beee642b494c588dcd",
+    "runtime/model/playback.c": "21941946304b677c36fdd685dec87c38516901a26095c4d692016c5c1afe3754",
+    "runtime/model/playback.h": "c560311e054176032c8da87db71930e1e8e8964b7f2dc9fefeaaf386fc4c9d6d",
+    "runtime/world/actor_pose.c": "523e4a47ded94fb5594609bb322683b7990710c458ac0f4b1fddfb7d2e7e4903",
+    "runtime/world/actor_pose.h": "8ca1aba875b51e2a3c637ac7847e64b4c91f6e01b288a698e4f41d4c12aa9cc3",
+    "tests/test_clip.c": "35317705a2589a8015754eccbc93f8880a0ba992cb0b6f8827f8fa018412033d",
+    "tools/clip_edits_probe.c": "e0b5fb6dc17f39199daa8f5268c7748b992998a786b5921e100ef62323631c21",
+    "tests/original_clip_edits_oracle.py": "23a23eeeae6605f035feac57fdefdd45922441c4f9386fc0651eecd72e3cd50a",
+    "tests/original_actor_clip_edits_oracle.py": "008140f3dba23ad9017a83bbfff2fe78b6438308b173d643ea7ba8d48e7500e2"
+  }
+}

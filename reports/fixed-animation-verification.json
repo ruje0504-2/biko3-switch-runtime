@@ -1,0 +1,187 @@
+{
+  "passed": true,
+  "hardware_verified": false,
+  "full_ending_integrated": false,
+  "full_native_model_dispatch": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "f472231782285f4830e5593c36bce84abedcc8323de0f7af09bed98301b6a312",
+    "undefined_symbols": 0
+  },
+  "clock": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 26160,
+    "frame_counter_checks": 258330,
+    "active_requests": 3270,
+    "active_changes": 2754,
+    "max_normalized_error": 0.0,
+    "assets": [
+      {
+        "pack": 8,
+        "name": "h01_01.xan",
+        "sha256": "a73513d8ad38c8bc6382e721a6f0b07cd0ecb885e37d8873a0308dbc98d33ea9",
+        "frames": 240
+      },
+      {
+        "pack": 8,
+        "name": "h02_01.xan",
+        "sha256": "6b34232b537dd7ae5bb0e7259066f192aab3f86496af8c477ee386aba75117d2",
+        "frames": 240
+      },
+      {
+        "pack": 8,
+        "name": "h03_01.xan",
+        "sha256": "70850bb63e2c34d9a4c201f56dea06edb1a4a13eb9b8cc78985354863420221d",
+        "frames": 240
+      },
+      {
+        "pack": 8,
+        "name": "h04_01.xan",
+        "sha256": "93c6683b274be6dc137583b7e75094020d815b7e3be91c1e9be1a1579bea74a6",
+        "frames": 240
+      },
+      {
+        "pack": 8,
+        "name": "h05_01.xan",
+        "sha256": "18a95faf6df4999a0d3df11f99c9f2ccba4471c6f86a788294c751eae2d07fd2",
+        "frames": 240
+      },
+      {
+        "pack": 11,
+        "name": "h03_30.xan",
+        "sha256": "9756d432590f121a98ed4e8bafceb72a7b9e1bdc8eee40fd09ffec31eac02e9d",
+        "frames": 240
+      },
+      {
+        "pack": 11,
+        "name": "h03_31.xan",
+        "sha256": "a3ef1fbe0a87d0536e8d35085b0940baf7636a2ead685c11f80db0dee6b7f582",
+        "frames": 240
+      },
+      {
+        "pack": 4,
+        "name": "cam00_02.xan",
+        "sha256": "713f0eb5fcaac348eaa765232e7d20bf7f82a01e5825bacd894f99476448b807",
+        "frames": 240
+      },
+      {
+        "pack": 1,
+        "name": "h00_80.xan",
+        "sha256": "8c6efa1d61a900c2c7852a1ebcb91972a8604f3a133f131a544ecb388962284b",
+        "frames": 240
+      }
+    ],
+    "scope": "40168c active-slot request +4021a1 fixed-call scheduler, real and synthetic.\nOnly ANIM submission observed; native selection, automatic chaining and clock\nmath run unmodified. Interleaving with4026fe checks shared state semantics.\n"
+  },
+  "actor": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 840,
+    "hidden_frames": 77,
+    "matrices": 21024,
+    "vertices": 1691118,
+    "max_normalized_error": 0.0,
+    "assets": [
+      {
+        "pack": 8,
+        "name": "h01_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "533c0d333a8536b408e0f4825fb409c07c76e57ffe82bf35afd5dc9b3fa81625"
+      },
+      {
+        "pack": 8,
+        "name": "h02_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "8dacdc17440da40dc210db6d63f337d4e3d6c6f8f6807aa78c51b75d717e92d5"
+      },
+      {
+        "pack": 8,
+        "name": "h03_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "46ba24bccceb17cfa2bba51ba0a700cc7781b9b724ebc855a68fb2a588f2cf3a"
+      },
+      {
+        "pack": 8,
+        "name": "h04_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "f8c67a8064ea418800ad0438876a752617d7cdad81e9b81e0accc9ba6f6faa88"
+      },
+      {
+        "pack": 8,
+        "name": "h05_01",
+        "tracks": 4,
+        "frames": 120,
+        "sha256": "a98518d4b4cab075dcfc7c546189aacce2e86c5827e5a61b1853dd8c151ae689"
+      },
+      {
+        "pack": 11,
+        "name": "h03_30",
+        "tracks": 3,
+        "frames": 120,
+        "sha256": "8aacaa3a3bf4a59de7d1b3019f450b082efecab07a168b1eb0099270c5e81727"
+      },
+      {
+        "pack": 11,
+        "name": "h03_31",
+        "tracks": 2,
+        "frames": 120,
+        "sha256": "dbf7f59594fdacba5268a727a98366c3ec9e9af36bb568884318d84e6f355952"
+      }
+    ],
+    "scope": "Seven actual BOM auxiliaries: native40168c/4021a1 ANIM+MORP and publication.\nMATA and other effect slots are absent in this fixture: this does not claim\ncomplete model dispatch or the full ending loader. Native SRT, MORP, clocks,\ngroup/track cache/mask and hidden guards are executed, not substituted.\n"
+  },
+  "asan": {
+    "profiles": 7,
+    "frames": 1680,
+    "hidden": 154,
+    "vertices": 2779920,
+    "fnv": "d62fdd5043b45bfd"
+  },
+  "source_sha256": {
+    "runtime/model/clip.c": "ad5ca40ff626badc49c491132e7292cebcb3a2eca4a7477548e2e03b70460989",
+    "runtime/model/clip.h": "09b9aab6ed623a4f72b5a14fe5ce76b0c0baa28d8cef2ce97b39f28e81258438",
+    "runtime/model/playback.c": "b24f941eefd89a94775afba20138d37c347e517acbad436272bfda34828171cb",
+    "runtime/model/playback.h": "aaf03a9c7b1e6a142d4808842b158d9736c4fd50bfb103ca49f91013636b105f",
+    "runtime/world/actor_pose.c": "e49f6c10d8911b5beb58cf5f50d29477ed123ad8235e5e41263d95c9bf8f4470",
+    "runtime/world/actor_pose.h": "a2ae41724582e1a156ce2c5b3e188e0486b84d3d7ccff3c6c8f78d44bc39c4ca",
+    "runtime/model/morph_group.c": "1f00d706076ef9e35aac3a55fffa9759c2e87be8b23ce1f0e9f0771b67d60ac2",
+    "runtime/model/morph_group.h": "bdf5a076df1e6ef16fc3c476422000d5ac9999c15dcf78016c0a008b026e95c2",
+    "tests/test_fixed_animation.c": "9e572a9354b55660095b1508f140dbd658c94e02c7d6f4f1557ea54867014aea",
+    "tests/original_fixed_clip_oracle.py": "dd96b587030a71277ac48452d3aa0243cdf02a860175631696397ee3a7c52969",
+    "tests/original_fixed_actor_oracle.py": "4230705e5effc389438b30f0213ebdb66a7343e20719d4c90d7dba32ffd04651",
+    "tools/fixed_animation_probe.c": "d95fa47fa5a523c2066effff508eae38b003ff4a3a72f7293f759d920e416cbd",
+    "CMakeLists.txt": "77c9593f1ab44e7712f3818f4df3a713191375dacecbf53ebec0d2e63db5037e",
+    "test-host.sh": "2f691da865825336d7f4d79ae89cc4f345ebac1ccdbc27935367498c0fd763b8"
+  },
+  "logs_sha256": {
+    "fixed-unit.log": "be0e4d11e66b53f4abd7d513d1b68636b77f139e25b00b2c9edc4236bc8ec89a",
+    "fixed-asan-unit.log": "5fb5a0324776858c3ffddaa1d7d8da03bfa45534f64ef42af3323d61421552f7",
+    "fixed-probe.log": "773badfdf9f8ff5976893dea5170487ee7971f53bf668209af23d04bc49a4965",
+    "fixed-probe-asan.log": "773badfdf9f8ff5976893dea5170487ee7971f53bf668209af23d04bc49a4965",
+    "fixed-edits.log": "632be63fc694fcedaf3bfc1dd3a2167711acea714f6af41c88be7d4f4c07979b",
+    "fixed-edits-asan.log": "632be63fc694fcedaf3bfc1dd3a2167711acea714f6af41c88be7d4f4c07979b",
+    "fixed-seconds-regression.log": "bf2623d557cb5fcea1069a7bacffb93e089f3cda12c6a812836c6e40770084b1",
+    "fixed-actor-oracle.log": "3c7e1df4e22208cec7be1e46db61ae1c2049da4e94a43661e8843bae01e13b7f",
+    "fixed-clip-oracle.log": "93ad399dc06145131e59caebd92750b4cb21732ec0489ed39e7e3ecc0300d754",
+    "fixed-architecture.log": "99d5474f913652fd77e6d7475755e595028241d6d4841a757915dd2090c54bf6",
+    "fixed-application.log": "45f4dae0d607f85c3c0ad9b34eb0f9b2bff0b4cc72181dc785a1d5066c94949c",
+    "fixed-switch-build.log": "651b9d1f8089365f0f9577e0eddd28d80e1ca55d7c215f8443efaa079790aab0"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Clock/ANIM/MORP only; MATA and other model dispatch slots absent in native fixture",
+    "MORP bucket cache allocated fully and zeroed to use native fallback search",
+    "Full BOM owner/control/post-ENVL GPU callbacks and ending application not integrated",
+    "ANIM and MORP commits separate; scene must stop on downstream error",
+    "No new Switch hardware validation"
+  ]
+}

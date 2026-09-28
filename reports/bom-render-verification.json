@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "hardware_verified": false,
+  "full_ending_integrated": false,
+  "build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "58b0cdc5514a0b528a5463b694697a86004af67183686dc5b6c80957db02a474",
+    "undefined_symbols": 0
+  },
+  "gpu": {
+    "backend": "MoltenVK Apple M4",
+    "transfer_scalar_checks": 628276,
+    "transfer_relative_error": 2.38419e-07,
+    "ordered_frames": 64,
+    "unchanged_pose_frames": 16,
+    "unchanged_pose_uploaded_bytes": 0,
+    "attachment_viewport_frames": 16,
+    "draw_only_frames": 3,
+    "actual_profiles": 7,
+    "actual_frames": 504,
+    "actual_vertices": 2580264,
+    "actual_relative_error": 2.38419e-07,
+    "alpha_zero_frames": 42,
+    "hidden_frames": 42,
+    "repeated_actor_frames": 168,
+    "selected_vertices": 6241,
+    "all_selected_targets_envl": true,
+    "all_selected_indices_influenced": true,
+    "normal_asan_equal": true
+  },
+  "skin_regression": {
+    "models": 131,
+    "meshes": 687,
+    "frames": 1048,
+    "vertices": 2206936,
+    "position_error": 5.36441803e-07,
+    "normal_error": 2.38418579e-07
+  },
+  "mata_regression": {
+    "frames": 420,
+    "channels": 80640,
+    "fnv": "d51b58261b830ce5",
+    "revision_note": "Before final replay-queue refinements; final BOM/app probes cover final renderer"
+  },
+  "rain_controller_flow": {
+    "title": 212,
+    "selection": 253,
+    "dialogue": 296,
+    "loading": 195,
+    "opening": 492,
+    "pause": 106,
+    "return_title": 111,
+    "photos": 2,
+    "rgba_sha256": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+    "normal_asan_equal": true
+  },
+  "native_reference": [
+    "reports/bom-deformation-verification.json",
+    "reports/bom-assets-verification.json",
+    "reports/skinning-verification.json"
+  ],
+  "source_sha256": {
+    "runtime/render/renderer.h": "4df39ada0e95378bcfc232cf01d524406bf94920b991a7104bbfc2e2f060cbc3",
+    "runtime/render/vulkan/renderer.c": "d11657adec944a316b3e248d83dafb2bc43d063425eefbb9677daa3c0e60be9a",
+    "runtime/render/vulkan/skin_internal.h": "e1c34f59772fde651124a57d668cacfec9416d59c2dbc5e1cfb675e520fce299",
+    "runtime/render/vulkan/transfer_internal.h": "97fea5e818a5d51be1ef531e8dddeead64dac5b6dc8b9f42c753256771bbfb47",
+    "runtime/render/shaders/transfer.comp": "39a34203ce13966ede84862c6b974737626f1d58fbfa6d5cbb590d388d3cc671",
+    "tools/build_shaders.py": "f6f4b222bbd5ba22ad96584a09145adca6f05f18361a31a02c45c9928d7b53e6",
+    "runtime/scene/actor_render.c": "6c5308a537f21fe38e2e4ad658533f7980c392387f25314b2eeb7e0728d22528",
+    "runtime/scene/actor_render.h": "ee7b24966080a485ac9658dc046d906059f13c0940cfb3b8f5439710bb9b3b49",
+    "runtime/scene/bom_assets.c": "c81ef4f5e59d30a0214eb0eca81e3b9d3d49072252d78cbbeadf020787eb8918",
+    "runtime/scene/bom_assets.h": "bf281951c5ad10c555cbd69c692188feb81aca6ad65334cf33ef93df987531cc",
+    "runtime/scene/bom_render.c": "e6905e3da7bdddf1ba2083221da66d67287e25c5feb7e70b2b4b1dc9e652d7df",
+    "runtime/scene/bom_render.h": "5ccbeee07bb94ee1019fc52d49adeba18f48d4f1511f677a8ad3e7d730ceb4bd",
+    "tools/gpu_transfer_probe.c": "8403518499887b8e4ea88884cfa44573233040ad734ecd47949f792a85138a8b",
+    "tools/bom_render_probe.c": "37df9c16943917f025da51afc26c5715346a711a0fc7814afc96b1e6c49ab0c4",
+    "CMakeLists.txt": "3739e5345870249dba5c7d7afa73b59d67cc58d2a6b07bf35eb005bf7423f570",
+    "test-host.sh": "f8dbd59e8fa6c6f74ba0cb41fe890c05007b4e24916fd29bc8ade5da140524f1"
+  },
+  "logs_sha256": {
+    "bom-gpu-transfer": "a04866a484794cfa634741ad4a4c10de784612d275974e527d6e42d0454e9aa3",
+    "bom-gpu-transfer-asan": "a04866a484794cfa634741ad4a4c10de784612d275974e527d6e42d0454e9aa3",
+    "bom-render-probe": "e274d043906e23671789c7a78e23c8e58e4c0a569d15140c3c08af6f1550cce0",
+    "bom-render-probe-asan": "e274d043906e23671789c7a78e23c8e58e4c0a569d15140c3c08af6f1550cce0",
+    "bom-skin-regression": "7882e1be59f8a311bce174517a9bb06dca2c019d24968cbb6f225f076e83ea76",
+    "bom-skin-regression-asan": "7882e1be59f8a311bce174517a9bb06dca2c019d24968cbb6f225f076e83ea76",
+    "bom-mata-regression": "d1c27f586ff07abcc6535525759e7d182905c9501ed67fe82cd77e94fe0175fe",
+    "bom-mata-regression-asan": "d1c27f586ff07abcc6535525759e7d182905c9501ed67fe82cd77e94fe0175fe",
+    "bom-front-regression": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "bom-front-regression-asan": "c126c5ce0adf8b2af6653d9b5d2ba1878746f1bd82f35efb33283cdc17556692",
+    "bom-gpu-unit": "3867c39059affbe515df26da1b73e51f42f68e90712601cda005b2d2dd629a56",
+    "bom-gpu-unit-asan": "5bebd36a3a13bc289a2cbd0cf35a4e7bb5a7bbc6a926884fb3aa55aab11b4438",
+    "bom-gpu-architecture": "bf85bdf594d30e52eace196bb43fa4510a5dc1cece4acc1692efb3a78c636d9a",
+    "bom-gpu-switch-build": "ee180d83625ff4e4c3d2b1085d638c2d2bf3f61521ff06c007e9e2e8a3416542",
+    "bom-gpu-final-build": "7a17be901edebde6aef133046f8c0f6d2edfa307d68b604fac1f3d0e0d63d07e",
+    "bom-gpu-asan-final-build": "356760fb3b02a2808d449ce5a38670c25cdd911438f6d731fcdbd8dbe798a073"
+  },
+  "frozen_packages_sha256": {
+    "交付/开发验证版-20260928-雨雪天气修复.zip": "85476fa05c8b99dac23925b294f0c2a5d27269d97ddacfdf4f98c6ba0dc26a55",
+    "交付/开发验证版-20260928-原标题选人与剧情接入.zip": "202b2aca84534aa3a3b26d6908af336e8bfb00767800d2f6b1dfa5730fc14982"
+  },
+  "limitations": [
+    "Numeric offscreen resource fixtures, not original ending scene visual verification",
+    "No new Switch hardware or NVK GPU execution verification",
+    "No complete ending loader, alternative4a52bc, per-frame node physics or flow16 integration",
+    "CPU original reference chained through prior archived oracles; not rerun this stage",
+    "GPU float32 and caller-guaranteed finite nonzero projective W",
+    "ASan detect_leaks=0; allocation counters are not LeakSanitizer evidence"
+  ]
+}
