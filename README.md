@@ -72,6 +72,13 @@ python3 tools/package_sd.py local/game/MAINDIR
 
 默认打包当前游戏和诊断入口所需的 12 个 PP（含选人资源 `bk3_18.pp` 和天气资源 `bk3_20.pp`）、配套 TBL，以及 CKP/ATR/FAM/FTT 散文件；`--full-data` 可复制全部 22 个归档。所有复制文件校验 SHA-256，不打包 EXE、原存档或补丁。素材仅用于本地自有副本，不属于源码许可范围。历史 SD 包不会自动更新；新包须用 `--output` 指定独立目录。
 
+需要把原版 `Data/` 下的完整游戏数据交付时，使用 `--complete-data`；它会复制全部 168 个数据文件（包括 PP、TBL、关卡、角色、字体、配置和媒体数据），仍不打包 EXE、原存档或补丁：
+
+```sh
+python3 tools/package_sd.py local/game/MAINDIR \
+  --complete-data --output '交付/完整游戏数据-20260928'
+```
+
 ## 开发验证
 
 ```sh

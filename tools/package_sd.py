@@ -28,7 +28,11 @@ def main():
     parser.add_argument('game',type=Path)
     parser.add_argument('--output',type=Path,default=ROOT/'交付/SD卡根目录')
     parser.add_argument('--full-data',action='store_true',help='copy all 22 PP archives for further development')
+    parser.add_argument('--complete-data',action='store_true',
+                        help='copy every file from the original game Data directory')
     args=parser.parse_args()
+    if args.full_data and args.complete_data:
+        parser.error('--full-data and --complete-data are mutually exclusive')
     game=args.game.resolve()
     target=args.output.resolve()/'switch/biko3'
     if target.is_relative_to(game) or game.is_relative_to(target):
@@ -38,24 +42,34 @@ def main():
         raise ValueError('Run build-switch.sh first')
     packs = ['bk3_00', 'bk3_01', 'bk3_02', 'bk3_03', 'bk3_04',
              'bk3_05', 'bk3_06', 'bk3_07', 'bk3_15', 'bk3_16', 'bk3_18', 'bk3_20']
-    paths=sorted((game/'Data').glob('*.pp')) if args.full_data else [game/'Data'/(name+'.pp') for name in packs]
-    loose=sorted(p for p in (game/'Data').iterdir()
-                 if p.is_file() and (p.suffix.lower() in {'.ckp', '.atr', '.fam'}
-                                    or p.name.lower() in {'type_s.ftt', 'type_g.ftt'}))
+    data_dir = game/'Data'
+    if args.complete_data:
+        paths=sorted(p for p in data_dir.iterdir() if p.is_file())
+        loose=[]
+        data_scope='complete-data-directory'
+    else:
+        paths=sorted(data_dir.glob('*.pp')) if args.full_data else [data_dir/(name+'.pp') for name in packs]
+        loose=sorted(p for p in data_dir.iterdir()
+                     if p.is_file() and (p.suffix.lower() in {'.ckp', '.atr', '.fam'}
+                                        or p.name.lower() in {'type_s.ftt', 'type_g.ftt'}))
+        data_scope='all-pp-archives' if args.full_data else 'runtime-dependency-set'
     # Preflight the whole playable dependency set before replacing an NRO.
     for name in packs:
         if not (game/'Data'/(name+'.pp')).is_file():
             raise ValueError(f'Missing required game archive: {name}.pp')
-    for suffix in ['.ckp', '.atr', '.fam', '.ftt']:
-        if not any(p.suffix.lower() == suffix for p in loose):
-            raise ValueError(f'Missing required loose game assets: {suffix}')
+    if not args.complete_data:
+        for suffix in ['.ckp', '.atr', '.fam', '.ftt']:
+            if not any(p.suffix.lower() == suffix for p in loose):
+                raise ValueError(f'Missing required loose game assets: {suffix}')
     for path in paths:
-        Archive(path)
+        if path.suffix.lower() == '.pp':
+            Archive(path)
     build_info=json.loads((ROOT/'build-switch/build-manifest.json').read_text())
     if build_info['sha256'] != digest(nro) or build_info['version'] != LOCK['project_version'] or build_info['mesa_commit'] != LOCK['mesa']['commit']:
         raise ValueError('NRO/build metadata does not match dependency lock; rebuild first')
     manifest={'version':build_info['version'], 'status':'original-front-end-development-flow',
               'language':'Japanese resources and Shift-JIS save labels',
+              'data_scope':data_scope,
               'default_scene':'game', 'first_flow':'original-title',
               'scenes':['title','game','office','camera-track','actor','pause'],
               'implemented_flows':['original title/selection/five introductions/game entry',
@@ -73,7 +87,9 @@ def main():
               'mesa_commit':build_info['mesa_commit'],'files':[]}
     manifest['files'].append({'path':'biko3-preview.nro','sha256':copy_verified(nro,target/'biko3-preview.nro',replace=True),'size':nro.stat().st_size})
     for path in paths:
-        items=[path]+([path.with_suffix('.tbl')] if path.with_suffix('.tbl').exists() else [])
+        items=[path]
+        if not args.complete_data and path.suffix.lower() == '.pp' and path.with_suffix('.tbl').exists():
+            items.append(path.with_suffix('.tbl'))
         for source in items:
             relative='game/Data/'+source.name
             manifest['files'].append({'path':relative,'sha256':copy_verified(source,target/relative),'size':source.stat().st_size})
