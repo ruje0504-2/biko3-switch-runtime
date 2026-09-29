@@ -10,6 +10,7 @@
 #include "scene/ending_selected_assets.h"
 #include "scene/ending_auxiliary_assets.h"
 #include "game/ending_auxiliary_presentation.h"
+#include "game/ending_auxiliary_controller.h"
 #include "game/ending_auxiliary_state1.h"
 #include "game/ending_auxiliary_state4.h"
 #include "scene/ending_selected_presentation.h"
@@ -1100,6 +1101,50 @@ static int auxiliary_state4_effect(void *context, unsigned a, unsigned b,
   return 1;
 }
 
+static int auxiliary_state8_group_sound(void *context, unsigned group,
+                                        char e[256]) {
+  EndingNormalScene *s = context;
+  static const unsigned effects[2] = {10, 29};
+  if (!s || !s->audio || group >= 2)
+    return fail(e, "auxiliary state8 group sound is unavailable");
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_RESTART,
+                            .slot = 2 + effects[group],
+                            .flags = 0,
+                            .volume = s->effect_volume};
+  int playing = 0;
+  return bk_ending_audio_call(s->audio, s->state->frame.group,
+                              s->state->auxiliary.variant,
+                              s->state->auxiliary.selection, &call, &playing,
+                              e);
+}
+
+static int auxiliary_state8_camera_setup(void *context, unsigned group,
+                                         const float values[4], int preset,
+                                         char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !values || group != s->state->frame.group || group >= 5 ||
+      (preset != 0 && preset != 1))
+    return fail(e, "auxiliary state8 camera owner is unavailable");
+  s->camera.yaw = values[0];
+  s->camera.pitch = values[1];
+  s->camera.radius = values[2];
+  s->camera.height = values[3];
+  if (preset) {
+    for (unsigned i = 0; i < 4; ++i)
+      s->presets.active[i][0] = values[i];
+  }
+  return 1;
+}
+
+static int auxiliary_state8_target(void *context, float position[3],
+                                   char e[256]) {
+  if (!auxiliary_state4_target(context, position, e)) {
+    if (e) snprintf(e, 256, "auxiliary state8 target unavailable");
+    return 0;
+  }
+  return 1;
+}
+
 static int auxiliary_state1_audio(void *context, const BkEndingAudioCall *call,
                                   int *playing, char e[256]) {
   EndingNormalScene *s = context;
@@ -1806,6 +1851,25 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       BkEndingAuxiliaryState1Ops ops = {s, control_key, NULL, NULL, NULL,
                                         NULL, NULL, NULL, NULL, NULL, NULL};
       return bk_ending_auxiliary_state2_step(&s->state->control, &ops, e);
+    }
+    if (s->state->control.state_721eec == 8) {
+      BkEndingAuxiliaryControllerBindings bindings = {
+          &s->state->frame,
+          &s->state->control,
+          &s->state->auxiliary,
+          &s->state->retained.stage4.delay_54f8e0,
+          &s->state->retained.stage3.byte_6bbe4c};
+      BkEndingAuxiliaryControllerOps ops = {
+          s,
+          auxiliary_state4_status,
+          auxiliary_state1_request,
+          auxiliary_state4_expression,
+          auxiliary_state1_voice,
+          auxiliary_state8_group_sound,
+          auxiliary_state8_camera_setup,
+          auxiliary_state8_target,
+          s->voice_volume};
+      return bk_ending_auxiliary_controller_begin(&bindings, &ops, e);
     }
     if (s->state->control.state_721eec != 4)
       return fail(e, "47DC79 state is not yet implemented");

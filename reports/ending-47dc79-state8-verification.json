@@ -1,0 +1,63 @@
+{
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "state": [8],
+  "scope": "47DC79 state8 prefix only; state3/state5/state6/state7 remain explicit failures",
+  "original_sites": {
+    "dispatcher": "0x47e474",
+    "clip_request": "0x4018c8",
+    "expression": "0x4dfb96",
+    "voice": "0x481e0a",
+    "effect_restart": "0x4ad2bf"
+  },
+  "group_branches": {
+    "group0_1": {
+      "next_state": 7,
+      "camera_mode": 4,
+      "effect_indices": [10, 29],
+      "camera_values": [
+        [77.8300018, -33.6100006, 85.0699997, 2.24],
+        [328.0, 2.0, 28.0, 5.0]
+      ]
+    },
+    "group2_3": {
+      "next_state": 5,
+      "camera_mode": 2,
+      "camera_values": [
+        [112.0, 21.0, 80.0, 2.0],
+        [328.0, 26.0, 59.0, 1.0]
+      ]
+    },
+    "group4": {
+      "next_state": 6,
+      "camera_unchanged_after_cue7": true
+    }
+  },
+  "verification": {
+    "host_ctest": {"passed": 109, "failed": 0},
+    "unit_normal": "passed",
+    "unit_asan": "passed",
+    "data_probe_normal": "passed",
+    "data_probe_asan": "passed",
+    "story_scene_probe": {
+      "passed": true,
+      "frames": 64,
+      "draws": 10335,
+      "skin_instances": 528,
+      "audio_frames": 63360,
+      "final_rgba_exact": true
+    },
+    "original_ui_oracle": {
+      "passed": true,
+      "frames": 720,
+      "vertices": 267840,
+      "max_error": 0
+    },
+    "switch": {
+      "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+      "undefined_symbols": 0,
+      "nro_sha256": "ae71e9a6d808788f12ed9e1a1540138db962ecde4a8180f00d90730cfd36d944"
+    }
+  },
+  "github_push": false,
+  "full_port": false
+}

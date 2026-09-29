@@ -10,6 +10,8 @@ typedef struct {
   BkEndingFrameState *frame;
   BkEndingControlState *control; /*721EEC*/
   BkEndingAuxiliaryState *auxiliary;
+  int32_t *delay_54f8e0;
+  uint8_t *saved_toggle_6bbe4c;
 } BkEndingAuxiliaryControllerBindings;
 
 typedef struct {
@@ -17,8 +19,13 @@ typedef struct {
   int (*status)(void *, unsigned owner, int *playing, char[256]);
   int (*request)(void *, unsigned slot, char[256]); /*4018C8*/
   int (*expression)(void *, int32_t, int32_t, unsigned, char[256]); /*4DFB96*/
+  int (*voice)(void *, int32_t cue, unsigned slot, int32_t flags,
+               int32_t volume, char[256]); /*481E0A*/
   int (*group_sound)(void *, unsigned group, char[256]); /*group 0/1 only*/
-  int (*prepare_group)(void *, unsigned group, unsigned branch, char[256]);
+  int (*camera_setup)(void *, unsigned group, const float values[4],
+                      int preset, char[256]);
+  int (*target)(void *, float position[3], char[256]); /*old721F08*/
+  int32_t voice_volume;
 } BkEndingAuxiliaryControllerOps;
 
 /* Recover the 47DC79 state-8 transition prefix. If either native media owner is

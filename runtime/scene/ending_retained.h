@@ -19,6 +19,7 @@ typedef struct {
 typedef struct {
   int32_t words_6bbe2c[2];
   uint8_t byte_6bbe34;
+  uint8_t byte_6bbe4c; /* state8 saves 7220F9 before forcing it to1 */
   int32_t word_6bbe48; /*48181F expression restore latch*/
 } BkEndingRetainedStage3;
 typedef struct {
