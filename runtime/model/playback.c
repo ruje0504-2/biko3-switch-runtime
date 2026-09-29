@@ -119,6 +119,11 @@ int bk_model_playback_edit_clips(BkModelPlayback *p, const BkClipEdit *edits,
   return p ? bk_clip_edit(p->player, edits, count, error)
            : fail(error, "missing instance");
 }
+int bk_model_playback_reset_sources(BkModelPlayback *p, const unsigned *slots,
+                                    size_t count, char error[256]) {
+  return p ? bk_clip_reset_sources(p->player, slots, count, error)
+           : fail(error, "missing instance");
+}
 int bk_model_playback_set_clock(BkModelPlayback *p, unsigned slot,
                                  float elapsed, float source, char error[256]) {
   return p ? bk_clip_set_clock(p->player, slot, elapsed, source, error)

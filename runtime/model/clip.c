@@ -211,6 +211,22 @@ int bk_clip_edit(BkClipPlayer *p, const BkClipEdit *edits, size_t count,
   *p = next;
   return 1;
 }
+int bk_clip_reset_sources(BkClipPlayer *p, const unsigned *slots, size_t count,
+                          char error[256]) {
+  if (!p || (count && !slots))
+    return fail(error, "missing source reset/player");
+  if (!count)
+    return 1;
+  BkClipPlayer next = *p;
+  for (size_t i = 0; i < count; ++i) {
+    unsigned slot = slots[i];
+    if (slot >= BK_CLIP_SLOTS)
+      return fail(error, "invalid source reset slot");
+    next.timelines[slot].source = p->set->clips[slot].start;
+  }
+  *p = next;
+  return 1;
+}
 static BkClipPlayer *authored(const BkClipSet *s, int empty, char error[256]) {
   if (!s) {
     fail(error, "missing clip set");

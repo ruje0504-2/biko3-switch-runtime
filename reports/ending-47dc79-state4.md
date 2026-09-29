@@ -15,27 +15,30 @@
   保持原版空操作。
 - `ending_normal_session` 已把 4D39E6 的相机轨道、A_kuch 跟随目标、面部/眼睛、
   音频状态和共享 ending 字段接到该控制器。state0 仍只做原版的一字节段间转移。
-- state4 开头原版还会把角色对象的 `+31C`/`+3B8` 运行时字段转移到
-  `+328`/`+3C4`。当前可移植 `BkActorPose` 没有这两个字段的所有者，因此
-  `prepare_actor` 被定义为强制服务；生产分派暂传 `NULL`，会明确失败并停在
-  该边界，不能把相机状态机单元通过当成可玩的结局流程。
+- 已用固定 EXE 和实际 `h01_00.xan` 资源确认这些偏移的语义：
+  `721B28+31C/+328` 是 slot2 的 authored start/source，
+  `721B28+3B8/+3C4` 是 slot3 的 authored start/source，并非角色包围盒。
+  `prepare_actor` 现在通过 `BkActorPose → BkModelPlayback → BkClipPlayer`
+  只恢复 slot2/3 的 `source`，保留 elapsed、rate、loops、请求和过渡状态；
+  生产分派已接入主角色姿态，失败时仍会明确返回错误。
 
 ## 验证
 
-- 普通构建：`bk_game`、`test-ending-auxiliary-state4`、`ending-normal-probe`
-  通过。
-- 普通 CTest：`ending-auxiliary-controller`、`ending-auxiliary-state4`，2/2
-  通过；覆盖相机完成、媒体忙/闲、子状态复位和缺少角色服务的显式拒绝。
-- ASan/UBSan 构建及同两项 CTest 通过，运行使用
-  `ASAN_OPTIONS=detect_leaks=0 UBSAN_OPTIONS=halt_on_error=1`。
+- 普通构建：`bk_game`、`test-clip`、`test-ending-auxiliary-state4`、
+  `ending-normal-probe` 通过；普通 CTest 的 `clip-scheduler`、
+  `ending-auxiliary-controller`、`ending-auxiliary-state4` 为 3/3。
+  `test-clip` 覆盖 source 批量恢复、其他时间线状态保持和非法 slot 的原子拒绝。
+- ASan/UBSan 的 `test-clip`、`test-ending-auxiliary-state4`、
+  `ending-auxiliary-controller`、`ending-auxiliary-state4` 和 `clip-scheduler`
+  通过；普通/ASan `ending-normal-probe local/game/MAINDIR/Data` 均通过，运行
+  使用 `ASAN_OPTIONS=detect_leaks=0 UBSAN_OPTIONS=halt_on_error=1`。
 - 指定 Mesa NVK Switch 交叉构建通过，Mesa commit 为
   `5dba7886c56460ff47c3038e323d07b9547d6212`，未定义符号为 0；构建目录
   NRO SHA-256 为
-  `f9203abcb5ce80c40b67c2462930583213a7e3b572c7f66bc15904266f221c75`，
-  大小 16,044,088 字节。
+  `e048269bc45a250e51c9b3420248107cd30df74e760417bc7525024264719ef3`。
 
 ## 尚未完成
 
-角色运行时字段服务完成前，真实 47DC79 state4 入口仍按设计失败；state1/5/6/7
-及 state8 后续、其它结局 loader、自然结束/解锁、Switch 实机验收也不在本次范围。
+真实 47DC79 state4 的前置 source 恢复已接入；state1/5/6/7 及 state8 后续、
+其它结局 loader、自然结束/解锁、Switch 实机验收仍未完成。
 没有生成新的整包或推送 GitHub；Mac 防休眠进程保持运行。

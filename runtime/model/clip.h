@@ -47,6 +47,12 @@ typedef struct {
  * retain4025b9's no-op behavior. */
 int bk_clip_edit(BkClipPlayer *, const BkClipEdit *, size_t count,
                  char error[256]);
+/* 47DC79 state4's direct XAN writes: restore selected timeline source fields
+ * to their authored starts while preserving every other playback field.
+ * Validation and the ordered batch are atomic; no request, clock or sample
+ * is performed. */
+int bk_clip_reset_sources(BkClipPlayer *, const unsigned *slots, size_t count,
+                          char error[256]);
 int bk_clip_link(const BkClipPlayer *, unsigned slot, int32_t *chain,
                  int32_t *next);
 /* Direct controller writes to elapsed/source only. This does not request a

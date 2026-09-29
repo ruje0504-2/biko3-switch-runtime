@@ -41,6 +41,26 @@ static void runtime_edits(const unsigned char *raw) {
   assert(bk_clip_state(a, &state));
   old.source = 19;
   assert(!memcmp(&old, &state, sizeof(state)));
+  assert(bk_clip_edit(a, (BkClipEdit[]){{1, BK_CLIP_EDIT_SOURCE, 0, 0, 37}},
+                      1, e));
+  BkClipTiming source_before[2], source_after[2];
+  assert(bk_clip_timing(a, 0, &source_before[0]) &&
+         bk_clip_timing(a, 1, &source_before[1]) &&
+         source_before[0].source == 19 && source_before[1].source == 37);
+  assert(bk_clip_reset_sources(a, (unsigned[]){0, 1}, 2, e));
+  old.source = 10;
+  assert(bk_clip_state(a, &state) && !memcmp(&old, &state, sizeof(state)));
+  assert(bk_clip_timing(a, 0, &source_after[0]) &&
+         bk_clip_timing(a, 1, &source_after[1]) &&
+         source_after[0].source == 10 && source_after[1].source == 30 &&
+         source_after[0].start == source_before[0].start &&
+         source_after[1].start == source_before[1].start);
+  assert(!bk_clip_reset_sources(a, (unsigned[]){0, 128}, 2, e));
+  assert(bk_clip_state(a, &state) && !memcmp(&old, &state, sizeof(state)));
+  BkClipTiming source_failed[2];
+  assert(bk_clip_timing(a, 0, &source_failed[0]) &&
+         bk_clip_timing(a, 1, &source_failed[1]) &&
+         !memcmp(source_after, source_failed, sizeof(source_after)));
   int32_t chain, next;
   assert(bk_clip_link(a, 0, &chain, &next) && chain == 1 && next == 1);
   assert(bk_clip_link(b, 0, &chain, &next) && chain == 0 && next == 0);
@@ -65,7 +85,7 @@ static void runtime_edits(const unsigned char *raw) {
   assert(bk_clip_edit(a, NULL, 0, e));
   assert(bk_clip_advance(a, 1, &sample, e));
   assert(bk_clip_state(a, &state) && state.slot == 1 && state.requested == 0);
-  assert(bk_clip_state(clone, &state) && state.slot == 0 && state.source == 19);
+  assert(bk_clip_state(clone, &state) && state.slot == 0 && state.source == 10);
   /* 4025b9 ignores an empty target, even in a fresh instance. */
   assert(bk_clip_edit(clone, (BkClipEdit[]){{0, BK_CLIP_EDIT_NEXT, 0, 127, 0}},
                       1, e));

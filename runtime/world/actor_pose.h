@@ -67,6 +67,8 @@ int bk_actor_pose_request_mode(BkActorPose *, unsigned slot, BkClipRequestMode,
                                char error[256]);
 int bk_actor_pose_edit_clips(BkActorPose *, const BkClipEdit *, size_t count,
                              char error[256]);
+int bk_actor_pose_reset_sources(BkActorPose *, const unsigned *, size_t count,
+                                char error[256]);
 int bk_actor_pose_set_clock(BkActorPose *, unsigned slot, float elapsed,
                              float source, char error[256]);
 int bk_actor_pose_clip_link(const BkActorPose *, unsigned slot, int32_t *chain,

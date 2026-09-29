@@ -22,7 +22,7 @@ typedef struct {
   void *context;
   int (*present)(void *, unsigned owner, int *present, char[256]);
   int (*status)(void *, unsigned owner, int *playing, char[256]);
-  int (*prepare_actor)(void *, char[256]); /*721b28 +31c/+3b8 transfer*/
+  int (*prepare_actor)(void *, char[256]); /*721b28 XAN slot2/3 source reset*/
   int (*expression)(void *, int32_t, int32_t, unsigned, char[256]); /*4DFB96*/
   int (*target)(void *, float position[3], char[256]); /*721F08+F0*/
   int (*camera)(void *, BkEndingOpeningCamera, int32_t choice,
@@ -32,9 +32,8 @@ typedef struct {
 } BkEndingAuxiliaryState4Ops;
 
 /* Execute the recovered state4 jump-table logic of 47DC79. Each call captures
- * the substate once. The actor runtime-field transfer is an explicit service:
- * until its portable owner exists, production entry fails instead of silently
- * skipping the native writes. Media waits are no-ops, while camera/effect
+ * the substate once. The actor source reset is an explicit service owned by
+ * the primary BkActorPose. Media waits are no-ops, while camera/effect
  * services execute in original order and retain their side effects on failure.
  * The routine does not advance or publish actors. */
 int bk_ending_auxiliary_state4_step(

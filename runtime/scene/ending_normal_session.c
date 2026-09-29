@@ -185,6 +185,17 @@ static BkActorPose *scene_primary(EndingNormalScene *s) {
       ? bk_ending_selected_assets_pose(s->selected_assets, 0)
       : bk_ending_normal_assets_pose(s->assets, 0)) : NULL;
 }
+static int auxiliary_state4_prepare_actor(void *context, char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorPose *primary = scene_primary(s);
+  static const unsigned slots[] = {2, 3};
+  if (!primary) {
+    if (e)
+      snprintf(e, 256, "ending normal scene: 47DC79 primary XAN is unavailable");
+    return 0;
+  }
+  return bk_actor_pose_reset_sources(primary, slots, 2, e);
+}
 static uint32_t scene_node(EndingNormalScene *s, unsigned index) {
   return s->tertiary_assets
       ? bk_ending_tertiary_assets_node(s->tertiary_assets, index)
@@ -1700,7 +1711,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         s,
         auxiliary_state4_present,
         auxiliary_state4_status,
-        NULL,
+        auxiliary_state4_prepare_actor,
         auxiliary_state4_expression,
         auxiliary_state4_target,
         auxiliary_state4_camera,

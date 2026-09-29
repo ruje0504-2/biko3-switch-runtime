@@ -45,6 +45,8 @@ int bk_model_playback_request_mode(BkModelPlayback *, unsigned slot,
  */
 int bk_model_playback_edit_clips(BkModelPlayback *, const BkClipEdit *, size_t,
                                  char error[256]);
+int bk_model_playback_reset_sources(BkModelPlayback *, const unsigned *, size_t,
+                                    char error[256]);
 int bk_model_playback_set_clock(BkModelPlayback *, unsigned slot,
                                  float elapsed, float source, char error[256]);
 /* Plain402e18/4e18ad/4a9019 clock plus actual ANIM submission, retaining the

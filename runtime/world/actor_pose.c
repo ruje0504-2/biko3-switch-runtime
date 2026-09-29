@@ -218,6 +218,11 @@ int bk_actor_pose_edit_clips(BkActorPose *a, const BkClipEdit *edits,
   return a ? bk_model_playback_edit_clips(a->playback, edits, count, error)
            : fail(error, "missing actor");
 }
+int bk_actor_pose_reset_sources(BkActorPose *a, const unsigned *slots,
+                                size_t count, char error[256]) {
+  return a ? bk_model_playback_reset_sources(a->playback, slots, count, error)
+           : fail(error, "missing actor");
+}
 int bk_actor_pose_set_clock(BkActorPose *a, unsigned slot, float elapsed,
                              float source, char error[256]) {
   return a ? bk_model_playback_set_clock(a->playback, slot, elapsed, source, error)
