@@ -8,6 +8,8 @@
 #include "scene/ending_secondary_controller.h"
 #include "scene/ending_secondary_presentation.h"
 #include "scene/ending_selected_assets.h"
+#include "scene/ending_auxiliary_assets.h"
+#include "game/ending_auxiliary_presentation.h"
 #include "scene/ending_selected_presentation.h"
 #include "game/ending_selected_action.h"
 #include "scene/ending_secondary_ui.h"
@@ -39,6 +41,7 @@ typedef struct {
   BkEndingSecondaryAssets *secondary;
   BkEndingTertiaryAssets *tertiary;
   BkEndingSelectedAssets *selected;
+  BkEndingAuxiliaryAssets *auxiliary;
   BkEndingNormalRender *render;
   BkMaterialPose *materials;
   BkEndingSpecialMaterial *special_materials;
@@ -55,6 +58,7 @@ typedef struct {
   BkEndingSecondaryAssets *secondary_assets;
   BkEndingTertiaryAssets *tertiary_assets;
   BkEndingSelectedAssets *selected_assets;
+  BkEndingAuxiliaryAssets *auxiliary_assets;
   BkEndingNormalRender *render;
   BkEndingNormalRender *snapshot_render;
   EndingRetiredStage retired;
@@ -141,11 +145,14 @@ static void release_retired(EndingRetiredStage *stage) {
   bk_ending_secondary_assets_destroy(stage->secondary);
   bk_ending_tertiary_assets_destroy(stage->tertiary);
   bk_ending_selected_assets_destroy(stage->selected);
+  bk_ending_auxiliary_assets_destroy(stage->auxiliary);
   memset(stage, 0, sizeof(*stage));
 }
 static BkEndingBackgroundAssets *scene_retired_background(const EndingNormalScene *s) {
   return s->retired.tertiary
       ? bk_ending_tertiary_assets_background(s->retired.tertiary)
+      : s->retired.auxiliary
+      ? bk_ending_auxiliary_assets_background(s->retired.auxiliary)
       : s->retired.selected
       ? bk_ending_selected_assets_background(s->retired.selected)
       : s->retired.normal
@@ -158,6 +165,8 @@ static BkEndingBackgroundAssets *scene_retired_background(const EndingNormalScen
 static BkActorForest *scene_forest(EndingNormalScene *s) {
   return s ? (s->tertiary_assets
       ? bk_ending_tertiary_assets_forest(s->tertiary_assets)
+      : s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_forest(s->auxiliary_assets)
       : s->secondary_assets
       ? bk_ending_secondary_assets_forest(s->secondary_assets)
       : s->selected_assets
@@ -167,6 +176,8 @@ static BkActorForest *scene_forest(EndingNormalScene *s) {
 static BkActorPose *scene_primary(EndingNormalScene *s) {
   return s ? (s->tertiary_assets
       ? bk_ending_tertiary_assets_pose(s->tertiary_assets, 0)
+      : s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_pose(s->auxiliary_assets, 0)
       : s->secondary_assets
       ? bk_ending_secondary_assets_pose(s->secondary_assets, 0)
       : s->selected_assets
@@ -176,6 +187,8 @@ static BkActorPose *scene_primary(EndingNormalScene *s) {
 static uint32_t scene_node(EndingNormalScene *s, unsigned index) {
   return s->tertiary_assets
       ? bk_ending_tertiary_assets_node(s->tertiary_assets, index)
+      : s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_node(s->auxiliary_assets, index)
       : s->secondary_assets
       ? bk_ending_secondary_assets_node(s->secondary_assets, index)
       : s->selected_assets
@@ -185,6 +198,8 @@ static uint32_t scene_node(EndingNormalScene *s, unsigned index) {
 static BkEyeAssets *scene_eyes(EndingNormalScene *s) {
   return s ? (s->tertiary_assets
       ? bk_ending_tertiary_assets_eyes(s->tertiary_assets)
+      : s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_eyes(s->auxiliary_assets)
       : s->secondary_assets
       ? bk_ending_secondary_assets_eyes(s->secondary_assets)
       : s->selected_assets
@@ -194,6 +209,8 @@ static BkEyeAssets *scene_eyes(EndingNormalScene *s) {
 static BkEndingCameraAssets *scene_cameras(EndingNormalScene *s) {
   return s->tertiary_assets
       ? bk_ending_tertiary_assets_cameras(s->tertiary_assets)
+      : s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_cameras(s->auxiliary_assets)
       : s->secondary_assets
       ? bk_ending_secondary_assets_cameras(s->secondary_assets)
       : s->selected_assets
@@ -205,7 +222,7 @@ static unsigned scene_legacy_role(const EndingNormalScene *s, unsigned role) {
   static const unsigned normal[] = {0, 1, BK_MODEL_NONE, 2, 3, 4};
   static const unsigned secondary[] = {0, BK_MODEL_NONE, BK_MODEL_NONE, 1, 2, 3};
   static const unsigned selected[] = {0, BK_MODEL_NONE, BK_MODEL_NONE, 1, 2, 3};
-  return role < 6 ? (s->secondary_assets ? secondary[role] :
+  return role < 6 ? (s->secondary_assets || s->auxiliary_assets ? secondary[role] :
       s->selected_assets ? selected[role] : normal[role]) : BK_MODEL_NONE;
 }
 static BkActorPose *scene_actor(EndingNormalScene *s, unsigned role) {
@@ -213,6 +230,8 @@ static BkActorPose *scene_actor(EndingNormalScene *s, unsigned role) {
     return NULL;
   if (s->tertiary_assets)
     return bk_ending_tertiary_assets_pose(s->tertiary_assets, role);
+  if (s->auxiliary_assets)
+    return bk_ending_auxiliary_assets_pose(s->auxiliary_assets, scene_legacy_role(s, role));
   unsigned index = scene_legacy_role(s, role);
   return index == BK_MODEL_NONE ? NULL : s->secondary_assets
       ? bk_ending_secondary_assets_pose(s->secondary_assets, index)
@@ -231,7 +250,8 @@ static uint32_t scene_root(EndingNormalScene *s, unsigned role) {
   if (s->tertiary_assets)
     return bk_ending_tertiary_assets_root(s->tertiary_assets, role);
   unsigned index = scene_legacy_role(s, role);
-  return s->secondary_assets ? bk_ending_secondary_assets_root(s->secondary_assets, index)
+  return s->auxiliary_assets ? bk_ending_auxiliary_assets_root(s->auxiliary_assets, index)
+                             : s->secondary_assets ? bk_ending_secondary_assets_root(s->secondary_assets, index)
                              : s->selected_assets ? bk_ending_selected_assets_root(s->selected_assets, index)
                              : bk_ending_normal_assets_root(s->assets, index);
 }
@@ -308,6 +328,8 @@ static void release_resources(EndingNormalScene *s) {
   s->tertiary_assets = NULL;
   bk_ending_selected_assets_destroy(s->selected_assets);
   s->selected_assets = NULL;
+  bk_ending_auxiliary_assets_destroy(s->auxiliary_assets);
+  s->auxiliary_assets = NULL;
   release_retired(&s->retired);
   s->snapshot_render = NULL;
   bk_ending_background_assets_destroy(s->retained_background);
@@ -379,6 +401,157 @@ static int frame_clock(void *context, uint32_t *milliseconds, char e[256]) {
     return fail(e, "invalid ending frame clock request");
   *milliseconds = s->now_ms;
   return 1;
+}
+
+static int auxiliary_presentation_advance(
+    void *context, BkEndingAuxiliaryPresentationActor actor, float seconds,
+    char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->auxiliary_assets)
+    return fail(e, "auxiliary presentation asset owner is missing");
+  unsigned index = actor == BK_ENDING_AUX_PRESENT_PRIMARY ? 0 : 3;
+  return bk_ending_auxiliary_assets_advance(s->auxiliary_assets, index,
+                                            seconds, e);
+}
+static int auxiliary_presentation_plain(
+    void *context, BkEndingAuxiliaryPresentationActor actor, float seconds,
+    BkClipPlainMode mode, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || actor != BK_ENDING_AUX_PRESENT_PRIMARY || !s->auxiliary_assets)
+    return fail(e, "auxiliary plain scheduler owner is missing");
+  return bk_ending_auxiliary_assets_advance_plain(s->auxiliary_assets,
+                                                   seconds, mode, e);
+}
+static int auxiliary_presentation_active(
+    void *context, BkEndingAuxiliaryPresentationActor actor, int32_t *out,
+    char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorPose *pose = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_pose(s->auxiliary_assets,
+          actor == BK_ENDING_AUX_PRESENT_PRIMARY ? 0 : 3) : NULL;
+  BkClipState state;
+  if (!out || !pose || !bk_actor_pose_state(pose, &state))
+    return fail(e, "auxiliary active clip is unavailable");
+  *out = state.slot;
+  return 1;
+}
+static int auxiliary_presentation_hide(void *context, uint32_t node,
+                                       uint32_t hidden, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!node) return 1;
+  return s && s->auxiliary_assets && bk_actor_forest_visibility(
+      bk_ending_auxiliary_assets_forest(s->auxiliary_assets), node, hidden, e);
+}
+static int auxiliary_presentation_material(void *context, const char *name,
+                                           uint32_t hidden, float alpha,
+                                           char e[256]) {
+  EndingNormalScene *s = context;
+  return s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_material_alpha(s->auxiliary_assets, name,
+                                                   hidden, alpha, e)
+      : fail(e, "auxiliary material owner is missing");
+}
+static int auxiliary_presentation_publish(void *context, char e[256]) {
+  EndingNormalScene *s = context;
+  return s && s->auxiliary_assets && bk_actor_forest_refresh(
+      bk_ending_auxiliary_assets_forest(s->auxiliary_assets), e);
+}
+static int auxiliary_presentation_expression(void *context, int32_t value,
+                                             char e[256]) {
+  EndingNormalScene *s = context;
+  BkFaceState *face = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_face_state(s->auxiliary_assets) : NULL;
+  if (!face) return fail(e, "auxiliary face owner is missing");
+  return bk_face_request(face, value, s->now_ms, e);
+}
+static int auxiliary_presentation_eye_range(void *context, float minimum,
+                                            float maximum, char e[256]) {
+  EndingNormalScene *s = context;
+  BkFaceState *face = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_face_state(s->auxiliary_assets) : NULL;
+  return face ? bk_face_eye_range(face, minimum, maximum, s->random, e)
+              : fail(e, "auxiliary eye owner is missing");
+}
+static int auxiliary_presentation_gaze(void *context, float minimum,
+                                       float maximum, char e[256]) {
+  EndingNormalScene *s = context;
+  BkEyeAssets *eyes = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_eyes(s->auxiliary_assets) : NULL;
+  const BkEyeBinding *binding = bk_eye_assets_binding(eyes);
+  if (!s || !s->auxiliary_assets || !binding)
+    return fail(e, "auxiliary gaze binding is missing");
+  const float *world = bk_actor_forest_world(
+      bk_ending_auxiliary_assets_forest(s->auxiliary_assets),
+      bk_ending_auxiliary_assets_root(s->auxiliary_assets, 0));
+  return world && bk_actor_pose_eyes(
+      bk_ending_auxiliary_assets_pose(s->auxiliary_assets, 0), binding->frames,
+      world, binding->texture_mode, bk_eye_assets_gaze_variant(eyes),
+      minimum, maximum, e);
+}
+static int auxiliary_presentation_blink(void *context, uint32_t timestamp,
+                                        char e[256]) {
+  EndingNormalScene *s = context;
+  BkFaceState *face = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_face_state(s->auxiliary_assets) : NULL;
+  BkFaceAssets *assets = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_face(s->auxiliary_assets) : NULL;
+  BkFaceCommands commands;
+  if (!face || !assets) return fail(e, "auxiliary blink owner is missing");
+  return bk_face_blink(face, timestamp, s->now_ms, s->random, &commands, e) &&
+         bk_face_assets_apply(assets, &commands, e);
+}
+static int auxiliary_presentation_level(void *context, float *out,
+                                        char e[256]) {
+  EndingNormalScene *s = context;
+  return s && s->audio && s->presentation && out
+      ? bk_ending_audio_level(s->audio, 0, &s->presentation->voice, out, e)
+      : fail(e, "auxiliary voice envelope is missing");
+}
+static int auxiliary_presentation_mouth(void *context, float value,
+                                        uint32_t timestamp, char e[256]) {
+  EndingNormalScene *s = context;
+  BkFaceState *face = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_face_state(s->auxiliary_assets) : NULL;
+  BkFaceAssets *assets = s && s->auxiliary_assets
+      ? bk_ending_auxiliary_assets_face(s->auxiliary_assets) : NULL;
+  BkFaceCommands commands;
+  (void)timestamp;
+  if (!face || !assets) return fail(e, "auxiliary mouth owner is missing");
+  return bk_face_mouth(face, value, s->now_ms, &commands, e) &&
+         bk_face_assets_apply(assets, &commands, e);
+}
+static int auxiliary_presentation_step(EndingNormalScene *s, char e[256]) {
+  if (!s || !s->auxiliary_assets || !s->audio || !s->presentation)
+    return fail(e, "auxiliary presentation owners are unavailable");
+  BkActorForest *forest = bk_ending_auxiliary_assets_forest(s->auxiliary_assets);
+  uint32_t primary = bk_ending_auxiliary_assets_root(s->auxiliary_assets, 0);
+  uint32_t background = bk_ending_auxiliary_assets_root(s->auxiliary_assets, 3);
+  if (!forest || primary == BK_FRAME_NONE || background == BK_FRAME_NONE)
+    return fail(e, "auxiliary presentation roots are missing");
+  uint32_t hidden[3];
+  for (unsigned i = 0; i < 3; ++i) {
+    uint32_t frame = bk_ending_auxiliary_assets_visible_node(s->auxiliary_assets, i);
+    hidden[i] = frame == BK_MODEL_NONE ? 0 :
+        bk_actor_forest_node(forest, 0, frame);
+  if (hidden[i] == BK_FRAME_NONE) return fail(e, "stale auxiliary hidden node");
+  }
+  uint32_t secondary_node = (uint32_t)s->state->retained.normal.word_719b40;
+  BkEndingAuxiliaryPresentationBindings b = {
+      &s->state->frame, &s->state->control, &s->state->auxiliary,
+      bk_ending_auxiliary_assets_face_state(s->auxiliary_assets),
+      &s->state->face_mode, &s->state->retained.stage3.word_6bbe48,
+      &s->state->eye_lower, &s->state->retained.stage4.word_6c7f48,
+      s->state->control.toggles, &primary, &background, hidden,
+      &secondary_node};
+  BkEndingAuxiliaryPresentationOps ops = {
+      s, frame_clock, auxiliary_presentation_advance,
+      auxiliary_presentation_plain, auxiliary_presentation_active,
+      auxiliary_presentation_hide, auxiliary_presentation_material,
+      auxiliary_presentation_publish, auxiliary_presentation_expression,
+      auxiliary_presentation_eye_range, auxiliary_presentation_gaze,
+      auxiliary_presentation_blink, auxiliary_presentation_level,
+      auxiliary_presentation_mouth};
+  return bk_ending_auxiliary_presentation_step(&b, s->active_seconds, &ops, e);
 }
 
 static int ui_position(void *context, float out[2], char e[256]) {
@@ -532,9 +705,10 @@ static int ui_reload_release(void *context, BkEndingLoader loader, char e[256]) 
   int secondary = loader == BK_ENDING_LOAD_4D00FA;
   int tertiary = loader == BK_ENDING_LOAD_4D2320;
   int selected = loader == BK_ENDING_LOAD_4D1025;
+  int auxiliary = loader == BK_ENDING_LOAD_4D39E6;
   if (!s || s->retired.render || !s->render ||
       s->snapshot_render != s->render ||
-      (tertiary ? !s->tertiary_assets : selected ? !s->selected_assets :
+      (tertiary ? !s->tertiary_assets : auxiliary ? !s->auxiliary_assets : selected ? !s->selected_assets :
        secondary ? !s->secondary_assets :
          (loader != BK_ENDING_LOAD_4CF318 || !s->assets)))
     return fail(e, "unsupported release or stage snapshot is not captured");
@@ -545,16 +719,18 @@ static int ui_reload_release(void *context, BkEndingLoader loader, char e[256]) 
   if (!bk_ending_audio_release_speech(s->audio, e))
     return 0;
   if (!bk_ending_stage_ui_release(&s->ui, &s->stage_ui,
-        tertiary ? BK_ENDING_UI_THIRD : selected ? BK_ENDING_UI_FOURTH :
+        tertiary ? BK_ENDING_UI_THIRD : auxiliary ? BK_ENDING_UI_AUXILIARY : selected ? BK_ENDING_UI_FOURTH :
         secondary ? BK_ENDING_UI_SECONDARY : BK_ENDING_UI_NORMAL, e))
     return 0;
   s->retired = (EndingRetiredStage){.normal = s->assets, .secondary = s->secondary_assets,
-      .tertiary = s->tertiary_assets, .selected = s->selected_assets, .render = s->render,
+      .tertiary = s->tertiary_assets, .selected = s->selected_assets,
+      .auxiliary = s->auxiliary_assets, .render = s->render,
       .materials = s->materials, .special_materials = s->special_materials};
   s->assets = NULL;
   s->secondary_assets = NULL;
   s->tertiary_assets = NULL;
   s->selected_assets = NULL;
+  s->auxiliary_assets = NULL;
   s->render = NULL;
   s->materials = NULL;
   s->special_materials = NULL;
@@ -1393,8 +1569,9 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         s->state, &s->state->face_mode, &s->state->eye_lower, s->active_seconds, e);
   }
   case BK_ENDING_STAGE_47DC79:
-  case BK_ENDING_STAGE_48181F:
     return fail(e, "ending branch requires its own loader and controller");
+  case BK_ENDING_STAGE_48181F:
+    return auxiliary_presentation_step(s, e);
   case BK_ENDING_AUXILIARY_4965B9: {
     BkEndingAuxiliaryServices services = {
         scene_primary(s), scene_eyes(s), s->audio};
@@ -1586,6 +1763,24 @@ static int special_material_registry(EndingNormalScene *s, char e[256]) {
     s->special_material_count = primary->material_count;
     return 1;
   }
+  if (s->auxiliary_assets) {
+    const BkModel *primary = bk_actor_pose_model(
+        bk_ending_auxiliary_assets_pose(s->auxiliary_assets, 0));
+    BkMaterialPose *materials = bk_ending_auxiliary_assets_materials(
+        s->auxiliary_assets, 0);
+    if (!primary || !materials)
+      return fail(e, "missing auxiliary material registry");
+    if (primary->material_count) {
+      s->special_materials = calloc(primary->material_count,
+                                    sizeof(*s->special_materials));
+      if (!s->special_materials)
+        return fail(e, "auxiliary material registry allocation failed");
+    }
+    for (uint32_t i = 0; i < primary->material_count; ++i)
+      s->special_materials[i] = (BkEndingSpecialMaterial){materials, i};
+    s->special_material_count = primary->material_count;
+    return 1;
+  }
   const BkModel *primary =
       bk_actor_pose_model(bk_ending_normal_assets_pose(s->assets, 0));
   if (!primary || !s->materials)
@@ -1637,8 +1832,8 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
   EndingNormalScene *s = context;
   unsigned variant;
   BkEndingUiStageKind stage_kind;
-  if (!s || s->assets || s->secondary_assets ||
-      s->tertiary_assets || s->selected_assets || s->render || s->final_image)
+  if (!s || s->assets || s->secondary_assets || s->tertiary_assets ||
+      s->selected_assets || s->auxiliary_assets || s->render || s->final_image)
     return fail(e, "invalid ending loader owner");
   /*4d00fa has a different topology. The normal action-table variant is
    *721e04 and must not be confused with gallery selection1/phase2. */
@@ -1665,6 +1860,11 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
       return fail(e, "invalid selected-ending loader argument");
     variant = s->state->auxiliary.variant != 0;
     stage_kind = BK_ENDING_UI_FOURTH;
+  } else if (loader == BK_ENDING_LOAD_4D39E6) {
+    if (argument != -1)
+      return fail(e, "invalid auxiliary loader argument");
+    variant = s->state->auxiliary.variant != 0;
+    stage_kind = BK_ENDING_UI_AUXILIARY;
   } else
     return fail(e, "normal scene does not own this ending loader");
   if (loader != BK_ENDING_LOAD_4D1025 && argument != -1)
@@ -1674,7 +1874,15 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
       ? s->retained_background : scene_retired_background(s);
   if (s->retired.render && !background)
     return fail(e, "released stage has no retained outer background");
-  if (stage_kind == BK_ENDING_UI_THIRD) {
+  if (stage_kind == BK_ENDING_UI_AUXILIARY) {
+    if (!background)
+      return fail(e, "4D39E6 requires the preceding retained outer background");
+    s->auxiliary_assets = bk_ending_auxiliary_assets_create_reloaded(
+        s->services.resources, s->state->frame.group, variant, background,
+        clocks, s->random, &s->camera, &s->presets, e);
+    if (!s->auxiliary_assets)
+      goto bad;
+  } else if (stage_kind == BK_ENDING_UI_THIRD) {
     s->tertiary_assets = background
         ? bk_ending_tertiary_assets_create_reloaded(s->services.resources,
               s->state->frame.group, variant, background, clocks, s->random,
@@ -1736,6 +1944,8 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
         ? bk_ending_secondary_assets_target(s->secondary_assets, i)
         : s->selected_assets
         ? bk_ending_selected_assets_target(s->selected_assets, i)
+        : s->auxiliary_assets
+        ? bk_ending_auxiliary_assets_target(s->auxiliary_assets, i)
         : bk_ending_normal_assets_target(s->assets, i);
     if (!target) {
       fail(e, "normal loader camera target is unavailable");
@@ -1753,9 +1963,18 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
              ? bk_ending_secondary_assets_config(s->secondary_assets)->camera_table
              : s->selected_assets
              ? bk_ending_selected_assets_config(s->selected_assets)->camera_table
+             : s->auxiliary_assets
+             ? bk_ending_auxiliary_assets_config(s->auxiliary_assets)->camera_table
              : bk_ending_normal_assets_config(s->assets)->camera_table,
          sizeof(s->state->frame.camera_table));
-  if (s->tertiary_assets) {
+  if (s->auxiliary_assets) {
+    if (!bk_ending_auxiliary_assets_background(s->auxiliary_assets))
+      goto bad;
+    s->render = bk_ending_auxiliary_render_create(
+        s->services.renderer, s->services.resources, s->auxiliary_assets,
+        (int32_t)s->now_ms, e);
+    s->materials = bk_ending_auxiliary_assets_materials(s->auxiliary_assets, 0);
+  } else if (s->tertiary_assets) {
     if (!bk_ending_tertiary_assets_load_background(s->tertiary_assets,
                                                    s->services.resources, e))
       goto bad;
@@ -1794,7 +2013,7 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     goto bad;
   s->disabled_count = s->tertiary_assets
       ? bk_bom_dual_assets_count(bk_ending_tertiary_assets_bom(s->tertiary_assets))
-      : s->selected_assets ? 0
+      : (s->selected_assets || s->auxiliary_assets) ? 0
       : s->assets ? bk_bom_assets_count(bk_ending_normal_assets_bom(s->assets)) : 0;
   if (s->disabled_count > sizeof(s->disabled) / sizeof(s->disabled[0])) {
     fail(e, "normal disabled-model table is too large");
@@ -1853,6 +2072,38 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->state->selected = (int32_t)s->gallery_selection;
     s->state->auxiliary.selection = (int32_t)argument;
     s->state->auxiliary.pending = 0;
+    s->state->frame.camera_clip = 0;
+    return complete_load(s, variant);
+  }
+  if (s->auxiliary_assets) {
+    const BkEnding4d39Config *config =
+        bk_ending_auxiliary_assets_config(s->auxiliary_assets);
+    unsigned missing = bk_ending_auxiliary_assets_missing_visible(s->auxiliary_assets);
+    s->state->auxiliary.expression_a = config->expression_a;
+    s->state->auxiliary.expression_b = config->expression_b;
+    /*4D39E6 writes the auxiliary-stage flags after the two optional-name
+     * lookups. Missing nodes remain explicit state; no retained slot is
+     * cleared by an absent lookup. */
+    s->state->control.toggles[0] = 0;
+    s->state->control.toggles[1] = missing == 3;
+    s->state->control.toggles[2] = missing != 3;
+    s->state->control.toggles[3] = s->state->frame.group != 1;
+    s->state->control.toggles[4] = s->state->frame.group == 1;
+    s->state->control.toggles[5] = 1;
+    s->state->control.toggles[6] = s->option_b == 1;
+    s->state->frame.camera_cached = -1;
+    s->state->frame.camera_mode = 5;
+    s->state->retained.normal.follow_target = bk_actor_forest_node(
+        scene_forest(s), scene_registry(s, 0),
+        bk_ending_auxiliary_assets_follow(s->auxiliary_assets));
+    if (s->state->retained.normal.follow_target == BK_FRAME_NONE)
+      goto bad;
+    s->state->frame.phase = 4;
+    s->state->frame.state_721ee4 = 4;
+    s->state->control.state_721eec = 4;
+    s->state->stage3_state = 0;
+    s->state->auxiliary.pending = 0;
+    s->state->face_mode = 0;
     s->state->frame.camera_clip = 0;
     return complete_load(s, variant);
   }

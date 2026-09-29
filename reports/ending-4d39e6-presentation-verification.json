@@ -1,0 +1,36 @@
+{
+  "scope": "4D39E6 resources, 47DC79 state4 prefix, and 48181F CPU presentation ordering",
+  "ordinary": {
+    "ctest": {
+      "selected": 6,
+      "passed": 6
+    }
+  },
+  "asan": {
+    "ctest": {
+      "selected": 6,
+      "passed": 6
+    },
+    "resource_probe": {
+      "entries": 10,
+      "advances": 40,
+      "result": "pass"
+    }
+  },
+  "switch": {
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "nro_sha256": "2262766a461fff8bedb1ef087120ba9939b96c6f32ca7faf0d039e3a56fd6848",
+    "undefined_symbols": 0,
+    "result": "pass"
+  },
+  "controller_state4": {
+    "groups": 5,
+    "busy_owner_prefix": "pass",
+    "result": "pass"
+  },
+  "remaining_boundary": {
+    "phase4_parent_47dc79": "explicit failure",
+    "switch_hardware_acceptance": "not run",
+    "full_delivery": "not produced"
+  }
+}

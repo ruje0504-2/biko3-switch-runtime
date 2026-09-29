@@ -19,6 +19,7 @@ typedef struct {
 typedef struct {
   int32_t words_6bbe2c[2];
   uint8_t byte_6bbe34;
+  int32_t word_6bbe48; /*48181F expression restore latch*/
 } BkEndingRetainedStage3;
 typedef struct {
   int32_t word_6ea16c;
@@ -42,7 +43,7 @@ typedef struct {
 typedef struct {
   int32_t words_6c7f44[2];
   uint8_t bytes_6c7f54[10], bytes_6c7f60[10];
-  int32_t word_54e2f8, word_6c7f4c;
+  int32_t word_54e2f8, word_6c7f48, word_6c7f4c;
   uint8_t byte_6c7f50;
   float value_54e310;
 } BkEndingRetainedStage4;

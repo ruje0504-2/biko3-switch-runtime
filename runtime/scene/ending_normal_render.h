@@ -6,6 +6,7 @@
 #include "scene/ending_secondary_assets.h"
 #include "scene/ending_tertiary_assets.h"
 #include "scene/ending_selected_assets.h"
+#include "scene/ending_auxiliary_assets.h"
 #include "game/ending_reload.h"
 #include "scene/ending_special_scene.h"
 #include "scene/ending_audio.h"
@@ -77,6 +78,12 @@ BkEndingNormalRender *
 bk_ending_selected_render_create(BkRenderer *, BkResourceStore *,
                                   BkEndingSelectedAssets *,
                                   int32_t movie_clock, char error[256]);
+/*4D39E6 topology: the bk3_12 primary and camera tracks borrow the retained
+ * outer background. It has no BOM or synthetic upper/lower actor. */
+BkEndingNormalRender *
+bk_ending_auxiliary_render_create(BkRenderer *, BkResourceStore *,
+                                   BkEndingAuxiliaryAssets *,
+                                   int32_t movie_clock, char error[256]);
 typedef struct {
   const BkEndingSpecialBindings *bindings;
   BkDrawDispatch *dispatch;

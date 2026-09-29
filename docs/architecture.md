@@ -1,5 +1,7 @@
 # 移植工程架构
 
+2026-09-30 增量：`scene/ending_auxiliary_assets` 负责 4D39E6 的 `bk3_12` 资源、保留外层背景、姿态/材质/MORP/MATA和相机轨道；`game/ending_auxiliary_presentation` 只负责 48181F 的 CPU 调用顺序，通过 session 适配器借用资源、森林、面部和音频所有者。该边界不向 `core/resource/model/world/game` 引入 libnx 或 Vulkan，也不把 47DC79 前置控制器隐藏成空成功。验证见 `reports/ending-4d39e6-presentation.md`。
+
 2026-09-29 选择阶段输入依赖：`game/ending_selected_motion` 计算原495469/4952C8的动画源时间，`scene/ending_selected_assets` 绑定真实活动描述符并只提交源时间修改；姿态采样和世界矩阵发布仍由后续阶段显式执行。纯数值和完整资产组合的普通/ASan配对均已结算通过，见 `reports/ending-selected-motion.md`。完整48E75B及4D1025生产入口仍未接通，不将已有CPU依赖等同于可玩选择阶段。手动镜头当前为原始速度6倍，L/R提示与操作同步，自动轨道保持原速，见 `reports/ending-camera-six-icons.md`。
 
 2026-09-29 当前：第三类独立资源/父控制/表现已接故事kind1，见 `reports/ending-tertiary-session.md`；最终图片真实生命周期见 `reports/ending-final-image.md`。`scene/ending_normal_session`在纯UI阶段释放旧演员/GPU，独立保留背景owner和设备灯光值；`lighting_registry`只匹配仍存活的同一模型身份，不复制登记/描述符。UI批次与三维快照分别保留到下一真实tick。第三类长图片阶段后重载仍先登记保留背景材质。图片释放占位group不参与角色校验，缺资源失败保留可销毁前缀。新10项普通/ASan配对、9项单元两构建和架构2项通过；不代表4D1025/4D39E6、gallery或自然结束已完成。下文“第三类仅CPU”“最终图片未接”等为历史阶段描述。
