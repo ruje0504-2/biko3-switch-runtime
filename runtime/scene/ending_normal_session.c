@@ -12,6 +12,7 @@
 #include "game/ending_auxiliary_presentation.h"
 #include "game/ending_auxiliary_controller.h"
 #include "game/ending_auxiliary_state1.h"
+#include "game/ending_auxiliary_state3.h"
 #include "game/ending_auxiliary_state4.h"
 #include "scene/ending_selected_presentation.h"
 #include "game/ending_selected_action.h"
@@ -20,6 +21,7 @@
 #include "scene/ending_stage_ui.h"
 #include "scene/ending_ui_batch.h"
 #include "scene/ending_ui_cursor.h"
+#include "scene/ending_ui_geometry.h"
 #include "scene/ending_ui_render.h"
 #include "scene/common_hud.h"
 #include "scene/curtain_render.h"
@@ -1002,6 +1004,25 @@ static int auxiliary_state4_present(void *context, unsigned owner, int *present,
              : fail(e, "auxiliary state4 media slot is unavailable");
 }
 
+static int auxiliary_state3_child(void *context,
+                                  const BkEndingFrameInput *input,
+                                  char e[256]) {
+  (void)context;
+  (void)input;
+  return fail(e, "47DC79 state3 child 481EA5 is not implemented");
+}
+
+static int auxiliary_state3_hit(void *context, const float center[2],
+                                float radius, const float pointer[2],
+                                int *hit, char e[256]) {
+  EndingNormalScene *s = context;
+  float distance = 0;
+  if (!s || !center || !pointer || !hit ||
+      !bk_ending_ui_circle_hit(center, radius, pointer, hit, &distance))
+    return fail(e, "auxiliary state3 circle owner is unavailable");
+  return 1;
+}
+
 static int auxiliary_state4_status(void *context, unsigned owner, int *playing,
                                    char e[256]) {
   EndingNormalScene *s = context;
@@ -1851,6 +1872,22 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       BkEndingAuxiliaryState1Ops ops = {s, control_key, NULL, NULL, NULL,
                                         NULL, NULL, NULL, NULL, NULL, NULL};
       return bk_ending_auxiliary_state2_step(&s->state->control, &ops, e);
+    }
+    if (s->state->control.state_721eec == 3) {
+      BkEndingAuxiliaryState3Bindings bindings = {
+          &s->state->frame, &s->state->control, &s->state->auxiliary,
+          s->state->points[0], &s->ui.sprites[51].rect[2]};
+      BkEndingAuxiliaryState3Ops ops = {
+          s,
+          auxiliary_state3_child,
+          control_key,
+          auxiliary_state3_hit,
+          auxiliary_state4_expression,
+          auxiliary_state1_request,
+          auxiliary_state1_voice,
+          s->voice_volume};
+      return bk_ending_auxiliary_state3_step(&bindings, &call->input, &ops,
+                                             e);
     }
     if (s->state->control.state_721eec == 8) {
       BkEndingAuxiliaryControllerBindings bindings = {

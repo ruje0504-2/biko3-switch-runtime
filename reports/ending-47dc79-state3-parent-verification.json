@@ -1,0 +1,46 @@
+{
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "state": [3],
+  "scope": "47DC79 state3 parent prefix; 481EA5 remains an explicit scene failure",
+  "original_sites": {
+    "dispatcher": "0x47e31a",
+    "child": "0x481ea5",
+    "key": "0x4b76c2",
+    "circle_hit": "0x4a777e",
+    "expression": "0x4dfb96",
+    "clip_request": "0x4018c8",
+    "voice": "0x481e0a"
+  },
+  "parent_order": [
+    "481EA5",
+    "4B76C2(0,3)",
+    "4A777E(7220C8/CC,7389E8/53F410,input[9]/[10])",
+    "hit: state8/index=-1/camera_mode=0",
+    "miss: group2 index=0x48",
+    "miss: expression(7,3,1)",
+    "miss: request clip1",
+    "miss: voice cue1 slot0",
+    "miss: pending=1/state1/cached=-1"
+  ],
+  "verification": {
+    "host_ctest": {"passed": 101, "failed": 0},
+    "unit_normal": "passed",
+    "unit_asan_ubsan": "passed",
+    "data_probe_normal": "passed",
+    "data_probe_asan": "passed",
+    "story_scene_probe": {
+      "passed": true,
+      "frames": 64,
+      "draws": 10335,
+      "skin_instances": 528,
+      "audio_frames": 63360
+    },
+    "switch": {
+      "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+      "undefined_symbols": 0,
+      "nro_sha256": "39027aee9e0ca3bea6447e66a4427a2772e24a77676be0a377851bd99e8a3edf"
+    }
+  },
+  "github_push": false,
+  "full_port": false
+}
