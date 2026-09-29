@@ -1,7 +1,7 @@
 {
   "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
   "state": [3],
-  "scope": "47DC79 state3 parent prefix; 481EA5 remains an explicit scene failure",
+  "scope": "47DC79 state3 parent plus 481EA5 hit/effect-threshold prefix; remaining 481EA5 branches are explicit failures",
   "original_sites": {
     "dispatcher": "0x47e31a",
     "child": "0x481ea5",
@@ -10,6 +10,23 @@
     "expression": "0x4dfb96",
     "clip_request": "0x4018c8",
     "voice": "0x481e0a"
+  },
+  "child_prefix": {
+    "circle_hit": true,
+    "request_clip": 4,
+    "group2_index": 73,
+    "cue5": true,
+    "random_modulus": 1000,
+    "rare_threshold_inclusive": 5,
+    "latch": "0x6c7f44",
+    "cue6": true,
+    "miss_effect_thresholds": {
+      "group2_clip3": [60, 65],
+      "group3_clip2": 32,
+      "group3_clip3": 56,
+      "group4_clip2_end": true,
+      "group3_effect_status_gate": true
+    }
   },
   "parent_order": [
     "481EA5",
@@ -38,7 +55,7 @@
     "switch": {
       "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
       "undefined_symbols": 0,
-      "nro_sha256": "39027aee9e0ca3bea6447e66a4427a2772e24a77676be0a377851bd99e8a3edf"
+      "nro_sha256": "d371cf73e2b2133e8653e2822bae95ee367d38ff1ed7670e9a1053288340f1f2"
     }
   },
   "github_push": false,

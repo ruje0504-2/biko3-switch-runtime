@@ -1006,11 +1006,7 @@ static int auxiliary_state4_present(void *context, unsigned owner, int *present,
 
 static int auxiliary_state3_child(void *context,
                                   const BkEndingFrameInput *input,
-                                  char e[256]) {
-  (void)context;
-  (void)input;
-  return fail(e, "47DC79 state3 child 481EA5 is not implemented");
-}
+                                  char e[256]);
 
 static int auxiliary_state3_hit(void *context, const float center[2],
                                 float radius, const float pointer[2],
@@ -1249,6 +1245,107 @@ static int auxiliary_state1_request(void *context, unsigned slot,
     return fail(e, "auxiliary state1 clip owner is unavailable");
   return bk_actor_pose_request_mode(primary, slot, BK_CLIP_REQUEST_CONFIGURED,
                                     e);
+}
+
+static int auxiliary_state3_active(void *context, int32_t *slot,
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  BkClipState state;
+  if (!s || !slot || !bk_actor_pose_state(scene_primary(s), &state))
+    return fail(e, "auxiliary state3 active clip is unavailable");
+  *slot = state.slot;
+  return 1;
+}
+
+static int auxiliary_state3_random(void *context, int32_t *value,
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->random || !value)
+    return fail(e, "auxiliary state3 RNG owner is unavailable");
+  *value = (int32_t)bk_random_next(s->random);
+  return 1;
+}
+
+static int auxiliary_state3_effect(void *context, unsigned effect,
+                                   unsigned flags, int32_t volume,
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || effect >= BK_ENDING_EFFECTS || flags > 1 ||
+      volume < -10000 || volume > 0)
+    return fail(e, "auxiliary state3 effect is unavailable");
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_RESTART,
+                            .slot = 2 + effect,
+                            .flags = (int32_t)flags,
+                            .volume = volume};
+  int playing = 0;
+  return bk_ending_audio_call(s->audio, s->state->frame.group,
+                              s->state->auxiliary.variant,
+                              s->state->auxiliary.selection, &call, &playing,
+                              e);
+}
+
+static int auxiliary_state3_timing(void *context, unsigned slot,
+                                   BkClipTiming *timing, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !timing || slot >= BK_CLIP_SLOTS ||
+      !bk_actor_pose_timing(scene_primary(s), slot, timing))
+    return fail(e, "auxiliary state3 clip timing is unavailable");
+  return 1;
+}
+
+static int auxiliary_state3_effect_present(void *context, unsigned effect,
+                                           int *present, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || !present || effect >= BK_ENDING_EFFECTS ||
+      !bk_ending_audio_present(s->audio, 2 + effect, present))
+    return fail(e, "auxiliary state3 effect presence is unavailable");
+  return 1;
+}
+
+static int auxiliary_state3_effect_status(void *context, unsigned effect,
+                                           int *playing, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || !playing || effect >= BK_ENDING_EFFECTS)
+    return fail(e, "auxiliary state3 effect status is unavailable");
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_STATUS,
+                            .slot = 2 + effect};
+  return bk_ending_audio_call(s->audio, s->state->frame.group,
+                              s->state->auxiliary.variant,
+                              s->state->auxiliary.selection, &call, playing,
+                              e);
+}
+
+static int auxiliary_state3_child(void *context,
+                                  const BkEndingFrameInput *input,
+                                  char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->auxiliary_assets)
+    return fail(e, "auxiliary state3 child assets are unavailable");
+  BkEndingAuxiliaryChildBindings bindings = {
+      &s->state->frame,
+      &s->state->control,
+      &s->state->auxiliary,
+      s->state->points[0],
+      &s->ui.sprites[51].rect[2],
+      &s->state->retained.stage4.words_6c7f44[0],
+      &s->state->retained.stage4.bytes_6c7f60[0]};
+  BkEndingAuxiliaryChildOps ops = {
+      s,
+      auxiliary_state3_active,
+      auxiliary_state4_present,
+      auxiliary_state4_status,
+      auxiliary_state3_hit,
+      auxiliary_state1_request,
+      auxiliary_state4_expression,
+      auxiliary_state1_voice,
+      auxiliary_state3_random,
+      auxiliary_state3_timing,
+      auxiliary_state3_effect_present,
+      auxiliary_state3_effect_status,
+      auxiliary_state3_effect,
+      s->voice_volume,
+      s->effect_volume};
+  return bk_ending_auxiliary_state3_child_step(&bindings, input, &ops, e);
 }
 
 static int selected_key(void *context, unsigned code, unsigned mode,

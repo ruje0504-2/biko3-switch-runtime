@@ -5,6 +5,7 @@
 typedef struct {
   unsigned calls[32], count;
   int child_ok, key_value, hit_value;
+  int32_t random_value;
   int32_t a, b;
   unsigned eye, slot;
   int32_t cue, flags, volume;
@@ -62,6 +63,93 @@ static int voice(void *context, int32_t cue, unsigned slot, int32_t flags,
   t->cue = cue; t->slot = slot; t->flags = flags; t->volume = volume;
   return cue == 1 && slot == 0 && flags == 0;
 }
+static int active_child(void *context, int32_t *out, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 70;
+  *out = 2;
+  return 1;
+}
+static int present_child(void *context, unsigned owner, int *out, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 80 + owner;
+  *out = 0;
+  return 1;
+}
+static int status_child(void *context, unsigned owner, int *out, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 90 + owner;
+  *out = 0;
+  return 1;
+}
+static int random_child(void *context, int32_t *out, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 100;
+  *out = t->random_value;
+  return 1;
+}
+static int child_expression(void *context, int32_t a, int32_t b,
+                            unsigned eye, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 110;
+  return a == 0 && b == 4 && eye == 0;
+}
+static int child_request(void *context, unsigned slot, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 120;
+  return slot == 4;
+}
+static int child_voice(void *context, int32_t cue, unsigned slot,
+                      int32_t flags, int32_t volume, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 130;
+  return ((cue == 5 && slot == 0) || (cue == 6 && slot == 1)) &&
+         flags == 0 && volume == -333;
+}
+static int child_timing(void *context, unsigned slot, BkClipTiming *out,
+                        char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 140 + slot;
+  if (slot == 2)
+    *out = (BkClipTiming){0, 100, 40};
+  else if (slot == 3)
+    *out = (BkClipTiming){0, 100, 55};
+  else
+    return 0;
+  return 1;
+}
+static int child_effect_present(void *context, unsigned effect, int *out,
+                                char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 150;
+  *out = effect == 19;
+  return 1;
+}
+static int child_effect_status(void *context, unsigned effect, int *out,
+                               char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 155;
+  *out = 0;
+  return effect == 19;
+}
+static int child_effect(void *context, unsigned effect, unsigned flags,
+                        int32_t volume, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 160;
+  return (effect == 18 || effect == 32 || effect == 33 ||
+          (effect == 19 && flags == 1)) && volume == -444 &&
+         (effect == 19 ? flags == 1 : flags == 0);
+}
 
 static int check(int ok, const char *what, const char *error) {
   if (ok) return 1;
@@ -96,6 +184,67 @@ int main(void) {
       !check(t.center[0] == 640 && t.center[1] == 360 && t.radius == 12 &&
                  t.pointer[0] == 123 && t.pointer[1] == -45,
              "hit geometry", error))
+    return 1;
+
+  frame.group = 0;
+  control.state_721eec = 3;
+  control.toggles[7] = 1;
+  auxiliary.pending = 0;
+  auxiliary.index = 0;
+  t.count = 0;
+  t.hit_value = 1;
+  t.random_value = 17;
+  int32_t latch = 0;
+  uint8_t effect_latches[4] = {0};
+  BkEndingAuxiliaryChildBindings child_bindings = {
+      &frame, &control, &auxiliary, point, &width, &latch, effect_latches};
+  BkEndingAuxiliaryChildOps child_ops = {
+      &t, active_child, present_child, status_child, hit, child_request,
+      child_expression, child_voice, random_child, NULL, NULL,
+      child_effect_status, child_effect, -333, -444};
+  if (!check(bk_ending_auxiliary_state3_child_step(
+                 &child_bindings, &input, &child_ops, error),
+             "481EA5 hit prefix", error) ||
+      !check(auxiliary.pending == 4 && auxiliary.index == 0 && latch == 1,
+             "481EA5 hit state", error) ||
+      !check(t.calls[0] == 30 && t.calls[1] == 120 && t.calls[2] == 110 &&
+                 t.calls[3] == 80 && t.calls[4] == 130 && t.calls[5] == 100 &&
+                 t.calls[6] == 130,
+             "481EA5 hit order", error))
+    return 1;
+
+  frame.group = 2;
+  t.count = 0;
+  t.hit_value = 0;
+  effect_latches[0] = effect_latches[1] = 0;
+  child_ops.timing = child_timing;
+  child_ops.effect_present = child_effect_present;
+  child_ops.effect = child_effect;
+  if (!check(bk_ending_auxiliary_state3_child_step(
+                 &child_bindings, &input, &child_ops, error),
+             "481EA5 group2 effects", error) ||
+      !check(effect_latches[0] == 1 && effect_latches[1] == 1,
+             "481EA5 group2 latches", error) ||
+      !check(t.calls[0] == 30 && t.calls[1] == 70 && t.calls[2] == 143 &&
+                 t.calls[3] == 160 && t.calls[4] == 160,
+             "481EA5 group2 effect order", error))
+    return 1;
+
+  frame.group = 3;
+  t.count = 0;
+  effect_latches[0] = effect_latches[1] = effect_latches[2] =
+      effect_latches[3] = 0;
+  if (!check(bk_ending_auxiliary_state3_child_step(
+                 &child_bindings, &input, &child_ops, error),
+             "481EA5 group3 thresholds", error) ||
+      !check(effect_latches[0] == 0 && effect_latches[1] == 0 &&
+                 effect_latches[2] == 1 && effect_latches[3] == 1,
+             "481EA5 group3 threshold latches", error) ||
+      !check(t.count == 8 && t.calls[0] == 30 && t.calls[1] == 70 &&
+                 t.calls[2] == 142 && t.calls[3] == 143 &&
+                 t.calls[4] == 160 && t.calls[5] == 150 &&
+                 t.calls[6] == 155 && t.calls[7] == 160,
+             "481EA5 group3 threshold order", error))
     return 1;
 
   control.state_721eec = 3;

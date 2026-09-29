@@ -1,6 +1,6 @@
 # 分阶段移植顺序
 
-2026-09-30 47DC79 state3 父控制器已接入结局 session：恢复 481EA5 前置调用、4B76C2 输入门、4A777E 严格圆形命中，以及命中 state8/未命中 state1 的写入顺序，见 `reports/ending-47dc79-state3-parent.md`。481EA5 子流程仍由真实场景显式失败，不能当作 state3 可玩完成。普通/ASan定向验证、实际 Data 探针与指定 NVK 构建通过；state5/6/7、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包。
+2026-09-30 47DC79 state3 父控制器及 481EA5 命中/效果阈值前缀已接入结局 session：恢复 481EA5 圆形命中、clip4、表情、owner0 等待、cue5/cue6 随机 latch、group2/3/4 的首段效果阈值，以及父层 4B76C2 输入门、命中 state8/未命中 state1 的写入顺序，见 `reports/ending-47dc79-state3-parent.md`。481EA5 miss 后的 clip3 插值、前置公共分支和剩余效果链仍由真实场景显式失败，不能当作 state3 可玩完成。普通/ASan完整套件、实际 Data 探针与指定 NVK 构建通过；state5/6/7、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包。
 
 2026-09-30 47DC79 state8 前置控制器已接入结局 session：恢复双媒体等待、clip5/表情、cue7、group0/1 音效与相机、group2/3 相机、group4 state6 原子边界，见 `reports/ending-47dc79-state8.md`。普通/ASan定向验证、实际 Data 探针、固定 EXE UI oracle 与指定 NVK 构建通过；state3 完整判定、state5/6/7 后续、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包。
 
