@@ -79,4 +79,11 @@ BkScene *bk_ending_normal_scene_create_story(const BkSceneServices *,
 BkScene *bk_ending_secondary_scene_create_gallery(const BkSceneServices *,
     unsigned group, unsigned background_variant, const uint8_t unlocked[5][8],
     const BkEndingNormalFlow *, char error[256]);
+/*Actual4CC582 gallery selections2/5 into4D1025. The selected loader receives
+ *the native group-specific argument and owns its primary/tracks/background
+ *topology; this constructor does not replace the front-end gallery menu.*/
+BkScene *bk_ending_selected_scene_create_gallery(const BkSceneServices *,
+    unsigned group, unsigned background_variant, uint32_t selection,
+    const uint8_t unlocked[5][8], const BkEndingNormalFlow *,
+    char error[256]);
 #endif

@@ -53,9 +53,12 @@ int main(int argc, char **argv) {
     return 2;
   const unsigned variant = argc >= 3 ? (unsigned)strtoul(argv[2], NULL, 10) : 0;
   const int secondary = argc == 4 && !strcmp(argv[3], "--secondary");
+  const int selected2 = argc == 4 && !strcmp(argv[3], "--selected2");
+  const int selected5 = argc == 4 && !strcmp(argv[3], "--selected5");
   const int confirmation = argc == 4 && !strcmp(argv[3], "--confirmation");
   const int story = argc == 4 && (!strcmp(argv[3], "--story") || confirmation);
-  if (argc == 4 && !secondary && (!story || (confirmation && variant != 0)))
+  if (argc == 4 && !secondary && !selected2 && !selected5 &&
+      (!story || (confirmation && variant != 0)))
     return 2;
   if (variant > 1)
     return 2;
@@ -70,7 +73,8 @@ int main(int argc, char **argv) {
   uint8_t unlocked[5][8] = {{0}};
   SinkState sink_state = {0};
   const char *packs[] = {"bk3_00", "bk3_02", "bk3_03", "bk3_04",
-                         "bk3_06", "bk3_08", "bk3_09", "bk3_11", "bk3_18", "fambom"};
+                         "bk3_06", "bk3_08", "bk3_09", "bk3_10", "bk3_11",
+                         "bk3_13", "bk3_18", "fambom"};
   BkSceneServices services;
   CHECK(renderer = bk_renderer_create(64, 48, stdout, error));
   CHECK(store = bk_resources_create(error));
@@ -92,7 +96,10 @@ int main(int argc, char **argv) {
                                                NULL, NULL, rejected));
     CHECK(strstr(rejected, "saved unlock table are required"));
   }
-  CHECK(scene = secondary ? bk_ending_secondary_scene_create_gallery(
+  CHECK(scene = selected2 || selected5 ? bk_ending_selected_scene_create_gallery(
+                             &services, 0, variant, selected2 ? 2 : 5,
+                             unlocked, NULL, error)
+                      : secondary ? bk_ending_secondary_scene_create_gallery(
                              &services, 0, variant, unlocked, NULL, error)
                       : story ? bk_ending_normal_scene_create_story(
                              &services, 0, variant, records, unlocked, NULL, error)
@@ -193,7 +200,8 @@ int main(int argc, char **argv) {
     /*Normal action variants both use4cf318; the explicit secondary option
      * dispatches gallery selection1 through the independent4d00fa loader. */
     CHECK(state && state->frame.phase ==
-          (confirmation ? 9 : secondary ? 2 : story && variant ? 3 : 1));
+          (confirmation ? 9 : selected2 ? 5 : selected5 ? 6 :
+           secondary ? 2 : story && variant ? 3 : 1));
     if (story) {
       /* Group0's recovered stage may update its own first six flags. Other
        * groups and the two final flags must retain saved non-boolean bytes. */

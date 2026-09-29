@@ -5,6 +5,7 @@
 #include "scene/ending_normal_assets.h"
 #include "scene/ending_secondary_assets.h"
 #include "scene/ending_tertiary_assets.h"
+#include "scene/ending_selected_assets.h"
 #include "game/ending_reload.h"
 #include "scene/ending_special_scene.h"
 #include "scene/ending_audio.h"
@@ -68,6 +69,13 @@ bk_ending_secondary_render_create(BkRenderer *, BkResourceStore *,
 BkEndingNormalRender *
 bk_ending_tertiary_render_create(BkRenderer *, BkResourceStore *,
                                   BkEndingTertiaryAssets *,
+                                  int32_t movie_clock, char error[256]);
+/*4D1025 selected-ending topology: primary0, camera tracks1/2 and background3,
+ *with no upper/lower actor or BOM. The renderer owns only GPU views and borrows
+ *the selected asset owner.*/
+BkEndingNormalRender *
+bk_ending_selected_render_create(BkRenderer *, BkResourceStore *,
+                                  BkEndingSelectedAssets *,
                                   int32_t movie_clock, char error[256]);
 typedef struct {
   const BkEndingSpecialBindings *bindings;

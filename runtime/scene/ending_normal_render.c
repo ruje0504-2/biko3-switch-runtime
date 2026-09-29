@@ -1,4 +1,5 @@
 #include "scene/ending_normal_render.h"
+#include "scene/ending_selected_assets.h"
 #include "model/skin.h"
 #include "scene/avi_texture.h"
 #include "scene/bom_render.h"
@@ -11,6 +12,7 @@ struct BkEndingNormalRender {
   BkEndingNormalAssets *assets;
   BkEndingSecondaryAssets *phase2_assets;
   BkEndingTertiaryAssets *phase3_assets;
+  BkEndingSelectedAssets *selected_assets;
   BkActorForest *forest;
   /*Preserve the existing primary0/upper1/background2 slots. Lower3 is an
    * independent source whose actual nodes may be parented into primary.*/
@@ -40,8 +42,11 @@ static BkActorPose *asset_pose(BkEndingNormalRender *r, unsigned actor) {
         return bk_ending_tertiary_assets_pose(r->phase3_assets, role);
     return NULL;
   }
-  return r->phase2_assets ? bk_ending_secondary_assets_pose(r->phase2_assets, actor)
-                          : bk_ending_normal_assets_pose(r->assets, actor);
+  if (r->phase2_assets)
+    return bk_ending_secondary_assets_pose(r->phase2_assets, actor);
+  if (r->selected_assets)
+    return bk_ending_selected_assets_pose(r->selected_assets, actor);
+  return bk_ending_normal_assets_pose(r->assets, actor);
 }
 static unsigned tertiary_role(unsigned index) {
   static const unsigned roles[] = {BK_ENDING_TERTIARY_ASSET_PRIMARY,
@@ -51,7 +56,8 @@ static unsigned tertiary_role(unsigned index) {
 }
 static size_t binding_count(const BkEndingNormalRender *r) {
   return r->phase3_assets ? bk_bom_dual_assets_count(
-      bk_ending_tertiary_assets_bom(r->phase3_assets)) : r->phase2_assets ? 0 :
+      bk_ending_tertiary_assets_bom(r->phase3_assets)) :
+      (r->phase2_assets || r->selected_assets) ? 0 :
       bk_bom_assets_count(bk_ending_normal_assets_bom(r->assets));
 }
 static int prepare_bom(BkEndingNormalRender *r, const int32_t *disabled,
@@ -181,7 +187,7 @@ static int tertiary_bom(BkEndingTertiaryAssets *assets, char e[256]) {
                           "and skinned primary targets");
 }
 static int create_bom(BkEndingNormalRender *r, char e[256]) {
-  if (r->phase2_assets) return 1;
+  if (r->phase2_assets || r->selected_assets) return 1;
   if (r->phase3_assets && !bk_ending_tertiary_assets_bom(r->phase3_assets))
     return 1;
   if (r->staged_geometry) {
@@ -217,6 +223,7 @@ static BkEndingNormalRender *with_special_view(BkEndingNormalRender *r,
   s->assets = r->assets;
   s->phase2_assets = r->phase2_assets;
   s->phase3_assets = r->phase3_assets;
+  s->selected_assets = r->selected_assets;
   s->forest = r->forest;
   memcpy(s->actor_indices, r->actor_indices, sizeof(s->actor_indices));
   s->registry = r->registry;
@@ -376,10 +383,12 @@ void bk_ending_normal_render_destroy(BkEndingNormalRender *r) {
 static BkEndingNormalRender *create_render(
     BkRenderer *renderer, BkResourceStore *store, BkEndingNormalAssets *assets,
     BkEndingSecondaryAssets *phase2, BkEndingTertiaryAssets *phase3,
+    BkEndingSelectedAssets *selected,
     int32_t movie_clock, char e[256]) {
-  if (!renderer || !store || (!!assets + !!phase2 + !!phase3 != 1) ||
+  if (!renderer || !store || (!!assets + !!phase2 + !!phase3 + !!selected != 1) ||
       !(phase3 ? bk_ending_tertiary_assets_pose(phase3, BK_ENDING_TERTIARY_ASSET_BACKGROUND)
                 : phase2 ? bk_ending_secondary_assets_pose(phase2, 3)
+                : selected ? bk_ending_selected_assets_pose(selected, 3)
                 : bk_ending_normal_assets_pose(assets, 4))) {
     fail(e, "missing renderer/resources or unloaded background");
     return NULL;
@@ -393,13 +402,17 @@ static BkEndingNormalRender *create_render(
   r->assets = assets;
   r->phase2_assets = phase2;
   r->phase3_assets = phase3;
+  r->selected_assets = selected;
   r->actor_indices[0] = phase3 ? bk_ending_tertiary_assets_registry(phase3, 0) : 0;
-  r->actor_indices[1] = phase3 ? bk_ending_tertiary_assets_registry(phase3, 1) : phase2 ? BK_MODEL_NONE : 1;
-  r->actor_indices[2] = phase3 ? bk_ending_tertiary_assets_registry(phase3, 5) : phase2 ? 3 : 4;
+  r->actor_indices[1] = phase3 ? bk_ending_tertiary_assets_registry(phase3, 1) : BK_MODEL_NONE;
+  if (!phase2 && !selected && !phase3)
+    r->actor_indices[1] = 1;
+  r->actor_indices[2] = phase3 ? bk_ending_tertiary_assets_registry(phase3, 5)
+                               : selected ? 3 : phase2 ? 3 : 4;
   r->actor_indices[3] = phase3 ? bk_ending_tertiary_assets_registry(phase3, 2) : BK_MODEL_NONE;
   BkActorForest *forest = r->forest = phase3 ? bk_ending_tertiary_assets_forest(phase3) : phase2
-      ? bk_ending_secondary_assets_forest(phase2)
-      : bk_ending_normal_assets_forest(assets);
+      ? bk_ending_secondary_assets_forest(phase2) : selected
+      ? bk_ending_selected_assets_forest(selected) : bk_ending_normal_assets_forest(assets);
   r->capacity = bk_frame_tree_count(bk_actor_forest_tree(forest));
   r->visits = calloc((size_t)r->capacity * 3, sizeof(*r->visits));
   if (!r->visits) {
@@ -436,10 +449,13 @@ static BkEndingNormalRender *create_render(
         }
         movie_target = t;
       }
-    r->actors[i] = bk_actor_render_create(
-        renderer, store, i == 2 ? "bk3_03" : phase3 ? "bk3_11" : phase2 ? "bk3_09" : "bk3_08", m,
-        i ? NULL : phase3 ? bk_ending_tertiary_assets_eyes(phase3) : phase2 ? bk_ending_secondary_assets_eyes(phase2)
-                           : bk_ending_normal_assets_eyes(assets), e);
+    const char *pack = i == 2 ? "bk3_03" : phase3 ? "bk3_11" :
+                       phase2 ? "bk3_09" : selected
+                       ? bk_ending_selected_assets_config(selected)->pack : "bk3_08";
+    BkEyeAssets *eyes = i ? NULL : phase3 ? bk_ending_tertiary_assets_eyes(phase3) :
+        phase2 ? bk_ending_secondary_assets_eyes(phase2) : selected
+        ? bk_ending_selected_assets_eyes(selected) : bk_ending_normal_assets_eyes(assets);
+    r->actors[i] = bk_actor_render_create(renderer, store, pack, m, eyes, e);
     if (!r->actors[i] || r->roots[i] == BK_FRAME_NONE)
       goto bad;
   }
@@ -503,21 +519,27 @@ BkEndingNormalRender *
 bk_ending_normal_render_create(BkRenderer *renderer, BkResourceStore *store,
                                BkEndingNormalAssets *assets,
                                int32_t movie_clock, char e[256]) {
-  return create_render(renderer, store, assets, NULL, NULL, movie_clock, e);
+  return create_render(renderer, store, assets, NULL, NULL, NULL, movie_clock, e);
 }
 BkEndingNormalRender *
 bk_ending_secondary_render_create(BkRenderer *renderer, BkResourceStore *store,
                                    BkEndingSecondaryAssets *assets,
                                    int32_t movie_clock, char e[256]) {
-  return with_special_view(create_render(renderer, store, NULL, assets, NULL,
+  return with_special_view(create_render(renderer, store, NULL, assets, NULL, NULL,
                                          movie_clock, e), e);
 }
 BkEndingNormalRender *
 bk_ending_tertiary_render_create(BkRenderer *renderer, BkResourceStore *store,
                                   BkEndingTertiaryAssets *assets,
                                   int32_t movie_clock, char e[256]) {
-  return with_special_view(create_render(renderer, store, NULL, NULL, assets,
+  return with_special_view(create_render(renderer, store, NULL, NULL, assets, NULL,
                                          movie_clock, e), e);
+}
+BkEndingNormalRender *
+bk_ending_selected_render_create(BkRenderer *renderer, BkResourceStore *store,
+                                  BkEndingSelectedAssets *assets,
+                                  int32_t movie_clock, char e[256]) {
+  return create_render(renderer, store, NULL, NULL, NULL, assets, movie_clock, e);
 }
 int bk_ending_normal_render_movie_step(BkEndingNormalRender *r, int32_t now,
                                        int32_t restart, char e[256]) {
@@ -561,6 +583,22 @@ static int prepare_actors(BkEndingNormalRender *r, const float *view,
         (r->secondary_view || bk_actor_render_prepare_morph(r->actors[2], r->poses[2],
             bk_ending_secondary_assets_materials(a, 3),
             bk_ending_secondary_assets_morph(a, 3), view, projection, e));
+  }
+  if (r->selected_assets) {
+    BkEndingSelectedAssets *a = r->selected_assets;
+    if (count || disabled || (material &&
+        material != bk_ending_selected_assets_materials(a, 0)))
+      return fail(e, "selected effects require their actual asset owners");
+    return bk_actor_render_prepare_effects(r->actors[0], r->poses[0],
+        bk_ending_selected_assets_materials(a, 0),
+        bk_ending_selected_assets_face(a), bk_ending_selected_assets_morph(a, 0),
+        view, projection, e) &&
+        (r->secondary_view || bk_actor_render_prepare_morph(r->actors[2], r->poses[2],
+            bk_ending_background_assets_data(
+                bk_ending_selected_assets_background(a))->materials,
+            bk_ending_background_assets_data(
+                bk_ending_selected_assets_background(a))->morph,
+            view, projection, e));
   }
   BkBomAssets *bom = bk_ending_normal_assets_bom(r->assets);
   return bk_actor_render_prepare(r->actors[0], r->poses[0], material,
@@ -624,6 +662,15 @@ static int prepare_staged_actor(BkEndingNormalRender *r, unsigned index,
         bk_ending_secondary_assets_face(r->phase2_assets),
         bk_ending_secondary_assets_morph(r->phase2_assets, 0), view, projection, e);
   }
+  if (r->selected_assets) {
+    if (index != 0 || count || disabled || (material &&
+        material != bk_ending_selected_assets_materials(r->selected_assets, 0)))
+      return fail(e, "invalid selected-stage geometry owner");
+    return bk_actor_render_prepare_effects(r->actors[0], r->poses[0],
+        bk_ending_selected_assets_materials(r->selected_assets, 0),
+        bk_ending_selected_assets_face(r->selected_assets),
+        bk_ending_selected_assets_morph(r->selected_assets, 0), view, projection, e);
+  }
   BkBomAssets *bom = bk_ending_normal_assets_bom(r->assets);
   if (index == 1)
     return bk_actor_render_prepare_morph(r->actors[1], r->poses[1],
@@ -675,7 +722,8 @@ static int prepare_view(BkEndingNormalRender *r, const BkDrawDispatch *dispatch,
         !bk_actor_forest_binding(forest, r->roots[2], &background_actor,
                                  &background_frame) ||
         !bk_actor_pose_hidden(r->poses[2], background_frame, &hidden) ||
-        (!r->phase2_assets && !r->phase3_assets && !r->staged_geometry && hidden))
+        (!r->phase2_assets && !r->phase3_assets && !r->selected_assets &&
+         !r->staged_geometry && hidden))
       return fail(e,
                   "background order or visibility differs from captured topology");
   }
