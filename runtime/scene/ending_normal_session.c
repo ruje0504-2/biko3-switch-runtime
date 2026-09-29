@@ -1257,6 +1257,21 @@ static int auxiliary_state3_active(void *context, int32_t *slot,
   return 1;
 }
 
+static int auxiliary_state3_source(void *context, unsigned slot, float source,
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->auxiliary_assets || slot >= BK_CLIP_SLOTS ||
+      !isfinite(source))
+    return fail(e, "auxiliary state3 source owner is unavailable");
+  BkActorPose *primary = scene_primary(s);
+  if (!primary)
+    return fail(e, "auxiliary state3 source actor is unavailable");
+  BkClipEdit edit = {.slot = slot,
+                     .fields = BK_CLIP_EDIT_SOURCE,
+                     .source = source};
+  return bk_actor_pose_edit_clips(primary, &edit, 1, e);
+}
+
 static int auxiliary_state3_random(void *context, int32_t *value,
                                    char e[256]) {
   EndingNormalScene *s = context;
@@ -1326,12 +1341,15 @@ static int auxiliary_state3_child(void *context,
       &s->state->control,
       &s->state->auxiliary,
       s->state->points[0],
+      s->state->targets,
       &s->ui.sprites[51].rect[2],
+      &s->state->retained.stage4.word_54e2f8,
       &s->state->retained.stage4.words_6c7f44[0],
       &s->state->retained.stage4.bytes_6c7f60[0]};
   BkEndingAuxiliaryChildOps ops = {
       s,
       auxiliary_state3_active,
+      auxiliary_state3_source,
       auxiliary_state4_present,
       auxiliary_state4_status,
       auxiliary_state3_hit,

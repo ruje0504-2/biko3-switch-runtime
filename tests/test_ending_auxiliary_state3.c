@@ -5,6 +5,7 @@
 typedef struct {
   unsigned calls[32], count;
   int child_ok, key_value, hit_value;
+  int32_t active_slot;
   int32_t random_value;
   int32_t a, b;
   unsigned eye, slot;
@@ -67,8 +68,17 @@ static int active_child(void *context, int32_t *out, char e[256]) {
   Trace *t = context;
   (void)e;
   t->calls[t->count++] = 70;
-  *out = 2;
+  *out = t->active_slot;
   return 1;
+}
+static int child_source(void *context, unsigned slot, float source,
+                        char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 170;
+  t->slot = slot;
+  t->radius = source;
+  return slot == 4 && source > 229.9f && source < 230.1f;
 }
 static int present_child(void *context, unsigned owner, int *out, char e[256]) {
   Trace *t = context;
@@ -102,7 +112,7 @@ static int child_request(void *context, unsigned slot, char e[256]) {
   Trace *t = context;
   (void)e;
   t->calls[t->count++] = 120;
-  return slot == 4;
+  return slot == (t->active_slot == 4 ? 3u : 4u);
 }
 static int child_voice(void *context, int32_t cue, unsigned slot,
                       int32_t flags, int32_t volume, char e[256]) {
@@ -163,7 +173,7 @@ int main(void) {
   float width = 24.0f;
   memcpy(&input.words[9], &x, sizeof(x));
   memcpy(&input.words[10], &y, sizeof(y));
-  Trace t = {.child_ok = 1, .key_value = 1, .hit_value = 1};
+  Trace t = {.child_ok = 1, .key_value = 1, .hit_value = 1, .active_slot = 2};
   BkEndingFrameState frame = {.group = 0, .camera_mode = 4,
                               .camera_cached = 9};
   BkEndingControlState control = {.state_721eec = 3};
@@ -197,9 +207,11 @@ int main(void) {
   int32_t latch = 0;
   uint8_t effect_latches[4] = {0};
   BkEndingAuxiliaryChildBindings child_bindings = {
-      &frame, &control, &auxiliary, point, &width, &latch, effect_latches};
+      &frame, &control, &auxiliary, point, NULL, &width, NULL, &latch,
+      effect_latches};
   BkEndingAuxiliaryChildOps child_ops = {
-      &t, active_child, present_child, status_child, hit, child_request,
+      &t, active_child, child_source, present_child, status_child, hit,
+      child_request,
       child_expression, child_voice, random_child, NULL, NULL,
       child_effect_status, child_effect, -333, -444};
   if (!check(bk_ending_auxiliary_state3_child_step(
@@ -246,6 +258,28 @@ int main(void) {
                  t.calls[6] == 155 && t.calls[7] == 160,
              "481EA5 group3 threshold order", error))
     return 1;
+
+  {
+    int32_t targets[39][2] = {{700, 400}};
+    int32_t offset_mode = -1;
+    int32_t x0 = 640, y0 = 360;
+    memcpy(&input.words[9], &x0, sizeof(x0));
+    memcpy(&input.words[10], &y0, sizeof(y0));
+    child_bindings.targets_721f90 = targets;
+    child_bindings.offset_mode_54e2f8 = &offset_mode;
+    frame.camera_cached = 0;
+    frame.group = 0;
+    t.active_slot = 4;
+    t.count = 0;
+    if (!check(bk_ending_auxiliary_state3_child_step(
+                   &child_bindings, &input, &child_ops, error),
+               "481EA5 clip3 interpolation", error) ||
+        !check(t.count == 6 && t.calls[0] == 30 && t.calls[1] == 70 &&
+                   t.calls[2] == 120 && t.calls[3] == 142 &&
+                   t.calls[4] == 143 && t.calls[5] == 170 && t.slot == 4,
+               "481EA5 clip3 interpolation order", error))
+      return 1;
+  }
 
   control.state_721eec = 3;
   frame.camera_mode = 4;

@@ -32,6 +32,71 @@ static int child_effect(const BkEndingAuxiliaryChildOps *o, unsigned effect,
   return o->effect && o->effect(o->context, effect, flags, volume, e);
 }
 
+static float child_distance(float x, float y) {
+  float squared = (float)((double)x * x + (double)y * y);
+  return (float)sqrt((double)squared);
+}
+
+static int child_clip4_interpolate(
+    const BkEndingAuxiliaryChildBindings *b,
+    const BkEndingFrameInput *input, const BkEndingAuxiliaryChildOps *o,
+    char e[256]) {
+  if (!b->targets_721f90 || !b->offset_mode_54e2f8 || !o->source ||
+      !o->request || !o->timing)
+    return fail(e, "481EA5 clip3 interpolation services are unavailable");
+  int32_t index = b->frame->camera_cached;
+  if (index < 0 || index >= 39)
+    return fail(e, "481EA5 clip3 interpolation target is unavailable");
+
+  BkClipTiming clip2, clip3;
+  if (!o->request(o->context, 3, e) ||
+      !o->timing(o->context, 2, &clip2, e) ||
+      !o->timing(o->context, 3, &clip3, e))
+    return 0;
+  float span2 = clip2.end - clip2.start;
+  float span3 = clip3.end - clip3.start;
+  if (!isfinite(span2) || !isfinite(span3) || span3 == 0)
+    return fail(e, "481EA5 clip3 interpolation range is invalid");
+
+  float half = (float)((double)*b->menu_width_7389e8 / 2.0);
+  float offset_x = 0, offset_y = 0;
+  switch (*b->offset_mode_54e2f8) {
+  case 0: offset_y = half; break;
+  case 1: offset_x = half; offset_y = half; break;
+  case 2: offset_x = half; offset_y = -half; break;
+  case 3: offset_x = -half; offset_y = half; break;
+  case 4: offset_x = -half; offset_y = -half; break;
+  case 5: offset_x = -half; break;
+  case 6: offset_x = half; break;
+  case 7: offset_y = half; break;
+  case 8: offset_y = -half; break;
+  default: break;
+  }
+
+  int32_t raw_x, raw_y;
+  memcpy(&raw_x, &input->words[9], sizeof(raw_x));
+  memcpy(&raw_y, &input->words[10], sizeof(raw_y));
+  float anchor_x = (float)b->point_7220c8[0] + offset_x;
+  float anchor_y = (float)b->point_7220c8[1] + offset_y;
+  float target_x = (float)b->targets_721f90[index][0] - anchor_x;
+  float target_y = (float)b->targets_721f90[index][1] - anchor_y;
+  float pointer_x = (float)raw_x - anchor_x;
+  float pointer_y = (float)raw_y - anchor_y;
+  float target_distance = child_distance(target_x, target_y);
+  float pointer_distance = child_distance(pointer_x, pointer_y);
+  if (!isfinite(target_distance) || !isfinite(pointer_distance) ||
+      !(target_distance > pointer_distance))
+    return fail(e, "481EA5 clip3 interpolation distance gate is not met");
+
+  float ratio = span2 / span3;
+  float source = (float)(((double)target_distance - pointer_distance) *
+                         ((1.0 + (double)ratio) * span2) /
+                         target_distance) + 30.0f;
+  if (!isfinite(source))
+    return fail(e, "481EA5 clip3 interpolation source is invalid");
+  return o->source(o->context, 4, source, e);
+}
+
 int bk_ending_auxiliary_state3_child_step(
     const BkEndingAuxiliaryChildBindings *b, const BkEndingFrameInput *input,
     const BkEndingAuxiliaryChildOps *o, char e[256]) {
@@ -61,8 +126,10 @@ int bk_ending_auxiliary_state3_child_step(
     int32_t active = -1;
     if (!o->active(o->context, &active, e))
       return 0;
-    if (active == 4)
-      return fail(e, "481EA5 clip3 interpolation is not implemented");
+    if (active == 4) {
+      if (!child_clip4_interpolate(b, input, o, e))
+        return 0;
+    }
     if (b->frame->group == 2) {
       BkClipTiming clip3;
       if (!o->timing || !o->effect ||

@@ -40,14 +40,17 @@ int bk_ending_auxiliary_state3_step(
 /* Recover the first 481EA5 branch. It handles the same strict circle hit as
  * the parent, requests clip4 and the group-specific expression, waits for
  * speech owner0, then applies the cue5/cue6 prefix. A miss with an active
- * clip other than4 applies the recovered group2/3/4 effect thresholds; the
- * actor's clip3 interpolation remains an explicit boundary. */
+ * clip other than4 applies the recovered group2/3/4 effect thresholds; active
+ * clip4 also has its distance-based source interpolation prefix. The
+ * following media/state transition remains an explicit boundary. */
 typedef struct {
   BkEndingFrameState *frame;
   BkEndingControlState *control;
   BkEndingAuxiliaryState *auxiliary;
   const int32_t *point_7220c8;
+  const int32_t (*targets_721f90)[2];
   const float *menu_width_7389e8;
+  const int32_t *offset_mode_54e2f8;
   int32_t *voice_latch_6c7f44;
   uint8_t *effect_latches_6c7f60; /* four group-specific one-shot latches */
 } BkEndingAuxiliaryChildBindings;
@@ -55,6 +58,7 @@ typedef struct {
 typedef struct {
   void *context;
   int (*active)(void *, int32_t *, char[256]);
+  int (*source)(void *, unsigned slot, float source, char[256]);
   int (*present)(void *, unsigned owner, int *, char[256]);
   int (*status)(void *, unsigned owner, int *, char[256]);
   int (*hit)(void *, const float center[2], float radius,

@@ -1,7 +1,7 @@
 {
   "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
   "state": [3],
-  "scope": "47DC79 state3 parent plus 481EA5 hit/effect-threshold prefix; remaining 481EA5 branches are explicit failures",
+  "scope": "47DC79 state3 parent plus 481EA5 hit/effect/interpolation prefix; remaining 481EA5 branches are explicit failures",
   "original_sites": {
     "dispatcher": "0x47e31a",
     "child": "0x481ea5",
@@ -25,7 +25,15 @@
       "group3_clip2": 32,
       "group3_clip3": 56,
       "group4_clip2_end": true,
-      "group3_effect_status_gate": true
+      "group3_effect_status_gate": true,
+      "clip4_source_interpolation": {
+        "request_clip": 3,
+        "source_owner": 4,
+        "offset_modes": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        "distance_gate": "target>pointer",
+        "added_source": 30,
+        "range_factor": "(1+span2/span3)*span2"
+      }
     }
   },
   "parent_order": [
@@ -55,7 +63,7 @@
     "switch": {
       "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
       "undefined_symbols": 0,
-      "nro_sha256": "d371cf73e2b2133e8653e2822bae95ee367d38ff1ed7670e9a1053288340f1f2"
+      "nro_sha256": "eb5cdaa33e451249fe29373eca0aae2303eb4ee73d98cca0cf9efbffd4f6b063"
     }
   },
   "github_push": false,
