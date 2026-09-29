@@ -3,9 +3,9 @@
 #include "game/ending_auxiliary.h"
 #include "game/ending_control.h"
 
-/* The first recoverable prefix of native 47DC79. It owns no media, actor or
- * table storage. The scene supplies those services and keeps the process
- * fields in the shared ending state. */
+/* The first recoverable prefix of native 47DC79 state8. It owns no media,
+ * actor or table storage. The scene supplies those services and keeps the
+ * process fields in the shared ending state. */
 typedef struct {
   BkEndingFrameState *frame;
   BkEndingControlState *control; /*721EEC*/
@@ -21,10 +21,10 @@ typedef struct {
   int (*prepare_group)(void *, unsigned group, unsigned branch, char[256]);
 } BkEndingAuxiliaryControllerOps;
 
-/* Recover the 47DC79 state-4 entry prefix. If either native media owner is
+/* Recover the 47DC79 state-8 transition prefix. If either native media owner is
  * still active, the native function is a no-op for this frame. The returned
  * state is ready for the paired 48181F presentation only after all services
- * complete. Later state-5/6/7 transitions remain a separate step. */
+ * complete. State4 is implemented by ending_auxiliary_state4. */
 int bk_ending_auxiliary_controller_begin(
     const BkEndingAuxiliaryControllerBindings *,
     const BkEndingAuxiliaryControllerOps *, char error[256]);

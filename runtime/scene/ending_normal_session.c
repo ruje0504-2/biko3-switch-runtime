@@ -10,6 +10,7 @@
 #include "scene/ending_selected_assets.h"
 #include "scene/ending_auxiliary_assets.h"
 #include "game/ending_auxiliary_presentation.h"
+#include "game/ending_auxiliary_state4.h"
 #include "scene/ending_selected_presentation.h"
 #include "game/ending_selected_action.h"
 #include "scene/ending_secondary_ui.h"
@@ -978,6 +979,115 @@ static const float *ending_cached_target(EndingNormalScene *s,
   return world ? world + 12 : NULL;
 }
 
+static int auxiliary_state4_present(void *context, unsigned owner, int *present,
+                                    char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || owner >= 2 || !present)
+    return fail(e, "auxiliary state4 media owner is unavailable");
+  return bk_ending_audio_present(s->audio, owner, present)
+             ? 1
+             : fail(e, "auxiliary state4 media slot is unavailable");
+}
+
+static int auxiliary_state4_status(void *context, unsigned owner, int *playing,
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_STATUS,
+                             .slot = owner};
+  if (!s || !s->audio || owner >= 2 || !playing)
+    return fail(e, "auxiliary state4 media status is unavailable");
+  return bk_ending_audio_call(s->audio, s->state->frame.group,
+                              s->state->auxiliary.variant,
+                              s->state->auxiliary.selection, &call, playing, e);
+}
+
+static int auxiliary_state4_expression(void *context, int32_t a, int32_t b,
+                                       unsigned eye, char e[256]) {
+  EndingNormalScene *s = context;
+  BkFaceState *face = s && s->auxiliary_assets
+                          ? bk_ending_auxiliary_assets_face_state(
+                                s->auxiliary_assets)
+                          : NULL;
+  BkEyeAssets *eyes = s && s->auxiliary_assets
+                          ? bk_ending_auxiliary_assets_eyes(s->auxiliary_assets)
+                          : NULL;
+  (void)b;
+  if (!face || !eyes)
+    return fail(e, "auxiliary state4 face/eye owner is unavailable");
+  return bk_face_request(face, a, s->now_ms, e) &&
+         bk_eye_assets_select(eyes, eye, e);
+}
+
+static int auxiliary_state4_target(void *context, float position[3],
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  uint32_t node;
+  const float *world;
+  if (!s || !position || !ending_target_node(s, 5, &node, e) ||
+      !(world = bk_actor_forest_world(scene_forest(s), node)))
+    return fail(e, "auxiliary state4 camera target is unavailable");
+  memcpy(position, world + 12, sizeof(float) * 3);
+  return 1;
+}
+
+static int auxiliary_state4_camera(void *context, BkEndingOpeningCamera kind,
+                                   int32_t choice, const uint32_t offset[3],
+                                   uint32_t extra, uint32_t *result,
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  const uint32_t tracks[2] = {scene_registry(s, 3), scene_registry(s, 4)};
+  BkEndingCameraAssets *assets = scene_cameras(s);
+  BkActorForest *forest = scene_forest(s);
+  uint32_t target_node;
+  int complete = 0;
+  if (!s || !assets || !forest || !result || !offset || choice < 0 ||
+      choice >= 4 || !ending_target_node(s, 5, &target_node, e))
+    return fail(e, "auxiliary state4 camera owner is unavailable");
+  if (kind == BK_ENDING_OPENING_TRACK) {
+    BkEndingCameraOpeningInput input = {s, control_key};
+    if (!bk_ending_camera_assets_opening(
+            assets, forest, tracks, &s->camera,
+            bk_actor_forest_node(forest, scene_registry(s, 0),
+                                 bk_ending_auxiliary_assets_follow(
+                                     s->auxiliary_assets)),
+            s->active_seconds, &input, &complete, e))
+      return 0;
+  } else {
+    float offset_f[3];
+    memcpy(offset_f, offset, sizeof(offset_f));
+    BkEndingCameraPresetGate gate = {
+        (uint8_t)s->previous_flow,
+        s->state->frame.phase,
+        s->state->selected,
+        s->state->frame.state_721ee0,
+        s->state->frame.state_721ee4,
+        s->state->control.state_721eec,
+        s->state->auxiliary.gate,
+        s->state->next_mode};
+    (void)extra;
+    if (!bk_ending_camera_assets_preset(
+            assets, forest, tracks, &s->camera, &s->camera_transitions,
+            &s->presets, BK_ENDING_PRESET, (unsigned)choice, offset_f, &gate,
+            0x10, s->active_seconds, &complete, e))
+      return 0;
+  }
+  (void)target_node;
+  *result = (uint32_t)complete;
+  return 1;
+}
+
+static int auxiliary_state4_effect(void *context, unsigned a, unsigned b,
+                                   unsigned c, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->auxiliary_assets ||
+      !((a == 1 && b == 0 && c == 0) || (a == 2 && b == 1 && c == 0)))
+    return fail(e, "unsupported auxiliary state4 effect");
+  /* 6C7F4C is the retained effect selector cleared by 482F91. Keep the
+   * selector in the process owner until the later presentation consumes it. */
+  s->state->retained.stage4.word_6c7f4c = (int32_t)a;
+  return 1;
+}
+
 static int selected_key(void *context, unsigned code, unsigned mode,
                         uint32_t *result, char e[256]);
 static int selected_raw_key(void *context, unsigned code, uint32_t *result,
@@ -1568,8 +1678,36 @@ static int frame_invoke(void *context, const BkEndingCall *call,
     return bk_ending_tertiary_presentation_scene_step(&presentation,
         s->state, &s->state->face_mode, &s->state->eye_lower, s->active_seconds, e);
   }
-  case BK_ENDING_STAGE_47DC79:
-    return fail(e, "ending branch requires its own loader and controller");
+  case BK_ENDING_STAGE_47DC79: {
+    if (!s->auxiliary_assets)
+      return fail(e, "47DC79 requires the auxiliary loader");
+    if (s->state->control.state_721eec == 0) {
+      /* Native jump-table state0 is the one-word transition into state1. */
+      s->state->control.state_721eec = 1;
+      return 1;
+    }
+    if (s->state->control.state_721eec != 4)
+      return fail(e, "47DC79 state is not yet implemented");
+    BkEndingAuxiliaryState4Bindings bindings = {
+        &s->state->frame,
+        &s->state->control,
+        &s->state->auxiliary,
+        &s->camera,
+        &s->state->retained.stage4.byte_6c7f50,
+        &s->state->retained.stage4.value_54e310,
+        &s->previous_flow};
+    BkEndingAuxiliaryState4Ops ops = {
+        s,
+        auxiliary_state4_present,
+        auxiliary_state4_status,
+        NULL,
+        auxiliary_state4_expression,
+        auxiliary_state4_target,
+        auxiliary_state4_camera,
+        auxiliary_state4_effect};
+    return bk_ending_auxiliary_state4_step(&bindings, s->active_seconds,
+                                          &ops, e);
+  }
   case BK_ENDING_STAGE_48181F:
     return auxiliary_presentation_step(s, e);
   case BK_ENDING_AUXILIARY_4965B9: {
