@@ -54,6 +54,8 @@ def main():
  for case in range(16000):
   inp=Input();inp.light_count=case%17;inp.mode=rng.choice([-1,0,1,2,3,9,10,11,0x7fffffff]);inp.shadow_mode=rng.randrange(4);inp.scene_root=rng.getrandbits(32)
   for l in inp.lights:l.diffuse[:]=[rng.random() for _ in range(3)];l.group=rng.choice([1,2]);l.ambient_rank=rng.randrange(3)
+  if case%3==0:
+   for l in inp.lights:l.diffuse[:]=[rng.uniform(-1.25,1.5) for _ in range(3)]
   inp.objects[:]=[rng.getrandbits(32) if rng.randrange(3) else 0 for _ in range(52)]
   expected=n.run(inp);out=Pass();assert lib.bk_lighting_pass(C.byref(inp),C.byref(out));actual=[(c.kind,c.target,c.value) for c in out.commands[:out.count]];assert actual==expected,(case,inp.mode,actual,expected)
   total+=len(actual);draws+=sum(c[0]==2 for c in actual);shadows+=sum(c[0]==4 for c in actual)
@@ -62,6 +64,8 @@ def main():
  for case in range(4000):
   inp.light_count=case%17;names=(C.c_uint8*16)(*[rng.randrange(2) for _ in range(16)])
   for l in inp.lights:l.diffuse[:]=[rng.random() for _ in range(3)];l.group=rng.choice([1,2]);l.ambient_rank=rng.randrange(3)
+  if case%3==0:
+   for l in inp.lights:l.diffuse[:]=[rng.uniform(-1.25,1.5) for _ in range(3)]
   n.bind(inp,names);n.call(0x4a4438,b'');argb=C.c_uint32();assert lib.bk_light_ambient_initialize(inp.lights,names,inp.light_count,C.byref(argb));assert argb.value==n.commands[-1][2]
   assert [l.ambient_rank for l in inp.lights[:inp.light_count]]==list(struct.unpack('<'+'i'*inp.light_count,n.u.mem_read(0x70573c,inp.light_count*4)))
  for case in range(4000):
@@ -71,6 +75,6 @@ def main():
  # Failed plans cannot leak partial commands.
  before=bytes(out);inp.light_count=17;assert not lib.bk_lighting_pass(C.byref(inp),C.byref(out));assert bytes(out)==before
  inp.light_count=1;inp.lights[0].diffuse[1]=float('nan');assert not lib.bk_lighting_pass(C.byref(inp),C.byref(out));assert bytes(out)==before
- report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),passes=16000,commands=total,objects=draws,projected_shadow_calls=shadows,ambient_initializations=4000,name_classifications=4000,max_error=0,scope=__doc__)
+ report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),passes=16000,commands=total,objects=draws,projected_shadow_calls=shadows,ambient_initializations=4000,name_classifications=4000,signed_color_passes=5334,signed_ambient_initializations=1334,max_error=0,scope=__doc__)
  (ROOT/'local/original-lighting-pass-oracle.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
 if __name__=='__main__':main()

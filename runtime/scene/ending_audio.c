@@ -95,6 +95,19 @@ void bk_ending_audio_destroy(BkEndingAudio *a) {
     bk_audio_clip_release(a->clips[i]);
   free(a);
 }
+int bk_ending_audio_release_speech(BkEndingAudio *a, char e[256]) {
+  if (!a || a->count < 2)
+    return fail(e, "missing speech owner");
+  for (unsigned i = 0; i < 2; ++i) {
+    if (!a->clips[i])
+      continue;
+    if (!bk_audio_clear(a->audio, a->first + i, e))
+      return 0;
+    bk_audio_clip_release(a->clips[i]);
+    a->clips[i] = NULL;
+  }
+  return 1;
+}
 int bk_ending_audio_bind(BkEndingAudio *a, unsigned slot, const char *pack,
                          const char *name, char e[256]) {
   if (!a || slot >= a->count || !pack || !name)
@@ -127,6 +140,12 @@ static int bind_speech(BkEndingAudio *a, unsigned slot, const char *name,
   if (!a->clips[slot])
     return 0;
   return 1;
+}
+int bk_ending_audio_load_speech(BkEndingAudio *a, unsigned slot,
+                                const char *name, char e[256]) {
+  if (!a || slot > 1 || slot >= a->count || !name)
+    return fail(e, "invalid speech load");
+  return bind_speech(a, slot, name, e);
 }
 int bk_ending_audio_speech(BkEndingAudio *a, unsigned slot, const char *name,
                            int32_t volume, char e[256]) {
@@ -178,12 +197,33 @@ int bk_ending_audio_call(BkEndingAudio *a, unsigned group, int32_t variant,
   }
   return fail(e, "unknown command");
 }
-int bk_ending_audio_level(BkEndingAudio *a, unsigned slot, BkVoiceEnvelope *v,
-                          float seconds, float *level, char e[256]) {
+int bk_ending_audio_level(BkEndingAudio *a, unsigned slot,
+                          BkEndingVoiceEnvelope *v, float *level, char e[256]) {
   if (!a || slot >= a->count)
     return fail(e, "invalid envelope slot");
-  return bk_scene_voice_envelope(a->audio, a->first + slot, v, seconds, level,
-                                 e);
+  int playing = 0;
+  if (!bk_audio_playing(a->audio, a->first + slot, &playing))
+    return fail(e, "cannot read speech status");
+  if (!playing)
+    return bk_ending_voice_envelope_step(v, 0, 0, 0, level, e);
+  BkAudioCursor cursor;
+  if (!bk_audio_cursor(a->audio, a->first + slot, &cursor))
+    return fail(e, "cannot read consumed speech cursor");
+  int sampled = 0;
+  int32_t magnitude = 0;
+  if (cursor.playing && cursor.buffered && cursor.pcm) {
+    size_t channels = bk_pcm_channels(cursor.pcm);
+    size_t frames = bk_pcm_frames(cursor.pcm);
+    if (channels && frames <= SIZE_MAX / channels &&
+        cursor.source_frame < frames) {
+      if (!bk_ending_voice_pcm_level(bk_pcm_samples(cursor.pcm),
+                                      frames * channels,
+                                      cursor.source_frame * channels,
+                                      &sampled, &magnitude, e))
+        return 0;
+    }
+  }
+  return bk_ending_voice_envelope_step(v, 1, sampled, magnitude, level, e);
 }
 static int duck_status(void *ctx, unsigned slot, int *playing, char e[256]) {
   BkEndingAudio *a = ctx;

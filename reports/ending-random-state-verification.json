@@ -1,0 +1,94 @@
+{
+  "date": "2026-09-29",
+  "scope_status": "targeted_checks_passed",
+  "overall_port_complete": false,
+  "shared_random_owner": "PlaySession.game_state.random",
+  "application_handoff_fixture": "Explicit post-story group0/kind0 flow16 injection; subsequent input, schedule, title reentry and flow58 retirement are real application operations.",
+  "application_runs": {
+    "host_exit_code": 0,
+    "asan_vulkan_exit_code": 0,
+    "loading_random_draws": [3, 3],
+    "ending_random_draws": 32,
+    "application_update_random_draws": 38,
+    "fixture_external_random_draws": 4,
+    "draw_prefix_check_limit": 4096,
+    "confirmation_frames_per_run": 196,
+    "fade_frames_per_run": 124,
+    "audio_frames_per_run": 436800,
+    "first_present_redraw_and_stop_retain_random": true,
+    "cycle_retained_across_resource_retirement": true,
+    "final_rgba_redraw_exact": true,
+    "gpu_allocation_baseline_restored": true,
+    "unlock_file_unchanged": true,
+    "logs": [
+      "local/ending-rng-exit-host.log",
+      "local/ending-rng-exit-asan.log"
+    ]
+  },
+  "standalone_regressions": {
+    "builds": ["host", "asan-vulkan"],
+    "profiles": ["gallery0", "gallery1", "story-confirmation"],
+    "successful_runs": 6,
+    "base_frames_per_profile": 64,
+    "additional_confirmation_frames": 247
+  },
+  "registered_resource_checks": {
+    "host_and_asan_exit_codes": [0, 0, 0, 0],
+    "cycle_frames_per_build": 3600,
+    "cycle_transitions_per_build": 21,
+    "cycle_matrix_fnv": "4b26a1818a4a1f60",
+    "cycle_pcm_samples_per_build": 6339840,
+    "cycle_pcm_fnv": "a104554b5ca98779",
+    "presentation_profiles": 10,
+    "presentation_frames_per_build": 1800,
+    "presentation_geometry_fnv": "220d15e79017ac61",
+    "presentation_pcm_fnv": "6edf82aec69ed451",
+    "pcm_trace_bytes": 892808,
+    "pcm_trace_byte_exact": true,
+    "pcm_trace_sha256": "fe4117431762f4e55262d044165d576065eb350e749b98cf98a2aa907dc2d092"
+  },
+  "resumed_original_resource_oracle": {
+    "exit_code": 0,
+    "actors": 5,
+    "frames": 1800,
+    "matrices": 4222386,
+    "slot_clock_snapshots": 691840,
+    "max_relative_error": 0.0,
+    "result": "local/original-ending-auxiliary-cycle-assets-oracle.json"
+  },
+  "architecture_checks": 2,
+  "shell_syntax_passed": true,
+  "git_diff_check_passed": true,
+  "full_test_host_script_executed": false,
+  "asan_options": "detect_leaks=0",
+  "switch_build": {
+    "exit_code": 0,
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0,
+    "nro_bytes": 15794232,
+    "nro_sha256": "5ed72105618ddf984ac95179b319df5dbc5ae5fdc94de277c36ffa57247362cc"
+  },
+  "frozen_ui_delivery": {
+    "changed": false,
+    "path": "交付/界面与摇杆修复-20260929/switch/biko3/biko3-preview.nro",
+    "sha256": "c31dc6f0565617fc51602c850e892d0fa950f514c394e5d530c1c2368ada3f68",
+    "contains_shared_random_fix": false
+  },
+  "source_read_attempts": {
+    "rejected_batches": 2,
+    "executed": false,
+    "tool_error": "因 OpenAI 无法确定请求的安全状态，已拦截此工具调用。"
+  },
+  "new_switch_hardware_verification": false,
+  "complete_delivery_refreshed": false,
+  "zip_created": false,
+  "git_pushed": false,
+  "keep_awake_released": false,
+  "remaining": [
+    "Production parent controllers still include generic advancement paths.",
+    "Full loader tails and other ending branches remain incomplete.",
+    "Natural ending, follow-on story and persistence need end-to-end verification.",
+    "The prior 1080p full-3D edge diagnostic remains outside this change's acceptance scope."
+  ]
+}

@@ -6,11 +6,11 @@ static int fail(char e[256], const char *why) {
   snprintf(e, 256, "ending control: %s", why);
   return 0;
 }
-static int pressed(const BkEndingControlOps *o, unsigned mode, int *yes,
-                   char e[256]) {
+static int pressed_first(const BkEndingControlOps *o, unsigned first,
+                          unsigned mode, int *yes, char e[256]) {
   if (!o->key)
     return fail(e, "missing key service");
-  static const unsigned codes[3] = {0, 0x5a, 0x33450};
+  const unsigned codes[3] = {first, 0x5a, 0x33450};
   *yes = 0;
   for (unsigned i = 0; i < 3; ++i) {
     uint32_t result;
@@ -22,6 +22,10 @@ static int pressed(const BkEndingControlOps *o, unsigned mode, int *yes,
     }
   }
   return 1;
+}
+static int pressed(const BkEndingControlOps *o, unsigned mode, int *yes,
+                   char e[256]) {
+  return pressed_first(o, 0, mode, yes, e);
 }
 static int sound(const BkEndingControlBindings *b, const BkEndingControlOps *o,
                  unsigned slot, char e[256]) {
@@ -67,6 +71,78 @@ static int targets(BkEndingControlState *s, const BkEndingControlBindings *b,
   if (s->variant == 1)
     for (unsigned j = 0; j < 3; ++j)
       s->targets[1][j] = (float)(((double)b->nodes[0][j] + b->nodes[1][j]) / 2);
+  return 1;
+}
+static int confirm_sound(const BkEndingConfirmBindings *b,
+                          const BkEndingControlOps *o, unsigned slot,
+                          char e[256]) {
+  return o->sound ? o->sound(o->context, slot, *b->effect_volume, e)
+                   : fail(e, "missing confirmation sound service");
+}
+static void cancel_confirmation(BkEndingControlState *s,
+                                 BkEndingFrameState *frame) {
+  frame->phase = s->previous_phase;
+  s->pause_selection = 0;
+  s->pause_flags[0] = s->pause_flags[1] = s->pause_flags[2] =
+      s->pause_flags[4] = 0;
+}
+int bk_ending_confirm_step(BkEndingControlState *s,
+                           const BkEndingConfirmBindings *b,
+                           const BkEndingFrameInput *in,
+                           const BkEndingControlOps *o, char e[256]) {
+  if (!s || !b || !b->frame || !b->action || !b->curtain_wanted ||
+      !b->rects || !b->effect_volume || !in || !o)
+    return fail(e, "missing confirmation bindings/input");
+  s->hover = 0;
+  /* The original checks this byte only once. Confirming the first region
+   * does not suppress an overlapping cancel region later in this call. */
+  if (*b->curtain_wanted)
+    return 1;
+  int32_t pointer[2];
+  memcpy(pointer, in->words + 9, sizeof(pointer));
+  for (unsigned i = 0; i < 2; ++i) {
+    const BkEndingControlRect *r = &b->rects[i];
+    if (!isfinite(r->x) || !isfinite(r->y) || !isfinite(r->width) ||
+        !isfinite(r->height))
+      return fail(e, "invalid confirmation bounds");
+    if ((double)pointer[0] < r->x ||
+        (double)pointer[0] > (double)r->x + r->width ||
+        (double)pointer[1] < r->y ||
+        (double)pointer[1] > (double)r->y + r->height)
+      continue;
+    s->hover = i ? 61 : 59;
+    int yes;
+    if (!pressed(o, 1, &yes, e))
+      return 0;
+    if (!yes)
+      continue;
+    if (!confirm_sound(b, o, i ? 2 : 0, e))
+      return 0;
+    if (i)
+      cancel_confirmation(s, b->frame);
+    else {
+      *b->action = s->pause_selection == 45 ? 45 : 47;
+      s->pause_selection = 0;
+      *b->curtain_wanted = 1;
+    }
+  }
+  int cancel;
+  if (!pressed_first(o, 1, 1, &cancel, e))
+    return 0;
+  if (cancel && b->frame->phase != s->previous_phase) {
+    if (!confirm_sound(b, o, 2, e))
+      return 0;
+    cancel_confirmation(s, b->frame);
+  }
+  if (s->hover) {
+    if (!s->hover_armed || s->previous_hover != s->hover) {
+      if (!confirm_sound(b, o, 3, e))
+        return 0;
+      s->hover_armed = 1;
+      s->previous_hover = s->hover;
+    }
+  } else
+    s->hover_armed = s->previous_hover = 0;
   return 1;
 }
 static int select_target(BkEndingControlState *s,

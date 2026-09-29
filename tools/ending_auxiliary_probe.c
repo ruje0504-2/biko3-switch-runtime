@@ -42,7 +42,8 @@ static uint64_t matrices(BkActorPose *a, uint32_t count) {
   return h;
 }
 int main(int argc, char **argv) {
-  if (argc != 2)
+  int automatic = argc == 3 && !strcmp(argv[2], "--cycle");
+  if (argc != 2 && !automatic)
     return 2;
   char e[256] = {0}, path[1024], name[32] = {0};
   int rc = 1;
@@ -57,6 +58,10 @@ int main(int argc, char **argv) {
   Sink sink = {.hash = UINT64_C(14695981039346656037)};
   uint64_t hash = UINT64_C(14695981039346656037);
   unsigned frames = 0, accepted = 0, rejected = 0, textures = 0;
+  unsigned transitions = 0, cycle_calls = 0;
+  BkEndingAuxiliaryCycle cycle = bk_ending_auxiliary_cycle_initial();
+  uint32_t random = UINT32_C(0x4965b9);
+  int32_t voice_volume = -700;
   CHECK(store);
   for (unsigned i = 0; i < 4; i++) {
     const char *pack =
@@ -121,10 +126,10 @@ int main(int argc, char **argv) {
       CHECK(bk_audio_poll(mixer, e));
       /* Each profile starts from an explicit action4 fixture. The full
        * ending stage owner that exits native gates1..3 is still separate. */
-      if (step % 120 == 0)
+      if (step % (automatic ? 240 : 120) == 0)
         CHECK(bk_actor_pose_request_mode(actor, 4, BK_CLIP_REQUEST_CONFIGURED,
                                          e));
-      if (step % 120 < 5 || step % 15 == 0) {
+      if (automatic ? step % 240 < 2 : step % 120 < 5 || step % 15 == 0) {
         state.variant = step / 360;
         state.selection = (step / 120) % 3;
         state.progress = (float)(step % 11) / 10;
@@ -140,8 +145,9 @@ int main(int argc, char **argv) {
         uint64_t before = matrices(actor, model->frame_count);
         CHECK(bk_ending_auxiliary_apply(
             &services, &state, &frame,
-            (int[]){0, 1, 3, 2,
-                    3}[step % 120 < 5 ? step % 120 : (step / 15) % 5],
+            automatic ? (step % 240 == 0 ? 1 : 3)
+                      : (int[]){0, 1, 3, 2,
+                                 3}[step % 120 < 5 ? step % 120 : (step / 15) % 5],
             -700, -900, &result, e));
         assert(before == matrices(actor, model->frame_count) &&
                frame.auxiliary_mode == 77);
@@ -155,12 +161,29 @@ int main(int argc, char **argv) {
           assert(state.expression_a >= 1 && state.expression_b >= 3);
         }
       }
-      CHECK(bk_actor_pose_advance(
-          actor, -1,
-          step % 120 < 5
-              ? .016f
-              : (float[]){.001f, .016f, .1f, .5f, 2, 1.f / 30}[step % 6],
-          e));
+      float seconds = step % 120 < 5
+                          ? .016f
+                          : (float[]){.001f, .016f, .1f, .5f, 2, 1.f / 30}[step % 6];
+      CHECK(bk_actor_pose_advance(actor, -1, seconds, e));
+      if (automatic) {
+        uint64_t before = matrices(actor, model->frame_count);
+        uint32_t previous_random = random;
+        CHECK(bk_ending_auxiliary_tick_apply(&services, &state, &frame, &cycle,
+                                              seconds, &voice_volume, &random, e));
+        assert(before == matrices(actor, model->frame_count) &&
+               frame.auxiliary_mode == 77 && frame.camera_cached == -1 &&
+               frame.camera_event == 0);
+        transitions += random != previous_random;
+        cycle_calls++;
+        BkClipState active;
+        BkClipPrediction prediction;
+        CHECK(bk_actor_pose_state(actor, &active));
+        CHECK(bk_actor_pose_prediction(actor, (unsigned)active.slot, &prediction));
+        const BkClipDefinition *definition = bk_clip_definition(clips, (unsigned)active.slot);
+        assert(definition && prediction.duration == definition->duration &&
+               prediction.end == definition->end && prediction.source == active.source &&
+               prediction.rate == active.rate);
+      }
       bk_actor_pose_publish(actor);
       BkClipState clock;
       assert(bk_actor_pose_state(sibling, &clock) &&
@@ -194,13 +217,21 @@ int main(int argc, char **argv) {
     bk_clip_set_destroy(clips);
     clips = NULL;
   }
-  assert(frames == 3600 && accepted > 100 && textures > 100);
+  if (automatic)
+    fprintf(stderr, "automatic coverage: frames=%u transitions=%u accepted=%u\n",
+            frames, transitions, accepted);
+  assert(frames == 3600 && (automatic ? transitions > 10
+                                      : accepted > 100 && textures > 100));
   printf("PASS ending auxiliary assets: 5 FAM primary models, 30 audio "
          "profiles, %u frames, %u accepted/%u gated, %u eye selections, "
          "matrices FNV%016llx, %llu PCM samples FNV%016llx; sibling and "
          "unpublished caches retained\n",
          frames, accepted, rejected, textures, (unsigned long long)hash,
          (unsigned long long)sink.samples, (unsigned long long)sink.hash);
+  if (automatic)
+    printf("PASS automatic4965b9: calls=%u transitions=%u retained_countdown=%d "
+           "shared_rng=%08x; real clip/eyes/PCM, no pose publication\n",
+           cycle_calls, transitions, cycle.countdown, random);
   rc = 0;
 done:
   if (rc)

@@ -15,9 +15,11 @@ int bk_lighting_validate(const BkLighting *s, char error[256]) {
     const BkPointLight *p = spot ? &spot->point : &s->points[i];
     for (unsigned j = 0; j < 3; j++)
       if (!isfinite(p->position[j]) || !isfinite(p->diffuse[j]) ||
-          !isfinite(p->ambient[j]) || !isfinite(p->specular[j]) ||
-          p->diffuse[j] < 0 || p->ambient[j] < 0 || p->specular[j] < 0)
+          !isfinite(p->ambient[j]) || !isfinite(p->specular[j]))
         goto invalid;
+    /* Authored third-ending lights include negative diffuse RGB. Preserve
+     * signed light contributions; fixed-function vertex colors are clamped
+     * after summing lights, not before. Geometric attenuation stays bounded. */
     if (!isfinite(p->range) || p->range < 0 || !isfinite(p->attenuation0) ||
         !isfinite(p->attenuation1) || !isfinite(p->attenuation2) ||
         p->attenuation0 < 0 || p->attenuation1 < 0 || p->attenuation2 < 0 ||

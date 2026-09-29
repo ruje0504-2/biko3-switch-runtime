@@ -13,6 +13,52 @@ int bk_ending_sound_absent_speech(const char *name) {
         return 1;
   return 0;
 }
+int bk_ending_sound_loop_name(unsigned group, int32_t phase, float progress,
+                               char name[32], char e[256]) {
+  int code = progress >= .19f && progress < .4f ? 1
+             : progress >= .39f && progress < .6f ? 2
+             : progress >= .59f ? 3 : -1;
+  if (!name || group >= 5 || phase != 1 || !isfinite(progress) || code < 0) {
+    if (e)
+      snprintf(e, 256, "ending sound: undefined loop voice selection");
+    return 0;
+  }
+  snprintf(name, 32, "PH%u01%02d.wav", group + 1, code);
+  return 1;
+}
+int bk_ending_sound_action_name(unsigned group, int32_t target, float progress,
+                                 char name[32], char e[256]) {
+  int code;
+  switch (target) {
+  case 1: code = 1; break;
+  case 11: code = 12; break;
+  case 12: code = 20; break;
+  case 9: code = 28; break;
+  case 10: code = 36; break;
+  case 26:
+  case 27: code = 44; break;
+  case 5: code = 52; break;
+  default: code = -1; break;
+  }
+  if (!name || group >= 5 || code < 0 || !isfinite(progress)) {
+    if (e)
+      snprintf(e, 256, "ending sound: undefined action voice selection");
+    return 0;
+  }
+  if (progress >= .2f)
+    code += progress >= .19f && progress < .4f ? 1 : 2;
+  snprintf(name, 32, "PH%u02%02d.wav", group + 1, code);
+  return 1;
+}
+int bk_ending_sound_tertiary_voice(unsigned group, int32_t cue, int32_t select,
+                                   char name[32], char e[256]) {
+  if (!name || group >= 5) {
+    if (e) snprintf(e, 256, "ending sound: invalid third-ending voice group/output");
+    return 0;
+  }
+  snprintf(name, 32, "PH%u%02d%02d.wav", group + 1, select ? 31 : 32, cue);
+  return 1;
+}
 int bk_ending_sound_normal_voice(unsigned group, int32_t target, int32_t mode,
                                  char name[32], char e[256]) {
   int code;

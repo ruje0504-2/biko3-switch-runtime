@@ -1,0 +1,781 @@
+{
+  "date": "2026-09-29",
+  "cpu_resource_stage_passed": true,
+  "playable_phase2_completed": false,
+  "complete_port_accepted": false,
+  "original_exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "scalar_oracles": [
+    {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "profiles": [
+        {
+          "group": 0,
+          "primary": "h01_02.xan",
+          "face": "h01_02.fam",
+          "position": [
+            -15.0,
+            0.0,
+            -0.7599999904632568
+          ],
+          "camera_yaw": 90
+        },
+        {
+          "group": 1,
+          "primary": "h02_02.xan",
+          "face": "h02_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        },
+        {
+          "group": 2,
+          "primary": "h03_02.xan",
+          "face": "h03_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        },
+        {
+          "group": 3,
+          "primary": "h04_02.xan",
+          "face": "h04_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        },
+        {
+          "group": 4,
+          "primary": "h05_02.xan",
+          "face": "h05_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        }
+      ],
+      "native_target_samples": 4096,
+      "alias_samples": 4096,
+      "atomic_nonfinite_rejections": 18,
+      "native_segment": "0x4d0add..0x4d0b9d",
+      "max_error": 0,
+      "scope": "Fixed-EXE4D00FA configuration and unhooked cached-target arithmetic.\n\nThis does not claim the resource loader, phase2 controllers or GPU rendering.\n"
+    },
+    {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "profiles": [
+        {
+          "group": 0,
+          "primary": "h01_02.xan",
+          "face": "h01_02.fam",
+          "position": [
+            -15.0,
+            0.0,
+            -0.7599999904632568
+          ],
+          "camera_yaw": 90
+        },
+        {
+          "group": 1,
+          "primary": "h02_02.xan",
+          "face": "h02_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        },
+        {
+          "group": 2,
+          "primary": "h03_02.xan",
+          "face": "h03_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        },
+        {
+          "group": 3,
+          "primary": "h04_02.xan",
+          "face": "h04_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        },
+        {
+          "group": 4,
+          "primary": "h05_02.xan",
+          "face": "h05_02.fam",
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "camera_yaw": 0
+        }
+      ],
+      "native_target_samples": 4096,
+      "alias_samples": 4096,
+      "atomic_nonfinite_rejections": 18,
+      "native_segment": "0x4d0add..0x4d0b9d",
+      "max_error": 0,
+      "scope": "Fixed-EXE4D00FA configuration and unhooked cached-target arithmetic.\n\nThis does not claim the resource loader, phase2 controllers or GPU rendering.\n"
+    }
+  ],
+  "asset_oracles": [
+    {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "entries": 10,
+      "matrices": 32895,
+      "clips": 72,
+      "nodes": 390,
+      "face_checks": 10,
+      "max_normalized_error": 0.0,
+      "records": [
+        {
+          "group": 0,
+          "variant": 0,
+          "frames": [
+            467,
+            7,
+            10,
+            54
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              -15.00000286102295,
+              21.773298263549805,
+              -0.8523921966552734
+            ],
+            [
+              -15.0,
+              13.023533821105957,
+              -0.7652609944343567
+            ],
+            [
+              -15.0,
+              4.374882221221924,
+              -0.043565601110458374
+            ]
+          ]
+        },
+        {
+          "group": 0,
+          "variant": 1,
+          "frames": [
+            467,
+            7,
+            10,
+            10
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              -15.00000286102295,
+              21.773298263549805,
+              -0.8523921966552734
+            ],
+            [
+              -15.0,
+              13.023533821105957,
+              -0.7652609944343567
+            ],
+            [
+              -15.0,
+              4.374882221221924,
+              -0.043565601110458374
+            ]
+          ]
+        },
+        {
+          "group": 1,
+          "variant": 0,
+          "frames": [
+            236,
+            7,
+            10,
+            39
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.2014867024845444e-05,
+              20.480079650878906,
+              -1.1951547861099243
+            ],
+            [
+              0.0,
+              13.60867977142334,
+              0.09082752466201782
+            ],
+            [
+              0.0,
+              3.435699939727783,
+              -0.6429911851882935
+            ]
+          ]
+        },
+        {
+          "group": 1,
+          "variant": 1,
+          "frames": [
+            236,
+            7,
+            10,
+            39
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.2014867024845444e-05,
+              20.480079650878906,
+              -1.1951547861099243
+            ],
+            [
+              0.0,
+              13.60867977142334,
+              0.09082752466201782
+            ],
+            [
+              0.0,
+              3.435699939727783,
+              -0.6429911851882935
+            ]
+          ]
+        },
+        {
+          "group": 2,
+          "variant": 0,
+          "frames": [
+            300,
+            7,
+            10,
+            35
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              0.0,
+              20.13411521911621,
+              0.08348378539085388
+            ],
+            [
+              0.0,
+              12.446521759033203,
+              0.2525689899921417
+            ],
+            [
+              0.0,
+              3.843796730041504,
+              -0.08454260230064392
+            ]
+          ]
+        },
+        {
+          "group": 2,
+          "variant": 1,
+          "frames": [
+            300,
+            7,
+            10,
+            15
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              0.0,
+              20.13411521911621,
+              0.08348378539085388
+            ],
+            [
+              0.0,
+              12.446521759033203,
+              0.2525689899921417
+            ],
+            [
+              0.0,
+              3.843796730041504,
+              -0.08454260230064392
+            ]
+          ]
+        },
+        {
+          "group": 3,
+          "variant": 0,
+          "frames": [
+            696,
+            7,
+            10,
+            12
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.525825268799963e-06,
+              19.374006271362305,
+              -0.4449988603591919
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              3.175236225128174,
+              -0.21986892819404602
+            ]
+          ]
+        },
+        {
+          "group": 3,
+          "variant": 1,
+          "frames": [
+            696,
+            7,
+            10,
+            17
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.525825268799963e-06,
+              19.374006271362305,
+              -0.4449988603591919
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              3.175236225128174,
+              -0.21986892819404602
+            ]
+          ]
+        },
+        {
+          "group": 4,
+          "variant": 0,
+          "frames": [
+            870,
+            7,
+            10,
+            34
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              4.027254362881649e-06,
+              21.253009796142578,
+              -0.2080170065164566
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              4.1147379875183105,
+              -0.10137800127267838
+            ]
+          ]
+        },
+        {
+          "group": 4,
+          "variant": 1,
+          "frames": [
+            870,
+            7,
+            10,
+            16
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              4.027254362881649e-06,
+              21.253009796142578,
+              -0.2080170065164566
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              4.1147379875183105,
+              -0.10137800127267838
+            ]
+          ]
+        }
+      ],
+      "scope": "Original4D00FA CPU resource topology and ordered cached-pose initialization.\n\nResources are decoded at the existing file/model boundary. The original global\nattachment, root transforms, visibility, configured clip requests, name lookup,\nflow16 camera loading, target capture and fixed camera execute unchanged.\nFace warmup/RNG are compared in their independent original controller VM.\nUI, media and device services are observing boundaries, not playable-phase2\nor rendering acceptance. There are no fabricated auxiliary/BOM actors.\n"
+    },
+    {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "entries": 10,
+      "matrices": 32895,
+      "clips": 72,
+      "nodes": 390,
+      "face_checks": 10,
+      "max_normalized_error": 0.0,
+      "records": [
+        {
+          "group": 0,
+          "variant": 0,
+          "frames": [
+            467,
+            7,
+            10,
+            54
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              -15.00000286102295,
+              21.773298263549805,
+              -0.8523921966552734
+            ],
+            [
+              -15.0,
+              13.023533821105957,
+              -0.7652609944343567
+            ],
+            [
+              -15.0,
+              4.374882221221924,
+              -0.043565601110458374
+            ]
+          ]
+        },
+        {
+          "group": 0,
+          "variant": 1,
+          "frames": [
+            467,
+            7,
+            10,
+            10
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              -15.00000286102295,
+              21.773298263549805,
+              -0.8523921966552734
+            ],
+            [
+              -15.0,
+              13.023533821105957,
+              -0.7652609944343567
+            ],
+            [
+              -15.0,
+              4.374882221221924,
+              -0.043565601110458374
+            ]
+          ]
+        },
+        {
+          "group": 1,
+          "variant": 0,
+          "frames": [
+            236,
+            7,
+            10,
+            39
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.2014867024845444e-05,
+              20.480079650878906,
+              -1.1951547861099243
+            ],
+            [
+              0.0,
+              13.60867977142334,
+              0.09082752466201782
+            ],
+            [
+              0.0,
+              3.435699939727783,
+              -0.6429911851882935
+            ]
+          ]
+        },
+        {
+          "group": 1,
+          "variant": 1,
+          "frames": [
+            236,
+            7,
+            10,
+            39
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.2014867024845444e-05,
+              20.480079650878906,
+              -1.1951547861099243
+            ],
+            [
+              0.0,
+              13.60867977142334,
+              0.09082752466201782
+            ],
+            [
+              0.0,
+              3.435699939727783,
+              -0.6429911851882935
+            ]
+          ]
+        },
+        {
+          "group": 2,
+          "variant": 0,
+          "frames": [
+            300,
+            7,
+            10,
+            35
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              0.0,
+              20.13411521911621,
+              0.08348378539085388
+            ],
+            [
+              0.0,
+              12.446521759033203,
+              0.2525689899921417
+            ],
+            [
+              0.0,
+              3.843796730041504,
+              -0.08454260230064392
+            ]
+          ]
+        },
+        {
+          "group": 2,
+          "variant": 1,
+          "frames": [
+            300,
+            7,
+            10,
+            15
+          ],
+          "missing_visible": 2,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              0.0,
+              20.13411521911621,
+              0.08348378539085388
+            ],
+            [
+              0.0,
+              12.446521759033203,
+              0.2525689899921417
+            ],
+            [
+              0.0,
+              3.843796730041504,
+              -0.08454260230064392
+            ]
+          ]
+        },
+        {
+          "group": 3,
+          "variant": 0,
+          "frames": [
+            696,
+            7,
+            10,
+            12
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.525825268799963e-06,
+              19.374006271362305,
+              -0.4449988603591919
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              3.175236225128174,
+              -0.21986892819404602
+            ]
+          ]
+        },
+        {
+          "group": 3,
+          "variant": 1,
+          "frames": [
+            696,
+            7,
+            10,
+            17
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              1.525825268799963e-06,
+              19.374006271362305,
+              -0.4449988603591919
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              3.175236225128174,
+              -0.21986892819404602
+            ]
+          ]
+        },
+        {
+          "group": 4,
+          "variant": 0,
+          "frames": [
+            870,
+            7,
+            10,
+            34
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              4.027254362881649e-06,
+              21.253009796142578,
+              -0.2080170065164566
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              4.1147379875183105,
+              -0.10137800127267838
+            ]
+          ]
+        },
+        {
+          "group": 4,
+          "variant": 1,
+          "frames": [
+            870,
+            7,
+            10,
+            16
+          ],
+          "missing_visible": 1,
+          "fov": 0.20000000298023224,
+          "targets": [
+            [
+              4.027254362881649e-06,
+              21.253009796142578,
+              -0.2080170065164566
+            ],
+            [
+              0.0,
+              13.023533821105957,
+              -0.0052610039710998535
+            ],
+            [
+              0.0,
+              4.1147379875183105,
+              -0.10137800127267838
+            ]
+          ]
+        }
+      ],
+      "scope": "Original4D00FA CPU resource topology and ordered cached-pose initialization.\n\nResources are decoded at the existing file/model boundary. The original global\nattachment, root transforms, visibility, configured clip requests, name lookup,\nflow16 camera loading, target capture and fixed camera execute unchanged.\nFace warmup/RNG are compared in their independent original controller VM.\nUI, media and device services are observing boundaries, not playable-phase2\nor rendering acceptance. There are no fabricated auxiliary/BOM actors.\n"
+    }
+  ],
+  "lifecycle": {
+    "host_exit": 0,
+    "asan_ubsan_exit": 0,
+    "entries_each": 10,
+    "atomic_partial_failures_each": 4,
+    "background_failure_retries_each": 8,
+    "asan_log": "local/ending-secondary-lifecycle-asan.log",
+    "leak_sanitizer_enabled": false
+  },
+  "architecture_tests": {
+    "passed": 2,
+    "exit": 0
+  },
+  "switch": {
+    "nro": "build-switch/biko3-preview.nro",
+    "bytes": 15839288,
+    "sha256": "042e93e3037a170732f388cbf7d25cc99298b0d690a108daa3a3f89b5d3b715b",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "build_exit": 0,
+    "fresh_nm_undefined": 0,
+    "log": "local/ending-secondary-switch-build.log",
+    "new_cpu_library_stage_linked_into_application": false
+  },
+  "remaining": [
+    "4D00FA process-retained state and UI/media/texture replacement",
+    "47A5D0 parent and 47D3CB presentation controllers",
+    "application dispatch and rendering for the independent topology",
+    "other independent loaders and natural ending/unlock lifecycle",
+    "production 3D raster pairing 3/12 failures and actual Switch ending validation"
+  ]
+}

@@ -13,6 +13,7 @@ struct BkEndingNormalAssets {
   const char *background_name;
   unsigned background_state; /*0=not registered,1=ready,2=failed prefix */
   Actor actors[3];           /* primary, auxiliary, optional background */
+  BkEndingBackgroundAssets *background; /* actors[2] is a borrowed view */
   BkActorForest *forest;
   BkEndingCameraAssets *cameras;
   BkBomAssets *bom;
@@ -22,6 +23,14 @@ struct BkEndingNormalAssets {
   uint32_t nodes[BK_ENDING_NORMAL_NODES], oyu;
   float targets[3][3];
 };
+uint32_t bk_ending_normal_assets_root(const BkEndingNormalAssets *a,
+                                       unsigned actor) {
+  unsigned index = actor == 4 ? 2 : actor;
+  if (!a || !a->forest || index > 2 || (actor != 0 && actor != 1 && actor != 4) ||
+      !a->actors[index].pose)
+    return BK_FRAME_NONE;
+  return bk_actor_forest_node(a->forest, actor, a->actors[index].root);
+}
 static int fail(char e[256], const char *why) {
   snprintf(e, 256, "normal ending assets: %s", why);
   return 0;
@@ -39,8 +48,9 @@ void bk_ending_normal_assets_destroy(BkEndingNormalAssets *a) {
   bk_ending_camera_assets_destroy(a->cameras);
   bk_eye_assets_destroy(a->eyes);
   bk_face_assets_destroy(a->face);
-  for (unsigned i = 0; i < 3; i++)
+  for (unsigned i = 0; i < 2; i++)
     destroy_actor(&a->actors[i]);
+  bk_ending_background_assets_destroy(a->background);
   free(a);
 }
 static int load_actor(Actor *a, BkResourceStore *s, const char *pack,
@@ -102,11 +112,12 @@ static int attach_actor(BkEndingNormalAssets *a, Actor *actor, unsigned index,
              (float[3]){0, 1, 0}, e) &&
          bk_actor_pose_root_local(actor->pose, root.local, e);
 }
-BkEndingNormalAssets *
-bk_ending_normal_assets_create(BkResourceStore *store, unsigned group,
+static BkEndingNormalAssets *
+create_assets(BkResourceStore *store, unsigned group,
                                unsigned variant, const uint32_t clocks[4],
                                uint32_t *random, BkMenuCamera *camera,
-                               BkEndingCameraPresets *presets, char e[256]) {
+                               BkEndingCameraPresets *presets,
+                               BkEndingBackgroundAssets *retained, char e[256]) {
   BkEndingNormalConfig config;
   if (!store || !clocks || !random || !camera || !presets ||
       !bk_ending_normal_config(&config, group, variant)) {
@@ -143,9 +154,21 @@ bk_ending_normal_assets_create(BkResourceStore *store, unsigned group,
    * independent action-table variant, including gallery normal entries. */
   a->cameras =
       bk_ending_camera_assets_create(store, group, 0, config.camera_yaw, e);
-  if (!a->cameras || (group == 1 && !load_actor(&a->actors[2], store, "bk3_03",
-                                                "m02_92.xan", e)))
+  if (!a->cameras)
     goto bad;
+  if (group == 1 || retained) {
+    a->background = group == 1
+        ? bk_ending_background_assets_create(store, "m02_92.xan", e)
+        : bk_ending_background_assets_retain(retained);
+    const BkEndingBackgroundData *background =
+        bk_ending_background_assets_data(a->background);
+    if (!background) {
+      if (group != 1) fail(e, "cannot retain outer background");
+      goto bad;
+    }
+    a->actors[2] = (Actor){background->model, background->clips,
+                           background->pose, background->root};
+  }
   if (bk_resources_read(store, "fambom", config.bom, &raw, e) !=
           BK_RESOURCE_OK ||
       !bk_bom_decode(raw.data, raw.size, &bom, e))
@@ -155,8 +178,11 @@ bk_ending_normal_assets_create(BkResourceStore *store, unsigned group,
                           bk_ending_camera_assets_pose(a->cameras, 0),
                           bk_ending_camera_assets_pose(a->cameras, 1),
                           a->actors[2].pose};
-  a->forest = bk_actor_forest_create(poses, group == 1 ? 5 : 4, e);
-  if (!a->forest || !attach_actor(a, &a->actors[0], 0, e) ||
+  a->forest = bk_actor_forest_create(poses, a->background ? 5 : 4, e);
+  if (!a->forest ||
+      (retained && group != 1 && !bk_actor_forest_restore_global(
+          a->forest, 4, a->actors[2].root, e)) ||
+      !attach_actor(a, &a->actors[0], 0, e) ||
       !bk_face_assets_initialize(a->face, &a->face_state, clocks, &rng, e) ||
       !attach_actor(a, &a->actors[1], 1, e) ||
       !bk_eye_assets_select(a->eyes, 1, e))
@@ -214,7 +240,7 @@ bk_ending_normal_assets_create(BkResourceStore *store, unsigned group,
                      !bk_actor_pose_request_mode(
                          a->actors[2].pose, 0, BK_CLIP_REQUEST_CONFIGURED, e)))
     goto bad;
-  a->background_state = group == 1;
+  a->background_state = a->background != NULL;
   *random = rng;
   *camera = next_camera;
   *presets = next_presets;
@@ -224,6 +250,31 @@ bad:
   bk_ending_normal_assets_destroy(a);
   return NULL;
 }
+BkEndingNormalAssets *bk_ending_normal_assets_create(
+    BkResourceStore *store, unsigned group, unsigned variant,
+    const uint32_t clocks[4], uint32_t *random, BkMenuCamera *camera,
+    BkEndingCameraPresets *presets, char e[256]) {
+  return create_assets(store, group, variant, clocks, random, camera, presets,
+                       NULL, e);
+}
+BkEndingNormalAssets *bk_ending_normal_assets_create_reloaded(
+    BkResourceStore *store, unsigned group, unsigned variant,
+    BkEndingBackgroundAssets *background, const uint32_t clocks[4],
+    uint32_t *random, BkMenuCamera *camera, BkEndingCameraPresets *presets,
+    char e[256]) {
+  const char *expected = bk_ending_normal_background(group, variant);
+  const char *actual = bk_ending_background_assets_name(background);
+  if (!actual || !expected || (group != 1 && strcmp(actual, expected))) {
+    fail(e, "stage reload needs the actual retained outer background");
+    return NULL;
+  }
+  return create_assets(store, group, variant, clocks, random, camera, presets,
+                       background, e);
+}
+BkEndingBackgroundAssets *bk_ending_normal_assets_background(
+    const BkEndingNormalAssets *a) {
+  return a ? a->background : NULL;
+}
 int bk_ending_normal_assets_load_background(BkEndingNormalAssets *a,
                                             BkResourceStore *store,
                                             char e[256]) {
@@ -231,15 +282,17 @@ int bk_ending_normal_assets_load_background(BkEndingNormalAssets *a,
     return fail(e, "invalid or failed background owner");
   if (a->background_state == 1)
     return 1;
-  Actor next = {0};
+  BkEndingBackgroundAssets *background =
+      bk_ending_background_assets_create(store, a->background_name, e);
+  const BkEndingBackgroundData *data = bk_ending_background_assets_data(background);
   uint32_t index;
-  if (!load_actor(&next, store, "bk3_03", a->background_name, e) ||
-      !bk_actor_forest_append(a->forest, next.pose, &index, e)) {
-    destroy_actor(&next);
+  if (!data || !bk_actor_forest_append(a->forest, data->pose, &index, e)) {
+    bk_ending_background_assets_destroy(background);
     return 0;
   }
   /* Forest now borrows this actor even if a later stateful step fails. */
-  a->actors[2] = next;
+  a->background = background;
+  a->actors[2] = (Actor){data->model, data->clips, data->pose, data->root};
   a->background_state = 2;
   if (index != 4)
     return fail(e, "background registry changed outside owner");

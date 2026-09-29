@@ -156,7 +156,7 @@ int main(void) {
   if (!texture || !white || !black)
     goto done;
   const uint16_t indices[] = {0, 1, 2};
-  for (unsigned test = 0; test < 66; test++) {
+  for (unsigned test = 0; test < 72; test++) {
     BkLitVertex v[3] = {0};
     const float xy[3][2] = {{-1, -1}, {3, -1}, {-1, 3}};
     for (unsigned i = 0; i < 3; i++) {
@@ -266,7 +266,7 @@ int main(void) {
         v[i].normal[2] = 3;
       }
     }
-    if (test >= 26) {
+    if (test >= 26 && test < 66) {
       lighting.spot_count = 1;
       lighting.spots[0] = (BkSpotLight){.point = lighting.points[0],
                                         .direction = {0, 0, -1},
@@ -331,6 +331,39 @@ int main(void) {
         s->point.diffuse[1] = 1.08f;
         s->point.attenuation1 = (test % 3) * .1f;
         s->point.attenuation2 = .03f;
+      }
+    }
+    if (test >= 66) {
+      /* Signed colors from h03_10/Light_PNT_(6), including light-order
+       * cancellation and lower saturation. The independent double CPU
+       * formula must agree without clamping each light separately. */
+      lighting.point_count = test == 66 || test == 69 ? 1 : 2;
+      lighting.points[0].diffuse[0] = -.5f;
+      lighting.points[0].diffuse[1] = -.5f;
+      lighting.points[0].diffuse[2] = -.4f;
+      for (unsigned j = 0; j < 3; ++j) {
+        lighting.points[0].ambient[j] = test == 69 ? -.3f : .1f;
+        lighting.points[0].specular[j] = test >= 69 ? -.8f : 0;
+      }
+      if (lighting.point_count == 2) {
+        lighting.points[1] = lighting.points[0];
+        for (unsigned j = 0; j < 3; ++j) {
+          lighting.points[1].diffuse[j] = .9f;
+          lighting.points[1].ambient[j] = .15f;
+          lighting.points[1].specular[j] = 1;
+        }
+        if (test == 68 || test == 71) {
+          BkPointLight swap = lighting.points[0];
+          lighting.points[0] = lighting.points[1];
+          lighting.points[1] = swap;
+        }
+      }
+      if (test >= 70) {
+        lighting.spot_count = lighting.point_count;
+        for (unsigned j = 0; j < lighting.spot_count; ++j)
+          lighting.spots[j] = (BkSpotLight){.point = lighting.points[j],
+              .direction = {0,0,-1}, .falloff = 1, .theta = 2.8f, .phi = 3};
+        lighting.point_count = 0;
       }
     }
     set = bk_light_set_create(r, &(BkLighting){0}, error);
@@ -466,7 +499,7 @@ int main(void) {
   if (!bk_renderer_draw(r, white, ui, 3, bk_identity, error) ||
       !bk_renderer_end(r, error) || !check(r, blue, 11, error))
     goto done;
-  fprintf(stderr, "PASS: 66 point/spot lighting/specular cases vs independent "
+  fprintf(stderr, "PASS: 72 point/spot lighting/specular cases vs independent "
                   "vertex/interpolation "
                   "reference <=2/255; light descriptor isolation, lit "
                   "format/singular/zero-scale guards and UI restoration\n");

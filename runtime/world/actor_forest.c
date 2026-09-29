@@ -162,6 +162,23 @@ uint32_t bk_actor_forest_node(const BkActorForest *f, uint32_t a,
              ? f->starts[a] + frame
              : BK_FRAME_NONE;
 }
+int bk_actor_forest_restore_global(BkActorForest *f, uint32_t actor,
+                                    uint32_t frame, char error[256]) {
+  uint32_t node = bk_actor_forest_node(f, actor, frame);
+  if (node == BK_FRAME_NONE ||
+      bk_actor_pose_model(f->actors[actor])->frames[frame].parent_index != BK_MODEL_NONE ||
+      bk_frame_tree_parent(f->tree, node) != BK_FRAME_NONE)
+    return fail(error, "invalid retained global root");
+  int refresh;
+  if (!bk_frame_tree_copy(f->pending, f->tree) ||
+      !bk_frame_tree_attach(f->pending, 0, node, &refresh) || !refresh)
+    return fail(error, "cannot restore retained global topology");
+  BkFrameTree *old = f->tree;
+  f->tree = f->pending;
+  f->pending = old;
+  f->visits_count = 0;
+  return 1;
+}
 int bk_actor_forest_binding(const BkActorForest *f, uint32_t node,
                             uint32_t *actor, uint32_t *frame) {
   if (!f || node < 2 || node >= f->count || !actor || !frame)

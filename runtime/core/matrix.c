@@ -141,6 +141,25 @@ void bk_matrix_point(float out[4], const float p[3], const float m[16]) {
                         (double)p[2] * m[8 + j] + m[12 + j]);
   memcpy(out, result, sizeof(result));
 }
+int bk_matrix_transform_coord(float out[3], const float p[3], const float m[16]) {
+  if (!out || !p || !m)
+    return 0;
+  float result[4];
+  bk_matrix_point(result, p, m);
+  if (!isfinite(result[3]) || result[3] == 0)
+    return 0;
+  double delta = (double)result[3] - 1.0;
+  if (delta < -(double)1e-5f || delta > (double)1e-5f) {
+    double inverse = 1.0 / result[3];
+    for (unsigned i = 0; i < 3; i++)
+      result[i] = (float)(result[i] * inverse);
+  }
+  for (unsigned i = 0; i < 3; i++)
+    if (!isfinite(result[i]))
+      return 0;
+  memcpy(out, result, 3 * sizeof(float));
+  return 1;
+}
 int bk_matrix_view(float out[16], const float eye[3], float yaw, float pitch) {
   if (!isfinite(yaw) || !isfinite(pitch) || !isfinite(eye[0]) ||
       !isfinite(eye[1]) || !isfinite(eye[2]))

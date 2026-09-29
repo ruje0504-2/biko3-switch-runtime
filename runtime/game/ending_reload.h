@@ -31,6 +31,8 @@ typedef struct {
    * enter1/exit1/idle0, request1. Destroy corresponds to50e7c1(73a990).
    * Required ownership service, never a successful placeholder. */
   int (*final_image)(void *, int create, unsigned group, char error[256]);
+  /* These six original routines reset retained scalars/tables. Actual
+   * resource retirement belongs to schedule/release, not these callbacks. */
   int (*leave)(void *, BkEndingLeave, char error[256]);
   int (*lighting)(void *, BkEndingReloadLight, char error[256]);
   int (*schedule)(void *, uint8_t target, uint8_t mode, char error[256]);

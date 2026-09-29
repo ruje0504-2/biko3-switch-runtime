@@ -249,8 +249,6 @@ int bk_skin_mesh_apply(BkSkinMesh *m, const float *world, size_t float_count,
     for (unsigned k = 0; k < 16; k++)
       if (!isfinite(matrix[k]))
         return fail(error, "nonfinite bone matrix");
-    if (matrix[3] != 0 || matrix[7] != 0 || matrix[11] != 0 || matrix[15] != 1)
-      return fail(error, "non-affine bone matrix unsupported");
   }
   size_t bytes = (size_t)m->count * sizeof(*m->vertices);
   memcpy(m->pending, source ? source : m->base, bytes);
@@ -263,8 +261,9 @@ int bk_skin_mesh_apply(BkSkinMesh *m, const float *world, size_t float_count,
     for (uint32_t k = 0; k < b->count; k++) {
       const BkSkinInfluence *in = &b->influences[k];
       BkModelVertex *out = &m->pending[in->index];
-      float position[4], normal[3];
-      bk_matrix_point(position, in->position, matrix);
+      float position[3], normal[3];
+      if (!bk_matrix_transform_coord(position, in->position, matrix))
+        return fail(error, "invalid bone homogeneous coordinate");
       for (unsigned d = 0; d < 3; d++)
         normal[d] = (float)((double)in->normal[0] * matrix[d] +
                             (double)in->normal[1] * matrix[4 + d] +

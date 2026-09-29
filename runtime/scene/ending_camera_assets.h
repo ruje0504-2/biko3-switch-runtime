@@ -43,6 +43,24 @@ int bk_ending_camera_assets_step(BkEndingCameraAssets *, BkActorForest *,
                                  const float motion[2], unsigned held_buttons,
                                  uint32_t target_node, float seconds,
                                  char error[256]);
+typedef struct {
+  void *context;
+  int (*key)(void *, unsigned code, unsigned mode, uint32_t *result,
+              char error[256]);
+} BkEndingCameraOpeningInput;
+/* Complete4e0b7e: advance SECONDARY track, read its old locator1 world,
+ * smooth/aim/install camera while retaining FOV, then query0/Z/0x33450/1
+ * in order (mode1, low8 bits). A press copies the live active slot's end to
+ * source only. Completion uses source>=end-9 with the original unordered
+ * comparison, not scheduler ended/elapsed or end-.1. Never select a clip,
+ * advance primary, sample a seek, or publish actor/track descendants here.
+ * Key callbacks may edit active playback; timing is queried afterwards.
+ * Later failure retains earlier animation/camera effects and leaves complete
+ * unchanged. The target must be the caller's actual719448 node binding. */
+int bk_ending_camera_assets_opening(
+    BkEndingCameraAssets *, BkActorForest *, const uint32_t indices[2],
+    BkMenuCamera *, uint32_t target_node, float seconds,
+    const BkEndingCameraOpeningInput *, int *complete, char error[256]);
 typedef enum { BK_ENDING_PRESET, BK_ENDING_PRESET_ZOOM } BkEndingPresetKind;
 /*4e0ecb/4bc444 scene adapter. Both tracks and all published actor nodes stay
  * untouched; only the camera anchor is installed. Presets and transition

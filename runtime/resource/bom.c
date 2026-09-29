@@ -48,3 +48,33 @@ int bk_bom_decode(const void *bytes, size_t size, BkBomConfig *out,
   *out = next;
   return 1;
 }
+int bk_bom_binding_set_append(BkBomBindingSet *out, const BkBomConfig *file,
+                              char e[256]) {
+  if (!out || !file || out->count > BK_BOM_SET_CAPACITY || file->count > 4 ||
+      file->count > BK_BOM_SET_CAPACITY - out->count)
+    return fail(e, "binding set capacity exceeded or invalid input");
+  for (uint32_t i = 0; i < file->count; ++i) {
+    const BkBomBinding *b = &file->bindings[i];
+    const char *fields[] = {b->parent, b->reference, b->child, b->primary_aux,
+                            b->secondary_aux, b->target_mesh, b->source_mesh,
+                            b->selection};
+    if (!b->parent[0])
+      return fail(e, "empty parent inside declared binding rows");
+    for (unsigned j = 0; j < 8; ++j)
+      if (!memchr(fields[j], 0, 260))
+        return fail(e, "unterminated appended binding field");
+  }
+  /* Copy first, so a caller alias cannot make the append overwrite its input. */
+  BkBomConfig source = *file;
+  memcpy(out->bindings + out->count, source.bindings,
+         (size_t)source.count * sizeof(*source.bindings));
+  out->count += source.count;
+  out->mode = source.mode;
+  return 1;
+}
+int bk_bom_decode_append(const void *bytes, size_t size, BkBomBindingSet *out,
+                         char e[256]) {
+  BkBomConfig file;
+  return bk_bom_decode(bytes, size, &file, e) &&
+         bk_bom_binding_set_append(out, &file, e);
+}

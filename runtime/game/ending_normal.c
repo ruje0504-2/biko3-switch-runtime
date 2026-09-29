@@ -1,6 +1,15 @@
 #include "game/ending_normal.h"
 #include <stdio.h>
 #include <string.h>
+int bk_ending_normal_preference(unsigned group, unsigned index) {
+  static const uint8_t config[5][14] = {
+      {0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0},
+      {0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1},
+      {0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0},
+      {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
+      {0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0}};
+  return group < 5 && index < 14 ? config[group][index] : -1;
+}
 const char *bk_ending_normal_background(unsigned group, unsigned variant) {
   static const char *const names[5][2] = {{"m01_90.xan", "m01_91.xan"},
                                           {"m02_90.xan", "m02_91.xan"},

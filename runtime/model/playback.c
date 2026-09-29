@@ -119,6 +119,11 @@ int bk_model_playback_edit_clips(BkModelPlayback *p, const BkClipEdit *edits,
   return p ? bk_clip_edit(p->player, edits, count, error)
            : fail(error, "missing instance");
 }
+int bk_model_playback_set_clock(BkModelPlayback *p, unsigned slot,
+                                 float elapsed, float source, char error[256]) {
+  return p ? bk_clip_set_clock(p->player, slot, elapsed, source, error)
+           : fail(error, "missing instance");
+}
 int bk_model_playback_link(const BkModelPlayback *p, unsigned slot,
                            int32_t *chain, int32_t *next) {
   return p && bk_clip_link(p->player, slot, chain, next);
@@ -214,6 +219,19 @@ int bk_model_playback_advance_frame(BkModelPlayback *p,
   *out = clip;
   return 1;
 }
+int bk_model_playback_advance_plain(BkModelPlayback *p, float seconds,
+                                     BkClipPlainMode mode,
+                                     const BkModelRootTransform *root,
+                                     BkPlaybackEffects *out, char error[256]) {
+  if (!p || !out || !bk_clip_player_copy(p->pending, p->player))
+    return fail(error, "invalid plain instance/output");
+  BkClipSample clip;
+  if (!bk_clip_advance_plain(p->pending, seconds, mode, &clip, error) ||
+      !commit_sample(p, clip, root, error))
+    return 0;
+  *out = (BkPlaybackEffects){clip, clip.from};
+  return 1;
+}
 int bk_model_playback_hold_mode(BkModelPlayback *p, int requested_slot,
                                 BkClipRequestMode mode,
                                 const BkModelRootTransform *root,
@@ -267,6 +285,10 @@ int bk_model_playback_timing(const BkModelPlayback *p, unsigned slot,
 int bk_model_playback_loops(const BkModelPlayback *p, unsigned slot,
                             int32_t *loops) {
   return p && bk_clip_loops(p->player, slot, loops);
+}
+int bk_model_playback_prediction(const BkModelPlayback *p, unsigned slot,
+                                 BkClipPrediction *out) {
+  return p && bk_clip_prediction(p->player, slot, out);
 }
 
 int bk_model_playback_edit_locals(BkModelPlayback *p,

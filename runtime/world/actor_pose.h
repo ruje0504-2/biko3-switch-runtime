@@ -67,6 +67,8 @@ int bk_actor_pose_request_mode(BkActorPose *, unsigned slot, BkClipRequestMode,
                                char error[256]);
 int bk_actor_pose_edit_clips(BkActorPose *, const BkClipEdit *, size_t count,
                              char error[256]);
+int bk_actor_pose_set_clock(BkActorPose *, unsigned slot, float elapsed,
+                             float source, char error[256]);
 int bk_actor_pose_clip_link(const BkActorPose *, unsigned slot, int32_t *chain,
                             int32_t *next);
 void bk_actor_pose_publish(BkActorPose *actor);
@@ -104,6 +106,8 @@ const BkActorPlacement *bk_actor_pose_placement(const BkActorPose *actor);
 int bk_actor_pose_state(const BkActorPose *actor, BkClipState *state);
 int bk_actor_pose_timing(const BkActorPose *actor, unsigned slot,
                          BkClipTiming *timing);
+int bk_actor_pose_prediction(const BkActorPose *, unsigned slot,
+                             BkClipPrediction *);
 int bk_actor_pose_loops(const BkActorPose *, unsigned slot, int32_t *loops);
 /* Cached parent world from this node's last traversal, NOT its parent's
  * current matrix. Root setters and procedural eye updates do not refresh it. */
@@ -141,4 +145,9 @@ int bk_actor_pose_advance_frame(BkActorPose *, BkClipSample *sample,
 int bk_actor_pose_advance_effects(BkActorPose *, float seconds,
                                   BkPlaybackEffects *, int *submitted,
                                   char error[256]);
+/* Actual plain-sampling scheduler variants with the same hidden-root and
+ * local-root preservation as advance_effects. Published caches remain held. */
+int bk_actor_pose_advance_plain(BkActorPose *, float seconds, BkClipPlainMode,
+                                 BkPlaybackEffects *, int *submitted,
+                                 char error[256]);
 #endif

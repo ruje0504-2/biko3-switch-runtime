@@ -22,6 +22,18 @@ int bk_ending_sound_normal_voice(unsigned group, int32_t target, int32_t mode,
 int bk_ending_sound_contact_voice(unsigned group, int32_t kind, int32_t index,
                                   int32_t alternate, char name[32],
                                   char error[256]);
+/*4dfbbd/4dfca9. The phase1 loop builder requires progress >= .19;
+ * other phases and the original uninitialized cue paths reject. Builders
+ * return the resource name only; caller commits722224 before loading. */
+int bk_ending_sound_loop_name(unsigned group, int32_t phase, float progress,
+                               char name[32], char error[256]);
+int bk_ending_sound_action_name(unsigned group, int32_t target, float progress,
+                                 char name[32], char error[256]);
+/*479739 filename selection. Any nonzero select uses31, zero uses32;
+ * its bank argument has no effect. The caller stores the name in the chosen
+ * speech lane BEFORE the actual load and performs Play separately. */
+int bk_ending_sound_tertiary_voice(unsigned group, int32_t cue, int32_t select,
+                                   char name[32], char error[256]);
 /* Literal table outputs absent in the retained Japanese bk3_06 archive.
  * Only an actual MISSING result may use the native empty-buffer behavior;
  * an existing replacement still loads, and corruption remains fatal. */

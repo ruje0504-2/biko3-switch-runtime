@@ -1,5 +1,25 @@
 # 移植工程架构
 
+2026-09-29 选择阶段输入依赖：`game/ending_selected_motion` 计算原495469/4952C8的动画源时间，`scene/ending_selected_assets` 绑定真实活动描述符并只提交源时间修改；姿态采样和世界矩阵发布仍由后续阶段显式执行。纯数值和完整资产组合的普通/ASan配对均已结算通过，见 `reports/ending-selected-motion.md`。完整48E75B及4D1025生产入口仍未接通，不将已有CPU依赖等同于可玩选择阶段。手动镜头当前为原始速度6倍，L/R提示与操作同步，自动轨道保持原速，见 `reports/ending-camera-six-icons.md`。
+
+2026-09-29 当前：第三类独立资源/父控制/表现已接故事kind1，见 `reports/ending-tertiary-session.md`；最终图片真实生命周期见 `reports/ending-final-image.md`。`scene/ending_normal_session`在纯UI阶段释放旧演员/GPU，独立保留背景owner和设备灯光值；`lighting_registry`只匹配仍存活的同一模型身份，不复制登记/描述符。UI批次与三维快照分别保留到下一真实tick。第三类长图片阶段后重载仍先登记保留背景材质。图片释放占位group不参与角色校验，缺资源失败保留可销毁前缀。新10项普通/ASan配对、9项单元两构建和架构2项通过；不代表4D1025/4D39E6、gallery或自然结束已完成。下文“第三类仅CPU”“最终图片未接”等为历史阶段描述。
+
+2026-09-29 第三类CPU层见 `reports/ending-tertiary-cpu.md`：476720父控制与479137表现编入共用game目标，普通/ASan各21,000组原父函数对照通过。父控制只新增三个进程字段，其余状态以指针借用；表现借用真实FaceState、共用6AFD04与显式BOM容量，缺少子服务明确失败。当前没有第三类资源／场景适配，也没有注册故事kind1；不得以第二类拓扑代替4D2320。NVK静态库已编译新模块，应用尚未引用，NRO不变。下一步恢复独立装配及真实操作、语音、命中和受控动画服务，继续保持此前背景、灯光和旧画面退役规则。CPU夹具不代表实际资产或实机验收。
+
+2026-09-29 当前结局生命周期见 `reports/ending-stage-lifecycle.md` / verification JSON：普通与第二类控制、表现、音频、UI和独立拓扑已接共享session。背景独立所有，保留背景先恢复挂接、后按原加载/绘制顺序发布；GPU按遍历捕获并保存BOM旧源。UI尾部重载的旧CPU/GPU与纹理快照保留到下一真实tick，音乐及匹配背景灯光状态不重置。五组自然普通→第二类→普通共47,587帧，普通/ASan结果一致；完整第二类场景和边界重载也通过成对检查。原HUD部分初始化保留进程状态，探针必须另外提供清零的进程基线。正式gallery/其他loader/最终图片/完整结局仍未完成；下文“第二类仅CPU、未接父控制”的描述是此前阶段快照。
+
+2026-09-29 第二类结局资源：`game/ending_secondary` 只保存原配置与目标运算；`scene/ending_secondary_assets` 独立拥有 bk3_09 主体、面部/眼、两轨道和可选背景，森林编号0/1,2/3，不借用普通结局的辅助/BOM拓扑。创建成功后才提交调用方镜头、预设和RNG，外层背景单独加载；原版装配和失败清理证据见 `reports/ending-secondary-assets.md`。尚未接入生产入口或47A5D0/47D3CB。`ending-raster-origin.md` 的原点归零仅为探针隔离，生产4:3布局和原容差不变，完整三维仍9/12。
+
+2026-09-29 当前普通结局绘制：`scene/ending_normal_session` 接入既有事件适配器并以真实状态/资源准备独立双视口快照，`game/ending_special`保留原视口初始化算术；`app/play_session`独立持有719c5c音量过程状态，资源所有者只借用。绘制、音频、相机/材质还原与最后一帧退役证据见 `reports/ending-draw-events.md`。整体4:3不变，完整图像仅9/12配对通过，其他loader/自然结局仍未完成；下述较早未接入描述保留为历史。
+
+2026-09-29 结局齐次蒙皮：`core/matrix` 单独提供原522b0d条件齐次除法，原raw四分量接口保持；`model/skin` 使用该CPU规则，`render/vulkan`验证需齐次修正的绑定位置并由compute执行同一容差分支。常规near-unit矩阵不触发CPU逐顶点复算，相同palette不重复dispatch。真实五角色交互、原版数值和GPU回读范围见 `reports/ending-skin-homogeneous.md`。父控制/表现已接入生产普通结局；特殊绘制事件与自然结局仍未完成。
+
+2026-09-29 结局取景绑定：`scene/ending_normal_session` 将实际加载快照传给共享控制/帧状态，后续镜头按钮借用旧发布节点；UI 从活动相机锚点读取 local。原缺失可选命中节点通过显式运行时查询策略排除相应线段，严格原版查询接口继续保留。主体/相机资源所有权和 core/world/game 边界未改变。验证和未通过的完整像素诊断见 `reports/ending-framing.md`，不表示完整父控制器已恢复。
+
+2026-09-29 常规结局绘制装配：`scene/ending_normal_session.prepare_scene_draw` 以真实phase调用既有根分派，事件阶段的视频只在几何准备前更新。阶段1/8包含辅助，阶段9保留视频但不选辅助，阶段7不选对象也不更新视频；纯draw不推进。实际GPU/应用边界验证见 `reports/ending-draw-stage.md`。完整父控制器和特殊场景接管仍待恢复。
+
+2026-09-29 增量：故事结局借用 `PlaySession.game_state.random` 与应用持有的 `BkEndingAuxiliaryCycle`，资源重建不重新播种或初始化倒计时；NULL flow 只用于显式独立诊断。应用往返及普通/ASan资源验证见 `reports/ending-random-state.md`、`reports/ending-auxiliary-cycle.md`、`reports/ending-presentation.md`。组合表现组件的验证不等于生产父控制器接入，完整结局仍未验收。
+
 工作树已经装配首关开发流程，原交付包仍为历史 0.3.5。`app/play_session` 持有进程级游戏状态、路线进度、公共黑幕、菜单光标和流程字节；`game_preview` 是可重建的入口资源所有者，暂停界面借用同一份 UI 状态。标题、游戏、暂停、加载页已通过主机 Vulkan 往返验证。架构与首关接通不代表全部任务/存档/媒体或 Switch 实机验收完成。较早段落为模块恢复历史，当前装配范围见文末和 `reports/play-session.md`。
 
 ## 目录与构建目标
@@ -396,3 +416,12 @@ scene/ending_state拥有结局入口可移植的标量和表前缀，按原顺�
 
 
 scene/ending_normal_session是普通结算的应用级owner：它组合ending_state、ending_normal_assets、background/forest、normal_render、ending_audio和共享素材缓存，按统一present边界发布GPU快照；application只负责资源挂载、计时和场景生命周期。该owner只接受已对照的两个gallery loader，其他结算拓扑必须由独立owner实现。详见reports/ending-normal-session.md。
+
+结局进度与音频交接见reports/ending-lifecycle.md：app/front_end复制成功保存的表，app/play_session只将40字节传给scene；普通故事入口在加载完成后、首帧前独立复制，不引入scene→save依赖。逻辑stop先停止48个结局槽与3个自有控制槽，保留最后GPU快照；重复stop/延迟析构不触碰下一所有者已复用的槽。完整阶段控制器与UI重载/离开调度仍待恢复，不能把生命周期验证视为全流程验收。
+
+phase9确认控制仍在game/ending_control，借用已存在的control/frame与共享action/wanted字节，矩形和声音/按键通过显式服务输入；不向game引入scene、Vulkan或libnx。scene从实际UI导出命中框，保留指针warp并负责平台按键映射。独立frame别名只在CPU调度边界导入/提交；UI拥有真实公共字节，UI后只能重新导入，不覆盖其新请求。新增取消音槽60后自有声音共52槽，按既有逻辑stop/GPU延迟退役协议释放。见reports/ending-confirmation.md；实际退出调度和六种保留状态复位仍待实现。
+
+结局实际退出见reports/ending-exit.md：BkEndingNormalFlow由app传入，scene借用应用common并回调实际schedule；独立诊断可无scheduler，但真正触发时必须失败。scene/ending_retained只补齐此前未建模标量和工作表，既有UI/aux/unavailable/final别名仍原位拥有；ending_state_leave不负责GPU销毁、音频或持久化。game/reload保留标题先schedule后六复位、直接退出只schedule的原顺序。app逻辑stop后保留末帧，下一帧回收资源；ending_first_present仅处理构造时已准备快照，不能跳过真实首帧呈现。原指令新验证被自动检查拦截，静态依据与普通/ASan应用测试不冒充动态原版等价。其它结局加载/阶段边界仍未完成。
+
+
+最后界面 viewport 与输入适配见 reports/ending-viewport-input.md：scene/ending_normal_session 持有由 bk_camera_fit 得到的 4:3 内容区域，初始化、UI/投影和 GPU viewport/scissor 使用相同尺寸，绘制后恢复目标。core/input 的 BkVirtualPointer 只消费已采样的输入、内容区域和秒数，不依赖平台/GPU；scene 将同一局部位置和实际位移提供给 UI 与原帧输入。原布局/命中规则不加入 Switch 特判。

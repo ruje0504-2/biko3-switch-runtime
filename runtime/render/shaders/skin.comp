@@ -18,7 +18,13 @@ void main() {
         float weight = uintBitsToFloat(skin.words[w+2]);
         vec3 p = vec3(uintBitsToFloat(skin.words[w+3]),uintBitsToFloat(skin.words[w+4]),uintBitsToFloat(skin.words[w+5]));
         vec3 n = vec3(uintBitsToFloat(skin.words[w+6]),uintBitsToFloat(skin.words[w+7]),uintBitsToFloat(skin.words[w+8]));
-        precise vec3 transformed_position = (bone*vec4(p,1.0)).xyz;
+        precise vec4 homogeneous_position = bone*vec4(p,1.0);
+        precise vec3 transformed_position = homogeneous_position.xyz;
+        // Original 0x522b0d: round W first; keep XYZ within the inclusive
+        // +/-1e-5 band. Normals never receive this homogeneous correction.
+        precise float delta_w = homogeneous_position.w - 1.0;
+        if (delta_w < -1e-5 || delta_w > 1e-5)
+            transformed_position = transformed_position / homogeneous_position.w;
         precise vec3 transformed_normal = mat3(bone)*n;
         if (skin.words[w+1] != 0) { position=vec3(0.0); normal=vec3(0.0); }
         position = position + transformed_position*weight;

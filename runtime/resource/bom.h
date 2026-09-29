@@ -20,4 +20,16 @@ typedef struct {
  * Safe bounds/NUL validation, trailing bytes ignored; failure leaves out held.
  */
 int bk_bom_decode(const void *, size_t, BkBomConfig *, char error[256]);
+/*4a65fc appends decoded rows to the existing eight-slot native binding set.
+ * The four-row file format and BkBomConfig ABI stay unchanged. Clip metadata
+ * is inspection-only and never selects actors. The last file supplies mode,
+ * including files with no bindings. Failure leaves the entire set unchanged. */
+enum { BK_BOM_SET_CAPACITY = 8 };
+typedef struct {
+  uint32_t mode, count;
+  BkBomBinding bindings[BK_BOM_SET_CAPACITY];
+} BkBomBindingSet;
+int bk_bom_binding_set_append(BkBomBindingSet *, const BkBomConfig *,
+                              char error[256]);
+int bk_bom_decode_append(const void *, size_t, BkBomBindingSet *, char error[256]);
 #endif

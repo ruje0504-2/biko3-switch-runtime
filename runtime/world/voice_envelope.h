@@ -21,4 +21,25 @@ int bk_voice_pcm_level(const void *first, size_t first_bytes,
 int bk_voice_envelope_step(BkVoiceEnvelope *state, int available,
                             int32_t level, float seconds, float *out,
                             char error[256]);
+/*4ad363 over decoded host-endian PCM16, indexed in interleaved samples.
+ * The native DWORD guard is offset < buffer_bytes-443. A221-sample buffer
+ * underflows that subtraction and admits a442-byte lock, possibly split
+ * across its end; shorter buffers cannot supply that lock. Larger buffers
+ * retain the strict native tail exclusion. Exactly220 samples contribute.
+ * Unavailable windows return success with sampled=0 and magnitude=0.
+ * Invalid pointers leave both outputs unchanged. No playback or allocation. */
+int bk_ending_voice_pcm_level(const int16_t *samples, size_t sample_count,
+                               size_t source_sample, int *sampled,
+                               int32_t *magnitude, char error[256]);
+/* Independent4ad5a4 globals708840/708844. Ending speech truncates the PCM
+ * magnitude by512 before halving it, then interpolates by the native .35
+ * coefficient once per call. It does not use the gameplay delta or its
+ * 708878/70887c state. Inactive keeps both values and returns0; a failed PCM
+ * sample while playing still smooths toward the retained target. */
+typedef struct {
+  float target, smoothed;
+} BkEndingVoiceEnvelope;
+int bk_ending_voice_envelope_step(BkEndingVoiceEnvelope *, int playing,
+                                   int sampled, int32_t magnitude, float *out,
+                                   char error[256]);
 #endif

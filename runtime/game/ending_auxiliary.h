@@ -36,6 +36,34 @@ typedef struct {
                char error[256]);
   int (*eyes)(void *, unsigned slot, char error[256]); /*4a07a9*/
 } BkEndingAuxiliaryOps;
+/* Independent process values55469c/55696d. The scale is also shared with
+ * the adjacent auxiliary playback stages; retain both across scene reloads.
+ * Initial image values are .02f and10, not a zero-filled scene default. */
+typedef struct {
+  float scale;
+  int8_t countdown;
+} BkEndingAuxiliaryCycle;
+BkEndingAuxiliaryCycle bk_ending_auxiliary_cycle_initial(void);
+typedef struct {
+  int32_t duration;
+  float end, source, rate;
+} BkEndingAuxiliaryPrediction;
+typedef struct {
+  BkEndingAuxiliaryOps auxiliary;
+  int (*prediction)(void *, unsigned slot, BkEndingAuxiliaryPrediction *,
+                     char error[256]);
+  int (*random)(void *, int32_t *, char error[256]);
+} BkEndingAuxiliaryTickOps;
+/* Complete4965b9 automatic alternation, distinct from495d92 mode requests.
+ * Clears cached camera/event before checking active7/11. Preserve the two
+ * native look-ahead multiplication orders, signed-byte countdown wrap,
+ * random%11+10, configured requests13/14, ordered source rewinds and face
+ * changes. Live aliases are reread after services. No animation advance,
+ * world publication, mode assignment or gate test. Failure keeps its prefix. */
+int bk_ending_auxiliary_tick(BkEndingAuxiliaryState *, BkEndingFrameState *,
+                             BkEndingAuxiliaryCycle *, float seconds,
+                             const int32_t *voice_volume,
+                             const BkEndingAuxiliaryTickOps *, char error[256]);
 /* Complete495d92, including ordered clip writes, gates, state and services.
  * Result is native EAX (rejected0/accepted1), separate from portable failure.
  * Invalid proposals are accepted no-ops AFTER the native gate. The function

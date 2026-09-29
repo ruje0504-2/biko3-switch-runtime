@@ -1,0 +1,375 @@
+{
+  "date": "2026-09-28",
+  "passed": true,
+  "scope": "Original phase9 confirmation controller, production cancel/resume and retained exit request; NOT completed target-flow exit",
+  "native_confirmation": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 12000,
+    "service_calls": 24528,
+    "sounds": [
+      955,
+      0,
+      4239,
+      2015
+    ],
+    "blocked_frames": 5177,
+    "region_hits": [
+      1181,
+      1116
+    ],
+    "callback_mutations": 724,
+    "failed_prefixes": 787,
+    "byte_exact": true,
+    "scope": "Execute original4e2223..4e252a against the portable confirmation controller.\n\nOnly key and sound services are observed. Compare every service's prior state,\nordered short-circuit queries, low AL results, overlapping bounds, retained\nflag bytes, callback changes and the final state. No game assets or rendering.\n"
+  },
+  "native_common_control_regression": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 24000,
+    "service_calls": 131741,
+    "sounds": [
+      27179,
+      0,
+      0,
+      9022,
+      0,
+      4932,
+      0,
+      0
+    ],
+    "auxiliary_calls": 692,
+    "warp_calls": 4854,
+    "region_hits": [
+      3181,
+      3170,
+      3174,
+      3142,
+      3192,
+      3149,
+      3110,
+      3145,
+      3200,
+      3248,
+      3220,
+      3236,
+      3216
+    ],
+    "byte_exact": true,
+    "scope": "Complete original4d7ac4..4d901b control,13 independent hit regions.\nKey,sound,warp and actual495d92 transition are required observed services.\nCompare snapshots at every call, including mutable auxiliary state. All\ncamera/target/flag/control arithmetic executes original instructions.\nRectangles and old actor node positions are explicit fixtures, not full UI.\n"
+  },
+  "runtime_results": [
+    {
+      "build": "host",
+      "case": "units",
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build",
+        "-R",
+        "^ending-(control|confirm|ui|state)$",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-host-units.log",
+      "tail": "4/4 Test #54: ending-confirm ...................   Passed    0.00 sec\n\n100% tests passed, 0 tests failed out of 4\n\nTotal Test time (real) =   2.20 sec"
+    },
+    {
+      "build": "host",
+      "case": "gallery0",
+      "command": [
+        "build/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-host-gallery0.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+    },
+    {
+      "build": "host",
+      "case": "gallery1",
+      "command": [
+        "build/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "1"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-host-gallery1.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=1 frames=64 draws=6695 skin=520 audio_frames=63360 allocations=774; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+    },
+    {
+      "build": "host",
+      "case": "story",
+      "command": [
+        "build/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0",
+        "--story"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-host-story.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=story variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+    },
+    {
+      "build": "host",
+      "case": "confirmation",
+      "command": [
+        "build/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0",
+        "--confirmation"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-host-confirmation.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=story variant=0 frames=64 draws=51506 skin=1775 audio_frames=300480 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=247"
+    },
+    {
+      "build": "host",
+      "case": "front",
+      "command": [
+        "build/front-flow-probe",
+        "local/game/MAINDIR/Data",
+        "build/ending-confirm-front-host",
+        "build/ending-confirm-front-host.rgba"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-host-front.log",
+      "tail": "Retired resources collection begin [flow50 prev04 group0 area0 outcome0; GPU alloc1181 peak1181 bytes84987082 peak87731098]\nRetired resources collection complete [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nFlow load target01 begin [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nOriginal menu scene loaded [flow50 prev04 group0 area0 outcome0; GPU alloc52 peak1181 bytes60239752 peak87731098]\nPASS original-front-flow title=212 selection=273 dialogue=1514 loading=195 opening=498 pause=106 return-title=111 photos=2"
+    },
+    {
+      "build": "asan",
+      "case": "units",
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build/asan-static",
+        "-R",
+        "^ending-(control|confirm|ui|state)$",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-asan-units.log",
+      "tail": "4/4 Test #54: ending-confirm ...................   Passed    0.38 sec\n\n100% tests passed, 0 tests failed out of 4\n\nTotal Test time (real) =   3.77 sec"
+    },
+    {
+      "build": "asan",
+      "case": "gallery0",
+      "command": [
+        "build/asan-static/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-asan-gallery0.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+    },
+    {
+      "build": "asan",
+      "case": "gallery1",
+      "command": [
+        "build/asan-static/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "1"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-asan-gallery1.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=1 frames=64 draws=6695 skin=520 audio_frames=63360 allocations=774; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+    },
+    {
+      "build": "asan",
+      "case": "story",
+      "command": [
+        "build/asan-static/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0",
+        "--story"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-asan-story.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=story variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+    },
+    {
+      "build": "asan",
+      "case": "confirmation",
+      "command": [
+        "build/asan-static/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0",
+        "--confirmation"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-asan-confirmation.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=story variant=0 frames=64 draws=51506 skin=1775 audio_frames=300480 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=247"
+    },
+    {
+      "build": "asan",
+      "case": "front",
+      "command": [
+        "build/asan-static/front-flow-probe",
+        "local/game/MAINDIR/Data",
+        "build/ending-confirm-front-asan",
+        "build/ending-confirm-front-asan.rgba"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-asan-front.log",
+      "tail": "Retired resources collection begin [flow50 prev04 group0 area0 outcome0; GPU alloc1181 peak1181 bytes84987082 peak87731098]\nRetired resources collection complete [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nFlow load target01 begin [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nOriginal menu scene loaded [flow50 prev04 group0 area0 outcome0; GPU alloc52 peak1181 bytes60239752 peak87731098]\nPASS original-front-flow title=212 selection=273 dialogue=1514 loading=195 opening=498 pause=106 return-title=111 photos=2"
+    }
+  ],
+  "additional_checks": [
+    {
+      "case": "control-oracle",
+      "command": [
+        "local/venv/bin/python",
+        "tests/original_ending_control_oracle.py",
+        "尾行3 [汉化]/去码汉化补丁/汉化/尾行3中文版.exe"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-control-oracle.log",
+      "tail": "PASS {'passed': True, 'exe_sha256': 'a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e', 'frames': 24000, 'service_calls': 131741, 'sounds': [27179, 0, 0, 9022, 0, 4932, 0, 0], 'auxiliary_calls': 692, 'warp_calls': 4854, 'region_hits': [3181, 3170, 3174, 3142, 3192, 3149, 3110, 3145, 3200, 3248, 3220, 3236, 3216], 'byte_exact': True, 'scope': 'Complete original4d7ac4..4d901b control,13 independent hit regions.\\nKey,sound,warp and actual495d92 transition are required observed services.\\nCompare snapshots at every call, including mutable auxiliary state. All\\ncamera/target/flag/control arithmetic executes original instructions.\\nRectangles and old actor node positions are explicit fixtures, not full UI.\\n'}"
+    },
+    {
+      "case": "cpu-asan",
+      "command": [
+        "ctest",
+        "--test-dir",
+        "build/asan",
+        "-R",
+        "^ending-(control|confirm)$",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-cpu-asan.log",
+      "tail": "    Start 53: ending-control\n1/2 Test #53: ending-control ...................   Passed    0.35 sec\n    Start 54: ending-confirm\n2/2 Test #54: ending-confirm ...................   Passed    0.64 sec\n\n100% tests passed, 0 tests failed out of 2\n\nTotal Test time (real) =   0.99 sec"
+    },
+    {
+      "case": "architecture",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_architecture.py"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-architecture.log",
+      "tail": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.146s\n\nOK"
+    },
+    {
+      "case": "switch",
+      "command": [
+        "./build-switch.sh"
+      ],
+      "exit_code": 0,
+      "log": "local/ending-confirm-switch.log",
+      "tail": "[ 96%] Built target bk_scene\n[ 97%] Building C object CMakeFiles/bk_app.dir/runtime/app/application.c.obj\n[ 97%] Building C object CMakeFiles/bk_app.dir/runtime/app/play_session.c.obj\n[ 97%] Linking C static library libbk_app.a\n[100%] Built target bk_app\n[100%] Linking C executable biko3-preview.elf\n-- biko3-preview.nro SHA256 7703dfa06042cff40560fbff3852558e3fb032dd595a5cb7e53ac63367bed37a\n[100%] Built target biko3-preview"
+    }
+  ],
+  "confirmation_input_frames_per_build": 247,
+  "base_scene_frames_per_profile": 64,
+  "actual_scene_phase_not_injected": true,
+  "audio_owned_slots": [
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    [
+      57,
+      58,
+      59,
+      60
+    ]
+  ],
+  "audio_owned_count": 52,
+  "audio_other_count": 12,
+  "audio_reuse_after_retirement": 64,
+  "final_snapshot_rgba_exact_after_stop": true,
+  "gpu_live_allocations_return_to_baseline": true,
+  "front_flow_rgba_sha256": {
+    "host": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+    "asan": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f"
+  },
+  "asan_options": "detect_leaks=0",
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "7703dfa06042cff40560fbff3852558e3fb032dd595a5cb7e53ac63367bed37a",
+    "undefined_symbols": 0,
+    "nro": "build-switch/biko3-preview.nro",
+    "hash_verified": true,
+    "lock_fields": [
+      "mesa.commit"
+    ],
+    "hardware_tested": false
+  },
+  "awake": {
+    "verified_live": true,
+    "pid": 60608,
+    "process_start": "Sun Sep 27 05:12:11 2026",
+    "command": "/usr/bin/caffeinate -ims"
+  },
+  "full_test_host_script_run": false,
+  "full_exit_flow_complete": false,
+  "full_port_complete": false,
+  "full_delivery_repackaged": false,
+  "github_pushed": false,
+  "pending": [
+    "real black-curtain target-flow scheduling",
+    "six retained-state reset adapters",
+    "per-stage original ending controllers",
+    "phase8",
+    "other loaders/UI reload",
+    "natural ending to unlock persistence",
+    "settings/gallery",
+    "full Switch acceptance"
+  ]
+}

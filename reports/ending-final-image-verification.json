@@ -1,0 +1,288 @@
+{
+  "recorded_at": "2026-09-29T12:25:56.474259+00:00",
+  "passed": true,
+  "scope": "Final-image lifecycle, targeted host Vulkan and ASan/UBSan comparisons, related unit/architecture checks and pinned NVK cross-build. Not complete ending or Switch acceptance.",
+  "oracle_exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "assets": "Japanese local/game/MAINDIR/Data; original files unchanged",
+  "paired_report": {
+    "path": "build/validation/ending-runtime-6csffcf0/result.json",
+    "sha256": "fff9319b20fd7d249603971c2c81b9ddd24acb292cd53b13697c1b9384713aeb",
+    "finished_at": "2026-09-29T12:19:09.877800+00:00",
+    "suites": [
+      "final-image",
+      "stage",
+      "third-session",
+      "application",
+      "render"
+    ],
+    "source_manifest_current": true,
+    "checks": [
+      {
+        "name": "final-image",
+        "suite": "final-image",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "f3232b41e966b162b81fa407490e85a657b34cb47dcf54f0fa6a166a4129da05",
+            "summary": "PASS final image entries15 frames9878 transition15 redraw180 samples627030 max1 pointer2250 click8 timeout7 restore15 initial-skin578 rejects150 missing3 corrupt3 pending-loader15 state=cebffd5f82dfea7b pcm=3bf7f8fe7a812aeb pixels=cb3da92a2b8df20e"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "22b24573199675c5ed394b4b2dc02c672da7479c5b2854250a122d95ace21185",
+            "summary": "PASS final image entries15 frames9878 transition15 redraw180 samples627030 max1 pointer2250 click8 timeout7 restore15 initial-skin578 rejects150 missing3 corrupt3 pending-loader15 state=cebffd5f82dfea7b pcm=3bf7f8fe7a812aeb pixels=cb3da92a2b8df20e"
+          }
+        ]
+      },
+      {
+        "name": "stage-reload",
+        "suite": "stage",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "42472496ea72867409848f33619f811629b0e899df6fc4c0d3eaaad949c4eaab",
+            "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "5c54b46fa01b0cec37e8dbcf83ae8c50996601d7ac9fb6ecb6f49259fd381398",
+            "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+          }
+        ]
+      },
+      {
+        "name": "third-session",
+        "suite": "third-session",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "39db19c25b8815a0a0be5b200d19de2ca82a6f2dd7347e3b265151bd2a0f4cc6",
+            "summary": "PASS third session entries5 frames11001 menus20 drags247 zooms30 frozen40 states63 redraws24 retired5 state=19f98e3393e05b00 pcm=7d030796141894f2"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "7c471748af46c1317eeb5b87ed13310b52a5c17bdcb91a2cdac2f99076ec3951",
+            "summary": "PASS third session entries5 frames11001 menus20 drags247 zooms30 frozen40 states63 redraws24 retired5 state=19f98e3393e05b00 pcm=7d030796141894f2"
+          }
+        ]
+      },
+      {
+        "name": "normal-application",
+        "suite": "application",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "c0ecc845f18c4ec53394ff6fee948e9003e945505ffd6007026bff2a50c7b7d3",
+            "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "f8c06e3baeef132447545e28070a03924f2d2a36210d571b81f150675abd3b58",
+            "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+          }
+        ]
+      },
+      {
+        "name": "third-application",
+        "suite": "application",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "c0ecc845f18c4ec53394ff6fee948e9003e945505ffd6007026bff2a50c7b7d3",
+            "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "f8c06e3baeef132447545e28070a03924f2d2a36210d571b81f150675abd3b58",
+            "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+          }
+        ]
+      },
+      {
+        "name": "normal-render",
+        "suite": "render",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "22e051ef8353e5a9a6bccaac7143be0aee34820dd6ef14e6b53b89d85192b64d",
+            "summary": "PASS normal ending GPU retained=0:10 profiles 320 frames 22980 queue items 1707968 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=0 targets=0; stable allocations"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "08d0e1e381157687d03598c446e4b40095a4bb99e4a595081fa795497a9df2e1",
+            "summary": "PASS normal ending GPU retained=0:10 profiles 320 frames 22980 queue items 1707968 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=0 targets=0; stable allocations"
+          }
+        ]
+      },
+      {
+        "name": "normal-dual-render",
+        "suite": "render",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "22e051ef8353e5a9a6bccaac7143be0aee34820dd6ef14e6b53b89d85192b64d",
+            "summary": "PASS special ending GPU retained=0:10 profiles 320 frames 31924 queue items 3415936 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=320 targets=240; stable allocations"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "08d0e1e381157687d03598c446e4b40095a4bb99e4a595081fa795497a9df2e1",
+            "summary": "PASS special ending GPU retained=0:10 profiles 320 frames 31924 queue items 3415936 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=320 targets=240; stable allocations"
+          }
+        ]
+      },
+      {
+        "name": "normal-retained-render",
+        "suite": "render",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "22e051ef8353e5a9a6bccaac7143be0aee34820dd6ef14e6b53b89d85192b64d",
+            "summary": "PASS special ending GPU retained=1:10 profiles 320 frames 31924 queue items 2927216 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=320 targets=240; stable allocations"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "08d0e1e381157687d03598c446e4b40095a4bb99e4a595081fa795497a9df2e1",
+            "summary": "PASS special ending GPU retained=1:10 profiles 320 frames 31924 queue items 2927216 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=320 targets=240; stable allocations"
+          }
+        ]
+      },
+      {
+        "name": "secondary-render",
+        "suite": "render",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "e78820bfbeab1ec22ca29deff03329f9894cb72ebf8fc8c1d456ad623e4b2a10",
+            "summary": "PASS secondary GPU retained=0 profiles=10 frames=480 dual=240 empty=40 hidden_background=220 mixed_profiles=6 queues=39626 vertices=11457340 model_morp_vertices=250560 face_vertices=1017240 max_relative=4.38123251e-07 redraws=120 rejected=30; stable allocations"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "e2e97c2e5297d5fa87146cdee843f5842d722230187b5529c95207f542ba5526",
+            "summary": "PASS secondary GPU retained=0 profiles=10 frames=480 dual=240 empty=40 hidden_background=220 mixed_profiles=6 queues=39626 vertices=11457340 model_morp_vertices=250560 face_vertices=1017240 max_relative=4.38123251e-07 redraws=120 rejected=30; stable allocations"
+          }
+        ]
+      },
+      {
+        "name": "secondary-retained-render",
+        "suite": "render",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "e78820bfbeab1ec22ca29deff03329f9894cb72ebf8fc8c1d456ad623e4b2a10",
+            "summary": "PASS secondary GPU retained=1 profiles=10 frames=480 dual=240 empty=40 hidden_background=220 mixed_profiles=6 queues=39626 vertices=11457340 model_morp_vertices=250560 face_vertices=1017240 max_relative=4.38123251e-07 redraws=120 rejected=30; stable allocations"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "e2e97c2e5297d5fa87146cdee843f5842d722230187b5529c95207f542ba5526",
+            "summary": "PASS secondary GPU retained=1 profiles=10 frames=480 dual=240 empty=40 hidden_background=220 mixed_profiles=6 queues=39626 vertices=11457340 model_morp_vertices=250560 face_vertices=1017240 max_relative=4.38123251e-07 redraws=120 rejected=30; stable allocations"
+          }
+        ]
+      }
+    ]
+  },
+  "targeted_checks": {
+    "local/ending-final-image-units-host.log": {
+      "sha256": "ee0d983473da42483c227020c50a961675981913899e7bf2e4b95efce062ebf8",
+      "passed": true
+    },
+    "local/ending-final-image-units-asan.log": {
+      "sha256": "0756b743e70383b8b7f26d608bfe5183e3442851e7d57f19e746460a725a9be2",
+      "passed": true
+    },
+    "local/ending-final-image-architecture.log": {
+      "sha256": "acc3f5d3bdc0e88333b6184e29b499bc7f9529a552bc52a907421a807573cccf",
+      "passed": true
+    }
+  },
+  "nvk": {
+    "files": [
+      {
+        "path": "build-switch/biko3-preview.elf",
+        "bytes": 33809720,
+        "sha256": "3ba234d043cc01b606ea7736a76f09206de0ed33f83a7b29922db96b7e3015a0"
+      },
+      {
+        "path": "build-switch/biko3-preview.nro",
+        "bytes": 15953976,
+        "sha256": "1d5755e0238a877d3e9a9f9c86119940769a5bd06e21f70e3ddafadc26f7b184"
+      }
+    ],
+    "undefined_symbols": [],
+    "symbols": {
+      "nvk_CreateDevice": [
+        "000000000041a920 T nvk_CreateDevice"
+      ],
+      "bk_ending_normal_scene_step_at": [
+        "00000000000a9490 T bk_ending_normal_scene_step_at"
+      ],
+      "bk_ending_normal_render_save_lighting": [
+        "00000000000b8ef0 T bk_ending_normal_render_save_lighting"
+      ],
+      "bk_ending_normal_render_restore_lighting": [
+        "00000000000b8f40 T bk_ending_normal_render_restore_lighting"
+      ],
+      "bk_scene_light_registry_save": [
+        "0000000000512640 T bk_scene_light_registry_save"
+      ],
+      "bk_scene_light_registry_restore": [
+        "0000000000512780 T bk_scene_light_registry_restore"
+      ],
+      "bk_ending_tertiary_assets_create": [
+        "0000000000532f30 T bk_ending_tertiary_assets_create"
+      ],
+      "bk_ending_tertiary_controller_scene_step": [
+        "0000000000534c80 T bk_ending_tertiary_controller_scene_step"
+      ]
+    },
+    "header": "/Users/rujian/Documents/Codex/WX3/build-switch/biko3-preview.elf:     file format elf64-littleaarch64\narchitecture: aarch64, flags 0x00000150:\nHAS_SYMS, DYNAMIC, D_PAGED\nstart address 0x0000000000000000",
+    "passed": true,
+    "probe_correction": "Initial probe used non-existent bk_ending_tertiary_controller_step; header declares bk_ending_tertiary_controller_scene_step."
+  },
+  "separate_prior_mixed_effects": {
+    "path": "build/validation/bom-dual-assets-ozj5viwb/result.json",
+    "sha256": "a6dd92310817b1ecd3d44ace0cfc81de45f680950992dfcb98e5eb0d3357f452",
+    "finished_at": "2026-09-29T11:45:54.459208+00:00",
+    "passed": true,
+    "included_in_current_10_checks": false
+  },
+  "sanitizers": {
+    "asan": true,
+    "ubsan": true,
+    "leak_detection": false
+  },
+  "output": {
+    "width": 1280,
+    "height": 720,
+    "content": [
+      160,
+      0,
+      960,
+      720
+    ],
+    "actual_bmp": [
+      1024,
+      768,
+      24
+    ]
+  },
+  "not_complete": [
+    "4D1025 and phase5/6 adapters",
+    "4D39E6 and phase4 adapters",
+    "formal gallery frontend and phase8",
+    "natural full ending, persistent unlock and return chain",
+    "production 3D frame comparison (9/12 remains)",
+    "Switch full-flow, memory and performance acceptance"
+  ],
+  "delivery_changed": false,
+  "pushed": false,
+  "full_goal_complete": false
+}

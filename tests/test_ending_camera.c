@@ -57,7 +57,13 @@ int main(void) {
   assert(!memcmp(&s, &alias, sizeof(s)));
   s = initial();
   const float track[3] = {10, 20, 30}, target[3] = {0, 18, 0};
+  BkMenuCamera opening = s;
+  opening.fov = .731f;
+  assert(bk_ending_camera_opening_pose(&opening, track, target, .5f, e));
+  assert(opening.fov == .731f && opening.focus[0] == 71);
   assert(bk_ending_camera_track_pose(&s, track, target, .5f, e));
+  assert(!memcmp(&s.pose, &opening.pose, sizeof(s.pose)) &&
+         !memcmp(s.matrix, opening.matrix, sizeof(s.matrix)));
   assert(s.pose.position[0] == 5 && s.pose.position[1] == 10 &&
          s.pose.position[2] == 15 && s.focus[0] == 71 && s.fov == .2f);
   old = s;

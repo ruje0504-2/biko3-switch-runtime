@@ -24,6 +24,7 @@ typedef struct {
    * an explicit storage boundary, never a zero-filled unlock. */
   const uint8_t *ending_flags;
   const int *ending_flags_valid;
+  const unsigned *ending_flags_group;
 } BkFrontEndConfig;
 /* Original retail title1/selection38/dialogue8 owner. Retains menu globals
  * between entries; collects released GPU snapshots on the following step.
@@ -43,4 +44,7 @@ int bk_front_end_after_present(BkFrontEnd *, char error[256]);
 int bk_front_end_active(const BkFrontEnd *);
 int bk_front_end_result(const BkFrontEnd *, BkDialogueResult *,
                         char error[256]);
+/* Copy the latest successfully persisted table for ending entry50ca48.
+ * The scene receives bytes only and owns its independent working copy. */
+int bk_front_end_unlocks(const BkFrontEnd *, BkUnlockTable *, char error[256]);
 #endif

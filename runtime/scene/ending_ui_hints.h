@@ -8,7 +8,7 @@ typedef struct {
   float length;             /*719b18*/
   float fixed_scroll;       /*6bbe44*/
   float variable_scroll;    /*6afd28*/
-  int32_t movement_ready;   /*6afd14, written only by47a026*/
+  int32_t movement_ready;   /*6afd14,47a026 computes;47a033 resets*/
   uint8_t once_flags;       /*70c8cc; preserve all but bit0*/
   float meter_x;            /*6e9fa4*/
   uint8_t meter_once_flags; /*6ddea4*/

@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
     for (unsigned i = 0; i < 4; ++i)
       REQUIRE(tick(game, renderer, audio, (BkInput){0}, error));
     REQUIRE(weather(game, error));
-    BkCommonHudState common;
+    BkCommonHudState common = {0}; /*fresh process baseline, then4e6dee*/
     bk_common_hud_initialize(&common);
     BkMenuCursor cursor = {0};
     REQUIRE(bk_menu_cursor_initialize(&cursor, 960, 720));

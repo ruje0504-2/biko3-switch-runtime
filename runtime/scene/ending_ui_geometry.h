@@ -14,7 +14,8 @@ int bk_ending_ui_line(BkEndingStageUi *, const int32_t anchor[2],
                       float *scroll, char error[256]);
 /* Original4a777e uses a STRICT radius comparison. A valid miss sets hit=0
  * and preserves distance; return0 means invalid/nonfinite geometry, with
- * both outputs unchanged. Inputs are already in the same screen space. */
+ * both outputs unchanged. Positive infinity is a valid radius when an
+ * original target meets the camera. Inputs share the same screen space. */
 int bk_ending_ui_circle_hit(const float center[2], float radius,
                             const float point[2], int *hit, float *distance);
 #endif

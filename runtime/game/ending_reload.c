@@ -160,7 +160,7 @@ static int schedule(const BkEndingReloadOps *o, uint8_t target, char e[256]) {
 }
 static int leave(const BkEndingReloadOps *o, char e[256]) {
   if (!o->leave)
-    return fail(e, "missing scene teardown services");
+    return fail(e, "missing retained-state reset services");
   for (unsigned i = 0; i < 6; ++i)
     if (!o->leave(o->context, (BkEndingLeave)i, e))
       return 0;

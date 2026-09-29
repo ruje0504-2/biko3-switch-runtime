@@ -9,6 +9,18 @@ typedef struct BkSceneLighting BkSceneLighting;
 BkSceneLighting *bk_scene_lighting_create(const BkModel *, const float *world,
                                           size_t floats, char error[256]);
 void bk_scene_lighting_destroy(BkSceneLighting *);
+/*A retained model keeps its device enable bits when only the surrounding
+ * registration table is rebuilt. Never match a newly loaded model by name.*/
+const BkModel *bk_scene_lighting_model(const BkSceneLighting *);
+int bk_scene_lighting_inherit(BkSceneLighting *, const BkSceneLighting *);
+typedef struct {
+  uint32_t light_count, ambient, enabled;
+} BkSceneLightDevice;
+/* Value-only device state. The registry checks model identity before restore;
+ * this layer also checks the immutable light layout and enabled-bit range.
+ * No environment, model, world cache or GPU resource is retained here. */
+int bk_scene_lighting_save(const BkSceneLighting *, BkSceneLightDevice *);
+int bk_scene_lighting_restore(BkSceneLighting *, const BkSceneLightDevice *);
 const BkModelEnvironment *
 bk_scene_lighting_environment(const BkSceneLighting *);
 /* Replaces only the light array/count; caller owns root tokens/pass settings.

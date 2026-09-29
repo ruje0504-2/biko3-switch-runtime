@@ -45,6 +45,8 @@ int bk_ending_ui_initialize(BkEndingUi *, unsigned width,
 /* Exports the live moving rectangles read by4d7ac4, in original hit order. */
 int bk_ending_ui_control_rects(const BkEndingUi *,
                                BkEndingControlRect[BK_ENDING_CONTROL_RECTS]);
+/* Actual moving slot59/61 bounds consumed by4e2223. */
+int bk_ending_ui_confirm_rects(const BkEndingUi *, BkEndingControlRect[2]);
 typedef struct {
   void *context;
   int (*key)(void *, unsigned code, unsigned mode, uint32_t *result,

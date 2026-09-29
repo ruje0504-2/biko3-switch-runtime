@@ -48,11 +48,8 @@ static int coords(const BkEndingUiDraw *d, unsigned x, unsigned y,
   }
   return 0;
 }
-static int expected(const BkImage im[75], const BkEndingUiFrame *f, unsigned x,
-                    unsigned y, int rgb[3]) {
-  rgb[0] = 70;
-  rgb[1] = 110;
-  rgb[2] = 160;
+static int expected_over(const BkImage im[75], const BkEndingUiFrame *f, unsigned x,
+                         unsigned y, int rgb[3]) {
   for (unsigned i = 0; i < f->count; ++i) {
     const BkEndingUiDraw *d = &f->draws[i];
     double uv[2];
@@ -71,5 +68,12 @@ static int expected(const BkImage im[75], const BkEndingUiFrame *f, unsigned x,
     }
   }
   return 1;
+}
+static inline int expected(const BkImage im[75], const BkEndingUiFrame *f, unsigned x,
+                           unsigned y, int rgb[3]) {
+  rgb[0] = 70;
+  rgb[1] = 110;
+  rgb[2] = 160;
+  return expected_over(im, f, x, y, rgb);
 }
 #endif

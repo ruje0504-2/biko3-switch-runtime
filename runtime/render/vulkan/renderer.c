@@ -1,4 +1,5 @@
 #include "render/renderer.h"
+#include "core/matrix.h"
 #ifdef __SWITCH__
 #include <switch.h>
 #define VK_USE_PLATFORM_VI_NN

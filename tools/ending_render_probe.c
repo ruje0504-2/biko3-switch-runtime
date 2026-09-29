@@ -16,7 +16,7 @@ static const float I[16] = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
 static uint64_t vertices;
 static unsigned frames, queues, repeats, empty, movie_changes;
 static double worst;
-static int special;
+static int special, retained;
 static unsigned equivalent_targets, equivalent_meshes;
 static int apply_queues(BkEndingNormalRender *render, unsigned first,
                         unsigned end, BkBomAssets *bom, BkBomDeform *reference,
@@ -71,6 +71,7 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
                    unsigned variant, char e[256]) {
   int ok = 0;
   BkEndingNormalAssets *assets = NULL;
+  BkEndingSecondaryAssets *previous = NULL;
   BkEndingNormalRender *render = NULL;
   BkMaterialPose *material = NULL;
   BkModelSkin *skin[2] = {0};
@@ -80,6 +81,7 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
   BkBomDeformBinding plans[4];
   BkBomDeform *reference = NULL;
   BkLitVertex *readback = NULL;
+  float *old_source_world = NULL;
   BkActorPose *poses[3];
   const BkModel *models[3];
   unsigned mesh_count = 0, max = 0;
@@ -88,9 +90,19 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
   memcpy(camera.pose.world, I, 64);
   memcpy(camera.matrix, I, 64);
   BkEndingCameraPresets presets;
-  assets = bk_ending_normal_assets_create(store, group, variant, clocks, &rng,
-                                          &camera, &presets, e);
+  if (retained) {
+    previous = bk_ending_secondary_assets_create(store, group, variant, clocks,
+                                                  &rng, &camera, &presets, e);
+    CHECK(previous && bk_ending_secondary_assets_load_background(previous, store, e));
+    assets = bk_ending_normal_assets_create_reloaded(store, group, variant,
+        bk_ending_secondary_assets_background(previous), clocks, &rng,
+        &camera, &presets, e);
+  } else
+    assets = bk_ending_normal_assets_create(store, group, variant, clocks, &rng,
+                                            &camera, &presets, e);
   CHECK(assets);
+  bk_ending_secondary_assets_destroy(previous);
+  previous = NULL;
   CHECK(bk_ending_normal_assets_load_background(assets, store, e));
   BkActorForest *forest = bk_ending_normal_assets_forest(assets);
   BkBomAssets *bom = bk_ending_normal_assets_bom(assets);
@@ -108,6 +120,11 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
       skin[i] = bk_model_skin_create(models[i], e);
       CHECK(skin[i]);
     }
+  }
+  int staged = retained && group != 1;
+  if (staged) {
+    old_source_world = malloc((size_t)models[1]->frame_count * 64);
+    CHECK(old_source_world);
   }
   mesh_count = bk_bom_assets_mesh_count(bom);
   CHECK(mesh_count <= 8);
@@ -225,6 +242,12 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
     }
     int dual = special && in.event_state != 7;
     BkViewport viewport = {8, 6, 48, 36};
+    if (staged) {
+      size_t floats;
+      const float *world = bk_actor_pose_world(poses[1], &floats);
+      CHECK(world && floats == (size_t)models[1]->frame_count * 16);
+      memcpy(old_source_world, world, floats * sizeof(float));
+    }
     if (dual) {
       ending.phase = in.event_state;
       ending.state_721ee0 = (int[]){4, 6, 7, 8}[step % 4];
@@ -290,23 +313,44 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
           morph ? bk_morph_mesh_vertices(morph) : sub->vertices;
       size_t floats;
       const float *world = bk_actor_pose_world(poses[mesh->actor], &floats);
+      const BkModelVertex *unskinned = v;
       if (skin_mesh[i]) {
         CHECK(bk_skin_mesh_apply(skin_mesh[i], world, floats, v,
                                  sub->vertex_count, e));
         v = bk_skin_mesh_vertices(skin_mesh[i]);
       }
-      memcpy(views[i].vertices, v, (size_t)sub->vertex_count * sizeof(*v));
       memcpy(base[i], v, (size_t)sub->vertex_count * sizeof(*v));
+      /*An existing outer background precedes primary and auxiliary roots.
+       * The primary callback reads auxiliary's previous published cache;
+       * its later visible draw uses its new cache. No world data is read
+       * from the renderer under test to derive this reference.*/
+      if (staged && mesh->actor == 1) {
+        if (skin_mesh[i]) {
+          CHECK(bk_skin_mesh_apply(skin_mesh[i], old_source_world, floats,
+                                   unskinned, sub->vertex_count, e));
+          v = bk_skin_mesh_vertices(skin_mesh[i]);
+        }
+        views[i].world = old_source_world + mesh->frame * 16;
+      } else
+        views[i].world = bk_actor_pose_frame(poses[mesh->actor], mesh->frame);
+      memcpy(views[i].vertices, v, (size_t)sub->vertex_count * sizeof(*v));
     }
+    int main_seen[8] = {0}, second_seen[8] = {0};
     CHECK(apply_queues(render, 0, regular, bom, reference, views, mesh_count,
-                       plans, count, disabled, 1, NULL, e));
-    for (unsigned i = 0; i < mesh_count; i++)
+                       plans, count, disabled, 1, main_seen, e));
+    for (unsigned i = 0; i < mesh_count; i++) {
+      const BkBomAssetMesh *mesh = bk_bom_assets_mesh(bom, i);
+      if (staged && mesh->actor == 1) {
+        memcpy(views[i].vertices, base[i],
+               (size_t)views[i].count * sizeof(BkModelVertex));
+        views[i].world = bk_actor_pose_frame(poses[1], mesh->frame);
+      }
       memcpy(first[i], views[i].vertices,
              (size_t)views[i].count * sizeof(BkModelVertex));
+    }
     if (dual) {
-      int seen[8] = {0};
       CHECK(apply_queues(render, regular, passes, bom, reference, views,
-                         mesh_count, plans, count, disabled, 1, seen, e));
+                         mesh_count, plans, count, disabled, 1, second_seen, e));
       for (unsigned i = 0; i < mesh_count; i++) {
         memcpy(native[i], views[i].vertices,
                (size_t)views[i].count * sizeof(BkModelVertex));
@@ -316,7 +360,7 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
       CHECK(apply_queues(render, regular, passes, bom, reference, views,
                          mesh_count, plans, count, disabled, 0, NULL, e));
       for (unsigned i = 0; i < mesh_count; i++)
-        if (seen[i]) {
+        if (second_seen[i]) {
           CHECK(!memcmp(native[i], views[i].vertices,
                         (size_t)views[i].count * sizeof(BkModelVertex)));
           equivalent_meshes++;
@@ -333,12 +377,14 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
     CHECK(bk_renderer_end(renderer, e));
     for (unsigned i = 0; passes && i < mesh_count; i++) {
       const BkBomAssetMesh *mesh = bk_bom_assets_mesh(bom, i);
-      CHECK(bk_lit_mesh_readback(
+      if (!staged || main_seen[i]) {
+        CHECK(bk_lit_mesh_readback(
           renderer,
           bk_ending_normal_render_mesh(render, mesh->actor, mesh->submesh),
           readback, views[i].count, e));
-      CHECK(compare(readback, first[i], views[i].count));
-      if (dual) {
+        CHECK(compare(readback, first[i], views[i].count));
+      }
+      if (dual && (!staged || second_seen[i])) {
         CHECK(bk_lit_mesh_readback(renderer,
                                    bk_ending_normal_render_view_mesh(
                                        render, 1, mesh->actor, mesh->submesh),
@@ -355,12 +401,14 @@ static int profile(BkRenderer *renderer, BkResourceStore *store,
       CHECK(bk_ending_normal_render_movie_frame(render) == movie_frame);
       for (unsigned i = 0; i < mesh_count; i++) {
         const BkBomAssetMesh *mesh = bk_bom_assets_mesh(bom, i);
-        CHECK(bk_lit_mesh_readback(
+        if (!staged || main_seen[i]) {
+          CHECK(bk_lit_mesh_readback(
             renderer,
             bk_ending_normal_render_mesh(render, mesh->actor, mesh->submesh),
             readback, views[i].count, e));
-        CHECK(compare(readback, first[i], views[i].count));
-        if (dual) {
+          CHECK(compare(readback, first[i], views[i].count));
+        }
+        if (dual && (!staged || second_seen[i])) {
           CHECK(bk_lit_mesh_readback(renderer,
                                      bk_ending_normal_render_view_mesh(
                                          render, 1, mesh->actor, mesh->submesh),
@@ -394,13 +442,18 @@ done:
   for (unsigned i = 0; i < 2; i++)
     bk_model_skin_destroy(skin[i]);
   free(readback);
+  free(old_source_world);
   bk_ending_normal_assets_destroy(assets);
+  bk_ending_secondary_assets_destroy(previous);
   return ok;
 }
 int main(int argc, char **argv) {
-  if (argc != 2 && (argc != 3 || strcmp(argv[2], "--special")))
-    return 2;
-  special = argc == 3;
+  if (argc < 2 || argc > 4) return 2;
+  for (int i = 2; i < argc; ++i) {
+    if (!strcmp(argv[i], "--special") && !special) special = 1;
+    else if (!strcmp(argv[i], "--retained") && !retained) retained = 1;
+    else return 2;
+  }
   char e[256] = {0}, path[1024];
   int rc = 1;
   BkRenderer *renderer = bk_renderer_create(64, 48, stdout, e);
@@ -417,6 +470,11 @@ int main(int argc, char **argv) {
     if (i < 4)
       CHECK(bk_resources_mount(missing_movie, packs[i], path, e));
   }
+  if (retained) {
+    CHECK(snprintf(path, sizeof(path), "%s/bk3_09.pp", argv[1]) < (int)sizeof(path));
+    CHECK(bk_resources_mount(store, "bk3_09", path, e));
+    CHECK(bk_resources_mount(missing_movie, "bk3_09", path, e));
+  }
   BkRenderStats baseline = bk_renderer_stats(renderer);
   for (unsigned g = 0; g < 5; g++)
     for (unsigned v = 0; v < 2; v++) {
@@ -426,10 +484,10 @@ int main(int argc, char **argv) {
             now.live_bytes == baseline.live_bytes);
     }
   CHECK(bk_renderer_stats(renderer).skin_dispatches > 0 && movie_changes > 10);
-  printf("PASS %s ending GPU:10 profiles %u frames %u queue items %llu "
+  printf("PASS %s ending GPU retained=%d:10 profiles %u frames %u queue items %llu "
          "vertices max_relative=%g redraws=%u empty=%u movie_changes=%u; "
          "equivalent_second_view_meshes=%u targets=%u; stable allocations\n",
-         special ? "special" : "normal", frames, queues,
+         special ? "special" : "normal", retained, frames, queues,
          (unsigned long long)vertices, worst, repeats, empty, movie_changes,
          equivalent_meshes, equivalent_targets);
   rc = 0;

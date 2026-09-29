@@ -1,8 +1,10 @@
 #include "scene/ending_auxiliary.h"
+#include "core/random.h"
 typedef struct {
   const BkEndingAuxiliaryServices *services;
   BkEndingAuxiliaryState *state;
   BkEndingFrameState *frame;
+  uint32_t *random;
 } Context;
 static int active(void *p, int32_t *slot, char e[256]) {
   Context *c = p;
@@ -71,7 +73,7 @@ int bk_ending_ui_tail_apply(const BkEndingAuxiliaryServices *v, BkEndingUi *ui,
     snprintf(e, 256, "ending UI tail: missing resource bindings");
     return 0;
   }
-  Context context = {v, b->auxiliary, b->frame};
+  Context context = {.services = v, .state = b->auxiliary, .frame = b->frame};
   BkEndingUiTailOps ops = {{&context, active, write_clip, request, audio, eyes},
                            speech};
   return bk_ending_ui_tail(ui, stage, n, a, b, &ops, scale, seconds, out, e);
@@ -85,9 +87,46 @@ int bk_ending_auxiliary_apply(const BkEndingAuxiliaryServices *v,
     snprintf(e, 256, "ending auxiliary: incomplete resources");
     return 0;
   }
-  Context context = {v, s, f};
+  Context context = {.services = v, .state = s, .frame = f};
   BkEndingAuxiliaryOps ops = {&context, active, write_clip,
                               request,  audio,  eyes};
   return bk_ending_auxiliary_change(s, f, proposed, voice_volume, effect_volume,
                                     &ops, result, e);
+}
+static int prediction(void *p, unsigned slot, BkEndingAuxiliaryPrediction *out,
+                       char e[256]) {
+  Context *c = p;
+  BkClipPrediction clock;
+  if (!bk_actor_pose_prediction(c->services->primary, slot, &clock)) {
+    snprintf(e, 256, "ending auxiliary: missing prediction for slot%u", slot);
+    return 0;
+  }
+  *out = (BkEndingAuxiliaryPrediction){clock.duration, clock.end, clock.source,
+                                       clock.rate};
+  return 1;
+}
+static int random_value(void *p, int32_t *out, char e[256]) {
+  Context *c = p;
+  if (!c->random || !out) {
+    snprintf(e, 256, "ending auxiliary: missing shared RNG");
+    return 0;
+  }
+  *out = bk_random_next(c->random);
+  return 1;
+}
+int bk_ending_auxiliary_tick_apply(const BkEndingAuxiliaryServices *v,
+                                   BkEndingAuxiliaryState *s,
+                                   BkEndingFrameState *f,
+                                   BkEndingAuxiliaryCycle *cycle, float seconds,
+                                   const int32_t *voice_volume,
+                                   uint32_t *random, char e[256]) {
+  if (!v || !v->primary || !v->eyes || !v->audio || !random) {
+    snprintf(e, 256, "ending auxiliary: incomplete automatic-cycle resources");
+    return 0;
+  }
+  Context context = {.services = v, .state = s, .frame = f, .random = random};
+  BkEndingAuxiliaryTickOps ops = {
+      {&context, active, write_clip, request, audio, eyes}, prediction,
+      random_value};
+  return bk_ending_auxiliary_tick(s, f, cycle, seconds, voice_volume, &ops, e);
 }

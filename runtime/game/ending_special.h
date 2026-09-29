@@ -1,11 +1,17 @@
 #ifndef BK_GAME_ENDING_SPECIAL_H
 #define BK_GAME_ENDING_SPECIAL_H
+#include "core/camera.h"
 #include "game/draw_dispatch.h"
 #include "game/ending_frame.h"
 #define BK_ENDING_SPECIAL_CAMERAS 108
 /* 4cc582 copies one complete authored table into mutable71944c. */
 int bk_ending_special_cameras(float out[BK_ENDING_SPECIAL_CAMERAS][4],
                               unsigned group);
+/*4e755e..4e75aa/4a9f10: scale from the fitted content width, then truncate
+ * native (0,360,800,600) bounds. Add the content origin only at the platform
+ * boundary. A viewport that cannot fit is rejected without changing out. */
+int bk_ending_special_viewport(BkViewport *out, const BkViewport *content,
+                               char error[256]);
 const char *bk_ending_special_hidden_name(unsigned group, unsigned variant,
                                           unsigned slot);
 typedef struct {

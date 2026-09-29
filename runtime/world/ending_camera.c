@@ -190,9 +190,9 @@ int bk_ending_camera_fixed(BkMenuCamera *s, const float offset[3],
   *s = n;
   return 1;
 }
-int bk_ending_camera_track_pose(BkMenuCamera *s, const float track[3],
-                                const float target[3], float seconds,
-                                char e[256]) {
+int bk_ending_camera_opening_pose(BkMenuCamera *s, const float track[3],
+                                  const float target[3], float seconds,
+                                  char e[256]) {
   if (!s || !track || !target || !finite_values(track, 3) ||
       !finite_values(target, 3) || !finite_values(s->pose.position, 3) ||
       !isfinite(seconds) || seconds < 0)
@@ -209,7 +209,14 @@ int bk_ending_camera_track_pose(BkMenuCamera *s, const float track[3],
   if (!bk_camera_aim(n.pose.world, n.pose.world, target))
     return fail(e);
   memcpy(n.matrix, n.pose.world, sizeof(n.matrix));
-  n.fov = .2f;
   *s = n;
+  return 1;
+}
+int bk_ending_camera_track_pose(BkMenuCamera *s, const float track[3],
+                                const float target[3], float seconds,
+                                char e[256]) {
+  if (!bk_ending_camera_opening_pose(s, track, target, seconds, e))
+    return 0;
+  s->fov = .2f;
   return 1;
 }

@@ -19,6 +19,13 @@ void bk_actor_forest_destroy(BkActorForest *);
  * Success invalidates borrowed tree/visits; the forest handle stays stable. */
 int bk_actor_forest_append(BkActorForest *, BkActorPose *, uint32_t *actor,
                            char error[256]);
+/* Reconstitute an already-existing global actor in a replacement registry.
+ * Call before attaching newly loaded actors. This is topology restoration,
+ * not native4239d3: retain every local/world/parent cache and hidden byte.
+ * The caller retains the same pose and its original model-internal topology;
+ * only a currently detached model root can be restored under global0. */
+int bk_actor_forest_restore_global(BkActorForest *, uint32_t actor,
+                                    uint32_t root_frame, char error[256]);
 uint32_t bk_actor_forest_node(const BkActorForest *, uint32_t actor,
                               uint32_t frame);
 /* Return borrowed actor/frame binding; anchors0/1 have no actor. */

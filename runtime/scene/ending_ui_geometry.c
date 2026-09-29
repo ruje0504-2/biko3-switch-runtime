@@ -90,7 +90,7 @@ int bk_ending_ui_line(BkEndingStageUi *stage, const int32_t anchor[2],
 }
 int bk_ending_ui_circle_hit(const float center[2], float radius,
                             const float point[2], int *hit, float *distance) {
-  if (!center || !point || !hit || !distance || !isfinite(radius) || radius < 0)
+  if (!center || !point || !hit || !distance || isnan(radius) || radius < 0)
     return 0;
   for (unsigned i = 0; i < 2; ++i)
     if (!isfinite(center[i]) || !isfinite(point[i]))

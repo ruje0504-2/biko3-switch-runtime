@@ -1,0 +1,453 @@
+{
+  "date": "2026-09-29",
+  "scope": "Production normal4cf318 draw-event/retained-audio integration. Actual input, explicit component fixtures, original numerical tests and cross-build are reported separately.",
+  "component_checks_passed": true,
+  "complete_port": false,
+  "switch_hardware_verified": false,
+  "full_scene_optical_passed": false,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "native_viewport_oracles": [
+    {
+      "path": "local/ending-event-viewport-host.json",
+      "sha256": "569637c2c419c93815783450a8e0f1a07f3e206f4f2c5b49bb303daea0f98c02",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "native_samples": 4096,
+        "atomic_rejections": 5,
+        "records": [
+          {
+            "content_width": 64,
+            "scale": 0.05000000074505806,
+            "relative": [
+              0,
+              18,
+              40,
+              30
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 320,
+            "scale": 0.25,
+            "relative": [
+              0,
+              90,
+              200,
+              150
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 640,
+            "scale": 0.5,
+            "relative": [
+              0,
+              180,
+              400,
+              300
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 960,
+            "scale": 0.75,
+            "relative": [
+              0,
+              270,
+              600,
+              450
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 1280,
+            "scale": 1.0,
+            "relative": [
+              0,
+              360,
+              800,
+              600
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 1920,
+            "scale": 1.5,
+            "relative": [
+              0,
+              540,
+              1200,
+              900
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 2560,
+            "scale": 2.0,
+            "relative": [
+              0,
+              720,
+              1600,
+              1200
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 3840,
+            "scale": 3.0,
+            "relative": [
+              0,
+              1080,
+              2400,
+              1800
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "duck_process_initial": 0,
+        "native_functions": [
+          "0x4e755e..0x4e75aa",
+          "0x4a9f10",
+          "0x534398"
+        ],
+        "scope": "Exact viewport initialization and stored float-scale/truncation. Original called instructions run without hooks; adding the fitted content origin is the explicit platform adaptation. No draw or camera-controller equivalence is implied."
+      }
+    },
+    {
+      "path": "local/ending-event-viewport-asan.json",
+      "sha256": "569637c2c419c93815783450a8e0f1a07f3e206f4f2c5b49bb303daea0f98c02",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "native_samples": 4096,
+        "atomic_rejections": 5,
+        "records": [
+          {
+            "content_width": 64,
+            "scale": 0.05000000074505806,
+            "relative": [
+              0,
+              18,
+              40,
+              30
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 320,
+            "scale": 0.25,
+            "relative": [
+              0,
+              90,
+              200,
+              150
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 640,
+            "scale": 0.5,
+            "relative": [
+              0,
+              180,
+              400,
+              300
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 960,
+            "scale": 0.75,
+            "relative": [
+              0,
+              270,
+              600,
+              450
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 1280,
+            "scale": 1.0,
+            "relative": [
+              0,
+              360,
+              800,
+              600
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 1920,
+            "scale": 1.5,
+            "relative": [
+              0,
+              540,
+              1200,
+              900
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 2560,
+            "scale": 2.0,
+            "relative": [
+              0,
+              720,
+              1600,
+              1200
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          },
+          {
+            "content_width": 3840,
+            "scale": 3.0,
+            "relative": [
+              0,
+              1080,
+              2400,
+              1800
+            ],
+            "depth": [
+              0.0,
+              1.0
+            ]
+          }
+        ],
+        "duck_process_initial": 0,
+        "native_functions": [
+          "0x4e755e..0x4e75aa",
+          "0x4a9f10",
+          "0x534398"
+        ],
+        "scope": "Exact viewport initialization and stored float-scale/truncation. Original called instructions run without hooks; adding the fitted content origin is the explicit platform adaptation. No draw or camera-controller equivalence is implied."
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "ending-event-framing-host",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-framing-host.exit",
+      "log": "local/ending-event-framing-host.log",
+      "log_sha256": "b7501084bad1229d21a2a3b643794f62eaaeb0310e9284173fdc3b53d1cfacec",
+      "summary": [
+        "framing group0 PASS head=(0.0111005567,-0.142746732,0.989138186) absent=0 camera=2cd559e50fe403e3 opening=1088 frozen_voice=48 pcm=497c2f49ab28c523 action_target=1 action_frames=508 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group1 PASS head=(-0.00516969198,-0.00650499202,0.994297028) absent=8 camera=089762d54ba469e6 opening=1146 frozen_voice=48 pcm=8293582b9c69e8a2 action_target=11 action_frames=453 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group2 PASS head=(0.00841711927,0.145146951,0.987830997) absent=8 camera=97d919afda12e283 opening=1255 frozen_voice=48 pcm=981c6556c123d91f action_target=11 action_frames=421 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group3 PASS head=(-0.0178865846,-0.106024213,0.989183426) absent=0 camera=94b0e4aac883bcf3 opening=1123 frozen_voice=48 pcm=cbd8c834706b9bc1 action_target=26 action_frames=419 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group4 PASS head=(-0.0152946403,-0.117165409,0.989394307) absent=0 camera=8832e807572ff012 opening=1301 frozen_voice=48 pcm=c23b53cd81ad13de action_target=10 action_frames=416 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "ending framing PASS cases=10 frames=19670 toolbar_clicks=84 camera_calls=20 display_switches=30 dual_views=10 redraws=30"
+      ]
+    },
+    {
+      "name": "ending-event-framing-asan",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-framing-asan.exit",
+      "log": "local/ending-event-framing-asan.log",
+      "log_sha256": "b7501084bad1229d21a2a3b643794f62eaaeb0310e9284173fdc3b53d1cfacec",
+      "summary": [
+        "framing group0 PASS head=(0.0111005567,-0.142746732,0.989138186) absent=0 camera=2cd559e50fe403e3 opening=1088 frozen_voice=48 pcm=497c2f49ab28c523 action_target=1 action_frames=508 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group1 PASS head=(-0.00516969198,-0.00650499202,0.994297028) absent=8 camera=089762d54ba469e6 opening=1146 frozen_voice=48 pcm=8293582b9c69e8a2 action_target=11 action_frames=453 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group2 PASS head=(0.00841711927,0.145146951,0.987830997) absent=8 camera=97d919afda12e283 opening=1255 frozen_voice=48 pcm=981c6556c123d91f action_target=11 action_frames=421 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group3 PASS head=(-0.0178865846,-0.106024213,0.989183426) absent=0 camera=94b0e4aac883bcf3 opening=1123 frozen_voice=48 pcm=cbd8c834706b9bc1 action_target=26 action_frames=419 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "framing group4 PASS head=(-0.0152946403,-0.117165409,0.989394307) absent=0 camera=8832e807572ff012 opening=1301 frozen_voice=48 pcm=c23b53cd81ad13de action_target=10 action_frames=416 release_checks=4 display_switches=3 dual_views=1 redraws=3",
+        "ending framing PASS cases=10 frames=19670 toolbar_clicks=84 camera_calls=20 display_switches=30 dual_views=10 redraws=30"
+      ]
+    },
+    {
+      "name": "ending-event-draw-host",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-draw-host.exit",
+      "log": "local/ending-event-draw-host.log",
+      "log_sha256": "157d5372a3ae52620509011a2333232a7bf9cec08f19a24dbb5dbb7c21d1d558",
+      "summary": [
+        "PASS ending draw events: profiles10 frames540 dual70 empty110 gain_checks30 exact_redraws540; real PCM status, retained duck, mode/phase dispatch and resource retirement"
+      ]
+    },
+    {
+      "name": "ending-event-draw-asan",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-draw-asan.exit",
+      "log": "local/ending-event-draw-asan.log",
+      "log_sha256": "157d5372a3ae52620509011a2333232a7bf9cec08f19a24dbb5dbb7c21d1d558",
+      "summary": [
+        "PASS ending draw events: profiles10 frames540 dual70 empty110 gain_checks30 exact_redraws540; real PCM status, retained duck, mode/phase dispatch and resource retirement"
+      ]
+    },
+    {
+      "name": "ending-event-exit-host",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-exit-host.exit",
+      "log": "local/ending-event-exit-host.log",
+      "log_sha256": "b852e1ddc42056f52f4c25bd4e7580b9508ef1690a55b5e0515c5c39f19d4e4d",
+      "summary": [
+        "ending exit PASS: input->yes->flow50->title/reentry/flow58; confirmation_frames=196 fade_frames=124 audio_frames=436800; shared curtain, final redraw exact,52 stopped/guard retained, unlock file unchanged, GPU baseline restored",
+        "shared RNG PASS: load_draws=3/3 ending_draws=32 total_draws=38; one sequence through title/reentry, first-present/redraw/stop retain RNG; auxiliary cycle and normal/opening/face process state survive first-present/redraw/retirement"
+      ]
+    },
+    {
+      "name": "ending-event-exit-asan",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-exit-asan.exit",
+      "log": "local/ending-event-exit-asan.log",
+      "log_sha256": "b852e1ddc42056f52f4c25bd4e7580b9508ef1690a55b5e0515c5c39f19d4e4d",
+      "summary": [
+        "ending exit PASS: input->yes->flow50->title/reentry/flow58; confirmation_frames=196 fade_frames=124 audio_frames=436800; shared curtain, final redraw exact,52 stopped/guard retained, unlock file unchanged, GPU baseline restored",
+        "shared RNG PASS: load_draws=3/3 ending_draws=32 total_draws=38; one sequence through title/reentry, first-present/redraw/stop retain RNG; auxiliary cycle and normal/opening/face process state survive first-present/redraw/retirement"
+      ]
+    },
+    {
+      "name": "ending-event-confirmation-host",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-confirmation-host.exit",
+      "log": "local/ending-event-confirmation-host.log",
+      "log_sha256": "fc832c676801af0546e72baf6f91f3bb18260b93ffcc31e92af7942f098ba41e",
+      "summary": [
+        "ending normal scene PASS entry=story variant=0 frames=64 draws=49634 skin=1783 audio_frames=300480 allocations=729; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=247"
+      ]
+    },
+    {
+      "name": "ending-event-confirmation-asan-verified",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-confirmation-asan-verified.exit",
+      "log": "local/ending-event-confirmation-asan-verified.log",
+      "log_sha256": "fc832c676801af0546e72baf6f91f3bb18260b93ffcc31e92af7942f098ba41e",
+      "summary": [
+        "ending normal scene PASS entry=story variant=0 frames=64 draws=49634 skin=1783 audio_frames=300480 allocations=729; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=247"
+      ]
+    },
+    {
+      "name": "ending-event-layout-host",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-layout-host.exit",
+      "log": "local/ending-event-layout-host.log",
+      "log_sha256": "795f880c430c9b9d78b8a9f02a16dbb6a46bca6d37f42440d58b41d82fb4c183",
+      "summary": [
+        "viewport 1920x1080 mode2: content=1440x1080, PASS",
+        "viewport 640x960 mode2: content=640x480, PASS",
+        "PASS ending viewport UI: 12 paired cases, 3368 actual scene frames, 102988800 UI readback RGBA bytes; changed_UI_pixels=0 UI_edges=0 max_UI_display_error=0; exact CPU states, stick/touch/13 toolbar hitboxes/modal cancel/bars/projection/resources",
+        "Full-scene optical diagnostic: 9/12 within stated raster bounds, max_display_error=131; not a Windows screenshot or full-ending acceptance",
+        "PASS scene geometry pairing: 12/12 camera/projection, all actor local/world/parent matrices and submitted queue topology agree",
+        "Draw stage PASS: 3392 actual GPU pass checks, 136 modal movie frame changes, 24 explicit phase7 empty readbacks; redraw retains video"
+      ]
+    },
+    {
+      "name": "ending-event-layout-asan",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-layout-asan.exit",
+      "log": "local/ending-event-layout-asan.log",
+      "log_sha256": "795f880c430c9b9d78b8a9f02a16dbb6a46bca6d37f42440d58b41d82fb4c183",
+      "summary": [
+        "viewport 1920x1080 mode2: content=1440x1080, PASS",
+        "viewport 640x960 mode2: content=640x480, PASS",
+        "PASS ending viewport UI: 12 paired cases, 3368 actual scene frames, 102988800 UI readback RGBA bytes; changed_UI_pixels=0 UI_edges=0 max_UI_display_error=0; exact CPU states, stick/touch/13 toolbar hitboxes/modal cancel/bars/projection/resources",
+        "Full-scene optical diagnostic: 9/12 within stated raster bounds, max_display_error=131; not a Windows screenshot or full-ending acceptance",
+        "PASS scene geometry pairing: 12/12 camera/projection, all actor local/world/parent matrices and submitted queue topology agree",
+        "Draw stage PASS: 3392 actual GPU pass checks, 136 modal movie frame changes, 24 explicit phase7 empty readbacks; redraw retains video"
+      ]
+    },
+    {
+      "name": "ending-event-application-host",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-application-host.exit",
+      "log": "local/ending-event-application-host.log",
+      "log_sha256": "ed8123dfa064c93c12025b7c6c67121a3fc0d2298cffb8a33e539f0cfa08ad5e",
+      "summary": [
+        "PASS application title/opening/game/photo/pause/resume/pause/title; 2 BMPs, pause removed; 60Hz presentation clock"
+      ]
+    },
+    {
+      "name": "ending-event-application-asan",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-application-asan.exit",
+      "log": "local/ending-event-application-asan.log",
+      "log_sha256": "eff4c5eebf95aa5f2588bac3f3d2d22cf1dba5ca11d9d7e6324fe5506217387e",
+      "summary": [
+        "PASS application title/opening/game/photo/pause/resume/pause/title; 2 BMPs, pause removed; 60Hz presentation clock"
+      ]
+    },
+    {
+      "name": "ending-event-switch-build",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-event-switch-build.exit",
+      "log": "local/ending-event-switch-build.log",
+      "log_sha256": "91a284027bcd6b45a5fa1ff81c63cd0712f485e4d4ae02f3a269e9ddc4ed85f6",
+      "summary": []
+    },
+    {
+      "name": "ending-optical-diagnostic",
+      "exit_code": 0,
+      "exit_evidence": "local/ending-optical-diagnostic.exit",
+      "log": "local/ending-optical-diagnostic.log",
+      "log_sha256": "6bb99402b1192c9e71a236ddc20a65bfb9d3afa4593086b720936b3b8b05f711",
+      "summary": [
+        "viewport 1920x1080 mode2: content=1440x1080, UI=PASS full_scene=DIFFERENCE",
+        "viewport 640x960 mode2: content=640x480, UI=PASS full_scene=PASS",
+        "PASS ending viewport UI: 12 paired cases, 3368 actual scene frames, 102988800 UI readback RGBA bytes; changed_UI_pixels=0 UI_edges=0 max_UI_display_error=0; exact CPU states, stick/touch/13 toolbar hitboxes/modal cancel/bars/projection/resources",
+        "Full-scene optical diagnostic: 9/12 within stated raster bounds, max_display_error=131; not a Windows screenshot or full-ending acceptance",
+        "PASS scene geometry pairing: 12/12 camera/projection, all actor local/world/parent matrices and submitted queue topology agree",
+        "Draw stage PASS: 3392 actual GPU pass checks, 136 modal movie frame changes, 24 explicit phase7 empty readbacks; redraw retains video"
+      ]
+    }
+  ],
+  "build": {
+    "nro": "build-switch/biko3-preview.nro",
+    "bytes": 15839288,
+    "sha256": "042e93e3037a170732f388cbf7d25cc99298b0d690a108daa3a3f89b5d3b715b",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0
+  },
+  "remaining": [
+    "Other independent ending loaders and parent controllers",
+    "Natural ending transitions and unlock writeback",
+    "Full-picture optical matching: 9/12 pairs pass existing bounds; all12 UI/matrix/queue pairs match",
+    "Switch ending hardware and complete-route verification"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-29",
+  "scope": "Normal ending actual phase root selection and draw-stage video preparation; no complete parent controller, natural ending or Switch hardware claim.",
+  "passed": true,
+  "host_and_asan_vulkan_each": {
+    "paired_viewports": 12,
+    "actual_scene_frames": 3368,
+    "prepared_gpu_pass_checks": 3392,
+    "modal_video_frame_changes": 136,
+    "explicit_phase7_clear_readbacks": 24,
+    "ui_rgba_bytes": 102988800,
+    "changed_ui_display_pixels": 0,
+    "max_ui_display_error": 0,
+    "full_scene_optical_passed": 11,
+    "full_scene_optical_total": 12,
+    "full_scene_max_display_error": 18,
+    "full_scene_optical_acceptance": false,
+    "exit_confirmation_frames": 196,
+    "exit_curtain_frames": 124,
+    "exit_audio_frames": 436800,
+    "shared_rng_total_draws": 38,
+    "gpu_allocation_baseline_restored": true,
+    "asan_detect_leaks": false
+  },
+  "original_root_dispatch": {
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "cases": 18000,
+    "native_executions": 17131,
+    "rejected_missing_gallery_roots": 869,
+    "flow_values": 256,
+    "event_handoffs": 3279,
+    "media_render_event_leaves_observed": true
+  },
+  "architecture_tests": 2,
+  "build": {
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 15794232,
+    "sha256": "ad230b01a2e26486186691b9aa8c9f3cd0f72a0c9007e0166a05414bc28ef4ca",
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0
+  },
+  "frozen_ui_delivery_sha256": "c31dc6f0565617fc51602c850e892d0fa950f514c394e5d530c1c2368ada3f68",
+  "full_test_host_run": false,
+  "new_switch_hardware_validation": false,
+  "logs": [
+    "local/ending-draw-stage-host-viewport-v2.log",
+    "local/ending-draw-stage-asan-viewport-v2.log",
+    "local/ending-draw-stage-host-exit-v2.log",
+    "local/ending-draw-stage-asan-exit-v2.log",
+    "local/ending-draw-stage-original.log",
+    "local/ending-draw-stage-architecture.log",
+    "local/ending-draw-stage-switch-build.log"
+  ],
+  "retained_failure_log": "local/ending-draw-stage-host-viewport.log",
+  "retained_failure_reason": "Test expected the modal phase change one frame late; native common control changes phase before scene preparation. Assertion timing was corrected, not relaxed.",
+  "source_read_blocks": 3,
+  "source_read_block_error": "因 OpenAI 无法确定请求的安全状态，已拦截此工具调用。",
+  "port_complete": false
+}

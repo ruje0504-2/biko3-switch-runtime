@@ -27,6 +27,12 @@ typedef struct {
 typedef struct {
   float start, end, source;
 } BkClipTiming;
+/* Current per-instance source/rate and authored duration/end. This is a
+ * read-only snapshot for controllers' look-ahead tests, not a frame advance. */
+typedef struct {
+  int32_t duration;
+  float end, source, rate;
+} BkClipPrediction;
 enum { BK_CLIP_EDIT_CHAIN = 1, BK_CLIP_EDIT_NEXT = 2, BK_CLIP_EDIT_SOURCE = 4 };
 typedef struct {
   unsigned slot, fields;
@@ -43,6 +49,23 @@ int bk_clip_edit(BkClipPlayer *, const BkClipEdit *, size_t count,
                  char error[256]);
 int bk_clip_link(const BkClipPlayer *, unsigned slot, int32_t *chain,
                  int32_t *next);
+/* Direct controller writes to elapsed/source only. This does not request a
+ * clip, advance time, reset blend state or invalidate an ANIM sample cache. */
+int bk_clip_set_clock(BkClipPlayer *, unsigned slot, float elapsed, float source,
+                       char error[256]);
+typedef enum {
+  BK_CLIP_PLAIN_SCHEDULED, /*402e18: normal elapsed/loop/4025b9 chain*/
+  BK_CLIP_PLAIN_SOURCE,    /*4e18ad: source advance/clamp only*/
+  BK_CLIP_PLAIN_FORCE_CHAIN /*4a9019: elapsed/loop with unconditional4a8f2d*/
+} BkClipPlainMode;
+/* These three original callers always submit a plain pose. They retain the
+ * shared first-call suppression and clear the fixed-call counter, but never
+ * consume a nontrivial blend clock. SOURCE writes elapsed only when clamping
+ * past the endpoint; FORCE_CHAIN can select a well-formed empty descriptor.
+ * Automatic selection still submits the old descriptor on the current call.
+ * Output/state are preserved on failure; actor visibility is caller-owned. */
+int bk_clip_advance_plain(BkClipPlayer *, float seconds, BkClipPlainMode,
+                           BkClipSample *, char error[256]);
 
 BkClipSet *bk_clip_set_decode(const void *bytes, size_t size, char error[256]);
 void bk_clip_set_destroy(BkClipSet *set);
@@ -114,6 +137,8 @@ int bk_clip_state(const BkClipPlayer *player, BkClipState *state);
  * callers validate values actually used by their branch. No clock changes. */
 int bk_clip_timing(const BkClipPlayer *player, unsigned slot,
                    BkClipTiming *timing);
+int bk_clip_prediction(const BkClipPlayer *, unsigned slot,
+                       BkClipPrediction *);
 /* Native per-slot +64 completion/loop counter; the requested slot may
  * differ from the active slot after chaining. Read without selecting. */
 int bk_clip_loops(const BkClipPlayer *, unsigned slot, int32_t *loops);

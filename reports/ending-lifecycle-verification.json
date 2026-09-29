@@ -1,0 +1,188 @@
+{
+  "date": "2026-09-28",
+  "passed": true,
+  "scope": "Ending entry saved-table copy, owned audio stop/deferred GPU retirement; not full ending completion",
+  "original_reference": {
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "entry_copy_call": "4eb8f6 -> 50ca48 after 4cc582, before first ending frame",
+    "saved_bytes": 40,
+    "evidence": [
+      "local/ending-load.asm",
+      "local/unlock-full.asm",
+      "reports/unlock-storage-verification.json"
+    ],
+    "new_original_oracle_run": false
+  },
+  "runtime_verification": [
+    {
+      "build": "host",
+      "case": "gallery0",
+      "exit_code": 0,
+      "command": [
+        "build/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0"
+      ],
+      "log": "local/ending-lifecycle-host-gallery0.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 51 stopped/13 retained voices, 64 reused voices survive retirement, final RGBA exact"
+    },
+    {
+      "build": "host",
+      "case": "gallery1",
+      "exit_code": 0,
+      "command": [
+        "build/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "1"
+      ],
+      "log": "local/ending-lifecycle-host-gallery1.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=1 frames=64 draws=6695 skin=520 audio_frames=63360 allocations=774; 51 stopped/13 retained voices, 64 reused voices survive retirement, final RGBA exact"
+    },
+    {
+      "build": "host",
+      "case": "story",
+      "exit_code": 0,
+      "command": [
+        "build/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0",
+        "--story"
+      ],
+      "log": "local/ending-lifecycle-host-story.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=story variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 51 stopped/13 retained voices, 64 reused voices survive retirement, final RGBA exact"
+    },
+    {
+      "build": "host",
+      "case": "reload-pcm",
+      "exit_code": 0,
+      "command": [
+        "build/ending-reload-audio-probe",
+        "local/game/MAINDIR/Data",
+        "local/ending-reload-audio-trace.txt"
+      ],
+      "log": "local/ending-lifecycle-host-reload-pcm.log",
+      "tail": "PASS ending reload PCM: 10 profiles/2400 frames, 1640 native pauses/40 voice waits/1720 resumes/40 aliases; 3248640 exact PCM samples, FNVa147043ab2164e07; 64 cursor/status slots and ten retirements"
+    },
+    {
+      "build": "host",
+      "case": "front",
+      "exit_code": 0,
+      "command": [
+        "build/front-flow-probe",
+        "local/game/MAINDIR/Data",
+        "build/ending-lifecycle-front-host",
+        "build/ending-lifecycle-front-host.rgba"
+      ],
+      "log": "local/ending-lifecycle-host-front.log",
+      "tail": "Retired resources collection begin [flow50 prev04 group0 area0 outcome0; GPU alloc1181 peak1181 bytes84987082 peak87731098]\nRetired resources collection complete [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nFlow load target01 begin [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nOriginal menu scene loaded [flow50 prev04 group0 area0 outcome0; GPU alloc52 peak1181 bytes60239752 peak87731098]\nPASS original-front-flow title=212 selection=273 dialogue=1514 loading=195 opening=498 pause=106 return-title=111 photos=2"
+    },
+    {
+      "build": "asan",
+      "case": "gallery0",
+      "exit_code": 0,
+      "command": [
+        "build/asan-static/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0"
+      ],
+      "log": "local/ending-lifecycle-asan-gallery0.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 51 stopped/13 retained voices, 64 reused voices survive retirement, final RGBA exact"
+    },
+    {
+      "build": "asan",
+      "case": "gallery1",
+      "exit_code": 0,
+      "command": [
+        "build/asan-static/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "1"
+      ],
+      "log": "local/ending-lifecycle-asan-gallery1.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=gallery variant=1 frames=64 draws=6695 skin=520 audio_frames=63360 allocations=774; 51 stopped/13 retained voices, 64 reused voices survive retirement, final RGBA exact"
+    },
+    {
+      "build": "asan",
+      "case": "story",
+      "exit_code": 0,
+      "command": [
+        "build/asan-static/ending-normal-scene-probe",
+        "local/game/MAINDIR/Data",
+        "0",
+        "--story"
+      ],
+      "log": "local/ending-lifecycle-asan-story.log",
+      "tail": "Vulkan device: Apple M4; driver: MoltenVK (1.4.2), ID 14\nRenderer ready: 64x48, 1 images, explicit Vulkan graphics pipeline\nending normal scene PASS entry=story variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 51 stopped/13 retained voices, 64 reused voices survive retirement, final RGBA exact"
+    },
+    {
+      "build": "asan",
+      "case": "reload-pcm",
+      "exit_code": 0,
+      "command": [
+        "build/asan-static/ending-reload-audio-probe",
+        "local/game/MAINDIR/Data",
+        "local/ending-reload-audio-trace.txt"
+      ],
+      "log": "local/ending-lifecycle-asan-reload-pcm.log",
+      "tail": "PASS ending reload PCM: 10 profiles/2400 frames, 1640 native pauses/40 voice waits/1720 resumes/40 aliases; 3248640 exact PCM samples, FNVa147043ab2164e07; 64 cursor/status slots and ten retirements"
+    },
+    {
+      "build": "asan",
+      "case": "front",
+      "exit_code": 0,
+      "command": [
+        "build/asan-static/front-flow-probe",
+        "local/game/MAINDIR/Data",
+        "build/ending-lifecycle-front-asan",
+        "build/ending-lifecycle-front-asan.rgba"
+      ],
+      "log": "local/ending-lifecycle-asan-front.log",
+      "tail": "Retired resources collection begin [flow50 prev04 group0 area0 outcome0; GPU alloc1181 peak1181 bytes84987082 peak87731098]\nRetired resources collection complete [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nFlow load target01 begin [flow50 prev04 group0 area0 outcome0; GPU alloc19 peak1181 bytes54447372 peak87731098]\nOriginal menu scene loaded [flow50 prev04 group0 area0 outcome0; GPU alloc52 peak1181 bytes60239752 peak87731098]\nPASS original-front-flow title=212 selection=273 dialogue=1514 loading=195 opening=498 pause=106 return-title=111 photos=2"
+    }
+  ],
+  "scene_assertions": {
+    "owned_voices_stopped": 51,
+    "other_voices_retained": 13,
+    "reused_voices_survive_repeated_stop_and_destroy": 64,
+    "submitted_audio_preserved": true,
+    "stopped_scene_updates_rejected": true,
+    "final_rgba_exact_after_stop": true,
+    "scene_state_unchanged_after_stop": true,
+    "gpu_allocations_return_to_baseline": true,
+    "saved_other_groups_and_last_two_flags_preserved": true,
+    "caller_table_not_borrowed": true,
+    "missing_story_table_rejected": true,
+    "fixture_not_natural_ending_completion": true
+  },
+  "front_flow_rgba_sha256": {
+    "host": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+    "asan": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f"
+  },
+  "reload_pcm_samples_per_build": 3248640,
+  "reload_pcm_fnv": "a147043ab2164e07",
+  "architecture_tests_passed": 2,
+  "ctest_passed": [
+    "unlock-file",
+    "ending-reload"
+  ],
+  "asan_options": "detect_leaks=0",
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "27513a2f0d78a2ed97a136866d6a0d6d0e8c374f32ca729ec9a7159768573cba",
+    "undefined_symbols": 0,
+    "nro": "build-switch/biko3-preview.nro",
+    "hash_verified": true,
+    "hardware_tested": false
+  },
+  "full_test_host_script_run": false,
+  "full_port_complete": false,
+  "pending": [
+    "original per-stage ending controllers",
+    "phase8/9",
+    "other loaders",
+    "UI resource reload/leave",
+    "natural ending-to-unlock persistence",
+    "settings/gallery completion",
+    "full Switch acceptance"
+  ]
+}

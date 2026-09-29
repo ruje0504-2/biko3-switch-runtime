@@ -96,9 +96,30 @@ int main(void) {
   world[28] = NAN;
   assert(!bk_skin_mesh_apply(mesh, world, 32, NULL, 0, error));
   assert(!memcmp(saved, bk_skin_mesh_vertices(mesh), sizeof(saved)));
-  world[28] = 0;
-  world[31] = 2;
+  world[28] = 10;
+  const float homogeneous[] = {nextafterf(1, 0), nextafterf(1, 2), 2, .5f, -2};
+  const float expected[] = {6.5f, 6.5f, 3.25f, 13, -3.25f};
+  for (unsigned i = 0; i < sizeof(homogeneous) / sizeof(homogeneous[0]); i++) {
+    world[31] = homogeneous[i];
+    assert(bk_skin_mesh_apply(mesh, world, 32, NULL, 0, error));
+    out = bk_skin_mesh_vertices(mesh);
+    assert(out[0].position[0] == expected[i] && out[0].normal[1] == 3);
+    assert(out[4].position[0] == 999 && out[4].beta == .7f);
+  }
+  world[19] = .25f;
+  world[31] = 1;
+  assert(bk_skin_mesh_apply(mesh, world, 32, NULL, 0, error));
+  out = bk_skin_mesh_vertices(mesh);
+  assert(fabsf(out[0].position[0] - 26.0f / 7.0f) < 1e-6f);
+  assert(out[0].normal[1] == 3);
+  memcpy(saved, out, sizeof(saved));
+  world[31] = -.75f; /* p.x=3 produces W=0 only on the second influence. */
   assert(!bk_skin_mesh_apply(mesh, world, 32, NULL, 0, error));
+  assert(!memcmp(saved, bk_skin_mesh_vertices(mesh), sizeof(saved)));
+  world[19] = 0;
+  world[31] = 0;
+  assert(!bk_skin_mesh_apply(mesh, world, 32, NULL, 0, error));
+  assert(!memcmp(saved, bk_skin_mesh_vertices(mesh), sizeof(saved)));
   world[31] = 1;
   assert(!bk_skin_mesh_apply(mesh, world, 31, NULL, 0, error));
   assert(!bk_skin_mesh_apply(mesh, world, 32, vertices, 4, error));

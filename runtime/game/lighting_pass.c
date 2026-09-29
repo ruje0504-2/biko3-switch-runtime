@@ -6,9 +6,10 @@ static int valid_light(const BkPassLight *l) {
       l->ambient_rank > 2)
     return 0;
   for (unsigned j = 0; j < 3; ++j)
-    /* Authored selection lights include radiance1.08. Native color packing
-     * also allows values above1; bound only its signed integer conversion. */
-    if (!isfinite(l->diffuse[j]) || l->diffuse[j] < 0 ||
+    /* Authored selection lights exceed1 and third-ending lights are signed.
+     * Bound the original signed integer conversion, not the light color. */
+    if (!isfinite(l->diffuse[j]) ||
+        (double)l->diffuse[j] * 255 < INT32_MIN ||
         (double)l->diffuse[j] * 255 > INT32_MAX)
       return 0;
   return 1;
@@ -16,7 +17,7 @@ static int valid_light(const BkPassLight *l) {
 static uint32_t color(const BkPassLight *l) {
   uint32_t result = 0xff000000;
   for (unsigned i = 0; i < 3; ++i)
-    result |= (uint32_t)((double)l->diffuse[i] * 255) << (16 - i * 8);
+    result |= (uint32_t)(int32_t)((double)l->diffuse[i] * 255) << (16 - i * 8);
   return result;
 }
 static unsigned lower(unsigned c) {

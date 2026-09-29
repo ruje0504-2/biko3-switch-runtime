@@ -1,6 +1,7 @@
 #ifndef BK_SCENE_ENDING_STATE_H
 #define BK_SCENE_ENDING_STATE_H
 #include "game/ending_special.h"
+#include "scene/ending_retained.h"
 #include "scene/ending_ui_frame.h"
 /* Process-retained scalar/table ownership for the recovered ending modules.
  * No GPU/model/audio handles: their previous owners must be retired before
@@ -27,7 +28,13 @@ typedef struct {
   int32_t alternate[2], unavailable[2];            /*6afd38/6afd0c*/
   char model_paths[10][260]; /*70c8fc: original leading backslash retained*/
   float special_cameras[BK_ENDING_SPECIAL_CAMERAS][4]; /*71944c*/
+  BkEndingRetained retained;
+  int32_t eye_lower, face_mode; /*721df8/721dfc; shared across stage adapters*/
 } BkEndingState;
+/* Once per process/session, before any entry. Reproduces all represented
+ * PE/CRT initial values; subsequent4cc582 entries retain outside-block state.
+ * Not a resource loader or a replacement for the stage-specific leave calls. */
+void bk_ending_state_initialize(BkEndingState *);
 typedef struct {
   void *context;
   int (*warp)(void *, float x, float y, char error[256]); /*actual4b768d*/
@@ -44,6 +51,11 @@ int bk_ending_state_begin(BkEndingState *, BkFadeSprite *previous_overlay,
                           unsigned group, int8_t variant, float scale,
                           const int32_t window_origin[2],
                           const BkEndingStateOps *, char error[256]);
+/* Complete scalar/table resets4e1c8f/47dbcc/49739a/47a033/482f91/48d7f2.
+ * One operation at its original call boundary; invalid operations preserve
+ * all state. Existing aliases are reset in place. Does not stop audio,
+ * release GPU resources, change the flow, or clear saved/working unlocks. */
+int bk_ending_state_leave(BkEndingState *, BkEndingLeave, char error[256]);
 /* Bind the existing entry/reload dispatch to this actual state, with process
  * preferences/common fields still borrowed. No copied flags or new curtain. */
 int bk_ending_state_entry_bindings(BkEndingState *, uint8_t *option_a,

@@ -19,4 +19,7 @@ const char *bk_ending_normal_node_name(unsigned index);
 /*4cc582 common background table55f4bc, after normal variant normalization.
  * The group1 special-background flag bypasses this table at the caller. */
 const char *bk_ending_normal_background(unsigned group, unsigned variant);
+/*57551c: original five groups of fourteen preferences, shared by the
+ * action controller and normal UI feedback. -1 means an invalid index. */
+int bk_ending_normal_preference(unsigned group, unsigned index);
 #endif

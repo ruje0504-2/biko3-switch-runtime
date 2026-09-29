@@ -6,6 +6,11 @@
 void bk_matrix_multiply(float out[16], const float a[16], const float b[16]);
 void bk_matrix_point(float out[4], const float point[3],
                      const float matrix[16]);
+/* 0x522b0d stores XYZ and W as floats, then divides XYZ only when the stored
+ * W differs from one by more than 1e-5f. Zero/nonfinite W or nonfinite XYZ
+ * is rejected without changing out; raw clip coordinates use matrix_point. */
+int bk_matrix_transform_coord(float out[3], const float point[3],
+                              const float matrix[16]);
 /* Finite nonsingular 4x4 inverse; failure leaves output unchanged. Unlike
  * camera_view this accepts authored constant-W and projective matrices. */
 int bk_matrix_inverse(float out[16], const float matrix[16]);

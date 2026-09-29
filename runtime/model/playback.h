@@ -45,6 +45,15 @@ int bk_model_playback_request_mode(BkModelPlayback *, unsigned slot,
  */
 int bk_model_playback_edit_clips(BkModelPlayback *, const BkClipEdit *, size_t,
                                  char error[256]);
+int bk_model_playback_set_clock(BkModelPlayback *, unsigned slot,
+                                 float elapsed, float source, char error[256]);
+/* Plain402e18/4e18ad/4a9019 clock plus actual ANIM submission, retaining the
+ * existing plain-time cache. No MORP/material service or world publication
+ * is implied. Timeline/locals and effect sample commit together. */
+int bk_model_playback_advance_plain(BkModelPlayback *, float seconds,
+                                     BkClipPlainMode,
+                                     const BkModelRootTransform *,
+                                     BkPlaybackEffects *, char error[256]);
 int bk_model_playback_link(const BkModelPlayback *, unsigned slot,
                            int32_t *chain, int32_t *next);
 /* Advance XAN and publish the composed pose atomically. Invalid input or
@@ -99,6 +108,8 @@ int bk_model_playback_state(const BkModelPlayback *playback,
                             BkClipState *state);
 int bk_model_playback_timing(const BkModelPlayback *playback, unsigned slot,
                              BkClipTiming *timing);
+int bk_model_playback_prediction(const BkModelPlayback *, unsigned slot,
+                                 BkClipPrediction *);
 int bk_model_playback_loops(const BkModelPlayback *, unsigned, int32_t *);
 /* Ordered non-root local edits and hierarchy composition commit atomically;
  * timeline/plain-time cache are unchanged. Edits persist through placement,

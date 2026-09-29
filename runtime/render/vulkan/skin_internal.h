@@ -50,8 +50,16 @@ static void skin_queue(BkRenderer *r, BkGpuMesh *m) {
     m->skin_pending = 1;
   }
 }
-static int skin_affine(const float *p) {
-  return p[3] == 0 && p[7] == 0 && p[11] == 0 && p[15] == 1;
+static int skin_unit_w(const float *p) {
+  double delta = (double)p[15] - 1.0;
+  return p[3] == 0 && p[7] == 0 && p[11] == 0 &&
+         delta >= -(double)1e-5f && delta <= (double)1e-5f;
+}
+static int skin_coordinate_valid(const float *matrix, const float position[3]) {
+  if (skin_unit_w(matrix))
+    return 1;
+  float transformed[3];
+  return bk_matrix_transform_coord(transformed, position, matrix);
 }
 BkSkinPalette *bk_skin_palette_create(BkRenderer *r, unsigned count,
                                       char error[256]) {
@@ -100,20 +108,37 @@ int bk_skin_palette_update(BkRenderer *r, BkSkinPalette *p, const float *world,
     snprintf(error, 256, "invalid skin palette update");
     return 0;
   }
+  int check_coordinates = 0;
   for (unsigned i = 0; i < count; i++) {
     for (unsigned j = 0; j < 16; j++)
       if (!isfinite(world[i * 16 + j])) {
         snprintf(error, 256, "nonfinite skin matrix");
         return 0;
       }
-    if (p->used[i] && !skin_affine(world + i * 16)) {
-      snprintf(error, 256, "non-affine skin bone");
-      return 0;
-    }
+    if (p->used[i] && !skin_unit_w(world + i * 16))
+      check_coordinates = 1;
   }
   size_t bytes = (size_t)count * 64;
   if (!memcmp(world, p->matrices.mapped, bytes))
     return 1;
+  /* Ordinary affine/near-unit palettes never scan vertices. For a genuine
+   * homogeneous correction, reject invalid bound coordinates before any
+   * upload or dispatch is queued; the previous palette stays intact. */
+  if (check_coordinates)
+    for (BkGpuMesh *m = p->meshes; m; m = m->next_palette) {
+      const uint32_t *header = m->skin_weights.mapped;
+      unsigned weight_count = header[m->vertex_count + 1];
+      const BkGpuSkinWeight *weights =
+          (const void *)(header + m->vertex_count + 2);
+      for (unsigned i = 0; i < weight_count; i++) {
+        const BkGpuSkinWeight *w = weights + i;
+        if (!skin_coordinate_valid(world + w->bone * 16, w->position)) {
+          snprintf(error, 256, "invalid skin homogeneous coordinate at bone%u",
+                   w->bone);
+          return 0;
+        }
+      }
+    }
   if (!wait_frame(r, error))
     return 0;
   memcpy(p->matrices.mapped, world, bytes);
@@ -143,8 +168,7 @@ int bk_lit_mesh_skin(BkRenderer *r, BkGpuMesh *m, BkSkinPalette *p,
   }
   for (unsigned i = 0; i < count; i++) {
     const BkGpuSkinWeight *w = weights + i;
-    if (w->bone >= p->count || w->reset > 1 || !isfinite(w->weight) ||
-        !skin_affine((float *)p->matrices.mapped + w->bone * 16)) {
+    if (w->bone >= p->count || w->reset > 1 || !isfinite(w->weight)) {
       snprintf(error, 256, "invalid GPU skin weight/bone");
       return 0;
     }
@@ -153,6 +177,12 @@ int bk_lit_mesh_skin(BkRenderer *r, BkGpuMesh *m, BkSkinPalette *p,
         snprintf(error, 256, "nonfinite GPU skin input");
         return 0;
       }
+    if (!skin_coordinate_valid((float *)p->matrices.mapped + w->bone * 16,
+                               w->position)) {
+      snprintf(error, 256, "invalid GPU skin homogeneous coordinate at bone%u",
+               w->bone);
+      return 0;
+    }
   }
   if (!wait_frame(r, error))
     return 0;

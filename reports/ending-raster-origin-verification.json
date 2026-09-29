@@ -1,0 +1,55 @@
+{
+  "date": "2026-09-29",
+  "production_fix_applied": false,
+  "existing_thresholds_changed": false,
+  "default_probe_exit_means_ui_only": true,
+  "production": {
+    "full_scene_pairs_passed": 9,
+    "pairs": 12,
+    "max_rgb_error": 131,
+    "ui_max_rgb_error": 0,
+    "geometry_pairs_equal": 12,
+    "scene_frames": 3368,
+    "exit": 0,
+    "log": "local/ending-raster-production-host.log"
+  },
+  "zero_origin_fixture": {
+    "host_exit": 0,
+    "asan_ubsan_exit": 0,
+    "pairs_each": 12,
+    "full_scene_max_rgb_error_each": 0,
+    "frames_each": 3368,
+    "gpu_pass_checks_each": 3392,
+    "supports_special_dual_view": false,
+    "logs": [
+      "local/ending-raster-zero-origin-host.log",
+      "local/ending-raster-zero-origin-asan.log"
+    ],
+    "not_production_layout": true
+  },
+  "same_size_repeat": {
+    "output": [
+      960,
+      720
+    ],
+    "frames": 326,
+    "full_scene_max_rgb_error": 0,
+    "log": "local/ending-raster-repeat-story720.log"
+  },
+  "shifted_story720": {
+    "output": [
+      1280,
+      720
+    ],
+    "content": [
+      960,
+      720
+    ],
+    "capture_pixels": 2073600,
+    "changed_rgb_pixels": 77,
+    "unmatched_pixels": 1,
+    "max_rgb_error": 49,
+    "log": "local/ending-raster-shift-story720.log"
+  },
+  "conclusion": "On the tested host backend, viewport-origin translation triggers the residual difference. Framebuffer extent alone with a common zero origin produces exact RGB matches. The low-level raster/interpolation/depth/sampling cause is not established; no production fix or Switch/Windows visual acceptance is claimed."
+}

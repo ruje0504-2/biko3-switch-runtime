@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "manual_gain_before": 3,
+  "manual_gain_after": 6,
+  "controls": {
+    "L+right_stick": "orbit",
+    "R+right_stick": "distance/height",
+    "camera_cursor": "L/R",
+    "confirm_cancel": "A/B"
+  },
+  "validation": "local/ending-camera-six-icons-4czawiqn/result.json",
+  "per_build": {
+    "real_story_group": 0,
+    "sizes": 3,
+    "opening_frames": 3651,
+    "manual_input_checks": 108,
+    "rates_hz": [
+      30,
+      60,
+      120
+    ],
+    "selector_fixture_cases": 384,
+    "cursor_gpu_draws": 96,
+    "application_entries": 2,
+    "confirmation_frames": 196,
+    "fade_frames": 124,
+    "audio_frames": 436800,
+    "ctest_passed": 3
+  },
+  "architecture_checks": 2,
+  "host_asan_identical": true,
+  "automatic_opening_unchanged": true,
+  "source_sha256": {
+    "runtime/scene/ending_normal_session.c": "9b462ec49d1f4b35cf19b20fb6045d0b3ea509bd332d8f0f356f604ff657e637",
+    "runtime/core/input.h": "f44c4223aab5d6ab277d4ced7685f08b9a559a677a5cc424abefb99ab516b368",
+    "runtime/platform/switch.c": "8ced19687aceaeb981fa43ba9f0f7b37c35042b59357fe448e2d902499e6087f",
+    "README.md": "532ba18ee9a8fc1bf6a3cfba342c44b8019861a95205ca94b37b62462eee8ace"
+  },
+  "diagnostic": "local/ending-camera-six-icons-4czawiqn/camera_check.c",
+  "diagnostic_sha256": "b394d26400e80b9374137f545cbac7826070906a25e04bbdb27745831269e944",
+  "artifacts": {
+    "build-switch/biko3-preview.elf": {
+      "bytes": 33815008,
+      "sha256": "9440d26e0bf715573775e7f73fc759d3384928904ee8f82c469c65da87f0b277"
+    },
+    "build-switch/biko3-preview.nro": {
+      "bytes": 15953976,
+      "sha256": "f406978e3daee3100cf14dcdda3fe0dcfa380c70033403b1aa89268a66d56a4d"
+    }
+  },
+  "aarch64": true,
+  "undefined_symbols": 0,
+  "nvk_CreateDevice_linked": true,
+  "mesa": {
+    "commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "version": "26.2.2",
+    "github_run": 35860399051,
+    "github_artifact": 10750582639,
+    "archive": "mesa-sdk.zip",
+    "url": "https://nightly.link/danfromtico/mesa-switch/actions/runs/35860399051/mesa-26.2.2-switch-unified-horizon-sdk.zip",
+    "sha256": "230b777e49e6a7efa43b13897d7abc5eec54bea68ff1732e9ff1ef8c63b1adeb"
+  },
+  "awake_process": "60608 Sun Sep 27 05:12:11 2026     /usr/bin/caffeinate -ims",
+  "leak_detection": false,
+  "new_switch_hardware_validation": false,
+  "full_port_complete": false,
+  "pushed": false,
+  "full_package_created": false,
+  "scope": "Manual camera gain and camera cursor modifier regression; original UI selector gates are explicit fixtures, not natural entry into all stages. Actual Japanese normal-story opening and existing normal application A/B exit path tested. Not full-game or Switch hardware acceptance."
+}

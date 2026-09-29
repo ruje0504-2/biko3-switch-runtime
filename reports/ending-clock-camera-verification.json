@@ -1,0 +1,224 @@
+{
+  "date": "2026-09-28",
+  "status": "implemented_and_verified_scoped_changes_full_port_incomplete",
+  "full_port_complete": false,
+  "native_reference_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "reset_alias_fix": {
+    "address": "0x6afd14",
+    "owner": "ui_controller.hints.movement_ready",
+    "removed_duplicate": "retained.stage2.word_6afd14",
+    "neighbor_scroll_preserved": true
+  },
+  "native_oracles": {
+    "leave": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "cases": 1200,
+      "native_calls": 4200,
+      "ordered_sequences": 600,
+      "invalid_operations": 2400,
+      "mapped_regions": 169,
+      "compared_bytes": 197219400,
+      "native_written_bytes": 41493,
+      "max_error": 0,
+      "replaced_services": [],
+      "scope": "Execute all six original leave routines, including the real CRT memset.\nCompare every recovered ending field after each operation, preserving unrelated\nfields and padding. Memory-write observation checks that every non-stack native\nwrite has a modeled owner. No leaf service, resource or controller is replaced.\nThis proves retained-state resets, not the unfinished ending stage controllers.\n"
+    },
+    "entry": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 6000,
+      "mapped_regions": 169,
+      "bytes_per_snapshot": 46957,
+      "compared_bytes": 281742000,
+      "mutable_warp_callbacks": 858,
+      "tables_sha256": "f4022c9111f97cfd9e86d5205bd81e77e175b77905537c0ccd5b41d0ea8250b4",
+      "max_error": 0,
+      "scope": "Actual4cc582..4cc7e6 prefix: original memset/memcpy, fade request and table\nselection. Only platform pointer warp is observed. All mapped scalar fields\nare compared, including preserved addresses outside the native clear block.\nNo x86 resource-pointer clearing is claimed as portable object destruction.\n"
+    },
+    "reload": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "load_cases": 2000,
+      "release_cases": 2000,
+      "curtain_cases": 10000,
+      "services": 579272,
+      "mutated_service_states": 1900,
+      "final_image_constructions": 1046,
+      "early_returns": 779,
+      "exact": true,
+      "scope": "Original4d9354/4d9575 and4d679d..4d6e6e resource/curtain transitions.\nNested selectors and45-effect loops execute native instructions unchanged.\nOnly actual IO/scene/light/scheduler/DirectSound leaves are observed services.\nFull4d499b UI and real resource lifecycles are not claimed by this oracle.\n"
+    },
+    "opening_camera": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "profiles": 50,
+      "frames": 6000,
+      "matrices": 361500,
+      "key_calls": 19400,
+      "source_mutations": 500,
+      "completions": 5300,
+      "end_minus_nine_boundary_frames": 1800,
+      "max_relative_error": 0.0,
+      "scope": "Complete original4e0b7e with retail cam00_03 XAN/model and native\nanimation, frame/aim and end-source writes. Only input is supplied. Compare\ncamera, all secondary local/world/parent caches and playback before/after\ndraw. A stationary target is explicit; no complete ending lifecycle claimed.\n"
+    },
+    "existing_camera": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "orbit_steps": 5000,
+      "fixed_steps": 5000,
+      "track_steps": 5000,
+      "manual_steps": 5000,
+      "atomic_rejections": 200,
+      "max_relative_error": 0.0,
+      "scope": "Original4bb0a4,4df411,4e1711,4e1d16 with native trig/D3DX/frame/aim arithmetic.\nInput and FOV are observed boundaries. 4e1711 animation advance is an explicit\nservice; track/target values are previously published fixtures, not a complete\nanimated event scene. No request or pre-publication is allowed in that path.\n"
+    }
+  },
+  "camera_resource_probes": {
+    "configurations": [
+      "host",
+      "asan_ubsan"
+    ],
+    "existing_frames_each": 9000,
+    "existing_fnv": "81628feeabe22993",
+    "opening_frames_each": 1200,
+    "late_input_failure_prefixes_each": 50,
+    "logs": [
+      "local/ending-opening-camera-host.log",
+      "local/ending-opening-camera-asan.log"
+    ],
+    "stationary_target_fixture": true,
+    "production_parent_controller_connected": false
+  },
+  "clock": {
+    "application_game_wall_time_independent": true,
+    "diagnostic_constructor_plus_64_steps_ms": 1083,
+    "old_per_frame_truncation_ms": 1040,
+    "application_fixture_game_step_seconds": 0.016666666666666666,
+    "application_fixture_wall_step_seconds": 0.05,
+    "initial_millisecond_boundaries": [
+      "0x7fffffff",
+      "0xffffffff"
+    ],
+    "unsigned_restart_addition": true,
+    "first_present_and_redraw_hold_clock": true,
+    "nonfinite_and_backward_time_rejected_without_state_change": true
+  },
+  "application_probes": {
+    "host": {
+      "gallery0": {
+        "log": "local/ending-clock-gallery0-host.log",
+        "log_sha256": "722e46b7ad64f1863d55cc3fc95debf2cbff2313c0a2ad92c04cbbd4eb61d430",
+        "result": "ending normal scene PASS entry=gallery variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+      },
+      "gallery1": {
+        "log": "local/ending-clock-gallery1-host.log",
+        "log_sha256": "efa85346d316f2bf45f3856ef7388c055d3491f269111b1ec3be22f082341193",
+        "result": "ending normal scene PASS entry=gallery variant=1 frames=64 draws=6695 skin=520 audio_frames=63360 allocations=774; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+      },
+      "story": {
+        "log": "local/ending-clock-story-host.log",
+        "log_sha256": "933a470937e5da9bede55bc06a10192a4bcf8dc9a4dc85609f4c5dd6cfb4435a",
+        "result": "ending normal scene PASS entry=story variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+      },
+      "confirm": {
+        "log": "local/ending-clock-confirm-host.log",
+        "log_sha256": "bfd8edd8f5ddede3e6c45f43d179637866fea4992e9a7b30014fbf679a84f3d4",
+        "result": "ending normal scene PASS entry=story variant=0 frames=64 draws=51506 skin=1775 audio_frames=300480 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=247"
+      },
+      "front": {
+        "log": "local/ending-clock-front-host.log",
+        "log_sha256": "c73fa1a73df2c04f855a17f7851738debb6d1d07c2392d03a9831dd218853622",
+        "result": "PASS original-front-flow title=212 selection=273 dialogue=1514 loading=195 opening=498 pause=106 return-title=111 photos=2"
+      },
+      "exit": {
+        "log": "local/ending-clock-exit-host.log",
+        "log_sha256": "3c6e7a4bd5b4350c4b9dd35c3eeb8a45867e47c1cc55294eefcd59a51cc2ae41",
+        "result": "ending exit PASS: input->yes->flow50->title/reentry/flow58; confirmation_frames=196 fade_frames=124 audio_frames=436800; shared curtain, final redraw exact,52 stopped/guard retained, unlock file unchanged, GPU baseline restored"
+      }
+    },
+    "asan": {
+      "gallery0": {
+        "log": "local/ending-clock-gallery0-asan.log",
+        "log_sha256": "722e46b7ad64f1863d55cc3fc95debf2cbff2313c0a2ad92c04cbbd4eb61d430",
+        "result": "ending normal scene PASS entry=gallery variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+      },
+      "gallery1": {
+        "log": "local/ending-clock-gallery1-asan.log",
+        "log_sha256": "efa85346d316f2bf45f3856ef7388c055d3491f269111b1ec3be22f082341193",
+        "result": "ending normal scene PASS entry=gallery variant=1 frames=64 draws=6695 skin=520 audio_frames=63360 allocations=774; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+      },
+      "story": {
+        "log": "local/ending-clock-story-asan.log",
+        "log_sha256": "933a470937e5da9bede55bc06a10192a4bcf8dc9a4dc85609f4c5dd6cfb4435a",
+        "result": "ending normal scene PASS entry=story variant=0 frames=64 draws=10725 skin=520 audio_frames=63360 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=0"
+      },
+      "confirm": {
+        "log": "local/ending-clock-confirm-asan.log",
+        "log_sha256": "bfd8edd8f5ddede3e6c45f43d179637866fea4992e9a7b30014fbf679a84f3d4",
+        "result": "ending normal scene PASS entry=story variant=0 frames=64 draws=51506 skin=1775 audio_frames=300480 allocations=624; 52 stopped/12 retained voices, 64 reused voices survive retirement, final RGBA exact; confirmation_frames=247"
+      },
+      "front": {
+        "log": "local/ending-clock-front-asan.log",
+        "log_sha256": "c73fa1a73df2c04f855a17f7851738debb6d1d07c2392d03a9831dd218853622",
+        "result": "PASS original-front-flow title=212 selection=273 dialogue=1514 loading=195 opening=498 pause=106 return-title=111 photos=2"
+      },
+      "exit": {
+        "log": "local/ending-clock-exit-asan.log",
+        "log_sha256": "3c6e7a4bd5b4350c4b9dd35c3eeb8a45867e47c1cc55294eefcd59a51cc2ae41",
+        "result": "ending exit PASS: input->yes->flow50->title/reentry/flow58; confirmation_frames=196 fade_frames=124 audio_frames=436800; shared curtain, final redraw exact,52 stopped/guard retained, unlock file unchanged, GPU baseline restored"
+      }
+    }
+  },
+  "front_rgba_sha256": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+  "units": {
+    "normal": [
+      "ending-state",
+      "ending-camera"
+    ],
+    "asan_ubsan": [
+      "ending-state",
+      "ending-camera"
+    ],
+    "asan_log": "local/ending-clock-asan-units.log"
+  },
+  "architecture": {
+    "tests": 2,
+    "passed": true,
+    "log": "local/ending-opening-architecture.log"
+  },
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "42830f049bdc078c1ff5c8cec28e734266125a6289d117dc55a0fb8e163cbf0f",
+    "undefined_symbols": 0,
+    "bytes": 15786040,
+    "log": "local/ending-opening-switch-build.log"
+  },
+  "limitations": {
+    "full_test_host_sh_run": false,
+    "leak_sanitizer_enabled": false,
+    "asan_options": "detect_leaks=0",
+    "new_switch_hardware_verification": false,
+    "application_exit_uses_explicit_post_story_entry_fixture": true,
+    "unimplemented": [
+      "full4db608/4df6c0 and other ending controllers",
+      "4cf318 full live initialization tail",
+      "phase8",
+      "other ending loaders and in-place resource reload",
+      "natural ending-to-dialogue-to-unlock persistence",
+      "settings/gallery full flow",
+      "full Switch acceptance"
+    ],
+    "one_auxiliary_source_read_rejected": true,
+    "rejection_text": "因 OpenAI 无法确定请求的安全状态，已拦截此工具调用。",
+    "rejected_read_executed": false,
+    "whole_task_blocked": false
+  },
+  "delivery": {
+    "full_directory_refreshed": false,
+    "zip_created": false,
+    "pushed": false,
+    "awake_process_kept": true
+  }
+}

@@ -64,7 +64,8 @@ static int unlock(void *p, unsigned group, char e[256]) {
   BkFrontEnd *s = p;
   BkUnlockTable next;
   if (!s || !s->c.unlock_file || !s->c.ending_flags ||
-      !s->c.ending_flags_valid || !*s->c.ending_flags_valid)
+      !s->c.ending_flags_valid || !*s->c.ending_flags_valid ||
+      !s->c.ending_flags_group || group != *s->c.ending_flags_group)
     return fail(e, "ending unlock working row is not available");
   if (!bk_unlock_file_store(s->c.unlock_file, group, s->c.ending_flags,
                             &next, e))
@@ -146,6 +147,12 @@ void bk_front_end_destroy(BkFrontEnd *s) {
   free(s);
 }
 int bk_front_end_active(const BkFrontEnd *s) { return s ? s->active : 0; }
+int bk_front_end_unlocks(const BkFrontEnd *s, BkUnlockTable *out, char e[256]) {
+  if (!s || !out)
+    return fail(e, "missing saved unlock table owner");
+  *out = s->unlocked;
+  return 1;
+}
 int bk_front_end_result(const BkFrontEnd *s, BkDialogueResult *out,
                         char e[256]) {
   if (!s || !out)

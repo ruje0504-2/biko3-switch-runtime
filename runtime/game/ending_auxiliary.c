@@ -1,4 +1,5 @@
 #include "game/ending_auxiliary.h"
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 static int fail(char e[256], const char *why) {
@@ -9,7 +10,8 @@ static int expression(BkEndingAuxiliaryState *s, const BkEndingAuxiliaryOps *o,
                       int32_t a, int32_t b, char e[256]) {
   s->expression_a = a;
   s->expression_b = b;
-  return o->eyes(o->context, 1, e);
+  return o->eyes ? o->eyes(o->context, 1, e)
+                 : fail(e, "missing eye-selection service");
 }
 static int alternate_expression(BkEndingAuxiliaryState *s,
                                 const BkEndingFrameState *f,
@@ -25,7 +27,8 @@ static int audio(const BkEndingAuxiliaryOps *o, BkEndingAudioOperation kind,
                  unsigned slot, int32_t cue, int32_t bank, int32_t flags,
                  int32_t volume, int *playing, char e[256]) {
   BkEndingAudioCall c = {kind, slot, cue, bank, flags, volume};
-  return o->audio(o->context, &c, playing, e);
+  return o->audio ? o->audio(o->context, &c, playing, e)
+                  : fail(e, "missing audio service");
 }
 static int start_loop(const BkEndingAuxiliaryOps *o, int32_t volume,
                       char e[256]) {
@@ -179,6 +182,72 @@ int bk_ending_auxiliary_change(BkEndingAuxiliaryState *s, BkEndingFrameState *f,
 #undef VOICE
   *result = 1;
   return 1;
+}
+BkEndingAuxiliaryCycle bk_ending_auxiliary_cycle_initial(void) {
+  return (BkEndingAuxiliaryCycle){.scale = .02f, .countdown = 10};
+}
+int bk_ending_auxiliary_tick(BkEndingAuxiliaryState *s, BkEndingFrameState *f,
+                             BkEndingAuxiliaryCycle *cycle, float seconds,
+                             const int32_t *voice_volume,
+                             const BkEndingAuxiliaryTickOps *ops, char e[256]) {
+  if (!s || !f || !cycle || !voice_volume || !ops || !isfinite(seconds) ||
+      seconds < 0)
+    return fail(e, "invalid automatic-cycle bindings/time");
+  const BkEndingAuxiliaryOps *o = &ops->auxiliary;
+  f->camera_cached = -1;
+  f->camera_event = 0;
+  int reverse = s->direction != 0;
+  int32_t slot;
+  if (!o->active)
+    return fail(e, "missing active-clip service");
+  if (!o->active(o->context, &slot, e))
+    return 0;
+  if (slot != (reverse ? 11 : 7))
+    return 1;
+  BkEndingAuxiliaryPrediction prediction;
+  if (!ops->prediction)
+    return fail(e, "missing clip look-ahead service");
+  if (!ops->prediction(o->context, (unsigned)slot, &prediction, e))
+    return 0;
+  double ahead = reverse ? (double)seconds : 60.0 * (double)seconds;
+  ahead *= (double)prediction.rate;
+  ahead *= prediction.duration;
+  ahead *= (double)cycle->scale;
+  if (reverse)
+    ahead *= 60.0;
+  /* Original test accepts equality and unordered, not just source>=end. */
+  if ((double)prediction.end - ahead > (double)prediction.source)
+    return 1;
+  uint8_t byte = (uint8_t)((uint8_t)cycle->countdown - 1u);
+  memcpy(&cycle->countdown, &byte, 1);
+  if (cycle->countdown > 0)
+    return 1;
+  if (!o->request)
+    return fail(e, "missing configured clip request");
+  if (!o->request(o->context, reverse ? 14 : 13, e))
+    return 0;
+  s->direction = reverse ? 0 : 1;
+  index_set(s, reverse ? 2 : 3);
+  int32_t random;
+  if (!ops->random)
+    return fail(e, "missing shared random service");
+  if (!ops->random(o->context, &random, e))
+    return 0;
+  byte = (uint8_t)(random % 11 + 10);
+  memcpy(&cycle->countdown, &byte, 1);
+  int playing = 0;
+  if (!audio(o, BK_ENDING_AUDIO_VOICE, 0, reverse ? 10 : 9, 0, 0,
+             *voice_volume, &playing, e))
+    return 0;
+  if (!reverse && !alternate_expression(s, f, o, e))
+    return 0;
+  if (!o->write)
+    return fail(e, "missing source-rewind service");
+  unsigned first = reverse ? 10 : 6;
+  if (!o->write(o->context, first, BK_ENDING_CLIP_REWIND, 0, e) ||
+      !o->write(o->context, first + 1, BK_ENDING_CLIP_REWIND, 0, e))
+    return 0;
+  return !reverse || expression(s, o, 3, 3, e);
 }
 int bk_ending_audio_resource(unsigned group, int32_t variant, int32_t selection,
                              const BkEndingAudioCall *c, char pack[16],

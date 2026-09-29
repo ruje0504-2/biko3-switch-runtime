@@ -70,6 +70,10 @@ static uint32_t buttons(uint64_t raw) {
     result |= BK_BUTTON_STANCE;
   if (raw & HidNpadButton_ZL)
     result |= BK_BUTTON_SLOW;
+  if (raw & HidNpadButton_L)
+    result |= BK_BUTTON_CAMERA_ORBIT;
+  if (raw & HidNpadButton_R)
+    result |= BK_BUTTON_CAMERA_ADJUST;
   return result;
 }
 int bk_platform_poll(BkPlatform *p, BkInput *input) {

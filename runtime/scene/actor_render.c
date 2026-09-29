@@ -305,8 +305,14 @@ static int prepare(BkActorRender *a, const BkActorPose *pose,
     int translucent = !(opacity > .999999f && opacity < 1.000001f);
     part->sorted = sub->texture_count && (translucent || alpha);
     part->depth_write = !(sub->texture_count && translucent);
-    const BkMorphMesh *morph =
-        face ? bk_face_assets_mesh(face, i) : bk_morph_group_mesh(group, i);
+    const BkMorphMesh *face_mesh = face ? bk_face_assets_mesh(face, i) : NULL;
+    const BkMorphMesh *model_mesh = bk_morph_group_mesh(group, i);
+    /*Independent model/FAM owners are valid only for disjoint submeshes.
+     * Never silently drop a model effect because a face owner is present,
+     * or choose an arbitrary winner for two copies of the same vertices. */
+    if (face_mesh && model_mesh)
+      goto invalid;
+    const BkMorphMesh *morph = model_mesh ? model_mesh : face_mesh;
     if (morph && bk_morph_mesh_count(morph) != sub->vertex_count)
       goto invalid;
     BkLitVertex signature;
@@ -386,6 +392,14 @@ int bk_actor_render_prepare_morph(BkActorRender *a, const BkActorPose *pose,
                                   const float view[16],
                                   const float projection[16], char error[256]) {
   return prepare(a, pose, materials, NULL, morph, view, projection, error);
+}
+int bk_actor_render_prepare_effects(BkActorRender *a, const BkActorPose *pose,
+                                    const BkMaterialPose *materials,
+                                    const BkFaceAssets *face,
+                                    const BkMorphGroup *morph,
+                                    const float view[16],
+                                    const float projection[16], char error[256]) {
+  return prepare(a, pose, materials, face, morph, view, projection, error);
 }
 BkGpuMesh *bk_actor_render_mesh(BkActorRender *a, const BkModel *model,
                                 uint32_t submesh) {

@@ -13,9 +13,10 @@ import original_ending_reload_oracle as r
 from original_ending_control_oracle import STATE_ADDR,FLAG_ADDR,Warp
 from original_ending_auxiliary_oracle import ADDR
 from model_binding import ROOT,library
+from ending_retained_binding import Retained, regions as retained_regions
 I=C.c_int32;F=C.c_float;B=C.c_uint8;S=C.c_int8;P=C.POINTER
 class State(C.Structure):
- _fields_=[('frame',ui.t.Frame),('control',ui.t.Control),('auxiliary',ui.t.Auxiliary),('controller',ui.Controller),('selected',I),('stage3_state',I),('open',I),('contact_index',I),('gauge_y',F),('node_state',I*39),('targets',(I*2)*39),('points',(I*2)*3),('choices',I*3),('working',(B*8)*5),('speech_names',(C.c_char*32)*2),('normal_inputs',I*14),('normal_processed',I*14),('normal_ready',I),('normal_target',I),('next_mode',I),('normal_side',S),('final_state',S),('saved_toggles',B*4),('aux_inputs',I*2),('aux_config',(I*6)*5),('alternate',I*2),('unavailable',I*2),('model_paths',(C.c_char*260)*10),('special_cameras',(F*4)*108)]
+ _fields_=[('frame',ui.t.Frame),('control',ui.t.Control),('auxiliary',ui.t.Auxiliary),('controller',ui.Controller),('selected',I),('stage3_state',I),('open',I),('contact_index',I),('gauge_y',F),('node_state',I*39),('targets',(I*2)*39),('points',(I*2)*3),('choices',I*3),('working',(B*8)*5),('speech_names',(C.c_char*32)*2),('normal_inputs',I*14),('normal_processed',I*14),('normal_ready',I),('normal_target',I),('next_mode',I),('normal_side',S),('final_state',S),('saved_toggles',B*4),('aux_inputs',I*2),('aux_config',(I*6)*5),('alternate',I*2),('unavailable',I*2),('model_paths',(C.c_char*260)*10),('special_cameras',(F*4)*108),('retained',Retained),('eye_lower',I),('face_mode',I)]
 class Ops(C.Structure):_fields_=[('context',C.c_void_p),('warp',Warp)]
 REGIONS=[]
 def field(path,addr,size=None):
@@ -36,6 +37,8 @@ field('controller.aux.processed',0x6ea178)
 for i in range(5):REGIONS.append((State.controller.offset+ui.Controller.aux.offset+ui.t.Aux.group_seen.offset+4*i,0x6ea18c+64*i,4,'group_seen'+str(i)))
 for name,addr in [('selected',0x721ed8),('stage3_state',0x721ee8),('open',0x72210c),('contact_index',0x721ed4),('gauge_y',0x721e24),('node_state',0x721e28),('targets',0x721f90),('points',0x7220c8),('choices',0x7220e4),('working',0x721dc6),('normal_inputs',0x709c70),('normal_processed',0x719b64),('normal_ready',0x719b0c),('normal_target',0x719444),('next_mode',0x719b20),('normal_side',0x719b4c),('final_state',0x6d1c0c),('saved_toggles',0x70c8d0),('aux_inputs',0x6ea170),('aux_config',0x6e9fa8),('alternate',0x6afd38),('unavailable',0x6afd0c),('model_paths',0x70c8fc),('special_cameras',0x71944c)]:field(name,addr)
 for i in range(2):REGIONS.append((State.speech_names.offset+i*32,0x722224+i*0x120,32,'speech'+str(i)))
+REGIONS.extend(retained_regions(State.retained.offset))
+field('eye_lower',0x721df8);field('face_mode',0x721dfc)
 # Guarantee the fixture itself does not unknowingly alias two owners.
 for i,x in enumerate(REGIONS):
  for y in REGIONS[i+1:]:assert max(x[1],y[1])>=min(x[1]+x[2],y[1]+y[2]),(x,y)
@@ -61,6 +64,17 @@ def snapshot(s):return b''.join(bytes(s)[off:off+size] for off,_,size,_ in REGIO
 def main():
  ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);a=ap.parse_args();exe=a.exe.read_bytes();n=Native(exe);lib=library();e=C.create_string_buffer(256);rng=random.Random(0x4cc582)
  lib.bk_ending_state_begin.argtypes=[P(State),P(ui.t.Fade),C.c_uint,S,F,P(I),P(Ops),C.c_void_p]
+ # The same process owner survives later entries. Compare initial values
+ # with the PE plus all27 original game CRT constructors, including the
+ # seven nonzero fields outside4cc582's clear interval.
+ cold=Base(exe)
+ for p in range(0x544004,0x544070,4):cold.call(struct.unpack('<I',cold.u.mem_read(p,4))[0],b'')
+ lib.bk_ending_state_initialize.argtypes=[P(State)];lib.bk_ending_state_initialize.restype=None
+ initial_state=State.from_buffer_copy(bytes([0xa5])*C.sizeof(State))
+ lib.bk_ending_state_initialize(C.byref(initial_state))
+ for off,address,size,name in REGIONS:
+  assert bytes(initial_state)[off:off+size]==bytes(cold.u.mem_read(address,size)),('cold',name)
+ print('PASS ending process initialization',len(REGIONS),'mapped regions;27 native constructors',flush=True)
  frames=6000;mutations=0;amount=sum(x[2] for x in REGIONS);table_hash=hashlib.sha256()
  for case in range(frames):
   s=State.from_buffer_copy(rng.randbytes(C.sizeof(State)));initial=bytes(s);group=case%5;variant=[0,1,-1,-128,127][(case//5)%5];scale=F([.25,.5,961/1280,1,1.3333333,2][case%6]).value

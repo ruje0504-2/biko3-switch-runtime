@@ -1,0 +1,388 @@
+{
+  "passed": true,
+  "scope": "Ending manual stick X/Y direction; original world math and automatic tracks retained",
+  "started_at": "2026-09-29T15:23:42.791178+00:00",
+  "commands": [
+    {
+      "name": "build-host",
+      "argv": [
+        "cmake",
+        "--build",
+        "build",
+        "--target",
+        "biko3-preview",
+        "ending-exit-probe",
+        "test-ending-camera",
+        "test-ending-input",
+        "test-menu-camera",
+        "--parallel",
+        "4"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/build-host.log",
+      "exit_code": 0,
+      "seconds": 1.763
+    },
+    {
+      "name": "build-switch",
+      "argv": [
+        "./build-switch.sh"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/build-switch.log",
+      "exit_code": 0,
+      "seconds": 2.693
+    },
+    {
+      "name": "build-asan",
+      "argv": [
+        "cmake",
+        "--build",
+        "build/asan-static",
+        "--target",
+        "ending-exit-probe",
+        "test-ending-camera",
+        "test-ending-input",
+        "test-menu-camera",
+        "--parallel",
+        "4"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/build-asan.log",
+      "exit_code": 0,
+      "seconds": 2.338
+    },
+    {
+      "name": "architecture",
+      "argv": [
+        "local/venv/bin/python",
+        "tests/test_architecture.py"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/architecture.log",
+      "exit_code": 0,
+      "seconds": 0.188
+    },
+    {
+      "name": "compile-camera-host",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-I/Users/rujian/Documents/Codex/WX3/runtime",
+        "-O2",
+        "-g",
+        "-DNDEBUG",
+        "-std=c11",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-c",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera_check.c",
+        "-o",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-host.o"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/compile-camera-host.log",
+      "exit_code": 0,
+      "seconds": 0.236
+    },
+    {
+      "name": "compile-camera-asan",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-I/Users/rujian/Documents/Codex/WX3/runtime",
+        "-g",
+        "-std=c11",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-c",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera_check.c",
+        "-o",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-asan.o"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/compile-camera-asan.log",
+      "exit_code": 0,
+      "seconds": 0.19
+    },
+    {
+      "name": "link-camera-asan",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-g",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk",
+        "-Wl,-search_paths_first",
+        "-Wl,-headerpad_max_install_names",
+        "-fsanitize=address,undefined",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-asan.o",
+        "-o",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-asan",
+        "libbk_app.a",
+        "libbk_platform.a",
+        "libbk_scene.a",
+        "libbk_render.a",
+        "/opt/homebrew/opt/molten-vk/lib/libMoltenVK.dylib",
+        "libbk_inspection.a",
+        "libbk_entry_assets.a",
+        "libbk_media.a",
+        "libbk_ui.a",
+        "libbk_game.a",
+        "libbk_world.a",
+        "libbk_model.a",
+        "libbk_core.a",
+        "-lm",
+        "libbk_save.a",
+        "libbk_resource.a"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3/build/asan-static",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/link-camera-asan.log",
+      "exit_code": 0,
+      "seconds": 0.049
+    },
+    {
+      "name": "link-camera-host",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-O2",
+        "-g",
+        "-DNDEBUG",
+        "-arch",
+        "arm64",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX26.2.sdk",
+        "-Wl,-search_paths_first",
+        "-Wl,-headerpad_max_install_names",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-host.o",
+        "-o",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-host",
+        "libbk_app.a",
+        "libbk_platform.a",
+        "libbk_scene.a",
+        "libbk_render.a",
+        "/opt/homebrew/opt/molten-vk/lib/libMoltenVK.dylib",
+        "libbk_inspection.a",
+        "libbk_entry_assets.a",
+        "libbk_media.a",
+        "libbk_ui.a",
+        "libbk_game.a",
+        "libbk_world.a",
+        "libbk_model.a",
+        "libbk_core.a",
+        "-lm",
+        "libbk_save.a",
+        "libbk_resource.a"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3/build",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/link-camera-host.log",
+      "exit_code": 0,
+      "seconds": 0.028
+    },
+    {
+      "name": "direction-asan",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-asan",
+        "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+        "0"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/direction-asan.log",
+      "exit_code": 0,
+      "seconds": 18.963
+    },
+    {
+      "name": "direction-host",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/camera-host",
+        "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+        "0"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/direction-host.log",
+      "exit_code": 0,
+      "seconds": 6.424
+    },
+    {
+      "name": "ctest-host",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/rujian/Documents/Codex/WX3/build",
+        "--output-on-failure",
+        "--no-tests=error",
+        "-R",
+        "^(ending-pointer|ending-camera|menu-camera)$"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/ctest-host.log",
+      "exit_code": 0,
+      "seconds": 0.037
+    },
+    {
+      "name": "application-host",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/build/ending-exit-probe",
+        "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/application-host-files"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/application-host.log",
+      "exit_code": 0,
+      "seconds": 1.231
+    },
+    {
+      "name": "ctest-asan",
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/Users/rujian/Documents/Codex/WX3/build/asan-static",
+        "--output-on-failure",
+        "--no-tests=error",
+        "-R",
+        "^(ending-pointer|ending-camera|menu-camera)$"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/ctest-asan.log",
+      "exit_code": 0,
+      "seconds": 0.201
+    },
+    {
+      "name": "application-asan",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/build/asan-static/ending-exit-probe",
+        "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+        "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/application-asan-files"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/application-asan.log",
+      "exit_code": 0,
+      "seconds": 2.95
+    },
+    {
+      "name": "undefined-symbols",
+      "argv": [
+        "/opt/devkitpro/devkitA64/bin/aarch64-none-elf-nm",
+        "-u",
+        "/Users/rujian/Documents/Codex/WX3/build-switch/biko3-preview.elf"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/undefined-symbols.log",
+      "exit_code": 0,
+      "seconds": 0.011
+    },
+    {
+      "name": "defined-symbols",
+      "argv": [
+        "/opt/devkitpro/devkitA64/bin/aarch64-none-elf-nm",
+        "--defined-only",
+        "/Users/rujian/Documents/Codex/WX3/build-switch/biko3-preview.elf"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/defined-symbols.log",
+      "exit_code": 0,
+      "seconds": 0.012
+    },
+    {
+      "name": "elf-format",
+      "argv": [
+        "file",
+        "/Users/rujian/Documents/Codex/WX3/build-switch/biko3-preview.elf"
+      ],
+      "cwd": "/Users/rujian/Documents/Codex/WX3",
+      "log": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/elf-format.log",
+      "exit_code": 0,
+      "seconds": 0.006
+    }
+  ],
+  "gain": 6,
+  "hardware_validation": false,
+  "leak_detection": false,
+  "runs": [
+    {
+      "mode": "host",
+      "camera": [
+        "PASS camera-icons cases=128 draws=32 pixels=97e7bc930e7e1e6d",
+        "PASS camera-check group=0 output=1280x960 frames=1217 camera_projection=a3e70476c4481337 input_checks=324",
+        "PASS camera-icons cases=128 draws=32 pixels=35b49dd58e465915",
+        "PASS camera-check group=0 output=960x720 frames=1217 camera_projection=a3e70476c4481337 input_checks=324",
+        "PASS camera-icons cases=128 draws=32 pixels=8cba14aea8087915",
+        "PASS camera-check group=0 output=1280x720 frames=1217 camera_projection=a3e70476c4481337 input_checks=324",
+        "PASS opening-resolution and LR-input cases=3 opening_frames=3651 input_checks=972 rates=30,60,120 gain=6 directions=9 corrected_xy=1"
+      ],
+      "application": [
+        "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+      ],
+      "probe_sha256": "d4380995439ffbe93ae7f338154c3455511e192b776f97194a6efaddd09d1a20"
+    },
+    {
+      "mode": "asan",
+      "camera": [
+        "PASS camera-icons cases=128 draws=32 pixels=97e7bc930e7e1e6d",
+        "PASS camera-check group=0 output=1280x960 frames=1217 camera_projection=a3e70476c4481337 input_checks=324",
+        "PASS camera-icons cases=128 draws=32 pixels=35b49dd58e465915",
+        "PASS camera-check group=0 output=960x720 frames=1217 camera_projection=a3e70476c4481337 input_checks=324",
+        "PASS camera-icons cases=128 draws=32 pixels=8cba14aea8087915",
+        "PASS camera-check group=0 output=1280x720 frames=1217 camera_projection=a3e70476c4481337 input_checks=324",
+        "PASS opening-resolution and LR-input cases=3 opening_frames=3651 input_checks=972 rates=30,60,120 gain=6 directions=9 corrected_xy=1"
+      ],
+      "application": [
+        "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+      ],
+      "probe_sha256": "066a2bab9561daac98546a51e372599bae62c0815dc146be0adb26bb3ce2b16b"
+    }
+  ],
+  "host_asan_identical": true,
+  "source_sha256": {
+    "runtime/scene/ending_normal_session.c": "05d2a70ca5ca816b48aceb420d944f3f4748c70a1a5b64bc71c92f874fe5e295",
+    "runtime/world/ending_camera.c": "686b46f89ca392d4046c00f4db39834fe1e0fa3b68ad5fa46e73f6286c75a434",
+    "runtime/core/input.c": "fbe4da57392c6f627a48ee4d7ed941d4d982aecb6bc049cdde7b50eab612e9d0",
+    "runtime/core/input.h": "f44c4223aab5d6ab277d4ced7685f08b9a559a677a5cc424abefb99ab516b368",
+    "runtime/platform/switch.c": "8ced19687aceaeb981fa43ba9f0f7b37c35042b59357fe448e2d902499e6087f",
+    "runtime/app/game_preview.c": "2baadc77e7fa93c8669eb5f169dc34480f570580ab0e45a6feb9522f590dc170",
+    "runtime/game/ending_selected_action.c": "313c9bf3721aeda373a4ead70088770675e17483b36b00130542b16ed49ce1c1",
+    "runtime/game/ending_selected_action.h": "63d52bf35ab1c389ece011dab41eccb02100e55d1a043d64d1f2044493511842",
+    "runtime/game/ending_selected_action_tables.inc": "2ce5c120b2d2b345bf582fb3f66bbac2ca0c7a9452e776dffdface8644d66646",
+    "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8",
+    "CMakeLists.txt": "0474102f562fcc44f9b02725fbebc92ed694b73e58bd21ac93c6684d108d8428"
+  },
+  "changed_runtime_files": [
+    "runtime/scene/ending_normal_session.c"
+  ],
+  "diagnostic_sha256": "cbc63aa78cfd438250806e8f109757d5eef9d8eb32327836bb0760163620a902",
+  "opening_frames_per_build": 3651,
+  "direction_checks_per_build": 972,
+  "directions": 9,
+  "icon_cases_per_build": 384,
+  "icon_draws_per_build": 96,
+  "automatic_opening_unchanged": true,
+  "nro": {
+    "path": "/Users/rujian/Documents/Codex/WX3/build-switch/biko3-preview.nro",
+    "bytes": 15953976,
+    "sha256": "0a9c6ee248535c734ebcbcd07c7e24862e1c8f876db44dfcddf17f0d9a482f62"
+  },
+  "elf": {
+    "path": "/Users/rujian/Documents/Codex/WX3/build-switch/biko3-preview.elf",
+    "sha256": "c142c7a203df90881f4d1bbb4e420282d7b03f50bb4d0d02addef8bb7b2ccf02",
+    "undefined_symbols": 0,
+    "nvk_CreateDevice": true
+  },
+  "finished_at": "2026-09-29T15:24:08.100640+00:00",
+  "baseline_reproduction": {
+    "result": "/Users/rujian/Documents/Codex/WX3/local/ending-camera-direction-egbbzm38/baseline-result.json",
+    "source_sha256": "9b462ec49d1f4b35cf19b20fb6045d0b3ea509bd332d8f0f356f604ff657e637",
+    "expected_failure": "positive horizontal stick must decrease orbit yaw; old scene mapping increases it"
+  },
+  "verification_script_sha256": "ecd9667f8fae9213f6907202d26f93716d0e042d133a605b4b55d31fa60d6f67"
+}

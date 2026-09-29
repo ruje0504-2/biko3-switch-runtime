@@ -13,6 +13,32 @@
       goto done;                                                               \
   } while (0)
 static const float I[16] = {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1};
+typedef struct {
+  BkActorPose *pose;
+  unsigned wanted, calls;
+  int fail;
+  BkClipState before_seek;
+  BkClipTiming timing;
+} OpeningKeys;
+static int opening_key(void *context, unsigned code, unsigned mode,
+                        uint32_t *result, char e[256]) {
+  OpeningKeys *keys = context;
+  static const unsigned codes[] = {0, 0x5a, 0x33450, 1};
+  assert(keys->calls < 4 && code == codes[keys->calls] && mode == 1);
+  unsigned index = keys->calls++;
+  if (index == keys->wanted) {
+    if (keys->fail) {
+      snprintf(e, 256, "opening input fixture failure");
+      return 0;
+    }
+    assert(bk_actor_pose_state(keys->pose, &keys->before_seek));
+    assert(bk_actor_pose_timing(keys->pose, keys->before_seek.slot,
+                                &keys->timing));
+    *result = UINT32_C(0x800000ff);
+  } else
+    *result = UINT32_C(0x100); /* Low byte only, not a boolean conversion. */
+  return 1;
+}
 int main(int argc, char **argv) {
   if (argc != 2)
     return 2;
@@ -23,7 +49,7 @@ int main(int argc, char **argv) {
   BkActorForest *forest = NULL;
   BkActorPose *target = NULL;
   BkClipSet *fixture_clips = NULL;
-  unsigned frames = 0, held = 0, updated = 0;
+  unsigned frames = 0, held = 0, updated = 0, opening_frames = 0;
   uint64_t hash = UINT64_C(14695981039346656037);
   CHECK(store);
   snprintf(path, sizeof(path), "%s/bk3_04.pp", argv[1]);
@@ -142,6 +168,49 @@ int main(int argc, char **argv) {
         }
         ++frames;
       }
+      for (unsigned step = 0; step < 24; ++step) {
+        BkClipState primary_before, primary_after, after_seek;
+        assert(bk_actor_pose_state(poses[1], &primary_before));
+        uint32_t secondary_node = bk_ending_camera_assets_node(a, 1);
+        float cached[16];
+        memcpy(cached, bk_actor_pose_frame(poses[2], secondary_node), 64);
+        BkActorVisibilityEdit edit = {bk_ending_camera_assets_root(a, 1),
+                                       step % 3 == 0};
+        CHECK(bk_actor_pose_visibility(poses[2], &edit, 1, e));
+        s.fov = .731f;
+        OpeningKeys keys = {.pose = poses[2], .wanted = step % 5};
+        BkEndingCameraOpeningInput input = {&keys, opening_key};
+        int complete = -1;
+        CHECK(bk_ending_camera_assets_opening(a, forest, indices, &s, t,
+                                              .016f, &input, &complete, e));
+        assert(keys.calls == (keys.wanted < 4 ? keys.wanted + 1 : 4));
+        assert(s.fov == .731f && s.focus[0] == 7);
+        assert(!memcmp(cached, bk_actor_pose_frame(poses[2], secondary_node), 64));
+        assert(bk_actor_pose_state(poses[1], &primary_after));
+        assert(!memcmp(&primary_before, &primary_after, sizeof(primary_before)));
+        if (keys.wanted < 4) {
+          assert(complete == 1);
+          assert(bk_actor_pose_state(poses[2], &after_seek));
+          keys.before_seek.source = keys.timing.end;
+          assert(!memcmp(&after_seek, &keys.before_seek, sizeof(after_seek)));
+        }
+        assert(!memcmp(bk_actor_forest_world(forest, 1), s.pose.world, 64));
+        const BkFrameVisit *visits;
+        uint32_t count;
+        CHECK(bk_actor_forest_draw(forest, 0, &visits, &count, e));
+        ++opening_frames;
+      }
+      {
+        OpeningKeys keys = {.pose = poses[2], .wanted = 2, .fail = 1};
+        BkEndingCameraOpeningInput input = {&keys, opening_key};
+        int complete = 7;
+        assert(!bk_ending_camera_assets_opening(a, forest, indices, &s, t,
+                                               .016f, &input, &complete, e));
+        assert(complete == 7 && keys.calls == 3);
+        assert(strstr(e, "opening input fixture failure"));
+        /* A failed late key query retains the already installed camera. */
+        assert(!memcmp(bk_actor_forest_world(forest, 1), s.pose.world, 64));
+      }
       bk_actor_forest_destroy(forest);
       forest = NULL;
       bk_ending_camera_assets_destroy(a);
@@ -153,6 +222,9 @@ int main(int argc, char **argv) {
   printf("PASS ending cameras: 50 profiles, %u frames, %u held, %u updated, "
          "FNV%016llx\n",
          frames, held, updated, (unsigned long long)hash);
+  printf("PASS opening cameras: %u frames, 50 late input failures; "
+         "primary held, secondary seek only, cached world/FOV retained\n",
+         opening_frames);
   rc = 0;
 done:
   if (rc)

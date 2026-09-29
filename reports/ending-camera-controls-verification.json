@@ -1,0 +1,203 @@
+{
+  "passed": true,
+  "scope": "Current portable normal-ending opening camera/projection resolution comparison and scene adapter LR manual-input rates. Not full pixel equality, original Windows runtime equality, or Switch hardware acceptance.",
+  "per_build": {
+    "cases": 15,
+    "opening_frames": 19674,
+    "input_checks": 540,
+    "ctest_passed": 3
+  },
+  "host_asan_identical": true,
+  "rows": [
+    {
+      "group": 0,
+      "output": [
+        1280,
+        960
+      ],
+      "opening_frames": 1217,
+      "camera_projection_hash": "a3e70476c4481337",
+      "input_checks": 36
+    },
+    {
+      "group": 0,
+      "output": [
+        960,
+        720
+      ],
+      "opening_frames": 1217,
+      "camera_projection_hash": "a3e70476c4481337",
+      "input_checks": 36
+    },
+    {
+      "group": 0,
+      "output": [
+        1280,
+        720
+      ],
+      "opening_frames": 1217,
+      "camera_projection_hash": "a3e70476c4481337",
+      "input_checks": 36
+    },
+    {
+      "group": 1,
+      "output": [
+        1280,
+        960
+      ],
+      "opening_frames": 1275,
+      "camera_projection_hash": "ee085c89fa1b929d",
+      "input_checks": 36
+    },
+    {
+      "group": 1,
+      "output": [
+        960,
+        720
+      ],
+      "opening_frames": 1275,
+      "camera_projection_hash": "ee085c89fa1b929d",
+      "input_checks": 36
+    },
+    {
+      "group": 1,
+      "output": [
+        1280,
+        720
+      ],
+      "opening_frames": 1275,
+      "camera_projection_hash": "ee085c89fa1b929d",
+      "input_checks": 36
+    },
+    {
+      "group": 2,
+      "output": [
+        1280,
+        960
+      ],
+      "opening_frames": 1384,
+      "camera_projection_hash": "7752cd10cb368077",
+      "input_checks": 36
+    },
+    {
+      "group": 2,
+      "output": [
+        960,
+        720
+      ],
+      "opening_frames": 1384,
+      "camera_projection_hash": "7752cd10cb368077",
+      "input_checks": 36
+    },
+    {
+      "group": 2,
+      "output": [
+        1280,
+        720
+      ],
+      "opening_frames": 1384,
+      "camera_projection_hash": "7752cd10cb368077",
+      "input_checks": 36
+    },
+    {
+      "group": 3,
+      "output": [
+        1280,
+        960
+      ],
+      "opening_frames": 1252,
+      "camera_projection_hash": "839937d0b3adc909",
+      "input_checks": 36
+    },
+    {
+      "group": 3,
+      "output": [
+        960,
+        720
+      ],
+      "opening_frames": 1252,
+      "camera_projection_hash": "839937d0b3adc909",
+      "input_checks": 36
+    },
+    {
+      "group": 3,
+      "output": [
+        1280,
+        720
+      ],
+      "opening_frames": 1252,
+      "camera_projection_hash": "839937d0b3adc909",
+      "input_checks": 36
+    },
+    {
+      "group": 4,
+      "output": [
+        1280,
+        960
+      ],
+      "opening_frames": 1430,
+      "camera_projection_hash": "f4d78c1d71c1b49a",
+      "input_checks": 36
+    },
+    {
+      "group": 4,
+      "output": [
+        960,
+        720
+      ],
+      "opening_frames": 1430,
+      "camera_projection_hash": "f4d78c1d71c1b49a",
+      "input_checks": 36
+    },
+    {
+      "group": 4,
+      "output": [
+        1280,
+        720
+      ],
+      "opening_frames": 1430,
+      "camera_projection_hash": "f4d78c1d71c1b49a",
+      "input_checks": 36
+    }
+  ],
+  "manual_gain": 3,
+  "rates_hz": [
+    30,
+    60,
+    120
+  ],
+  "controls": {
+    "L+right_stick": "orbit yaw/pitch",
+    "R+right_stick": "horizontal distance / vertical height"
+  },
+  "source_sha256": {
+    "runtime/core/input.h": "f44c4223aab5d6ab277d4ced7685f08b9a559a677a5cc424abefb99ab516b368",
+    "runtime/platform/switch.c": "8ced19687aceaeb981fa43ba9f0f7b37c35042b59357fe448e2d902499e6087f",
+    "runtime/scene/ending_normal_session.c": "419d17d518acb588ca1845e675dccd4e63edc6902bb51fe55adb2a356a3a95e4",
+    "README.md": "6ba1c491935154e58c7d5c444e6ff3eab18e36ce8dcf1231611d884f1a260258",
+    "runtime/game/ending_selected_presentation.h": "d2a9fc573b427f9fae82a7fa469c9595771417e4174304cf212b2a6e5b9ef19a"
+  },
+  "build_artifacts": {
+    "build-switch/biko3-preview.elf": {
+      "bytes": 33810112,
+      "sha256": "22ac7a18d300d48a225cca24e36bb26ebf2307147e113a3101ce931bc0d39144"
+    },
+    "build-switch/biko3-preview.nro": {
+      "bytes": 15953976,
+      "sha256": "71eb25279d6ac1eacb5a16eeb0bc4860861f97880ce446d805ca0676d913ede7"
+    }
+  },
+  "elf_aarch64": true,
+  "undefined_symbols": 0,
+  "nvk_CreateDevice_linked": true,
+  "architecture_checks": 2,
+  "initial_architecture_failure": "Existing game/ending_selected_presentation.h directly included model/clip.h; fixed to the world/actor_pose.h playback contract. Original failure log retained.",
+  "initial_checks": "local/ending-camera-lr-_rcor0go/checks.json",
+  "final_rebuild": "local/ending-camera-lr-_rcor0go/rebuild-verification.json",
+  "diagnostic": "local/ending-camera-lr-_rcor0go/camera_check.c",
+  "diagnostic_sha256": "aabb06ec05474406bdd472aba708c17cd53b895eb96b5e6e2e3ffcac3e8e3b73",
+  "leak_detection": false,
+  "switch_hardware_validation": false,
+  "pushed": false,
+  "full_package_created": false
+}

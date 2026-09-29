@@ -218,6 +218,11 @@ int bk_actor_pose_edit_clips(BkActorPose *a, const BkClipEdit *edits,
   return a ? bk_model_playback_edit_clips(a->playback, edits, count, error)
            : fail(error, "missing actor");
 }
+int bk_actor_pose_set_clock(BkActorPose *a, unsigned slot, float elapsed,
+                             float source, char error[256]) {
+  return a ? bk_model_playback_set_clock(a->playback, slot, elapsed, source, error)
+           : fail(error, "missing actor");
+}
 int bk_actor_pose_clip_link(const BkActorPose *a, unsigned slot, int32_t *chain,
                             int32_t *next) {
   return a && bk_model_playback_link(a->playback, slot, chain, next);
@@ -364,6 +369,10 @@ int bk_actor_pose_timing(const BkActorPose *a, unsigned slot,
 int bk_actor_pose_loops(const BkActorPose *a, unsigned slot, int32_t *loops) {
   return a && bk_model_playback_loops(a->playback, slot, loops);
 }
+int bk_actor_pose_prediction(const BkActorPose *a, unsigned slot,
+                             BkClipPrediction *out) {
+  return a && bk_model_playback_prediction(a->playback, slot, out);
+}
 const float *bk_actor_pose_parent_world(const BkActorPose *a, uint32_t frame) {
   return a && frame < a->count ? a->parent_world + frame * 16 : NULL;
 }
@@ -481,6 +490,25 @@ int bk_actor_pose_advance_effects(BkActorPose *a, float seconds,
   if (!bk_model_playback_step_effects(a->playback, -1,
                                       BK_CLIP_REQUEST_TEN_TICKS, seconds, &root,
                                       effects, error))
+    return 0;
+  *submitted = 1;
+  return 1;
+}
+int bk_actor_pose_advance_plain(BkActorPose *a, float seconds,
+                                 BkClipPlainMode mode, BkPlaybackEffects *effects,
+                                 int *submitted, char error[256]) {
+  if (!a || !effects || !submitted || !isfinite(seconds) || seconds < 0 ||
+      (double)seconds * 60 >= INT32_MAX || mode < BK_CLIP_PLAIN_SCHEDULED ||
+      mode > BK_CLIP_PLAIN_FORCE_CHAIN)
+    return fail(error, "invalid plain actor/timestep");
+  if (a->hidden[a->root]) {
+    *submitted = 0;
+    return 1;
+  }
+  BkModelRootTransform root = {.frame = a->root};
+  memcpy(root.world, bk_model_playback_local(a->playback, a->root), 64);
+  if (!bk_model_playback_advance_plain(a->playback, seconds, mode, &root,
+                                       effects, error))
     return 0;
   *submitted = 1;
   return 1;

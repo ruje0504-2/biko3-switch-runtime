@@ -2,10 +2,112 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
+void bk_ending_state_initialize(BkEndingState *s) {
+  if (!s)
+    return;
+  memset(s, 0, sizeof(*s));
+  s->ui_controller.normal.uv_right = .25f; /*575638*/
+  s->ui_controller.auxiliary.reset_b = INT32_C(0x3f000000); /*5546a4 raw float bits*/
+  s->retained.auxiliary.word_5546a0 = -1;
+  s->retained.stage2.word_54ccc8 = -1;
+  s->retained.stage2.value_54ccd0 = 1;
+  s->retained.stage4.word_54e2f8 = -1;
+  s->retained.stage4.value_54e310 = 1;
+}
 static int fail(char e[256], const char *why) {
   if (e)
     snprintf(e, 256, "ending state: %s", why);
   return 0;
+}
+int bk_ending_state_leave(BkEndingState *s, BkEndingLeave operation,
+                          char e[256]) {
+  if (!s || (unsigned)operation > BK_ENDING_LEAVE_48D7F2)
+    return fail(e, "invalid retained-state reset");
+  switch (operation) {
+  case BK_ENDING_LEAVE_4E1C8F: {
+    BkEndingRetainedNormal *n = &s->retained.normal;
+    s->normal_ready = s->next_mode = 0;
+    n->word_719b24 = n->word_719448 = n->word_719b28 = n->word_719b2c = 0;
+    n->word_719b40 = 0;
+    s->normal_side = 0;
+    n->word_719b50 = 0;
+    memset(n->words_719b54, 0, sizeof(n->words_719b54));
+    break;
+  }
+  case BK_ENDING_LEAVE_47DBCC:
+    memset(s->retained.stage3.words_6bbe2c, 0,
+           sizeof(s->retained.stage3.words_6bbe2c));
+    s->retained.stage3.byte_6bbe34 = 0;
+    break;
+  case BK_ENDING_LEAVE_49739A: {
+    BkEndingRetainedAuxiliary *a = &s->retained.auxiliary;
+    BkEndingUiAuxNotice *ui = &s->ui_controller.auxiliary;
+    ui->mode = 0;
+    a->word_6ea16c = 0;
+    memset(s->aux_inputs, 0, sizeof(s->aux_inputs));
+    memset(ui->processed, 0, sizeof(ui->processed));
+    ui->reset_c = 0;
+    memset(a->group_prefix, 0, sizeof(a->group_prefix));
+    memset(ui->group_seen, 0, sizeof(ui->group_seen));
+    memset(a->group_suffix, 0, sizeof(a->group_suffix));
+    memset(a->words_6ea2c0, 0, sizeof(a->words_6ea2c0));
+    ui->once = a->word_6ea314 = 0;
+    a->word_5546a0 = -1;
+    memset(s->aux_config, 0, sizeof(s->aux_config));
+    memset(a->words_6ea028, 0, sizeof(a->words_6ea028));
+    memset(a->words_6ea318, 0, sizeof(a->words_6ea318));
+    a->word_6ea340 = a->word_6ddec0 = ui->reset_a = a->word_6ddec8 = 0;
+    a->word_6dde90 = a->word_6ea348 = 0;
+    ui->sequence = ui->sequence_count = 0;
+    ui->sequence_elapsed = 0;
+    /* This existing owner is raw bits: the leave routine writes float.5,
+     * while the UI tail writes integer0 to the same original address. */
+    ui->reset_b = INT32_C(0x3f000000);
+    a->word_6ea354 = a->word_6ea020 = 0;
+    a->byte_6ea358 = 0;
+    break;
+  }
+  case BK_ENDING_LEAVE_47A033: {
+    BkEndingRetainedStage2 *a = &s->retained.stage2;
+    a->word_6a3c20 = 0;
+    memset(a->words_6afcfc, 0, sizeof(a->words_6afcfc));
+    a->word_6afd08 = 0;
+    memset(s->unavailable, 0, sizeof(s->unavailable));
+    s->ui_controller.hints.movement_ready = 0;
+    a->word_6a3c24 = 9;
+    a->word_54ccc8 = -1;
+    a->byte_6afd18 = 0;
+    a->value_54ccd0 = 1;
+    break;
+  }
+  case BK_ENDING_LEAVE_482F91: {
+    BkEndingRetainedStage4 *a = &s->retained.stage4;
+    memset(a->words_6c7f44, 0, sizeof(a->words_6c7f44));
+    memset(a->bytes_6c7f54, 0, sizeof(a->bytes_6c7f54));
+    memset(a->bytes_6c7f60, 0, sizeof(a->bytes_6c7f60));
+    a->word_54e2f8 = -1;
+    a->word_6c7f4c = 0;
+    a->byte_6c7f50 = 0;
+    a->value_54e310 = 1;
+    break;
+  }
+  case BK_ENDING_LEAVE_48D7F2: {
+    BkEndingRetainedFinal *a = &s->retained.final;
+    a->byte_6c7f70 = a->byte_6d1be0 = 0;
+    s->final_state = 0;
+    a->byte_6d1bd4 = a->byte_6d1c0d = a->byte_6ddce0 = a->byte_6d1be1 = 0;
+    a->word_6c7f74 = a->word_6dde4c = a->word_6d1bcc = 0;
+    a->byte_6dde50 = a->byte_6dde51 = 0;
+    a->word_6d1bd8 = a->word_6d1bdc = a->word_6dde54 = 0;
+    a->byte_6dde58 = 0;
+    memset(a->workspace_6c7f80, 0, sizeof(a->workspace_6c7f80));
+    memset(a->words_6dde24, 0, sizeof(a->words_6dde24));
+    memset(a->words_6d1be8, 0, sizeof(a->words_6d1be8));
+    memset(a->words_6ddce4, 0, sizeof(a->words_6ddce4));
+    break;
+  }
+  }
+  return 1;
 }
 /* Only modeled fields whose native address is in721b28..725713. Do not
  * memset these C aggregates: many fields in each have retained addresses. */
@@ -26,6 +128,7 @@ static void clear_block(BkEndingState *s) {
   a->expression_a = a->expression_b = 0;
   s->ui_controller.auxiliary.choice = 0;
   s->selected = s->stage3_state = s->open = s->contact_index = 0;
+  s->eye_lower = s->face_mode = 0;
   s->gauge_y = 0;
   memset(s->node_state, 0, sizeof(s->node_state));
   memset(s->targets, 0, sizeof(s->targets));

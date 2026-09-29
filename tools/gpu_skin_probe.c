@@ -6,6 +6,7 @@
 static double worst_position, worst_normal;
 static uint64_t vertices_checked;
 static unsigned models_checked, meshes_checked, frames_checked;
+static unsigned homogeneous_fixtures, coordinate_rejections;
 static void convert(BkLitVertex *out, const BkModelVertex *in, unsigned n,
                     unsigned variant) {
   for (unsigned i = 0; i < n; i++) {
@@ -54,6 +55,12 @@ static int probe(BkRenderer *r, const BkModel *model, const char *name,
   expected = malloc((size_t)max * sizeof(*expected));
   if (!input || !output || !expected)
     goto done;
+  /* Binding must also accept a palette that already contains the actual
+   * constant-W/projective pose, rather than only an identity palette. */
+  if (!bk_model_world_matrices(model, world, (size_t)model->frame_count * 16,
+                               error) ||
+      !bk_skin_palette_update(r, palette, world, model->frame_count, error))
+    goto done;
   for (unsigned i = 0; i < count; i++) {
     const BkSkinEntry *e = bk_model_skin_entry(skin, i);
     const BkModelSubmesh *sub = model->submeshes + e->submesh;
@@ -92,6 +99,33 @@ static int probe(BkRenderer *r, const BkModel *model, const char *name,
                                              model->frame_count - 1, error)) {
         snprintf(error, 256, "invalid palette update accepted");
         goto done;
+      }
+      uint32_t used_bone = BK_MODEL_NONE;
+      for (unsigned entry = 0; entry < count && used_bone == BK_MODEL_NONE;
+           entry++) {
+        const BkSkinEntry *e = bk_model_skin_entry(skin, entry);
+        for (unsigned b = 0; b < e->bone_count; b++) {
+          const BkSkinBone *bone = bk_model_skin_bone(skin, entry, b);
+          if (bone->count) {
+            used_bone = bone->frame;
+            break;
+          }
+        }
+      }
+      if (used_bone != BK_MODEL_NONE) {
+        float saved_bone[16];
+        float *bone = world + used_bone * 16;
+        memcpy(saved_bone, bone, sizeof(saved_bone));
+        bone[3] = bone[7] = bone[11] = bone[15] = 0;
+        uint64_t uploaded = bk_renderer_stats(r).uploaded_bytes;
+        accepted = bk_skin_palette_update(r, palette, world,
+                                           model->frame_count, error);
+        memcpy(bone, saved_bone, sizeof(saved_bone));
+        if (accepted || bk_renderer_stats(r).uploaded_bytes != uploaded) {
+          snprintf(error, 256, "zero-W palette changed committed data");
+          goto done;
+        }
+        coordinate_rejections++;
       }
     }
     /* Immutable attributes change twice; source restoration must survive
@@ -188,7 +222,11 @@ static void number(uint8_t *p, float value) {
   word(p, bits);
 }
 static int boundary_probe(BkRenderer *r, char error[256]) {
-  for (unsigned test = 0; test < 100; test++) {
+  float lower = 1.0f - 1e-5f, upper = 1.0f + 1e-5f;
+  const float homogeneous[] = {nextafterf(1, 0), nextafterf(1, 2),
+      lower, nextafterf(lower, 1), nextafterf(upper, 1), upper,
+      .5f, 2, -2, -1, 1, -.5f};
+  for (unsigned test = 0; test < 112; test++) {
     uint8_t raw[72 + 80 + 2 * (8 + 4 * 32)] = {0};
     word(raw + 68, 1);
     word(raw + 140, 20);
@@ -211,6 +249,14 @@ static int boundary_probe(BkRenderer *r, char error[256]) {
       frames[b].local[5] = b ? 3 : 1;
       frames[b].local[4] = test * .01f;
       frames[b].local[12] = b ? 10 : -.37f;
+      if (test >= 100) {
+        frames[b].local[15] = homogeneous[test - 100];
+        if (test >= 110) {
+          frames[b].local[3] = .25f;
+          frames[b].local[7] = -.125f;
+          frames[b].local[11] = .0625f;
+        }
+      }
       uint8_t *p = raw + 152 + b * 136;
       word(p, 20 + b);
       word(p + 4, 4);
@@ -237,8 +283,63 @@ static int boundary_probe(BkRenderer *r, char error[256]) {
                      .submesh_count = 1};
     if (!probe(r, &model, "synthetic ordered-weight boundary", error))
       return 0;
+    homogeneous_fixtures += test >= 100;
   }
   return 1;
+}
+static int binding_probe(BkRenderer *r, char error[256]) {
+  BkLitVertex input[2] = {0}, output[2];
+  BkGpuMesh *mesh = bk_lit_mesh_create(r, input, 2,
+                                      (uint16_t[3]){0, 0, 0}, 3, error);
+  BkSkinPalette *palette = bk_skin_palette_create(r, 2, error);
+  int ok = 0;
+  if (!mesh || !palette)
+    goto done;
+  float world[32];
+  memcpy(world, bk_identity, 64);
+  memcpy(world + 16, bk_identity, 64);
+  world[31] = 0;
+  BkGpuSkinWeight weights[2] = {
+      {.bone = 0, .reset = 1, .weight = 1, .position = {3, 1, 2},
+       .normal = {0, 1, 0}},
+      {.bone = 1, .reset = 1, .weight = 1, .position = {3, 1, 2},
+       .normal = {0, 1, 0}}};
+  const uint32_t offsets[3] = {0, 1, 2};
+  if (!bk_skin_palette_update(r, palette, world, 2, error))
+    goto done;
+  uint64_t allocations = bk_renderer_stats(r).live_allocations;
+  if (bk_lit_mesh_skin(r, mesh, palette, offsets, weights, 2, error) ||
+      bk_renderer_stats(r).live_allocations != allocations) {
+    snprintf(error, 256, "invalid homogeneous binding was not atomic");
+    goto done;
+  }
+  coordinate_rejections++;
+  world[31] = 2;
+  if (!bk_skin_palette_update(r, palette, world, 2, error) ||
+      !bk_lit_mesh_skin(r, mesh, palette, offsets, weights, 2, error))
+    goto done;
+  world[19] = 1;
+  world[31] = -3; /* Nonzero matrix W, but zero at the bound position. */
+  uint64_t uploaded = bk_renderer_stats(r).uploaded_bytes;
+  if (bk_skin_palette_update(r, palette, world, 2, error) ||
+      bk_renderer_stats(r).uploaded_bytes != uploaded) {
+    snprintf(error, 256, "projective zero-W update was not atomic");
+    goto done;
+  }
+  coordinate_rejections++;
+  if (!bk_renderer_begin(r, error) || !bk_renderer_end(r, error) ||
+      !bk_lit_mesh_readback(r, mesh, output, 2, error))
+    goto done;
+  if (output[0].base.x != 3 || output[1].base.x != 1.5f ||
+      output[1].normal[1] != 1) {
+    snprintf(error, 256, "failed binding/update changed skin output");
+    goto done;
+  }
+  ok = 1;
+done:
+  bk_mesh_destroy(r, mesh);
+  bk_skin_palette_destroy(r, palette);
+  return ok;
 }
 int main(int argc, char **argv) {
   if (argc < 2)
@@ -282,13 +383,15 @@ int main(int argc, char **argv) {
     }
     bk_archive_close(&archive);
   }
-  if (!boundary_probe(r, error) || !bk_renderer_begin(r, error) ||
+  if (!boundary_probe(r, error) || !binding_probe(r, error) ||
+      !bk_renderer_begin(r, error) ||
       !bk_renderer_end(r, error))
     goto done;
   printf("PASS GPU skin: models%u meshes%u frames%u vertices%llu "
-         "position_error%.9g normal_error%.9g\n",
+         "position_error%.9g normal_error%.9g homogeneous%u rejections%u\n",
          models_checked, meshes_checked, frames_checked,
-         (unsigned long long)vertices_checked, worst_position, worst_normal);
+         (unsigned long long)vertices_checked, worst_position, worst_normal,
+         homogeneous_fixtures, coordinate_rejections);
   rc = 0;
 done:
   if (rc)

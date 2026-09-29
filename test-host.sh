@@ -9,10 +9,19 @@ build/depth-clear-probe
 build/actor-view-probe build/actor-view-fixture
 python3 -m unittest discover -s tests -p 'test_*.py'
 cmake -S . -B build/asan -DCMAKE_BUILD_TYPE=Debug -DBK_SANITIZE=ON -DBK_WITH_VULKAN=OFF -DBK_BUILD_TESTS=ON
+cmake --build build/asan --target test-ending-confirm test-ending-input test-ending-target ending-secondary-probe --parallel "${BK_BUILD_JOBS:-8}"
 cmake --build build/asan --target test-ending-state ending-state-probe test-ending-ui-frame test-ending-ui-tail test-ending-ui-select test-ending-ui-pick test-ending-ui-hints test-ending-ui-geometry test-ending-stage-ui test-ending-reload ending-reload-audio-probe test-ending-ui test-ending-sound ending-sound-probe test-ending-special ending-special-scene-probe test-ending-normal ending-normal-probe test-bom-motion bom-assets-probe test-material-animation material-animation-probe test-fixed-animation fixed-animation-probe test-bom-deform test-node-reference bom-deform-probe test-ending-entry test-bom ending-face-probe test-ending-auxiliary ending-audio-probe ending-auxiliary-probe clip-edits-probe test-ending-control ending-camera-probe test-ending-camera test-ending-frame test-ending-record test-unlock-file test-unlock-switch-fs test-dialogue-entry test-dialogue-ui test-dialogue-media dialogue-audio-probe test-dialogue-backdrop test-switch-file-replace dialogue-actor-probe avi-probe test-avi test-avi-clock selection-actor-probe test-selection-ui test-x-pose menu-camera-probe test-menu-camera test-title-menu test-save-menu-control test-save-menu-view test-checkpoint-file area-entry-probe test-checkpoint-prompt test-retry failure-session-probe test-failure-camera test-failure-hud test-pause test-flow-loading player-hotkeys-probe test-player-hotkeys test-capture-file test-player-hud outcome-audio-probe game-frame-probe npc-event-audio-probe player-idle-probe prop-interaction-probe test-area-boundary area-audio-probe test-font test-message item-feedback-probe test-item entry-forest-probe pcm-probe audio-probe test-pcm test-audio test-audio-output test-footsteps test-core test-static test-camera test-follow-camera test-route test-npc-motion test-player-movement test-player-interaction test-player-view test-player-events test-lighting-pass test-rain test-actor-forest test-frame-tree test-draw-order test-draw-dispatch test-prop test-player-wall test-edge-math test-collision test-material-pose test-voice test-face test-face-assets test-eye-assets test-eye-pose test-morph test-skin test-triangles test-animation test-clip test-store fuzz-assets fuzz-model collision-probe prop-collision-probe prop-probe background-probe entry-probe face-probe skin-probe --parallel "${BK_BUILD_JOBS:-8}"
 ctest --test-dir build/asan --output-on-failure
+if [ -n "${BK3_ORIGINAL_EXE:-}" ] && [ "$#" -lt 1 ]; then
+    python3 tests/check_ending_tertiary_cpu.py "$BK3_ORIGINAL_EXE" --host-python "${BK3_TEST_PYTHON:-local/venv/bin/python}"
+fi
 if [ "$#" -ge 1 ]; then
     python=${BK3_TEST_PYTHON:-local/venv/bin/python}
+    if [ -n "${BK3_ORIGINAL_EXE:-}" ]; then
+        "$python" tests/check_ending_tertiary_cpu.py "$BK3_ORIGINAL_EXE" --host-python "$python" --data "$1/Data"
+        "$python" tests/check_bom_dual_assets.py "$BK3_ORIGINAL_EXE" "$1/Data" --with-ending-assets
+        "$python" tests/check_ending_selected_assets.py "$BK3_ORIGINAL_EXE" "$1/Data"
+    fi
     "$python" tests/audit_game.py "$1/Data"
     "$python" tests/audit_models.py "$1/Data"
     build/render-probe "$1/Data/bk3_00.pp" op_00.bmp build/title-readback.rgba
@@ -54,14 +63,32 @@ if [ "$#" -ge 1 ]; then
     ASAN_OPTIONS=detect_leaks=0 build/asan/ending-state-probe "$1/Data"
     build/ending-normal-probe "$1/Data"
     ASAN_OPTIONS=detect_leaks=0 build/asan/ending-normal-probe "$1/Data"
+    build/ending-secondary-probe "$1/Data"
+    ASAN_OPTIONS=detect_leaks=0 build/asan/ending-secondary-probe "$1/Data"
+    python3 tests/check_ending_runtime.py "$1/Data" --reuse-host-build
     build/ending-normal-scene-probe "$1/Data" 0
     build/ending-normal-scene-probe "$1/Data" 1
+    build/ending-normal-scene-probe "$1/Data" 0 --story
+    build/ending-normal-scene-probe "$1/Data" 1 --story
+    build/ending-normal-scene-probe "$1/Data" 0 --confirmation
+    build/ending-viewport-probe "$1/Data"
+    build/ending-framing-probe "$1/Data"
+    build/ending-draw-event-probe "$1/Data"
+    build/ending-exit-probe "$1/Data" build/ending-exit-output
     build/ending-normal-probe "$1/Data" --background
     ASAN_OPTIONS=detect_leaks=0 build/asan/ending-normal-probe "$1/Data" --background
     build/ending-face-probe "$1/Data"
     ASAN_OPTIONS=detect_leaks=0 build/asan/ending-face-probe "$1/Data"
     build/ending-auxiliary-probe "$1/Data"
     ASAN_OPTIONS=detect_leaks=0 build/asan/ending-auxiliary-probe "$1/Data"
+    build/ending-auxiliary-probe "$1/Data" --cycle
+    ASAN_OPTIONS=detect_leaks=0 build/asan/ending-auxiliary-probe "$1/Data" --cycle
+    cmake --build build/asan --target ending-presentation-probe ending-opening-probe --parallel "${BK_BUILD_JOBS:-8}"
+    build/ending-opening-probe "$1/Data"
+    ASAN_OPTIONS=detect_leaks=0 build/asan/ending-opening-probe "$1/Data"
+    build/ending-presentation-probe "$1/Data" build/ending-presentation-host.pcmtrace
+    ASAN_OPTIONS=detect_leaks=0 build/asan/ending-presentation-probe "$1/Data" build/asan/ending-presentation-asan.pcmtrace
+    cmp build/ending-presentation-host.pcmtrace build/asan/ending-presentation-asan.pcmtrace
     build/bom-assets-probe "$1/Data"
     build/bom-render-probe "$1/Data"
     build/ending-ui-batch-probe "$1/Data"
@@ -72,8 +99,6 @@ if [ "$#" -ge 1 ]; then
     build/ending-stage-ui-render-probe "$1/Data" build/ending-stage-ui-fixture
     build/ending-stage-ui-render-probe "$1/Data" build/ending-stage-ui-fixture --lines
     build/ending-ui-render-probe "$1/Data" build/ending-ui-fixture
-    build/ending-render-probe "$1/Data"
-    build/ending-render-probe "$1/Data" --special
     build/bom-assets-probe "$1/Data" --motion
     build/bom-render-probe "$1/Data" --motion
     build/bom-assets-probe "$1/Data" --seconds

@@ -18,6 +18,93 @@ void bk_scene_light_registry_destroy(BkSceneLightRegistry *r) {
     bk_scene_lighting_destroy(r->sources[i]);
   free(r);
 }
+int bk_scene_light_registry_reset(BkSceneLightRegistry *r) {
+  if (!r)
+    return 0;
+  memset(r->lights, 0, sizeof(r->lights));
+  r->light_count = 0;
+  return 1;
+}
+int bk_scene_light_registry_select_bk3_l(BkSceneLightRegistry *r) {
+  if (!bk_scene_light_registry_reset(r))
+    return 0;
+  for (uint32_t i = 0; i < r->source_count; ++i) {
+    BkLightingPassInput source = {0};
+    if (!bk_scene_lighting_input(r->sources[i], &source) ||
+        source.light_count > BK_PASS_LIGHTS - r->light_count)
+      return 0;
+    for (uint32_t j = 0; j < source.light_count; ++j) {
+      r->lights[r->light_count] = source.lights[j];
+      r->lights[r->light_count++].ambient_rank = 0;
+    }
+  }
+  return 1;
+}
+int bk_scene_light_registry_ambient(BkSceneLightRegistry *r) {
+  if (!r)
+    return 0;
+  uint8_t names[BK_PASS_LIGHTS] = {0};
+  uint32_t index = 0;
+  for (uint32_t i = 0; i < r->source_count && index < r->light_count; ++i) {
+    const BkModelEnvironment *env = bk_scene_lighting_environment(r->sources[i]);
+    if (!env || env->light_count > r->light_count - index)
+      return 0;
+    for (uint32_t j = 0; j < env->light_count; ++j)
+      names[index++] = strlen(env->lights[j].name) > 6 && env->lights[j].name[6] == 'A';
+  }
+  return index == r->light_count &&
+         bk_light_ambient_initialize(r->lights, names, r->light_count, &r->ambient);
+}
+int bk_scene_light_registry_inherit(BkSceneLightRegistry *to,
+                                     const BkSceneLightRegistry *from,
+                                     char e[256]) {
+  if (!to || !from || to == from)
+    return fail(e, "invalid retained light state owners");
+  for (uint32_t i = 0; i < to->source_count; ++i) {
+    const BkModel *model = bk_scene_lighting_model(to->sources[i]);
+    for (uint32_t j = 0; j < from->source_count; ++j)
+      if (model == bk_scene_lighting_model(from->sources[j]) &&
+          !bk_scene_lighting_inherit(to->sources[i], from->sources[j]))
+        return fail(e, "retained light model changed its layout");
+  }
+  to->ambient = from->ambient;
+  return 1;
+}
+int bk_scene_light_registry_save(const BkSceneLightRegistry *r,
+                                 const BkModel *model,
+                                 BkRetainedLightState *out, char e[256]) {
+  if (!r || !out)
+    return fail(e, "missing retained light snapshot input/output");
+  BkRetainedLightState next;
+  memset(&next, 0, sizeof(next));
+  next.ambient = r->ambient;
+  next.model = model;
+  for (uint32_t i = 0; i < r->source_count; ++i)
+    if (model && model == bk_scene_lighting_model(r->sources[i])) {
+      if (next.has_model || !bk_scene_lighting_save(r->sources[i], &next.device))
+        return fail(e, "ambiguous retained light model");
+      next.has_model = 1;
+    }
+  *out = next;
+  return 1;
+}
+int bk_scene_light_registry_restore(BkSceneLightRegistry *r,
+                                    const BkRetainedLightState *saved, char e[256]) {
+  if (!r || !saved || saved->has_model > 1 || (saved->has_model && !saved->model))
+    return fail(e, "invalid retained light snapshot");
+  BkSceneLighting *match = NULL;
+  if (saved->has_model)
+    for (uint32_t i = 0; i < r->source_count; ++i)
+      if (saved->model == bk_scene_lighting_model(r->sources[i])) {
+        if (match)
+          return fail(e, "ambiguous destination light model");
+        match = r->sources[i];
+      }
+  if (match && !bk_scene_lighting_restore(match, &saved->device))
+    return fail(e, "retained light model changed its layout");
+  r->ambient = saved->ambient;
+  return 1;
+}
 BkSceneLightRegistry *bk_scene_light_registry_create(const BkLightSource *s,
                                                      uint32_t count,
                                                      char e[256]) {

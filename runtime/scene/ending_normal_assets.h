@@ -1,11 +1,15 @@
 #ifndef BK_SCENE_ENDING_NORMAL_ASSETS_H
 #define BK_SCENE_ENDING_NORMAL_ASSETS_H
+#include "scene/ending_background_assets.h"
 #include "game/ending_normal.h"
 #include "scene/bom_assets.h"
 #include "scene/ending_camera_assets.h"
 #include "scene/eye_assets.h"
 #include "scene/face_assets.h"
 typedef struct BkEndingNormalAssets BkEndingNormalAssets;
+/* Actual registered root of actor0/1/4; camera tracks use their own API.
+ * Returns BK_FRAME_NONE for an absent actor, not a fabricated root. */
+uint32_t bk_ending_normal_assets_root(const BkEndingNormalAssets *, unsigned actor);
 /* CPU resource/pose portion of normal4cf318, packaged retail layout.
  * Own primary/auxiliary, face/eyes/BOM, two camera tracks, optional group1
  * background, and their forest. Actual insertion order matters: primary,
@@ -21,6 +25,17 @@ bk_ending_normal_assets_create(BkResourceStore *, unsigned group,
                                uint32_t *random, BkMenuCamera *,
                                BkEndingCameraPresets *, char error[256]);
 void bk_ending_normal_assets_destroy(BkEndingNormalAssets *);
+/* Stage replacement keeps the existing outer background for groups0/2/3/4.
+ * Group1 actually invokes4d460b and loads m02_92. Restore the old background
+ * in global insertion order before new actors; do not reselect its clip or
+ * reset materials, visibility or playback. The old GPU owner may coexist.
+ * A later construction failure retains executed background cache updates. */
+BkEndingNormalAssets *bk_ending_normal_assets_create_reloaded(
+    BkResourceStore *, unsigned group, unsigned variant,
+    BkEndingBackgroundAssets *, const uint32_t clocks[4], uint32_t *random,
+    BkMenuCamera *, BkEndingCameraPresets *, char error[256]);
+BkEndingBackgroundAssets *bk_ending_normal_assets_background(
+    const BkEndingNormalAssets *);
 /* CPU portion of outer4cc582/4d460b, after initial camera/UI construction.
  * Keep group1's already loaded special background; otherwise append the
  * selected common background, globally attach/orient, then request slot0.

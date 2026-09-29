@@ -49,4 +49,21 @@ int bk_ending_control_step(BkEndingControlState *,
                            const BkEndingControlBindings *,
                            const BkEndingFrameInput *,
                            const BkEndingControlOps *, char error[256]);
+typedef struct {
+  BkEndingFrameState *frame;
+  uint8_t *action, *curtain_wanted; /* shared beeb7e/beeb7f */
+  /* Live slot59/61 bounds, in confirm/cancel order. */
+  const BkEndingControlRect *rects;
+  const int32_t *effect_volume;
+} BkEndingConfirmBindings;
+/* Complete4e2223..4e252a phase9 confirmation controller. Both hit regions
+ * and the final cancel-key query are independent; callbacks may change live
+ * state. Only pause_flags0/1/2/4 clear on cancel, leaving3/5 unchanged.
+ * Reuses key/sound services; sound2 is se002 (cancel),0 confirm,3 hover.
+ * Requests the shared curtain/action; it does not replace flow scheduling.
+ * A failing required service retains its executed prefix. */
+int bk_ending_confirm_step(BkEndingControlState *,
+                           const BkEndingConfirmBindings *,
+                           const BkEndingFrameInput *,
+                           const BkEndingControlOps *, char error[256]);
 #endif

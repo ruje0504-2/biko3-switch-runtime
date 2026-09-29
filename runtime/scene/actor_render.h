@@ -55,6 +55,14 @@ int bk_actor_render_prepare_morph(BkActorRender *, const BkActorPose *,
                                   const BkMaterialPose *, const BkMorphGroup *,
                                   const float view[16],
                                   const float projection[16], char error[256]);
+/*Disjoint model MORP and FAM mesh owners in the same loaded actor. Both feed
+ * the original shared skin/upload path. Overlapping submeshes reject instead
+ * of discarding one owner's effects; such assets require a shared CPU target.
+ * NULL owners keep their existing immutable/face-only/model-only semantics. */
+int bk_actor_render_prepare_effects(BkActorRender *, const BkActorPose *,
+                                    const BkMaterialPose *, const BkFaceAssets *,
+                                    const BkMorphGroup *, const float view[16],
+                                    const float projection[16], char error[256]);
 /* Borrow a checked GPU mesh until actor destruction. Transfers may retain
  * the GPU allocation, but callback users must still outlive the actor handle.
  * Revision is0 until successful prepare; later mutation invalidates snapshots.

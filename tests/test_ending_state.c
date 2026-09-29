@@ -108,5 +108,41 @@ int main(void) {
   views.previous_flow = NULL;
   assert(!bk_ending_state_ui_bindings(&s, &common, &views, &bindings));
   assert(!memcmp(&saved, &bindings, sizeof(saved)));
+  memset(&s, 0x5a, sizeof(s));
+  old = s;
+  assert(!bk_ending_state_leave(&s, (BkEndingLeave)-1, e));
+  assert(!bk_ending_state_leave(&s, (BkEndingLeave)6, e));
+  assert(!memcmp(&old, &s, sizeof(s)));
+  for (unsigned operation = 0; operation < 6; ++operation)
+    assert(bk_ending_state_leave(&s, (BkEndingLeave)operation, e));
+  assert(!s.normal_ready && !s.next_mode && !s.normal_side && !s.final_state);
+  assert(!s.aux_inputs[1] && !s.aux_config[4][5] && !s.unavailable[1]);
+  assert(!s.ui_controller.hints.movement_ready);
+  assert(s.ui_controller.hints.variable_scroll ==
+         old.ui_controller.hints.variable_scroll);
+  assert(!s.ui_controller.auxiliary.mode &&
+         !s.ui_controller.auxiliary.processed[1] &&
+         !s.ui_controller.auxiliary.group_seen[4]);
+  assert(s.ui_controller.auxiliary.reset_b == INT32_C(0x3f000000));
+  assert(s.retained.auxiliary.word_5546a0 == -1 &&
+         s.retained.stage2.word_6a3c24 == 9 &&
+         s.retained.stage2.word_54ccc8 == -1 &&
+         s.retained.stage2.value_54ccd0 == 1 &&
+         s.retained.stage4.word_54e2f8 == -1 &&
+         s.retained.stage4.value_54e310 == 1);
+  assert(!s.retained.final.workspace_6c7f80[9999] &&
+         !s.retained.stage4.bytes_6c7f54[9]);
+  assert(!memcmp(s.working, old.working, sizeof(s.working)) &&
+         !memcmp(s.alternate, old.alternate, sizeof(s.alternate)) &&
+         !memcmp(&s.frame, &old.frame, sizeof(s.frame)) &&
+         !memcmp(&s.control, &old.control, sizeof(s.control)) &&
+         !memcmp(s.normal_inputs, old.normal_inputs, sizeof(s.normal_inputs)) &&
+         !memcmp(s.normal_processed, old.normal_processed,
+                 sizeof(s.normal_processed)));
+  assert(s.ui_controller.auxiliary.choice == old.ui_controller.auxiliary.choice &&
+         s.ui_controller.auxiliary.random_latch ==
+             old.ui_controller.auxiliary.random_latch &&
+         s.auxiliary.base == old.auxiliary.base &&
+         s.auxiliary.direction == old.auxiliary.direction);
   puts("ending state reset/retention/live-owner composition PASS");
 }

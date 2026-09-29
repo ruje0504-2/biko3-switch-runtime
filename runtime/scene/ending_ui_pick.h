@@ -24,6 +24,11 @@ typedef struct {
   const float *viewport_matrix; /* device642af0 */
   float ring_width;             /* slot50 width, not slot51 */
 } BkEndingUiPickBindings;
+/* One original42d4b6 projection for the action controller. Uses the same
+ * matrix/rounding path as target selection; missing node is an explicit
+ * error, unlike the selector's original skip of optional candidates. */
+int bk_ending_ui_project_target(const BkEndingUiPickBindings *, unsigned node,
+                                 int32_t point[2], char error[256]);
 /* Complete4da76f with actual42d4b6 projection and4a7b26 selection math.
  * All required original nodes must exist: missing nodes leave native stack
  * distances/radii uninitialized, so that path is explicitly rejected.
@@ -34,4 +39,13 @@ typedef struct {
 int bk_ending_ui_pick_targets(const BkEndingUiPickBindings *,
                               const float pointer[2], float *distance,
                               int32_t *selected, char error[256]);
+/* Runtime policy for retail models with absent optional endpoint nodes:
+ * exclude only segments whose endpoint is absent. All existing endpoints
+ * and defined arithmetic retain the strict query's validation and ordering.
+ * No coordinates, radii, depths or hits are invented for missing nodes.
+ * This replaces undefined native stack reads, not a proven native result.
+ * A truncated binding table or invalid present matrix remains an error. */
+int bk_ending_ui_pick_available_targets(const BkEndingUiPickBindings *,
+                                        const float pointer[2], float *distance,
+                                        int32_t *selected, char error[256]);
 #endif

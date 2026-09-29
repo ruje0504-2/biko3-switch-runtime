@@ -23,11 +23,22 @@ BkEndingAudio *bk_ending_audio_create_entry(BkResourceStore *, BkAudio *,
                                             char error[256]);
 int bk_ending_audio_present(const BkEndingAudio *, unsigned slot, int *present);
 int bk_ending_audio_stop(BkEndingAudio *, char error[256]);
+/*4cfede/4d0dca release only their two speech buffers. The shared effect
+ * bank, music cursor/gain, queued PCM and other mixer users remain owned by
+ * the surrounding ending session. Clearing0 succeeds before clearing1;
+ * a later backend failure retains that completed prefix. */
+int bk_ending_audio_release_speech(BkEndingAudio *, char error[256]);
 void bk_ending_audio_destroy(BkEndingAudio *);
 /* Replace a stopped buffer. Clears/releases the prior buffer before loading,
  * as4e0956. A missing asset is fatal, not a successful silent replacement. */
 int bk_ending_audio_bind(BkEndingAudio *, unsigned slot, const char *pack,
                          const char *name, char error[256]);
+/*4e0956 alone: clear the previous slot and load named speech without Play.
+ * Keep its separate call boundary: parent controllers can read live volume
+ * after loading, and a failed subsequent play must leave this buffer loaded.
+ * Uses the same143 verified absent-name policy as the combined helper. */
+int bk_ending_audio_load_speech(BkEndingAudio *, unsigned slot,
+                                const char *name, char error[256]);
 /*4e0956 +4ad2bf named speech, same existing slots0/1. Caller has already
  * committed the retained filename. Load failure keeps the old slot cleared.
  * The143 proven absent Japanese table names retain the native null buffer;
@@ -41,8 +52,14 @@ int bk_ending_audio_speech(BkEndingAudio *, unsigned slot, const char *name,
 int bk_ending_audio_call(BkEndingAudio *, unsigned group, int32_t variant,
                          int32_t selection, const BkEndingAudioCall *,
                          int *playing, char error[256]);
-int bk_ending_audio_level(BkEndingAudio *, unsigned slot, BkVoiceEnvelope *,
-                          float seconds, float *level, char error[256]);
+/* Actual4ad5a4/4ad363: independent ending envelope and two status reads.
+ * Read220 interleaved PCM samples at the consumed cursor, preserving the
+ * unsigned near-end exclusion (offset >= buffer_bytes-443). Exactly442-byte
+ * buffers may split the lock across their end; shorter buffers cannot lock.
+ * A playing buffer without a usable sample smooths toward the old target. */
+int bk_ending_audio_level(BkEndingAudio *, unsigned slot,
+                          BkEndingVoiceEnvelope *, float *level,
+                          char error[256]);
 /* Actual4e01e4 adapter. Changes only speech0 gain, preserves pan, source phase,
  * queued samples and independent entry music. Out-of-range native SetVolume
  * requests retain gain as rejected DirectSound commands; backend failure

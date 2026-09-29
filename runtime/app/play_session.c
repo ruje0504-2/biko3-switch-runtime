@@ -36,8 +36,18 @@ typedef struct {
   BkSystemAudio *confirm;
   BkFrontEnd *front;
   BkEndingRecords ending_records;
+  BkEndingAuxiliaryCycle ending_auxiliary_cycle;
+  BkEndingNormalControllerRetained ending_normal_controller;
+  BkEndingPresentationRetained ending_presentation;
+  BkEndingSecondaryControlState ending_secondary_controller;
+  BkEndingSecondaryPresentationState ending_secondary_presentation;
+  BkEndingState ending_state;
+  BkEndingTertiaryControllerRetained ending_tertiary_controller;
+  int32_t ending_duck_transition; /*719c5c: process zero-init, audio owns writes*/
   uint8_t ending_unlock_flags[BK_UNLOCK_FLAGS];
+  unsigned ending_unlock_group;
   int ending_unlock_valid;
+  int ending_first_present;
   BkScene *game, *pause, *title, *retry, *checkpoint, *save, *ending;
   BkViewport viewport;
   BkCommonHudFrame common_frame;
@@ -110,9 +120,12 @@ static int release(void *context, uint8_t flow, char error[256]) {
       snprintf(error, 256, "play session: ending unlock row is unavailable");
       return 0;
     }
+    if (!bk_ending_normal_scene_stop(s->ending, error))
+      return 0;
     memcpy(s->ending_unlock_flags,
            ending_state->working[ending_state->frame.group],
            sizeof(s->ending_unlock_flags));
+    s->ending_unlock_group = ending_state->frame.group;
     s->ending_unlock_valid = 1;
     s->retire_ending = 1;
     return 1;
@@ -167,6 +180,7 @@ static void collect_retired(PlaySession *s) {
     bk_scene_destroy(s->ending);
     s->ending = NULL;
     s->retire_ending = 0;
+    s->ending_first_present = 0;
   }
   if (any)
     log_line(s, "Retired resources collection complete");
@@ -211,7 +225,8 @@ static int load_target(void *context, uint8_t target, char error[256]) {
   snprintf(message, sizeof(message), "Flow load target%02x begin", target);
   log_line(s, message);
   if (target == 0x58 && !s->game && !s->pause && !s->title && !s->retry &&
-      !s->checkpoint && !s->save && !bk_front_end_active(s->front)) {
+      !s->checkpoint && !s->save && !s->ending &&
+      !bk_front_end_active(s->front)) {
     /* Native4e7671 has no resources for58;466448 exits the outer loop on
      * this byte. Actual process teardown is owned by application.c. */
     return 1;
@@ -243,20 +258,38 @@ static int load_target(void *context, uint8_t target, char error[256]) {
     return load_pause(s, error);
   if (target == 0x10 && !s->ending) {
     BkDialogueResult result;
-    if (!s->front || !bk_front_end_result(s->front, &result, error))
+    BkUnlockTable unlocked;
+    if (!s->front || !bk_front_end_result(s->front, &result, error) ||
+        !bk_front_end_unlocks(s->front, &unlocked, error))
       return 0;
     if (result.group < 0 || result.group >= BK_ENDING_RECORD_GROUPS ||
-        result.kind != 0) {
+        (result.kind != 0 && result.kind != 1)) {
       snprintf(error, 256,
-               "play session: flow16 alternate ending loader is not implemented");
+               "play session: flow16 dialogue result is outside implemented entries");
       return 0;
     }
     s->ending_unlock_valid = 0;
+    BkEndingNormalFlow ending_flow = {.common = &s->common,
+                                      .context = s,
+                                      .schedule = schedule,
+                                      .wall_seconds = s->elapsed,
+                                      .auxiliary_cycle = &s->ending_auxiliary_cycle,
+                                      .random = &s->game_state.random,
+                                      .normal_controller = &s->ending_normal_controller,
+                                      .presentation = &s->ending_presentation,
+                                      .duck_transition = &s->ending_duck_transition,
+                                      .secondary_controller = &s->ending_secondary_controller,
+                                      .secondary_presentation = &s->ending_secondary_presentation,
+                                      .state = &s->ending_state,
+                                      .tertiary_controller = &s->ending_tertiary_controller};
     s->ending = bk_ending_normal_scene_create_story(
-        &s->services, (unsigned)result.group, 0, &s->ending_records, error);
+        &s->services, (unsigned)result.group, (unsigned)result.kind, &s->ending_records,
+        unlocked.flags, &ending_flow, error);
     if (!s->ending)
       return 0;
-    log_line(s, "Normal story ending loaded for flow16");
+    s->ending_first_present = 1;
+    log_line(s, result.kind ? "Third story ending loaded for flow16"
+                           : "Normal story ending loaded for flow16");
     return 1;
   }
   if (target == 0x40 && s->game && !s->retire_game && !s->failure_active) {
@@ -391,7 +424,13 @@ static int step(void *context, double seconds, const BkInput *input,
       return 0;
     break;
   case 0x10:
-    if (!s->ending || !bk_scene_step(s->ending, seconds, input, error))
+    /* The loader prepared the first ending snapshot during flow50. Present
+     * it through the normal app draw/after_present boundary before asking
+     * the scene for another update. */
+    if (!s->ending ||
+        (!s->ending_first_present &&
+         !bk_ending_normal_scene_step_at(s->ending, seconds, s->elapsed,
+                                          input, error)))
       return 0;
     break;
   case 4:
@@ -528,9 +567,10 @@ int bk_play_session_after_present(BkScene *scene, char error[256]) {
     s->retire_pause = 1;
     if (s->flow.current == 2)
       log_line(s, "Game resumed with retained session");
-  } else if (s->shown == 0x10 &&
-             !bk_ending_normal_scene_after_present(s->ending, error)) {
-    return 0;
+  } else if (s->shown == 0x10) {
+    if (!bk_ending_normal_scene_after_present(s->ending, error))
+      return 0;
+    s->ending_first_present = 0;
   }
   s->pending = 0;
   return 1;
@@ -566,6 +606,12 @@ static BkScene *create(const BkSceneServices *services,
     return NULL;
   }
   s->services = *services;
+  s->ending_auxiliary_cycle = bk_ending_auxiliary_cycle_initial();
+  bk_ending_normal_controller_initialize(&s->ending_normal_controller);
+  s->ending_secondary_controller = bk_ending_secondary_control_initial();
+  s->ending_secondary_presentation = bk_ending_secondary_presentation_initial();
+  bk_ending_state_initialize(&s->ending_state);
+  bk_ending_tertiary_controller_initialize(&s->ending_tertiary_controller);
   s->save_files = files;
   s->save_state.control.tab = 3;
   s->elapsed = 1;
@@ -606,7 +652,8 @@ static BkScene *create(const BkSceneServices *services,
                           .schedule = schedule,
                           .unlock_file = unlock_file,
                           .ending_flags = s->ending_unlock_flags,
-                          .ending_flags_valid = &s->ending_unlock_valid};
+                          .ending_flags_valid = &s->ending_unlock_valid,
+                          .ending_flags_group = &s->ending_unlock_group};
     s->front = bk_front_end_create(&c, error);
     if (!s->front)
       goto bad;

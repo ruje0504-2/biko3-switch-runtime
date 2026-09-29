@@ -93,6 +93,23 @@ int main(void) {
   assert(!bk_ending_special_hidden_name(0, 10, 0));
   assert(!bk_ending_special_hidden_name(0, 0, 3));
   assert(!strcmp(bk_ending_special_hidden_name(0, 0, 0), ""));
+  BkViewport content = {160, 0, 960, 720}, viewport;
+  assert(bk_ending_special_viewport(&viewport, &content, e));
+  assert(viewport.x == 160 && viewport.y == 270 && viewport.width == 600 &&
+         viewport.height == 450);
+  BkViewport held = viewport;
+  content.height = 719;
+  assert(!bk_ending_special_viewport(&viewport, &content, e));
+  assert(!memcmp(&held, &viewport, sizeof(held)));
+  content = (BkViewport){0, 0, 1280, 720};
+  assert(!bk_ending_special_viewport(&viewport, &content, e));
+  assert(!memcmp(&held, &viewport, sizeof(held)));
+  content = (BkViewport){UINT32_MAX - 10, 0, 960, 720};
+  assert(!bk_ending_special_viewport(&viewport, &content, e));
+  content = (BkViewport){4, 7, 640, 480};
+  assert(bk_ending_special_viewport(&content, &content, e));
+  assert(content.x == 4 && content.y == 187 && content.width == 400 &&
+         content.height == 300);
   BkEndingFrameState frame = {.group = 4, .phase = 6};
   int32_t variant = 1, index = 47, mode = 1;
   uint8_t camera_variant = 2, restore = 255;

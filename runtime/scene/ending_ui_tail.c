@@ -1,5 +1,6 @@
 #include "scene/ending_ui_tail.h"
 #include "core/random.h"
+#include "game/ending_normal.h"
 #include "game/ending_sound.h"
 #include <limits.h>
 #include <math.h>
@@ -248,12 +249,6 @@ static int auxiliary(BkEndingUi *ui, BkEndingStageUi *stage,
 }
 static int normal_index(const BkEndingUiTailBindings *b, int *index,
                         int *enabled, char e[256]) {
-  static const uint8_t config[5][14] = {
-      {0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 1, 0},
-      {0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1},
-      {0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0},
-      {0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
-      {0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0}};
   if (!b->normal_side || !b->normal_target || !b->normal_inputs ||
       !b->normal_processed || b->frame->group >= 5)
     return fail(e, "missing normal table bindings/group");
@@ -261,7 +256,7 @@ static int normal_index(const BkEndingUiTailBindings *b, int *index,
   if (i < 0 || i >= 14)
     return fail(e, "normal table index out of bounds");
   *index = (int)i;
-  *enabled = config[b->frame->group][i];
+  *enabled = bk_ending_normal_preference(b->frame->group, (unsigned)i);
   return 1;
 }
 static int progress(const BkEndingUiTailBindings *b, float amount, float pixels,

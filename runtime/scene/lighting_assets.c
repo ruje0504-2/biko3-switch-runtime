@@ -64,6 +64,32 @@ const BkModelEnvironment *
 bk_scene_lighting_environment(const BkSceneLighting *s) {
   return s ? s->environment : NULL;
 }
+const BkModel *bk_scene_lighting_model(const BkSceneLighting *s) {
+  return s ? s->model : NULL;
+}
+int bk_scene_lighting_inherit(BkSceneLighting *to, const BkSceneLighting *from) {
+  if (!to || !from || to->model != from->model ||
+      to->environment->light_count != from->environment->light_count)
+    return 0;
+  to->ambient = from->ambient;
+  to->enabled = from->enabled;
+  return 1;
+}
+int bk_scene_lighting_save(const BkSceneLighting *s, BkSceneLightDevice *out) {
+  if (!s || !out)
+    return 0;
+  *out = (BkSceneLightDevice){s->environment->light_count, s->ambient, s->enabled};
+  return 1;
+}
+int bk_scene_lighting_restore(BkSceneLighting *s, const BkSceneLightDevice *saved) {
+  if (!s || !saved || saved->light_count != s->environment->light_count ||
+      saved->light_count > BK_PASS_LIGHTS || saved->light_count >= 32 ||
+      (saved->enabled & ~((UINT32_C(1) << saved->light_count) - 1u)))
+    return 0;
+  s->ambient = saved->ambient;
+  s->enabled = saved->enabled;
+  return 1;
+}
 int bk_scene_lighting_input(const BkSceneLighting *s, BkLightingPassInput *in) {
   if (!s || !in)
     return 0;

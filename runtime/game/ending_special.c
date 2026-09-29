@@ -1,5 +1,6 @@
 #include "game/ending_special.h"
 #include "game/ending_special_data.inc"
+#include <limits.h>
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
@@ -12,6 +13,24 @@ int bk_ending_special_cameras(float out[BK_ENDING_SPECIAL_CAMERAS][4],
   if (!out || group >= 5)
     return 0;
   memcpy(out, camera_bits[group], sizeof(camera_bits[group]));
+  return 1;
+}
+int bk_ending_special_viewport(BkViewport *out, const BkViewport *content,
+                               char e[256]) {
+  if (!out || !content || !content->width || !content->height ||
+      content->width > INT32_MAX ||
+      content->x > UINT32_MAX - content->width ||
+      content->y > UINT32_MAX - content->height)
+    return fail(e, "invalid content viewport");
+  float scale = (float)((double)content->width / 1280.0);
+  uint32_t y = (uint32_t)(360.0 * scale),
+           width = (uint32_t)(800.0 * scale),
+           height = (uint32_t)(600.0 * scale);
+  if (!width || !height || width > content->width || y > content->height ||
+      height > content->height - y)
+    return fail(e, "special viewport does not fit the content");
+  BkViewport result = {content->x, content->y + y, width, height};
+  *out = result;
   return 1;
 }
 const char *bk_ending_special_hidden_name(unsigned group, unsigned variant,

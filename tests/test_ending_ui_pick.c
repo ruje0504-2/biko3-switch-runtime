@@ -57,11 +57,38 @@ int main(void) {
   present[38] = 0;
   assert(!bk_ending_ui_pick_targets(&b, pointer, &distance, &selected, error));
   assert(selected == 44 && distance == saved);
+  /* A missing leg endpoint must not suppress a valid shoulder target or
+   * read the deliberately poisoned absent node's cached matrix. */
+  world[38][0] = NAN;
+  distance = 10000;
+  assert(bk_ending_ui_pick_available_targets(&b, pointer, &distance, &selected,
+                                            error));
+  assert(selected == 0 && distance == saved);
+  present[38] = 1;
+  selected = 44;
+  assert(!bk_ending_ui_pick_available_targets(&b, pointer, &distance, &selected,
+                                             error));
+  assert(selected == 44 && distance == saved);
+  identity(world[38]);
   present[38] = 1;
   b.count = 38;
   assert(!bk_ending_ui_pick_targets(&b, pointer, &distance, &selected, error));
   assert(selected == 44 && distance == saved);
+  assert(!bk_ending_ui_pick_available_targets(&b, pointer, &distance, &selected,
+                                             error));
+  assert(selected == 44 && distance == saved);
   b.count = 39;
+  /* An entirely absent optional hit skeleton is a miss, not a fabricated
+   * hit at the origin. Poisoned unused matrices cannot affect the result. */
+  memset(present, 0, sizeof(present));
+  for (unsigned i = 0; i < 39; ++i)
+    world[i][0] = NAN;
+  assert(bk_ending_ui_pick_available_targets(&b, pointer, &distance, &selected,
+                                            error));
+  assert(selected == -1 && distance == saved);
+  memset(present, 1, sizeof(present));
+  for (unsigned i = 0; i < 39; ++i)
+    identity(world[i]);
   for (unsigned i = 0; i < 39; i++)
     world[i][15] = 0;
   distance = 10000;

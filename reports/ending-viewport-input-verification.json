@@ -1,0 +1,70 @@
+{
+  "date": "2026-09-29",
+  "scope": "Ending viewport, visible UI, pointer and hit testing; not full ending/Windows/Switch hardware acceptance",
+  "ui": {
+    "runs": [
+      {
+        "name": "host",
+        "exit_code": 0,
+        "log": "local/ending-viewport-host-ui.log"
+      },
+      {
+        "name": "asan",
+        "exit_code": 0,
+        "log": "local/ending-viewport-asan-ui.log"
+      }
+    ],
+    "paired_cases_per_build": 12,
+    "scene_frames_per_build": 3368,
+    "ui_readback_rgba_bytes_per_build": 102988800,
+    "changed_display_pixels": 0,
+    "maximum_display_channel_error": 0,
+    "alpha_compared": false,
+    "cpu_states_byte_exact": true,
+    "toolbar_buttons": 13,
+    "asan_detect_leaks": false
+  },
+  "full_scene_optical": {
+    "within_raster_bounds": 11,
+    "total_pairs": 12,
+    "maximum_display_channel_error": 18,
+    "remaining_difference": "1920x1080 gallery variant0: sparse 3D edge sampling differences; not counted as passed"
+  },
+  "regressions": [
+    {
+      "name": "architecture",
+      "exit_code": 0,
+      "log": "local/ending-viewport-regression-architecture.log"
+    },
+    {
+      "name": "front",
+      "exit_code": 0,
+      "log": "local/ending-viewport-regression-front.log"
+    },
+    {
+      "name": "game",
+      "exit_code": 0,
+      "log": "local/ending-viewport-regression-game.log"
+    }
+  ],
+  "switch": {
+    "nro": "/Users/rujian/Documents/Codex/WX3/build-switch/biko3-preview.nro",
+    "bytes": 15794232,
+    "sha256": "c31dc6f0565617fc51602c850e892d0fa950f514c394e5d530c1c2368ada3f68",
+    "undefined_symbols": 0,
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212"
+  },
+  "source_sha256": {
+    "runtime/core/input.c": "fbe4da57392c6f627a48ee4d7ed941d4d982aecb6bc049cdde7b50eab612e9d0",
+    "runtime/core/input.h": "d67a4d62e9f720e7b55a097bd2be9bad6f03e3fe19f0444e47795bb781d13fed",
+    "runtime/scene/ending_normal_session.c": "b186f760de3a6ae497fb381b5b4f5fad532b6f418cf4d9032a9b8c2d8fcb8da3",
+    "CMakeLists.txt": "f9ba3cabee0ea7ec3c84ab2fbe449241a3bae52ba027b88124e72c9b4ac4f354",
+    "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "not_verified": [
+    "new Switch hardware run",
+    "full ending",
+    "complete test-host.sh run",
+    "early combined session 20888 outcome (result read denied)"
+  ]
+}

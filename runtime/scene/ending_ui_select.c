@@ -37,7 +37,7 @@ static int fallback(BkEndingUi *ui, const BkEndingUiSelectBindings *b,
   pick.ring_width = ui->sprites[50].rect[2];
   float distance = 10000;
   int32_t hit;
-  if (!bk_ending_ui_pick_targets(&pick, p, &distance, &hit, e))
+  if (!bk_ending_ui_pick_available_targets(&pick, p, &distance, &hit, e))
     return 0;
   b->frame->camera_request = 1;
   *selected = hit == -1 ? 0 : 3;

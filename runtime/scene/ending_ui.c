@@ -153,6 +153,23 @@ int bk_ending_ui_control_rects(const BkEndingUi *s, BkEndingControlRect r[13]) {
   }
   return 1;
 }
+int bk_ending_ui_confirm_rects(const BkEndingUi *s, BkEndingControlRect r[2]) {
+  if (!s || !r)
+    return 0;
+  BkEndingControlRect next[2];
+  for (unsigned i = 0; i < 2; ++i) {
+    unsigned slot = i ? 61 : 59;
+    if (!(s->loaded & (UINT64_C(1) << slot)))
+      return 0;
+    const float *p = s->sprites[slot].rect;
+    for (unsigned j = 0; j < 4; ++j)
+      if (!isfinite(p[j]))
+        return 0;
+    next[i] = (BkEndingControlRect){p[0], p[1], p[2], p[3]};
+  }
+  memcpy(r, next, sizeof(next));
+  return 1;
+}
 static float slide(float x, double target, float dt) {
   float delta = (float)(target - x);
   delta = (float)(3.0 * dt * delta);

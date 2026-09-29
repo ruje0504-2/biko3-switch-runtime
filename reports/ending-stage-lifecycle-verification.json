@@ -1,0 +1,2016 @@
+{
+  "date": "2026-09-29",
+  "scope": "Normal/secondary ending lifecycle and explicit-entry natural roundtrip; incomplete full port",
+  "full_port_complete": false,
+  "current_paired_validation": {
+    "started_at": "2026-09-29T01:02:51.603161+00:00",
+    "data": "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+    "suites": [
+      "cpu",
+      "session",
+      "stage",
+      "story"
+    ],
+    "reuse_host_build": false,
+    "passed": true,
+    "scope": "Host real-asset CPU/Vulkan and ASan/UBSan comparisons; no Switch or full-game acceptance",
+    "source_sha256": {
+      "CMakeLists.txt": "34c0373e32bab9406688c5facdc049b8563367c3c35d6a38ec4ee82c28787a47",
+      "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8",
+      "runtime/app/application.c": "92c14a41d22e51c1c58c2dd163c94f6f597d99e1a49921b62e54e4c21f682a30",
+      "runtime/app/application.h": "c019c51d075c356be8fd79a85228ff7a4409b848ccd9544e11c4947b313a9d9e",
+      "runtime/app/capture_output.c": "79c2d80aa2e22547d3b70549352a8dc4a42b01cc12fa15dc58b695095b1dc072",
+      "runtime/app/capture_output.h": "3d880775213516f3f7001db839c5258cf386f51119472e2d3239cac195d0ffdb",
+      "runtime/app/front_end.c": "5fa2879d11195aece1a275f15593b401cb97d7e4654f4cc9f1152d3aa804925c",
+      "runtime/app/front_end.h": "ea3fc5e330b18149aa78c743d012bdf54c4cbef42974b931554d058d228bcd2a",
+      "runtime/app/game_preview.c": "2baadc77e7fa93c8669eb5f169dc34480f570580ab0e45a6feb9522f590dc170",
+      "runtime/app/game_preview.h": "ee3d67fd97a1b503c79911b330f34d60c2ed607f91a05ea4372f517d4db93561",
+      "runtime/app/main.c": "40901c0d90da3c18091f29c3b1c41bd9c9bfbc48eb524907f5dad4ed8186a383",
+      "runtime/app/pause_preview.c": "2c042461aa053c3764aba624184163bcb68695c1ded6fd5d0ea0ffcf481f4192",
+      "runtime/app/pause_preview.h": "e91c40d2e89b0f0a181b915cd4b627e401d45733c7cb5da18954d3ddfa481c4f",
+      "runtime/app/pause_resources.c": "1ae43fd0f20bece32354701eab9f17873b874374ef3bcd92aa534e9849c19c27",
+      "runtime/app/pause_resources.h": "bfde755c70d5362dca06af39ffee82d0cdf6c04dbb560f8d4f669eda656537dc",
+      "runtime/app/pause_session.c": "103cedd4cd314514ff5be19eaed8ceebcb64e6225fbfb4d5fefb5408fa99e300",
+      "runtime/app/pause_session.h": "6b894ce90f55aac39de9ade17b442f8c5022ac18eea5ccd56d8a0a9ca21b0c44",
+      "runtime/app/play_session.c": "7741e0da45f825d792ef21f93c1a53db00b5d0910852430a6ad5aa0d1b7efb66",
+      "runtime/app/play_session.h": "8152350c2f22ecafeac7c27f643039b58713c3b499d11caa080031859eef109c",
+      "runtime/app/retry_preview.c": "1dca1c66f25640f0bac75adcd3aa2e3c05ec7d77665d17e8427e4b3e372c45be",
+      "runtime/app/retry_preview.h": "177b961d50f2f6406967b1587fd56ee34d365490a45123d8e62f68a9ea7cfdf0",
+      "runtime/app/save_preview.c": "8f3c32106548150e011702c238115571b79a3d037340edc4e7d91873b296e082",
+      "runtime/app/save_preview.h": "a91ba832aba5ddfe70a2f7391c0ab592643a67e1017321acd80c822ce9a8fcfa",
+      "runtime/core/camera.c": "9e7e77428edec03da0b8b0794a5c3a42a5002eb02de7a97484fc9671ff57b4dd",
+      "runtime/core/camera.h": "afefe200cb541feb3f35ecbe5ab63b68a8d88a433d5294ba0cfd4e01550ba9df",
+      "runtime/core/clock.c": "e41babcad07d5dab3fc04f0796af54d4e8d70dd4ac09d3f6fa935639d858ed99",
+      "runtime/core/clock.h": "f447c424c5bea53258c3b3070b13698d16a35bb33613ad2bcf22c367e51d761c",
+      "runtime/core/fog.c": "508440a30947c25ee51d55bd3020ce7749c4df8b54c49718d3dcf5ead6ae287c",
+      "runtime/core/fog.h": "2166d42f4c08eaa64fdbd0f1441578d493a92817001baefbd2e5a340f57c4a46",
+      "runtime/core/game_clock.c": "4366e056be4301f537fe7faaab70d2118655d17143512e9dde2ec06bc0805ca9",
+      "runtime/core/game_clock.h": "06b07bddbde1d5543bb8b7f71eec92918a897b2a85d877888446b665248cf609",
+      "runtime/core/input.c": "fbe4da57392c6f627a48ee4d7ed941d4d982aecb6bc049cdde7b50eab612e9d0",
+      "runtime/core/input.h": "d67a4d62e9f720e7b55a097bd2be9bad6f03e3fe19f0444e47795bb781d13fed",
+      "runtime/core/lighting.c": "7708b7a87ccb709c4fe8c6c2a969b805730e838adc6eae064659ef72d4582e89",
+      "runtime/core/lighting.h": "1e63eab09ed072e3a3a43c22875f757fe1fe0f78f19ba6f3830b4ef472dccb0f",
+      "runtime/core/matrix.c": "1d3430fc276035fda78230f64139de89d2c7e5e7bcba9ac27bdcebee7fc8d7d2",
+      "runtime/core/matrix.h": "b62c7eabf431802ee18949c78e1f24f39d54c4788bc97865fbc112717f3c23aa",
+      "runtime/core/random.c": "d55ffa82e26afdad5e95615c135784c18e12250d8d0a500a14b7cea63b5533d2",
+      "runtime/core/random.h": "e092363418207ddff0d735b3ba6606ee191b582296c37540204950b64cf4c26e",
+      "runtime/core/timer.c": "daf5b800b79e916327182993b5dac2e751473f4cb8748617d9ae7d066d282a14",
+      "runtime/core/timer.h": "2f79a9236b297f9359fa69b4cd411ab01cd3ae068a7d9fd2cfacfd38706959fa",
+      "runtime/game/README.md": "b328f9bce93228c470e58616779ff1339c91e47cdf2a44ebe3869a88683fa727",
+      "runtime/game/actor_entry.c": "6f050b6bc581d33d5134cabbf9efe3be9676cbd3b5e4ccc056b47622ae3187f5",
+      "runtime/game/actor_entry.h": "c3ea07a901b82d42aa2e5de858aa0ee0ace60cbb57e7273bd74f754dd708a33a",
+      "runtime/game/area_boundary.c": "85dfe6840e167609ce3848ed0f068758bf81b625904922060b188484b653d3b2",
+      "runtime/game/area_boundary.h": "9b74ec1b828f5fd782c9217958a5ad016ce3b987a791e1192e6538a7149febb1",
+      "runtime/game/area_entry.c": "0fac560b25ca95af5ac676c5c3cf8e5f34b29274ce50a2d79ba6114e37c3c07c",
+      "runtime/game/area_entry.h": "3d4d79e701bf75ce36ef9b84240589396a5c0b05bd2f386f7824dfe47021ee60",
+      "runtime/game/background.c": "2e93b52b886039d0517d2ba1f61f4f22aa8c04addf70f2b0c1fdf68453b3d74a",
+      "runtime/game/background.h": "7acc83a06f4b85f6fdda5067d779b4300c4d35037fa9e4a1745690dad109cc55",
+      "runtime/game/background_config.c": "6fa7ddd858c1fe96bb9dce663a11c44461da981439692e47d0abefe3728baea7",
+      "runtime/game/background_config.h": "5cce822dcd9c5f4cb725a3bf9d3b1221f96790bfd5a7d42b6ac2823dc3825ae7",
+      "runtime/game/background_config_tables.inc": "eb3c782c33fb5c9622f2b7fe3d2666f2115a29124a45c33770c490c8acde0dfb",
+      "runtime/game/camera_policy.c": "aebb6a2342765663f35ac08d8c90ba0986e76db0ccf3e6c0d806b4bf0bec9bc8",
+      "runtime/game/camera_policy.h": "af225b23c32d5cbfe5e60b40ac935d64adc8e90b80b952bdca935ddfd3d4cf99",
+      "runtime/game/dialogue_actor.c": "4e0319a1f6b6356aa8b7b14fa1a02212d71b41c47f13447deae800cfba403a9a",
+      "runtime/game/dialogue_actor.h": "f7b43b6828738af084c849bede9b67c2705c4f5f8311299b7860e68e75c43d19",
+      "runtime/game/dialogue_entry.c": "c985e8da515132a3bc95af43294e0032f718a89a025afebf7b2326634de3edaa",
+      "runtime/game/dialogue_entry.h": "a67d39694fdca8c3613acabe194dc252c1decc2cc0d204861ef0200c5d6a18c7",
+      "runtime/game/draw_dispatch.c": "fbce5869aea61915161a1b992f880c7dd6279ad1c2ed75c59c1ca05540501d8a",
+      "runtime/game/draw_dispatch.h": "b26e066679f6e821f80f06af1c07ab0a581bc83650e89e525e80605dac23cf9c",
+      "runtime/game/ending_absent_speech.inc": "0560c52f53bdd845bcd315edf5189809895adc7b3e70596a06cb7c1b7a0aa98a",
+      "runtime/game/ending_auxiliary.c": "1cd186f655c98287f4651cb1e0b97d1b651fcc21c4085516d5ad138720dc31aa",
+      "runtime/game/ending_auxiliary.h": "bf0e2c384f438f2d7b71036da8dbe2aaabf0c6ef217b27ffbcb6497054d62178",
+      "runtime/game/ending_camera_config.c": "178881e61495cd2f0a09b9fd12ef733a24b159b4dd70b2745a4f077ff13de682",
+      "runtime/game/ending_camera_config.h": "bb4759a49fc7d80781f48a3f9b4d5ec3c66374568a5a309710819aae7bdf4742",
+      "runtime/game/ending_control.c": "3a6e6bc9eb64fb328df7410a4964639c15e536b5a0f2c85cf2c1a7e8436e5f81",
+      "runtime/game/ending_control.h": "5700b3f04014cdd3dde94b2714ef025fb318356df67da9b4a0dea3b87230b5e1",
+      "runtime/game/ending_entry.c": "f957eb306fb85322a33693ce7a4b95144044d7747c5333d84b3cb5c2715c462e",
+      "runtime/game/ending_entry.h": "b6b5add9447d66866f64424f388569ba0e6e87ef5a9e54454880d3df795c7051",
+      "runtime/game/ending_frame.c": "c945052637673a1d6001b5751727e86a7cc5147a6a15d7fd84b3ac463ddec997",
+      "runtime/game/ending_frame.h": "c696f5226904a6be14533d82aa3b5aa2e8f3ca40e13cffc10132582c3e19f98d",
+      "runtime/game/ending_normal.c": "aa5e1554fb79fa13f2adea173d7fb2382dfa95c0d17869d67bbe744aebf9a7d8",
+      "runtime/game/ending_normal.h": "76635bf9c385ec5ad584f1786a76c8973826a55b04b11b463bbe567cdd890ba4",
+      "runtime/game/ending_normal_action.c": "b3e3765327975a29d4b1575e3051598b07bb7e796e9acbd8dc876709b240fa6e",
+      "runtime/game/ending_normal_action.h": "d3ca21c0c7a5b5ca458b3b02108a4f739abd9dd782c84c0738b389b3974a5dc9",
+      "runtime/game/ending_normal_control.c": "891cde265d375de6fe9e591d67359c67d04dd8b573206f9e995558e553e42680",
+      "runtime/game/ending_normal_control.h": "17ad6e810725bf0c12297a8b2f1a7f1075c62c6120132c29551352aab338c234",
+      "runtime/game/ending_opening.c": "b7266c2fab5e426b0f90ff3231f862a799b662092d3b04f66485db91b68f01bf",
+      "runtime/game/ending_opening.h": "09f4641fa4cb8d5926b0630dee74f4ed36eb23917b084733a15a5eb08cdab5dd",
+      "runtime/game/ending_presentation.c": "47770dcd964481537e604484239cb4e484666ed2ba6a5d77c22a5c4b9c0ae286",
+      "runtime/game/ending_presentation.h": "2a7f347dd04083be57d2b203f14101ef915b66e64775b749e233fae14e96424e",
+      "runtime/game/ending_record.c": "d8980ee868622f2c06440c48f0b93c4bbf342042913ac6cb0da0c5a9c810f4fc",
+      "runtime/game/ending_record.h": "e8a0431a419e6c5ce91ed9243575795e8dd457da8b66770570a1192c58aacc13",
+      "runtime/game/ending_reload.c": "012488203e56bfbc5009c8e431888b8fc84528b5ada5b89665d14420523b104f",
+      "runtime/game/ending_reload.h": "d93641e5216629ec32a68a334f9ddd33e41d16f5d15cef9c0d3fd72803fa2d06",
+      "runtime/game/ending_secondary.c": "858d896155965aa4d8846e118a03ce365e2ab9f83a8ab83aa57db414fd9e7b30",
+      "runtime/game/ending_secondary.h": "41511682558fb9a8b191555d928b3c04a2b2be0f16a3f7b0f3310d6f13bc9830",
+      "runtime/game/ending_secondary_control.c": "d0c99ccbcd03e30618e1813072f80bf4fa8076d30acb156782f20990ca5d700f",
+      "runtime/game/ending_secondary_control.h": "f84fe7d848a989564005a97fc6c83b29406d051ac87630a6301a6f1f64663b8c",
+      "runtime/game/ending_secondary_presentation.c": "033f12765e869320798ad5387026da5d1e3a7d319c6c202daae5b2ee01c8233c",
+      "runtime/game/ending_secondary_presentation.h": "5b7828862553131dfddb10628a95357643802f1ba9d3dabd6412edba8a5d42d0",
+      "runtime/game/ending_sound.c": "724a1c6ffab8346f562a1826d89fe5fd1882ee8dc960660040f42b47bf0df881",
+      "runtime/game/ending_sound.h": "e9aeb540b3ebf29d51cbffeee3c6a26354b4e2cce1b10b0e5f3ba8ea3fc579ae",
+      "runtime/game/ending_special.c": "0dbbe6a711ce7615dfbad0400d7affcc8667066e645169af4a8979cb0db61605",
+      "runtime/game/ending_special.h": "a3ebf435f72fa20d4c2e07aa33634a7973ba03dbbf1182656c95185613ffbe20",
+      "runtime/game/ending_special_data.inc": "c84db59ff3e74089cf76d12c6bef0a4835354cfeae4a6537dcd88d81598d71d9",
+      "runtime/game/entry.c": "456915e1aa76c901b2992945db4359f593bde1350594c33b9b99f92ccd4de936",
+      "runtime/game/entry.h": "ea0b005061b4880014f9ce1e6792ce16cf363cb8a7bc98c4a819a232e8a2b4ca",
+      "runtime/game/failure_frame.c": "3b3817d8f2738a09ec24587cd7f6263cf69aee37bba9374ef1777ad12cd079ba",
+      "runtime/game/failure_frame.h": "088f5315b538ba5dbe205bed0dbd0ddd8e2832bded7a03d25de18b4fb7752512",
+      "runtime/game/flow_transition.c": "08925a9d4a541895f41fd79888d789919cf66f224911fcbbc0fd529b4e12d53c",
+      "runtime/game/flow_transition.h": "a533daa2488a7a778c626afae8ecb2764fee5db69353e6e790435a8582282294",
+      "runtime/game/frame_dispatch.c": "e8750083c1408b1592087d2c10e876f3df534d8ca45c922be07d9619fd4fb595",
+      "runtime/game/frame_dispatch.h": "06353384c8db941996ba2763f3ba59d76b0f0e0ff107b9b06572771bac9c4258",
+      "runtime/game/item.c": "7c090b83586593e95f92845304dc0981e008ef738044ea0426a2c25b983a5735",
+      "runtime/game/item.h": "6a5d5097965fa11a2036b891aaf2c18e753ee0eb52ea87a0e12cf19dfc65c877",
+      "runtime/game/lighting_pass.c": "d985606ca8a383cc5988796063f256480e967bc0bf354726534c9391d575f9e2",
+      "runtime/game/lighting_pass.h": "285178b5d7ab78a21605cc5672c42c74a82daff2abecbd43373baeebdbeb6815",
+      "runtime/game/npc_action.c": "bc355d375740c4a3c50efcd8b824472d492721c96dcaeb97bebe9766aee239cb",
+      "runtime/game/npc_action.h": "5e19bcc8730cfde233dd33b967ccb7d15ff937e9bb14da82388911f217b84d4b",
+      "runtime/game/npc_ai.c": "1258835adb9b1222bf80f70993625a55fd6f1d929b36eceae588a2d1a6bd888c",
+      "runtime/game/npc_ai.h": "fbe31b3880d0c9ab221379592c26c9d43b2c3b8c1e05e033d8b29f915cbacd43",
+      "runtime/game/npc_contact.c": "0094e0724baddcc85684df506e12dc8a77fa1ff6546d2f5f2a06f3cb316c503d",
+      "runtime/game/npc_contact.h": "8dad7b4715ab81a994134234ba2db751b39d763b5d6b9cc64e627b9a044536f2",
+      "runtime/game/npc_detection.c": "430bfc13d19df8228879f89c1d5f3639244453b8d7adac81799fa76f59477186",
+      "runtime/game/npc_detection.h": "b8a961d0bd67a740a4aaa200e192600149cda86db15a1386e56c679adaf0ebef",
+      "runtime/game/npc_fade.c": "d51e62847f4495c34ce3848df35627e0ad686aac89a0b0d7f98d6a194e9c9a7c",
+      "runtime/game/npc_fade.h": "54adb041323137cba5078b10f04712eed4be87905f0efefb6bbfc760a170ea7f",
+      "runtime/game/npc_footsteps.c": "7bcf37027c9cae4794728b597b8511c8989038f62f67fd72a8545b44f74cf129",
+      "runtime/game/npc_footsteps.h": "8059d02f1b38e75e5ecd32274364f36dfeb6ac8fb493977cce4ef601e463079b",
+      "runtime/game/npc_head.c": "8be0662012a59634f2b67f4bb67ecd0e79c6f8f2c5c9d96bd0b830a279712afb",
+      "runtime/game/npc_head.h": "2c999631b2e55a32bd9fdea46c9d579f929ec01dd2ae7fa87d11400fa643a7fe",
+      "runtime/game/npc_motion.c": "959b6b08ea7cd9b7312132824be2dec943e34ba02b23a59f748c58384d4096d8",
+      "runtime/game/npc_motion.h": "b05d3a4599c08b90a0502bddd97360ae30e3fa03a7759885b48e9c4d6608494d",
+      "runtime/game/npc_point.c": "86dc791883986aef07864792e3650ae69cec0f0c0a3e895f5045933e5fcb4149",
+      "runtime/game/npc_point.h": "08ebe36a9b769bee86db8ce954fbb7505ae1aab3a819a8b7324c05ee96385972",
+      "runtime/game/npc_route.c": "611ef87ae468bf4a2ed630051fcde3c9959b79b48ef9749203167a47aace54ff",
+      "runtime/game/npc_route.h": "262c827079b53bd5dd8a90313cd5a4760e6ac6b6952fc5f2aa8d642d87d4d6df",
+      "runtime/game/npc_route_sound.c": "58f18d2a97a8a44a0048bde56a67c2a85a2fcebfc476b8be1c6a6385ae6529fb",
+      "runtime/game/npc_route_sound.h": "0eca6b579b1f0d1e3d49118f7a1c63b82a323f5dcb061d504e8ced7368b48cf9",
+      "runtime/game/npc_scene.c": "43d6f8e7bebd575d3db04d4d2b9e317f4f7e4ea37ef18e8b7cdb0aec50190612",
+      "runtime/game/npc_scene.h": "fe3f4585898267101ec7e606649d67d26d31048fe859059dc663374d595d9d7c",
+      "runtime/game/npc_spatial.c": "900d6128795e667d37faf42ec3ac82d08c0a00a321fef8df3f0d9f0b36fdef9a",
+      "runtime/game/npc_spatial.h": "44f8f2c6781f1c1b597b8ff5fdab398c8c57c72e45752827adb80252b8ed2c9b",
+      "runtime/game/npc_visibility.c": "d151519ccadcf39afaadead466f7e3010152aeca17b89041dcdd79a68da16560",
+      "runtime/game/npc_visibility.h": "77dcaa8faa8767e2019d223d4c93ce499dd8d401fd611474ac438c088d664dd9",
+      "runtime/game/player_animation.c": "c3a32a4b0d1da07f486d3f51f8059ef63353e2ae8e915ef00c3821c265ec5f78",
+      "runtime/game/player_animation.h": "73d264597d9dc1f759e3d98888e2151ccbb5bf472a4bb4f753826b1235aa131b",
+      "runtime/game/player_control.c": "9c79a72bb900f690262bf87e41ea69aedfa980d1c0dee4c09c779bc802bf7fed",
+      "runtime/game/player_control.h": "a2b0a7302bf048b41d11366d072a4970a42f0fbe18131863023993a257e67f82",
+      "runtime/game/player_event_tables.inc": "9cbf20db2991d70fa93b971805bc211a33c2142925aecd58e8b112520d16813a",
+      "runtime/game/player_events.c": "352e15be4dd76d3f2ba5b4b8776c2b29c5abdddf389c36decaf3df5805ba70ae",
+      "runtime/game/player_events.h": "a03b6defef92cd4fa21079b91a7dd7f57dc0e4886871c6b2f2ed0feb16aa9a31",
+      "runtime/game/player_hotkeys.c": "d2a1f38565c451837f98ef5a311f3987dcb023d9484a3763c6da484eefa6e2af",
+      "runtime/game/player_hotkeys.h": "471b875af3ad4361903e7dc3b87a12063aaa3dfb1c8148d5bbcc50f3e2685428",
+      "runtime/game/player_interaction.c": "a97e1a453b2511493975453e45422fc22237fd6b9dcb4999fd25a4d9edfef2b1",
+      "runtime/game/player_interaction.h": "f3319de26e42540da0b05fb4c65b1184695c6a3410f3010936c80c7c5d7455df",
+      "runtime/game/player_movement.c": "f40b871c5f2afe8f51032ce13cc881bd68b20d070d52de3f01f25b79b12f0f4f",
+      "runtime/game/player_movement.h": "8b69c357b6210fe384cff858cf0495d3be9ae38a664d5bab10c6a3b4f3876d7f",
+      "runtime/game/player_scene.c": "f924ca25ea9dde86dd36ad136e1a3f3785954e6373c39d0e3f3bd193865879a7",
+      "runtime/game/player_scene.h": "824bf5eb96857f45e8ed05cb6db15a574b9ac7e2e135b3088660fefa1a25deb7",
+      "runtime/game/player_script.c": "4117d32413e10013b95dfcf11e3c7520cf9f995e22f6d2be82b099afcef0233d",
+      "runtime/game/player_script.h": "fe1e028240d1cd351af7415c424f15dad3b498ec490f61e1a3845ed64b809ba7",
+      "runtime/game/player_spatial.c": "609fab9c97a40bc81fb099e05ab8f94b7ebbc4cba20e96d1942124efa4573482",
+      "runtime/game/player_spatial.h": "6a0699668c131c79071c29734c95af6870c3e6e918c74166ea16b5f266e2038a",
+      "runtime/game/player_trigger.c": "419f0191f6a54d0fdac129dd7b10591e2a1e89dfe4e65ae160e13c41a396d2ec",
+      "runtime/game/player_trigger.h": "1f675ad262b7b31ea5653250e307c7ade270560032f246995994f1f47780d72a",
+      "runtime/game/player_trigger_tables.inc": "1450f6b90eaab9e37c502da88d280a076d371d8197dcbaeb8832333357b98c9d",
+      "runtime/game/player_view_policy.c": "65189802a859ff6a20ea004fe26c624620ddbe3037450a6f73a3584eb96c9276",
+      "runtime/game/player_view_policy.h": "06deba65f0d73243ef66b9ca72319e1f01f10affae51cc68df9275a393a761cf",
+      "runtime/game/prop_config.c": "16d3e249b35663d951d6bbc731ca91e27f43d30929588f58d254e1c7a2037421",
+      "runtime/game/prop_config.h": "cdf199e3ef6f93d9fc0f6fdbb982a47d8574a4ca14e55717ee674fc89fcb4192",
+      "runtime/game/prop_config_tables.inc": "79883485d4b75998f1646ee7d31630a70f0a1a7d36f2151f56f3ca9a3a562b06",
+      "runtime/game/prop_interaction.c": "82d5503897e0b8440d7147ea1e5268caf7088337b2944e0eab8db79f2c86c2d4",
+      "runtime/game/prop_interaction.h": "f7a6f639e3dcc5f6cc495940e88287fd58def970bdcfaab2094e88d89a802c00",
+      "runtime/game/prop_motion.c": "1d6ba027d8a18fea0d9f3ba15c74bc83e802ec140750f4a796f115faf0168637",
+      "runtime/game/prop_motion.h": "83f60c2be94fe8330a090c071526304cfb571cd8155f7a08c4ed57ed85b462ff",
+      "runtime/game/prop_sound.c": "3272d45239732b04fd2168ab88917aaa01ef81dce4930c98fd5c63961863c9c8",
+      "runtime/game/prop_sound.h": "b1fa4d72e341830e431133c5de51e99a889f2841d65e7fb38bcb7feb44095b26",
+      "runtime/game/rain.c": "6fd1a32e0640ff615a9939e1d759d694753af788e7bdbf16d4a42921e049ad1a",
+      "runtime/game/rain.h": "7723898e62014248e31df8dc6b40840943343c2b9626ba3337335392121f8163",
+      "runtime/game/selection_actor.c": "13f704c904e66770f84465ef99a42a260934eaaca1ade6b09714847dea14a6ea",
+      "runtime/game/selection_actor.h": "294a38ebd1453395799a187b6fbdf2dd06bb0c0639b76ef9c4d828f6488d6c30",
+      "runtime/media/README.md": "d4800ed3091ac69c485328774e45a789a24bc684d36f99d6128fbf8c0920360c",
+      "runtime/media/audio.c": "0ebc06699c98e78e36fb1b26af472ed34b9d137bb3a83b040705267c9b844921",
+      "runtime/media/audio.h": "e0033a6e54fe05a44c8b24d2619ed3eb3a7f479883d84f25284bbd71034c6841",
+      "runtime/media/avi.c": "5f80351a381507f716f5af6bcdc6e43143174782d3292d66cd003c67d8d71712",
+      "runtime/media/avi.h": "7106ceca63f8bb93a582d96006195b9027fa7843b2cff08799b919f6d8b3f27f",
+      "runtime/media/avi_clock.c": "ad09b418cb93d88f63b11c10d2f282a6447d23308e99311701d0b35a0b08a0f0",
+      "runtime/media/avi_clock.h": "34e16a1fd73c6c13cfa4281e07740534dac43bd867b74009831a636dc7f67d91",
+      "runtime/media/avi_surface.c": "530ebba5a93bccee6d11d40385731435a295fadbd871ecb2af2d7e01a9831bc0",
+      "runtime/media/avi_surface.h": "6ef14c33436a2748fde64bb77545f7ac48f7a4e80b25889643236659c897b7a5",
+      "runtime/media/pcm.c": "f1888e6ecf08afe325282d088355f0158ba1eb275e229a3206bceb170685ed10",
+      "runtime/media/pcm.h": "0bbbdb07cc1a41525fb33499783cb148c426bfabdf1aa2978f39c3af68c6a186",
+      "runtime/media/pcm_mix.c": "eac492c48ec306d8e9ade6e74fc7e4f7c4612912fbd4762344d263b681702ba6",
+      "runtime/media/pcm_mix.h": "3f0b5aac59066b43d1bde5e26d440e66b7f83ed616fd35557875bb9125fb80f5",
+      "runtime/model/README.md": "d081fcbb743c25a233ad37996c205c75f8b48f6193c4a403c99cfd5f8c87da96",
+      "runtime/model/animation.c": "9886e121718318969fc324e2cfd891b5edcdb7f9d9f49b210f7468e5a9d655ea",
+      "runtime/model/animation.h": "ae03e30827a7fff0a327927ca722b19b78abe8df7ae2910c6e9d8d0232cfe586",
+      "runtime/model/bom_deform.c": "57ffbb8f94d0852a4114042d3ec6a207cec642d6beadc43cea505f2970f3ea2e",
+      "runtime/model/bom_deform.h": "6a8296ad7e2c9cf7749ad24b81a985d51283e7c9c1c4df0a173ad21952c2d11d",
+      "runtime/model/clip.c": "f95af1c8e05e6d36129aa24c0c458862d492da0cd5cbdbaa8c4e9d0fc8920ba4",
+      "runtime/model/clip.h": "00b65856c8a47b2e83cbb7d2eb9517cc832b03161434ae68e4cac9c728f90844",
+      "runtime/model/draw_order.c": "b51a76f3d954f87db7d390b994d6c641a07941045e783ceacbcea7c89cf9bec2",
+      "runtime/model/draw_order.h": "9725b6a347a8a7ae0f8707a6b232e38efeacd0a2956ad322d203f1d3a36e6aad",
+      "runtime/model/environment.c": "1ca2e251b7043595bb6647bcd4262720f9bcc26f1e93d966f2087f1579fbd5ab",
+      "runtime/model/environment.h": "801e413a6ad4c8aef958bf92bb856fa0417c58417f880784823c7bd8de1c80ff",
+      "runtime/model/material.c": "bf3b884d0bc93af826b4671d0921712313db42d1874f1b94301f2339a0bda753",
+      "runtime/model/material.h": "a765824fff177ce339dadb18a222bae4efb8e26e8e97b50c8a10cab32912ffa1",
+      "runtime/model/material_animation.c": "cfd39d2ea783c52430e7e45a3dd1ae1917db3fe3c7dbbf76c8b963c3f2dda910",
+      "runtime/model/material_animation.h": "0c960c1a4dafc6f53baa277db8d9ad712f237fa26657edc040c9324b2b5e6136",
+      "runtime/model/material_pose.c": "292935205a1217f56b457202c6009239134c19f0d2f836b736c731a4e81fee4e",
+      "runtime/model/material_pose.h": "045e9619307130df77c98224280c63edfe58f965a3a7260dadd89f6c6c74ba13",
+      "runtime/model/mesh_name.c": "d4e311713e06f0d94bb4e463bec2a889b0ae0ac9a7732e09ae17acb235218333",
+      "runtime/model/model.c": "51d272edaf401c8a8d0d66eb76ea747c7ad6a63bfd58a349c77a323a7f63a096",
+      "runtime/model/model.h": "eb504f5876250e3582194c8c5848bc8ffdbb0b7d96512bf41b101f5f13a94157",
+      "runtime/model/morph.c": "bf56d5ab51aa75a4ab7cac0c2bd10340aaefad1436e95e8ce1d034796510d64e",
+      "runtime/model/morph.h": "2d37c294eebb567a374db31b811276873a3acc8b0b7b162293f3921bb743fba8",
+      "runtime/model/morph_group.c": "67be0fa7eca704faf4e140d8a4c84f0ac912347ca0165aaaf093c5b4b38f803b",
+      "runtime/model/morph_group.h": "9d47aec6ef0c9281c9b7600dc70a1481aed8c11d1895862222bae8a43b364d0a",
+      "runtime/model/morph_pose.c": "d775091eb5d0dccd5aa96b03e13024b1009689b8f2d53807ca4755913df4145c",
+      "runtime/model/morph_pose.h": "35e6dd4a730cc546010536bb103dae4ec4cd2a0ffe81c4c8918da3a7c5822e5d",
+      "runtime/model/playback.c": "96d25d7854651a58a04350ca0d87a55073471ad56a03f8836d5844d2d41796c3",
+      "runtime/model/playback.h": "a5b9b3d2354b0e672253d039e48c8503daec54362db10a0a24bdcd766b00d821",
+      "runtime/model/skin.c": "452cf3b902b1a373dc8fc0de28d094ad9b534577733647548ff790d2c7f9ce7a",
+      "runtime/model/skin.h": "19740312b06ca60e48f44f37499444f97df9379222fbd931c33cec4970c1c394",
+      "runtime/model/static_model.c": "c30e72f4612aa9181027cac54795f9866dacd073cffb856e02c376cd13b42dee",
+      "runtime/model/static_model.h": "943f2a311bd15900ac8bb2266bf6c7c7f67334a66d78352182212e2969c4188a",
+      "runtime/model/triangles.c": "3e2186d957306dc5f51ef0aa9c1b70ed5b9ea2797dca4702c5166bb151e6f782",
+      "runtime/model/triangles.h": "96d94f48a7cc6ad9177388f8c214db697a79a3bdef8fdaa293f191fa19ea3e75",
+      "runtime/model/x_pose.c": "a300664caab7eef717e54914c91b51d89c586d8a1e232e2f450974e1c26ed6da",
+      "runtime/model/x_pose.h": "4784a421970888e43ccb5b186a08f9d1f50d7143b2c1bdc66861055d7bc0ec30",
+      "runtime/platform/audio_output.h": "a20e6639bbff33663599e93f0bc4bd7214495a49c73084284e9e2b0f8a58dd5a",
+      "runtime/platform/audio_switch.c": "9aaec35432e9c0f6867a2ab18b468da8500c5af467bb9fbbaadd9cc44713d2c7",
+      "runtime/platform/audio_unavailable.c": "52df0dc0b9f4fab59d9738ed65fecb772c53f2e9dc720b55c25fca5b26762af1",
+      "runtime/platform/host.c": "07d48154db1ad18af12be3c229121287a714e526fae9263c944d3002b3f922d0",
+      "runtime/platform/platform.h": "849b0b2d8c8ad2ca85d6031aa7abd684e5c86680da35f2a9808b45b6a79aa346",
+      "runtime/platform/switch.c": "43a7c68154425e6441ef5b814c65d1b0b9e7eddb181357cb01ce322d7ce6ea50",
+      "runtime/render/renderer.h": "e430d843d81962956d5559a45012a798d63de9096ef98faf1e98d4cac388261e",
+      "runtime/render/shaders/lit.frag": "484d28666d246edb9b8146975dadb6023888983569416c9c4ba8b0fd360f23b0",
+      "runtime/render/shaders/lit.vert": "733f3fb34b909a022b0a6a92d2013e04625dae254f0bb54e5184a0d83f8de445",
+      "runtime/render/shaders/skin.comp": "273256aafb5f8f106cf41a7dbf3d7cb776ec573d941cd0e3bdf36bc4f07cc229",
+      "runtime/render/shaders/sprite.frag": "9f3f349852a9ded2ad612cd7d935871ba893110f86bec92ecd81275e4c49d09e",
+      "runtime/render/shaders/sprite.vert": "069791cd0ad3815ae94734a002f17764c67cdbe66afaced5c52f49f3f8d97eb8",
+      "runtime/render/shaders/transfer.comp": "39a34203ce13966ede84862c6b974737626f1d58fbfa6d5cbb590d388d3cc671",
+      "runtime/render/vulkan/renderer.c": "e775c158ac99fc937a3141488f1065bef58cfde4748e298afd01930f65da9f26",
+      "runtime/render/vulkan/skin_internal.h": "18ed14d101b1bb8b5119689979be724fc9ea7fdd13bf72152556010372873384",
+      "runtime/render/vulkan/transfer_internal.h": "97fea5e818a5d51be1ef531e8dddeead64dac5b6dc8b9f42c753256771bbfb47",
+      "runtime/resource/assets.c": "575265ddec316ae87547108d7ba0d60cc2adc54abbfb14e529da1feeec0ae447",
+      "runtime/resource/assets.h": "3b9d2dca3203528f474d3f9e86e628689c132cd51b7671d22e3c98f0c72cdde3",
+      "runtime/resource/bitmap.c": "f3a8f48d5afbfa25c9386ba9d55e8a24c9cd5b9f95e94ebc114bb4c088b20700",
+      "runtime/resource/bitmap.h": "b1da5f2f016abe163e819a9617c2d57809ceb64664ada105e0919e20df1b2049",
+      "runtime/resource/bom.c": "a49af81c5d6fd46f7e0d960e9e3489423c9bf3f6e11e136bbff2ca1d91f5da1f",
+      "runtime/resource/bom.h": "8582070dd2fc5a6d0c05cd1fe769033252a917196e7b9e318bac0c15cd7e37b4",
+      "runtime/resource/dialogue.c": "353ef318734e4afe9453e74eb2c6f2106925cd0b3e81129239c520c92f6d74cc",
+      "runtime/resource/dialogue.h": "5d1cc6802c2c1c093cad1b855862bec9d5840218a7bedee5713bc5a4d8049f6e",
+      "runtime/resource/face_config.c": "34494065fcf77e36d32b90ecb2e9c603cd66ad0a3664044fec62c0ddf0cada34",
+      "runtime/resource/face_config.h": "a77774cc919443fb8d504d2905446b8e4f3b1f7ba2a349f7b5978ef281f8a242",
+      "runtime/resource/font.c": "939efb3303526dd9f8f3e91934dcda5dd442ffb5915343f37fbfdbd2a900f6bc",
+      "runtime/resource/font.h": "ba18d2f60573cc5806c8855b5b77f0ce3f63cc732f0014eca05304264d7fca99",
+      "runtime/resource/message.c": "943d879c46944406b9039120f1afd29db1e1159771b3b0007a63e4bd69698999",
+      "runtime/resource/message.h": "130b02cab0356e547d395d0128504dd018944009f77b31e0a48c937537d84745",
+      "runtime/resource/store.c": "da60fe8a47dbd06114646f5bff36cbab7358f1d04d2f8bf9543a900ad3f632e4",
+      "runtime/resource/store.h": "b7946de9b4092f2580f9751e62fc7bb1db25cd8f609c32d19401d2764b9b44a3",
+      "runtime/save/README.md": "b200e3658cb0e5031a28a852b3fdcfe68da6ebea147d46280b7a58672c37ecb2",
+      "runtime/save/capture_file.c": "85e90fcb6514ed60de77093038a3b243ee4f36854989f87f401c15d4f3a18947",
+      "runtime/save/capture_file.h": "ffd6fc16f83403417ca3b52950add38e0eb68073f80574f58ca2bb6e2a8cb6be",
+      "runtime/save/checkpoint.c": "6e4df5a1719f9bbbe67bfee3ac5f7a30905e0b86ca64020ef72efff8d0cd0e3f",
+      "runtime/save/checkpoint.h": "b5da57357ae64524319336c80f6eb5d0f5b3d883eff40071015a9f28a2cc6d16",
+      "runtime/save/checkpoint_file.c": "f247c3c0da36aa5edea5d44729b889f8ad91016cab82d09d89816d98090daa4e",
+      "runtime/save/checkpoint_file.h": "5a1bfb36459a84856ff1a57523afa8e2167c9b27f0d44ad9631b25d36f66e2de",
+      "runtime/save/file_replace.c": "4efd0f7b7d05f6cbc96750289e927c402573d388853c4f51a3b9a3e905d9e379",
+      "runtime/save/file_replace_internal.h": "606444f6897fbc3d45f8b4b69cd4ae6c634e2920cfdf240f573e69842652afdd",
+      "runtime/save/unlock.c": "3d3d00332a0dac6a86376ff5487cbb10630dc344e6cd8ffc9752aec93dbfef0a",
+      "runtime/save/unlock.h": "e29a2246a41972bdceea9ee91571da9eaf23b614492c65302aa762a6a2f98225",
+      "runtime/save/unlock_file.c": "d731b06e6277e61986abed4a6fcee91705556b81203c5be3c7d7cfbc7cf0f6e3",
+      "runtime/save/unlock_file.h": "544fc5535c38509731d5bf23769d3261ca2f867facd8cfc75e9b112f5c609cf7",
+      "runtime/scene/actor_preview.c": "3ace782f16d90fbbf4f8fde01c087b09bb4dacac2eaa8e134595efdeb7ef8812",
+      "runtime/scene/actor_render.c": "9f73fcf4764fcc40a61cf3c35ef07711ef2e492212d711f4fc6150a74c5bfb78",
+      "runtime/scene/actor_render.h": "fd55a43649721f3e7890c616653224c989ca2771592f0ab6ec6c7f0c217d1d4a",
+      "runtime/scene/area_audio.c": "082978d26f733164d7d83447ba0a692c865027fce358cb117002e4dfe0626385",
+      "runtime/scene/area_audio.h": "113c5b43cf9f7c4ce5ddbf704580821ae995ad5ef54b4ed99a705765602b7334",
+      "runtime/scene/avi_texture.c": "a5a87bae6e1fce8be76f0b4a81df588303b00dc72e053ca6ab80d807582bd3e8",
+      "runtime/scene/avi_texture.h": "40d0095367120635e3eb544e022688e847d4b4dd8ecc2f8ec07ab1ac495cdb9f",
+      "runtime/scene/background_assets.c": "cfc29aced9b4bb3a2dd1bc71537fcc86fe043a8bf6edc7310683281f87bca94f",
+      "runtime/scene/background_assets.h": "c559c90c73c68c0e459c7f07d012dec63f1f4eb4d5084466bbf825b93436f75e",
+      "runtime/scene/background_audio.c": "c896d88a512b2be2d1d8525a5344dcdf5f24221d738fa9ff23833e7599c0430f",
+      "runtime/scene/background_audio.h": "a30a08799b7665cd0b0d2cb58ca5e94b2bc7857d9ccfc5c60ca3dc563a04e181",
+      "runtime/scene/bom_assets.c": "b9e2c79ccd9a428eeccf89d151217f2117578f983e1e62cfac004b3bf81a6cbf",
+      "runtime/scene/bom_assets.h": "d65cbb14f05706c25f0dd19ab09ce8c16cd69ac921759f9d0c567662ba0e0f46",
+      "runtime/scene/bom_motion.c": "d590ad29d024ca2623d43ef22f482cec450dbbecee7370514ffecdedbded8b51",
+      "runtime/scene/bom_render.c": "e6905e3da7bdddf1ba2083221da66d67287e25c5feb7e70b2b4b1dc9e652d7df",
+      "runtime/scene/bom_render.h": "5ccbeee07bb94ee1019fc52d49adeba18f48d4f1511f677a8ad3e7d730ceb4bd",
+      "runtime/scene/checkpoint_prompt.c": "06303cfe04ac153dd29a62769ff16d8425e75da5bc0b0e77a1cea005671b0b2d",
+      "runtime/scene/checkpoint_prompt.h": "74eeca4ffba9cef5ad50fd95a58b5b3b1af5c9e27d2460ae3b65b227e1d815eb",
+      "runtime/scene/common_hud.c": "8a8b797058841437072bf660ba74793279c747befb803bc8c997079fd1430b90",
+      "runtime/scene/common_hud.h": "cef82e924177b8c72226e6bb668f5a0f3efc121f0a39c03c5d4fc2da4ff576e0",
+      "runtime/scene/curtain_render.c": "88be1fb585a99f309713bae9bc82aa208e56b3592378bcbe104fee2a36423444",
+      "runtime/scene/curtain_render.h": "0f26a9d20e424fbc0728e4d209165c7ca1991aff45e8cdd5042846bc9b834725",
+      "runtime/scene/dialogue_actor_assets.c": "6d1016222cded7e354094e849a58f436161703adbc63893f85490f25c843d154",
+      "runtime/scene/dialogue_actor_assets.h": "10debd664e62088194110d2e28cf5b9945572bb56e5be7941238fdca089e2474",
+      "runtime/scene/dialogue_assets.c": "895d1335b584f111a5e7c5d945ec02ef5603e65f1324a2c571d0eaca8436fe4a",
+      "runtime/scene/dialogue_assets.h": "34e6529bcbbbcfb3bd1af253164cd60d0201873956e740b0f129d9b2b1bda142",
+      "runtime/scene/dialogue_audio.c": "83f95f1d52d558a233c2c8668cbb9b44a91523f6232dee18866e1d442632b20c",
+      "runtime/scene/dialogue_audio.h": "d80999db02b5922468cf1d9b893cf21bd0dc0ac56105ef9b32a0e7ef1934d9dc",
+      "runtime/scene/dialogue_backdrop.c": "89a24fe46ff4219de6cc109f98ca3a9f89e79bbea98789c501e4d635619653a2",
+      "runtime/scene/dialogue_backdrop.h": "78b493c463dc51642bc4fc111ba06d4b5586c0de386b8119a629cee2940c46c3",
+      "runtime/scene/dialogue_backdrop_render.c": "26d01b73902b0de002a47cee0f007c17be10831cef007af933ad75fa14c57721",
+      "runtime/scene/dialogue_backdrop_render.h": "b311297d99ed35ff1acab440212bbe7765f8f3b0eb1cfa774d59e9c898358226",
+      "runtime/scene/dialogue_entry.c": "cc34ae2f5eca195921671a1c862c44e341485b51fa25684b41f5daa68feffe6d",
+      "runtime/scene/dialogue_entry.h": "d0e405430aa69a03230b576d8d094e6375fd04379ed67cfc75c3a15ae6f1a292",
+      "runtime/scene/dialogue_media.c": "b24324df96c6b8cd699fc6800e9800aa0b6c72394975b9f81fd2b432769092ee",
+      "runtime/scene/dialogue_media.h": "b72a5d00cd7c8537dd7fac558cc499fbaf31a166126a42aa1d6bff65a2e009f7",
+      "runtime/scene/dialogue_render.c": "98bd6ebc84d5d317cd75d456b7ee35a001fd22d9a51e95b2d961bf330ddfa5b5",
+      "runtime/scene/dialogue_render.h": "b0d2df84c4a35716b00cbca008f7be8c72766ba8b45d66e5b1484011666d920c",
+      "runtime/scene/dialogue_session.c": "31f1f26df4eb21b6d4d6df073a6bddbe6f32e2c27d586f3e6c92fc391641c6f6",
+      "runtime/scene/dialogue_session.h": "18e95dbb6c2a29a7b1aedce50d955ae4610b51e6c609a477cf1c34e18fcbb498",
+      "runtime/scene/dialogue_ui.c": "12c203c20027ceef801e8e0e2a75b84b8d6a5b87d9d644a4b4d367e7ea6dfad8",
+      "runtime/scene/dialogue_ui.h": "13cbe8c11e2cd7510ad66f87f0bcbcb381a4536aa17cffc4b267f00cade1e0a4",
+      "runtime/scene/dialogue_ui_render.c": "e9e82f97ce26abe0f3f2693544b93780570b5de4e40320061ee013215d245def",
+      "runtime/scene/dialogue_ui_render.h": "f2b830a223b824cd5c0a89f4631d71257215d0b24d952d8e8de75c5e81fd8502",
+      "runtime/scene/dialogue_world.c": "582adbf52efb8bc9a34049034284b580136a71fb1103c29caaa7f80c941de0ad",
+      "runtime/scene/dialogue_world.h": "ed0691746c9c37e0c75299aa75af861424455a9950ae2a82ce87a0414fb49c0d",
+      "runtime/scene/ending_audio.c": "382b28fdcb70baac3695fbe985398947c440b5fcd07e4ff4f1f067106ee963a2",
+      "runtime/scene/ending_audio.h": "739e991f61fa1d73299fd9f0323d754afa6b4626d3e213c105227bf4c620997a",
+      "runtime/scene/ending_auxiliary.c": "ec18cc184886d0a5d5ba2d114c40e374ca9d40d18d62cb4c42cc95df2aed842d",
+      "runtime/scene/ending_auxiliary.h": "f278ada73dfdc982d294bf883a768cc96ae076992a9a221edaa2bd5dc873979c",
+      "runtime/scene/ending_background_assets.c": "7885851a56d19dfe9b8e4116931cfa1918859f6e218a79860a88172b1379d4da",
+      "runtime/scene/ending_background_assets.h": "81e0b012db86bbe939d5b08b08687ac889db9e175a71f9416183523f49c4faf4",
+      "runtime/scene/ending_camera_assets.c": "e881c33556c070a62f759e483a59a65f42360265c28229d5ef5c2bdb2a806b6e",
+      "runtime/scene/ending_camera_assets.h": "fd132af7906456fd75c51e175d5d4f5481b4007315b5d8fc6868d895f5f0f588",
+      "runtime/scene/ending_normal_assets.c": "bebdf958b5d107d1c4143a0aaea0b7cec60d98285ee51d9a101e2a07b7610c65",
+      "runtime/scene/ending_normal_assets.h": "d70f2abbdc6f8d2fe6f0d796c1c9972b04643dba144526a5ca89731801c105ed",
+      "runtime/scene/ending_normal_controller.c": "ff28b52e0cfac407d1c5d96f479a3338688b9c7dccfe9c4eccae299392a8f413",
+      "runtime/scene/ending_normal_controller.h": "cd5f011df7ae1004cab2192f5ad9e168c649d68b7c1116ced67d7c984be7eba4",
+      "runtime/scene/ending_normal_render.c": "8ae4e3a60c0fdef82b2517997646bc54973e6201be45a38d59f6161681f584dc",
+      "runtime/scene/ending_normal_render.h": "b13e2e8ad9ced8ad50aebcb288912e70e3f450b6914189f3415016b0e273d720",
+      "runtime/scene/ending_normal_session.c": "d525643b91f3d766d971df783602f1e65528dc2673d0d17d6b2ce693e267d691",
+      "runtime/scene/ending_normal_session.h": "4d1fd22a70816bdf63cda5533a3cea9d33d87f4556dbfb31a18a04d633feb968",
+      "runtime/scene/ending_opening.c": "4c0a4d27ee0387e053ad026345c338560c36415d2106d48f09db86fd2c01e329",
+      "runtime/scene/ending_opening.h": "d4d51300bb1e5c2143f271c6fd389b6f6ac7c346abf0b538de70e9240af10da9",
+      "runtime/scene/ending_presentation.c": "1e25f429fde844b8ba52d74224f2cfd34b6ad17fa0892ae750a7b8d5b7b17336",
+      "runtime/scene/ending_presentation.h": "1e346636ce38cd7d8355faed31ef70be1f1c93c3bc0189b6bc111decb65d9393",
+      "runtime/scene/ending_retained.h": "f1c91e1135ba436b661e589fddee48555f386e8d329f11f45c5dfa2be57c59bc",
+      "runtime/scene/ending_secondary_assets.c": "472f19d7eb1c8cc200e5ed9fc8b8e17a71c3d7b826d6fbb935e0fb1f252ae362",
+      "runtime/scene/ending_secondary_assets.h": "cab4c735b664e9614b731cceaa0613250ca04b9092af51f5a5eeba8f8b253886",
+      "runtime/scene/ending_secondary_controller.c": "ac5c191360d763f17ebd292c0d3edfd36ad7f7928064d24cc735e8c9765324c5",
+      "runtime/scene/ending_secondary_controller.h": "8f3f43894a59c9a2dbdd7f52aa04ec431cd97bced6942b98366d349159eca9f5",
+      "runtime/scene/ending_secondary_presentation.c": "09e668025af2d068741f49837afda285356cff2a7c94ee6b1198ddf27c9f6b96",
+      "runtime/scene/ending_secondary_presentation.h": "57542847a7571fa9cda99f5d772d0eea870a242db0eecedd7a7b467e6345bee9",
+      "runtime/scene/ending_secondary_ui.c": "81e79ccfb61e2a1e4c593346b9a7469b443c573d3f9cb1dc866be138f88c678f",
+      "runtime/scene/ending_secondary_ui.h": "c9cabd38f9520a6cb4b0c245bfda553b2611c5c716c521f60c3c9d4aeb6a5088",
+      "runtime/scene/ending_special_scene.c": "9c05619d2ddaea859fa2e7d2951fd4e90a092cfa69f27f4d6894115eefb7356a",
+      "runtime/scene/ending_special_scene.h": "e97a8e6285487abdca9d6a094a228eac5b85ce5e47c9d28b1aff492293470ffc",
+      "runtime/scene/ending_stage_ui.c": "08cd847152cb34542891d0d1a07fcb97603526783a4b0b91913267431999120b",
+      "runtime/scene/ending_stage_ui.h": "de5524ad1209ab5b4bc81bcb63cdd6ba0334d1a9789987279c4b5813286618d3",
+      "runtime/scene/ending_state.c": "17066f2bcd1bfd0c35c3f5e110e5275a47d4e828453d2137ef673e5cf86b923d",
+      "runtime/scene/ending_state.h": "4e9e9d70985e7d46232d814f9e6cc176fcb27af1d18bba28381e9f59516a83da",
+      "runtime/scene/ending_target.h": "371547dc08e82277334b701e78c228265de8a0a440bcc69b95965374ee473452",
+      "runtime/scene/ending_ui.c": "1ec816e28013886d85679b660cc9dffd8e4866044ed6b47729b7d2d3e5d163ca",
+      "runtime/scene/ending_ui.h": "e3a477e6cbdd81545573615869753dc32c28c3a726fb5c08bb328c5eef83cea4",
+      "runtime/scene/ending_ui_batch.c": "65be6d33aa2b4c2eb333ff3219a4b7db5da25676fd160b1dd835a3bab2a57a7c",
+      "runtime/scene/ending_ui_batch.h": "f852bfa7ef9c83fcb2d6ef304980e1f9fa8721407e08d7a42905e0def6aa5997",
+      "runtime/scene/ending_ui_cursor.c": "b449298b79b2cf6b7367b7ee686622ec061913ba7de01c8257f5381aa46e27ac",
+      "runtime/scene/ending_ui_cursor.h": "c2a0b55b8244b30658937fd9ca61e2dd7272fb6683e9f345138969737e49dbf4",
+      "runtime/scene/ending_ui_frame.c": "b2fef883d437613e9be2af7556bf8daf261d9178d72989a26d2edede32377243",
+      "runtime/scene/ending_ui_frame.h": "59f036ad9796d142801c7892541ec167afd0f8097a209b798c36d632737bbfe9",
+      "runtime/scene/ending_ui_geometry.c": "de30c9cdce1dc52760593ea8e4cb4bbea267bc5f6c4b12ef9a6b47e45fe1166c",
+      "runtime/scene/ending_ui_geometry.h": "5e151df8a38135f670963f98f3ead8aa661aa2234b22e50917bdb6ca2ca407ec",
+      "runtime/scene/ending_ui_hints.c": "57355d7d6aa1646aec86e2d700f8e2edb8ce60c96069873f5b65e12180a20533",
+      "runtime/scene/ending_ui_hints.h": "4ae665157d863862c47f2101834fd5ab44b6c28e6926aabb3b671cf0cc51a683",
+      "runtime/scene/ending_ui_pick.c": "f7ecadd30593d65b3c979256c630874c18f08e7b098df34e3ff0b98ebe1a2134",
+      "runtime/scene/ending_ui_pick.h": "6b421b46f61e72d7a3f1ec34776b01f2b67dc92bf7db58f68cff46665cc3f12e",
+      "runtime/scene/ending_ui_render.c": "1418bd87ee78797e839bca8b6dd66eb1f7b5bdf3541737bee6c7b5f580f0e830",
+      "runtime/scene/ending_ui_render.h": "609357d2899575532d8bd18c8cd8dbce2c43387295fed6abf9b417ad17eb7837",
+      "runtime/scene/ending_ui_select.c": "8d2485506f589efe34d6332e4c5721ca45bfb7adaa11c6700b18443063071ba7",
+      "runtime/scene/ending_ui_select.h": "d412074c83767742a9bec82eee46411fc27e6927a0e0d6f500cea3a1d3d83e0d",
+      "runtime/scene/ending_ui_tail.c": "6105c996796d1a37528a5c655392ea45a6e3858dc72b3175bd9ebf0c24df5be7",
+      "runtime/scene/ending_ui_tail.h": "588425531c32957c60b73ff5aa7d6fda4ddb37fbbb0e9357ad8e730571d50f78",
+      "runtime/scene/ending_ui_toolbar.c": "c293f36bc0ec3cb779e69b04c9ca7bf359eb679a3577e069081f236b9b5e55f3",
+      "runtime/scene/ending_ui_toolbar.h": "a672ef7049bfdc3ca902efc7790a14607a959ae7ec15bc172fc4b48f3c8ac9e3",
+      "runtime/scene/entry_assets.c": "911dd7ef6ef1ef47ef7b6b33ab196acd158636cbf9491bbae2617182cbbe4602",
+      "runtime/scene/entry_assets.h": "d4d0b23c62ae359ac80c79bd5520bcb3333ec88bf2c17b4bbd7c4043402fdff8",
+      "runtime/scene/entry_forest.c": "0d77e37db65c0c1b9f885bf8a65ad8ab4136b4d90a7ee4050b7605f99b4211c2",
+      "runtime/scene/entry_forest.h": "831ce1c3948a54169cdbfaff3d13647388ddf37ced9c2ee98993ca758adf00f9",
+      "runtime/scene/eye_assets.c": "a7574aa5af0141d8c94e8cdf73d383daf172a529258081c04feba98d0f9fafc2",
+      "runtime/scene/eye_assets.h": "3ace249ed18befeb4d0dd55c50ea07a3105ad83b718f0e301aa7426e79eb3595",
+      "runtime/scene/face_assets.c": "6c4040d2e8dc136baf6bc8f61bd8ea7827a89ab932440dbccef4f5eb66c8c3c6",
+      "runtime/scene/face_assets.h": "9eb8f149525be9f25350552e296229de6c7d52b7d30699582cdbb2d371b556ef",
+      "runtime/scene/failure_hud.c": "2f687b82aa278d043fdf86d31b96ee4400bfea9176068c84e90c439ff110dc55",
+      "runtime/scene/failure_hud.h": "19a2f1d832598bafc645fd0d6d9f5e016ee9e9d8aba1f4bb07ea7970746dca04",
+      "runtime/scene/failure_session.c": "66fc8e55e777026300af549c7ec8d0716af43f236474857d8141cafddaca1087",
+      "runtime/scene/failure_session.h": "f8aa214ef5ecee61b89c20015dca675699ed785fac3272599dd63c0d98bc0e71",
+      "runtime/scene/flow_loading.c": "ef654e88a26cf31c552f47f63d459f88f22061bda8655931b39343ef8d32a649",
+      "runtime/scene/flow_loading.h": "03c9764ef004afdcb5dbbf61eb4ca23edafeabdf5285c6b216d6561d0e9ac986",
+      "runtime/scene/flow_loading_render.c": "db89029b231b395980013bf6637f16e87d4ba9c488aea4fe2c309cff488b6d46",
+      "runtime/scene/flow_loading_render.h": "53052458679419235eac62ee4475d39d644b3418ccbdb73852fe15821764cb95",
+      "runtime/scene/fps_overlay.c": "d0ef0ea691dce679f1c0a5039a6adba829cf2825fb6c285a034644f7cf45ac3a",
+      "runtime/scene/fps_overlay.h": "ecf17805a8fa6fcfcc35f99edcf02997c99c5cf655e3f4a01bd92444094e6923",
+      "runtime/scene/game_frame.c": "eab994285355c6bbf29b9d7a0f72f82d9529853420d9887665e17b0a8f3f068b",
+      "runtime/scene/game_frame.h": "1878327b7c599e70e8ecf1eb0bdb0acdc65fcfec05317feab3d682cd2641d999",
+      "runtime/scene/inspection_camera.c": "1b1edfbc54533981546f4b0943f99efc347738f3cb4046d570ca55d3d7856766",
+      "runtime/scene/inspection_camera.h": "90b1ed2e42b86902488e5e05bbec61b696b2854db6ee4f15a37d572b7af11c02",
+      "runtime/scene/item_assets.c": "8918fe2c088b5892d3edb15f376507cee0fda10e20a6f3a81a90f9137deeb6c3",
+      "runtime/scene/item_assets.h": "9d2b7569f820898b6bb8a6313c51e5003065edd1c58111f32e74a2fda9a39fcf",
+      "runtime/scene/item_feedback.c": "9a59d55bb76cede91b0348961835baa233d299adada2c9d55d9e698c024ab126",
+      "runtime/scene/item_feedback.h": "16580e7312c685dc25afc922b43a0eaa9f362091703f95324e1da1a7e9484756",
+      "runtime/scene/item_notice_render.c": "a9eebc1ccb31fbcf28266079ecd46a5d5fc29486a2ba0a796f334df1204ee723",
+      "runtime/scene/item_notice_render.h": "a2a7e06dd66036baf7c1b419f1d6bd5bafb691dafc5d32c71f5ade5e2fee58e9",
+      "runtime/scene/item_notice_state.c": "8ef222d79fbc5c820f73ecacaf639532058f4de306529c3e947ba520c8766d33",
+      "runtime/scene/item_notice_state.h": "eb310154f3816d4b2eb07d380e099a4d960883d47497dc04c0933ab5787cf9f2",
+      "runtime/scene/lighting_assets.c": "24a6334ca446218b28bd68233cb46f893600868d0a13178312a140b10c87dc79",
+      "runtime/scene/lighting_assets.h": "396f09f1391c84e3552c43686f7087ed83c01effbd4f4817ff9f560ef1a89212",
+      "runtime/scene/lighting_registry.c": "9b46e351c54368825f4096f03982a20c8957baeded3517d2a3d47fad377a16c6",
+      "runtime/scene/lighting_registry.h": "c16074ae721d3c703bc879f2ce7272f2d929229770ed0312fe4836fa5b675881",
+      "runtime/scene/menu_camera_assets.c": "debb8712c09c0e30964b90287b6f6501dff8dd5fe07ccf83e073b688d63bd281",
+      "runtime/scene/menu_camera_assets.h": "0bb3f1f3206181e186e3e78c99168033c3a6fc9fcde44ea7186ef4cd59ecf2a2",
+      "runtime/scene/npc_audio.c": "bee30d55350bd2fc1df7b2f512163e2706b8cda56ee43dd485c05eecb455a884",
+      "runtime/scene/npc_audio.h": "e031f791b11dcac5e5f8d74abf5ae5c4ad01aadc9cbd510541a7e301d1325ac5",
+      "runtime/scene/npc_event_audio.c": "ae5c2c4670276413b622a8cb95a635375a61d2ed07ddfdf8438a387d076fb117",
+      "runtime/scene/npc_event_audio.h": "2de339e5337a15e22ede9005934581f29a6a0f8b3063ba175abb75e9ce38584b",
+      "runtime/scene/npc_material.c": "35dbdf03091e0e41d282ce56b9938620011665d71ad57b2428bec090ed42e516",
+      "runtime/scene/npc_material.h": "9eafcfec6ef10a3fc783f13982c44e3bdf396d0d3ae05977e6f73f16ab2d0d00",
+      "runtime/scene/npc_shadow.c": "28d54a35a5bd730a6474eaaeaedd5b8947d36d39d4c239795da82cbf4b78be6f",
+      "runtime/scene/npc_shadow.h": "a31e4d39090a41b8ed829ab36e66412d73c6a673ef8ab91dbaa61b6feb1d2c8b",
+      "runtime/scene/opening_phase.c": "5774f86ee4bdcffd2c122d8f312ca618924adb75d368efa487c284dd54af4066",
+      "runtime/scene/opening_phase.h": "ae41205bb2be0bb22c34c877dd5c1a3a01f84f42bc77af3e540fc53c18f79635",
+      "runtime/scene/opening_session.c": "08ebe0058ae8563bb50c7516b56878b5428c325afc51860d3189d192cb7389bd",
+      "runtime/scene/opening_session.h": "72b7a3887388f9de5881cfdcdff1f7f9a9bdae59ad2cd788b8561a7eb4b5c7e9",
+      "runtime/scene/outcome_audio.c": "46a99b43a98fe5e1f90b917e6d7106905c69ca83043148bd89d3438d3ccb2fba",
+      "runtime/scene/outcome_audio.h": "9c56e3a33a4bfd5912c5e2c178ce3e34734f79d144e126692f4986569a947267",
+      "runtime/scene/pause.c": "ada2c19716e8925d701b791413aee22371de6d6d993352da136853b99b837ea1",
+      "runtime/scene/pause.h": "8ea642df89c96b826f2bdcf6f27587fd85c13f78012da3a79fe2055a8c287989",
+      "runtime/scene/pause_render.c": "0276c8b0435ab14f80c3701d1b04fcdd5fe50dbf470ccf7a19f0838cc7136fcc",
+      "runtime/scene/pause_render.h": "ebce60b1c9f5e16c413ffc464eba6b3b0958c57d6925ba1ddd1fb4fda0626a4e",
+      "runtime/scene/player_audio.c": "f6f0c98b11c9f4da33b8ce546b1b719382f63376db19efb1825ba1ab90756b5f",
+      "runtime/scene/player_audio.h": "d67c0174632e005d10209bce8f607879df5514a93489528631c8b53699001544",
+      "runtime/scene/player_hotkeys.c": "2f9cbd95af4b3186f7e76276691c65d422b765b57864159385f92d79c9dda2a7",
+      "runtime/scene/player_hotkeys.h": "e346f8167a235fe9f8e9515ed0c40a566b667c4d11155a78955cd4ae48d49220",
+      "runtime/scene/player_hud.c": "09a7366594cc149139fcd7b1823355c16f90180b11522144204256229f5f38c0",
+      "runtime/scene/player_hud.h": "9fdb24cf0934d1e87b97c9ff2b35dc17fa46df2bea561a8fa7279900f581d591",
+      "runtime/scene/player_hud_render.c": "952d325ffcf00e173c4ff2923a3f1fb058011099bce2b427ade14de44e52e589",
+      "runtime/scene/player_hud_render.h": "5ff8313ed7720879f8dbe266385cdecc21a47e69d495b0dfd6e2e3c592bcb9d7",
+      "runtime/scene/player_hud_session.c": "a5249863e2f531c4a318ed9cbfb2027c2cbeb20802a10a79f9a2014220d143c7",
+      "runtime/scene/player_hud_session.h": "10f5b1a8f42b22af677e7f8586696f042b1e6c26541649a1c26b7f7c5806952c",
+      "runtime/scene/prop_assets.c": "403068fc50e8b03a3bdb1a1135adb5443d8cf7bcddbd23be8b52c5eb85b7cb74",
+      "runtime/scene/prop_assets.h": "6d874c4ce929d80091b1d1385652b34a259b1ef536bd0851975b7f34dc71fe1b",
+      "runtime/scene/prop_audio.c": "8a3bf9ad7bb76a50c6e5247fd884d506e3397bf8888bb742c4240fca2ef4cbb8",
+      "runtime/scene/prop_audio.h": "9f95badf5d40fedce4792783dab41fb4a412fe7b7c7105833874cc343992bfc4",
+      "runtime/scene/rain_render.c": "25e0ff3ea37e825efdafde67d25cfec1ec5a042b70facb4adbb0d367af36041d",
+      "runtime/scene/rain_render.h": "84295db027aee033616c61fab70b0848ebabce2fbfb636ad3dc429003297b542",
+      "runtime/scene/retry.c": "598a05743b258cbdf8aed56d1fc2f71a8ca63017ec7f358caa01debdb5fbba22",
+      "runtime/scene/retry.h": "21017980d1ea01c5f736fc89103b927769db76058ff03738088bdbfa12184ec1",
+      "runtime/scene/save_menu_control.c": "835126774d7bbc04f9572efa5933d2d22fc516a6413a60f6aeec56dc2739f9c8",
+      "runtime/scene/save_menu_control.h": "f46d483f26f51b2475907eb45ce5ca7036397fec1367b0845e24980c1e323a0a",
+      "runtime/scene/save_menu_labels.c": "2c854db19a3a03f3dce6a4e65e32ad143491a74a6d630e06003bce2affc458a9",
+      "runtime/scene/save_menu_labels.h": "761002879f3ae6ebc17d8cf3ef8a08f4b2d21a8ac79f449a10be76dbd63ef2ee",
+      "runtime/scene/save_menu_render.c": "019c1ab1ccefe65cb7dad1886f639125a685519401fccb537b68e2b030fc17ec",
+      "runtime/scene/save_menu_render.h": "944cc9c19a61f3e001abe4a35c1a83fd175cc46deb4df69934975e2ce29c2434",
+      "runtime/scene/save_menu_view.c": "e352ad9c2b2eeec997163b4b070bf2af7483fd34266e4815aaf8e3936bca6677",
+      "runtime/scene/save_menu_view.h": "5d42225cea66527c0203b9caf3a8c0a07b89d9dcfc32a9b2490cae195342f0f1",
+      "runtime/scene/scene.c": "52d4fc341d0fdf244c02924fdbe8c563106b505d022d74c97a9bf371780dafea",
+      "runtime/scene/scene.h": "43749bdd7bfb07b16d4ed4fd1456560d059be51e1fc288c95a3677cd585f9f01",
+      "runtime/scene/scene_internal.h": "e7e10a153052134f7d0ce47ea4170d294154aae62e6978f596ec6b4f02011ed4",
+      "runtime/scene/screenshot.c": "2f59501735a7529c46d9f204708215ac2a1fefb8cb828d35d2f8951993c44597",
+      "runtime/scene/screenshot.h": "5b95731739d6b0d5b71b2a5ac6a0d46a152d392edad8be0184a86e625e43e1a3",
+      "runtime/scene/selection_actor_assets.c": "62010e1de3bce0f8aa04fffa3403840a4165619c24f5c5a711320fe56991e0cf",
+      "runtime/scene/selection_actor_assets.h": "f4740749ff79daed79f58f7630a76a60cbac844f79910f2f8621a5bb36176f6a",
+      "runtime/scene/selection_audio.c": "a7ecb5cb47e917d6d9b6b70f07961e90f2b6887365121cf270fdb832486824f0",
+      "runtime/scene/selection_audio.h": "a65ac88a2e08d47fb48fa1551d230fa5c61bded8d13954b5e62c00c88079b508",
+      "runtime/scene/selection_render.c": "818cb5f1700843ee7e41e9fbf7948d8f3d730569fb70d8ab12a0160bae281316",
+      "runtime/scene/selection_render.h": "973b4ec41b335d88c953a9b4ee4e65109a34be84f398042cdc73e517ffce7c3d",
+      "runtime/scene/selection_session.c": "f044673856159050254e376ba2fa508f633760956e3398254eb23e0e35c326ea",
+      "runtime/scene/selection_session.h": "547f0ec7ab43a5d491d62d95e3dfd70fda5b397b19c14a8eb236dc8a370f4026",
+      "runtime/scene/selection_ui.c": "6c908e8a10dfa4cf896bf7917ce376f2cffb253202ecf9a8bdc970464d34727c",
+      "runtime/scene/selection_ui.h": "13b8f452dd6c2d19fd4f0fbd42ade1bda989a998a632803adc45b7f285d80510",
+      "runtime/scene/selection_ui_render.c": "2fda5bd79cc1d85b4c4397139e7a1f1246bc4b3f5397d25a8f36ef24e7b5f080",
+      "runtime/scene/selection_ui_render.h": "45a7ba1d3f9027c64bfae9cd18b3cce06be2891ce8433c35a56d70dcbfedd0bf",
+      "runtime/scene/selection_world.c": "5df028f33a21b0dbb8247dd8fa0bf0de685277f3396326b38bd02fb2dc34302c",
+      "runtime/scene/selection_world.h": "3d20d53ab768ccab7dedae5e2aa78edcd8321178630f235e2299a3e7bbeff2cb",
+      "runtime/scene/skin_upload.c": "f69b31949c4986cd4dadc629c57421f4d01cd9b9fa45b49015c36f80e8e5de0d",
+      "runtime/scene/skin_upload.h": "363861b30cf440f95f985da3fc8c9764f2a9f99cbcb88e8084b760e054a219ab",
+      "runtime/scene/static_world.c": "2b64b9fc8e262dee2823552921af90118d807af168eabf0813d512b4e29a60f1",
+      "runtime/scene/system_audio.c": "a3c5dae2362b42f4f85fe7464730bfc584314823867025fae55d4cd7286a1944",
+      "runtime/scene/system_audio.h": "853eb494060c2c17ab5b00a7f679738951f48dc3efda00841019b23500335ab7",
+      "runtime/scene/text_render.c": "85852700c3668f54748d582ddde0b9a6efe71e97d8baa9f96d7f24860a50688f",
+      "runtime/scene/text_render.h": "b28c3a92882cdc73c7fadc7d7b73b3dde4d369872168799771226e51d23c3a78",
+      "runtime/scene/title.c": "9365977d39fdfd52f357a5dda0658f9951158de4ccb40dbd158a542b5fc85236",
+      "runtime/scene/title_menu.c": "3743d6256acbe44abf01c9b18f64dcda838a269312c25390e8f870bbd319fb49",
+      "runtime/scene/title_menu.h": "790e73b897793c0243a2591f480b5df9ec4518fd235edbdc1e62a40e544f777e",
+      "runtime/scene/title_menu_render.c": "7d3853a32f286da914198ef2e982e0588f159f4f54be60d5f6bffeb827add3d4",
+      "runtime/scene/title_menu_render.h": "5d973b0cff0b5953db0c191e10c5787a8152f6debf4f56231b548eaac8294f0d",
+      "runtime/scene/voice_audio.c": "db754185e9138526c105ea3e79cf298eda2291a4b4465f26c41f25aa64c62ba4",
+      "runtime/scene/voice_audio.h": "1196fb30a81d5141e6c7ab36ac286701d2bdc0cb1ac8a041201dacfb563f070f",
+      "runtime/ui/debug_overlay.c": "f72d885e14b2db922f99de8bc17784337e5a85467bbd11410b98d6df0269bf65",
+      "runtime/ui/debug_overlay.h": "0f464c4e38efac2a9e32c417d5e148464055dc65aeaa4ad01ea073587d78d291",
+      "runtime/ui/effect_sprite.c": "32f30d76233ddd7f90430e0cafcf54d33aa6a655174a6f787be7ae22ffb6511c",
+      "runtime/ui/effect_sprite.h": "f899e1c62c508fa1de46c45377ac0ef6b95a73d18401536cde0fb6956b81ab99",
+      "runtime/ui/fade_sprite.c": "f28e4dda233c930b9af200bc18db1d9da3cb37ece4a22bd33a30111177dc9a08",
+      "runtime/ui/fade_sprite.h": "83ea4633bb7813554a650f24a5931ea2b9751cdca53572c171a09c96853fd76b",
+      "runtime/ui/text_canvas.c": "b10fda2c70c3e68200b54f0b637d88af4419be430c4e54a6c90e1a928b4049bc",
+      "runtime/ui/text_canvas.h": "6d820672ba617b1aa2adc160186cdcf74fbcff71c873509d707743bee769800c",
+      "runtime/ui/text_draw.c": "e5f6d8fda6e6b3a85aeb32c087fff5c313095cb7e7e81a91c3e79c07c8589632",
+      "runtime/ui/text_draw.h": "926ebf7e05036950d5db7a83e5d0892b226d985b0f2da72bcd5f3a5a7ae45b5f",
+      "runtime/ui/text_flow.c": "6506c27379f0d2e1b592cd2943dd0fac4c3f957e358805009a9f2794511e12ac",
+      "runtime/ui/text_flow.h": "bf5d17a00c93a4f21a30358052b85d03935fdfa2d47b0de962721dff16147d0f",
+      "runtime/ui/text_image.c": "8302bf754bd1df1e3f2a1f12d540985d389015c363d3ee16e1df4a1325f08a60",
+      "runtime/ui/text_image.h": "1669f3ccc997172bd0af19945d29d6835f49b2b6346b2617ebffa8136b6accd4",
+      "runtime/ui/text_layout.c": "7db1a8ab0bd79d4919c1c78fe7d2b4e20e24de5c34d52fa73b0858906268723d",
+      "runtime/ui/text_layout.h": "a05a6b282be9925e539f0ce5b789c1aaa652ac94025cbfb85874109d13517c63",
+      "runtime/ui/zoom_sprite.c": "00cce504459737a731dde7ad9847217f20d35e18757cb2011cc48ccfecb0c2fa",
+      "runtime/ui/zoom_sprite.h": "9c50d1827107ef720ea1271570e0a26b311c2dc66c5431e0b5cce5373669edc9",
+      "runtime/world/README.md": "76ce1272614c37405d43478ae89c7139b973bd5f6a3ae8cad79eb50baa2c54b9",
+      "runtime/world/actor_forest.c": "53df80085a8f61ef1dc546e1381ef3a4ac5b5d959ee5a13feba8c3a315255185",
+      "runtime/world/actor_forest.h": "f01b2c863719e7994f38167ff70636cd2ed0121eb1a086d66f75940a56710ce4",
+      "runtime/world/actor_pose.c": "6228171d91b168821e4cba567971009bbafa2c39c0535d3379fb7e29a32cf604",
+      "runtime/world/actor_pose.h": "31823130ec0740a6a2d6175bd4b0996e68b64cef4164e62bb3b6e9095b8fb4e8",
+      "runtime/world/actor_pose_internal.h": "9f99abcf11cb9af9af6902850134f8f8a5902a84e4d28f340f0dec13f1dc5e00",
+      "runtime/world/bom_motion.c": "ff2b87fe8cdabc5cd38def15862a75a3836558eb9854aee217982b0b4950bcb1",
+      "runtime/world/bom_motion.h": "1a77995b3adfcec624645a0411c30578c70044aec7f42316d98365c2126e3002",
+      "runtime/world/collision.c": "c210008c3cd2e8e69ddd8aefef2554b3d9dc6473f430b0ffbace1a4447e27dfb",
+      "runtime/world/collision.h": "6b73cf1600715a2b7064baa15a46dd2b0242b5d736b3ee93364864f8cdc65948",
+      "runtime/world/ending_camera.c": "686b46f89ca392d4046c00f4db39834fe1e0fa3b68ad5fa46e73f6286c75a434",
+      "runtime/world/ending_camera.h": "e32c028e27034c7ab3de758f31253995d3339e36e48a533574de01b8825bc161",
+      "runtime/world/eye_pose.c": "de6754c792042c0145e442692f903f3e4a6b48ff12fb6ee2ac474203fb714ce2",
+      "runtime/world/eye_pose.h": "1a39ea2c98b3d0f04c492245d5bab7b4f01d0154a9eec0d3a6e9941d06f1d081",
+      "runtime/world/face_controller.c": "f56317c3d1b6bb93e8e8b0df4a9580df8d8eb929c931bc030520ef484f1107f0",
+      "runtime/world/face_controller.h": "2983a5c7538b4804b6dd71f0717e809aa87b397a12ae8de7677444ebc2ea33e7",
+      "runtime/world/failure_camera.c": "824abd430767c252a20d764e0673a34c5ab172a69abdfc93c768de4fc3521b6b",
+      "runtime/world/failure_camera.h": "4e8a3c87b9e3bf9f009f1f0ce70d3aa43f56d6c6f64bb8d4d9ab1dda7ae088db",
+      "runtime/world/follow_camera.c": "2bcdedd9a5d091f6bee00cb53d3b48ef5d5cd83d3202b36b2ed217207a97e1c8",
+      "runtime/world/follow_camera.h": "5b3849be72650b99cd3caf04567ee57e7195eae105f26f54a9d4fdfc7531cfd9",
+      "runtime/world/follow_obstacle.c": "71d0bd65dc338e5a594629311ee2717ca146e1468002893f9a6cdf9345fe75ea",
+      "runtime/world/follow_obstacle.h": "e397888754306605fd4ff86078e25a8e6a924a906c20014c421b74aeda83d984",
+      "runtime/world/frame_tree.c": "c22f8b33c1169f71691b3f87521e1ac4eef2f5ceb66c6c3ac50bd5f351d4b5ba",
+      "runtime/world/frame_tree.h": "0b676d52132746060d3c150a74fc7e14af5348d709a2bc72dadb7816664a0953",
+      "runtime/world/ground.c": "e647669449a4f7f08472e6f643820c9b9339c9e1faf703cca4a853159d3be23a",
+      "runtime/world/ground.h": "814c3acae02f74e7315bc90fa6f616ec0f4af237b1e04c2ccdb2dd9a53fb7945",
+      "runtime/world/menu_camera.c": "716b7892c9e4df8a1906fd63d41176196016f0490f63d7fb09ae44805411feb7",
+      "runtime/world/menu_camera.h": "a66171c7459713b88fc8461b3847d3d308b1a88fe1846ec35f4122fadf28d18e",
+      "runtime/world/node_reference.c": "c7f3e2700864981bd04af2071254006c2457201496ad83b6d3e3aa28ede1a5ed",
+      "runtime/world/node_reference.h": "1a9e247ed6465284c1898ba4bae5018ddfe9c38d6da4f56737c436c478177eae",
+      "runtime/world/orbit.c": "396e023950037a003ea3099878a481e8e1066d33596841ea79a4b6cc4ca2fbbd",
+      "runtime/world/orbit_internal.h": "10cc9807281d4dc77717063deffdd06a7a1dc9bd41573133017d494fbcae893d",
+      "runtime/world/placement.c": "7c2fe631a69c5ded9d213a8c68e4403618854e10b7efd1d28a0fe4ef961eef58",
+      "runtime/world/placement.h": "9f00be5daec480ebf08d1e1b8c228a57cbf72ce554dd1aec34b3e6926b63622c",
+      "runtime/world/player_camera.c": "f076943a309f2512288437a5d17fea01d7af80ec219a62c5e0d59e7faa177e73",
+      "runtime/world/player_camera.h": "58e18f84aeec87c7fbd516aef9c584bdea83e8d729ed4e746a8421e3aa10b8d6",
+      "runtime/world/player_view.c": "300affd0f25e9fd08320bb41c6e3eaf0dc04021afad4a10ed11aac493a75b9dd",
+      "runtime/world/player_view.h": "3877b7cbaaab6ff355ecd1ec1abe164645f7c9bb7670f40957da35557e1ec0d0",
+      "runtime/world/player_wall.c": "b0c984dcf28087c65675dda11e41749940831cd8df02236ace396fe178c3c72a",
+      "runtime/world/player_wall.h": "13ccfd9ddac1e6e8474584de0a1dd7750363f7b4cebe14969d961e7bebdaf9e7",
+      "runtime/world/prop_route.c": "ca3b19e594651d37b2228c44079a1db9849212d859db87bf26d719032b70d2dd",
+      "runtime/world/prop_route.h": "83e17bc159a61224dea3eb2210499604d47a6fb5cf0538c477ff13ac8b7d19cc",
+      "runtime/world/proximity.c": "aac22f707448580b3585372fb891228308215478602b1dbbb40305653b5e5fa8",
+      "runtime/world/proximity.h": "aa79cd7d18b75a24e9bc07c08b5cc45597b05f12752574e2f500d6ae2456f36f",
+      "runtime/world/route.c": "7869022cd99d4dbf505201f9995420c2acbb27db68cb2a47f293867ef2bb7979",
+      "runtime/world/route.h": "bcc407028fb4ecc025c751f468854f76a5de75d4fa94f0f8bb8313d61af3c510",
+      "runtime/world/route_motion.c": "645195f25ea0443275556d3c511d1c49262a55f4854d1bf5ac2125a8faea7d37",
+      "runtime/world/route_motion.h": "915935aa7baaf42a327d648d690ec396ca125cb5739ccc0375d3ec9091be1255",
+      "runtime/world/spatial_audio.c": "6c67f93bb6e64aebba4d2a04d119f64130df59c88a9be0ad61685de85ce2fa9c",
+      "runtime/world/spatial_audio.h": "e1e1a93c2bff38f8023c96e6ed298f9f3fc358ee476b5c01ea07f501f7e05e3d",
+      "runtime/world/timeline_event.c": "fa716449f0cfb282393c873db01a7b1c1418b8443aebda2a4bfe38ca421e7028",
+      "runtime/world/timeline_event.h": "ae9cd33103b456aaf2d1a54bc49afb3501a8e10b6de000e0680308a276c17957",
+      "runtime/world/visibility.c": "c6a715924eec8f649cc206b8c954e67050474c0080666cf95d87979c55ff5321",
+      "runtime/world/visibility.h": "3ef54a0d6470f73df5014ea5e872225e48d225137a444d785b3cc452ccd18f2d",
+      "runtime/world/voice_envelope.c": "ddf5a627ede331f17b8e3cfa5040b492b59ab8bd22e7a15c87b023d0adcac5fc",
+      "runtime/world/voice_envelope.h": "feeb5c35ef42090198bbd841d6459c17a2de6ef706cfe656d1d422c575f68533",
+      "tests/check_ending_runtime.py": "a2f5e94c0cdb10cfaebb47eca2e87bce3f4bbef35ac22250ac897e97abdfdeff",
+      "tools/ending_audio_probe.c": "1b06ec7fd0715ad851a0d9cf42784cdcea4fdb44023f76441a6f9bd23998ece2",
+      "tools/ending_auxiliary_probe.c": "d53d26fff5bb7055f625f79ce3ecb00b0d86a32adda68a749dec92a01c548914",
+      "tools/ending_camera_probe.c": "6b47b1eb3541a1c57eba0bb76446f3e2dc7a05cb0984d2877f39c193dcfc3f3d",
+      "tools/ending_draw_event_probe.c": "426c83856c5357e26444ffaacd1e50097fa0ad40563d42be9c58dd355032c48e",
+      "tools/ending_exit_probe.c": "7c7e67448f2d16cb2c9b12bd91b642c6c743673ec8a479619d63fe7a8d83ef46",
+      "tools/ending_face_probe.c": "ea60d3e3743941b60a48d054a2ae91bf7eaa75981487bb31d1726c220eaf2af2",
+      "tools/ending_framing_probe.c": "852adb69884060cad418d8d621ecbf32c33d0951e1433efa47fd270486c46959",
+      "tools/ending_normal_probe.c": "cc762eada8be958d4d6762d319031e37793018c5ee16e805fb9de379d5506685",
+      "tools/ending_normal_scene_probe.c": "d88ee3c74d90712d654d14b539b908a12e8d3db64f0f1282e16f74b9ab40b2b5",
+      "tools/ending_opening_probe.c": "9ef754136b53d6a49e1ed33e934f31bfac169a8cd49f80ba1c99169ec523c294",
+      "tools/ending_presentation_probe.c": "d574569d267e2fca4feefb5b25442055fb7d726f09a5c951e449e27eb3eb0ba0",
+      "tools/ending_reload_audio_probe.c": "f0388bf78b3fcb0ae6c759a35ee50c4a2a2851f37bcb13c6f2b471eea0c62aba",
+      "tools/ending_render_probe.c": "e3bbebd62b54b386ce87c0c8fe2bc6cf54a6a185377a72dec7d45c6e15beeba1",
+      "tools/ending_secondary_controller_probe.c": "571135b15c16b45cdb2988ad3fc23ce04201830726bd4b0e8cf29bd00e785bcd",
+      "tools/ending_secondary_presentation_probe.c": "222633f83b1860331677b6fc4ae8d6f3a6fd9cb2b511ecc481d4bdefadaa06f6",
+      "tools/ending_secondary_probe.c": "43bc0e2603fc90d34b42a6ab391c4742251160e5e446949f19ace07d29b9fd08",
+      "tools/ending_secondary_render_probe.c": "c218bb2d15e327984e647b626dff51871604705ed7a19f327a9b9a96ba0147e5",
+      "tools/ending_secondary_session_probe.c": "e9a9802503c9b4443df17c7fabd63a8c2a943f5281b6ca5697e67e940cd059eb",
+      "tools/ending_sound_probe.c": "2f8bc6f37d84c972969ced958689878e62984943554fb6bf879eeca3ec3e6ec4",
+      "tools/ending_special_scene_probe.c": "74818f8b77d93ca8bfefdf56091f980120b2ff8591d8857879deac4721848a48",
+      "tools/ending_stage_reload_probe.c": "afa9f076e18a3b7000f78768bfa7a400c4617ab7920da37736efada8e8bbcc6f",
+      "tools/ending_stage_ui_render_probe.c": "da8b80fa84a0d512553a8b7214da50e7cad4d96fc36844b2ff44d3cdf1b67483",
+      "tools/ending_state_probe.c": "2e98c56000f5723bf220fd131f5d67536c96a1c28bad98ab1fe23b4f32e9c909",
+      "tools/ending_story_reload_probe.c": "bf10236fefc0b46d62a8ff4930468ca3f7a07bc1c7cf41471195d54e3ce84668",
+      "tools/ending_ui_batch_probe.c": "1ead7e400ff1436b835928abfa0feccb98b7abab859facbd4f3249639c508761",
+      "tools/ending_ui_hints_render_probe.c": "f44458deb4a91c8c6ee17f356c038851fc31e6cec62e7b92dea9ec682aa25844",
+      "tools/ending_ui_render_probe.c": "c62025fcd571c8c64e782717c9ed8c0f4abdb94832a6d7988fa9938abd707e01",
+      "tools/ending_ui_tail_probe.c": "fd4bc9ecae9a3339c2ca81b516218bfa4ca7503bb3c10b5372427a0bc09978df",
+      "tools/ending_viewport_probe.c": "4e2a97d2c68c6688497dfeb16124b1e3a38ace0c7aa8793654f65587ca4bfa98"
+    },
+    "commands": [
+      {
+        "name": "configure-host",
+        "argv": [
+          "cmake",
+          "-S",
+          ".",
+          "-B",
+          "build",
+          "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+          "-DBK_WITH_VULKAN=ON",
+          "-DBK_BUILD_TESTS=ON",
+          "-DBK_SANITIZE=OFF"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/configure-host.log",
+        "exit_code": 0
+      },
+      {
+        "name": "build-host",
+        "argv": [
+          "cmake",
+          "--build",
+          "build",
+          "--target",
+          "ending-secondary-controller-probe",
+          "ending-secondary-presentation-probe",
+          "ending-secondary-session-probe",
+          "ending-stage-reload-probe",
+          "ending-story-reload-probe",
+          "--parallel",
+          "8"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/build-host.log",
+        "exit_code": 0
+      },
+      {
+        "name": "configure-asan-cpu",
+        "argv": [
+          "cmake",
+          "-S",
+          ".",
+          "-B",
+          "build/asan",
+          "-DCMAKE_BUILD_TYPE=Debug",
+          "-DBK_SANITIZE=ON",
+          "-DBK_BUILD_TESTS=ON",
+          "-DBK_WITH_VULKAN=OFF"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/configure-asan-cpu.log",
+        "exit_code": 0
+      },
+      {
+        "name": "build-asan-cpu",
+        "argv": [
+          "cmake",
+          "--build",
+          "build/asan",
+          "--target",
+          "ending-secondary-controller-probe",
+          "ending-secondary-presentation-probe",
+          "--parallel",
+          "8"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/build-asan-cpu.log",
+        "exit_code": 0
+      },
+      {
+        "name": "configure-asan-vulkan",
+        "argv": [
+          "cmake",
+          "-S",
+          ".",
+          "-B",
+          "build/asan-static",
+          "-DCMAKE_BUILD_TYPE=Debug",
+          "-DBK_SANITIZE=ON",
+          "-DBK_BUILD_TESTS=ON",
+          "-DBK_WITH_VULKAN=ON"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/configure-asan-vulkan.log",
+        "exit_code": 0
+      },
+      {
+        "name": "build-asan-vulkan",
+        "argv": [
+          "cmake",
+          "--build",
+          "build/asan-static",
+          "--target",
+          "ending-secondary-session-probe",
+          "ending-stage-reload-probe",
+          "ending-story-reload-probe",
+          "--parallel",
+          "8"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/build-asan-vulkan.log",
+        "exit_code": 0
+      },
+      {
+        "name": "secondary-presentation-host",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/ending-secondary-presentation-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/secondary-presentation-host.log",
+        "exit_code": 0,
+        "summary": "PASS secondary presentation: 10 entries 4200 frames 70 requests 1800 PCM-envelope calls 2400 ramp/fixed-mouth frames 320 frozen-consumption frames 10 atomic clock rejections; geometry=ce87b9752f96e4ed face=e7b518152f150467 state=1863b86b8e568eb2 pcm=2681b0f51bf15759; no parent/playability claim"
+      },
+      {
+        "name": "secondary-presentation-asan",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan/ending-secondary-presentation-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/secondary-presentation-asan.log",
+        "exit_code": 0,
+        "summary": "PASS secondary presentation: 10 entries 4200 frames 70 requests 1800 PCM-envelope calls 2400 ramp/fixed-mouth frames 320 frozen-consumption frames 10 atomic clock rejections; geometry=ce87b9752f96e4ed face=e7b518152f150467 state=1863b86b8e568eb2 pcm=2681b0f51bf15759; no parent/playability claim"
+      },
+      {
+        "name": "secondary-controller-host",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/ending-secondary-controller-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/secondary-controller-host.log",
+        "exit_code": 0,
+        "summary": "PASS secondary controller entries=10 frames=63077 menus=50 states=255 frozen_pcm=120 speeches=105 paused_polls=315 wraps=30 geometry=470ac923b9bcdbab pcm=692faefc5ddd8ba2"
+      },
+      {
+        "name": "secondary-controller-asan",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan/ending-secondary-controller-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/secondary-controller-asan.log",
+        "exit_code": 0,
+        "summary": "PASS secondary controller entries=10 frames=63077 menus=50 states=255 frozen_pcm=120 speeches=105 paused_polls=315 wraps=30 geometry=470ac923b9bcdbab pcm=692faefc5ddd8ba2"
+      },
+      {
+        "name": "secondary-session-host",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/ending-secondary-session-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/secondary-session-host.log",
+        "exit_code": 0,
+        "summary": "PASS secondary sessions entries10 frames63430 states255 menus50 frozen120 redraws170 schedules10 focus20 display_switches30 hidden_background0 dual_views180 state=9d8cc9bafb06aff9 pcm=7ca2357185155dda"
+      },
+      {
+        "name": "secondary-session-asan",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/ending-secondary-session-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/secondary-session-asan.log",
+        "exit_code": 0,
+        "summary": "PASS secondary sessions entries10 frames63430 states255 menus50 frozen120 redraws170 schedules10 focus20 display_switches30 hidden_background0 dual_views180 state=9d8cc9bafb06aff9 pcm=7ca2357185155dda"
+      },
+      {
+        "name": "stage-reload-host",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/ending-stage-reload-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/stage-reload-host.log",
+        "exit_code": 0,
+        "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+      },
+      {
+        "name": "stage-reload-asan",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/ending-stage-reload-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/stage-reload-asan.log",
+        "exit_code": 0,
+        "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+      },
+      {
+        "name": "story-reload-host",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/ending-story-reload-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/story-reload-host.log",
+        "exit_code": 0,
+        "summary": "PASS natural story reload entries5 frames47587 reloads10 redraws30 gestures20 frozen120 states255 state=8435a0e4ac4c36dd pcm=59bd723db024384b"
+      },
+      {
+        "name": "story-reload-asan",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/ending-story-reload-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+        ],
+        "log": "build/validation/ending-runtime-9zngc1po/story-reload-asan.log",
+        "exit_code": 0,
+        "summary": "PASS natural story reload entries5 frames47587 reloads10 redraws30 gestures20 frozen120 states255 state=8435a0e4ac4c36dd pcm=59bd723db024384b"
+      }
+    ],
+    "checks": [
+      {
+        "name": "secondary-presentation",
+        "suite": "cpu",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "4fe221e5d39e53ce7924e057b6c9d5d73fd7c067fccc82737bd03c735f11acee",
+            "summary": "PASS secondary presentation: 10 entries 4200 frames 70 requests 1800 PCM-envelope calls 2400 ramp/fixed-mouth frames 320 frozen-consumption frames 10 atomic clock rejections; geometry=ce87b9752f96e4ed face=e7b518152f150467 state=1863b86b8e568eb2 pcm=2681b0f51bf15759; no parent/playability claim"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "8f3c11f0e13036edef8bd08cecb3436a611cbb8348b0c5cc7fbd0be5e2903829",
+            "summary": "PASS secondary presentation: 10 entries 4200 frames 70 requests 1800 PCM-envelope calls 2400 ramp/fixed-mouth frames 320 frozen-consumption frames 10 atomic clock rejections; geometry=ce87b9752f96e4ed face=e7b518152f150467 state=1863b86b8e568eb2 pcm=2681b0f51bf15759; no parent/playability claim"
+          }
+        ]
+      },
+      {
+        "name": "secondary-controller",
+        "suite": "cpu",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "49058a710c8fcb0122d3edb93dd867375de1b1caa4f5778ad2addbe118b674be",
+            "summary": "PASS secondary controller entries=10 frames=63077 menus=50 states=255 frozen_pcm=120 speeches=105 paused_polls=315 wraps=30 geometry=470ac923b9bcdbab pcm=692faefc5ddd8ba2"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "009f462ceac58abd0cfce5264b6e247812bd64d4b3e11fed8eaeb93c057b85d3",
+            "summary": "PASS secondary controller entries=10 frames=63077 menus=50 states=255 frozen_pcm=120 speeches=105 paused_polls=315 wraps=30 geometry=470ac923b9bcdbab pcm=692faefc5ddd8ba2"
+          }
+        ]
+      },
+      {
+        "name": "secondary-session",
+        "suite": "session",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "df9c318665c7d89af9393293169129add50d55951fec766d4d86333e13831ad9",
+            "summary": "PASS secondary sessions entries10 frames63430 states255 menus50 frozen120 redraws170 schedules10 focus20 display_switches30 hidden_background0 dual_views180 state=9d8cc9bafb06aff9 pcm=7ca2357185155dda"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "f07a672cdd32c0489f6b2e6ed446ab99da63a5a0bc15974f9e411d40cc225335",
+            "summary": "PASS secondary sessions entries10 frames63430 states255 menus50 frozen120 redraws170 schedules10 focus20 display_switches30 hidden_background0 dual_views180 state=9d8cc9bafb06aff9 pcm=7ca2357185155dda"
+          }
+        ]
+      },
+      {
+        "name": "stage-reload",
+        "suite": "stage",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "b76b4cad67d6ec50eb5016e8b774a041064793de6efdff16b8aa045428ad112a",
+            "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "6a337496025c88a40d552a4aa6692180a4e8df585b133055c0fb607d0ba5ac07",
+            "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+          }
+        ]
+      },
+      {
+        "name": "story-reload",
+        "suite": "story",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "f6dba92845d5ecd6340d7eba8137a5b43b58da7a5be638b5172fe1a1fed31622",
+            "summary": "PASS natural story reload entries5 frames47587 reloads10 redraws30 gestures20 frozen120 states255 state=8435a0e4ac4c36dd pcm=59bd723db024384b"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "f537ee31e4793b48c1537354d3371ba854f166890b1d5276ca00b4475c68e8c9",
+            "summary": "PASS natural story reload entries5 frames47587 reloads10 redraws30 gestures20 frozen120 states255 state=8435a0e4ac4c36dd pcm=59bd723db024384b"
+          }
+        ]
+      }
+    ],
+    "finished_at": "2026-09-29T01:18:18.656102+00:00"
+  },
+  "validation_source": "build/validation/ending-runtime-9zngc1po/result.json",
+  "original_oracles_read_and_compared": {
+    "original-ending-background-reload": {
+      "host": "local/original-ending-background-reload.json",
+      "asan": "local/original-ending-background-reload-asan.json",
+      "equal": true,
+      "result": {
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "cases": [
+          {
+            "kind": "normal",
+            "group": 0,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m01_90.xan",
+            "frames": 388
+          },
+          {
+            "kind": "normal",
+            "group": 0,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m01_90.xan",
+            "frames": 388
+          },
+          {
+            "kind": "normal",
+            "group": 0,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m01_91.xan",
+            "frames": 344
+          },
+          {
+            "kind": "normal",
+            "group": 0,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m01_91.xan",
+            "frames": 344
+          },
+          {
+            "kind": "normal",
+            "group": 2,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m03_90.xan",
+            "frames": 301
+          },
+          {
+            "kind": "normal",
+            "group": 2,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m03_90.xan",
+            "frames": 301
+          },
+          {
+            "kind": "normal",
+            "group": 2,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m03_91.xan",
+            "frames": 281
+          },
+          {
+            "kind": "normal",
+            "group": 2,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m03_91.xan",
+            "frames": 281
+          },
+          {
+            "kind": "normal",
+            "group": 3,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m04_90.xan",
+            "frames": 574
+          },
+          {
+            "kind": "normal",
+            "group": 3,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m04_90.xan",
+            "frames": 574
+          },
+          {
+            "kind": "normal",
+            "group": 3,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m04_91.xan",
+            "frames": 579
+          },
+          {
+            "kind": "normal",
+            "group": 3,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m04_91.xan",
+            "frames": 579
+          },
+          {
+            "kind": "normal",
+            "group": 4,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m05_90.xan",
+            "frames": 735
+          },
+          {
+            "kind": "normal",
+            "group": 4,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m05_90.xan",
+            "frames": 735
+          },
+          {
+            "kind": "normal",
+            "group": 4,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m05_91.xan",
+            "frames": 717
+          },
+          {
+            "kind": "normal",
+            "group": 4,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m05_91.xan",
+            "frames": 717
+          },
+          {
+            "kind": "secondary",
+            "group": 0,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m01_90.xan",
+            "frames": 538
+          },
+          {
+            "kind": "secondary",
+            "group": 0,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m01_90.xan",
+            "frames": 538
+          },
+          {
+            "kind": "secondary",
+            "group": 0,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m01_91.xan",
+            "frames": 494
+          },
+          {
+            "kind": "secondary",
+            "group": 0,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m01_91.xan",
+            "frames": 494
+          },
+          {
+            "kind": "secondary",
+            "group": 2,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m03_90.xan",
+            "frames": 352
+          },
+          {
+            "kind": "secondary",
+            "group": 2,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m03_90.xan",
+            "frames": 352
+          },
+          {
+            "kind": "secondary",
+            "group": 2,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m03_91.xan",
+            "frames": 332
+          },
+          {
+            "kind": "secondary",
+            "group": 2,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m03_91.xan",
+            "frames": 332
+          },
+          {
+            "kind": "secondary",
+            "group": 3,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m04_90.xan",
+            "frames": 725
+          },
+          {
+            "kind": "secondary",
+            "group": 3,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m04_90.xan",
+            "frames": 725
+          },
+          {
+            "kind": "secondary",
+            "group": 3,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m04_91.xan",
+            "frames": 730
+          },
+          {
+            "kind": "secondary",
+            "group": 3,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m04_91.xan",
+            "frames": 730
+          },
+          {
+            "kind": "secondary",
+            "group": 4,
+            "variant": 0,
+            "hidden": 0,
+            "background": "m05_90.xan",
+            "frames": 921
+          },
+          {
+            "kind": "secondary",
+            "group": 4,
+            "variant": 0,
+            "hidden": 7,
+            "background": "m05_90.xan",
+            "frames": 921
+          },
+          {
+            "kind": "secondary",
+            "group": 4,
+            "variant": 1,
+            "hidden": 0,
+            "background": "m05_91.xan",
+            "frames": 903
+          },
+          {
+            "kind": "secondary",
+            "group": 4,
+            "variant": 1,
+            "hidden": 7,
+            "background": "m05_91.xan",
+            "frames": 903
+          }
+        ],
+        "matrices": 53484,
+        "clip_states": 112,
+        "observed_load_names": 112,
+        "max_relative_error": 0.0,
+        "scope": "retained-background original loader/cache and camera equivalence; no raster or natural-story claim"
+      }
+    },
+    "original-ending-light-reload": {
+      "host": "local/original-ending-light-reload.json",
+      "asan": "local/original-ending-light-reload-asan.json",
+      "equal": true,
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "profiles": 10,
+        "snapshots": 186,
+        "enable_calls": 230,
+        "records": [
+          {
+            "group": 0,
+            "variant": 0,
+            "old_lights": 8,
+            "new_lights": 8,
+            "shared_background": true
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "old_lights": 7,
+            "new_lights": 7,
+            "shared_background": true
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "old_lights": 6,
+            "new_lights": 8,
+            "shared_background": false
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "old_lights": 6,
+            "new_lights": 8,
+            "shared_background": false
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "old_lights": 8,
+            "new_lights": 8,
+            "shared_background": true
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "old_lights": 8,
+            "new_lights": 8,
+            "shared_background": true
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "old_lights": 7,
+            "new_lights": 7,
+            "shared_background": true
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "old_lights": 8,
+            "new_lights": 8,
+            "shared_background": true
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "old_lights": 8,
+            "new_lights": 8,
+            "shared_background": true
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "old_lights": 8,
+            "new_lights": 8,
+            "shared_background": true
+          }
+        ],
+        "scope": "Native4a4140/4a435a/4a4438 across actual normal/secondary model reload.\n\nOriginal425f40 executes its retained enable write and D3D LightEnable call.\nDevice calls are observed; actual scene owners provide model identity, names,\nlight data and caches. Old/new models have explicit initial enable0 fixtures.\nThis verifies registry reset/classification/ambient and retained-model enables,\nnot driver light-slot allocation, rasterization or the whole story flow.\n"
+      }
+    },
+    "ending-secondary-control": {
+      "host": "local/ending-secondary-control-original-host.json",
+      "asan": "local/ending-secondary-control-original-asan.json",
+      "equal": true,
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 15000,
+        "branches": {
+          "0": 1667,
+          "1": 1667,
+          "2": 1667,
+          "3": 1667,
+          "4": 1667,
+          "5": 1667,
+          "6": 1666,
+          "7": 1666,
+          "8": 1666
+        },
+        "service_calls": {
+          "voice": 7543,
+          "status": 4147,
+          "key": 6786,
+          "eyes": 792,
+          "request": 875,
+          "restart": 502,
+          "camera": 626,
+          "pick": 995,
+          "choose": 223,
+          "action": 146
+        },
+        "callback_mutations": 1120,
+        "failure_prefixes": 1569,
+        "invalid_time_rejections": 450,
+        "max_error": 0,
+        "scope": "Original47A5D0 all-state parent, native circles/RNG and ordered live state.\n\nCamera, speech, picking, menu construction and actor requests are observing\nservices with deterministic state changes. The original parent, circles,\nfloating comparisons, copies and CRT randomness execute unmodified. This\ndoes not claim the child47D9EE/47C334/47CB41/47CD36 implementations or a\nproduction/natural ending. Resource effects have a separate native oracle.\n"
+      }
+    },
+    "ending-secondary-presentation": {
+      "host": "local/ending-secondary-presentation-original-host.json",
+      "asan": "local/ending-secondary-presentation-original-asan.json",
+      "equal": true,
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 9000,
+        "observed_calls": 124849,
+        "failure_prefixes": 1723,
+        "live_mutations": 2842,
+        "random_cycles": 364,
+        "max_error": 0,
+        "scope": "Complete original47d3cb orchestration and retained scalar/RNG state.\n\nAnimation/face/material/PCM leaves are observing services. The native caller,\ntiming comparisons, mouth ramp, counters and CRT random generator execute\nunchanged. This is not a natural phase2 playthrough or an asset-render test.\n"
+      }
+    },
+    "ending-secondary-effects": {
+      "host": "local/ending-secondary-effects-original-host.json",
+      "asan": "local/ending-secondary-effects-original-asan.json",
+      "equal": true,
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 2800,
+        "matrices": 2336688,
+        "vertices": 601344,
+        "material_fields": 356588,
+        "undefined_material_fields": 5716,
+        "hidden_frames": 320,
+        "rejections": 60,
+        "max_normalized_error": 0.0,
+        "records": [
+          {
+            "group": 0,
+            "variant": 0,
+            "actor": 0,
+            "name": "h01_02.x",
+            "model_sha256": "52cd0f70b3f98a047c4997835a6df84fb9780566522439c5bd369b42413e28d4",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 0,
+            "variant": 0,
+            "actor": 3,
+            "name": "m01_90.x",
+            "model_sha256": "dc9a0b34716273b159a3d0fae1154f677a8f40cd571c185f5f188ddb733d69f6",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "actor": 0,
+            "name": "h01_02.x",
+            "model_sha256": "52cd0f70b3f98a047c4997835a6df84fb9780566522439c5bd369b42413e28d4",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "actor": 3,
+            "name": "m01_91.x",
+            "model_sha256": "9475674676f981bda018feb41a8904ad8da9ce6e7e0459332e402ed7f24281c0",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "actor": 0,
+            "name": "h02_02.x",
+            "model_sha256": "eccaab1c32450a7c4228469634cddda58818fc1a7721473dd6e61744572b9a24",
+            "frames": 140,
+            "morph_tracks": 2,
+            "material_animation": true
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "actor": 3,
+            "name": "m02_90.x",
+            "model_sha256": "85a423e77a22329174854249c2733bffff31864afcd401039b9bf2c46489e276",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "actor": 0,
+            "name": "h02_02.x",
+            "model_sha256": "eccaab1c32450a7c4228469634cddda58818fc1a7721473dd6e61744572b9a24",
+            "frames": 140,
+            "morph_tracks": 2,
+            "material_animation": true
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "actor": 3,
+            "name": "m02_90.x",
+            "model_sha256": "85a423e77a22329174854249c2733bffff31864afcd401039b9bf2c46489e276",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "actor": 0,
+            "name": "h03_02.x",
+            "model_sha256": "c3cc3155c39292f1b65db3b130cec4e582654dccd5d3dd3937fc25712e9747fd",
+            "frames": 140,
+            "morph_tracks": 2,
+            "material_animation": true
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "actor": 3,
+            "name": "m03_90.x",
+            "model_sha256": "210e2a3ab674363e377773dce6c956c9fae1b87a4223e2c0752196436555c081",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "actor": 0,
+            "name": "h03_02.x",
+            "model_sha256": "c3cc3155c39292f1b65db3b130cec4e582654dccd5d3dd3937fc25712e9747fd",
+            "frames": 140,
+            "morph_tracks": 2,
+            "material_animation": true
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "actor": 3,
+            "name": "m03_91.x",
+            "model_sha256": "8dbc298137e519886fc5de17f4ef0bd17b9b22fe18d0107e67d6df5589566465",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "actor": 0,
+            "name": "h04_02.x",
+            "model_sha256": "46da5c21592dac2e1544235b283531977caff1655381aa8d1b5ba21ed77981a9",
+            "frames": 140,
+            "morph_tracks": 1,
+            "material_animation": true
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "actor": 3,
+            "name": "m04_90.x",
+            "model_sha256": "8ba38c2e02017b5d3832b88e30815c307ec7a3d3a2273074cc036324ab2c3db8",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "actor": 0,
+            "name": "h04_02.x",
+            "model_sha256": "46da5c21592dac2e1544235b283531977caff1655381aa8d1b5ba21ed77981a9",
+            "frames": 140,
+            "morph_tracks": 1,
+            "material_animation": true
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "actor": 3,
+            "name": "m04_91.x",
+            "model_sha256": "e4dba618a7febe75167378aac5f8f8315aca1a13ce4ab73f996c374d75f72a4d",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "actor": 0,
+            "name": "h05_02.x",
+            "model_sha256": "bc35d6cffcbb6206751b981345f981b408461fa1422fcfcc3b84f0fdd460c287",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "actor": 3,
+            "name": "m05_90.x",
+            "model_sha256": "c66bd2b52f8311e6212d127589d28ec4d6c8ad4acc022ad7d94d3502edce3143",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "actor": 0,
+            "name": "h05_02.x",
+            "model_sha256": "bc35d6cffcbb6206751b981345f981b408461fa1422fcfcc3b84f0fdd460c287",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "actor": 3,
+            "name": "m05_91.x",
+            "model_sha256": "274adbe9505c6ac4f243613ed267798af6398cc2b98e7d08176fdf847c1dda3f",
+            "frames": 140,
+            "morph_tracks": 0,
+            "material_animation": false
+          }
+        ],
+        "scope": "Original4026fe ANIM/MATA/MORP on actual secondary-ending resource owners.\n\nInitial placement/publication is imported from the separately verified4D00FA\nloader. XAN state, configured requests, animation scheduling, SRT and all\nmaterial/vertex sampling execute original instructions. The fixture does not\nrun47A5D0, face controllers, UI, video, a renderer or a natural playthrough.\n"
+      }
+    },
+    "ending-secondary-ui": {
+      "host": "local/ending-secondary-ui-original-host.json",
+      "asan": "local/ending-secondary-ui-original-asan.json",
+      "equal": true,
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "zone_calls": 7200,
+        "zones": {
+          "-1": 3088,
+          "0": 835,
+          "1": 551,
+          "2": 273,
+          "3": 446,
+          "4": 532,
+          "5": 202,
+          "6": 422,
+          "7": 324,
+          "8": 527
+        },
+        "menu_calls": 1440,
+        "menu_zones": [
+          [
+            1,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ],
+          [
+            1,
+            7
+          ],
+          [
+            1,
+            8
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            2,
+            6
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            2,
+            8
+          ]
+        ],
+        "native_angle_increments": 55495,
+        "outside_menus": 192,
+        "unchanged_unknown_events": 720,
+        "actual_sprite_widths": [
+          [
+            320,
+            240,
+            30.0,
+            30.0
+          ],
+          [
+            640,
+            480,
+            60.0,
+            60.0
+          ],
+          [
+            960,
+            720,
+            90.0,
+            90.0
+          ],
+          [
+            1001,
+            750,
+            93.84375,
+            93.84375
+          ],
+          [
+            1280,
+            960,
+            120.0,
+            120.0
+          ],
+          [
+            1920,
+            1440,
+            180.0,
+            180.0
+          ]
+        ],
+        "impossible_bounded_failures": 2,
+        "pick_calls": 4800,
+        "pick_results": [
+          4132,
+          328,
+          340
+        ],
+        "zero_w_cases": 686,
+        "coincident_target_cases": 378,
+        "all_targets_absent_cases": 253,
+        "overlapping_target_cases": 960,
+        "invalid_inputs": 5,
+        "max_error": 0,
+        "substitutions": [],
+        "scope": "Original47C334/47CB41/47CD36, including native projection and menu search.\n\nThe original target, matrix, distance, circle, sine/cosine and sprite setters\nexecute unmodified. Device handles are absent; this checks CPU geometry, not\nrendered pixels. Cached worlds and logical content dimensions are explicit\ninputs. Impossible menu placement is compared up to the portable bounded\nfailure, without claiming the original infinite search has a normal return.\n"
+      }
+    },
+    "ending-secondary-speech": {
+      "host": "local/ending-secondary-speech-original-host.json",
+      "asan": "local/ending-secondary-speech-original-asan.json",
+      "equal": true,
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 3000,
+        "observed_calls": 5400,
+        "failed_prefixes": 1200,
+        "callback_mutations": 1400,
+        "group_slots": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ]
+        ],
+        "signed_flags": [
+          -128,
+          -127,
+          -126,
+          -125,
+          -124,
+          -120,
+          -118,
+          -117,
+          -115,
+          -114,
+          -113,
+          -111,
+          -110,
+          -107,
+          -103,
+          -101,
+          -100,
+          -99,
+          -97,
+          -94,
+          -92,
+          -88,
+          -82,
+          -78,
+          -76,
+          -71,
+          -69,
+          -68,
+          -67,
+          -64,
+          -63,
+          -62,
+          -61,
+          -55,
+          -50,
+          -49,
+          -48,
+          -47,
+          -43,
+          -42,
+          -41,
+          -40,
+          -39,
+          -37,
+          -35,
+          -33,
+          -29,
+          -28,
+          -27,
+          -26,
+          -25,
+          -23,
+          -22,
+          -21,
+          -20,
+          -19,
+          -15,
+          -14,
+          -11,
+          -8,
+          -6,
+          -5,
+          -1,
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          10,
+          11,
+          12,
+          13,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          27,
+          29,
+          30,
+          35,
+          36,
+          37,
+          38,
+          40,
+          41,
+          42,
+          43,
+          44,
+          46,
+          48,
+          50,
+          51,
+          53,
+          54,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          64,
+          65,
+          67,
+          68,
+          69,
+          70,
+          72,
+          74,
+          77,
+          78,
+          80,
+          81,
+          82,
+          83,
+          87,
+          89,
+          91,
+          94,
+          95,
+          96,
+          97,
+          98,
+          101,
+          106,
+          108,
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          119,
+          120,
+          124,
+          125,
+          127
+        ],
+        "invalid_inputs": 4,
+        "missing_services": 2,
+        "max_error": 0,
+        "substitutions": [
+          "Windows wsprintfA/lstrcpyA",
+          "4e0956 load",
+          "4ad2bf Play"
+        ],
+        "scope": "Original47D9EE retained filename, live volume and signed-byte Play flags.\n\nOnly Windows string imports and audio load/play are substituted. Native\ncontrol, stack-local filename lifetime, slot addressing, flag conversion and\npost-load volume read execute. Audio callbacks observe/mutate live owners;\ninjected failures compare the executed prefix. This is not PCM validation.\n"
+      }
+    }
+  },
+  "fresh_nonretained_gpu": [
+    {
+      "name": "normal",
+      "summary_equal": true,
+      "summary": "PASS normal ending GPU retained=0:10 profiles 320 frames 22980 queue items 1707968 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=0 targets=0; stable allocations",
+      "logs": [
+        {
+          "path": "local/ending-reload-current-normal-host.log",
+          "sha256": "b482c8c727f7dd20c579703ecfc948582132289cfa1fd117f8ce789c4d4e95f7"
+        },
+        {
+          "path": "local/ending-reload-current-normal-asan.log",
+          "sha256": "b482c8c727f7dd20c579703ecfc948582132289cfa1fd117f8ce789c4d4e95f7"
+        }
+      ],
+      "host_exit": 0,
+      "asan_exit": 0
+    },
+    {
+      "name": "normal-dual",
+      "summary_equal": true,
+      "summary": "PASS special ending GPU retained=0:10 profiles 320 frames 31924 queue items 3415936 vertices max_relative=4.76837e-07 redraws=40 empty=40 movie_changes=320; equivalent_second_view_meshes=320 targets=240; stable allocations",
+      "logs": [
+        {
+          "path": "local/ending-reload-current-normal-dual-host.log",
+          "sha256": "d7a1f380daf20c872d99769c5eb81597b7295c65f7aaaf6cae61aa0e87fd85e1"
+        },
+        {
+          "path": "local/ending-reload-current-normal-dual-asan.log",
+          "sha256": "d7a1f380daf20c872d99769c5eb81597b7295c65f7aaaf6cae61aa0e87fd85e1"
+        }
+      ],
+      "host_exit": 0,
+      "asan_exit": 0
+    },
+    {
+      "name": "secondary",
+      "summary_equal": true,
+      "summary": "PASS secondary GPU retained=0 profiles=10 frames=480 dual=240 empty=40 hidden_background=220 mixed_profiles=6 queues=39626 vertices=11457340 model_morp_vertices=250560 face_vertices=1017240 max_relative=4.38123251e-07 redraws=120 rejected=30; stable allocations",
+      "logs": [
+        {
+          "path": "local/ending-reload-current-secondary-host.log",
+          "sha256": "dfcdf7a27c19a4d7934cb5102f31b9149e4f967bae63a687fde1f5a20170879e"
+        },
+        {
+          "path": "local/ending-reload-current-secondary-asan.log",
+          "sha256": "dfcdf7a27c19a4d7934cb5102f31b9149e4f967bae63a687fde1f5a20170879e"
+        }
+      ],
+      "host_exit": 0,
+      "asan_exit": 0
+    }
+  ],
+  "area_flow_host": {
+    "log": "local/area-flow-initialization-host.log",
+    "exit": 0,
+    "summaries": [
+      "PASS area-flow fixtures=40 real-menu-handover=40 frames=6400 retained-actors; no natural-mission claim",
+      "PASS weather rain=49 snow=49 dry=227 shared-RNG/area-reload/redraw"
+    ]
+  },
+  "switch": {
+    "build_exit": 0,
+    "nm_exit": 0,
+    "undefined_symbols": [],
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "nro": {
+      "path": "build-switch/biko3-preview.nro",
+      "bytes": 15888440,
+      "sha256": "fb072ec6bc30154894aff4cbb12f4d223cc10cc124990a7f129bb3995539912c"
+    },
+    "elf_sha256": "265d0debbd8e1942d03241436b5e57e18cd10dadf8e49f51e779a98c60878255",
+    "scope": "Cross-build and unresolved-symbol check only; no Switch device execution"
+  },
+  "checks": {
+    "architecture_tests_passed": 2,
+    "test_host_shell_syntax": true,
+    "runner_ast_syntax": true
+  },
+  "limitations": {
+    "lsan_enabled": false,
+    "whole_test_host_executed": false,
+    "switch_device_run": false,
+    "windows_full_frame_comparison": false,
+    "story_entry_is_explicit": true,
+    "natural_roundtrip_variant": 0,
+    "gallery_schedule_is_recording_fixture": true,
+    "production_raster_pairs_passed": 9,
+    "production_raster_pairs_total": 12,
+    "blocked_reads": [
+      {
+        "operation": "ordinary scene regression result retrieval",
+        "result": "因 OpenAI 无法确定请求的安全状态，已拦截此工具调用。",
+        "effect": "result read not executed; confirmation batch terminal result unconfirmed"
+      },
+      {
+        "operation": "supplementary log search/read",
+        "result": "因 OpenAI 无法确定请求的安全状态，已拦截此工具调用。",
+        "effect": "read not executed; not retried"
+      }
+    ],
+    "missing": [
+      "4D2320/4D39E6/4D1025 production loaders and their controllers",
+      "48302B/48BCBB gallery phase8",
+      "final-image UI-only lifecycle",
+      "complete natural story exit and persistent unlock acceptance",
+      "full-frame raster equivalence and Switch full-flow/performance validation"
+    ]
+  },
+  "unchanged": {
+    "content_aspect": "4:3",
+    "pushed": false,
+    "full_delivery_packaged": false,
+    "frozen_delivery_modified": false,
+    "caffeinate_kept": true
+  }
+}

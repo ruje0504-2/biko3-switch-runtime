@@ -194,6 +194,53 @@ int bk_ending_camera_assets_step(BkEndingCameraAssets *a, BkActorForest *forest,
   }
   return ok && bk_actor_forest_anchor(forest, 1, s->pose.world, 0, e);
 }
+int bk_ending_camera_assets_opening(
+    BkEndingCameraAssets *a, BkActorForest *forest, const uint32_t indices[2],
+    BkMenuCamera *s, uint32_t target_node, float seconds,
+    const BkEndingCameraOpeningInput *input, int *complete, char e[256]) {
+  if (!a || !a->attached || !s || !complete || !isfinite(seconds) ||
+      seconds < 0 || (double)seconds * 60 >= INT32_MAX)
+    return fail(e, "invalid opening controller/timestep/state");
+  if (!bound(a, forest, indices, 0, e) ||
+      !bk_actor_pose_advance(a->poses[1], -1, seconds, e))
+    return 0;
+  const float *target = bk_actor_forest_world(forest, target_node);
+  const float *track = bk_actor_pose_frame(a->poses[1], a->nodes[1]);
+  if (!target || target_node < 2 || !track)
+    return fail(e, "missing opening camera target/track binding");
+  BkMenuCamera next = *s;
+  if (!bk_ending_camera_opening_pose(&next, track + 12, target + 12, seconds,
+                                     e) ||
+      !bk_actor_forest_anchor(forest, 1, next.pose.world, 0, e))
+    return 0;
+  *s = next;
+  if (!input || !input->key)
+    return fail(e, "missing opening camera key service");
+  static const unsigned keys[] = {0, 0x5a, 0x33450, 1};
+  BkClipState active;
+  BkClipTiming timing;
+  for (unsigned i = 0; i < sizeof(keys) / sizeof(*keys); ++i) {
+    uint32_t pressed = 0;
+    if (!input->key(input->context, keys[i], 1, &pressed, e))
+      return 0;
+    if (!(pressed & 255u))
+      continue;
+    if (!bk_actor_pose_state(a->poses[1], &active) ||
+        !bk_actor_pose_timing(a->poses[1], active.slot, &timing))
+      return fail(e, "opening camera active timing is unavailable");
+    BkClipEdit edit = {.slot = (unsigned)active.slot,
+                       .fields = BK_CLIP_EDIT_SOURCE,
+                       .source = timing.end};
+    if (!bk_actor_pose_edit_clips(a->poses[1], &edit, 1, e))
+      return 0;
+    break;
+  }
+  if (!bk_actor_pose_state(a->poses[1], &active) ||
+      !bk_actor_pose_timing(a->poses[1], active.slot, &timing))
+    return fail(e, "opening camera completion timing is unavailable");
+  *complete = !((double)timing.end - 9.0 > (double)timing.source);
+  return 1;
+}
 int bk_ending_camera_assets_preset(
     BkEndingCameraAssets *a, BkActorForest *forest, const uint32_t indices[2],
     BkMenuCamera *s, BkEndingCameraTransitions *transitions,

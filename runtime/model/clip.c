@@ -324,6 +324,10 @@ int bk_clip_request_mode(BkClipPlayer *p, unsigned slot, BkClipRequestMode mode,
        !(p->allow_empty && p->set->empty[slot])) ||
       (mode != BK_CLIP_REQUEST_TEN_TICKS && mode != BK_CLIP_REQUEST_CONFIGURED))
     return fail(error, "invalid clip request");
+  /*4018c8 ignores empty descriptors before the requested-slot comparison.
+   * 401b0a does not: keep its ten-tick transition into loaded empty slots. */
+  if (mode == BK_CLIP_REQUEST_CONFIGURED && !p->set->clips[slot].active)
+    return 1;
   if (p->requested != (int32_t)slot)
     transition(p, slot,
                mode == BK_CLIP_REQUEST_TEN_TICKS ? 10
@@ -374,8 +378,18 @@ static void chain_clip(BkClipPlayer *p, unsigned slot) {
   if (!d->duration)
     p->timelines[slot].rate = -INFINITY;
 }
-int bk_clip_advance(BkClipPlayer *player, float seconds, BkClipSample *out,
-                    char error[256]) {
+static void plain_chain(BkClipPlayer *p, unsigned slot, int mode) {
+  if (mode == BK_CLIP_PLAIN_FORCE_CHAIN) {
+    /*4a8f2d neither checks an empty range nor substitutes a zero rate.
+     * A static/empty zero-duration target retains its original -Inf rate. */
+    select_clip(p, slot);
+    if (!p->set->clips[slot].duration)
+      p->timelines[slot].rate = -INFINITY;
+  } else
+    chain_clip(p, slot);
+}
+static int advance(BkClipPlayer *player, float seconds, BkClipSample *out,
+                     int plain_mode, char error[256]) {
   if (!player || !out || player->slot < 0 || player->slot >= BK_CLIP_SLOTS ||
       !isfinite(seconds) || seconds < 0 || (double)seconds * 60 >= INT32_MAX)
     return fail(error, "invalid timestep or unselected player");
@@ -402,14 +416,16 @@ int bk_clip_advance(BkClipPlayer *player, float seconds, BkClipSample *out,
     delta = 0;
     t->elapsed = (float)d->duration;
   }
-  t->elapsed = (float)((double)delta + t->elapsed);
-  if ((double)d->duration <= t->elapsed) {
+  if (plain_mode != BK_CLIP_PLAIN_SOURCE)
+    t->elapsed = (float)((double)delta + t->elapsed);
+  if (plain_mode != BK_CLIP_PLAIN_SOURCE &&
+      (double)d->duration <= t->elapsed) {
     if (d->loop) {
       if (t->loops == INT32_MAX)
         return fail(error, "loop counter overflow");
       t->loops++;
       if (chain && t->loops >= d->chain_after) {
-        chain_clip(p, (unsigned)target);
+        plain_chain(p, (unsigned)target, plain_mode);
         p->ended = 1;
       } else {
         t->elapsed = (float)d->loop_start;
@@ -419,7 +435,7 @@ int bk_clip_advance(BkClipPlayer *player, float seconds, BkClipSample *out,
           t->source = d->end;
       }
     } else if (chain) {
-      chain_clip(p, (unsigned)target);
+      plain_chain(p, (unsigned)target, plain_mode);
       p->ended = 1;
     } else {
       t->elapsed = (float)d->duration;
@@ -434,7 +450,7 @@ int bk_clip_advance(BkClipPlayer *player, float seconds, BkClipSample *out,
     float duration = p->timelines[p->slot].blend;
     if (duration < 1e-6f)
       p->blend_done = 1;
-    else {
+    else if (plain_mode < 0) {
       p->blend_elapsed = (float)((double)delta + p->blend_elapsed);
       if (p->blend_elapsed > duration) {
         p->blend_done = 1;
@@ -456,6 +472,26 @@ int bk_clip_advance(BkClipPlayer *player, float seconds, BkClipSample *out,
     return fail(error, "timestep overflow");
   *player = next;
   *out = sample;
+  return 1;
+}
+int bk_clip_advance(BkClipPlayer *player, float seconds, BkClipSample *out,
+                     char error[256]) {
+  return advance(player, seconds, out, -1, error);
+}
+int bk_clip_advance_plain(BkClipPlayer *player, float seconds,
+                           BkClipPlainMode mode, BkClipSample *out,
+                           char error[256]) {
+  if (mode < BK_CLIP_PLAIN_SCHEDULED || mode > BK_CLIP_PLAIN_FORCE_CHAIN)
+    return fail(error, "invalid plain scheduler mode");
+  return advance(player, seconds, out, (int)mode, error);
+}
+int bk_clip_set_clock(BkClipPlayer *p, unsigned slot, float elapsed,
+                       float source, char error[256]) {
+  if (!p || slot >= BK_CLIP_SLOTS || !isfinite(elapsed) || elapsed < 0 ||
+      (double)elapsed >= INT32_MAX || !valid_time(source))
+    return fail(error, "invalid controller clock edit");
+  p->timelines[slot].elapsed = elapsed;
+  p->timelines[slot].source = source;
   return 1;
 }
 int bk_clip_frame_clock(const BkClipPlayer *p, unsigned slot, int32_t *interval,
@@ -536,5 +572,15 @@ int bk_clip_loops(const BkClipPlayer *p, unsigned slot, int32_t *out) {
   if (!p || !out || slot >= BK_CLIP_SLOTS)
     return 0;
   *out = p->timelines[slot].loops;
+  return 1;
+}
+int bk_clip_prediction(const BkClipPlayer *p, unsigned slot,
+                       BkClipPrediction *out) {
+  if (!p || !out || slot >= BK_CLIP_SLOTS)
+    return 0;
+  *out = (BkClipPrediction){p->set->clips[slot].duration,
+                            p->set->clips[slot].end,
+                            p->timelines[slot].source,
+                            p->timelines[slot].rate};
   return 1;
 }

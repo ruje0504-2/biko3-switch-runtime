@@ -63,4 +63,10 @@ int bk_ending_camera_manual(BkMenuCamera *, const float motion[2],
 int bk_ending_camera_track_pose(BkMenuCamera *, const float track[3],
                                 const float target[3], float seconds,
                                 char error[256]);
+/*4e0b7e position/aim portion: same old-world smoothing as4e1711, but
+ * retains FOV set by its caller. Secondary animation, key queries and the
+ * end-9 source test belong to the scene adapter; no completion is guessed. */
+int bk_ending_camera_opening_pose(BkMenuCamera *, const float track[3],
+                                  const float target[3], float seconds,
+                                  char error[256]);
 #endif

@@ -1,0 +1,135 @@
+{
+  "date": "2026-09-28",
+  "status": "implemented_with_verified_application_exit_and_incomplete_original_oracle",
+  "full_port_complete": false,
+  "native_reference": {
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "disassembly_read_successful": true,
+    "functions": [
+      "4e1c8f",
+      "47dbcc",
+      "49739a",
+      "47a033",
+      "482f91",
+      "48d7f2"
+    ],
+    "instruction_execution_this_round": false
+  },
+  "application_exit": {
+    "probe": "tools/ending_exit_probe.c",
+    "scope": "Explicit post-story flow16 and retained-field fixtures; subsequent UI input, schedule, release, title loading and terminal58 use production implementation. Not a natural complete ending.",
+    "normal_exit_code": 0,
+    "asan_ubsan_exit_code": 0,
+    "per_run": {
+      "confirmation_frames": 196,
+      "outgoing_fade_frames": 124,
+      "audio_sample_frames": 436800,
+      "owned_audio_slots_stopped": 52
+    },
+    "checks": [
+      "incoming shared curtain retained",
+      "first ending snapshot presented by application before next update",
+      "title return executes all six state resets",
+      "direct exit preserves retained state and saved toggles",
+      "working unlock row captured and unrelated recording lanes preserved",
+      "external guard audio retained",
+      "stopped final RGBA redraw exact without repeated scheduling",
+      "new playback survives old owner destruction",
+      "title reload reaches title allocation baseline",
+      "unlock file unchanged by exit",
+      "terminal flow58 reported after final presentation",
+      "GPU allocations and bytes return to baseline on application destruction"
+    ],
+    "logs": [
+      "local/ending-exit-host.log",
+      "local/ending-exit-asan.log"
+    ]
+  },
+  "unit_checks": {
+    "fresh_asan_targets_passed": [
+      "ending-state",
+      "ending-confirm",
+      "ending-reload",
+      "flow-loading"
+    ],
+    "fresh_normal_target_passed": [
+      "ending-state"
+    ],
+    "other_existing_normal_executables_passed": [
+      "ending-confirm",
+      "ending-reload",
+      "flow-loading"
+    ],
+    "extra_normal_relink_executed": false
+  },
+  "asan_regressions": {
+    "passed": [
+      "gallery variant0",
+      "gallery variant1",
+      "story entry",
+      "confirmation input",
+      "original title-selection-dialogue-game-photo-pause-title controller flow"
+    ],
+    "confirmation_frames": 247,
+    "front_flow_photos": 2,
+    "front_flow_rgba_sha256": "6cb3f86d35377e9ce3612df07a781789c9485d385e644844be8524257f19691f",
+    "detect_leaks": false
+  },
+  "architecture_tests_passed": 2,
+  "python_syntax_passed": [
+    "tests/ending_retained_binding.py",
+    "tests/original_ending_leave_oracle.py",
+    "tests/original_ending_state_oracle.py"
+  ],
+  "switch_build": {
+    "passed": true,
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0,
+    "nro_bytes": 15786040,
+    "nro_sha256": "125ce676483ba39f9fcf117fcca0839c0b4a0ad858e98eef39bf4803b86f5711"
+  },
+  "automatic_check": {
+    "error": "因 OpenAI 无法确定请求的安全状态，已拦截此工具调用。",
+    "not_executed": [
+      "six leave routines original instruction oracle",
+      "expanded entry-state original oracle",
+      "ending reload original oracle rerun",
+      "extra normal unit target relink"
+    ],
+    "started_but_result_unconfirmed": "ordinary gallery0/gallery1/story/confirmation/front-flow batch; session result retrieval blocked twice",
+    "process_observation": "No matching regression processes found by subsequent ps query; session exit status remains unconfirmed.",
+    "blocked_checks_counted_as_passed": false
+  },
+  "full_test_host_run": false,
+  "new_switch_hardware_validation": false,
+  "full_delivery_refreshed": false,
+  "zip_created": false,
+  "git_pushed": false,
+  "awake": {
+    "identity_verified": true,
+    "pid": 60608,
+    "command": "/usr/bin/caffeinate -ims",
+    "process_start": "Sun Sep 27 05:12:11 2026",
+    "left_running": true
+  },
+  "remaining": [
+    "new original reset verification",
+    "individual ending stage controllers",
+    "phase8",
+    "other ending loaders and in-place UI resource lifecycle",
+    "natural ending-to-dialogue-to-persistent-unlock flow",
+    "settings and gallery",
+    "full Switch acceptance"
+  ],
+  "historical_snapshot": true,
+  "follow_up": {
+    "report": "ending-clock-camera-verification.json",
+    "status": "reset_alias_corrected_and_original_oracles_now_executed",
+    "native_leave_calls": 4200,
+    "entry_frames": 6000,
+    "reload_cases": 14000,
+    "old_unknown_session_result_not_inferred": true,
+    "current_nro_sha256": "42830f049bdc078c1ff5c8cec28e734266125a6289d117dc55a0fb8e163cbf0f"
+  }
+}
