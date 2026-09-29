@@ -46,6 +46,9 @@ typedef struct {
   int32_t word_54e2f8, word_6c7f48, word_6c7f4c;
   uint8_t byte_6c7f50;
   float value_54e310;
+  /* State1's idle speech timer and randomized delay survive state4. */
+  float timer_6c7f6c;
+  int32_t delay_54f8e0;
 } BkEndingRetainedStage4;
 typedef struct {
   uint8_t byte_6c7f70, byte_6d1be0, byte_6d1bd4, byte_6d1c0d;

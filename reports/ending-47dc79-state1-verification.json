@@ -1,0 +1,30 @@
+{
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "state": [1, 2],
+  "host_ctest": {"passed": 109, "failed": 0},
+  "unit": {"normal": "passed", "asan": "passed"},
+  "original_ui_oracle": {
+    "passed": true,
+    "zone_calls": 7200,
+    "menu_calls": 1440,
+    "pick_calls": 4800,
+    "max_error": 0
+  },
+  "switch": {
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0,
+    "nro_sha256": "795ab8d074afb1d87e1f7d841db0ff8c3e592dfa2bf6e9db3e73b68d7233df8c"
+  },
+  "data_probe": {
+    "normal_ending_probe": "passed",
+    "asan_ending_probe": "passed",
+    "story_scene_probe": {
+      "passed": true,
+      "frames": 64,
+      "draws": 10335,
+      "skin_instances": 528,
+      "audio_frames": 63360
+    }
+  },
+  "github_push": false
+}

@@ -1,5 +1,7 @@
 # 分阶段移植顺序
 
+2026-09-30 47DC79 state1/state2 已接入结局主循环：恢复计时语音、slot1媒体等待、47C334指针命中、481C2C径向菜单、481E0A语音、clip2请求、表情和state2等待，见 `reports/ending-47dc79-state1.md`。固定 EXE 的 47C334/47CB41/495125 oracle、普通/ASan定向测试、完整普通 CTest 与指定 NVK 构建通过。state3/5/6/7/8、自然结束/解锁及实机仍未完成；本轮只本地提交，不推送、不整包。
+
 2026-09-30 47DC79 state4 控制器已按原版跳表从旧 state8 前缀中拆出，新增五子状态、相机/FOV、目标、媒体等待、效果服务及 slot2/3 authored source 恢复，见 `reports/ending-47dc79-state4.md`。固定 EXE 与实际 XAN 对照确认 `+31C/+3B8 -> +328/+3C4` 是时间线 start/source 字段，已接入 `BkActorPose` 的事务性单字段操作；普通/ASan 定向回归、实际 Data probe 与指定 NVK 构建均通过。继续 state1/5/6/7、自然结束与解锁，不能把本次状态机前缀通过当作完整结局可玩。
 
 2026-09-30 当前接续：4D39E6 的 `bk3_12` 主体/FAM/眼/相机/保留背景资源已接入结局 session，48181F 的真实主体速率、材质、隐藏、发布和面部调用顺序已恢复。普通/ASan 5 项回归、4D39E6 Data 探针和 Mesa NVK 构建通过，证据见 `reports/ending-4d39e6-presentation.md`。phase4 仍在 47DC79 父控制器处显式失败；下一步继续恢复该控制器，再接 phase8、自然结束和解锁写回。没有新的实机验收、整包或推送，防休眠保持。

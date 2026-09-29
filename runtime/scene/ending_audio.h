@@ -45,6 +45,11 @@ int bk_ending_audio_load_speech(BkEndingAudio *, unsigned slot,
  * an existing corrupt file or any other missing name still fails. */
 int bk_ending_audio_speech(BkEndingAudio *, unsigned slot, const char *name,
                            int32_t volume, char error[256]);
+/* 481E0A's state1 path: PH(group+1)33cue, loaded into the speech slot and
+ * immediately restarted with the live voice volume. */
+int bk_ending_audio_auxiliary_voice(BkEndingAudio *, unsigned group,
+                                    int32_t cue, unsigned slot,
+                                    int32_t volume, char error[256]);
 /* STATUS has missing-buffer=false, PAUSE/RESTART retain native null no-op.
  * RESTART rewinds, PAUSE keeps cursor, VOICE/CUE load then restart. Bit0 of
  * raw Play flags controls looping; Windows buffer-placement flags do not

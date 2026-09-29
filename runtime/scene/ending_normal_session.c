@@ -10,6 +10,7 @@
 #include "scene/ending_selected_assets.h"
 #include "scene/ending_auxiliary_assets.h"
 #include "game/ending_auxiliary_presentation.h"
+#include "game/ending_auxiliary_state1.h"
 #include "game/ending_auxiliary_state4.h"
 #include "scene/ending_selected_presentation.h"
 #include "game/ending_selected_action.h"
@@ -1099,6 +1100,91 @@ static int auxiliary_state4_effect(void *context, unsigned a, unsigned b,
   return 1;
 }
 
+static int auxiliary_state1_audio(void *context, const BkEndingAudioCall *call,
+                                  int *playing, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || !call || !playing)
+    return fail(e, "auxiliary state1 audio owner is unavailable");
+  return bk_ending_audio_call(s->audio, s->state->frame.group,
+                              s->state->auxiliary.variant,
+                              s->state->auxiliary.selection, call, playing, e);
+}
+
+static int auxiliary_state1_random(void *context, int32_t *result,
+                                   char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->random || !result)
+    return fail(e, "auxiliary state1 RNG owner is unavailable");
+  *result = (int32_t)bk_random_next(s->random);
+  return 1;
+}
+
+static int auxiliary_state1_pick(void *context, const float pointer[2],
+                                 int32_t preferred, int32_t *result,
+                                 char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorForest *forest = scene_forest(s);
+  uint32_t node = s ? (uint32_t)s->state->retained.normal.word_719b40 : 0;
+  const float *alternate = node ? bk_actor_forest_world(forest, node) : NULL;
+  if (!s || !pointer || !result || (node && !alternate))
+    return fail(e, "auxiliary state1 pick owner is unavailable");
+  BkEndingSecondaryPickBindings bindings = {
+      &s->state->frame, NULL, NULL, s->state->targets, s->state->alternate,
+      &s->ui.sprites[50], &s->ui_pick, alternate};
+  return bk_ending_secondary_pick(&bindings, pointer, preferred, result, e);
+}
+
+static int auxiliary_state1_menu(void *context, int32_t selected, int32_t *out,
+                                 char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !out || selected < 0 || selected >= 39)
+    return fail(e, "auxiliary state1 menu target is unavailable");
+  BkEndingSecondaryMenuGeometry geometry = {
+      s->viewport.width, s->viewport.height,
+      (float)((double)s->viewport.width / 1280.0), s->ui.sprites[51].rect[2]};
+  int32_t zone = -1;
+  if (!bk_ending_secondary_menu_zone(&geometry, s->state->targets[selected],
+                                     &zone, e))
+    return 0;
+  *out = zone;
+  if (zone < 0)
+    return 1;
+  s->state->choices[0] = 0;
+  s->state->choices[1] = s->state->choices[2] = -1;
+  static const int32_t base[9] = {180, 225, 45, 135, 315,
+                                  270, 90, 180, 0};
+  if (zone >= 0 &&
+      !bk_ending_radial_menu_place(&geometry, base[zone], 90,
+                                   s->state->targets[selected],
+                                   s->state->points, e))
+    return 0;
+  s->state->retained.stage4.word_54e2f8 = zone;
+  return 1;
+}
+
+static int auxiliary_state1_voice(void *context, int32_t cue, unsigned slot,
+                                  int32_t flags, int32_t volume, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || flags != 0 || slot > 1 || cue < 0 || cue > 99)
+    return fail(e, "auxiliary state1 voice request is unavailable");
+  if (snprintf(s->state->speech_names[slot],
+               sizeof(s->state->speech_names[slot]), "PH%u33%02d.wav",
+               s->state->frame.group + 1, cue) < 0)
+    return fail(e, "auxiliary state1 voice name formatting failed");
+  return bk_ending_audio_auxiliary_voice(s->audio, s->state->frame.group,
+                                         cue, slot, volume, e);
+}
+
+static int auxiliary_state1_request(void *context, unsigned slot,
+                                    char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorPose *primary = scene_primary(s);
+  if (!primary || slot >= 32)
+    return fail(e, "auxiliary state1 clip owner is unavailable");
+  return bk_actor_pose_request_mode(primary, slot, BK_CLIP_REQUEST_CONFIGURED,
+                                    e);
+}
+
 static int selected_key(void *context, unsigned code, unsigned mode,
                         uint32_t *result, char e[256]);
 static int selected_raw_key(void *context, unsigned code, uint32_t *result,
@@ -1696,6 +1782,30 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       /* Native jump-table state0 is the one-word transition into state1. */
       s->state->control.state_721eec = 1;
       return 1;
+    }
+    if (s->state->control.state_721eec == 1) {
+      BkEndingAuxiliaryState1Bindings bindings = {
+          &s->state->frame, &s->state->control, &s->state->auxiliary,
+          &s->state->retained.stage4.timer_6c7f6c,
+          &s->state->retained.stage4.delay_54f8e0};
+      BkEndingAuxiliaryState1Ops ops = {
+          s, control_key, auxiliary_state4_present, auxiliary_state4_status,
+          auxiliary_state1_audio, auxiliary_state1_random,
+          auxiliary_state1_pick, auxiliary_state1_menu, auxiliary_state1_voice,
+          auxiliary_state1_request, auxiliary_state4_expression};
+      float pointer[2];
+      for (unsigned i = 0; i < 2; ++i) {
+        int32_t coordinate;
+        memcpy(&coordinate, &call->input.words[9 + i], sizeof(coordinate));
+        pointer[i] = (float)coordinate;
+      }
+      return bk_ending_auxiliary_state1_step(
+          &bindings, pointer, s->active_seconds, s->voice_volume, &ops, e);
+    }
+    if (s->state->control.state_721eec == 2) {
+      BkEndingAuxiliaryState1Ops ops = {s, control_key, NULL, NULL, NULL,
+                                        NULL, NULL, NULL, NULL, NULL, NULL};
+      return bk_ending_auxiliary_state2_step(&s->state->control, &ops, e);
     }
     if (s->state->control.state_721eec != 4)
       return fail(e, "47DC79 state is not yet implemented");

@@ -156,6 +156,16 @@ int bk_ending_audio_speech(BkEndingAudio *a, unsigned slot, const char *name,
   return !a->clips[slot] || bk_audio_play(a->audio, a->first + slot,
                                           a->clips[slot], 0, volume, 0, e);
 }
+int bk_ending_audio_auxiliary_voice(BkEndingAudio *a, unsigned group,
+                                    int32_t cue, unsigned slot,
+                                    int32_t volume, char e[256]) {
+  char name[32];
+  if (!a || group >= 5 || cue < 0 || cue > 99 || slot > 1)
+    return fail(e, "invalid auxiliary voice identity");
+  if (snprintf(name, sizeof(name), "PH%u33%02d.wav", group + 1, cue) < 0)
+    return fail(e, "auxiliary voice name formatting failed");
+  return bk_ending_audio_speech(a, slot, name, volume, e);
+}
 int bk_ending_audio_call(BkEndingAudio *a, unsigned group, int32_t variant,
                          int32_t selection, const BkEndingAudioCall *c,
                          int *playing, char e[256]) {

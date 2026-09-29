@@ -12,6 +12,7 @@ void bk_ending_state_initialize(BkEndingState *s) {
   s->retained.stage2.word_54ccc8 = -1;
   s->retained.stage2.value_54ccd0 = 1;
   s->retained.stage4.word_54e2f8 = -1;
+  s->retained.stage4.delay_54f8e0 = 30;
   s->retained.stage4.value_54e310 = 1;
 }
 static int fail(char e[256], const char *why) {
@@ -88,6 +89,8 @@ int bk_ending_state_leave(BkEndingState *s, BkEndingLeave operation,
     a->word_54e2f8 = -1;
     a->word_6c7f4c = 0;
     a->byte_6c7f50 = 0;
+    a->timer_6c7f6c = 0;
+    a->delay_54f8e0 = 30;
     a->value_54e310 = 1;
     break;
   }
