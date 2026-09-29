@@ -22,9 +22,9 @@ static int child_media_busy(const BkEndingAuxiliaryChildOps *o,
   return 1;
 }
 
-static int child_less(float value, float bound) {
-  /* fcomp + test C0: less-than and unordered both enter the native branch. */
-  return !(value >= bound);
+static int child_reached(float value, float bound) {
+  /* fcomp + test C0 skips the effect when value is below the bound. */
+  return value >= bound;
 }
 
 static int child_effect(const BkEndingAuxiliaryChildOps *o, unsigned effect,
@@ -41,18 +41,21 @@ static int child_clip4_interpolate(
     const BkEndingAuxiliaryChildBindings *b,
     const BkEndingFrameInput *input, int32_t active,
     const BkEndingAuxiliaryChildOps *o, int *interpolated,
+    float *active_source,
     char e[256]) {
   if (!interpolated || !b->targets_721f90 || !b->offset_mode_54e2f8 ||
-      !o->source || !o->rewind || !o->request || !o->timing)
+      !active_source || !o->source || !o->end || !o->rewind ||
+      !o->request || !o->timing)
     return fail(e, "481EA5 clip3 interpolation services are unavailable");
   *interpolated = 0;
+  *active_source = 0;
   int32_t index = b->frame->camera_cached;
   if (index < 0 || index >= 39)
     return fail(e, "481EA5 clip3 interpolation target is unavailable");
 
   BkClipTiming clip2, clip3;
   if (!o->request(o->context, 3, e) ||
-      !o->rewind(o->context, (unsigned)active, e) ||
+      !o->end(o->context, (unsigned)active, e) ||
       !o->timing(o->context, 2, &clip2, e) ||
       !o->timing(o->context, 3, &clip3, e))
     return 0;
@@ -100,6 +103,40 @@ static int child_clip4_interpolate(
   if (!o->source(o->context, 4, source, e))
     return 0;
   *interpolated = 1;
+  *active_source = source;
+  return 1;
+}
+
+static int child_success_transition(
+    const BkEndingAuxiliaryChildBindings *b, float active_source,
+    const BkEndingAuxiliaryChildOps *o, char e[256]) {
+  /* 482326..482401. 0x320 is the slot-2 authored end field
+   * (actor+0x2c8+0x58), not a model bound. */
+  int busy = 0;
+  if (!child_media_busy(o, 0, &busy, e))
+    return 0;
+  if (busy)
+    return 1;
+  BkClipTiming clip2;
+  if (!o->timing || !o->timing(o->context, 2, &clip2, e))
+    return fail(e, "481EA5 successful transition timing is unavailable");
+  if (clip2.end < active_source) {
+    int32_t current = -1;
+    if (!o->active || !o->active(o->context, &current, e))
+      return 0;
+    if (current == 3 && b->auxiliary->pending != 3) {
+      if (!o->voice(o->context, 4, 0, 0, o->voice_volume, e))
+        return 0;
+      b->auxiliary->pending = 3;
+      if (b->frame->group != 0 && b->frame->group != 2 &&
+          !o->expression(o->context, 0, 4, 0, e))
+        return 0;
+    }
+  } else if (b->auxiliary->pending != 2) {
+    if (!o->voice(o->context, 3, 0, 0, o->voice_volume, e))
+      return 0;
+    b->auxiliary->pending = 2;
+  }
   return 1;
 }
 
@@ -155,7 +192,12 @@ int bk_ending_auxiliary_state3_child_step(
       return 0;
     if (active == 4) {
       int interpolated = 0;
-      if (!child_clip4_interpolate(b, input, active, o, &interpolated, e))
+      float active_source = 0;
+      if (!child_clip4_interpolate(b, input, active, o, &interpolated,
+                                   &active_source, e))
+        return 0;
+      if (interpolated &&
+          !child_success_transition(b, active_source, o, e))
         return 0;
       if (!interpolated && !child_failure_reset(b, active, o, e))
         return 0;
@@ -165,12 +207,12 @@ int bk_ending_auxiliary_state3_child_step(
       if (!o->timing || !o->effect ||
           !o->timing(o->context, 3, &clip3, e))
         return fail(e, "481EA5 group2 timing/effect service is unavailable");
-      if (child_less(clip3.source, 60.0f) &&
+      if (child_reached(clip3.source, 60.0f) &&
           b->effect_latches_6c7f60[0] == 0) {
         if (!child_effect(o, 32, 0, o->effect_volume, e)) return 0;
         b->effect_latches_6c7f60[0] = 1;
       }
-      if (child_less(clip3.source, 65.0f) &&
+      if (child_reached(clip3.source, 65.0f) &&
           b->effect_latches_6c7f60[1] == 0) {
         if (!child_effect(o, 33, 0, o->effect_volume, e)) return 0;
         b->effect_latches_6c7f60[1] = 1;
@@ -181,14 +223,14 @@ int bk_ending_auxiliary_state3_child_step(
           !o->timing(o->context, 2, &clip2, e) ||
           !o->timing(o->context, 3, &clip3, e))
         return fail(e, "481EA5 group3 timing/effect service is unavailable");
-      if (child_less(clip2.source, 32.0f) &&
+      if (child_reached(clip2.source, 32.0f) &&
           b->effect_latches_6c7f60[0] == 0) {
         if (!child_effect(o, 18, 0, o->effect_volume, e)) return 0;
         b->effect_latches_6c7f60[0] = 1;
       }
       if (b->effect_latches_6c7f60[0] == 1 &&
           b->effect_latches_6c7f60[1] == 0 &&
-          child_less(clip2.source, 32.0f)) {
+          child_reached(clip2.source, 32.0f)) {
         int present = 0;
         if (!o->effect_present ||
             !o->effect_present(o->context, 19, &present, e))
@@ -204,14 +246,14 @@ int bk_ending_auxiliary_state3_child_step(
           }
         }
       }
-      if (child_less(clip3.source, 56.0f) &&
+      if (child_reached(clip3.source, 56.0f) &&
           b->effect_latches_6c7f60[2] == 0) {
         if (!child_effect(o, 18, 0, o->effect_volume, e)) return 0;
         b->effect_latches_6c7f60[2] = 1;
       }
       if (b->effect_latches_6c7f60[2] == 1 &&
           b->effect_latches_6c7f60[3] == 0 &&
-          child_less(clip3.source, 56.0f)) {
+          child_reached(clip3.source, 56.0f)) {
         int present = 0;
         if (!o->effect_present ||
             !o->effect_present(o->context, 19, &present, e))
@@ -232,7 +274,7 @@ int bk_ending_auxiliary_state3_child_step(
       if (!o->timing || !o->effect ||
           !o->timing(o->context, 2, &clip2, e))
         return fail(e, "481EA5 group4 timing/effect service is unavailable");
-      if (child_less(clip2.source, clip2.end) &&
+      if (child_reached(clip2.source, clip2.end) &&
           b->effect_latches_6c7f60[0] == 0) {
         if (!child_effect(o, 13, 0, o->effect_volume, e)) return 0;
         b->effect_latches_6c7f60[0] = 1;

@@ -1272,6 +1272,16 @@ static int auxiliary_state3_source(void *context, unsigned slot, float source,
   return bk_actor_pose_edit_clips(primary, &edit, 1, e);
 }
 
+static int auxiliary_state3_end(void *context, unsigned slot, char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorPose *primary = s ? scene_primary(s) : NULL;
+  BkClipTiming timing;
+  if (!primary || slot >= BK_CLIP_SLOTS ||
+      !bk_actor_pose_timing(primary, slot, &timing))
+    return fail(e, "auxiliary state3 source end is unavailable");
+  return auxiliary_state3_source(context, slot, timing.end, e);
+}
+
 static int auxiliary_state3_rewind(void *context, unsigned slot, char e[256]) {
   EndingNormalScene *s = context;
   BkActorPose *primary = s ? scene_primary(s) : NULL;
@@ -1372,6 +1382,7 @@ static int auxiliary_state3_child(void *context,
       s,
       auxiliary_state3_active,
       auxiliary_state3_source,
+      auxiliary_state3_end,
       auxiliary_state3_rewind,
       auxiliary_state4_present,
       auxiliary_state4_status,

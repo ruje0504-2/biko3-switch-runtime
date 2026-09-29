@@ -42,8 +42,8 @@ int bk_ending_auxiliary_state3_step(
  * speech owner0, then applies the cue5/cue6 prefix. A miss with an active
  * clip other than4 applies the recovered group2/3/4 effect thresholds; active
  * clip4 also has its distance-based source interpolation and failure-reset
- * prefix. The following successful interpolation media/state transition
- * remains an explicit boundary. */
+ * prefix. Successful interpolation also applies the native media/pending
+ * transition before the group-specific effect chain. */
 typedef struct {
   BkEndingFrameState *frame;
   BkEndingControlState *control;
@@ -60,6 +60,7 @@ typedef struct {
   void *context;
   int (*active)(void *, int32_t *, char[256]);
   int (*source)(void *, unsigned slot, float source, char[256]);
+  int (*end)(void *, unsigned slot, char[256]);
   int (*rewind)(void *, unsigned slot, char[256]);
   int (*present)(void *, unsigned owner, int *, char[256]);
   int (*status)(void *, unsigned owner, int *, char[256]);

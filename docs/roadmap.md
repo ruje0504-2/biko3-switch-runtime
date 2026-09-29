@@ -1,6 +1,6 @@
 # 分阶段移植顺序
 
-2026-09-30 47DC79 state3 父控制器及 481EA5 命中/效果/插值/失败复位前缀已接入结局 session：恢复 481EA5 圆形命中、clip4、表情、owner0 等待、cue5/cue6 随机 latch、group2/3/4 的首段效果阈值、active clip4 的目标/指针距离 source 插值，以及距离门失败时的 request2、源回退、latch 清零和按 54e2bc 表停止两个效果；父层 4B76C2 输入门、命中 state8/未命中 state1 的写入顺序保持，见 `reports/ending-47dc79-state3-parent.md`。481EA5 插值成功后的媒体/状态转移和剩余效果链仍由真实场景显式失败，不能当作 state3 可玩完成。普通/ASan完整套件、实际 Data 探针与指定 NVK 构建通过；state5/6/7、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包。
+2026-09-30 47DC79 state3 父控制器及 481EA5 已继续接入结局 session：补齐活动片段 authored end/source 写入、插值成功后的 slot2 end 比较与 cue3/cue4 pending 转移，并按原版含等号语义恢复 group2/3/4 效果链；见 `reports/ending-47dc79-state3-parent.md`。普通 CTest `101/101`、普通/ASan 定向单测及指定 NVK 构建通过，当前 NRO 为 `e2fa65f5…`。state5/6/7、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包。
 
 2026-09-30 47DC79 state8 前置控制器已接入结局 session：恢复双媒体等待、clip5/表情、cue7、group0/1 音效与相机、group2/3 相机、group4 state6 原子边界，见 `reports/ending-47dc79-state8.md`。普通/ASan定向验证、实际 Data 探针、固定 EXE UI oracle 与指定 NVK 构建通过；state3 完整判定、state5/6/7 后续、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包。
 

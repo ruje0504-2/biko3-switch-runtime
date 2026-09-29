@@ -1,7 +1,9 @@
 {
   "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
-  "state": [3],
-  "scope": "47DC79 state3 parent plus 481EA5 hit/effect/interpolation/failure-reset prefix; remaining 481EA5 branches are explicit failures",
+  "state": [
+    3
+  ],
+  "scope": "47DC79 state3 parent plus complete fixed-EXE 481EA5 child branch",
   "original_sites": {
     "dispatcher": "0x47e31a",
     "child": "0x481ea5",
@@ -21,7 +23,10 @@
     "latch": "0x6c7f44",
     "cue6": true,
     "miss_effect_thresholds": {
-      "group2_clip3": [60, 65],
+      "group2_clip3": [
+        60,
+        65
+      ],
       "group3_clip2": 32,
       "group3_clip3": 56,
       "group4_clip2_end": true,
@@ -29,18 +34,39 @@
       "clip4_source_interpolation": {
         "request_clip": 3,
         "source_owner": 4,
-        "offset_modes": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+        "offset_modes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
         "distance_gate": "target>pointer",
         "added_source": 30,
-        "range_factor": "(1+span2/span3)*span2"
+        "range_factor": "(1+span2/span3)*span2",
+        "pre_source_write": "active authored end before slot2/3 timing reads"
       },
       "clip4_failure_reset": {
         "request_clip": 2,
-        "expression": [5, 4, 0],
+        "expression": [
+          5,
+          4,
+          0
+        ],
         "rewind_active_source": true,
         "clear_latches_bytes": 10,
         "stop_effect_table": "54e2bc[group*3+1/+2]"
       }
+    },
+    "clip4_success_transition": {
+      "media_owner": 0,
+      "threshold_field": "actor+0x320 = slot2 end (actor+0x2c8+0x58)",
+      "below_threshold": "active==3 -> cue4/pending3 and expression(0,4,0) outside groups0/2",
+      "otherwise": "cue3/pending2"
     }
   },
   "parent_order": [
@@ -55,7 +81,10 @@
     "miss: pending=1/state1/cached=-1"
   ],
   "verification": {
-    "host_ctest": {"passed": 101, "failed": 0},
+    "host_ctest": {
+      "passed": 101,
+      "failed": 0
+    },
     "unit_normal": "passed",
     "unit_asan_ubsan": "passed",
     "data_probe_normal": "passed",
@@ -70,7 +99,7 @@
     "switch": {
       "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
       "undefined_symbols": 0,
-      "nro_sha256": "ff124f99cfd5e15d43f3f9a946c88903c8e57c6c1422724e9f8261cb1977eb58"
+      "nro_sha256": "e2fa65f5678d37710fd2c2ef63fe1a4c060ffa8d4f78b576424357e7d1b0fd9d"
     }
   },
   "github_push": false,
