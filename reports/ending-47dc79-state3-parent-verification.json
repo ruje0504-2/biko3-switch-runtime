@@ -1,7 +1,7 @@
 {
   "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
   "state": [3],
-  "scope": "47DC79 state3 parent plus 481EA5 hit/effect/interpolation prefix; remaining 481EA5 branches are explicit failures",
+  "scope": "47DC79 state3 parent plus 481EA5 hit/effect/interpolation/failure-reset prefix; remaining 481EA5 branches are explicit failures",
   "original_sites": {
     "dispatcher": "0x47e31a",
     "child": "0x481ea5",
@@ -33,6 +33,13 @@
         "distance_gate": "target>pointer",
         "added_source": 30,
         "range_factor": "(1+span2/span3)*span2"
+      },
+      "clip4_failure_reset": {
+        "request_clip": 2,
+        "expression": [5, 4, 0],
+        "rewind_active_source": true,
+        "clear_latches_bytes": 10,
+        "stop_effect_table": "54e2bc[group*3+1/+2]"
       }
     }
   },
@@ -63,7 +70,7 @@
     "switch": {
       "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
       "undefined_symbols": 0,
-      "nro_sha256": "eb5cdaa33e451249fe29373eca0aae2303eb4ee73d98cca0cf9efbffd4f6b063"
+      "nro_sha256": "ff124f99cfd5e15d43f3f9a946c88903c8e57c6c1422724e9f8261cb1977eb58"
     }
   },
   "github_push": false,

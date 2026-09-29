@@ -1272,6 +1272,14 @@ static int auxiliary_state3_source(void *context, unsigned slot, float source,
   return bk_actor_pose_edit_clips(primary, &edit, 1, e);
 }
 
+static int auxiliary_state3_rewind(void *context, unsigned slot, char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorPose *primary = s ? scene_primary(s) : NULL;
+  if (!primary || slot >= BK_CLIP_SLOTS)
+    return fail(e, "auxiliary state3 source rewind owner is unavailable");
+  return bk_actor_pose_reset_sources(primary, &slot, 1, e);
+}
+
 static int auxiliary_state3_random(void *context, int32_t *value,
                                    char e[256]) {
   EndingNormalScene *s = context;
@@ -1292,6 +1300,20 @@ static int auxiliary_state3_effect(void *context, unsigned effect,
                             .slot = 2 + effect,
                             .flags = (int32_t)flags,
                             .volume = volume};
+  int playing = 0;
+  return bk_ending_audio_call(s->audio, s->state->frame.group,
+                              s->state->auxiliary.variant,
+                              s->state->auxiliary.selection, &call, &playing,
+                              e);
+}
+
+static int auxiliary_state3_effect_stop(void *context, unsigned effect,
+                                        char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || effect >= BK_ENDING_EFFECTS)
+    return fail(e, "auxiliary state3 effect stop is unavailable");
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_PAUSE,
+                            .slot = 2 + effect};
   int playing = 0;
   return bk_ending_audio_call(s->audio, s->state->frame.group,
                               s->state->auxiliary.variant,
@@ -1350,6 +1372,7 @@ static int auxiliary_state3_child(void *context,
       s,
       auxiliary_state3_active,
       auxiliary_state3_source,
+      auxiliary_state3_rewind,
       auxiliary_state4_present,
       auxiliary_state4_status,
       auxiliary_state3_hit,
@@ -1361,6 +1384,7 @@ static int auxiliary_state3_child(void *context,
       auxiliary_state3_effect_present,
       auxiliary_state3_effect_status,
       auxiliary_state3_effect,
+      auxiliary_state3_effect_stop,
       s->voice_volume,
       s->effect_volume};
   return bk_ending_auxiliary_state3_child_step(&bindings, input, &ops, e);

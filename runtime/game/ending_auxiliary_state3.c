@@ -39,17 +39,20 @@ static float child_distance(float x, float y) {
 
 static int child_clip4_interpolate(
     const BkEndingAuxiliaryChildBindings *b,
-    const BkEndingFrameInput *input, const BkEndingAuxiliaryChildOps *o,
+    const BkEndingFrameInput *input, int32_t active,
+    const BkEndingAuxiliaryChildOps *o, int *interpolated,
     char e[256]) {
-  if (!b->targets_721f90 || !b->offset_mode_54e2f8 || !o->source ||
-      !o->request || !o->timing)
+  if (!interpolated || !b->targets_721f90 || !b->offset_mode_54e2f8 ||
+      !o->source || !o->rewind || !o->request || !o->timing)
     return fail(e, "481EA5 clip3 interpolation services are unavailable");
+  *interpolated = 0;
   int32_t index = b->frame->camera_cached;
   if (index < 0 || index >= 39)
     return fail(e, "481EA5 clip3 interpolation target is unavailable");
 
   BkClipTiming clip2, clip3;
   if (!o->request(o->context, 3, e) ||
+      !o->rewind(o->context, (unsigned)active, e) ||
       !o->timing(o->context, 2, &clip2, e) ||
       !o->timing(o->context, 3, &clip3, e))
     return 0;
@@ -86,7 +89,7 @@ static int child_clip4_interpolate(
   float pointer_distance = child_distance(pointer_x, pointer_y);
   if (!isfinite(target_distance) || !isfinite(pointer_distance) ||
       !(target_distance > pointer_distance))
-    return fail(e, "481EA5 clip3 interpolation distance gate is not met");
+    return 1; /* Native falls through to the clip4 failure reset. */
 
   float ratio = span2 / span3;
   float source = (float)(((double)target_distance - pointer_distance) *
@@ -94,7 +97,31 @@ static int child_clip4_interpolate(
                          target_distance) + 30.0f;
   if (!isfinite(source))
     return fail(e, "481EA5 clip3 interpolation source is invalid");
-  return o->source(o->context, 4, source, e);
+  if (!o->source(o->context, 4, source, e))
+    return 0;
+  *interpolated = 1;
+  return 1;
+}
+
+static int child_failure_reset(
+    const BkEndingAuxiliaryChildBindings *b, int32_t active,
+    const BkEndingAuxiliaryChildOps *o, char e[256]) {
+  /* 482406..4824ca. These are the native 54e2bc[group*3+1/+2] entries;
+   * duplicate zero entries are intentional and are stopped twice. */
+  static const unsigned stop_effects[5][2] = {
+      {0, 0}, {0, 0}, {33, 0}, {19, 20}, {0, 0}};
+  if (!o->request || !o->expression || !o->rewind || !o->effect_stop)
+    return fail(e, "481EA5 clip4 failure transition services are unavailable");
+  if (!o->request(o->context, 2, e) ||
+      !o->expression(o->context, 5, 4, 0, e) ||
+      !o->rewind(o->context, (unsigned)active, e))
+    return 0;
+  memset(b->effect_latches_6c7f60, 0, 10);
+  unsigned group = b->frame->group;
+  if (!o->effect_stop(o->context, stop_effects[group][0], e) ||
+      !o->effect_stop(o->context, stop_effects[group][1], e))
+    return 0;
+  return 1;
 }
 
 int bk_ending_auxiliary_state3_child_step(
@@ -127,7 +154,10 @@ int bk_ending_auxiliary_state3_child_step(
     if (!o->active(o->context, &active, e))
       return 0;
     if (active == 4) {
-      if (!child_clip4_interpolate(b, input, o, e))
+      int interpolated = 0;
+      if (!child_clip4_interpolate(b, input, active, o, &interpolated, e))
+        return 0;
+      if (!interpolated && !child_failure_reset(b, active, o, e))
         return 0;
     }
     if (b->frame->group == 2) {

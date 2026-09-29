@@ -80,6 +80,12 @@ static int child_source(void *context, unsigned slot, float source,
   t->radius = source;
   return slot == 4 && source > 229.9f && source < 230.1f;
 }
+static int child_rewind(void *context, unsigned slot, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 175;
+  return slot == 4;
+}
 static int present_child(void *context, unsigned owner, int *out, char e[256]) {
   Trace *t = context;
   (void)e;
@@ -106,13 +112,13 @@ static int child_expression(void *context, int32_t a, int32_t b,
   Trace *t = context;
   (void)e;
   t->calls[t->count++] = 110;
-  return a == 0 && b == 4 && eye == 0;
+  return (a == 0 || a == 5) && b == 4 && eye == 0;
 }
 static int child_request(void *context, unsigned slot, char e[256]) {
   Trace *t = context;
   (void)e;
   t->calls[t->count++] = 120;
-  return slot == (t->active_slot == 4 ? 3u : 4u);
+  return t->active_slot == 4 ? (slot == 2 || slot == 3) : slot == 4;
 }
 static int child_voice(void *context, int32_t cue, unsigned slot,
                       int32_t flags, int32_t volume, char e[256]) {
@@ -160,6 +166,12 @@ static int child_effect(void *context, unsigned effect, unsigned flags,
           (effect == 19 && flags == 1)) && volume == -444 &&
          (effect == 19 ? flags == 1 : flags == 0);
 }
+static int child_effect_stop(void *context, unsigned effect, char e[256]) {
+  Trace *t = context;
+  (void)e;
+  t->calls[t->count++] = 180;
+  return effect == 0 || effect == 19 || effect == 20;
+}
 
 static int check(int ok, const char *what, const char *error) {
   if (ok) return 1;
@@ -205,15 +217,15 @@ int main(void) {
   t.hit_value = 1;
   t.random_value = 17;
   int32_t latch = 0;
-  uint8_t effect_latches[4] = {0};
+  uint8_t effect_latches[10] = {0};
   BkEndingAuxiliaryChildBindings child_bindings = {
       &frame, &control, &auxiliary, point, NULL, &width, NULL, &latch,
       effect_latches};
   BkEndingAuxiliaryChildOps child_ops = {
-      &t, active_child, child_source, present_child, status_child, hit,
+      &t, active_child, child_source, child_rewind, present_child, status_child, hit,
       child_request,
       child_expression, child_voice, random_child, NULL, NULL,
-      child_effect_status, child_effect, -333, -444};
+      child_effect_status, child_effect, child_effect_stop, -333, -444};
   if (!check(bk_ending_auxiliary_state3_child_step(
                  &child_bindings, &input, &child_ops, error),
              "481EA5 hit prefix", error) ||
@@ -274,10 +286,37 @@ int main(void) {
     if (!check(bk_ending_auxiliary_state3_child_step(
                    &child_bindings, &input, &child_ops, error),
                "481EA5 clip3 interpolation", error) ||
-        !check(t.count == 6 && t.calls[0] == 30 && t.calls[1] == 70 &&
-                   t.calls[2] == 120 && t.calls[3] == 142 &&
-                   t.calls[4] == 143 && t.calls[5] == 170 && t.slot == 4,
+        !check(t.count == 7 && t.calls[0] == 30 && t.calls[1] == 70 &&
+                   t.calls[2] == 120 && t.calls[3] == 175 &&
+                   t.calls[4] == 142 && t.calls[5] == 143 &&
+                   t.calls[6] == 170 && t.slot == 4,
                "481EA5 clip3 interpolation order", error))
+      return 1;
+  }
+
+  {
+    int32_t targets[39][2] = {{640, 360}};
+    int32_t offset_mode = -1;
+    child_bindings.targets_721f90 = targets;
+    child_bindings.offset_mode_54e2f8 = &offset_mode;
+    frame.camera_cached = 0;
+    frame.group = 0;
+    effect_latches[0] = effect_latches[1] = effect_latches[2] =
+        effect_latches[3] = 1;
+    t.active_slot = 4;
+    t.count = 0;
+    if (!check(bk_ending_auxiliary_state3_child_step(
+                   &child_bindings, &input, &child_ops, error),
+               "481EA5 clip4 failure reset", error) ||
+        !check(t.count == 11 && t.calls[0] == 30 && t.calls[1] == 70 &&
+                   t.calls[2] == 120 && t.calls[3] == 175 &&
+                   t.calls[4] == 142 && t.calls[5] == 143 &&
+                   t.calls[6] == 120 && t.calls[7] == 110 &&
+                   t.calls[8] == 175 && t.calls[9] == 180 &&
+                   t.calls[10] == 180 && effect_latches[0] == 0 &&
+                   effect_latches[1] == 0 && effect_latches[2] == 0 &&
+                   effect_latches[3] == 0,
+               "481EA5 clip4 failure reset order", error))
       return 1;
   }
 
