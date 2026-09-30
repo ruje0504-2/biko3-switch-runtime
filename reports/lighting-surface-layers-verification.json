@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-01",
+  "user_report": "First character SECOND outdoor scene near bookstore; lit surface brightness flickers with camera motion. Previous de369a84 NRO did not fix device symptom.",
+  "passed_host_validation": true,
+  "switch_device_verified": false,
+  "strict_native_equivalence": false,
+  "compatibility": [
+    "Opt-in stable transparent priority/distance/insertion order for gameplay scenery batches",
+    "Canonicalize sorting origin components abs<1e-4 only; preserve real transforms",
+    "Lit no-depth-write inverse-color shadow depth bias constant2 slope1/128"
+  ],
+  "pairs": [
+    {
+      "name": "bookstore",
+      "host_exit": 0,
+      "asan_exit": 0,
+      "expected_exit": 0,
+      "summaries": [
+        "PASS bookstore stable: views12 frames2520 lights5; changed_pixels0/0/0 changed_frames0/0/0 worst0/0/0 max_rgb0/0/0 (move/decay/hold)"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-bookstore.log",
+        "local/lighting-bookstore/final-asan-bookstore.log"
+      ]
+    },
+    {
+      "name": "bookstore-native",
+      "host_exit": 1,
+      "asan_exit": 1,
+      "expected_exit": 1,
+      "summaries": [
+        "FAIL bookstore native: views12 frames2520 lights5; changed_pixels1291317/2867733/10756 changed_frames180/587/4 worst97379/96116/9170 max_rgb63/63/46 (move/decay/hold)"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-bookstore-native.log",
+        "local/lighting-bookstore/final-asan-bookstore-native.log"
+      ]
+    },
+    {
+      "name": "shadow",
+      "host_exit": 0,
+      "asan_exit": 0,
+      "expected_exit": 0,
+      "summaries": [
+        "PASS coplanar shadow cases6 frames360 wrong0/0/0 changes0/0/0"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-shadow.log",
+        "local/lighting-bookstore/final-asan-shadow.log"
+      ]
+    },
+    {
+      "name": "draw-order",
+      "host_exit": 0,
+      "asan_exit": 0,
+      "expected_exit": 0,
+      "summaries": [
+        "PASS native queue partition, frozen ordinary keys, transparent bypass, priority, W and invalid inputs"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-draw-order.log",
+        "local/lighting-bookstore/final-asan-draw-order.log"
+      ]
+    },
+    {
+      "name": "lighting",
+      "host_exit": 0,
+      "asan_exit": 0,
+      "expected_exit": 0,
+      "summaries": [
+        "PASS: 72 point/spot lighting/specular cases vs independent vertex/interpolation reference <=2/255; light descriptor isolation, lit format/singular/zero-scale guards and UI restoration"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-lighting.log",
+        "local/lighting-bookstore/final-asan-lighting.log"
+      ]
+    },
+    {
+      "name": "material",
+      "host_exit": 0,
+      "asan_exit": 0,
+      "expected_exit": 0,
+      "summaries": [
+        "PASS: indexed uploads, three blend modes, zero-alpha visibility, depth write, repeat/clamp, instance transform and UI state restoration pixels"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-material.log",
+        "local/lighting-bookstore/final-asan-material.log"
+      ]
+    },
+    {
+      "name": "surfaces",
+      "host_exit": 0,
+      "asan_exit": 0,
+      "expected_exit": 0,
+      "summaries": [
+        "PASS light surfaces cases22 frames7920 wrong0/0/0 changes0/0/0"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-surfaces.log",
+        "local/lighting-bookstore/final-asan-surfaces.log"
+      ]
+    },
+    {
+      "name": "game",
+      "host_exit": 0,
+      "asan_exit": 0,
+      "expected_exit": 0,
+      "summaries": [
+        "PASS game-session frames=1054 phase1=60 photos=2 outcome=0 pause-frames=135"
+      ],
+      "logs": [
+        "local/lighting-bookstore/final-host-game.log",
+        "local/lighting-bookstore/final-asan-game.log"
+      ]
+    }
+  ],
+  "unbiased_shadow_negative_control": {
+    "source_commit": "daf3e6d",
+    "log": "local/lighting-bookstore/final-host-shadow-old.log",
+    "expected_exit": 1,
+    "summary": [
+      "FAIL coplanar shadow cases6 frames360 wrong24/33/0 changes19/32/0"
+    ]
+  },
+  "native_order_oracle": {
+    "passed": true,
+    "cached_calls": 7200,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "flushes": 2400,
+    "entries": 38292,
+    "native_distance_checks": 14378,
+    "max_relative_distance_error": 0.0,
+    "branches": [
+      [
+        false,
+        0
+      ],
+      [
+        false,
+        1
+      ],
+      [
+        true,
+        0
+      ],
+      [
+        true,
+        1
+      ]
+    ],
+    "scope": "Run full42aa47 dispatch and42b1bd/42c3fc sorting over synthetic global queues.\nGPU submission and deformation services are hooked; native camera inversion,\nworld*view, length/bias, exchange loops and flush branches execute unchanged.\nRaw uint32 texture keys exercise the original algorithm, not a claim that\nportable resource IDs reproduce Windows texture-pointer allocation order.\n",
+    "hooks": [
+      "43056d shader setup",
+      "42af66/42afbb/42ade8 deformation services",
+      "42b934 transparent draw boundary",
+      "IDirect3DDevice::SetRenderState; ordinary frames hidden after sorting"
+    ]
+  },
+  "python_tests": 29,
+  "game_rgba_match": true,
+  "game_rgba_sha256": "8bb0f73890feb710a0cd545254b2d691be0a3920c4bf9d5c321f6cc8dd5d9cf1",
+  "switch_artifact": {
+    "size": 16232504,
+    "sha256": "2296739c731c6c065d08b298b5d9a91bf73412c931b2955f2ac1196e57ecaf11"
+  },
+  "mesa_archive": {
+    "size": 93756428,
+    "sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256"
+  },
+  "undefined_symbols": 0,
+  "limitations": [
+    "Host MoltenVK is not Switch NVK device validation",
+    "Sort probe freezes raster/lighting; not full original-gameplay image comparison",
+    "Hold counter includes first final-zero transition frame",
+    "Original full ending pixel and natural flow gaps remain; not rerun in this batch",
+    "Initial diagnostic material power assertion was invalid; failure log retained; no production change for that assertion"
+  ],
+  "pending_inventory": "local/ending-inventory-pending-20261001",
+  "awake_pid": 64008,
+  "pushed": false,
+  "full_package": false
+}

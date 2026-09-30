@@ -35,7 +35,7 @@ struct BkActorRender {
   BkDepthTransform depth;
   uint64_t generation;
   BkActorRenderStats stats;
-  int ready, order_ready;
+  int ready, order_ready, stable_layers;
   BkActorMeshCallback callback;
   void *callback_context;
 };
@@ -111,6 +111,7 @@ static BkActorRender *create(BkRenderer *renderer, BkResourceStore *resources,
   a->model = m;
   a->eyes = eyes;
   if (shared) {
+    a->stable_layers = shared->stable_layers;
     a->texture_refs = shared->texture_refs;
     ++*a->texture_refs;
     a->textures = shared->textures;
@@ -364,8 +365,20 @@ static int prepare(BkActorRender *a, const BkActorPose *pose,
     BkDrawKey key = {.sorted = p->sorted,
                      .priority = p->priority,
                      .texture_key = bk_texture_sort_key(texture)};
-    if (!bk_draw_distance(&key.distance, a->layout->world + inst->frame * 16,
-                          view, p->sort_bias))
+    const float *sort_world = a->layout->world + inst->frame * 16;
+    float canonical[16];
+    if (a->stable_layers && p->sorted) {
+      memcpy(canonical, sort_world, sizeof(canonical));
+      /* Baked scenery pivots retain exporter residuals up to 6.1e-5 around
+       * zero. Only canonicalize the sorting origin, never model geometry,
+       * light positions or gameplay matrices. Otherwise camera rounding
+       * makes ostensibly coincident layers exchange distance order. */
+      for (unsigned c = 12; c < 15; ++c)
+        if (fabsf(canonical[c]) < .0001f)
+          canonical[c] = 0;
+      sort_world = canonical;
+    }
+    if (!bk_draw_distance(&key.distance, sort_world, view, p->sort_bias))
       goto invalid;
     a->frame_keys[i] = key;
     /* Global visits carry their own ancestry after reparenting. Only legacy
@@ -488,8 +501,11 @@ int bk_actor_render_draw(BkActorRender *a, BkLightSet *lights,
     return 0;
   }
   if (!a->order_ready) {
-    if (!bk_draw_order(a->keys, a->stats.submitted_instances, a->order,
-                       a->scratch))
+    if (!(a->stable_layers
+              ? bk_draw_order_stable(NULL, a->keys, a->stats.submitted_instances,
+                                      a->order, a->scratch)
+              : bk_draw_order(a->keys, a->stats.submitted_instances, a->order,
+                               a->scratch)))
       return 0;
     a->order_ready = 1;
   }
@@ -571,8 +587,13 @@ int bk_actor_render_batch_prepare(BkActorRenderBatch *b,
       b->keys[j] = a->keys[k];
     }
   }
-  if (!bk_draw_order_cached(b->order_cache, b->keys, b->count, b->order,
-                            b->scratch))
+  int stable = 0;
+  for (uint32_t i = 0; i < b->count && !stable; ++i)
+    stable = b->entries[i].actor->stable_layers;
+  if (!(stable ? bk_draw_order_stable(b->order_cache, b->keys, b->count,
+                                      b->order, b->scratch)
+               : bk_draw_order_cached(b->order_cache, b->keys, b->count,
+                                       b->order, b->scratch)))
     goto invalid;
   b->ready = 1;
   return 1;
@@ -606,8 +627,13 @@ int bk_actor_render_batch_prepare_visits(BkActorRenderBatch *b,
       b->keys[j] = a->frame_keys[k];
     }
   }
-  if (!bk_draw_order_cached(b->order_cache, b->keys, b->count, b->order,
-                            b->scratch))
+  int stable = 0;
+  for (uint32_t i = 0; i < b->count && !stable; ++i)
+    stable = b->entries[i].actor->stable_layers;
+  if (!(stable ? bk_draw_order_stable(b->order_cache, b->keys, b->count,
+                                      b->order, b->scratch)
+               : bk_draw_order_cached(b->order_cache, b->keys, b->count,
+                                       b->order, b->scratch)))
     goto invalid;
   b->ready = 1;
   return 1;
@@ -653,5 +679,14 @@ int bk_actor_render_batch_item(const BkActorRenderBatch *b, uint32_t i,
   *source = e->source;
   *frame = inst->frame;
   *submesh = inst->submesh;
+  return 1;
+}
+
+int bk_actor_render_stabilize_layers(BkActorRender *a) {
+  if (!a)
+    return 0;
+  a->stable_layers = 1;
+  a->ready = a->order_ready = 0;
+  ++a->generation;
   return 1;
 }

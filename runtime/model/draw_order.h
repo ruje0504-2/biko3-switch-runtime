@@ -28,4 +28,10 @@ BkDrawOrderCache *bk_draw_order_cache_create(uint32_t capacity);
 void bk_draw_order_cache_destroy(BkDrawOrderCache *);
 int bk_draw_order_cached(BkDrawOrderCache *, const BkDrawKey *, uint32_t count,
                          uint32_t *order, float *scratch);
+/* Explicit rendering compatibility policy: stable descending priority, then
+ * distance, then original insertion order. Ordinary ordering and the native
+ * no-ordinary bypass stay unchanged. Optional cache; no new allocation.
+ * The native APIs above remain available for original-instruction replays. */
+int bk_draw_order_stable(BkDrawOrderCache *, const BkDrawKey *, uint32_t,
+                          uint32_t *order, float *scratch);
 #endif

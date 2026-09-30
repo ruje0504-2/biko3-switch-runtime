@@ -1,3 +1,5 @@
+2026-10-01 物体表面闪烁：`game_preview`仅为背景显式开启actor透明层稳定策略；排序原点近零残差归零只影响key，world/lighting不变，包含此背景的全局batch稳定按priority/distance/insertion排序。model保留严格原版API，新增独立stable入口；renderer仅为lit/no-depth-write/inverse-color阴影加微小反向深度偏移。详见 `reports/lighting-surface-layers.md`，这是显式兼容策略，非原指令等价。无新Switch实机结论。
+
 2026-10-01 GPU深度精度转换仅位于`render/vulkan/renderer.c`：公开变换与clear_depth继续0近/1远，提交时仅复制并反转深度行，GPU比较与清除反向。`core/camera`、游戏屏幕坐标、灯光、世界矩阵及着色器保持；CPU不依赖Vulkan。运动遮挡测试和实际资源回归见`reports/lighting-motion-depth.md`；完整三维当前11/12、实机尚缺。
 
 2026-10-01 路线固定标志表与有效运动节点分开访问：`world/route`保存终点后输入标志并提供0..1023有界flag-slot接口，`scene/game_frame`用于换区域后保留NPC索引的道具查询。`bk_route_point`仍限制有效节点/终点，game区域重置和save格式不变。原版读取及实际连续存档换场证据见 `reports/checkpoint-next-story.md`。

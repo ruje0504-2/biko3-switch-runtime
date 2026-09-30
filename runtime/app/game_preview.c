@@ -527,6 +527,8 @@ static int create_world_graphics(GamePreview *g, BkResourceStore *resources,
       !(g->background_render = bk_actor_render_create(
             g->renderer, resources, "bk3_03", model, NULL, error)))
     return 0;
+  if (!bk_actor_render_stabilize_layers(g->background_render))
+    return 0;
   g->world_batch = bk_actor_render_batch_create(g->renderer, 16384, error);
   if (!g->world_batch)
     return 0;

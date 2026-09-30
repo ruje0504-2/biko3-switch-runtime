@@ -55,7 +55,7 @@ int bk_draw_distance(float *out, const float world[16], const float view[16],
   return 1;
 }
 static int draw_order(BkDrawOrderCache *cache, const BkDrawKey *keys,
-                      uint32_t count, uint32_t *order, float *scratch) {
+                      uint32_t count, uint32_t *order, float *scratch, int stable) {
   if (count > BK_DRAW_QUEUE_LIMIT || (count && (!keys || !order || !scratch)))
     return 0;
   uint32_t ordinary = 0;
@@ -100,7 +100,24 @@ static int draw_order(BkDrawOrderCache *cache, const BkDrawKey *keys,
           order[i] = order[j];
           order[j] = tmp;
         }
-  if (ordinary)
+  if (ordinary && stable) {
+    /* Stable priority/distance order keeps coincident surface layers in file
+     * order. Native exchange passes can reorder ties when an unrelated mesh
+     * moves, changing additive-light/inverse-shadow composition. */
+    for (uint32_t i = ordinary + 1; i < count; ++i) {
+      uint32_t item = order[i], j = i;
+      const BkDrawKey *a = &keys[item];
+      while (j > ordinary) {
+        const BkDrawKey *b = &keys[order[j - 1]];
+        if (b->priority > a->priority ||
+            (b->priority == a->priority && b->distance >= a->distance))
+          break;
+        order[j] = order[j - 1];
+        --j;
+      }
+      order[j] = item;
+    }
+  } else if (ordinary)
     for (unsigned pass = 0; pass < 2; ++pass)
       for (uint32_t i = ordinary; i < count; ++i)
         for (uint32_t j = i + 1; j < count; ++j) {
@@ -115,11 +132,18 @@ static int draw_order(BkDrawOrderCache *cache, const BkDrawKey *keys,
 }
 int bk_draw_order(const BkDrawKey *keys, uint32_t count, uint32_t *order,
                   float *scratch) {
-  return draw_order(NULL, keys, count, order, scratch);
+  return draw_order(NULL, keys, count, order, scratch, 0);
 }
 int bk_draw_order_cached(BkDrawOrderCache *cache, const BkDrawKey *keys,
                          uint32_t count, uint32_t *order, float *scratch) {
   if (!cache || count > cache->capacity)
     return 0;
-  return draw_order(cache, keys, count, order, scratch);
+  return draw_order(cache, keys, count, order, scratch, 0);
+}
+
+int bk_draw_order_stable(BkDrawOrderCache *cache, const BkDrawKey *keys,
+                          uint32_t count, uint32_t *order, float *scratch) {
+  if (cache && count > cache->capacity)
+    return 0;
+  return draw_order(cache, keys, count, order, scratch, 1);
 }

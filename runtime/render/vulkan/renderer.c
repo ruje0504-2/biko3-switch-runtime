@@ -778,6 +778,16 @@ BkRenderer *bk_renderer_create(unsigned width, unsigned height, FILE *log,
                                       : blend.dstColorBlendFactor;
       for (unsigned write = 0; write < 2; write++) {
         ds.depthWriteEnable = write;
+        /* Authored inverse-color shadow layers can be
+         * exactly coplanar with a differently triangulated opaque surface.
+         * Reverse D32 still needs a small representable-depth offset there;
+         * more precision alone cannot make two rasterized planes identical.
+         * The slope term covers subpixel plane setup; keep additive lights,
+         * ordinary alpha, opaque geometry and UI unbiased. */
+        rs.depthBiasEnable = lit && !write &&
+            mode == BK_BLEND_INVERSE_COLOR;
+        rs.depthBiasConstantFactor = rs.depthBiasEnable ? 2.f : 0.f;
+        rs.depthBiasSlopeFactor = rs.depthBiasEnable ? 1.f / 128.f : 0.f;
         for (unsigned cull = 0; cull < 2; cull++) {
           rs.cullMode = cull ? VK_CULL_MODE_BACK_BIT : VK_CULL_MODE_NONE;
           rs.frontFace = VK_FRONT_FACE_CLOCKWISE;

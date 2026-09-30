@@ -20,6 +20,11 @@ BkActorRender *bk_actor_render_create(BkRenderer *renderer,
                                       const char *pack, const BkModel *model,
                                       const BkEyeAssets *eyes, char error[256]);
 void bk_actor_render_destroy(BkActorRender *actor);
+/* Opt in for gameplay scenery: clean near-zero sorting pivots (<1e-4), and
+ * preserve transparent ties in every batch containing this actor. Geometry,
+ * lighting and CPU world caches are unchanged. Invalidates existing prepared
+ * snapshots; call outside frames before prepare. Views inherit this policy. */
+int bk_actor_render_stabilize_layers(BkActorRender *);
 /* Independent geometry/palette/material/queue state for another view of the
  * same model. Share retained immutable textures, eye surface and sort IDs;
  * copy the current borrowed surface override. No archive access or duplicate

@@ -50,7 +50,40 @@ static void check_cache(void) {
   assert(bk_draw_order_cached(cache, NULL, 0, NULL, NULL));
   bk_draw_order_cache_destroy(cache);
 }
+static void stable_layers(void) {
+  /* An unrelated moving transparent object must not swap coincident light
+   * and shadow layers. Priority dominates distance, ties retain insertion. */
+  BkDrawOrderCache *cache = bk_draw_order_cache_create(8);
+  assert(cache);
+  for (unsigned f = 0; f < 1000; ++f) {
+    BkDrawKey keys[] = {{0, 1, 0, 0},   {1, 0, 0, 100},
+                        {1, 0, 0, 100}, {1, 0, 0, (float)(f % 200)},
+                        {1, 0, 2, 10},  {1, 0, 2, 20}};
+    uint32_t order[6], plain[6];
+    float scratch[6];
+    assert(bk_draw_order_stable(cache, keys, 6, order, scratch));
+    assert(bk_draw_order_stable(NULL, keys, 6, plain, scratch));
+    assert(!memcmp(order, plain, sizeof(order)));
+    assert(order[0] == 0 && order[1] == 5 && order[2] == 4);
+    unsigned light = 6, shadow = 6;
+    for (unsigned i = 0; i < 6; ++i) {
+      if (order[i] == 1)
+        light = i;
+      if (order[i] == 2)
+        shadow = i;
+    }
+    assert(light < shadow);
+  }
+  BkDrawKey bad = {.sorted = 1, .distance = NAN};
+  uint32_t order = 42;
+  float scratch;
+  assert(!bk_draw_order_stable(cache, &bad, 1, &order, &scratch) &&
+         order == 42);
+  assert(bk_draw_order_stable(cache, NULL, 0, NULL, NULL));
+  bk_draw_order_cache_destroy(cache);
+}
 int main(void) {
+  stable_layers();
   check_cache();
   BkDrawKey keys[] = {{0, 1, 0, 0},  {0, 3, 0, 0},  {0, 2, 0, 0},
                       {1, 0, 0, 10}, {1, 0, 0, 20}, {1, 0, 1, 1}};
