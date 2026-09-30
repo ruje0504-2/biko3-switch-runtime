@@ -13,6 +13,7 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +25,8 @@ SUITES = {
     "session": [("secondary-session", "ending-secondary-session-probe", [])],
     "stage": [("stage-reload", "ending-stage-reload-probe", [])],
     "selected-session": [("selected-session", "ending-selected-session-probe", [])],
+    "node-bindings": [("node-bindings", "ending-node-bindings-probe", [])],
+    "auxiliary-assets": [("auxiliary-assets", "ending-4d39e6-probe", [])],
     "selected-adapters": [("selected-adapters", "ending-selected-adapters-probe", [])],
     "final-image": [("final-image", "ending-final-image-probe", [])],
     "story": [("story-reload", "ending-story-reload-probe", [])],
@@ -63,7 +66,8 @@ def source_manifest() -> dict[str, str]:
     paths.extend((ROOT / "tools").glob("ending_*.h"))
     paths.extend(ROOT / "tests" / name for name in [
         "original_ending_selected_session_oracle.py", "original_prop_route_oracle.py",
-        "original_matrix_oracle.py", "model_binding.py"])
+        "original_matrix_oracle.py", "model_binding.py",
+        "original_ending_auxiliary_targets_oracle.py", "test_ending_4d39e6_config.c"])
     return {str(p.relative_to(ROOT)): digest(p) for p in sorted(paths)}
 
 
@@ -162,6 +166,20 @@ def main() -> int:
             if not native.get("passed"):
                 raise RuntimeError("selected-session native scalar comparison failed")
             report["selected_session_native"] = native
+        if "auxiliary-assets" in suites and args.original_exe:
+            native_library = output / "auxiliary-targets.dylib"
+            execute("build-auxiliary-targets-native", [os.environ.get("CC", "cc"),
+                "-dynamiclib" if sys.platform == "darwin" else "-shared", "-fPIC",
+                "-Iruntime", "runtime/game/ending_4d39e6_config.c", "-o", str(native_library)])
+            native_report = output / "auxiliary-targets-native.json"
+            execute("auxiliary-targets-native", [args.oracle_python,
+                "tests/original_ending_auxiliary_targets_oracle.py", str(args.original_exe),
+                str(native_library), "--logs", str(output / "auxiliary-assets-host.log"),
+                str(output / "auxiliary-assets-asan.log"), "--output", str(native_report)])
+            native = json.loads(native_report.read_text())
+            if not native.get("passed"):
+                raise RuntimeError("auxiliary targets native comparison failed")
+            report["auxiliary_targets_native"] = native
         if source_manifest() != manifest:
             raise RuntimeError("source changed during validation; results cannot identify one source state")
         report["passed"] = True

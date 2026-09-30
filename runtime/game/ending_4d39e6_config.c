@@ -36,25 +36,23 @@ int bk_ending_4d39e6_config(BkEnding4d39Config *out, unsigned group,
   return 1;
 }
 
-int bk_ending_4d39e6_targets(float out[3][3], const float node[3],
-                             const float anchor[3], char error[256]) {
-  if (!out || !node || !anchor) {
+int bk_ending_4d39e6_targets(float out[3][3], const float node5[3],
+                             const float node13[3], const float node0[3],
+                             char error[256]) {
+  if (!out || !node5 || !node13 || !node0) {
     snprintf(error, 256, "4D39E6 targets: missing input/output");
     return 0;
   }
   for (unsigned i = 0; i < 3; ++i) {
-    if (!isfinite(node[i]) || !isfinite(anchor[i])) {
+    if (!isfinite(node5[i]) || !isfinite(node13[i]) || !isfinite(node0[i])) {
       snprintf(error, 256, "4D39E6 targets: nonfinite coordinate");
       return 0;
     }
   }
   float next[3][3];
-  memcpy(next[0], node, sizeof(next[0]));
-  memcpy(next[1], anchor, sizeof(next[1]));
-  next[2][0] = anchor[0];
-  /* The original x87 path subtracts in extended precision before halving. */
-  next[2][1] = (float)(((double)node[1] - anchor[1]) * .5);
-  next[2][2] = (float)(((double)node[2] - anchor[2]) * .5);
+  memcpy(next[0], node5, sizeof(next[0]));
+  memcpy(next[1], node13, sizeof(next[1]));
+  memcpy(next[2], node0, sizeof(next[2]));
   memcpy(out, next, sizeof(next));
   return 1;
 }

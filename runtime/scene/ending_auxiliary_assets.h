@@ -76,6 +76,7 @@ BkEndingCameraAssets *bk_ending_auxiliary_assets_cameras(BkEndingAuxiliaryAssets
  * An absent group-specific OYU must not clear another owner's retained slot.
  * Target vectors are captured before background insertion, not live views. */
 uint32_t bk_ending_auxiliary_assets_node(const BkEndingAuxiliaryAssets *, unsigned index);
+/*Actual optional A_okosi; absent stays MODEL_NONE, never the model root.*/
 uint32_t bk_ending_auxiliary_assets_anchor(const BkEndingAuxiliaryAssets *);
 uint32_t bk_ending_auxiliary_assets_follow(const BkEndingAuxiliaryAssets *);
 uint32_t bk_ending_auxiliary_assets_oyu(const BkEndingAuxiliaryAssets *);

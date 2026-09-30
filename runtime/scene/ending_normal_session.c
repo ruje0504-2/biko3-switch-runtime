@@ -279,6 +279,20 @@ static int fail(char e[256], const char *why) {
   return 0;
 }
 
+/*Translate an optional model frame only within the live primary forest.
+ *The native NULL sentinel is0; MODEL_NONE must never become a root target.*/
+static int optional_primary_node(EndingNormalScene *s, uint32_t frame,
+                                  uint32_t *out, char e[256]) {
+  if (!s || !out || !scene_forest(s))
+    return fail(e, "optional node owner is missing");
+  uint32_t node = frame == BK_MODEL_NONE ? 0 :
+      bk_actor_forest_node(scene_forest(s), scene_registry(s, 0), frame);
+  if (node == BK_FRAME_NONE || node > INT32_MAX)
+    return fail(e, "optional primary node is stale");
+  *out = node;
+  return 1;
+}
+
 static int warp(void *context, float x, float y, char e[256]) {
   EndingNormalScene *s = context;
   if (!s || !isfinite(x) || !isfinite(y))
@@ -565,7 +579,12 @@ static int auxiliary_presentation_step(EndingNormalScene *s, char e[256]) {
         bk_actor_forest_node(forest, 0, frame);
   if (hidden[i] == BK_FRAME_NONE) return fail(e, "stale auxiliary hidden node");
   }
-  uint32_t secondary_node = (uint32_t)s->state->retained.normal.word_719b40;
+  uint32_t secondary_node;
+  /*48181F consumes719B48/OYU, not719B40/A_okosi. Resolve the live
+   *resource view; no retained pointer to a retired forest is copied.*/
+  if (!optional_primary_node(s,
+          bk_ending_auxiliary_assets_oyu(s->auxiliary_assets), &secondary_node, e))
+    return 0;
   BkEndingAuxiliaryPresentationBindings b = {
       &s->state->frame, &s->state->control, &s->state->auxiliary,
       bk_ending_auxiliary_assets_face_state(s->auxiliary_assets),
@@ -742,7 +761,7 @@ static int ui_reload_release(void *context, BkEndingLoader loader, char e[256]) 
        secondary ? !s->secondary_assets :
          (loader != BK_ENDING_LOAD_4CF318 || !s->assets)))
     return fail(e, "unsupported release or stage snapshot is not captured");
-  if (secondary) {
+  if (secondary || selected || auxiliary) {
     s->state->retained.normal.word_719b40 = 0;
     s->state->retained.normal.follow_target = 0;
   }
@@ -1917,6 +1936,13 @@ static int frame_invoke(void *context, const BkEndingCall *call,
   case BK_ENDING_STAGE_494015: {
     if (!s->selected_assets || !s->selected_controller || !s->audio)
       return fail(e, "selected presentation owners are unavailable");
+    uint32_t secondary_node;
+    /*Only group2 variant1 reads719B48. Variant0's special node belongs
+     *to719B44 and must not be substituted for this presentation input.*/
+    uint32_t special = s->state->frame.group == 2 && s->state->auxiliary.variant
+        ? bk_ending_selected_assets_special(s->selected_assets) : BK_MODEL_NONE;
+    if (!optional_primary_node(s, special, &secondary_node, e))
+      return 0;
     BkEndingSelectedPresentationScene presentation = {
         .assets = s->selected_assets, .audio = s->audio,
         .voice = &s->presentation->voice,
@@ -1924,7 +1950,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         .shared_cycle = s->auxiliary_cycle, .random = s->random,
         .plain_scheduled = &s->selected_plain_scheduled,
         .voice_volume = &s->voice_volume, .effect_volume = &s->effect_volume,
-        .secondary_node = (const uint32_t *)&s->state->retained.normal.word_719b40,
+        .secondary_node = &secondary_node,
         .clock_context = s, .clock = frame_clock};
     return bk_ending_selected_presentation_scene_step(
         &presentation, s->state, s->active_seconds, e);
@@ -1934,15 +1960,17 @@ static int frame_invoke(void *context, const BkEndingCall *call,
     float scale = (float)((double)width / 1280.0);
     if (!bk_ending_ui_control_rects(&s->ui, s->control_rects))
       return fail(e, "live ending control bounds are unavailable");
-    const float *alternate = s->secondary_assets ? bk_actor_forest_world(
-        scene_forest(s), (uint32_t)s->state->retained.normal.word_719b40) : NULL;
+    uint32_t anchor = (uint32_t)s->state->retained.normal.word_719b40;
+    const float *alternate = anchor ? bk_actor_forest_world(scene_forest(s), anchor) : NULL;
+    if (anchor && !alternate)
+      return fail(e, "cached camera anchor is stale");
     BkEndingControlBindings bindings = {
         &s->state->frame,
         &s->camera,
         &s->presets,
         /*4d7ac4 reads old published721ef4/719b40/721f08/721f28.
          * The normal loader's three captured offsets are a different table.
-         *719b40 belongs to the alternate loader, not another normal node. */
+         *719b40 is the actual optional A_okosi of the active loader. */
         {ending_cached_target(s, 0), alternate ? alternate + 12 : NULL,
          ending_cached_target(s, 5),
          ending_cached_target(s, 13)},
@@ -2698,6 +2726,11 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
         scene_forest(s), 0, bk_ending_selected_assets_follow(s->selected_assets));
     if (s->state->retained.normal.follow_target == BK_FRAME_NONE)
       goto bad;
+    uint32_t anchor;
+    if (!optional_primary_node(s,
+            bk_ending_selected_assets_anchor(s->selected_assets), &anchor, e))
+      goto bad;
+    s->state->retained.normal.word_719b40 = (int32_t)anchor;
     s->state->frame.phase = config->phase;
     /*4D1C26 writes721EF0, not the second stage's721EE4 (also a replay
      *release tag). Preserve that tag and the live721ED8 selection unless
@@ -2735,6 +2768,12 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
         bk_ending_auxiliary_assets_follow(s->auxiliary_assets));
     if (s->state->retained.normal.follow_target == BK_FRAME_NONE)
       goto bad;
+    uint32_t anchor;
+    if (!optional_primary_node(s,
+            bk_ending_auxiliary_assets_anchor(s->auxiliary_assets), &anchor, e))
+      goto bad;
+    s->state->retained.normal.word_719b40 = (int32_t)anchor;
+    s->state->control.target_choice = 0; /*4D4225*/
     s->state->frame.phase = 4;
     s->state->frame.state_721ee4 = 4;
     s->state->control.state_721eec = 4;

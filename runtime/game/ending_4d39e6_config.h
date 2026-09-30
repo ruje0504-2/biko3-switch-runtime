@@ -16,8 +16,10 @@ typedef struct {
 int bk_ending_4d39e6_config(BkEnding4d39Config *, unsigned group,
                             unsigned variant);
 
-/* 4D0ADD..4D0B97, before the retained background is used. */
-int bk_ending_4d39e6_targets(float output[3][3], const float node[3],
-                             const float anchor[3], char error[256]);
+/*4D4167..4D4203 copies the OLD published nodes5/13/0 in that order.
+ *A_okosi719B40 is a separate optional interaction anchor, not a camera target.*/
+int bk_ending_4d39e6_targets(float output[3][3], const float node5[3],
+                             const float node13[3], const float node0[3],
+                             char error[256]);
 
 #endif

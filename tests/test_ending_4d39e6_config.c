@@ -49,20 +49,19 @@ int main(void) {
 
   float out[3][3] = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
   const float node[3] = {1.0f, 10.5f, -3.0f};
-  const float anchor[3] = {4.0f, -1.5f, 8.0f};
+  const float second[3] = {4.0f, -1.5f, 8.0f};
+  const float third[3] = {17, 23, 29};
   char error[256];
-  assert(bk_ending_4d39e6_targets(out, node, anchor, error));
+  assert(bk_ending_4d39e6_targets(out, node, second, third, error));
   assert(!memcmp(out[0], node, sizeof(node)));
-  assert(!memcmp(out[1], anchor, sizeof(anchor)));
-  assert(out[2][0] == anchor[0]);
-  assert(fabsf(out[2][1] - 6.0f) < 1e-6f);
-  assert(fabsf(out[2][2] + 5.5f) < 1e-6f);
+  assert(!memcmp(out[1], second, sizeof(second)));
+  assert(!memcmp(out[2], third, sizeof(third)));
   float before[3][3];
   memcpy(before, out, sizeof(before));
   const float bad[3] = {NAN, 0.0f, 0.0f};
-  assert(!bk_ending_4d39e6_targets(out, bad, anchor, error));
+  assert(!bk_ending_4d39e6_targets(out, bad, second, third, error));
   assert(!memcmp(out, before, sizeof(out)));
-  assert(!bk_ending_4d39e6_targets(NULL, node, anchor, error));
-  puts("PASS ending 4D39E6 config: 10 authored variants, target arithmetic, invalid-input preservation");
+  assert(!bk_ending_4d39e6_targets(NULL, node, second, third, error));
+  puts("PASS ending 4D39E6 config: 10 authored variants, cached node order, invalid-input preservation");
   return 0;
 }

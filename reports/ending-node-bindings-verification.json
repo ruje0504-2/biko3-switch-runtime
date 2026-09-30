@@ -1,0 +1,240 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Actual Japanese selected/auxiliary node bindings, alternate-target selected gestures, visibility, deferred retirement and initial targets. Action8 and auxiliary idle are explicit fixtures; not natural complete story or gallery acceptance.",
+  "validation_path": "build/validation/ending-runtime-p5r1vfny/result.json",
+  "validation_sha256": "fe9c14cfbea27923dffe9057f5dfe7a30dda287f7bfd67532ce523aa55b66e3d",
+  "started_at": "2026-09-30T08:21:16.903128+00:00",
+  "finished_at": "2026-09-30T08:33:45.117121+00:00",
+  "source_sha256": {
+    "runtime/scene/ending_normal_session.c": "f6fb597457b0a4bee9af4cfe416aa6ab98c4469f0c76cdce2977014696f5a7f4",
+    "runtime/scene/ending_auxiliary_assets.c": "7dbf41b76ca0a6fee6be962c80e1a409778f59f03c8a4ad57eb7931fb35e839b",
+    "runtime/game/ending_4d39e6_config.c": "a2f790323242f53f6f862ecead26db0f2cb7c2a771f422943c369fc038988223",
+    "runtime/game/ending_4d39e6_config.h": "3cdf73a6a1ae08872499bd4fc887006b8b8f175129eb11df309bc9c5e99ecc43",
+    "tools/ending_node_bindings_probe.c": "1cc6af3cbce57a710a71b869986caeadc50f3093a9259f3bf142d47680817c40",
+    "tools/ending_4d39e6_probe.c": "27479fc90ffac2bf545a7c84fa720e71f69303552a81086a4532111e233bf76e",
+    "tests/original_ending_auxiliary_targets_oracle.py": "744e7bbeb6e8ccda8ccad2179c15cb8f485d540583c865dc050e6daddd87409e",
+    "tests/check_ending_runtime.py": "079cf5fb8e5c7890a2928b64bfea598cd80ba5e6d3f0d8034dd5453ffe7982fe",
+    "tests/test_ending_4d39e6_config.c": "d536223e35b2474fcf2b6a0f149d4c3a86f91c69a47cfbd0f3e52ca70faf19d5"
+  },
+  "source_manifest_count": 679,
+  "source_manifest_sha256": "67b6dd00958b9af69d76dc8af1df0c6c07d5fba3a9c3a15d4dee7b7e102060ef",
+  "paired_checks": [
+    {
+      "name": "node-bindings",
+      "suite": "node-bindings",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "13f26071a49924c2ce2663aac737985ccc79b0cbd88c6d80c5162c55e13283e6",
+          "summary": "PASS ending nodes entries20 anchors14 missing6 toggles4 absent4 picks10 inputs10 gestures10 retirements10 frames9760 state=3e2b76489278e36a pcm=7e07de0aab74d5a6"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "30d63fbedfaa23054afd8c3a195e8b446e03869a9b8f32ce826ef49b7b0faaaa",
+          "summary": "PASS ending nodes entries20 anchors14 missing6 toggles4 absent4 picks10 inputs10 gestures10 retirements10 frames9760 state=3e2b76489278e36a pcm=7e07de0aab74d5a6"
+        }
+      ]
+    },
+    {
+      "name": "auxiliary-assets",
+      "suite": "auxiliary-assets",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "4f94714ef8920c90478135a62825b61e51b665ff722041570e086d1e1e63ae10",
+          "summary": "PASS 4D39E6 resources: 10 group/variant entries, 40 primary/background advances; retained background and bk3_12/FAM/camera ownership"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "065231371fd92d847a56ff09af9dab97174f986d696a83c163c405bfa054ed4a",
+          "summary": "PASS 4D39E6 resources: 10 group/variant entries, 40 primary/background advances; retained background and bk3_12/FAM/camera ownership"
+        }
+      ]
+    },
+    {
+      "name": "selected-adapters",
+      "suite": "selected-adapters",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "f7008351144c75c4d64659b26a5e46b52fa918082970bec940913fd63b120856",
+          "summary": "PASS selected adapters entries10 manual40 restarts10 flashes10 uv20 cancels10 replay10 completion10 auxiliary10 rejects50 frames52702 state=b9f574493057d877 pcm=3c4be7cbc8c05cc6"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "110314032694df8b240bd125e8058517fcedd686ea73f367ba250134e4f9e150",
+          "summary": "PASS selected adapters entries10 manual40 restarts10 flashes10 uv20 cancels10 replay10 completion10 auxiliary10 rejects50 frames52702 state=b9f574493057d877 pcm=3c4be7cbc8c05cc6"
+        }
+      ]
+    },
+    {
+      "name": "selected-session",
+      "suite": "selected-session",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "9ecebef5bf8787f33f0bac32a26e237feb2df30adef98580fe7c5a4ffcd22759",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "91c87d9210880fcf776194e685ec70f66b5b121266b359a527da8181d945b3c6",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        }
+      ]
+    }
+  ],
+  "native_targets": {
+    "passed": true,
+    "scope": "Compare4D39E6 targets with original4D4167..4D4203, without hooks.\n\nThe original copies published nodes5/13/0, independently of optional719B40.\nSynthetic samples exercise distinct inputs and float bit preservation. Optional\nAUX_TARGET rows verify the actual Japanese resource probe's captured inputs.\nThis segment comparison is not a full loader, frame or hardware acceptance.\n",
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "library_sha256": "70972483265e7a7b2200bc2d79000b4d9f3919e2855d6e1acea74ca5150ab96d",
+    "synthetic_samples": 4096,
+    "synthetic_components": 36864,
+    "real_asset_logs": [
+      {
+        "path": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-p5r1vfny/auxiliary-assets-host.log",
+        "sha256": "bf1885e04e1cb09ef60f9c8d2be257c93cb200fc78a2bba2b50fab639643924f",
+        "loads": 10,
+        "target_components": 90
+      },
+      {
+        "path": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-p5r1vfny/auxiliary-assets-asan.log",
+        "sha256": "bf1885e04e1cb09ef60f9c8d2be257c93cb200fc78a2bba2b50fab639643924f",
+        "loads": 10,
+        "target_components": 90
+      }
+    ],
+    "hooks": [],
+    "max_error": 0
+  },
+  "native_selected_loader": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "checks": [
+      {
+        "log": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-p5r1vfny/selected-session-host.log",
+        "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+        "loads": 60,
+        "scalar_words": 960
+      },
+      {
+        "log": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-p5r1vfny/selected-session-asan.log",
+        "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+        "loads": 60,
+        "scalar_words": 960
+      }
+    ],
+    "scope": "Check production loader scalar results against the pinned original EXE.\n\nReads SELECTED_LOAD rows from the real Japanese resource/session probe. Runs\n4D152C..4D15BF,4D194D..4D19B9,4D1A77..4D1A81,4D1C07..4D1CC1. The native\nmemset/strcpy execute unchanged; only4D460B background IO is observed/stubbed.\nResource identity/lifetime, opening and PCM are checked by the C probe, not\nclaimed by this isolated scalar replay. Parent721EE0/721EE4 must stay intact.\n",
+    "hooks": [
+      "4D460B background IO"
+    ]
+  },
+  "regression": {
+    "python": 29,
+    "architecture_included": 2,
+    "ordinary_ctest": 4,
+    "asan_ubsan_ctest": 1,
+    "shell_syntax": true,
+    "diff_check": true
+  },
+  "logs": {
+    "local/ending-nodes-switch.log": "8c8009dd821ee8edc5feabc4b0dc1fb1cb27515cadbe88ee7b38527147648193",
+    "local/ending-nodes-ctest.log": "ca8508e20e3d1ae819992bdeb8e282d6387be256e07c5d328fdc346375b53188",
+    "local/ending-nodes-asan-ctest.log": "74ceb2feff53eed4fa9196fbb46d6e1566e452d8baad12c96ca858cae88499c3",
+    "local/ending-nodes-python.log": "010c24a7936ff1122dea7e46b085dc37f759294c9ac0963e611b006d1a6d8f1d",
+    "local/ending-nodes-before.log": "8150cc59cb9baf94ad177a2ffd0eff35830045badb726d41aa69a30674776fd9",
+    "local/ending-nodes-host.log": "c8f786e62f8b5f4b14c35e8f64ff9b904093778e89353d1473383a977edfb5f3",
+    "local/ending-nodes-host-diagnostic.log": "497dbca10848e52a19797eaa32aaca7b764085ce2163832200d13cebb30a40e4",
+    "local/ending-nodes-smoke.log": "d03370b0b531868981332a78fa6eb13e8ffa062a96412a7279a6fad617ec04e6"
+  },
+  "old_implementation": {
+    "commit": "cb07fa5",
+    "node_binding_failure": "local/ending-nodes-before.log",
+    "node_exit_code": 1,
+    "scope": "Previous scene source linked to current libraries; test-only optional-node translation helper does not change old loader. Detects unbound A_okosi before later operations.",
+    "target_before": {
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "native_segment": [
+        "0x4d4167",
+        "0x4d4203"
+      ],
+      "hooks": [],
+      "native_targets": [
+        1.0,
+        10.5,
+        -3.0,
+        4.0,
+        -1.5,
+        8.0,
+        17.0,
+        23.0,
+        29.0
+      ],
+      "old_targets": [
+        17.0,
+        23.0,
+        29.0,
+        4.0,
+        -1.5,
+        8.0,
+        4.0,
+        12.25,
+        10.5
+      ],
+      "matched": false,
+      "meaning": "Native copies nodes5/13/0; current helper incorrectly calculates node0/anchor/difference. Synthetic distinct inputs, not actual game pixels."
+    }
+  },
+  "preliminary_coverage_failures": {
+    "paths": [
+      "local/ending-nodes-host.log",
+      "local/ending-nodes-host-diagnostic.log"
+    ],
+    "exit_code": 1,
+    "actual_entries": 20,
+    "actual_toggles": 2,
+    "reason": "Incorrect test expectation of6 present-node toggles assumed optional OYU in auxiliary h03_12. Actual asset has no OYU; final test checks4 present-node toggles/invariance and4 absent-node calls. Production code unchanged by this test correction."
+  },
+  "sandbox_failure": {
+    "log": "local/ending-nodes-smoke.log",
+    "error": "vkCreateInstance VkResult -9",
+    "resolution": "Same binary executed successfully with authorized host GPU access."
+  },
+  "switch": {
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "mesa_version": "26.2.2",
+    "artifacts": {
+      "build-switch/biko3-preview.elf": {
+        "sha256": "a14fdcbbc8db8951b6492501b71be7a1ef112643aee0c35a473964e4c3bd631b",
+        "bytes": 34365416
+      },
+      "build-switch/biko3-preview.nro": {
+        "sha256": "ab554dc8d22149ef0de584f01c6e744bcd96455e76184414767418e390fdbfc6",
+        "bytes": 16076856
+      }
+    },
+    "unresolved_symbols": 0,
+    "dependencies_lock_sha256": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "leak_detection": false,
+  "gpu_allocation_baseline_checked": true,
+  "hardware_validation": false,
+  "full_port_complete": false,
+  "pushed": false,
+  "full_delivery_packaged": false,
+  "awake_pid": 64008,
+  "remaining": [
+    "application-owned selected and gallery process state",
+    "production48302B/48BCBB services and phase8 entry across loaders",
+    "natural story ending/persistent unlock/gallery front end",
+    "production full pixels9/12 only",
+    "complete Switch acceptance"
+  ],
+  "consolidated_at": "2026-09-30T08:33:52.134006+00:00"
+}

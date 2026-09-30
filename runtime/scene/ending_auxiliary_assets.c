@@ -184,12 +184,8 @@ static BkEndingAuxiliaryAssets *create_assets(
       !bk_model_find_frame_first(a->primary.model, a->primary.root, "A_okosi",
                                   &a->anchor, error))
     goto bad;
-  if (a->anchor == BK_MODEL_NONE) {
-    /* h02_12 has no A_okosi frame. The native 4D39E6 path still initializes
-     * the target buffer, but its later camera stage follows A_kuch. Keep the
-     * target finite without inventing a cross-actor frame binding. */
-    a->anchor = a->primary.root;
-  }
+  /*4D40BD..4D40FB leaves a missing A_okosi as NULL. The camera targets
+   *below are independent; do not manufacture an interaction on the root.*/
   for (unsigned i = 0; i < 3; ++i) {
     if (!bk_model_find_frame_first(a->primary.model, a->primary.root,
                                     config.visible_nodes[i], &a->visible[i], error))
@@ -212,13 +208,19 @@ static BkEndingAuxiliaryAssets *create_assets(
   if (group == 2 && !bk_model_find_frame_first(a->primary.model, a->primary.root,
                                                "OYU", &a->oyu, error))
     goto bad;
-  if (a->nodes[0] == BK_MODEL_NONE) {
-    fail(error, "missing required node0 target");
-    goto bad;
+  const unsigned target_nodes[] = {5, 13, 0};
+  const float *target_worlds[3];
+  for (unsigned i = 0; i < 3; ++i) {
+    target_worlds[i] = a->nodes[target_nodes[i]] == BK_MODEL_NONE ? NULL :
+        bk_actor_pose_frame(a->primary.pose, a->nodes[target_nodes[i]]);
+    if (!target_worlds[i]) {
+      fail(error, "missing required cached camera target");
+      goto bad;
+    }
   }
   if (!bk_ending_4d39e6_targets(a->targets,
-          bk_actor_pose_frame(a->primary.pose, a->nodes[0]) + 12,
-          bk_actor_pose_frame(a->primary.pose, a->anchor) + 12, error) ||
+          target_worlds[0] + 12, target_worlds[1] + 12,
+          target_worlds[2] + 12, error) ||
       !bk_ending_camera_assets_step(a->cameras, a->forest, tracks, &next_camera,
           BK_ENDING_CAMERA_FIXED, a->targets[0], NULL, 0, BK_FRAME_NONE, 0, error) ||
       !bk_model_find_frame_first(a->primary.model, a->primary.root, "A_kuch",

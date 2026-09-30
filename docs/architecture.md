@@ -1,3 +1,5 @@
+2026-09-30 结局节点身份修正：scene将当前森林的719B40交互锚点与719B48显隐视图分开，variant0的719B44不得替代；缺失可选节点保留为空，资源退役不清新场景ID。4D39E6在game中复制实际旧发布5/13/0目标，scene负责原顺序读取；删除根节点替代。证据见 `reports/ending-node-bindings.md`。后续进程owner必须区分交互6DDE98与鉴赏6C7F78/6DDE52，不因同名expression_override而合并不同原地址。
+
 2026-09-30 选择阶段服务直接操作实际actor、UI sprite、PCM与共享表情所有者，删除无人消费的影子UI表。动画restart与audio restart、401B0A固定过渡与4018C8配置过渡保持独立，slot53+166不混同notice+167；见 `reports/ending-selected-adapters.md`。生产phase8与自然结束仍未完成。
 
 2026-09-30 选择阶段实际装配：4D1025只消费当前动作参数与共享721ED8，加载器写721EF0开场gate并保留回放/其他阶段的721EE4；背景替换沿原分支更新selected。拾取和菜单借用同一frame/control/targets/choices，表达式先写共享状态再由表现阶段消费，无BOM绘制传空表。原版标量与真实日文场景配对证据见 `reports/ending-selected-session.md`；phase8夹具只覆盖资源边界，生产回放仍需进程owner与真实服务。

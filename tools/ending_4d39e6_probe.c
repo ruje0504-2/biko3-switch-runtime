@@ -65,6 +65,33 @@ int main(int argc, char **argv) {
       CHECK(bk_ending_auxiliary_assets_target(owner, 0));
       CHECK(bk_ending_auxiliary_assets_target(owner, 1));
       CHECK(bk_ending_auxiliary_assets_target(owner, 2));
+      /*These are held published caches, not current ANIM locals. Capture
+       *the actual inputs and outputs for native4D4167..4D4203 replay.*/
+      const unsigned target_ids[] = {5, 13, 0};
+      printf("AUX_TARGET %u %u", group, variant);
+      for (unsigned pass = 0; pass < 2; ++pass)
+        for (unsigned i = 0; i < 3; ++i) {
+          uint32_t frame = bk_ending_auxiliary_assets_node(owner, target_ids[i]);
+          const float *world = bk_actor_pose_frame(
+              bk_ending_auxiliary_assets_pose(owner, 0), frame);
+          const float *target = bk_ending_auxiliary_assets_target(owner, i);
+          CHECK(world && !memcmp(target, world + 12, 3 * sizeof(float)));
+          const float *values = pass ? target : world + 12;
+          for (unsigned j = 0; j < 3; ++j) {
+            uint32_t bits; memcpy(&bits, values + j, sizeof(bits));
+            printf(" %08x", bits);
+          }
+        }
+      puts("");
+      uint32_t anchor, actor_index, root_frame;
+      BkActorPose *primary = bk_ending_auxiliary_assets_pose(owner, 0);
+      const BkModel *model = bk_actor_pose_model(primary);
+      CHECK(bk_actor_forest_binding(bk_ending_auxiliary_assets_forest(owner),
+          bk_ending_auxiliary_assets_root(owner, 0), &actor_index, &root_frame));
+      CHECK(actor_index == 0);
+      CHECK(bk_model_find_frame_first(model, root_frame,
+                                       "A_okosi", &anchor, error));
+      CHECK(bk_ending_auxiliary_assets_anchor(owner) == anchor);
       for (unsigned i = 0; i < 4; ++i) {
         CHECK(bk_ending_auxiliary_assets_advance(owner, i == 3 ? 3 : 0,
                                                  1.0f / 60.0f, error));
