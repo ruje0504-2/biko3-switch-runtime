@@ -1,3 +1,5 @@
+2026-09-30 flow48完整CPU界面已恢复51B617/4E4472、侧栏/计数/镜头预设/截图请求/退出及原构造段，见 `reports/special-ui.md` / verification JSON。普通/ASan各38构造58失败、11,812界面帧937,152顶点162,152服务/832失败前缀，以及构造后51B647的3,800帧一致。原ge_16.tga文件名前缀别名会改写71AD90计时/71ADA0/71ADA8/侧栏/序列，补充旧“loader仅清sequence”；4E6154首播放会清armed，30秒切换仍正常，无兼容复位。4普通4ASan、29Python、NVK通过；NRO仍328bd51b…，新UI仅静态库，未接真实图片/截图/应用。下一项真实UI/GPU/系统音/相册及完整loader/release/flow48注册；自然记录/像素9/12/实机缺口保持。防休眠64008、本地提交、不推送、不整包；完全访问never，不请求终端授权。
+
 2026-09-30 flow48真实音频/视频/GPU已验证，见 `reports/special-media.md` / verification JSON。special_audio借四loop字节/共享包络，区分46435E重播与直接Play续播；special_render一个真实主体、g1/4的poi.avi纹理，旧快照延后退役。原4E418E传NULL，已修special灯光全group2；53F0F8实为lstrcmpA，旧忽略大小写oracle也已纠正。四组普通/ASan配对：900音频帧/1213440PCM标量/3失败；63灯光配置406灯光/16000计划；1800真实CPU帧179绘制159重绘128358GPU顶点，状态/PCM一致。6普通6ASan、29Python、指定NVK通过，NRO328bd51b…仅构建目录，新owner仍未进生产ELF。下一项4E4472 UI及完整加载/释放/应用；自然记录/完整像素9/12/实机缺口保持。防休眠64008、本地提交、不推送、不整包；完全访问never，不请求终端授权。
 
 - 用户已授权范围内的终端命令直接执行，不重复索要终端权限；若工具实际拒绝，说明具体拦截原因，不把工具限制说成用户未授权。

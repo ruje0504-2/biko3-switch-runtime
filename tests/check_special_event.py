@@ -1,4 +1,4 @@
-"""Pair the complete special-event CPU oracle in ordinary and ASan/UBSan builds.
+"""Pair special-event CPU or UI oracles in ordinary and ASan/UBSan builds.
 
 Uses explicit service fixtures, not a production flow48 scene or hardware.
 Preserves commands, source/library hashes and terminal results in a fresh folder.
@@ -23,21 +23,22 @@ def main():
     p.add_argument('--host-python', type=Path, default=ROOT/'local/venv/bin/python')
     p.add_argument('--asan-python', type=Path, default=ROOT/'build/asan/ending-oracle-python')
     p.add_argument('--jobs', type=int, default=8)
+    p.add_argument('--suite', choices=['event', 'ui'], default='event')
     args = p.parse_args()
     for path in [args.exe, args.host_python, args.asan_python]:
         if not path.is_file(): p.error('missing required input: '+str(path))
     if args.jobs < 1: p.error('--jobs must be positive')
     parent = ROOT/'build/validation'
     parent.mkdir(parents=True, exist_ok=True)
-    output = Path(tempfile.mkdtemp(prefix='special-event-', dir=parent))
+    output = Path(tempfile.mkdtemp(prefix='special-'+args.suite+'-', dir=parent))
     paths = [ROOT/'CMakeLists.txt', ROOT/'test-host.sh', ROOT/'config/dependencies.lock.json']
     paths += [path for path in (ROOT/'runtime').rglob('*') if path.is_file()]
     paths += list((ROOT/'tests').glob('*.py'))
     sources = {str(path.relative_to(ROOT)): digest(path) for path in sorted(paths)}
     report = dict(passed=False, started_at=datetime.now(timezone.utc).isoformat(),
         exe_sha256=digest(args.exe), source_sha256=sources, commands=[], checks=[],
-        leak_detection=False, real_assets=False, switch_validation=False, scope=__doc__)
-    print('Special event CPU validation:', output, flush=True)
+        suite=args.suite, leak_detection=False, real_assets=False, switch_validation=False, scope=__doc__)
+    print('Special '+args.suite+' CPU validation:', output, flush=True)
     def run(name, command, env=None):
         entry = dict(name=name, argv=[str(arg) for arg in command], log=name+'.log')
         report['commands'].append(entry)
@@ -45,7 +46,8 @@ def main():
             entry['exit_code'] = subprocess.run(command, cwd=ROOT, env=env,
                 stdout=log, stderr=subprocess.STDOUT).returncode
         text = (output/entry['log']).read_text(errors='replace')
-        if entry['exit_code'] or 'runtime error:' in text or 'ERROR: AddressSanitizer' in text:
+        if entry['exit_code'] or any(marker in text for marker in
+                ['runtime error:', 'ERROR: AddressSanitizer', 'Exception ignored on calling ctypes callback']):
             raise RuntimeError(name+':\n'+'\n'.join(text.splitlines()[-12:]))
         return text
     try:
@@ -65,15 +67,18 @@ def main():
                 BK3_BUILD_DIR=str(ROOT/folder), ASAN_OPTIONS='detect_leaks=0',
                 UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1')
             result = output/(mode+'.json')
+            script='original_special_ui_oracle.py' if args.suite=='ui' else 'original_special_event_oracle.py'
+            marker='"passed": true' if args.suite=='ui' else 'PASS special event:'
             text = run('oracle-'+mode, [str(python.absolute()),
-                str(ROOT/'tests/original_special_event_oracle.py'), str(args.exe.resolve()),
+                str(ROOT/'tests'/script), str(args.exe.resolve()),
                 '--output', str(result)], env)
             data = json.loads(result.read_text())
-            if not data.get('passed') or data.get('exe_sha256') != report['exe_sha256'] or text.count('PASS special event:') != 1:
+            if not data.get('passed') or data.get('exe_sha256') != report['exe_sha256'] or text.count(marker) != 1:
                 raise RuntimeError(mode+' omitted matching terminal pass')
             report['checks'].append(dict(mode=mode, result=data,
                 library_sha256=digest(ROOT/folder/'libmodel-test.dylib'), python_sha256=digest(python.resolve())))
-            print('PASS '+mode+': '+str(data['calls'])+' calls; '+str(data['failure_prefixes'])+' failure prefixes', flush=True)
+            calls=data['events'] if args.suite=='ui' else data['calls']
+            print('PASS '+mode+': '+str(calls)+' calls; '+str(data['failure_prefixes'])+' failure prefixes', flush=True)
         if report['checks'][0]['result'] != report['checks'][1]['result']:
             raise RuntimeError('ordinary and sanitized outcomes differ')
         if any(not (ROOT/path).is_file() or digest(ROOT/path) != value for path,value in sources.items()):
@@ -86,7 +91,7 @@ def main():
     finally:
         report['finished_at'] = datetime.now(timezone.utc).isoformat()
         (output/'verification.json').write_text(json.dumps(report, indent=2)+'\n')
-    print('PASS special event CPU pair:', output/'verification.json', flush=True)
+    print('PASS special '+args.suite+' CPU pair:', output/'verification.json', flush=True)
 
 if __name__ == '__main__':
     main()
