@@ -496,6 +496,31 @@ static int state6_substate0(const BkEndingAuxiliarySequenceBindings *b,
   return 1;
 }
 
+/* 48079D is the state6 substate-1 tail, not the state7 entry.  It keeps
+ * servicing the last clip's two effect thresholds while speech0 is playing;
+ * once that speech ends it performs the same ordered finish/curtain writes
+ * as the state5 tail. */
+static int state6_substate1(const BkEndingAuxiliarySequenceBindings *b,
+                            const BkEndingAuxiliarySequenceOps *o,
+                            char e[256]) {
+  int playing = 0;
+  if (!media_busy(o, 0, &playing, e)) return 0;
+  if (!playing) return finish(b, e);
+  int32_t current;
+  if (!active(o, &current, e)) return 0;
+  if (current != 9) return 1;
+  if (!threshold(b, o, 9, 257, 6,
+                 final_effect[b->frame->group][0], 0, e) ||
+      !threshold(b, o, 9, 264, 7,
+                 final_effect[b->frame->group][0], 0, e))
+    return 0;
+  BkEndingClipTiming t;
+  if (!timing(o, 9, &t, e)) return 0;
+  if (t.start + 6.0f >= t.source)
+    b->latches[6] = b->latches[7] = 0;
+  return 1;
+}
+
 static int state7_core(const BkEndingAuxiliarySequenceBindings *b,
                        const BkEndingAuxiliarySequenceOps *o, char e[256]) {
   int32_t current;
@@ -580,7 +605,7 @@ static int state7_core(const BkEndingAuxiliarySequenceBindings *b,
 static int state6(const BkEndingAuxiliarySequenceBindings *b,
                   const BkEndingAuxiliarySequenceOps *o, char e[256]) {
   if (*b->substate == 1)
-    return state7_core(b, o, e); /*4800ca jumps directly to48079d.*/
+    return state6_substate1(b, o, e); /*4800ca jumps directly to48079d.*/
   if (*b->substate != 0) return 1;
   return state6_substate0(b, o, e);
 }

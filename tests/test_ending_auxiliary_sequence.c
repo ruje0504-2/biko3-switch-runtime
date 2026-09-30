@@ -139,8 +139,23 @@ int main(void) {
     fprintf(stderr, "state6 setup failed: %s state=%d req=%u first=%u pass=%d orbit=%g target=%u\n", e, f.control.state_721eec, f.request_count, f.request_count ? f.requests[0] : 999u, f.pass, f.saved_orbit[0], f.frame.camera_values[0]); return 1;
   }
 
+  init(&f, 2, 6);
+  f.substate = 1; f.active = 6; f.playing[0] = 0;
+  f.previous_flow = 8;
+  if (!run(&f, e) || f.control.state_721eec != 4 ||
+      !f.frame.curtain_wanted || f.records.groups[2].count != 1 ||
+      f.records.groups[2].actions[0] != 13) {
+    fprintf(stderr, "state6 substate1 finish failed: %s state=%d count=%d\n",
+            e, f.control.state_721eec, f.records.groups[2].count); return 1;
+  }
+
+  init(&f, 2, 6);
+  f.timings[6][1] = 200;
+  if (!run(&f, e) || f.control.state_721eec != 7) {
+    fprintf(stderr, "state7 entry setup failed: %s state=%d\n",
+            e, f.control.state_721eec); return 1;
+  }
   f.timings[6][2] = 200;
-  f.pass = 0;
   if (!run(&f, e) || f.pass != 1 || f.request_count != 1 ||
       f.camera.yaw != 211 || f.camera.pitch != -6) {
     fprintf(stderr, "state7 pass failed: %s pass=%d requests=%u\n", e,
@@ -188,6 +203,6 @@ int main(void) {
   if (!run(&f, e) || !f.playing[2 + 24]) {
     fprintf(stderr, "group3 effect threshold failed: %s\n", e); return 1;
   }
-  puts("PASS auxiliary sequence: state5/6/7 camera, pass, finish, effects");
+  puts("PASS auxiliary sequence: state5/6/7 camera, tail, pass, finish, effects");
   return 0;
 }

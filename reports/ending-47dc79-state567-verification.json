@@ -15,6 +15,7 @@
   "python_tests": {"passed": 29, "failed": 0},
   "ending_sequence_tests": [
     "state6_to_state7_camera_save_restore",
+    "state6_substate1_finish_tail",
     "state7_three_pass_restore",
     "state5_finish_record",
     "group3_effect_threshold",
@@ -23,8 +24,8 @@
   ],
   "switch_nvk": {
     "passed": true,
-    "nro_sha256": "fd7e013151d616089d2597e490247a5725b68071fab9e2f0cfbebd0e6fe700eb",
-    "elf_sha256": "aabc93af5992da2fe5d59b3a597903c4e0ec3b7a0c4024e61dfc6ee536ecd198"
+    "nro_sha256": "784d0019fbd5393b7e0637d9597b4f017439e4f023959c70724bb7b6fe0a5254",
+    "elf_sha256": "bcbbc4ba945790a4619bec552e94c8bfed99595a7f835b706114932ded049e4a"
   },
   "known_limits": [
     "no new Switch hardware run in this checkpoint",
