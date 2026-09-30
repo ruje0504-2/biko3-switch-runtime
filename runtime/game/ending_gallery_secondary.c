@@ -177,7 +177,7 @@ static int finishing(BkEndingGallerySecondaryState *s,
   BkEndingGallerySecondaryClip t;
   if (!timing(o, &t, &active, e)) return 0;
   double threshold = (double)t.end - (double)seconds * .3f * 60.f * 2.;
-  if (threshold > (double)t.source) return 1; /*unordered proceeds*/
+  if (threshold > (double)t.source && !t.finish_crossing) return 1; /*unordered proceeds*/
   add(&s->remaining, UINT32_MAX);
   if (s->remaining) return 1;
   if (!CALL(voice, 16, 0, 0, e) || !CALL(request, 13, e)) return 0;

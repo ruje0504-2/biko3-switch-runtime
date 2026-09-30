@@ -154,7 +154,7 @@ static int cycle(BkEndingGallerySelectedState *s,
   int32_t random;
   if (!s->alternate) {
     if (!CALL(clip, 7, &t, e)) return 0;
-    if (!(t.source >= t.end)) return 1; /*unordered does not proceed*/
+    if (!(t.source >= t.end) && !t.completed_chain) return 1;
     add(&s->counter, 1); *b->elapsed = 0;
     if (s->counter == 2) {
       if (!CALL(random, &random, e)) return 0;
@@ -181,7 +181,7 @@ static int cycle(BkEndingGallerySelectedState *s,
     }
   } else {
     if (!CALL(clip, 11, &t, e)) return 0;
-    if (t.source >= t.end) {
+    if (t.source >= t.end || t.completed_chain) {
       if (!CALL(request, 14, e)) return 0;
       s->alternate = 0; auxiliary(s, b, 2);
       if (!CALL(random, &random, e)) return 0;
@@ -414,6 +414,7 @@ int bk_ending_gallery_selected_step(BkEndingGallerySelectedState *s,
     if (!playing(o, 1, &busy, e)) return 0;
     if (!busy) {
       if (!CALL(active, &active, e)) return 0;
+      if (b->wait_for_intro_clip && active == 3) break;
       if (active == 4) {
         if (!CALL(request, 5, e) || !CALL(voice, 5, 0, 0, e) ||
             !chains(o, 1, e) || !CALL(play, 5, 1, *b->effect_volume, e)) return 0;

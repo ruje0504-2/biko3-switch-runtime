@@ -178,7 +178,9 @@ static int story_profile(BkRenderer *renderer, BkResourceStore *store,
   bk_ending_tertiary_controller_initialize(&tertiary);
   uint32_t random = 123;
   int32_t duck = 0;
-  BkEndingNormalFlow flow = {.common = &common, .schedule = story_schedule,
+  BkEndingProcess process;
+  bk_ending_process_initialize(&process);
+  BkEndingNormalFlow flow = {.process = &process, .common = &common, .schedule = story_schedule,
       .wall_seconds = 1, .auxiliary_cycle = &cycle, .random = &random,
       .normal_controller = &controller, .presentation = &presentation,
       .duck_transition = &duck, .secondary_controller = &secondary,

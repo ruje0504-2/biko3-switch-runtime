@@ -28,6 +28,9 @@ typedef struct {
 typedef struct {
   float end, source;
   int32_t chain, loop; /*descriptor+200/+190, NOT ended/looped flags*/
+  /*Port compatibility: actual next presentation step crosses this loop's
+   *time boundary. Zero retains the native fixed source-distance test.*/
+  int finish_crossing;
 } BkEndingGallerySecondaryClip;
 typedef struct {
   void *context;

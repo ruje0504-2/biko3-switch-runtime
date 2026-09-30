@@ -29,10 +29,16 @@ typedef struct {
   uint8_t *action, *curtain_wanted;   /*actual shared common owner*/
   char *speech_name;                 /*722224, >=32 bytes*/
   const int32_t *voice_volume, *effect_volume;
+  /*Opt-in port policy: short/disabled dialogue must not bypass intro clip3
+   *and strand playback in clip4. Zero keeps native4855C9's exact branch.*/
+  int wait_for_intro_clip;
 } BkEndingGallerySelectedBindings;
 typedef struct {
   float start, end, source;
   int32_t chain;
+  /*Port compatibility: the real scheduler finished and chained this slot
+   *before source reached end. Zero retains the exact native comparison.*/
+  int completed_chain;
 } BkEndingGallerySelectedClip;
 typedef struct {
   void *context;

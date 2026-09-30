@@ -58,6 +58,8 @@ int bk_model_playback_advance_plain(BkModelPlayback *, float seconds,
                                      BkPlaybackEffects *, char error[256]);
 int bk_model_playback_link(const BkModelPlayback *, unsigned slot,
                            int32_t *chain, int32_t *next);
+int bk_model_playback_loop_mode(const BkModelPlayback *, unsigned slot, int32_t *);
+int bk_model_playback_completed_chain(const BkModelPlayback *, unsigned slot, int *);
 /* Advance XAN and publish the composed pose atomically. Invalid input or
  * failed pose evaluation changes neither timeline nor published matrices.
  * Caller owns update order: consumers requiring the previous rendered pose

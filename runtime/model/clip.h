@@ -68,6 +68,8 @@ typedef enum {
  * shared first-call suppression and clear the fixed-call counter, but never
  * consume a nontrivial blend clock. SOURCE writes elapsed only when clamping
  * past the endpoint; FORCE_CHAIN can select a well-formed empty descriptor.
+ * SCHEDULED also accepts negative seconds for the original gallery reverse
+ * caller; source samples must remain in the supported nonnegative domain.
  * Automatic selection still submits the old descriptor on the current call.
  * Output/state are preserved on failure; actor visibility is caller-owned. */
 int bk_clip_advance_plain(BkClipPlayer *, float seconds, BkClipPlainMode,
@@ -148,4 +150,9 @@ int bk_clip_prediction(const BkClipPlayer *, unsigned slot,
 /* Native per-slot +64 completion/loop counter; the requested slot may
  * differ from the active slot after chaining. Read without selecting. */
 int bk_clip_loops(const BkClipPlayer *, unsigned slot, int32_t *loops);
+/*Authored descriptor+0 loop mode, independent of the runtime+64 counter.*/
+int bk_clip_loop_mode(const BkClipPlayer *, unsigned slot, int32_t *mode);
+/*Read a completed, non-looping forward chain from its retained descriptor.
+ *A source rewind or selecting the slot clears the condition. No sampling.*/
+int bk_clip_completed_chain(const BkClipPlayer *, unsigned slot, int *completed);
 #endif

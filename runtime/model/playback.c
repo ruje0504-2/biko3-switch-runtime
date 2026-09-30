@@ -237,6 +237,13 @@ int bk_model_playback_advance_plain(BkModelPlayback *p, float seconds,
   *out = (BkPlaybackEffects){clip, clip.from};
   return 1;
 }
+int bk_model_playback_loop_mode(const BkModelPlayback *p, unsigned slot,
+                                int32_t *out) {
+  return p && bk_clip_loop_mode(p->player, slot, out);
+}
+int bk_model_playback_completed_chain(const BkModelPlayback *p, unsigned slot, int *out) {
+  return p && bk_clip_completed_chain(p->player, slot, out);
+}
 int bk_model_playback_hold_mode(BkModelPlayback *p, int requested_slot,
                                 BkClipRequestMode mode,
                                 const BkModelRootTransform *root,

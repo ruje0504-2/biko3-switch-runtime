@@ -147,6 +147,17 @@ int main(int argc, char **argv) {
   s->game_state.random = UINT32_C(0x8b6f01c3);
   s->ending_auxiliary_cycle.scale = .035f;
   s->ending_auxiliary_cycle.countdown = 23;
+  /*Dormant selected/replay globals have application lifetime even while a
+   *normal/third story is loaded. Distinct expression addresses and the one
+   *shared camera must survive title reentry and delayed old-scene release.*/
+  s->ending_process.selected_control.expression_override = 8;
+  s->ending_process.gallery_override = 3;
+  s->ending_process.gallery_expression_latch = 1;
+  s->ending_process.gallery_mouth_level = 4.25f;
+  s->ending_process.selected_action.diagnostic_crossings = 1;
+  s->ending_process.gallery_camera.orbit[2] = 12.5f;
+  s->ending_process.gallery_selected.countdown = 4;
+  BkEndingProcess retained_process = s->ending_process;
   unsigned loading_random_draws[2] = {0};
   unsigned confirmation_frames = 0, fade_frames = 0;
   for (unsigned attempt = 0; attempt < 2; ++attempt) {
@@ -169,6 +180,7 @@ int main(int argc, char **argv) {
     s->common.action = s->common.blocked = 0;
     CHECK(probe_tick(scene, renderer, audio, (BkInput){0}, error));
     CHECK(s->flow.current == 0x10 && s->ending && !s->retire_ending);
+    CHECK(!memcmp(&retained_process, &s->ending_process, sizeof(retained_process)));
     CHECK(bk_ending_normal_scene_state(s->ending) == &s->ending_state &&
           s->ending_state.frame.phase == (probe_entry_kind ? 3 : 1) &&
           s->ending_state.control.variant == (probe_entry_kind ? 5 : 0));
@@ -302,6 +314,7 @@ int main(int argc, char **argv) {
           s->game_state.random == retired_random && s->ending_duck_transition == 1);
     CHECK(bk_audio_play(audio, 0, guard, 1, -1700, 0, error));
     CHECK(bk_ending_normal_scene_stop(s->ending, error));
+    CHECK(!memcmp(&retained_process, &s->ending_process, sizeof(retained_process)));
     CHECK(s->game_state.random == retired_random);
     CHECK(probe_tick(scene, renderer, audio, (BkInput){0}, error));
     CHECK(!s->ending && !s->retire_ending &&
@@ -332,6 +345,7 @@ int main(int argc, char **argv) {
     }
   }
   CHECK(ending_random_draws > 0);
+  CHECK(!memcmp(&retained_process, &s->ending_process, sizeof(retained_process)));
   bk_scene_destroy(scene);
   scene = NULL;
   BkRenderStats final = bk_renderer_stats(renderer);

@@ -38,7 +38,7 @@ class Saved(C.Structure):
 
 
 class Clip(C.Structure):
-    _fields_ = [('end',F),('source',F),('chain',I),('loop',I)]
+    _fields_ = [('end',F),('source',F),('chain',I),('loop',I),('finish_crossing',I)]
 
 
 class Bindings(C.Structure):
@@ -143,7 +143,8 @@ class Native:
                 block=bytearray(128*156)
                 for i in range(128):
                     for offset,field in [(0x58,0),(0x60,4),(0x70,8),(0,12)]:
-                        block[i*156+offset:i*156+offset+4]=raw[i*16+field:i*16+field+4]
+                        at=i*C.sizeof(Clip)+field
+                        block[i*156+offset:i*156+offset+4]=raw[at:at+4]
                 self.clip_bytes,self.clip_blob=raw,bytes(block)
                 self.u.mem_write(PRIMARY+0x190,self.clip_blob)
             for i,sound in enumerate(SOUNDS[:2]):self.word(0x722334+i*0x120,sound if f.present[i] else 0)
@@ -465,6 +466,16 @@ def main():
             assert f.scene.control.toggles[1]==initial_toggle
             assert list(f.saved.orbit)==[0]*4 and list(f.final.words_6dde24)==[0]*10
         print('gallery secondary: retained group',group,'complete',flush=True)
+    #Separate port policy assertions. All native comparisons above leave
+    #finish_crossing zero, preserving the original instruction semantics.
+    for crossing in [0,1]:
+        f=fixture(rng,1);f.scene.frame.group=3;f.final.byte_6d1be0=4
+        f.active.value=12;f.state.remaining=20;f.seconds=F(1/60).value
+        f.clips[12]=Clip(330,328.9,0,1,crossing)
+        f.present=[1,1];f.playing=[1,0];f.hr=[0,0];f.mutate_at=0
+        ok,got,trace,error=portable(lib,f)
+        assert ok and got.state.remaining==20-crossing,(crossing,error)
+        assert got.final.byte_6d1be0==4
     rejected=0
     for seconds in [-1,float('nan'),float('inf')]:
         f=fixture(rng,1);f.seconds=seconds
@@ -507,6 +518,7 @@ def main():
     assert stats['live_mutations'] and stats['failure_prefixes']
     result=dict(passed=True,scope=__doc__,exe_sha256=hashlib.sha256(exe).hexdigest(),**stats,
         input_query_rejections=rejected,missing_services=missing_count,camera_table_words=60,
+        port_loop_crossing_checks=2,
         operations=sorted(operations),loaded_names=sorted(names),state_sha256=digest.hexdigest(),
         max_error=0,full_gallery=False,real_assets=False,gpu_or_device_validation=False)
     args.output.write_text(json.dumps(result,indent=2)+'\n')

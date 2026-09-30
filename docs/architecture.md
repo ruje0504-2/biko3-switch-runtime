@@ -1,3 +1,5 @@
+2026-09-30 生产phase8边界：`scene/ending_process`由应用一次持有CPU过程字段；资源森林和延迟快照只借用，交互/鉴赏表达覆盖按原地址分离，共享reverse与保存镜头不复制。`ending_normal_session`将48302B/48BCBB连接五类控制器和实际演员、PCM、BOM、材质与UI；退出请求写frame活动别名后导回common。只读链完成与实际循环边界用于明确的兼容等待策略，不改变model采样速率；严格原指令测试与兼容测试分开。实际五组两路线、应用生命周期、交互回归六项普通/ASan配对通过，见 `reports/ending-gallery-session.md`。前端flow18、自然记录/解锁链和完整验收仍待完成。
+
 2026-09-30 结局节点身份修正：scene将当前森林的719B40交互锚点与719B48显隐视图分开，variant0的719B44不得替代；缺失可选节点保留为空，资源退役不清新场景ID。4D39E6在game中复制实际旧发布5/13/0目标，scene负责原顺序读取；删除根节点替代。证据见 `reports/ending-node-bindings.md`。后续进程owner必须区分交互6DDE98与鉴赏6C7F78/6DDE52，不因同名expression_override而合并不同原地址。
 
 2026-09-30 选择阶段服务直接操作实际actor、UI sprite、PCM与共享表情所有者，删除无人消费的影子UI表。动画restart与audio restart、401B0A固定过渡与4018C8配置过渡保持独立，slot53+166不混同notice+167；见 `reports/ending-selected-adapters.md`。生产phase8与自然结束仍未完成。

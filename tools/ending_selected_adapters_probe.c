@@ -140,11 +140,11 @@ static int adapter_profile(BkRenderer *renderer, BkResourceStore *store,
   s->state->auxiliary.gate = 3;
   s->state->ui_controller.auxiliary.mode = 7;
   s->state->frame.camera_mode = 4;
-  s->selected_action.counter = -1;
-  s->selected_action.replay_variant = 0;
+  s->selected_action->counter = -1;
+  s->selected_action->replay_variant = 0;
   s->state->retained.auxiliary.word_6dde90 = 1;
   CHECK(probe_tick(scene, s, &out->timeline, e));
-  CHECK(s->selected_action.counter == 0 && s->state->ui_controller.auxiliary.mode == 7);
+  CHECK(s->selected_action->counter == 0 && s->state->ui_controller.auxiliary.mode == 7);
   CHECK(bk_actor_pose_state(pose, &after) && after.slot == 20 && after.source < timing.end);
   for (unsigned i = 0; i < 30; ++i) CHECK(probe_tick(scene, s, &out->timeline, e));
   ++out->replay;
@@ -156,8 +156,8 @@ static int adapter_profile(BkRenderer *renderer, BkResourceStore *store,
   s->state->ui_controller.auxiliary.mode = 4;
   s->state->ui_controller.auxiliary.reset_c = 11;
   s->selected_plain_scheduled = 0;
-  s->selected_action.counter = 0;
-  s->selected_action.previous_clock = 0;
+  s->selected_action->counter = 0;
+  s->selected_action->previous_clock = 0;
   s->state->retained.auxiliary.word_6ea348 = 0;
   BkInput finish_input = {.held = BK_BUTTON_CONFIRM, .pointer_motion_x = 1};
   CHECK(probe_input_tick(scene, s, &out->timeline, &finish_input, e));

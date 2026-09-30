@@ -111,6 +111,8 @@ int bk_actor_pose_timing(const BkActorPose *actor, unsigned slot,
 int bk_actor_pose_prediction(const BkActorPose *, unsigned slot,
                              BkClipPrediction *);
 int bk_actor_pose_loops(const BkActorPose *, unsigned slot, int32_t *loops);
+int bk_actor_pose_loop_mode(const BkActorPose *, unsigned slot, int32_t *mode);
+int bk_actor_pose_completed_chain(const BkActorPose *, unsigned slot, int *completed);
 /* Cached parent world from this node's last traversal, NOT its parent's
  * current matrix. Root setters and procedural eye updates do not refresh it. */
 const float *bk_actor_pose_parent_world(const BkActorPose *actor,

@@ -8,6 +8,7 @@
 #include "game/ending_secondary_control.h"
 #include "game/ending_secondary_presentation.h"
 #include "scene/ending_tertiary_controller.h"
+#include "scene/ending_process.h"
 typedef struct {
   BkCommonHudState *common; /*borrowed application curtain/action/wanted*/
   void *context;
@@ -29,6 +30,7 @@ typedef struct {
    * reset the state of an entry that has subsequently acquired this owner. */
   BkEndingState *state;
   BkEndingTertiaryControllerRetained *tertiary_controller;
+  BkEndingProcess *process; /*required application owner; initialize once*/
 } BkEndingNormalFlow;
 /* Explicit normal-ending scene owner. The default diagnostic entry is the
  * gallery normal branch (previous flow0x18, selection0, action variant0/1); it owns the
@@ -86,4 +88,10 @@ BkScene *bk_ending_selected_scene_create_gallery(const BkSceneServices *,
     unsigned group, unsigned background_variant, uint32_t selection,
     const uint8_t unlocked[5][8], const BkEndingNormalFlow *,
     char error[256]);
+/*4CC582 selection6. Borrows recorded retained lanes; does not manufacture a
+ *recording or implement the front-end gallery menu. The same process owner
+ *survives this entry, cross-loader replay, stop and later reentry.*/
+BkScene *bk_ending_replay_scene_create(const BkSceneServices *, unsigned group,
+    unsigned variant, BkEndingRecords *, const uint8_t unlocked[5][8],
+    const BkEndingNormalFlow *, char error[256]);
 #endif

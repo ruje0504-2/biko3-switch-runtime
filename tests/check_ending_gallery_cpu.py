@@ -30,17 +30,19 @@ def main():
     p.add_argument('--suites', default='control,normal,secondary,selected,tertiary,auxiliary,presentation,effect')
     args = p.parse_args()
     suites = args.suites.split(',')
-    if not suites or len(set(suites)) != len(suites) or any(s not in ['control', 'normal', 'secondary', 'selected', 'tertiary', 'auxiliary', 'presentation', 'effect'] for s in suites):
-        p.error('--suites must be distinct members of control,normal,secondary,selected,tertiary,auxiliary,presentation,effect')
+    if not suites or len(set(suites)) != len(suites) or any(s not in ['control', 'normal', 'secondary', 'selected', 'tertiary', 'auxiliary', 'presentation', 'effect', 'timing'] for s in suites):
+        p.error('--suites must be distinct members of control,normal,secondary,selected,tertiary,auxiliary,presentation,effect,timing')
+    if 'timing' in suites and not args.data:
+        p.error('timing requires --data')
     if args.data:
-        if 'effect' not in suites: p.error('--data requires the effect suite')
-        suites.append('effect-scene')
+        if not {'effect', 'timing'}.intersection(suites): p.error('--data requires effect or timing')
+        if 'effect' in suites: suites.append('effect-scene')
     for path in [args.exe, args.host_python, args.asan_python]:
         if not path.is_file(): p.error(f'missing required input/launcher: {path}')
     if args.jobs < 1: p.error('--jobs must be positive')
     archives = {}
     if args.data:
-        for pack in ['bk3_10', 'bk3_13', 'bk3_03', 'bk3_04', 'fambom', 'bk3_02', 'bk3_06']:
+        for pack in ['bk3_09', 'bk3_10', 'bk3_11', 'bk3_13', 'bk3_03', 'bk3_04', 'fambom', 'bk3_02', 'bk3_06']:
             path = args.data/(pack+'.pp')
             if not path.is_file(): p.error('missing archive: '+str(path))
             archives[pack] = digest(path)
@@ -53,7 +55,8 @@ def main():
     sources = {str(path.relative_to(ROOT)): digest(path) for path in sorted(paths)}
     report = dict(passed=False, started_at=datetime.now(timezone.utc).isoformat(),
                   source_sha256=sources, exe_sha256=digest(args.exe), commands=[], checks=[],
-                  leak_detection=False, real_asset_effect=bool(args.data), switch_validation=False,
+                  leak_detection=False, real_asset_effect='effect-scene' in suites,
+                  real_asset_timing='timing' in suites, switch_validation=False,
                   archive_sha256=archives, suites=suites,
                   scope=__doc__)
     print('Gallery CPU validation:', output, flush=True)
@@ -90,7 +93,7 @@ def main():
                 script = ('check_ending_gallery_effect_scene.py' if suite == 'effect-scene'
                           else 'original_ending_gallery_'+suite+'_oracle.py')
                 command = [str(python.absolute()), str(ROOT/'tests'/script), str(args.exe.resolve())]
-                if suite == 'effect-scene': command.append(str(args.data.resolve()))
+                if suite in ['effect-scene', 'timing']: command.append(str(args.data.resolve()))
                 text = run('oracle-'+mode+'-'+suite, command+['--output', str(result)], env)
                 data = json.loads(result.read_text())
                 prefix = 'PASS gallery '+suite.replace('-', ' ')+':'

@@ -26,6 +26,8 @@ SUITES = {
     "stage": [("stage-reload", "ending-stage-reload-probe", [])],
     "selected-session": [("selected-session", "ending-selected-session-probe", [])],
     "node-bindings": [("node-bindings", "ending-node-bindings-probe", [])],
+    "gallery-session": [("gallery-session", "ending-gallery-session-probe", []),
+                        ("gallery-mixed", "ending-gallery-session-probe", ["0", "0", "1"])],
     "auxiliary-assets": [("auxiliary-assets", "ending-4d39e6-probe", [])],
     "selected-adapters": [("selected-adapters", "ending-selected-adapters-probe", [])],
     "final-image": [("final-image", "ending-final-image-probe", [])],

@@ -14,7 +14,7 @@ cmake --build build/asan --target test-ending-state ending-state-probe test-endi
 ctest --test-dir build/asan --output-on-failure
 if [ -n "${BK3_ORIGINAL_EXE:-}" ]; then
     if [ "$#" -ge 1 ]; then
-        python3 tests/check_ending_gallery_cpu.py "$BK3_ORIGINAL_EXE" --host-python "${BK3_TEST_PYTHON:-local/venv/bin/python}" --data "$1/Data"
+        python3 tests/check_ending_gallery_cpu.py "$BK3_ORIGINAL_EXE" --host-python "${BK3_TEST_PYTHON:-local/venv/bin/python}" --data "$1/Data" --suites control,normal,secondary,selected,tertiary,auxiliary,presentation,effect,timing
     else
         python3 tests/check_ending_gallery_cpu.py "$BK3_ORIGINAL_EXE" --host-python "${BK3_TEST_PYTHON:-local/venv/bin/python}"
     fi

@@ -42,6 +42,7 @@ typedef struct {
   BkEndingSecondaryControlState ending_secondary_controller;
   BkEndingSecondaryPresentationState ending_secondary_presentation;
   BkEndingState ending_state;
+  BkEndingProcess ending_process;
   BkEndingTertiaryControllerRetained ending_tertiary_controller;
   int32_t ending_duck_transition; /*719c5c: process zero-init, audio owns writes*/
   uint8_t ending_unlock_flags[BK_UNLOCK_FLAGS];
@@ -281,6 +282,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
                                       .secondary_controller = &s->ending_secondary_controller,
                                       .secondary_presentation = &s->ending_secondary_presentation,
                                       .state = &s->ending_state,
+                                      .process = &s->ending_process,
                                       .tertiary_controller = &s->ending_tertiary_controller};
     s->ending = bk_ending_normal_scene_create_story(
         &s->services, (unsigned)result.group, (unsigned)result.kind, &s->ending_records,
@@ -611,6 +613,7 @@ static BkScene *create(const BkSceneServices *services,
   s->ending_secondary_controller = bk_ending_secondary_control_initial();
   s->ending_secondary_presentation = bk_ending_secondary_presentation_initial();
   bk_ending_state_initialize(&s->ending_state);
+  bk_ending_process_initialize(&s->ending_process);
   bk_ending_tertiary_controller_initialize(&s->ending_tertiary_controller);
   s->save_files = files;
   s->save_state.control.tab = 3;

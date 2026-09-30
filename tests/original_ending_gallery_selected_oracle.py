@@ -32,7 +32,7 @@ class State(C.Structure):
 class Presets(C.Structure):
     _fields_=[('active',(F*3)*4),('authored',(F*3)*4)]
 class Clip(C.Structure):
-    _fields_=[('start',F),('end',F),('source',F),('chain',I)]
+    _fields_=[('start',F),('end',F),('source',F),('chain',I),('completed_chain',I)]
 class Extra(C.Structure):
     _fields_=[('expression_override',I),('fade_stage',B),('flash_wanted',B),
               ('action',B),('curtain_wanted',B)]
@@ -41,7 +41,7 @@ class Bindings(C.Structure):
         'substate','opening','cursor','workspace']]+[('workspace_capacity',U)]+[(n,P) for n in [
         'counters','camera_words','previous_clock','current_clock','elapsed','open',
         'expression_override','face_mode','fade_stage','flash_wanted','action','curtain_wanted',
-        'speech_name','voice_volume','effect_volume']]
+        'speech_name','voice_volume','effect_volume']]+[('wait_for_intro_clip',I)]
 class Views(C.Structure):
     _fields_=[(n,P) for n in ['camera','presets','saved','expression_override','fade_stage',
         'flash_wanted','action','curtain_wanted','voice_volume','effect_volume']]
@@ -151,16 +151,16 @@ class Native:
             else:self.u.mem_write(a,C.string_at(p,n))
         if read:
             raw=self.u.mem_read(PRIMARY+0x190,128*156)
-            out=bytearray(128*16)
+            out=bytearray(128*C.sizeof(Clip))
             for i in range(128):
                 for off,k in [(0x54,0),(0x58,4),(0x60,8),(0x70,12)]:
-                    out[i*16+k:i*16+k+4]=raw[i*156+off:i*156+off+4]
+                    out[i*C.sizeof(Clip)+k:i*C.sizeof(Clip)+k+4]=raw[i*156+off:i*156+off+4]
             C.memmove(C.addressof(f.clips),bytes(out),len(out))
         else:
             raw=bytes(f.clips);out=bytearray(128*156)
             for i in range(128):
                 for off,k in [(0x54,0),(0x58,4),(0x60,8),(0x70,12)]:
-                    out[i*156+off:i*156+off+4]=raw[i*16+k:i*16+k+4]
+                    out[i*156+off:i*156+off+4]=raw[i*C.sizeof(Clip)+k:i*C.sizeof(Clip)+k+4]
             self.u.mem_write(PRIMARY+0x190,bytes(out))
             for i,sound in enumerate(SOUNDS):self.word(0x722334+i*0x120,sound if f.present[i] else 0)
     def halt(self,why):self.reason=why;self.u.emu_stop()
@@ -230,7 +230,7 @@ class Native:
         self.sync(True);return self.f,self.trace
 
 def pointer(obj,name=None):return C.addressof(obj)+(getattr(type(obj),name).offset if name else 0)
-def portable(lib,original,fail_at=0,missing=None,query_fail=None,write_fail=0):
+def portable(lib,original,fail_at=0,missing=None,query_fail=None,write_fail=0,port_wait=False):
     f,trace,errors,callbacks=original.clone(),[],[],[];writes=0
     def emit(event):
         trace.append((event,f.snapshot()))
@@ -306,6 +306,7 @@ def portable(lib,original,fail_at=0,missing=None,query_fail=None,write_fail=0):
     assert lib.bk_ending_state_gallery_selected_bindings(C.byref(f.scene),C.byref(v),C.byref(b))
     assert b.workspace==pointer(f.final,'workspace_6c7f80') and b.substate==pointer(f.scene,'final_state')
     b.workspace_capacity=f.capacity
+    b.wait_for_intro_clip=int(port_wait)
     o=Ops(None,clock,rand,present,status,voice,load,play,stop,expression,fov,camera,
           target,active,clip,source,chain,request,restart,fade)
     if missing:setattr(o,missing,dict(Ops._fields_)[missing]())
@@ -555,7 +556,28 @@ def main():
         query_rejections+=1
     assert operations=={'clock','random','status','voice','load','play','stop','expression','fov','camera','request','restart','fade'},operations
 
+    #Explicit port policies, separate from the exact native cases above.
+    f=fixture(rng,1);f.present=[0]*6;f.mutate_at=0;f.scene.final_state=5;f.active.value=3
+    legacy,events=check(f,('short-intro-native',))
+    assert legacy.scene.final_state==6
+    ok,held,events,error=portable(lib,f,port_wait=True)
+    assert ok and held.scene.final_state==5 and held.active.value==3,error
+    f.active.value=4
+    legacy,expected=check(f,('intro-ready-native',))
+    ok,got,actual,error=portable(lib,f,port_wait=True)
+    assert ok,error
+    compare(legacy,got,expected,actual,('intro-ready-port',))
+    f.scene.final_state=6;f.final.word_6dde54=10001;f.final.word_6d1bd8=0
+    f.state.alternate=0;f.state.counter=0;f.clips[7].source=18;f.clips[7].end=19
+    f.clips[7].completed_chain=1
+    ok,got,events,error=portable(lib,f)
+    assert ok and got.state.counter==1 and got.state.alternate==1,error
+    f.final.word_6dde54=5000
+    ok,got,events,error=portable(lib,f)
+    assert ok and got.state.counter==0 and got.state.alternate==0,error
+
     result=dict(passed=True,scope=__doc__,exe_sha256=hashlib.sha256(exe).hexdigest(),**stats,
+        port_compatibility_checks=4,
         missing_services=missing_count,input_query_rejections=query_rejections,
         operations=sorted(operations),state_sha256=digest.hexdigest(),max_error=0,
         full_gallery=False,real_assets=False,gpu_or_device_validation=False)

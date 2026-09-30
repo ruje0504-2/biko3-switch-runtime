@@ -103,10 +103,10 @@ typedef struct {
   BkEndingSecondaryPresentationState *secondary_presentation;
   BkEndingTertiaryControllerRetained diagnostic_tertiary_controller;
   BkEndingTertiaryControllerRetained *tertiary_controller;
-  BkEndingSelectedControlState diagnostic_selected_controller;
+  BkEndingProcess diagnostic_process;
+  BkEndingProcess *process;
   BkEndingSelectedControlState *selected_controller;
-  BkEndingSelectedActionState selected_action;
-  BkEndingSelectedCycle diagnostic_selected_cycle;
+  BkEndingSelectedActionState *selected_action;
   BkEndingSelectedCycle *selected_cycle;
   int32_t selected_plain_scheduled;
   /*48E75B writes slot53+166 once. It is distinct from the consumed +167
@@ -1626,6 +1626,19 @@ static int selected_audio(void *context, const BkEndingAudioCall *call,
   EndingNormalScene *s = context;
   if (!s || !s->audio || !call || !playing)
     return fail(e, "selected audio owner is missing");
+  if (call->operation == BK_ENDING_AUDIO_VOICE ||
+      call->operation == BK_ENDING_AUDIO_CUE) {
+    char pack[16], name[32];
+    if (!bk_ending_audio_resource(s->state->frame.group,
+          s->state->auxiliary.variant, s->state->auxiliary.selection,
+          call, pack, name, e)) return 0;
+    unsigned slot = call->operation == BK_ENDING_AUDIO_VOICE &&
+        s->state->frame.group == 0 && s->state->auxiliary.variant &&
+        call->cue == 30 ? 1 : call->slot;
+    /*4946B4/49490A publish the name before replacing its actual sound.
+     *The group0 cue30 effect also writes the second speech-name buffer.*/
+    if (slot < 2) memcpy(s->state->speech_names[slot], name, strlen(name) + 1);
+  }
   return bk_ending_audio_call(s->audio, s->state->frame.group,
                               s->state->auxiliary.variant,
                               s->state->auxiliary.selection, call, playing, e);
@@ -1800,7 +1813,7 @@ static int selected_action(void *context, const BkEndingFrameInput *input,
   BkEndingSelectedActionOps ops = selected_action_ops();
   ops.control.context = s;
   ops.choices = s->state->choices;
-  return bk_ending_selected_action_step(&s->selected_action, &bindings, input,
+  return bk_ending_selected_action_step(s->selected_action, &bindings, input,
                                         seconds, &ops, e);
 }
 static int selected_random(void *context, int32_t *result, char e[256]) {
@@ -1915,6 +1928,9 @@ static int selected_ui_fade(void *context, unsigned slot, float alpha,
   s->ui.sprites[52].transform.fade.alpha = alpha;
   return 1;
 }
+
+#include "scene/ending_gallery_control_internal.h"
+#include "scene/ending_gallery_presentation_internal.h"
 
 static int frame_invoke(void *context, const BkEndingCall *call,
                         uint32_t *result, char e[256]) {
@@ -2302,8 +2318,9 @@ static int frame_invoke(void *context, const BkEndingCall *call,
     return ok;
   }
   case BK_ENDING_STAGE_48302B:
+    return gallery_control_step(s, e);
   case BK_ENDING_STAGE_48BCBB:
-    return fail(e, "ending phase controller is not implemented");
+    return gallery_presentation_step(s, e);
   case BK_ENDING_STAGE_4E2223: {
     BkEndingControlRect rects[2];
     if (!bk_ending_ui_confirm_rects(&s->ui, rects))
@@ -3045,6 +3062,11 @@ static void destroy(void *context) {
   free(s);
 }
 
+static int gallery_prepare_final(void *p, char e[256]) {
+  EndingNormalScene *s = p;
+  return bk_ending_state_leave(s->state, BK_ENDING_LEAVE_48D7F2, e);
+}
+
 static BkScene *create_entry(const BkSceneServices *services, unsigned group,
                              unsigned variant, int8_t previous,
                              uint32_t selected, BkEndingRecords *records,
@@ -3056,7 +3078,7 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
     return NULL;
   if (flow && (!flow->common || !flow->schedule || !flow->state || !flow->auxiliary_cycle ||
                !flow->random || !flow->normal_controller || !flow->presentation ||
-               !flow->duck_transition ||
+               !flow->duck_transition || !flow->process ||
                !isfinite(flow->wall_seconds) || flow->wall_seconds < 0 ||
                flow->wall_seconds > 1e12)) {
     fail(e, "shared process owners, scheduler and valid wall clock are required");
@@ -3102,11 +3124,11 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   s->secondary_presentation = &s->diagnostic_secondary_presentation;
   bk_ending_tertiary_controller_initialize(&s->diagnostic_tertiary_controller);
   s->tertiary_controller = &s->diagnostic_tertiary_controller;
-  s->diagnostic_selected_controller = bk_ending_selected_control_initial();
-  s->selected_controller = &s->diagnostic_selected_controller;
-  s->selected_action = bk_ending_selected_action_initial();
-  s->diagnostic_selected_cycle = bk_ending_selected_cycle_initial();
-  s->selected_cycle = &s->diagnostic_selected_cycle;
+  s->process = flow ? flow->process : &s->diagnostic_process;
+  if (!flow) bk_ending_process_initialize(s->process);
+  s->selected_controller = &s->process->selected_control;
+  s->selected_action = &s->process->selected_action;
+  s->selected_cycle = &s->process->selected_cycle;
   if (flow) {
     s->flow = *flow;
     s->common = flow->common;
@@ -3155,7 +3177,8 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   if (!bk_ending_state_entry_bindings(s->state, &s->option_a, &s->option_b,
                                       &s->selected_group, &bindings))
     goto bad;
-  BkEndingEntryOps ops = {s, normal_load, records ? clear_record : NULL, NULL};
+  BkEndingEntryOps ops = {s, normal_load, records ? clear_record : NULL,
+                          gallery_prepare_final};
   /*The implemented loaders are selected by the original entry table;
    * camera variant1 is never substituted for normal action variant1. */
   if (!bk_ending_entry_dispatch(&bindings, previous, selected, scale, &ops, e))
@@ -3186,6 +3209,16 @@ BkScene *bk_ending_normal_scene_create(const BkSceneServices *services,
                                        char e[256]) {
   return create_entry(services, group, variant, 0x18, 0, NULL, NULL,
                        NULL, e);
+}
+
+BkScene *bk_ending_replay_scene_create(const BkSceneServices *services,
+    unsigned group, unsigned variant, BkEndingRecords *records,
+    const uint8_t unlocked[5][8], const BkEndingNormalFlow *flow, char e[256]) {
+  if (!records || !unlocked) {
+    fail(e, "gallery replay requires actual recording lanes and unlock table");
+    return NULL;
+  }
+  return create_entry(services, group, variant, 0x18, 6, records, unlocked, flow, e);
 }
 
 BkScene *bk_ending_normal_scene_create_story(const BkSceneServices *services,

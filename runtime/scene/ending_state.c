@@ -228,7 +228,7 @@ int bk_ending_state_gallery_selected_bindings(BkEndingState *s,
       &a->word_6d1bd8, &a->word_6d1bdc, &a->word_6dde54,
       &s->open, v->expression_override, &s->face_mode,
       v->fade_stage, v->flash_wanted, v->action, v->curtain_wanted,
-      s->speech_names[0], v->voice_volume, v->effect_volume};
+      s->speech_names[0], v->voice_volume, v->effect_volume, 0};
   return 1;
 }
 int bk_ending_state_gallery_tertiary_bindings(BkEndingState *s,

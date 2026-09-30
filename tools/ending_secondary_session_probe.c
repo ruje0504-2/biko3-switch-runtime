@@ -192,7 +192,9 @@ static int secondary_profile(BkRenderer *renderer, BkResourceStore *store,
   bk_ending_tertiary_controller_initialize(&tertiary);
   uint32_t random = 123;
   int32_t duck = 0;
-  BkEndingNormalFlow flow = {.common = &common, .context = &scheduled,
+  BkEndingProcess process;
+  bk_ending_process_initialize(&process);
+  BkEndingNormalFlow flow = {.process = &process, .common = &common, .context = &scheduled,
       .schedule = secondary_schedule, .wall_seconds = 1,
       .auxiliary_cycle = &cycle, .random = &random, .normal_controller = &normal,
       .presentation = &presentation, .duck_transition = &duck,

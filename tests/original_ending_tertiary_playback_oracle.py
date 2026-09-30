@@ -229,7 +229,7 @@ def main():
                             frames += 1
                         compare_tables(p)
                         previous, sample = state(p), Sample(9, 7, 8, 6)
-                        for dt, bad_mode in [(-1, 0), (float('nan'), 0), (float('inf'), 0), (0, 9)]:
+                        for dt, bad_mode in [(-1, 1), (float('nan'), 0), (float('inf'), 0), (0, 9)]:
                             sample_before = bytes(sample)
                             assert not lib.bk_clip_advance_plain(p, dt, bad_mode, C.byref(sample), error)
                             check = State()

@@ -407,7 +407,8 @@ static void plain_chain(BkClipPlayer *p, unsigned slot, int mode) {
 static int advance(BkClipPlayer *player, float seconds, BkClipSample *out,
                      int plain_mode, char error[256]) {
   if (!player || !out || player->slot < 0 || player->slot >= BK_CLIP_SLOTS ||
-      !isfinite(seconds) || seconds < 0 || (double)seconds * 60 >= INT32_MAX)
+      !isfinite(seconds) || (seconds < 0 && plain_mode != BK_CLIP_PLAIN_SCHEDULED) ||
+      fabs((double)seconds * 60) >= INT32_MAX)
     return fail(error, "invalid timestep or unselected player");
   /* Small fixed-size CPU state; commit only after checking all float results.
    */
@@ -588,6 +589,20 @@ int bk_clip_loops(const BkClipPlayer *p, unsigned slot, int32_t *out) {
   if (!p || !out || slot >= BK_CLIP_SLOTS)
     return 0;
   *out = p->timelines[slot].loops;
+  return 1;
+}
+int bk_clip_loop_mode(const BkClipPlayer *p, unsigned slot, int32_t *out) {
+  if (!p || slot >= BK_CLIP_SLOTS || !out) return 0;
+  *out = p->set->clips[slot].loop;
+  return 1;
+}
+int bk_clip_completed_chain(const BkClipPlayer *p, unsigned slot, int *out) {
+  int32_t chain, target;
+  if (!p || !out || !bk_clip_link(p, slot, &chain, &target)) return 0;
+  const BkClipDefinition *d = &p->set->clips[slot];
+  const Timeline *t = &p->timelines[slot];
+  *out = p->slot != (int32_t)slot && chain && !d->loop && d->duration > 0 &&
+      t->rate > 0 && t->source > d->start && t->elapsed >= (float)d->duration;
   return 1;
 }
 int bk_clip_prediction(const BkClipPlayer *p, unsigned slot,

@@ -1,0 +1,1145 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Production phase8 adapters with explicit Japanese recorded-lane fixtures; process lifetime, actual actors/PCM/Vulkan and three documented compatibility policies. Not natural story recording, gallery front-end, complete pixel or Switch acceptance.",
+  "validation_path": "build/validation/ending-runtime-z2izsdd3/result.json",
+  "validation_sha256": "b1515efb109fc0e4b57ec433170eb5acf66230466a8963fb33512b41c3e34c9d",
+  "started_at": "2026-09-30T09:48:24.351762+00:00",
+  "finished_at": "2026-09-30T10:20:16.752732+00:00",
+  "source_sha256": {
+    "CMakeLists.txt": "0b70a473e677d039106b48291abdbb77c598d34dd4792f96f97a8751781d9d77",
+    "runtime/app/play_session.c": "daa62b0f66260b0a97a93c17fe3b9d637cba3f3de741ed4614e7327bf8c046bc",
+    "runtime/game/ending_gallery_secondary.c": "7d7b5338a16a0daddb9d8705d917ec681618a9fe0cf791ea0f125d5e6fbb4329",
+    "runtime/game/ending_gallery_secondary.h": "e4463680936e512102d111ae28fc2be682872c1a8b71e03e4a39994d89e29d09",
+    "runtime/game/ending_gallery_selected.c": "1e461702df3bb2cdf4cfa64a32e1f4d58aa06d5a4f963833f6dfa5a1567469b1",
+    "runtime/game/ending_gallery_selected.h": "221da0c7a0827ecf8f615dbe0d284c21f0dca20fa9561f52b1208bace59e79ec",
+    "runtime/model/clip.c": "27a48ad75e7164912079453c54261902ed89cc1ebd03e2052a578ef1f30c13f6",
+    "runtime/model/clip.h": "ac3d8024e47e41449004791bb9b4254d2ebcf1db23f0bea0dd9b86e8ee34d111",
+    "runtime/model/playback.c": "209ac30cc27f8154472fc420605328ff264d71343f560924490e2f192a2cf7b9",
+    "runtime/model/playback.h": "03d547c98900fae64e5cf0ed3ce5ed01c80cce5702078bc6da17603f34f5e956",
+    "runtime/scene/ending_gallery_control_internal.h": "432d8999d228bc9460024955027b5c2e39e398dfd056e7b97eebbd026bf37502",
+    "runtime/scene/ending_gallery_presentation_internal.h": "cd0487e5f4ce5e049d6bf7ec28b84ad43b9d71eb88442654ec3550a8ea108bd9",
+    "runtime/scene/ending_normal_session.c": "72716f638cd7c504259a73e84894c3982fd51002e3d1a897dcb59076fc69fc10",
+    "runtime/scene/ending_normal_session.h": "50815af35e5f76fb48bbf108a58f1d29d0bde9e3893c3f70c3b2c64a430ec327",
+    "runtime/scene/ending_process.c": "83925c23497003c3df203a27a0fb1ee01540d3574913a77fbf73fe284158ed91",
+    "runtime/scene/ending_process.h": "bd788fbd205a3066118acbed0e28722cafdae175035f16b4b29fa9fd486f1926",
+    "runtime/scene/ending_state.c": "9d33f0541d5fba52facb73a426957167fe195278364109b7a84b24f226e25808",
+    "runtime/world/actor_pose.c": "fad26e6bafab9ed7a14bd5e1ba7565c31d57e02ea6993823a620756e3d337d61",
+    "runtime/world/actor_pose.h": "0d2951361a35b5bf3d397b1f9be549de0c8d8351fe86311fb9ba0aea41fa647d",
+    "test-host.sh": "9e1d8c08e867d1133270feacc23fa62ba1f4a501a5b78158fdddc8a84fd9d81c",
+    "tests/check_ending_gallery_cpu.py": "954209af7c533846a51e9f9f3a9e8bfa2b152e188c4529f3ee08010f42ec9f74",
+    "tests/check_ending_runtime.py": "90f341a3a4598ee244d33be48fd716bca203ff127ea367f3254b3085fc5bf5de",
+    "tests/original_ending_gallery_secondary_oracle.py": "4ec204698ccecae68d5f5c8bfde8ac89d0db4c618c307f6a0015e851706170aa",
+    "tests/original_ending_gallery_selected_oracle.py": "308a2c47694d183799ebd8b85dfcafe47784b9440a7ee3cd7a900042944c8950",
+    "tests/original_ending_gallery_timing_oracle.py": "3b20fddfc0f2b1d0ca808d9da7834af7d32d3c9e3f7fac80ca2c0593c6f6b623",
+    "tests/original_ending_tertiary_playback_oracle.py": "8e90bcd3c91e2febbfc94a1075371f386f74c3c6456c4b37c62c6169c9149d2a",
+    "tools/ending_exit_probe.c": "e94516dbd824f04d5771f5f01694fcd0d4b43e98a8299248948745ebf3fdee87",
+    "tools/ending_gallery_session_probe.c": "01f6c508cedd02cb49efa734ac33725953b5f53478a6912a82bc00a01b35c80f",
+    "tools/ending_secondary_session_probe.c": "879ba7f994b733170206b9a732a23cd6b3b1ea087bd9fa1a1eea32235f2dff4a",
+    "tools/ending_selected_adapters_probe.c": "c784b4a1b66707828703f857233ff4fc14c5b94703c08123ebbea26a980dbba3",
+    "tools/ending_story_reload_probe.c": "cdf775296593a4ca204a17745730d7b045f8fcfd1fb5db3d3e9c6fbb7b298ca0",
+    "tools/ending_tertiary_session_probe.c": "3718465052cecd18b546b12fa00594b1ca7f65e6723559cafb2ba210fb7df0cb"
+  },
+  "source_manifest_count": 684,
+  "source_manifest_sha256": "203682720f9e00b46c8392456060c1bb53fb6d9a3d7dc66b30c60050e1fb45e5",
+  "paired_checks": [
+    {
+      "name": "gallery-session",
+      "suite": "gallery-session",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "09aae65bd35d1230cb2ddf164de14ddbdd8368adbda911cb542c026775135498",
+          "summary": "PASS gallery session entries10 transitions25 children31 completed10 redraws332 frames164220 state=75488bd6e34f1909 pcm=dd9b917b384707e7"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "f62928cfa1ceaa4ccdad69e3df8d90ea452dfc0cb4562c4384af6eef7806974f",
+          "summary": "PASS gallery session entries10 transitions25 children31 completed10 redraws332 frames164220 state=75488bd6e34f1909 pcm=dd9b917b384707e7"
+        }
+      ]
+    },
+    {
+      "name": "gallery-mixed",
+      "suite": "gallery-session",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "09aae65bd35d1230cb2ddf164de14ddbdd8368adbda911cb542c026775135498",
+          "summary": "PASS gallery session entries1 transitions3 children7 completed1 redraws22 frames11054 state=c20c1506d8dde3ef pcm=b6f7816f7960ef43"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "f62928cfa1ceaa4ccdad69e3df8d90ea452dfc0cb4562c4384af6eef7806974f",
+          "summary": "PASS gallery session entries1 transitions3 children7 completed1 redraws22 frames11054 state=c20c1506d8dde3ef pcm=b6f7816f7960ef43"
+        }
+      ]
+    },
+    {
+      "name": "normal-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "1c6666f6df052d894298b33b199075a2266c45b38f47749bc8e8c2b5977a0cba",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "f25e0c269fc64911c0cac51878829338ef32ae79926612238b93c09b164c6603",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    },
+    {
+      "name": "third-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "1c6666f6df052d894298b33b199075a2266c45b38f47749bc8e8c2b5977a0cba",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "f25e0c269fc64911c0cac51878829338ef32ae79926612238b93c09b164c6603",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    },
+    {
+      "name": "selected-adapters",
+      "suite": "selected-adapters",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "775b98064607348b0a0f0cf7a0bbf67cb366342ff8e38de732f3feb4759d6b77",
+          "summary": "PASS selected adapters entries10 manual40 restarts10 flashes10 uv20 cancels10 replay10 completion10 auxiliary10 rejects50 frames52702 state=b9f574493057d877 pcm=3c4be7cbc8c05cc6"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "5db80fb703e344d275e3fb959ecde103cd6ad681ee062d9e0e26307cc40e7e63",
+          "summary": "PASS selected adapters entries10 manual40 restarts10 flashes10 uv20 cancels10 replay10 completion10 auxiliary10 rejects50 frames52702 state=b9f574493057d877 pcm=3c4be7cbc8c05cc6"
+        }
+      ]
+    },
+    {
+      "name": "selected-session",
+      "suite": "selected-session",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "ed94b37a12b9ff19637a95163b2d4dccbbc57c46828a60781eb6cd7c34d5f087",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "a5924340c4630493b83b7b86322054f19938b26f3fde11d68570fdf6f7cd91ab",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        }
+      ]
+    }
+  ],
+  "selected_session_native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "checks": [
+      {
+        "log": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-z2izsdd3/selected-session-host.log",
+        "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+        "loads": 60,
+        "scalar_words": 960
+      },
+      {
+        "log": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-z2izsdd3/selected-session-asan.log",
+        "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+        "loads": 60,
+        "scalar_words": 960
+      }
+    ],
+    "scope": "Check production loader scalar results against the pinned original EXE.\n\nReads SELECTED_LOAD rows from the real Japanese resource/session probe. Runs\n4D152C..4D15BF,4D194D..4D19B9,4D1A77..4D1A81,4D1C07..4D1CC1. The native\nmemset/strcpy execute unchanged; only4D460B background IO is observed/stubbed.\nResource identity/lifetime, opening and PCM are checked by the C probe, not\nclaimed by this isolated scalar replay. Parent721EE0/721EE4 must stay intact.\n",
+    "hooks": [
+      "4D460B background IO"
+    ]
+  },
+  "native_cpu_pairs": [
+    {
+      "path": "build/validation/ending-gallery-cpu-of3gmrf5/verification.json",
+      "sha256": "4df73dfe5600906c06fb77fa797496da302e471892f0d3690bd806e737c4086f",
+      "passed": true,
+      "checks": [
+        {
+          "mode": "host",
+          "suite": "selected",
+          "result": {
+            "passed": true,
+            "scope": "Complete4855C9 against original instructions with actual BkEndingState aliases.\n\nState dispatch, camera/record tables, descriptor writes and both clock positions\nexecute natively. Clock/RNG/actor requests,4946B4 voice, media, fade, expression\nand camera leaves are deterministic fixtures. This is a CPU controller check,\nnot a real asset, PCM, production gallery or Switch validation.\n",
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "random_frames": 6000,
+            "boundary_frames": 1302,
+            "retained_frames": 27312,
+            "calls": 139839,
+            "live_mutations": 266,
+            "failure_prefixes": 1496,
+            "write_failure_prefixes": 36,
+            "guarded_bounds": 19,
+            "early_returns": 452,
+            "port_compatibility_checks": 4,
+            "missing_services": 19,
+            "input_query_rejections": 20,
+            "operations": [
+              "camera",
+              "clock",
+              "expression",
+              "fade",
+              "fov",
+              "load",
+              "play",
+              "random",
+              "request",
+              "restart",
+              "status",
+              "stop",
+              "voice"
+            ],
+            "state_sha256": "4e028d7aa67c62487454c42b6a1a56d1d3dd3a4b62ec804116d1fbe1b188d06b",
+            "max_error": 0,
+            "full_gallery": false,
+            "real_assets": false,
+            "gpu_or_device_validation": false
+          },
+          "summary": "PASS gallery selected: {'random_frames': 6000, 'boundary_frames': 1302, 'retained_frames': 27312, 'calls': 139839, 'live_mutations': 266, 'failure_prefixes': 1496, 'write_failure_prefixes': 36, 'guarded_bounds': 19, 'early_returns': 452} 4e028d7aa67c62487454c42b6a1a56d1d3dd3a4b62ec804116d1fbe1b188d06b",
+          "library_sha256": "bd324891d6c314cc4025fe43369363749651684cbdb8a7b8848038d0e49b76c0",
+          "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+        },
+        {
+          "mode": "asan",
+          "suite": "selected",
+          "result": {
+            "passed": true,
+            "scope": "Complete4855C9 against original instructions with actual BkEndingState aliases.\n\nState dispatch, camera/record tables, descriptor writes and both clock positions\nexecute natively. Clock/RNG/actor requests,4946B4 voice, media, fade, expression\nand camera leaves are deterministic fixtures. This is a CPU controller check,\nnot a real asset, PCM, production gallery or Switch validation.\n",
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "random_frames": 6000,
+            "boundary_frames": 1302,
+            "retained_frames": 27312,
+            "calls": 139839,
+            "live_mutations": 266,
+            "failure_prefixes": 1496,
+            "write_failure_prefixes": 36,
+            "guarded_bounds": 19,
+            "early_returns": 452,
+            "port_compatibility_checks": 4,
+            "missing_services": 19,
+            "input_query_rejections": 20,
+            "operations": [
+              "camera",
+              "clock",
+              "expression",
+              "fade",
+              "fov",
+              "load",
+              "play",
+              "random",
+              "request",
+              "restart",
+              "status",
+              "stop",
+              "voice"
+            ],
+            "state_sha256": "4e028d7aa67c62487454c42b6a1a56d1d3dd3a4b62ec804116d1fbe1b188d06b",
+            "max_error": 0,
+            "full_gallery": false,
+            "real_assets": false,
+            "gpu_or_device_validation": false
+          },
+          "summary": "PASS gallery selected: {'random_frames': 6000, 'boundary_frames': 1302, 'retained_frames': 27312, 'calls': 139839, 'live_mutations': 266, 'failure_prefixes': 1496, 'write_failure_prefixes': 36, 'guarded_bounds': 19, 'early_returns': 452} 4e028d7aa67c62487454c42b6a1a56d1d3dd3a4b62ec804116d1fbe1b188d06b",
+          "library_sha256": "f3db8d35453f6ca654670c5d8e0ae1173c32842736d4ac51113b4fcf36c71652",
+          "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+        }
+      ]
+    },
+    {
+      "path": "build/validation/ending-gallery-cpu-et70xi15/verification.json",
+      "sha256": "926766b0bf06e0e06033aa0f444e3434e4e4b2a5859988b2afdd6fa04e536720",
+      "passed": true,
+      "checks": [
+        {
+          "mode": "host",
+          "suite": "secondary",
+          "result": {
+            "passed": true,
+            "scope": "Full4843AA and nested47D9EE against the portable gallery controller.\n\nOriginal state dispatch, clock deltas, x87 comparisons, sprintf/atoi delay,\ncamera table copies and speech helper execute. RNG, timeGetTime, actor,\ncamera, expression and audio leaves are observing fixtures. Every callback\nand final alias is compared, including live mutations and failed prefixes.\nThis verifies CPU services, not real scene assets, PCM or playable phase8.\n",
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "random_frames": 6000,
+            "boundary_frames": 836,
+            "retained_frames": 34745,
+            "calls": 89895,
+            "live_mutations": 435,
+            "failure_prefixes": 711,
+            "bounded_rejections": 145,
+            "input_query_rejections": 11,
+            "missing_services": 13,
+            "camera_table_words": 60,
+            "port_loop_crossing_checks": 2,
+            "operations": [
+              "camera",
+              "clock",
+              "expression",
+              "fov",
+              "load",
+              "play",
+              "random",
+              "request",
+              "restart",
+              "status",
+              "voice"
+            ],
+            "loaded_names": [
+              "PH10301.wav",
+              "PH10302.wav",
+              "PH10303.wav",
+              "PH10304.wav",
+              "PH10305.wav",
+              "PH10308.wav",
+              "PH10309.wav",
+              "PH10311.wav",
+              "PH10312.wav",
+              "PH10313.wav",
+              "PH10314.wav",
+              "PH10315.wav",
+              "PH10316.wav",
+              "PH10317.wav",
+              "PH10318.wav",
+              "PH20301.wav",
+              "PH20302.wav",
+              "PH20303.wav",
+              "PH20304.wav",
+              "PH20305.wav",
+              "PH20308.wav",
+              "PH20309.wav",
+              "PH20311.wav",
+              "PH20312.wav",
+              "PH20313.wav",
+              "PH20316.wav",
+              "PH20317.wav",
+              "PH20318.wav",
+              "PH30301.wav",
+              "PH30302.wav",
+              "PH30303.wav",
+              "PH30304.wav",
+              "PH30305.wav",
+              "PH30308.wav",
+              "PH30309.wav",
+              "PH30311.wav",
+              "PH30312.wav",
+              "PH30313.wav",
+              "PH30316.wav",
+              "PH30317.wav",
+              "PH30318.wav",
+              "PH40301.wav",
+              "PH40302.wav",
+              "PH40303.wav",
+              "PH40304.wav",
+              "PH40305.wav",
+              "PH40308.wav",
+              "PH40309.wav",
+              "PH40311.wav",
+              "PH40312.wav",
+              "PH40313.wav",
+              "PH40316.wav",
+              "PH40317.wav",
+              "PH40318.wav",
+              "PH50301.wav",
+              "PH50302.wav",
+              "PH50303.wav",
+              "PH50304.wav",
+              "PH50305.wav",
+              "PH50308.wav",
+              "PH50309.wav",
+              "PH50311.wav",
+              "PH50312.wav",
+              "PH50313.wav",
+              "PH50314.wav",
+              "PH50315.wav",
+              "PH50316.wav",
+              "PH50317.wav",
+              "PH50318.wav"
+            ],
+            "state_sha256": "cb7f07edbc24e03ce2077d9473337a810a76780a803e8badbcc2994f22e53d57",
+            "max_error": 0,
+            "full_gallery": false,
+            "real_assets": false,
+            "gpu_or_device_validation": false
+          },
+          "summary": "PASS gallery secondary: {'random_frames': 6000, 'boundary_frames': 836, 'retained_frames': 34745, 'calls': 89895, 'live_mutations': 435, 'failure_prefixes': 711, 'bounded_rejections': 145} cb7f07edbc24e03ce2077d9473337a810a76780a803e8badbcc2994f22e53d57",
+          "library_sha256": "2d398a2c66f3145f6e281ca9bb27ae8b515f5d641ed97d76742708129e7438f4",
+          "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+        },
+        {
+          "mode": "host",
+          "suite": "timing",
+          "result": {
+            "passed": true,
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "frames": 167424,
+            "reverse_frames": 1792,
+            "table_checks": 1966080,
+            "results": [
+              {
+                "asset": "bk3_09/h01_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 50,
+                "loop_crossings": 51,
+                "max_source": 329.4011535644531
+              },
+              {
+                "asset": "bk3_09/h01_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 77,
+                "loop_crossings": 78,
+                "max_source": 329.7104187011719
+              },
+              {
+                "asset": "bk3_09/h02_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 39,
+                "loop_crossings": 40,
+                "max_source": 329.49969482421875
+              },
+              {
+                "asset": "bk3_09/h02_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 125,
+                "loop_crossings": 63,
+                "max_source": 329.7404479980469
+              },
+              {
+                "asset": "bk3_09/h03_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 49,
+                "loop_crossings": 25,
+                "max_source": 329.6529541015625
+              },
+              {
+                "asset": "bk3_09/h03_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 78,
+                "loop_crossings": 40,
+                "max_source": 329.845458984375
+              },
+              {
+                "asset": "bk3_09/h04_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 0,
+                "loop_crossings": 102,
+                "max_source": 328.90240478515625
+              },
+              {
+                "asset": "bk3_09/h04_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 78,
+                "loop_crossings": 157,
+                "max_source": 328.9022521972656
+              },
+              {
+                "asset": "bk3_09/h05_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 0,
+                "loop_crossings": 102,
+                "max_source": 328.90240478515625
+              },
+              {
+                "asset": "bk3_09/h05_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 78,
+                "loop_crossings": 157,
+                "max_source": 328.9022521972656
+              },
+              {
+                "asset": "bk3_10/h01_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h01_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1954,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h01_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h01_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1954,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h01_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h01_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1954,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_03.xan",
+                "mode": "fixed60",
+                "end_hits": 80,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2068,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h02_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h02_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h03_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h03_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1347,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_05.xan",
+                "mode": "fixed60",
+                "end_hits": 80,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2068,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h04_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h04_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2037,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h04_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h04_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h04_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h04_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1001,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h05_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h05_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h05_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h05_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h05_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h05_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              }
+            ],
+            "state_sha256": "837372bf7059e3463c826f29907a5e576fe665ec4dad0b18879fc74d92ae4b69",
+            "scope": "Actual XAN scheduler comparison for gallery chaining and reverse playback.\n\nFixed60Hz and explicit mixed millisecond intervals are separate fixtures.\nThe native selected clip can chain with source below end at fixed60Hz;\nthis test preserves that limitation, not a successful full-replay claim.\n",
+            "fixed60_selected_end_stall_preserved": true,
+            "fixed60_secondary_window_stall_preserved": true
+          },
+          "summary": "PASS gallery timing: 167424 1792 1966080 837372bf7059e3463c826f29907a5e576fe665ec4dad0b18879fc74d92ae4b69",
+          "library_sha256": "2d398a2c66f3145f6e281ca9bb27ae8b515f5d641ed97d76742708129e7438f4",
+          "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+        },
+        {
+          "mode": "asan",
+          "suite": "secondary",
+          "result": {
+            "passed": true,
+            "scope": "Full4843AA and nested47D9EE against the portable gallery controller.\n\nOriginal state dispatch, clock deltas, x87 comparisons, sprintf/atoi delay,\ncamera table copies and speech helper execute. RNG, timeGetTime, actor,\ncamera, expression and audio leaves are observing fixtures. Every callback\nand final alias is compared, including live mutations and failed prefixes.\nThis verifies CPU services, not real scene assets, PCM or playable phase8.\n",
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "random_frames": 6000,
+            "boundary_frames": 836,
+            "retained_frames": 34745,
+            "calls": 89895,
+            "live_mutations": 435,
+            "failure_prefixes": 711,
+            "bounded_rejections": 145,
+            "input_query_rejections": 11,
+            "missing_services": 13,
+            "camera_table_words": 60,
+            "port_loop_crossing_checks": 2,
+            "operations": [
+              "camera",
+              "clock",
+              "expression",
+              "fov",
+              "load",
+              "play",
+              "random",
+              "request",
+              "restart",
+              "status",
+              "voice"
+            ],
+            "loaded_names": [
+              "PH10301.wav",
+              "PH10302.wav",
+              "PH10303.wav",
+              "PH10304.wav",
+              "PH10305.wav",
+              "PH10308.wav",
+              "PH10309.wav",
+              "PH10311.wav",
+              "PH10312.wav",
+              "PH10313.wav",
+              "PH10314.wav",
+              "PH10315.wav",
+              "PH10316.wav",
+              "PH10317.wav",
+              "PH10318.wav",
+              "PH20301.wav",
+              "PH20302.wav",
+              "PH20303.wav",
+              "PH20304.wav",
+              "PH20305.wav",
+              "PH20308.wav",
+              "PH20309.wav",
+              "PH20311.wav",
+              "PH20312.wav",
+              "PH20313.wav",
+              "PH20316.wav",
+              "PH20317.wav",
+              "PH20318.wav",
+              "PH30301.wav",
+              "PH30302.wav",
+              "PH30303.wav",
+              "PH30304.wav",
+              "PH30305.wav",
+              "PH30308.wav",
+              "PH30309.wav",
+              "PH30311.wav",
+              "PH30312.wav",
+              "PH30313.wav",
+              "PH30316.wav",
+              "PH30317.wav",
+              "PH30318.wav",
+              "PH40301.wav",
+              "PH40302.wav",
+              "PH40303.wav",
+              "PH40304.wav",
+              "PH40305.wav",
+              "PH40308.wav",
+              "PH40309.wav",
+              "PH40311.wav",
+              "PH40312.wav",
+              "PH40313.wav",
+              "PH40316.wav",
+              "PH40317.wav",
+              "PH40318.wav",
+              "PH50301.wav",
+              "PH50302.wav",
+              "PH50303.wav",
+              "PH50304.wav",
+              "PH50305.wav",
+              "PH50308.wav",
+              "PH50309.wav",
+              "PH50311.wav",
+              "PH50312.wav",
+              "PH50313.wav",
+              "PH50314.wav",
+              "PH50315.wav",
+              "PH50316.wav",
+              "PH50317.wav",
+              "PH50318.wav"
+            ],
+            "state_sha256": "cb7f07edbc24e03ce2077d9473337a810a76780a803e8badbcc2994f22e53d57",
+            "max_error": 0,
+            "full_gallery": false,
+            "real_assets": false,
+            "gpu_or_device_validation": false
+          },
+          "summary": "PASS gallery secondary: {'random_frames': 6000, 'boundary_frames': 836, 'retained_frames': 34745, 'calls': 89895, 'live_mutations': 435, 'failure_prefixes': 711, 'bounded_rejections': 145} cb7f07edbc24e03ce2077d9473337a810a76780a803e8badbcc2994f22e53d57",
+          "library_sha256": "3b3c127c5954696fad4df875b8aaeaca15911086b36bab71873d778feb34648f",
+          "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+        },
+        {
+          "mode": "asan",
+          "suite": "timing",
+          "result": {
+            "passed": true,
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "frames": 167424,
+            "reverse_frames": 1792,
+            "table_checks": 1966080,
+            "results": [
+              {
+                "asset": "bk3_09/h01_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 50,
+                "loop_crossings": 51,
+                "max_source": 329.4011535644531
+              },
+              {
+                "asset": "bk3_09/h01_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 77,
+                "loop_crossings": 78,
+                "max_source": 329.7104187011719
+              },
+              {
+                "asset": "bk3_09/h02_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 39,
+                "loop_crossings": 40,
+                "max_source": 329.49969482421875
+              },
+              {
+                "asset": "bk3_09/h02_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 125,
+                "loop_crossings": 63,
+                "max_source": 329.7404479980469
+              },
+              {
+                "asset": "bk3_09/h03_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 49,
+                "loop_crossings": 25,
+                "max_source": 329.6529541015625
+              },
+              {
+                "asset": "bk3_09/h03_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 78,
+                "loop_crossings": 40,
+                "max_source": 329.845458984375
+              },
+              {
+                "asset": "bk3_09/h04_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 0,
+                "loop_crossings": 102,
+                "max_source": 328.90240478515625
+              },
+              {
+                "asset": "bk3_09/h04_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 78,
+                "loop_crossings": 157,
+                "max_source": 328.9022521972656
+              },
+              {
+                "asset": "bk3_09/h05_02.xan",
+                "mode": "fixed60",
+                "native_window_hits": 0,
+                "loop_crossings": 102,
+                "max_source": 328.90240478515625
+              },
+              {
+                "asset": "bk3_09/h05_02.xan",
+                "mode": "mixed-ms",
+                "native_window_hits": 78,
+                "loop_crossings": 157,
+                "max_source": 328.9022521972656
+              },
+              {
+                "asset": "bk3_10/h01_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h01_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1954,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h01_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h01_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1954,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h01_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h01_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1954,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_03.xan",
+                "mode": "fixed60",
+                "end_hits": 80,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2068,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h02_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h02_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h02_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h03_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h03_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1347,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_05.xan",
+                "mode": "fixed60",
+                "end_hits": 80,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h03_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2068,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h04_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h04_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2037,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h04_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h04_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h04_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h04_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 1001,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h05_03.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h05_03.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h05_04.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h05_04.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              },
+              {
+                "asset": "bk3_10/h05_05.xan",
+                "mode": "fixed60",
+                "end_hits": 0,
+                "max_source": 149.89990234375
+              },
+              {
+                "asset": "bk3_10/h05_05.xan",
+                "mode": "mixed-ms",
+                "end_hits": 2017,
+                "max_source": 150.0
+              }
+            ],
+            "state_sha256": "837372bf7059e3463c826f29907a5e576fe665ec4dad0b18879fc74d92ae4b69",
+            "scope": "Actual XAN scheduler comparison for gallery chaining and reverse playback.\n\nFixed60Hz and explicit mixed millisecond intervals are separate fixtures.\nThe native selected clip can chain with source below end at fixed60Hz;\nthis test preserves that limitation, not a successful full-replay claim.\n",
+            "fixed60_selected_end_stall_preserved": true,
+            "fixed60_secondary_window_stall_preserved": true
+          },
+          "summary": "PASS gallery timing: 167424 1792 1966080 837372bf7059e3463c826f29907a5e576fe665ec4dad0b18879fc74d92ae4b69",
+          "library_sha256": "3b3c127c5954696fad4df875b8aaeaca15911086b36bab71873d778feb34648f",
+          "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+        }
+      ]
+    }
+  ],
+  "native_playback": {
+    "path": "build/validation/ending-tertiary-cpu-hz1iun1z/result.json",
+    "sha256": "21fabb406271268622ef73cff212f94a6b4159a298937ce4ce7226b702b0f911",
+    "runs": [
+      {
+        "mode": "host",
+        "result": {
+          "passed": true,
+          "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+          "frames": 33792,
+          "by_mode": {
+            "-1": 11220,
+            "0": 7524,
+            "1": 7524,
+            "2": 7524
+          },
+          "clock_edits": 2640,
+          "requests": 1584,
+          "table_values": 811008,
+          "empty_target_chains": 14,
+          "rejections": 2112,
+          "max_error": 0,
+          "state_sha256": "c1da01bf2d4a7c55f2339ff090602ed8a419571de22ae2a0b85d342026a525e2",
+          "scope": "Original402e18/4e18ad/4a9019 and ordinary4026fe scheduling with real XANs.\n\nAll clock, clamp, loop,4025b9/4a8f2d chain and request instructions run unchanged.\nANIM/MATA/MORP are observing submission boundaries, not fabricated animation\nimplementations. This compares scheduler state, source edits, fixed counters and\nordered sample arguments; actor-local/GPU integration has separate coverage.\n",
+          "gpu_validation": false
+        },
+        "summary": "PASS tertiary playback 33792 2640 1584 811008 14 2112 c1da01bf2d4a7c55f2339ff090602ed8a419571de22ae2a0b85d342026a525e2",
+        "report": "build/validation/ending-tertiary-cpu-hz1iun1z/playback-host.json",
+        "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+      },
+      {
+        "mode": "asan",
+        "result": {
+          "passed": true,
+          "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+          "frames": 33792,
+          "by_mode": {
+            "-1": 11220,
+            "0": 7524,
+            "1": 7524,
+            "2": 7524
+          },
+          "clock_edits": 2640,
+          "requests": 1584,
+          "table_values": 811008,
+          "empty_target_chains": 14,
+          "rejections": 2112,
+          "max_error": 0,
+          "state_sha256": "c1da01bf2d4a7c55f2339ff090602ed8a419571de22ae2a0b85d342026a525e2",
+          "scope": "Original402e18/4e18ad/4a9019 and ordinary4026fe scheduling with real XANs.\n\nAll clock, clamp, loop,4025b9/4a8f2d chain and request instructions run unchanged.\nANIM/MATA/MORP are observing submission boundaries, not fabricated animation\nimplementations. This compares scheduler state, source edits, fixed counters and\nordered sample arguments; actor-local/GPU integration has separate coverage.\n",
+          "gpu_validation": false
+        },
+        "summary": "PASS tertiary playback 33792 2640 1584 811008 14 2112 c1da01bf2d4a7c55f2339ff090602ed8a419571de22ae2a0b85d342026a525e2",
+        "report": "build/validation/ending-tertiary-cpu-hz1iun1z/playback-asan.json",
+        "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+      }
+    ]
+  },
+  "unit_tests": [
+    {
+      "path": "build/Testing/Temporary/LastTest.log",
+      "sha256": "a5b3324b38fa5d3a3937577e68b9671168f29cc6d9d1d3e49cb13a4323e22211",
+      "passed": 4,
+      "failed": 0
+    },
+    {
+      "path": "build/asan/Testing/Temporary/LastTest.log",
+      "sha256": "b652382929c0324ad758305e27d9602276550f20adfee2514e8f6ceadc446096",
+      "passed": 4,
+      "failed": 0
+    }
+  ],
+  "python_tests": {
+    "passed": 29,
+    "command": "python3 -m unittest discover -s tests -p 'test_*.py'"
+  },
+  "switch_build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "25c5940d2c192ae49d992ece859bc2b7a1a7bd5c3ac86ad2a31dd7ee14a7190e",
+    "undefined_symbols": 0,
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16162872,
+    "log": "local/ending-gallery-switch-final3.log",
+    "log_sha256": "d60a31c412be980a07e2a865816a2c68350493e2568684033794b7b518f11c9a"
+  },
+  "compatibility_policies": [
+    "selected completed forward chains",
+    "selected short intro wait",
+    "secondary actual upcoming loop boundary"
+  ],
+  "preserved_failed_attempt": {
+    "path": "build/validation/ending-runtime-6zzhbwq3/result.json",
+    "sha256": "0326fa06d32b6ab46b6656ce5a76e12ae34e1badb92d43ee3d347a9a41a43c61"
+  },
+  "runner_metadata_correction": "After CPU pairs completed, only check_ending_gallery_cpu.py report flags changed: real_asset_effect now means effect-scene was actually selected; real_asset_timing is separate. Old real_asset_effect=true in timing-only runs is not effect-scene coverage. Tests/runtime/oracles unchanged by this correction.",
+  "leak_detection": false,
+  "gpu_allocation_balance_checked": true,
+  "complete_port": false,
+  "natural_story": false,
+  "gallery_front_end": false,
+  "windows_full_pixel_pairs": "9/12; unchanged unresolved acceptance gap",
+  "switch_device_validation": false,
+  "delivery_packaged": false,
+  "keep_awake_pid": 64008,
+  "publication_scope": "One incremental push authorized for this turn only; no automatic push in later turns"
+}

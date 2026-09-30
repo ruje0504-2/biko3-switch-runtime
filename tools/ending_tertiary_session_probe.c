@@ -122,7 +122,9 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
   bk_ending_state_initialize(state);
   uint32_t random = 123 + group;
   int32_t duck = 0;
-  BkEndingNormalFlow flow = {.common = &common, .schedule = third_schedule,
+  BkEndingProcess process;
+  bk_ending_process_initialize(&process);
+  BkEndingNormalFlow flow = {.process = &process, .common = &common, .schedule = third_schedule,
       .wall_seconds = 1, .auxiliary_cycle = &cycle, .random = &random,
       .normal_controller = &normal, .presentation = &presentation, .duck_transition = &duck,
       .secondary_controller = &secondary, .secondary_presentation = &secondary_display,

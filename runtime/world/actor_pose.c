@@ -374,6 +374,12 @@ int bk_actor_pose_timing(const BkActorPose *a, unsigned slot,
 int bk_actor_pose_loops(const BkActorPose *a, unsigned slot, int32_t *loops) {
   return a && bk_model_playback_loops(a->playback, slot, loops);
 }
+int bk_actor_pose_loop_mode(const BkActorPose *a, unsigned slot, int32_t *mode) {
+  return a && bk_model_playback_loop_mode(a->playback, slot, mode);
+}
+int bk_actor_pose_completed_chain(const BkActorPose *a, unsigned slot, int *out) {
+  return a && bk_model_playback_completed_chain(a->playback, slot, out);
+}
 int bk_actor_pose_prediction(const BkActorPose *a, unsigned slot,
                              BkClipPrediction *out) {
   return a && bk_model_playback_prediction(a->playback, slot, out);
@@ -502,8 +508,9 @@ int bk_actor_pose_advance_effects(BkActorPose *a, float seconds,
 int bk_actor_pose_advance_plain(BkActorPose *a, float seconds,
                                  BkClipPlainMode mode, BkPlaybackEffects *effects,
                                  int *submitted, char error[256]) {
-  if (!a || !effects || !submitted || !isfinite(seconds) || seconds < 0 ||
-      (double)seconds * 60 >= INT32_MAX || mode < BK_CLIP_PLAIN_SCHEDULED ||
+  if (!a || !effects || !submitted || !isfinite(seconds) ||
+      (seconds < 0 && mode != BK_CLIP_PLAIN_SCHEDULED) ||
+      fabs((double)seconds * 60) >= INT32_MAX || mode < BK_CLIP_PLAIN_SCHEDULED ||
       mode > BK_CLIP_PLAIN_FORCE_CHAIN)
     return fail(error, "invalid plain actor/timestep");
   if (a->hidden[a->root]) {
