@@ -56,3 +56,12 @@ int bk_ending_record_append_unique(BkEndingRecord *r, int32_t action,
   r->actions[r->count++] = action;
   return 1;
 }
+int bk_ending_record_replay_ready(const BkEndingRecord *r, unsigned lane,
+                                  char e[256]) {
+  if (!r || lane >= 2)
+    return fail(e, "invalid replay lane");
+  for (unsigned i = 0; i < BK_ENDING_RECORD_CAPACITY; ++i)
+    if ((r->retained[lane][i] & 255u) == 21u)
+      return 1;
+  return fail(e, "saved replay is missing or incomplete (no end marker)");
+}

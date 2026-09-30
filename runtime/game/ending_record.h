@@ -31,4 +31,10 @@ int bk_ending_record_normal_choice(BkEndingRecord *, int8_t previous_flow,
  * Caller owns flow gating, transition state and the actual action number. */
 int bk_ending_record_append_unique(BkEndingRecord *, int32_t action,
                                    char error[256]);
+/* Port entry guard: a retained replay must contain the native low-byte21
+ * terminator within its own lane. The live recording count is unrelated to
+ * either retained lane's length. Read-only; no marker/unlock is invented.
+ * This does not validate every action or promise full replay completion. */
+int bk_ending_record_replay_ready(const BkEndingRecord *, unsigned lane,
+                                  char error[256]);
 #endif

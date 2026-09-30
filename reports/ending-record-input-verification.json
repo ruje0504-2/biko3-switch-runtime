@@ -1,0 +1,471 @@
+{
+  "passed": true,
+  "date": "2026-09-30",
+  "scope": "Production missing-lane entry guard plus actual selected-stage input/record/save/fresh-process replay. Story/selected-stage entry boundaries remain explicit. Simulated clocks and PCM sink; no hardware or complete natural-story acceptance.",
+  "clocks": {
+    "sync": {
+      "report": "build/validation/record-storage-rtm8sk9o/verification.json",
+      "report_sha256": "699245b4038d4346ef6c0b436ee0a9f955ca567097ac07d5e7fbfed3ca560704",
+      "started_at": "2026-09-30T14:59:56.796577+00:00",
+      "finished_at": "2026-09-30T15:11:37.308780+00:00",
+      "passed": true,
+      "logic_step_seconds": 0.016666666666666666,
+      "wall_step_seconds": 0.016666666666666666,
+      "application_pairs": 10,
+      "new_process_replays": 20,
+      "per_build": {
+        "produce_frames": 144699,
+        "replay_frames": 82239,
+        "redraws": 30
+      },
+      "profiles": [
+        {
+          "group": 0,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group0 variant0 frames15563 redraws1 statef9e34fe43badc5ce PCM20a9af620742dbfa samples24904320 nonzero24742300",
+            "PASS record-app replay group0 variant0 frames8870 redraws2 state48cb253d279e7536 PCM42959df063eda58c samples14195520 nonzero14086939"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks16 input_frames13639 missing_lane_rejected1",
+          "input_trace_sha256": "494218c803b1317e663e6570dd2580591010ccb53f40ab9d2f3ee4bcf64d6635",
+          "files": {
+            "expected.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+            "save/records.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+            "save/unlocks.bku": "e76607430d98bc2935403f941ba270316b27b35770ad3b49ce8e0b668bb9e1dd"
+          }
+        },
+        {
+          "group": 0,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group0 variant1 frames11685 redraws1 state2dcfb3ccad5704d4 PCM4ebd0376abd81daf samples18699840 nonzero18539280",
+            "PASS record-app replay group0 variant1 frames7710 redraws2 statea022d24f18ab0bb6 PCMdd076851ffaac825 samples12339840 nonzero12232758"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks15 input_frames9758 missing_lane_rejected1",
+          "input_trace_sha256": "e59a8b803ca9c3d4452f7a5c0ee893028e7fed7acd00e941eddf90696ea36d43",
+          "files": {
+            "expected.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+            "save/records.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+            "save/unlocks.bku": "2ca3c809d53c6d8227c05a88c100805782ee565aadd7b66ea6543eb22b8865c7"
+          }
+        },
+        {
+          "group": 1,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group1 variant0 frames15005 redraws1 state51846a40a6660bd3 PCMffe4bc106d11682c samples24011520 nonzero23888119",
+            "PASS record-app replay group1 variant0 frames8110 redraws2 state1cb8019db67957a6 PCMe9bb0eff6c0f4422 samples12979200 nonzero12869991"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks13 input_frames13202 missing_lane_rejected1",
+          "input_trace_sha256": "bc3902fbc626d6701941619844ff9324304afe0deeed03a4b85d975fa13eefcb",
+          "files": {
+            "expected.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+            "save/records.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+            "save/unlocks.bku": "907453e7ac81f16680f2d89177b3be576ea5089ef45adf2287343279a0ffae9b"
+          }
+        },
+        {
+          "group": 1,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group1 variant1 frames12677 redraws1 state796d030325a0c695 PCM21b26830b5d3fd90 samples20286720 nonzero20167343",
+            "PASS record-app replay group1 variant1 frames8191 redraws2 statef08f272a2b7e9549 PCM48676d695d49ae45 samples13108800 nonzero13001053"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks13 input_frames10926 missing_lane_rejected1",
+          "input_trace_sha256": "0b3164b77eac5e74efdf1226fae8dd16010c997c5cd065d00017fb46de5bb8ca",
+          "files": {
+            "expected.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+            "save/records.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+            "save/unlocks.bku": "83f776aaec64c38cebdf1d597a9317b273fc47c67d512b74aa0e666741c12958"
+          }
+        },
+        {
+          "group": 2,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group2 variant0 frames10338 redraws1 statef3c553d783b314d8 PCMc106a5ceb7b36bdb samples16544640 nonzero16355828",
+            "PASS record-app replay group2 variant0 frames6990 redraws2 state63c6c0f90e12f970 PCM838a8926e51da893 samples11187840 nonzero11080760"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks18 input_frames7721 missing_lane_rejected1",
+          "input_trace_sha256": "a8aacea93372c6aaabd275ea5877d87a11e3e89a9287d282c7e85a928cbc36a3",
+          "files": {
+            "expected.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+            "save/records.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+            "save/unlocks.bku": "0e46a16a4cd559d943906d2853f7dcd39342e6b027b061ec3c8ac595dbf44b91"
+          }
+        },
+        {
+          "group": 2,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group2 variant1 frames15196 redraws1 state706f9d456a5e1320 PCM9360b10775cee8dd samples24316800 nonzero24124757",
+            "PASS record-app replay group2 variant1 frames8205 redraws2 state317adaaf416fc4a2 PCM84307e78ae6ab37d samples13131840 nonzero13024017"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks13 input_frames12614 missing_lane_rejected1",
+          "input_trace_sha256": "8642b66eeba25992e5bc2e1d3295503758d61ec370d2c9becf00111f7174857a",
+          "files": {
+            "expected.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+            "save/records.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+            "save/unlocks.bku": "5a44320c1033214ceaecfdb03e48212dd459e4c203ca1ac7ca8858254e9c9950"
+          }
+        },
+        {
+          "group": 3,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group3 variant0 frames16268 redraws1 state5802e6453f4768b8 PCM86b7063f0489aac0 samples26032320 nonzero25514009",
+            "PASS record-app replay group3 variant0 frames8399 redraws2 state973a68273d037f96 PCMfe5a149b4c47ba92 samples13441920 nonzero13329798"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks33 input_frames13221 missing_lane_rejected1",
+          "input_trace_sha256": "3d5e150d83ae09ef091f1c9235377054d80f5374ff2f4ce858eee32a6a58be59",
+          "files": {
+            "expected.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+            "save/records.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+            "save/unlocks.bku": "2dd1913c2508c60a4f216fae3c0080f67fb7e2fad3edfacc2a4cc19d91f22b50"
+          }
+        },
+        {
+          "group": 3,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group3 variant1 frames16485 redraws1 state67b506ac71181385 PCM85c2cea31e7da8e1 samples26379840 nonzero25870865",
+            "PASS record-app replay group3 variant1 frames8969 redraws2 state92049f25286bfafd PCMec238f060945cff0 samples14353920 nonzero14246426"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks29 input_frames13397 missing_lane_rejected1",
+          "input_trace_sha256": "a4859e6fc2489b405826ef20552c16be781096889276b4dc5969c83d19fbdbab",
+          "files": {
+            "expected.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+            "save/records.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+            "save/unlocks.bku": "e57dd838931d5ec5a8c81e53994e37c1cf6dc119bee83133bcbb16fb923ca746"
+          }
+        },
+        {
+          "group": 4,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group4 variant0 frames15421 redraws1 statea78da4f08b8d0aca PCM4bdac9cf8f1511d9 samples24676800 nonzero24311131",
+            "PASS record-app replay group4 variant0 frames8522 redraws2 state3a49dec1f1a10df0 PCM9057f6ee8c296c88 samples13638720 nonzero13530270"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks19 input_frames12159 missing_lane_rejected1",
+          "input_trace_sha256": "d9dab4838e99625d827aac6224581bfe557a5bc27c3b216c20260f1503ad1c3b",
+          "files": {
+            "expected.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+            "save/records.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+            "save/unlocks.bku": "71a855057f2d5822d8d5ee4f7f151bf27c5188d07e82052569eccbe466f369a2"
+          }
+        },
+        {
+          "group": 4,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group4 variant1 frames16061 redraws1 state81f7e61c45ee2802 PCM6ae51b639e078b44 samples25701120 nonzero25337434",
+            "PASS record-app replay group4 variant1 frames8273 redraws2 state49ddf0a0b7393cb2 PCMb7a5d24e8f82f9f9 samples13240320 nonzero13132123"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks21 input_frames12835 missing_lane_rejected1",
+          "input_trace_sha256": "5d94b64244d0814346a9adb5405ac0daf5f3cc203a0eb5c6ed4295799230f5c0",
+          "files": {
+            "expected.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+            "save/records.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+            "save/unlocks.bku": "64963977ff65c1086490b237194b75fc328975bfb0453775d383b574a09101be"
+          }
+        }
+      ]
+    },
+    "mixed": {
+      "report": "build/validation/record-storage-c6dj4l6c/verification.json",
+      "report_sha256": "dac6b6a55cc9ffb4555643b12a4e9c191ac449971ce071d8dff6a0208ec87621",
+      "started_at": "2026-09-30T14:47:26.038719+00:00",
+      "finished_at": "2026-09-30T14:58:27.349477+00:00",
+      "passed": true,
+      "logic_step_seconds": 0.016666666666666666,
+      "wall_step_seconds": 0.05,
+      "application_pairs": 10,
+      "new_process_replays": 20,
+      "per_build": {
+        "produce_frames": 137691,
+        "replay_frames": 66079,
+        "redraws": 30
+      },
+      "profiles": [
+        {
+          "group": 0,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group0 variant0 frames12587 redraws1 statee09f9e5efb1145ce PCM1afc383685d25352 samples20142720 nonzero19981911",
+            "PASS record-app replay group0 variant0 frames7150 redraws2 statedba502a0782cf8b6 PCM2871ae599bc305dc samples11443200 nonzero11335271"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks16 input_frames10663 missing_lane_rejected1",
+          "input_trace_sha256": "140fac19a89e5b4c0424db761980c75515d69151c781fee19d82ec3295d6817c",
+          "files": {
+            "expected.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+            "save/records.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+            "save/unlocks.bku": "e76607430d98bc2935403f941ba270316b27b35770ad3b49ce8e0b668bb9e1dd"
+          }
+        },
+        {
+          "group": 0,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group0 variant1 frames14629 redraws1 statea5512c93cfa914d4 PCMe570ae6a41823f86 samples23409600 nonzero23247151",
+            "PASS record-app replay group0 variant1 frames6010 redraws2 stateee7810b594168bb6 PCMd18b4871f1604d93 samples9619200 nonzero9511762"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks15 input_frames12702 missing_lane_rejected1",
+          "input_trace_sha256": "33926fc257f630e39dd240154f572664482988d4c333d6d68dccf5d2248be26d",
+          "files": {
+            "expected.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+            "save/records.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+            "save/unlocks.bku": "2ca3c809d53c6d8227c05a88c100805782ee565aadd7b66ea6543eb22b8865c7"
+          }
+        },
+        {
+          "group": 1,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group1 variant0 frames14813 redraws1 state3c51fcc17e1f37d3 PCMb736054945820055 samples23704320 nonzero23581072",
+            "PASS record-app replay group1 variant0 frames6550 redraws2 state445cfb98a79000a6 PCM6cb71561d715effc samples10483200 nonzero10374897"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks13 input_frames13010 missing_lane_rejected1",
+          "input_trace_sha256": "b251305ecb4b4a4f3bec2eac6231102362f27a4cbe4b2072bb2e45908ec0bfe9",
+          "files": {
+            "expected.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+            "save/records.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+            "save/unlocks.bku": "907453e7ac81f16680f2d89177b3be576ea5089ef45adf2287343279a0ffae9b"
+          }
+        },
+        {
+          "group": 1,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group1 variant1 frames12613 redraws1 state2220392a6f76ba95 PCM3b8996f675d0ffdb samples20184000 nonzero20063591",
+            "PASS record-app replay group1 variant1 frames6471 redraws2 state9b22fede24123a49 PCMc6c9f45b609a8dc3 samples10357440 nonzero10251140"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks13 input_frames10862 missing_lane_rejected1",
+          "input_trace_sha256": "b96da82c96443d1d29e00821ae3ee0c90da583756786e850146edd02e46ec6f5",
+          "files": {
+            "expected.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+            "save/records.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+            "save/unlocks.bku": "83f776aaec64c38cebdf1d597a9317b273fc47c67d512b74aa0e666741c12958"
+          }
+        },
+        {
+          "group": 2,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group2 variant0 frames13058 redraws1 state557c093dd0404cd8 PCMffa7a91337d6dca2 samples20896320 nonzero20706393",
+            "PASS record-app replay group2 variant0 frames5511 redraws2 state41c151993be811f7 PCMf41b2d39dab94944 samples8821440 nonzero8714906"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks18 input_frames10441 missing_lane_rejected1",
+          "input_trace_sha256": "45d9826bfa204b610fbf49350aa3f7a4d9b55e90990cc6873f36e895516ca469",
+          "files": {
+            "expected.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+            "save/records.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+            "save/unlocks.bku": "0e46a16a4cd559d943906d2853f7dcd39342e6b027b061ec3c8ac595dbf44b91"
+          }
+        },
+        {
+          "group": 2,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group2 variant1 frames12188 redraws1 stateb439ce442264eb20 PCM60e33913a4e754b4 samples19504320 nonzero19314546",
+            "PASS record-app replay group2 variant1 frames6665 redraws2 statec8aa17cd822912a2 PCMf02e2892d67a550b samples10667520 nonzero10559372"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks13 input_frames9606 missing_lane_rejected1",
+          "input_trace_sha256": "45f777ba8abeef71ff5106435e1d09fee3aad48b809cc95de349cf8862276181",
+          "files": {
+            "expected.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+            "save/records.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+            "save/unlocks.bku": "5a44320c1033214ceaecfdb03e48212dd459e4c203ca1ac7ca8858254e9c9950"
+          }
+        },
+        {
+          "group": 3,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group3 variant0 frames13196 redraws1 state4adb1afaa30b28b8 PCM59441f0d6643713b samples21117120 nonzero20602526",
+            "PASS record-app replay group3 variant0 frames6799 redraws2 statedd6d59f7ceeed796 PCM771a68e4beec330a samples10881600 nonzero10771373"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks33 input_frames10149 missing_lane_rejected1",
+          "input_trace_sha256": "eb52a05cf1b6a2213e9f3bd2c0cf633b8d7b05c53632f9f813afef482700ca68",
+          "files": {
+            "expected.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+            "save/records.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+            "save/unlocks.bku": "2dd1913c2508c60a4f216fae3c0080f67fb7e2fad3edfacc2a4cc19d91f22b50"
+          }
+        },
+        {
+          "group": 3,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group3 variant1 frames13413 redraws1 state47df10352d4fd385 PCMb70635c38a01c7f6 samples21464640 nonzero20956610",
+            "PASS record-app replay group3 variant1 frames7449 redraws2 stateea21fb42952e4efd PCM25cae2fefcd3932e samples11922240 nonzero11816025"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks29 input_frames10325 missing_lane_rejected1",
+          "input_trace_sha256": "c973e9c273a87e7360be82dba1d21b84f58c920fac3840335ec218961e4c4c85",
+          "files": {
+            "expected.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+            "save/records.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+            "save/unlocks.bku": "e57dd838931d5ec5a8c81e53994e37c1cf6dc119bee83133bcbb16fb923ca746"
+          }
+        },
+        {
+          "group": 4,
+          "variant": 0,
+          "summary": [
+            "PASS record-app produce group4 variant0 frames15325 redraws1 state7b1914502eb9c2ca PCM3d9c2e4ae457bd1e samples24523200 nonzero24157375",
+            "PASS record-app replay group4 variant0 frames6842 redraws2 state16d9b8663a856ef0 PCM04baf355ac0c3001 samples10950720 nonzero10842989"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks19 input_frames12063 missing_lane_rejected1",
+          "input_trace_sha256": "a1408a3465a3e727facd01465c98b19b2ec28dd32affb630351a631b3589a914",
+          "files": {
+            "expected.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+            "save/records.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+            "save/unlocks.bku": "71a855057f2d5822d8d5ee4f7f151bf27c5188d07e82052569eccbe466f369a2"
+          }
+        },
+        {
+          "group": 4,
+          "variant": 1,
+          "summary": [
+            "PASS record-app produce group4 variant1 frames15869 redraws1 stateee3de3056f65c002 PCM794206c88318e088 samples25393920 nonzero25030416",
+            "PASS record-app replay group4 variant1 frames6632 redraws2 state0c3616541d884bc8 PCM8c7f5614e392496f samples10614720 nonzero10507054"
+          ],
+          "input_summary": "PASS record-input modesf7 clicks21 input_frames12643 missing_lane_rejected1",
+          "input_trace_sha256": "e8aa0cd40acfcbf49dd58b14e247bb51d22eeb1eecf83c01c9400130212a4263",
+          "files": {
+            "expected.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+            "save/records.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+            "save/unlocks.bku": "64963977ff65c1086490b237194b75fc328975bfb0453775d383b574a09101be"
+          }
+        }
+      ]
+    }
+  },
+  "cross_clock_record_unlock_files_equal": true,
+  "source_files_verified": 1110,
+  "data_files_verified": 45,
+  "native_pair": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_writes": 16,
+    "native_reads": 17,
+    "bytes_per_file": 600020,
+    "compared_bytes": 19800660,
+    "max_error": 0,
+    "shipped_sha256": "32d3264d16a6f57667961da05fc6a9802da6f977d67c3443c3df88e1d56fd741",
+    "hazards": [
+      {
+        "handle": 0,
+        "success": true,
+        "length": 600020,
+        "retained": true,
+        "sha256": "48f430d4adf1ca996abf6c56b7f959167cd526773b3a421a7b3c07b8137c9954",
+        "events": [
+          "open"
+        ]
+      },
+      {
+        "handle": -1,
+        "success": true,
+        "length": 600020,
+        "retained": false,
+        "sha256": "32d3264d16a6f57667961da05fc6a9802da6f977d67c3443c3df88e1d56fd741",
+        "events": [
+          "open",
+          "close"
+        ]
+      },
+      {
+        "handle": 123,
+        "success": false,
+        "length": 0,
+        "retained": false,
+        "sha256": "32d3264d16a6f57667961da05fc6a9802da6f977d67c3443c3df88e1d56fd741",
+        "events": [
+          "open",
+          "read",
+          "close"
+        ]
+      },
+      {
+        "handle": 123,
+        "success": true,
+        "length": 7,
+        "retained": false,
+        "sha256": "974ba3d3029983e2d59377d256d8c0d0e8febf2427835ab3ef09830d360e45eb",
+        "events": [
+          "open",
+          "read",
+          "close"
+        ]
+      }
+    ],
+    "scope": "Original50CAA2/50CC47 full five-group Gray records, including real50D245.\nOnly path and Win32 file IO are hooks. Missing/short native-file hazards are\nobserved separately, not reproduced as valid empty progress in the port.\n"
+  },
+  "unit_tests_per_build": 5,
+  "python_tests": 29,
+  "gallery_regression": {
+    "report": "build/validation/ending-runtime-p0pfq52l/result.json",
+    "report_sha256": "fff9e7834a9472637562064bf3215ba583825e555769f0badacd4122f03ee847",
+    "passed": true,
+    "checks": [
+      {
+        "name": "gallery-application",
+        "suite": "gallery-app",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "20753988ebff867d65fe5fb5ac31057975949fcd30956991cf1eed9f3e837bee",
+            "summary": "PASS gallery-app entries40 pictures25 replay-returns10 locked9 flow48-reject1 frames40803 redraws172 statec19d878830914e90 PCM08e8c6e0457d3770 samples65289600 nonzero61042606"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "2eba338e8180339bb7acaf9c6de79b4813f5cc8a9dc8f78d6369a9e3ddffd75d",
+            "summary": "PASS gallery-app entries40 pictures25 replay-returns10 locked9 flow48-reject1 frames40803 redraws172 statec19d878830914e90 PCM08e8c6e0457d3770 samples65289600 nonzero61042606"
+          }
+        ]
+      }
+    ]
+  },
+  "early_input_exploration": {
+    "report": "build/validation/record-early-pair-ymoomw3j/result.json",
+    "report_sha256": "5c4e2d1f6b2b3179011fa62de609708d6b8f32abeff2b497520dfb47d10b27c3",
+    "scope": "Exploratory group0 lane0 only: explicit incoming story boundary; actual normal-phase input to phase2, no selected-stage completion claim; 60Hz simulated clock/PCM. Local helper is not yet a committed reusable suite.",
+    "runs": [
+      {
+        "mode": "host",
+        "exit_code": 0,
+        "summary": [
+          "EARLY INPUT terminal phase2 frames4292 progress0.580000 count6",
+          "PASS early-normal frames4419 statef2916ac343fbd5e9 PCM459faade2fb9728d"
+        ],
+        "binary_sha256": "ac150ab7b08b45be0b95ebd3f418fae93d9b6c9911e34f3f2e4d3363a700f022"
+      },
+      {
+        "mode": "asan",
+        "exit_code": 0,
+        "summary": [
+          "EARLY INPUT terminal phase2 frames4292 progress0.580000 count6",
+          "PASS early-normal frames4419 statef2916ac343fbd5e9 PCM459faade2fb9728d"
+        ],
+        "binary_sha256": "f6ea6c4127e802da97986fa16e0cf70d7febc156cf264ae6d5d98f77dde261a2"
+      }
+    ],
+    "committed_reusable_suite": false
+  },
+  "nvk": {
+    "nro_sha256": "34c34ac76f905f78ad91fa03b2d4ee67e360cac2a631964183486a2d7654165f",
+    "nro_bytes": 16232504,
+    "elf_sha256": "0f6aa36a5fb2395cada7f0119e0000ef94904bb5db3e7d047faad8e1cae5a343",
+    "mesa_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
+    "unresolved_symbols": 0,
+    "replay_guard_linked": true,
+    "build_log": "build/validation/record-input-nvk.log"
+  },
+  "full_natural_story_validated": false,
+  "full_3d_pixel_cases_passed": 9,
+  "full_3d_pixel_cases_total": 12,
+  "switch_hardware_validated": false,
+  "pushed": false,
+  "delivery_updated": false
+}

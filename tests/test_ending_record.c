@@ -4,6 +4,7 @@
 #endif
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main(void) {
   char error[256] = {0};
@@ -42,6 +43,33 @@ int main(void) {
   assert(bk_ending_record_append_unique(r, 6, error));
   assert(r->count == BK_ENDING_RECORD_CAPACITY);
   assert(!bk_ending_record_append_unique(r, 7, error));
+
+  /* A saved lane has its own terminator, independent of the current count
+   * and the other lane. Reject empty/truncated data without changing it. */
+  memset(r, 0, sizeof(*r));
+  BkEndingRecord *snapshot = malloc(sizeof(*snapshot));
+  assert(snapshot);
+  for (unsigned lane = 0; lane < 2; ++lane) {
+    const unsigned ends[] = {0, 1, 4999, BK_ENDING_RECORD_CAPACITY - 1};
+    for (unsigned k = 0; k < sizeof(ends) / sizeof(*ends); ++k) {
+      memset(r, 0xff, sizeof(*r));
+      r->retained[lane][ends[k]] = 0x12340015; /* Native low-byte dispatch. */
+      r->count = k & 1 ? -1 : BK_ENDING_RECORD_CAPACITY + 1;
+      memcpy(snapshot, r, sizeof(*r));
+      assert(bk_ending_record_replay_ready(r, lane, error));
+      assert(!bk_ending_record_replay_ready(r, lane ^ 1u, error));
+      assert(!memcmp(snapshot, r, sizeof(*r)));
+    }
+  }
+  memset(r, 0, sizeof(*r));
+  r->actions[0] = 21; r->count = 1;
+  memcpy(snapshot, r, sizeof(*r));
+  assert(!bk_ending_record_replay_ready(r, 0, error));
+  assert(!bk_ending_record_replay_ready(r, 1, error));
+  assert(!bk_ending_record_replay_ready(r, 2, error));
+  assert(!bk_ending_record_replay_ready(NULL, 0, error));
+  assert(!memcmp(snapshot, r, sizeof(*r)));
+  free(snapshot);
 
   free(records);
   return 0;

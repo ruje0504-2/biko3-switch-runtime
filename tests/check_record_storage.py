@@ -1,8 +1,11 @@
 """Verify full Gray record codecs, durable file errors, and actual app round trips.
-App entry/selected-stage/drag start are explicit fixtures. Production input then
-creates the recorded menu action, eleven finish crossings, terminal21 and unlock.
+App story entry/selected-stage handoffs are explicit fixtures. Production input
+then hits the actual model anchor, drags/releases the prompt and crosses modes
+0/1/2/6/4 to create the recorded menu action, terminal21 and unlock.
 A fresh process loads the files and plays that lane from the actual gallery UI.
-This is not a complete natural story walkthrough or Switch hardware validation.
+The default clock and logic both advance1/60 second; --mixed-clock retains the
+legacy50ms wall clock with1/60 logic. Neither is real-time or Switch validation.
+This is not a complete natural story walkthrough.
 """
 import argparse, concurrent.futures, hashlib, json, os, subprocess, tempfile, threading
 from datetime import datetime, timezone
@@ -10,7 +13,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path);ap.add_argument('--jobs',type=int,default=4);a=ap.parse_args()
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path);ap.add_argument('--jobs',type=int,default=4);ap.add_argument('--mixed-clock',action='store_true');a=ap.parse_args()
     if a.jobs<1:ap.error('jobs must be positive')
     out=Path(tempfile.mkdtemp(prefix='record-storage-',dir=ROOT/'build/validation'))
     paths=[ROOT/'CMakeLists.txt',ROOT/'test-host.sh',ROOT/'config/dependencies.lock.json']
@@ -21,7 +24,7 @@ def main():
     datahash={p+'.pp':digest(a.data/(p+'.pp')) for p in packs}
     for p in a.data.iterdir():
         if p.suffix.lower() in ['.fam','.vix','.ftt'] or p.name=='bk3_Gray.b3f':datahash[p.name]=digest(p)
-    report=dict(passed=False,scope=__doc__,started_at=datetime.now(timezone.utc).isoformat(),source_sha256=hashes,data_sha256=datahash,exe_sha256=digest(a.exe),commands=[],native=[],applications=[],hardware_validation=False)
+    report=dict(passed=False,scope=__doc__,started_at=datetime.now(timezone.utc).isoformat(),source_sha256=hashes,data_sha256=datahash,exe_sha256=digest(a.exe),commands=[],native=[],applications=[],hardware_validation=False,logic_step_seconds=1/60,wall_step_seconds=.05 if a.mixed_clock else 1/60)
     env={**os.environ,'ASAN_OPTIONS':'detect_leaks=0','UBSAN_OPTIONS':'halt_on_error=1:print_stacktrace=1'}
     report_lock=threading.Lock()
     def checkpoint():
@@ -57,13 +60,16 @@ def main():
         assert report['native'][0]==report['native'][1] and report['native'][0]['passed']
         print('PASS native records ordinary/ASan',flush=True)
         def profile(mode,folder,g,v):
-            base=f'{mode}-{g}-{v}';root=out/(base+'-files');summaries=[]
+            base=f'{mode}-{g}-{v}';root=out/(base+'-files');summaries=[];input_trace=[]
             for phase in ['produce','replay']:
-                text=run(base+'-'+phase,[str(ROOT/folder/'ending-record-app-probe'),str(a.data.resolve()),str(root),phase,str(g),str(v)])
+                text=run(base+'-'+phase,[str(ROOT/folder/'ending-record-app-probe'),str(a.data.resolve()),str(root),phase,str(g),str(v),*(['mixed-clock'] if a.mixed_clock else [])])
                 passed=[x for x in text.splitlines() if x.startswith('PASS record-app ')]
                 assert len(passed)==1
+                if phase=='produce':
+                    input_trace=[x for x in text.splitlines() if x.startswith(('record-input ', 'PASS record-input '))]
+                    assert len([x for x in input_trace if x.startswith('PASS record-input ')])==1
                 summaries.append(passed[0]);print(passed[0]+' ['+mode+']',flush=True)
-            return dict(mode=mode,group=g,variant=v,summaries=summaries,files={name:digest(root/name) for name in ['expected.bkr','save/records.bkr','save/unlocks.bku']},binary_sha256=digest(ROOT/folder/'ending-record-app-probe'))
+            return dict(mode=mode,group=g,variant=v,summaries=summaries,input_trace=input_trace,files={name:digest(root/name) for name in ['expected.bkr','save/records.bkr','save/unlocks.bku']},binary_sha256=digest(ROOT/folder/'ending-record-app-probe'))
         # Independent app processes, two at a time; each production write must
         # finish before its new-process replay. No shared output roots.
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
@@ -77,7 +83,7 @@ def main():
         for g in range(5):
             for v in range(2):
                 pair=sorted([x for x in report['applications'] if x['group']==g and x['variant']==v],key=lambda x:x['mode'])
-                assert len(pair)==2 and pair[0]['summaries']==pair[1]['summaries'] and pair[0]['files']==pair[1]['files'],(g,v,'pair mismatch')
+                assert len(pair)==2 and pair[0]['summaries']==pair[1]['summaries'] and pair[0]['files']==pair[1]['files'] and pair[0]['input_trace']==pair[1]['input_trace'],(g,v,'pair mismatch')
         run('python-tests',['python3','-m','unittest','discover','-s','tests','-p','test_*.py'])
         assert all(digest(ROOT/p)==h for p,h in hashes.items()),'source changed during validation'
         assert all(digest(a.data/p)==h for p,h in datahash.items()),'data changed during validation'

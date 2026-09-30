@@ -3081,6 +3081,14 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   if (!services || !services->renderer || !services->resources ||
       !services->audio || group >= 5 || variant > 1)
     return NULL;
+  /* Old installations can have unlock flags without a saved recording.
+   * Reject that lane before allocating or mutating shared scene owners. */
+  if (previous == 0x18 && selected == 6 &&
+      (!records || !bk_ending_record_replay_ready(&records->groups[group],
+                                                  variant, e))) {
+    if (!records) fail(e, "gallery replay record owner is missing");
+    return NULL;
+  }
   if (flow && (!flow->common || !flow->schedule || !flow->state || !flow->auxiliary_cycle ||
                !flow->random || !flow->normal_controller || !flow->presentation ||
                !flow->duck_transition || !flow->process ||

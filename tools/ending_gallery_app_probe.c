@@ -4,6 +4,9 @@
  * return ownership, not natural recording or the full replay route suite. */
 #include "../runtime/app/play_session.c"
 #include <stdint.h>
+#ifndef BK_APP_PROBE_WALL_STEP
+#define BK_APP_PROBE_WALL_STEP .05
+#endif
 
 #define CHECK(x) do { if (!(x)) { fprintf(stderr, "gallery app line%d (%s): %s\n", \
     __LINE__, #x, error); goto done; } } while (0)
@@ -59,7 +62,8 @@ static int tick(BkScene *scene, BkRenderer *r, BkAudio *a, Sink *sink,
   sink->consumed += 800;
   if (sink->consumed > sink->submitted) sink->consumed = sink->submitted;
   if (!bk_audio_poll(a, e) ||
-      !bk_play_session_step_at(scene, 1. / 60., s->elapsed + .05, &in, e) ||
+      !bk_play_session_step_at(scene, 1. / 60.,
+                               s->elapsed + BK_APP_PROBE_WALL_STEP, &in, e) ||
       !present(scene, r, a, e)) return 0;
   int32_t values[] = {s->flow.current, s->flow.previous, s->flow.target,
       s->ending_state.frame.phase, s->ending_state.frame.group,
