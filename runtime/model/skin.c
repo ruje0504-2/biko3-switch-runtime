@@ -1,4 +1,5 @@
 #include "model/skin.h"
+#include "core/arm64_math.h"
 #include "core/matrix.h"
 #include <math.h>
 #include <stdio.h>
@@ -258,16 +259,29 @@ int bk_skin_mesh_apply(BkSkinMesh *m, const float *world, size_t float_count,
   for (uint32_t j = 0; j < e->info.bone_count; j++) {
     const BkSkinBone *b = &e->bones[j];
     const float *matrix = world + (size_t)b->frame * 16;
+#ifdef BK_ARM64_NEON
+    if (b->count)
+      bk_arm64_prefetch_l1(b->influences);
+#endif
     for (uint32_t k = 0; k < b->count; k++) {
       const BkSkinInfluence *in = &b->influences[k];
       BkModelVertex *out = &m->pending[in->index];
       float position[3], normal[3];
+#ifdef BK_ARM64_NEON
+      if (!bk_arm64_matrix_transform_coord(position, in->position, matrix))
+        return fail(error, "invalid bone homogeneous coordinate");
+#else
       if (!bk_matrix_transform_coord(position, in->position, matrix))
         return fail(error, "invalid bone homogeneous coordinate");
+#endif
+#ifdef BK_ARM64_NEON
+      bk_arm64_matrix_linear3(normal, in->normal, matrix);
+#else
       for (unsigned d = 0; d < 3; d++)
         normal[d] = (float)((double)in->normal[0] * matrix[d] +
                             (double)in->normal[1] * matrix[4 + d] +
                             (double)in->normal[2] * matrix[8 + d]);
+#endif
       float weight = in->weight;
       int first = out->beta <= .001f;
       int finish = !first && (double)out->beta + weight >= (double).999f;

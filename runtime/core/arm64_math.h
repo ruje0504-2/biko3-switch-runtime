@@ -7,6 +7,7 @@
 #if defined(__aarch64__) && defined(__ARM_NEON) && defined(BK_ARM64_FAST)
 
 #include <arm_neon.h>
+#include <math.h>
 #include <string.h>
 
 #define BK_ARM64_NEON 1
@@ -44,6 +45,43 @@ static inline void bk_arm64_matrix_point(float out[4], const float p[3],
   value = vaddq_f32(value, vld1q_f32(m + 12));
   vst1q_f32(result, value);
   memcpy(out, result, sizeof(result));
+}
+
+/* ENVL normals use the authored linear 3x3 rows, without an inverse
+ * transpose or normalization. Keep that rule, but do all three lanes in one
+ * NEON accumulator while the CPU fallback is active. */
+static inline void bk_arm64_matrix_linear3(float out[3], const float v[3],
+                                           const float m[16]) {
+  float32x4_t value = vmulq_n_f32(vld1q_f32(m + 0), v[0]);
+  value = vfmaq_n_f32(value, vld1q_f32(m + 4), v[1]);
+  value = vfmaq_n_f32(value, vld1q_f32(m + 8), v[2]);
+  float result[4];
+  vst1q_f32(result, value);
+  out[0] = result[0];
+  out[1] = result[1];
+  out[2] = result[2];
+}
+
+/* The homogeneous divide remains scalar/double so the existing W tolerance
+ * and failure policy stay identical. Only the matrix products use NEON. */
+static inline int bk_arm64_matrix_transform_coord(float out[3],
+                                                  const float p[3],
+                                                  const float m[16]) {
+  float result[4];
+  bk_arm64_matrix_point(result, p, m);
+  if (!isfinite(result[3]) || result[3] == 0)
+    return 0;
+  double delta = (double)result[3] - 1.0;
+  if (delta < -(double)1e-5f || delta > (double)1e-5f) {
+    double inverse = 1.0 / result[3];
+    for (unsigned i = 0; i < 3; ++i)
+      result[i] = (float)((double)result[i] * inverse);
+  }
+  for (unsigned i = 0; i < 3; ++i)
+    if (!isfinite(result[i]))
+      return 0;
+  memcpy(out, result, 3 * sizeof(float));
+  return 1;
 }
 
 #endif
