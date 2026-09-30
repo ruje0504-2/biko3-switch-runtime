@@ -100,3 +100,26 @@ int bk_curtain_render_draw(BkCurtainRender *c, char e[256]) {
                                (BkDrawState){BK_BLEND_ALPHA, 0, BK_CULL_NONE},
                                e);
 }
+int bk_curtain_render_draw_frame(BkCurtainRender *c, const BkCommonHudFrame *f,
+    unsigned width, unsigned height, char e[256]) {
+  if (!c || !f || !width || !height || !isfinite(f->curtain_alpha) ||
+      f->curtain_alpha < 0 || f->curtain_alpha > 1)
+    return fail(e, "invalid transient curtain");
+  unsigned w, h; bk_renderer_extent(c->renderer, &w, &h);
+  if (width > w || height > h) return fail(e, "viewport exceeds target");
+  float scale = (float)((double)width / 1280), right = 1280 * scale,
+      bottom = 960 * scale;
+  float alpha = (uint32_t)((double)f->curtain_alpha * 255) / 255.f;
+  const BkVertex v[6] = {
+      {0, 0, 0, 0, 0, 1, 1, 1, alpha},
+      {right, 0, 0, 1, 0, 1, 1, 1, alpha},
+      {right, bottom, 0, 1, 1, 1, 1, 1, alpha},
+      {0, bottom, 0, 0, 1, 1, 1, 1, alpha},
+      {0, 0, 0, 0, 0, 1, 1, 1, alpha},
+      {right, bottom, 0, 1, 1, 1, 1, 1, alpha}};
+  float matrix[16]; memcpy(matrix, bk_identity, sizeof matrix);
+  matrix[0] = 2.f / width; matrix[5] = 2.f / height;
+  matrix[12] = (float)(1.0 / width - 1); matrix[13] = (float)(1.0 / height - 1);
+  return bk_renderer_draw_vertices(c->renderer, c->texture, v, 6, matrix,
+      (BkDrawState){BK_BLEND_ALPHA, 0, BK_CULL_NONE}, e);
+}

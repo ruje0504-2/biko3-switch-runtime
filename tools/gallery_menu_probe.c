@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
   BkAudioSink output={&sink,48000,240,960,submit,poll};
   audio=bk_audio_create(&output,e); CHECK(audio);
   music=bk_audio_clip_load(store,"bk3_02","bg002.wav",e); CHECK(music);
-  for(unsigned i=1;i<=5;++i) {
+  for(unsigned i=0;i<=5;++i) {
     services.sounds[i]=bk_system_audio_create_slot(store,audio,48+i,i,-600,e);
     CHECK(services.sounds[i]);
   }

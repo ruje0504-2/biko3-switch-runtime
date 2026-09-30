@@ -114,7 +114,7 @@ BkFrontEnd *bk_front_end_create(const BkFrontEndConfig *c, char e[256]) {
   for (unsigned i = 0; i < 16; i++)
     s->camera.pose.world[i] = s->camera.matrix[i] = i % 5 == 0;
   bk_fade_sprite_initialize(&s->backdrop_curtain);
-  for (unsigned i = 1; i <= 5; i++) {
+  for (unsigned i = 0; i <= 5; i++) {
     s->sounds[i] = bk_system_audio_create_slot(
         c->services.resources, c->services.audio, 48 + i, i, -600, e);
     if (!s->sounds[i]) {

@@ -43,6 +43,11 @@ SUITES = {
         ("third-application", "ending-exit-probe", ["{output}", "--third"]),
     ],
     "gallery-app": [("gallery-application", "ending-gallery-app-probe", ["{output}"])],
+    "special-ui-media": [
+        ("special-ui-media", "special-ui-media-probe", ["{output}"]),
+        ("screenshot", "screenshot-probe", ["{output}"]),
+        ("capture-render", "capture-render-probe", []),
+    ],
     "render": [
         ("normal-render", "ending-render-probe", []),
         ("normal-dual-render", "ending-render-probe", ["--special"]),
@@ -67,6 +72,8 @@ def source_manifest() -> dict[str, str]:
     paths.extend(p for p in (ROOT / "runtime").rglob("*") if p.is_file())
     paths.extend((ROOT / "tools").glob("ending_*probe.c"))
     paths.extend((ROOT / "tools").glob("ending_*.h"))
+    paths.extend(ROOT / "tools" / name for name in [
+        "special_ui_media_probe.c", "screenshot_probe.c", "capture_render_probe.c"])
     paths.extend(ROOT / "tests" / name for name in [
         "original_ending_selected_session_oracle.py", "original_prop_route_oracle.py",
         "original_matrix_oracle.py", "model_binding.py",
@@ -95,11 +102,13 @@ def main() -> int:
     parent.mkdir(parents=True, exist_ok=True)
     output = Path(tempfile.mkdtemp(prefix="ending-runtime-", dir=parent))
     manifest = source_manifest()
+    archives = {pack: digest(data / (pack + ".pp")) for pack in
+                (["bk3_00", "bk3_02", "bk3_15"] if "special-ui-media" in suites else [])}
     report = {
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data": str(data), "suites": suites, "reuse_host_build": args.reuse_host_build,
         "passed": False, "scope": "Host real-asset CPU/Vulkan and ASan/UBSan comparisons; no Switch or full-game acceptance",
-        "source_sha256": manifest, "commands": [], "checks": [],
+        "source_sha256": manifest, "archive_sha256": archives, "commands": [], "checks": [],
     }
     print(f"Ending validation logs: {output}", flush=True)
     env = {**os.environ, "ASAN_OPTIONS": "detect_leaks=0", "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"}
@@ -185,6 +194,8 @@ def main() -> int:
             report["auxiliary_targets_native"] = native
         if source_manifest() != manifest:
             raise RuntimeError("source changed during validation; results cannot identify one source state")
+        if any(digest(data / (pack + ".pp")) != value for pack, value in archives.items()):
+            raise RuntimeError("archive changed during validation")
         report["passed"] = True
     except (OSError, RuntimeError) as error:
         report["error"] = str(error)

@@ -207,7 +207,7 @@ int bk_special_ui_step(BkSpecialUi *s, const BkSpecialUiBindings *b,
   if (hit(s->sprites[3].rect, s->sprites[3].rect, point)) {
     if (!confirm(ops, 1, &pressed, e)) return 0;
     if (pressed) {
-      if (!sound(ops, 1, e)) return 0;
+      if (!sound(ops, 0, e)) return 0;
       if (*b->camera_mode == 0 || *b->camera_mode == 2 || *b->camera_mode == 3) *b->camera_mode = 1;
       else if (*b->camera_mode == 1) *b->camera_mode = 2;
     }
@@ -215,13 +215,13 @@ int bk_special_ui_step(BkSpecialUi *s, const BkSpecialUiBindings *b,
   if (hit(s->sprites[5].rect, s->sprites[5].rect, point)) {
     hover = 5;
     if (!confirm(ops, 1, &pressed, e)) return 0;
-    if (pressed) { if (!sound(ops, 3, e)) return 0; b->common->action = 5; b->common->blocked = 1; }
+    if (pressed) { if (!sound(ops, 2, e)) return 0; b->common->action = 5; b->common->blocked = 1; }
   }
   if (hit(s->sprites[7].rect, s->sprites[*b->special == 1 ? 7 : 15].rect, point)) {
     if (*b->special != 1) hover = 15;
     if (!confirm(ops, 1, &pressed, e)) return 0;
     if (pressed) {
-      if (!sound(ops, 1, e)) return 0;
+      if (!sound(ops, 0, e)) return 0;
       *b->camera_mode = 2;
       if (!save_camera(b, e)) return 0;
       *b->camera_clip = (*b->camera_clip + 1) % 3;
@@ -232,7 +232,7 @@ int bk_special_ui_step(BkSpecialUi *s, const BkSpecialUiBindings *b,
     hover = 10;
     if (!confirm(ops, 1, &pressed, e)) return 0;
     if (pressed) {
-      if (!sound(ops, 1, e)) return 0;
+      if (!sound(ops, 0, e)) return 0;
       *b->camera_mode = 2;
       memcpy(b->presets->active, b->presets->authored, sizeof b->presets->active);
       if (!restore_camera(b, e)) return 0;
@@ -242,7 +242,7 @@ int bk_special_ui_step(BkSpecialUi *s, const BkSpecialUiBindings *b,
     hover = 12;
     if (!confirm(ops, 1, &pressed, e)) return 0;
     if (pressed) {
-      if (!sound(ops, 1, e)) return 0;
+      if (!sound(ops, 0, e)) return 0;
       if (*b->visibility == 0) *b->visibility = 1;
       else if (*b->visibility == 1) *b->visibility = 0;
     }
@@ -250,7 +250,7 @@ int bk_special_ui_step(BkSpecialUi *s, const BkSpecialUiBindings *b,
   if (*b->camera_mode == 0 && !save_camera(b, e)) return 0;
   if (hover) {
     if ((int8_t)*b->hover_latched != hover) {
-      if (!sound(ops, 4, e)) return 0;
+      if (!sound(ops, 3, e)) return 0;
       *b->hover_latched = (uint8_t)hover;
     }
   } else *b->hover_latched = 0;
@@ -258,9 +258,9 @@ int bk_special_ui_step(BkSpecialUi *s, const BkSpecialUiBindings *b,
     if (!keys(ops, (uint32_t[2]){0x43, 0x33455}, 2, 1, &pressed, e)) return 0;
     if (pressed) {
       if (*b->photo_count < 100) {
-        if (!sound(ops, 8, e) || !capture(ops, BK_SPECIAL_CAPTURE_REQUEST, e) ||
+        if (!sound(ops, 7, e) || !capture(ops, BK_SPECIAL_CAPTURE_REQUEST, e) ||
             !capture(ops, BK_SPECIAL_CAPTURE_CONFIGURE, e)) return 0;
-      } else if (!sound(ops, 6, e)) return 0;
+      } else if (!sound(ops, 5, e)) return 0;
     }
   }
   if (!key(ops, 0, 2, &pressed, e)) return 0;

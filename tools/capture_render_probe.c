@@ -2,6 +2,7 @@
  * independent ordinary frames. Covers preserved color/depth, viewport,
  * streamed vertices, alpha blending, empty and repeated capture. */
 #include "render/renderer.h"
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -51,6 +52,17 @@ int main(void) {
   }
   for (unsigned frame = 0; frame < 32; ++frame) {
     CHECK(bk_renderer_begin(r, e));
+    /* Rejected transient data/state must not consume vertices or emit a draw.
+     * Every following capture still has to match the clean reference frame. */
+    BkVertex invalid[3] = {{0}};
+    invalid[1].x = NAN;
+    CHECK(!bk_renderer_draw_vertices(r, t, invalid, 3, bk_identity,
+                                      (BkDrawState){BK_BLEND_ALPHA, 0, BK_CULL_NONE}, e));
+    invalid[1].x = 0;
+    CHECK(!bk_renderer_draw_vertices(r, t, invalid, 3, bk_identity,
+                                      (BkDrawState){BK_BLEND_COUNT, 0, BK_CULL_NONE}, e));
+    CHECK(!bk_renderer_draw_vertices(r, t, invalid, 3, bk_identity,
+                                      (BkDrawState){BK_BLEND_ALPHA, 2, BK_CULL_NONE}, e));
     CHECK(!bk_renderer_capture(r, got, BYTES - 1, e));
     for (unsigned stage = 0; stage < 5; ++stage) {
       if (stage) {

@@ -20,6 +20,7 @@ from original_item_notice_oracle import Fade
 from original_menu_camera_oracle import State as Camera
 from original_special_event_oracle import State as Event, Timer as EventTimer
 import original_special_event_oracle as event_oracle
+from original_npc_route_sound_oracle import Init as SystemInit
 from model_binding import ROOT, library
 
 I,U,F,B,S,P = C.c_int32,C.c_uint32,C.c_float,C.c_uint8,C.c_int8,C.c_void_p
@@ -98,7 +99,8 @@ class Native(Base):
         self.point=[0,0];self.motion=[0,0];self.keys={};self.now=0;self.mutate=False
         self.loaded=0;self.draw_meta=[];self.width=1280
         self.wi(0x53f10c,0x300e000)
-        for slot in range(1,9):self.wi(0xbeee10+(slot-1)*0x120,100+slot)
+        self.system=SystemInit(exe).segment(0x4e72fe,0x4e755e,-600)
+        for slot,record in enumerate(self.system):self.wi(int(record['handle'],16),100+slot)
         for a in [0x4af970,0x4af97a,0x4ad8ec,0x466805,0x466814,0x43e583,
             0x49d0eb,0x49d085,0x4affb8,0x4b75aa,0x4b757e,0x4b76c2,
             0x46435e,0x300e000,0x4b768d,0x51c47e]:
@@ -193,6 +195,8 @@ def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path)
     ap.add_argument('--cases',type=int,default=6000);ap.add_argument('--output',type=Path)
     args=ap.parse_args();exe=args.exe.read_bytes();n=Native(exe);lib=library();error=C.create_string_buffer(256)
+    lib.bk_system_audio_name.argtypes=[U];lib.bk_system_audio_name.restype=C.c_char_p
+    assert [lib.bk_system_audio_name(i).decode() for i in range(8)]==[r['file'] for r in n.system]
     lib.bk_special_ui_initialize.argtypes=[C.POINTER(Ui),C.POINTER(Control),C.POINTER(Event),U,S,C.POINTER(Ops),P]
     lib.bk_special_ui_step.argtypes=[C.POINTER(Ui),C.POINTER(Bindings),C.POINTER(Ops),F,F,C.POINTER(Frame),P]
     lib.bk_effect_sprite_initialize.argtypes=[C.POINTER(Effect),FP,B,B,B]
@@ -402,11 +406,11 @@ def main():
         b=f.bindings();frame=Frame()
         assert not lib.bk_special_ui_step(C.byref(f.ui),C.byref(b),C.byref(bad),1,F(1/60),C.byref(frame),error),(kind,error.value)
         assert frame.complete==0;guards+=1
-    expected={('sound',1),('sound',3),('sound',4),('sound',6),('sound',8),('capture',0),('capture',1),('capture',2),('schedule',2,1),('schedule',0x18,1)}
+    expected={('sound',0),('sound',2),('sound',3),('sound',5),('sound',7),('capture',0),('capture',1),('capture',2),('schedule',2,1),('schedule',0x18,1)}
     if args.cases>=6000:assert expected<=coverage,expected-coverage
     report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),**counts,guards=guards,
         state_sha256=digest.hexdigest(),constructor_alias=alias,sequence_direct_plays=sequence_calls,
-        coverage=sorted(coverage),max_error=0,scope=__doc__)
+        coverage=sorted(coverage),system_loads=n.system,max_error=0,scope=__doc__)
     output=args.output or ROOT/'local/original-special-ui-oracle.json'
     output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
 if __name__=='__main__':main()

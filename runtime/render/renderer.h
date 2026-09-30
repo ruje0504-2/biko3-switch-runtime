@@ -181,6 +181,13 @@ int bk_renderer_clear_depth(BkRenderer *, float depth, char error[256]);
 int bk_renderer_draw(BkRenderer *r, BkTexture *texture,
                      const BkVertex *vertices, unsigned count,
                      const float matrix[16], char error[256]);
+/* Active-frame transient vertices, with explicit blend/depth-write/cull.
+ * Copies into the current frame's append-only stream, including after a
+ * synchronous capture. No mesh mutation, allocation or additional submit.
+ * bk_renderer_draw retains its UI_ALPHA/depth-write1 defaults. */
+int bk_renderer_draw_vertices(BkRenderer *, BkTexture *, const BkVertex *,
+                               unsigned count, const float matrix[16],
+                               BkDrawState, char error[256]);
 /* Synchronously read the current active frame BEFORE later HUD draws. Ends
  * the current render pass, submits/waits/copies RGBA, then resumes with both
  * color and depth preserved. Retains viewport/scissor and submitted vertices;

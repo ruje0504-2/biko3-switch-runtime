@@ -2,6 +2,8 @@
 #define BK_SCENE_SYSTEM_AUDIO_H
 #include "media/audio.h"
 typedef struct BkSystemAudio BkSystemAudio;
+/* Native BEEE10+slot*0x120 handles, zero-based. NULL outside0..7. */
+const char *bk_system_audio_name(unsigned slot);
 /* Retained global bufferBEF050, initialized by4e6dee as bk3_02/se002.wav.
  * Shared across NPC waits and UI; lifetime is above individual entries.
  * The default constructor selects that buffer.

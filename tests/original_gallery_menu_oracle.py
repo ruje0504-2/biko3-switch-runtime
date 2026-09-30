@@ -18,6 +18,7 @@ from original_pause_oracle import Cursor, Sprite, ss
 from original_common_hud_oracle import State as Common, Flow, Timer
 from original_item_notice_oracle import Fade
 from model_binding import ROOT, library
+from original_npc_route_sound_oracle import Init as SystemInit
 
 class State(C.Structure):
     _fields_ = [('sprites', Sprite*49), ('pointer', C.c_float*2),
@@ -64,7 +65,8 @@ class Native(Base):
         self.wi(0x53f2f0, 0x300e100)
         self.wi(0x41f0000, 0x41f0100); self.wi(0x41f013c, 0x300e200)
         self.wi(0x7099f8, 0x41f1000)
-        for slot in range(1, 9): self.wi(0xbeee10+(slot-1)*0x120, 100+slot)
+        self.system=SystemInit(exe).segment(0x4e72fe,0x4e755e,-600)
+        for slot,record in enumerate(self.system): self.wi(int(record['handle'],16),100+slot)
         for a in [0x524e54,0x4ad8ec,0x43e583,0x466805,0x466814,0x43e91b,
                   0x4a06df,0x4ad2bf,0x46d9b4,0x300e100,0x300e200,0x4af97a,
                   0x4b75aa,0x4b76c2,0x4c8768,0x4e77bf,0x4f75dd]:
@@ -144,6 +146,8 @@ class Native(Base):
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('--cases',type=int,default=3000);ap.add_argument('--output',type=Path,default=ROOT/'local/original-gallery-menu-oracle.json');args=ap.parse_args()
     exe=args.exe.read_bytes();n=Native(exe);lib=library();e=C.create_string_buffer(256)
+    lib.bk_system_audio_name.argtypes=[C.c_uint];lib.bk_system_audio_name.restype=C.c_char_p
+    assert [lib.bk_system_audio_name(i).decode() for i in range(8)]==[r['file'] for r in n.system]
     lib.bk_gallery_menu_initialize.argtypes=[C.POINTER(State),C.c_uint,C.c_uint8,C.c_uint,C.c_uint,C.POINTER(Unlock),C.c_int32,C.POINTER(Ops),C.c_void_p]
     lib.bk_gallery_menu_step.argtypes=[C.POINTER(State),C.POINTER(Bindings),C.POINTER(Input),C.POINTER(Ops),C.POINTER(Frame),C.c_void_p]
     lib.bk_gallery_menu_dispatch.argtypes=[C.POINTER(State),C.c_int32,C.POINTER(Selection),C.POINTER(Flow),C.POINTER(DispatchOps),C.c_void_p]
@@ -277,6 +281,6 @@ def main():
         before=snapshot(s,c,cur);trace.clear()
         assert not lib.bk_gallery_menu_step(C.byref(s),C.byref(b),C.byref(inp),C.byref(incomplete),C.byref(f),e)
         assert snapshot(s,c,cur)==before and not trace;counts['rejections']+=1
-    result=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),**counts,continuous_sequences=sequences,max_error=0,scope=__doc__)
+    result=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),**counts,continuous_sequences=sequences,system_loads=n.system,max_error=0,scope=__doc__)
     args.output.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result),flush=True)
 if __name__=='__main__':main()

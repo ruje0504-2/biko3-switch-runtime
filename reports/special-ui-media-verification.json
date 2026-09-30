@@ -1,0 +1,717 @@
+{
+  "passed": true,
+  "scope": "Actual Japanese special UI textures/PCM, screenshot/app album boundary and regressions. No flow48 application integration, natural story unlock, full Windows pixels or Switch hardware acceptance.",
+  "validations": [
+    {
+      "path": "build/validation/ending-runtime-wylyesqo/result.json",
+      "sha256": "2b7e248175a78f2f851a50eda0b9379f90d2f8cf6822d6a6a222261ec56a613c",
+      "passed": true,
+      "checks": [
+        {
+          "name": "special-ui-media",
+          "suite": "special-ui-media",
+          "passed": true,
+          "runs": [
+            {
+              "kind": "host",
+              "binary_sha256": "f8b0f540a9093a6c7b9a1f00bc389b4b0db9bb836c735840410f48585f00941d",
+              "summary": "PASS special-ui media frames=960 samples=4178493 worst=1 redraws=66 images=116 sounds=62 mask=ad photos=6 photo_rgb=5745786 watermark=19103 schedules=4 rejects=10 curtains=12 counters=6 pixels=4e2c131048cce804 files=eaec19d58f751425 PCM=1843200 nonzero=1029162 hash=7e7f00eddc7ce405"
+            },
+            {
+              "kind": "asan",
+              "binary_sha256": "1d878c854b24ee5c5ae856906d7276e1f88fe93d52c27db361f94f5471251187",
+              "summary": "PASS special-ui media frames=960 samples=4178493 worst=1 redraws=66 images=116 sounds=62 mask=ad photos=6 photo_rgb=5745786 watermark=19103 schedules=4 rejects=10 curtains=12 counters=6 pixels=4e2c131048cce804 files=eaec19d58f751425 PCM=1843200 nonzero=1029162 hash=7e7f00eddc7ce405"
+            }
+          ]
+        },
+        {
+          "name": "screenshot",
+          "suite": "special-ui-media",
+          "passed": true,
+          "runs": [
+            {
+              "kind": "host",
+              "binary_sha256": "24155886ed212ecc484d0f39f769d5fa84d8e617da1c67164fa7412ff4d675f3",
+              "summary": "PASS screenshot: 5 pause replacements +5 photos, 7464960 RGB bytes exact, 93916 later-HUD pixels excluded"
+            },
+            {
+              "kind": "asan",
+              "binary_sha256": "2da39e38542e1f18356fdcdf6d2f2a8c2346d5d539ae8c8e3e5b41626ea75d71",
+              "summary": "PASS screenshot: 5 pause replacements +5 photos, 7464960 RGB bytes exact, 93916 later-HUD pixels excluded"
+            }
+          ]
+        },
+        {
+          "name": "capture-render",
+          "suite": "special-ui-media",
+          "passed": true,
+          "runs": [
+            {
+              "kind": "host",
+              "binary_sha256": "c7f3088d93537d63044258caae2741a3a8b4ee3ab5726ee265fad39cd8a9c53a",
+              "summary": "PASS active capture: 192 captures 6193152 RGBA byte comparisons, exact color/depth/viewport retention"
+            },
+            {
+              "kind": "asan",
+              "binary_sha256": "abf166734fd445459bf2a91c5d08d435c1d1301f29abfaa8b71ae26d7db29a34",
+              "summary": "PASS active capture: 192 captures 6193152 RGBA byte comparisons, exact color/depth/viewport retention"
+            }
+          ]
+        },
+        {
+          "name": "gallery-application",
+          "suite": "gallery-app",
+          "passed": true,
+          "runs": [
+            {
+              "kind": "host",
+              "binary_sha256": "029bda62b58fd04f6cd9022a335a0962b464f66e2439ac01644d4b4983b454d0",
+              "summary": "PASS gallery-app entries40 pictures25 replay-returns10 locked9 flow48-reject1 frames40803 redraws172 statec19d878830914e90 PCM08e8c6e0457d3770 samples65289600 nonzero61042606"
+            },
+            {
+              "kind": "asan",
+              "binary_sha256": "c2f77ba3268a4c4b473d1c6a0fc609096baad01704d3aa78122678a08caef551",
+              "summary": "PASS gallery-app entries40 pictures25 replay-returns10 locked9 flow48-reject1 frames40803 redraws172 statec19d878830914e90 PCM08e8c6e0457d3770 samples65289600 nonzero61042606"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "build/validation/special-ui-38j1vxxz/verification.json",
+      "sha256": "e0f52e723c87076201722db1ddd69dd01c2c1b312903555b0da28c808f304d8a",
+      "passed": true,
+      "checks": [
+        {
+          "mode": "host",
+          "result": {
+            "passed": true,
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "constructors": 38,
+            "constructor_failures": 58,
+            "frames": 11812,
+            "draws": 156192,
+            "vertices": 937152,
+            "events": 162152,
+            "failure_prefixes": 832,
+            "continuous": 5670,
+            "boundaries": 80,
+            "post_constructor_frames": 3800,
+            "guards": 6,
+            "state_sha256": "4625dfeb539591b5f2d851cd03bbf2636d13c82c1bdc1614ff682942f7d362b6",
+            "constructor_alias": [
+              [
+                828335463,
+                1735667254,
+                97
+              ],
+              0.0,
+              [
+                0,
+                0,
+                0
+              ],
+              0
+            ],
+            "sequence_direct_plays": 2,
+            "coverage": [
+              [
+                "capture",
+                0
+              ],
+              [
+                "capture",
+                1
+              ],
+              [
+                "capture",
+                2
+              ],
+              [
+                "schedule",
+                2,
+                1
+              ],
+              [
+                "schedule",
+                24,
+                1
+              ],
+              [
+                "sound",
+                0
+              ],
+              [
+                "sound",
+                2
+              ],
+              [
+                "sound",
+                3
+              ],
+              [
+                "sound",
+                5
+              ],
+              [
+                "sound",
+                7
+              ]
+            ],
+            "system_loads": [
+              {
+                "object": "0xbeed00",
+                "handle": "0xbeee10",
+                "pack": "\\bk3_02.pp",
+                "file": "se000.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeee20",
+                "handle": "0xbeef30",
+                "pack": "\\bk3_02.pp",
+                "file": "se001.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeef40",
+                "handle": "0xbef050",
+                "pack": "\\bk3_02.pp",
+                "file": "se002.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef060",
+                "handle": "0xbef170",
+                "pack": "\\bk3_02.pp",
+                "file": "se003.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef180",
+                "handle": "0xbef290",
+                "pack": "\\bk3_02.pp",
+                "file": "se004.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef2a0",
+                "handle": "0xbef3b0",
+                "pack": "\\bk3_02.pp",
+                "file": "se005.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef3c0",
+                "handle": "0xbef4d0",
+                "pack": "\\bk3_02.pp",
+                "file": "se006.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef4e0",
+                "handle": "0xbef5f0",
+                "pack": "\\bk3_02.pp",
+                "file": "se099.wav",
+                "volume": -600,
+                "loop": 0
+              }
+            ],
+            "max_error": 0,
+            "scope": "Full51B617/4E4472/4E533B/4E5744/4E6AC2, native constructors and geometry.\nOnly image/device, capture, input, sound, clock and scheduling are leaves.\nCompares ordered calls, retained shared state and every emitted vertex; these\nfixtures do not establish real screenshots, application flow48 or Switch use.\n"
+          },
+          "library_sha256": "aa7c9d9a061c54ee3a3248a2f660c66e257a7a9451dc81820b3c4b4c83e30bad",
+          "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+        },
+        {
+          "mode": "asan",
+          "result": {
+            "passed": true,
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "constructors": 38,
+            "constructor_failures": 58,
+            "frames": 11812,
+            "draws": 156192,
+            "vertices": 937152,
+            "events": 162152,
+            "failure_prefixes": 832,
+            "continuous": 5670,
+            "boundaries": 80,
+            "post_constructor_frames": 3800,
+            "guards": 6,
+            "state_sha256": "4625dfeb539591b5f2d851cd03bbf2636d13c82c1bdc1614ff682942f7d362b6",
+            "constructor_alias": [
+              [
+                828335463,
+                1735667254,
+                97
+              ],
+              0.0,
+              [
+                0,
+                0,
+                0
+              ],
+              0
+            ],
+            "sequence_direct_plays": 2,
+            "coverage": [
+              [
+                "capture",
+                0
+              ],
+              [
+                "capture",
+                1
+              ],
+              [
+                "capture",
+                2
+              ],
+              [
+                "schedule",
+                2,
+                1
+              ],
+              [
+                "schedule",
+                24,
+                1
+              ],
+              [
+                "sound",
+                0
+              ],
+              [
+                "sound",
+                2
+              ],
+              [
+                "sound",
+                3
+              ],
+              [
+                "sound",
+                5
+              ],
+              [
+                "sound",
+                7
+              ]
+            ],
+            "system_loads": [
+              {
+                "object": "0xbeed00",
+                "handle": "0xbeee10",
+                "pack": "\\bk3_02.pp",
+                "file": "se000.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeee20",
+                "handle": "0xbeef30",
+                "pack": "\\bk3_02.pp",
+                "file": "se001.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeef40",
+                "handle": "0xbef050",
+                "pack": "\\bk3_02.pp",
+                "file": "se002.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef060",
+                "handle": "0xbef170",
+                "pack": "\\bk3_02.pp",
+                "file": "se003.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef180",
+                "handle": "0xbef290",
+                "pack": "\\bk3_02.pp",
+                "file": "se004.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef2a0",
+                "handle": "0xbef3b0",
+                "pack": "\\bk3_02.pp",
+                "file": "se005.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef3c0",
+                "handle": "0xbef4d0",
+                "pack": "\\bk3_02.pp",
+                "file": "se006.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef4e0",
+                "handle": "0xbef5f0",
+                "pack": "\\bk3_02.pp",
+                "file": "se099.wav",
+                "volume": -600,
+                "loop": 0
+              }
+            ],
+            "max_error": 0,
+            "scope": "Full51B617/4E4472/4E533B/4E5744/4E6AC2, native constructors and geometry.\nOnly image/device, capture, input, sound, clock and scheduling are leaves.\nCompares ordered calls, retained shared state and every emitted vertex; these\nfixtures do not establish real screenshots, application flow48 or Switch use.\n"
+          },
+          "library_sha256": "ef1339ef4633ba6f0838d0058dac3c41a14c020482a2794360bcf5d4ed65a827",
+          "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+        }
+      ]
+    },
+    {
+      "path": "build/validation/gallery-menu-x7mplckp/result.json",
+      "sha256": "5ac69581db4f72fb99a074f999a57206bed449b6cf12566abb987fc63079b7c6",
+      "passed": true,
+      "checks": [
+        {
+          "kind": "native",
+          "mode": "host",
+          "result": {
+            "passed": true,
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "constructors": 90,
+            "frames": 30914,
+            "draws": 570993,
+            "events": 38270,
+            "dispatches": 75,
+            "names": 75,
+            "rejections": 10,
+            "continuous_sequences": 225,
+            "system_loads": [
+              {
+                "object": "0xbeed00",
+                "handle": "0xbeee10",
+                "pack": "\\bk3_02.pp",
+                "file": "se000.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeee20",
+                "handle": "0xbeef30",
+                "pack": "\\bk3_02.pp",
+                "file": "se001.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeef40",
+                "handle": "0xbef050",
+                "pack": "\\bk3_02.pp",
+                "file": "se002.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef060",
+                "handle": "0xbef170",
+                "pack": "\\bk3_02.pp",
+                "file": "se003.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef180",
+                "handle": "0xbef290",
+                "pack": "\\bk3_02.pp",
+                "file": "se004.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef2a0",
+                "handle": "0xbef3b0",
+                "pack": "\\bk3_02.pp",
+                "file": "se005.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef3c0",
+                "handle": "0xbef4d0",
+                "pack": "\\bk3_02.pp",
+                "file": "se006.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef4e0",
+                "handle": "0xbef5f0",
+                "pack": "\\bk3_02.pp",
+                "file": "se099.wav",
+                "volume": -600,
+                "loop": 0
+              }
+            ],
+            "max_error": 0,
+            "scope": "Original4C59C0/4C7916/4C8768/51B9B3 gallery UI.\nTexture, audio, pointer and allocation are service boundaries. Original sprite\nconstructors, hit tests, input order, transitions, name formatting, resource\nreplacement, vertex generation and flow scheduling execute in Unicorn.\nThis is a CPU/service oracle, not a real asset or Switch acceptance test.\n"
+          },
+          "library_sha256": "aa7c9d9a061c54ee3a3248a2f660c66e257a7a9451dc81820b3c4b4c83e30bad"
+        },
+        {
+          "kind": "native",
+          "mode": "asan",
+          "result": {
+            "passed": true,
+            "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+            "constructors": 90,
+            "frames": 30914,
+            "draws": 570993,
+            "events": 38270,
+            "dispatches": 75,
+            "names": 75,
+            "rejections": 10,
+            "continuous_sequences": 225,
+            "system_loads": [
+              {
+                "object": "0xbeed00",
+                "handle": "0xbeee10",
+                "pack": "\\bk3_02.pp",
+                "file": "se000.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeee20",
+                "handle": "0xbeef30",
+                "pack": "\\bk3_02.pp",
+                "file": "se001.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbeef40",
+                "handle": "0xbef050",
+                "pack": "\\bk3_02.pp",
+                "file": "se002.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef060",
+                "handle": "0xbef170",
+                "pack": "\\bk3_02.pp",
+                "file": "se003.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef180",
+                "handle": "0xbef290",
+                "pack": "\\bk3_02.pp",
+                "file": "se004.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef2a0",
+                "handle": "0xbef3b0",
+                "pack": "\\bk3_02.pp",
+                "file": "se005.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef3c0",
+                "handle": "0xbef4d0",
+                "pack": "\\bk3_02.pp",
+                "file": "se006.wav",
+                "volume": -600,
+                "loop": 0
+              },
+              {
+                "object": "0xbef4e0",
+                "handle": "0xbef5f0",
+                "pack": "\\bk3_02.pp",
+                "file": "se099.wav",
+                "volume": -600,
+                "loop": 0
+              }
+            ],
+            "max_error": 0,
+            "scope": "Original4C59C0/4C7916/4C8768/51B9B3 gallery UI.\nTexture, audio, pointer and allocation are service boundaries. Original sprite\nconstructors, hit tests, input order, transitions, name formatting, resource\nreplacement, vertex generation and flow scheduling execute in Unicorn.\nThis is a CPU/service oracle, not a real asset or Switch acceptance test.\n"
+          },
+          "library_sha256": "ef1339ef4633ba6f0838d0058dac3c41a14c020482a2794360bcf5d4ed65a827"
+        },
+        {
+          "kind": "gpu",
+          "mode": "host",
+          "result": "gallery-menu GPU PASS frames=900 pictures=50 samples=2372520 worst=1 redraws=100 loads=210 releases=114 sounds=160 rejects=2 pixels=3852ed5cdc11f5a8 PCM=1728000 nonzero=1727814 hash=8b5a823ccbdb76ab",
+          "binary_sha256": "ea95d711c844686d6cc873035a59fa523f0dc84e840f99b9ada9f8d61069d3f5"
+        },
+        {
+          "kind": "gpu",
+          "mode": "asan",
+          "result": "gallery-menu GPU PASS frames=900 pictures=50 samples=2372520 worst=1 redraws=100 loads=210 releases=114 sounds=160 rejects=2 pixels=3852ed5cdc11f5a8 PCM=1728000 nonzero=1727814 hash=8b5a823ccbdb76ab",
+          "binary_sha256": "2dc8b4fe8f6a4b8320c2fcbed55158c15b54e441bd4e0acf1b43ab78134d7098"
+        }
+      ]
+    }
+  ],
+  "source_manifest": {
+    "path": "/Users/rujian/Documents/Codex/WX3/build/validation/special-ui-media-v0_10p1l/source-manifest.json",
+    "sha256": "3189aae5c1f1eff81d2676d7fa4b49aa0789dd1bb807f7104f43fcfe74e47322",
+    "count": 1011,
+    "all_current_sources_match": true
+  },
+  "related_checks": [
+    {
+      "kind": "ctest",
+      "mode": "host",
+      "count": 6,
+      "log": "local/special-ui-media-host-unit.log",
+      "sha256": "c77a428e117da1197aeb3e16dcc230874066db387e421058f5549ab244146a25",
+      "passed": true
+    },
+    {
+      "kind": "ctest",
+      "mode": "asan",
+      "count": 6,
+      "log": "local/special-ui-media-asan-unit.log",
+      "sha256": "9d64e27c6e3663d160f70dc57e42a3a490439aa962381cddcc076cf55f32c28e",
+      "passed": true
+    },
+    {
+      "kind": "python-unittest",
+      "count": 29,
+      "log": "local/special-ui-media-python.log",
+      "sha256": "65a21fac72940dda2c8c199e4e7eb45f10cb6fc8c9f8fc013c00443cf2112397",
+      "passed": true
+    }
+  ],
+  "capture_count_original": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "original_range": [
+      "0x4b0128",
+      "0x4b015c"
+    ],
+    "cases": [
+      {
+        "before": 0,
+        "after": 1,
+        "photos": [
+          11,
+          22,
+          1,
+          44,
+          55
+        ]
+      },
+      {
+        "before": 99,
+        "after": 100,
+        "photos": [
+          11,
+          22,
+          100,
+          44,
+          55
+        ]
+      },
+      {
+        "before": 100,
+        "after": 100,
+        "photos": [
+          11,
+          22,
+          100,
+          44,
+          55
+        ]
+      },
+      {
+        "before": 2147483647,
+        "after": -2147483648,
+        "photos": [
+          11,
+          22,
+          -2147483648,
+          44,
+          55
+        ]
+      },
+      {
+        "before": -2147483648,
+        "after": -2147483647,
+        "photos": [
+          11,
+          22,
+          -2147483647,
+          44,
+          55
+        ]
+      },
+      {
+        "before": -1,
+        "after": 0,
+        "photos": [
+          11,
+          22,
+          0,
+          44,
+          55
+        ]
+      }
+    ],
+    "scope": "Original post-49c6fe inventory tail; the same six values checked in the real special-ui-media probe. Not Windows capture configuration or full4affb8 equivalence."
+  },
+  "switch_build": {
+    "command": "./build-switch.sh",
+    "log": "local/special-ui-media-switch-build.log",
+    "log_sha256": "4ff4b74297d1ec7ff748caa0e61724d43b58144254c53258cbd2f2d3940e8dbf",
+    "nro_sha256": "73abceb1b03fdbc1b0c7e05bf742c6eda2822b2d64a1c78108caa15582b9e359",
+    "nro_bytes": 16179256,
+    "undefined_symbols": 0,
+    "mesa_library_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
+    "new_scene_symbols_in_archive": [
+      "bk_special_ui_render_create",
+      "bk_special_ui_render_destroy",
+      "bk_special_ui_render_image",
+      "bk_special_ui_render_begin",
+      "bk_special_ui_render_prepare",
+      "bk_special_ui_render_draw",
+      "bk_special_capture_call"
+    ],
+    "new_scene_symbols_in_elf": [],
+    "hardware_tested": false
+  },
+  "failures_retained": [
+    "local/special-ui-media-build.log",
+    "local/special-ui-media-smoke.log",
+    "local/special-ui-media-smoke-2.log"
+  ],
+  "leak_detection": false,
+  "delivery_created": false,
+  "pushed": false,
+  "remaining": [
+    "4E29B0 full loader and4E42E4 release incl722224 voice",
+    "flow48 actual app registration",
+    "cross-flow pending capture / live B53954 lifetime",
+    "natural records/persistence/unlock/return",
+    "full3D pixel9/12",
+    "Switch hardware complete flow"
+  ]
+}

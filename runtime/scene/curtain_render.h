@@ -13,4 +13,9 @@ void bk_curtain_render_destroy(BkCurtainRender *);
 int bk_curtain_render_prepare(BkCurtainRender *, const BkCommonHudFrame *,
                               unsigned width, unsigned height, char error[256]);
 int bk_curtain_render_draw(BkCurtainRender *, char error[256]);
+/* Draw an immutable CPU frame using transient vertices inside an active GPU
+ * frame. Allows native UI evaluation after a synchronous capture; does not
+ * change the owner's existing prepared mesh/snapshot. */
+int bk_curtain_render_draw_frame(BkCurtainRender *, const BkCommonHudFrame *,
+                                  unsigned width, unsigned height, char[256]);
 #endif

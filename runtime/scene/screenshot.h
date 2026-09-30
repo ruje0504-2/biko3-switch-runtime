@@ -20,6 +20,13 @@ void bk_screenshot_destroy(BkScreenshot *);
  * album_group is original B53954, not guessed from the active mission. */
 int bk_screenshot_request(BkScreenshot *, int photo, unsigned album_group,
                           const BkViewport *crop, char error[256]);
+/* Separate original49d085 flag and49c6fe configuration. Trigger retains the
+ * previous configuration; configure retains the pending flag. A triggered
+ * object without any valid configuration fails when capture is reached.
+ * request() above remains the atomic configure-and-trigger convenience. */
+int bk_screenshot_trigger(BkScreenshot *, char error[256]);
+int bk_screenshot_configure(BkScreenshot *, int photo, unsigned album_group,
+                            const BkViewport *crop, char error[256]);
 void bk_screenshot_cancel(BkScreenshot *); /*49d094*/
 typedef struct {
   BkScreenshot *screenshot;

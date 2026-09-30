@@ -1472,15 +1472,34 @@ fail:
 }
 int bk_renderer_draw(BkRenderer *r, BkTexture *t, const BkVertex *v, unsigned n,
                      const float matrix[16], char error[256]) {
-  if (!r->active || !t || t->owner != r || !v || !matrix ||
-      n > VERTEX_CAPACITY - r->vertex_count || n % 3) {
+  return bk_renderer_draw_vertices(r, t, v, n, matrix,
+      (BkDrawState){BK_BLEND_UI_ALPHA, 1, BK_CULL_NONE}, error);
+}
+int bk_renderer_draw_vertices(BkRenderer *r, BkTexture *t, const BkVertex *v,
+    unsigned n, const float matrix[16], BkDrawState state, char error[256]) {
+  if (!r || !r->active || !t || t->owner != r || !v || !matrix ||
+      n > VERTEX_CAPACITY - r->vertex_count || n % 3 ||
+      (unsigned)state.blend >= BK_BLEND_COUNT ||
+      (state.depth_write != 0 && state.depth_write != 1) ||
+      (unsigned)state.cull > BK_CULL_COUNTER_CLOCKWISE) {
     snprintf(error, 256, "invalid draw state/count");
     return 0;
+  }
+  for (unsigned i = 0; i < 16; ++i)
+    if (!isfinite(matrix[i])) {
+      snprintf(error, 256, "nonfinite transient transform"); return 0;
+    }
+  for (unsigned i = 0; i < n; ++i) {
+    float values[9]; memcpy(values, &v[i], sizeof values);
+    for (unsigned j = 0; j < 9; ++j)
+      if (!isfinite(values[j])) {
+        snprintf(error, 256, "nonfinite transient vertex"); return 0;
+      }
   }
   memcpy((BkVertex *)r->vertices.mapped + r->vertex_count, v,
          (size_t)n * sizeof(*v));
   vkCmdBindPipeline(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                    r->pipelines[0][BK_BLEND_UI_ALPHA][1][BK_CULL_NONE]);
+                    r->pipelines[0][state.blend][state.depth_write][state.cull]);
   VkDeviceSize off = 0;
   vkCmdBindVertexBuffers(r->command, 0, 1, &r->vertices.handle, &off);
   vkCmdBindDescriptorSets(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,

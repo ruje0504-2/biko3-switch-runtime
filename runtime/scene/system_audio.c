@@ -6,6 +6,11 @@ struct BkSystemAudio {
   unsigned voice;
   int32_t volume;
 };
+const char *bk_system_audio_name(unsigned slot) {
+  static const char *const names[] = {"se000.wav", "se001.wav", "se002.wav",
+      "se003.wav", "se004.wav", "se005.wav", "se006.wav", "se099.wav"};
+  return slot < 8 ? names[slot] : NULL;
+}
 BkSystemAudio *bk_system_audio_create(BkResourceStore *store, BkAudio *audio,
                                       unsigned voice, int32_t volume,
                                       char error[256]) {
@@ -15,9 +20,6 @@ BkSystemAudio *bk_system_audio_create_slot(BkResourceStore *store,
                                            BkAudio *audio, unsigned voice,
                                            unsigned slot, int32_t volume,
                                            char error[256]) {
-  static const char *const names[] = {"se000.wav", "se001.wav", "se002.wav",
-                                      "se003.wav", "se004.wav", "se005.wav",
-                                      "se006.wav", "se099.wav"};
   if (!store || !audio || voice >= BK_AUDIO_VOICES || volume < -10000 ||
       volume > 0 || slot >= 8 || bk_audio_stats(audio).failed) {
     snprintf(error, 256, "system audio: invalid services/voice/volume");
@@ -31,7 +33,7 @@ BkSystemAudio *bk_system_audio_create_slot(BkResourceStore *store,
   a->audio = audio;
   a->voice = voice;
   a->volume = volume;
-  a->clip = bk_audio_clip_load(store, "bk3_02", names[slot], error);
+  a->clip = bk_audio_clip_load(store, "bk3_02", bk_system_audio_name(slot), error);
   if (!a->clip) {
     free(a);
     return NULL;

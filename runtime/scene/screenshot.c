@@ -9,7 +9,7 @@ struct BkScreenshot {
   uint8_t *pixels;
   unsigned width, height, group;
   BkViewport crop;
-  int pending, photo;
+  int pending, photo, configured;
 };
 static int fail(char *e, const char *why) {
   snprintf(e, 256, "screenshot: %s", why);
@@ -51,7 +51,7 @@ void bk_screenshot_destroy(BkScreenshot *s) {
     free(s);
   }
 }
-int bk_screenshot_request(BkScreenshot *s, int photo, unsigned group,
+int bk_screenshot_configure(BkScreenshot *s, int photo, unsigned group,
                           const BkViewport *v, char e[256]) {
   if (!s || !v || group >= 5 || !v->width || !v->height || v->x > s->width ||
       v->y > s->height || v->width > s->width - v->x ||
@@ -61,8 +61,17 @@ int bk_screenshot_request(BkScreenshot *s, int photo, unsigned group,
   s->crop = *v;
   s->photo = !!photo;
   s->group = group;
-  s->pending = 1;
+  s->configured = 1;
   return 1;
+}
+int bk_screenshot_trigger(BkScreenshot *s, char e[256]) {
+  if (!s) return fail(e, "missing owner");
+  s->pending = 1; return 1;
+}
+int bk_screenshot_request(BkScreenshot *s, int photo, unsigned group,
+    const BkViewport *v, char e[256]) {
+  return bk_screenshot_configure(s, photo, group, v, e) &&
+         bk_screenshot_trigger(s, e);
 }
 void bk_screenshot_cancel(BkScreenshot *s) {
   if (s)
@@ -82,6 +91,7 @@ static int capture(void *ctx, char e[256]) {
     return fail(e, "missing owner");
   if (!s->pending)
     return 1;
+  if (!s->configured) return fail(e, "pending capture has no configuration");
   BkImage watermark = {0}, output = {0};
   BkBlob raw = {0}, bmp = {0};
   int ok = 0;

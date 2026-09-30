@@ -176,7 +176,7 @@ static int hover(BkGalleryMenu *s, unsigned slot, unsigned latch, unsigned kind,
   }
   if ((in->buttons & BK_PAUSE_CONFIRM) &&
       (kind != 0 || s->group != (int16_t)value)) {
-    if (!o->sound(o->context, 1, e))
+    if (!o->sound(o->context, 0, e))
       return 0;
     if (kind == 0) {
       if (!replace_group(s, value, in, o, e))
@@ -196,7 +196,7 @@ static int hover(BkGalleryMenu *s, unsigned slot, unsigned latch, unsigned kind,
     }
   }
   if (s->hover[latch] == 0) {
-    if (!o->sound(o->context, kind == 0 ? 5 : 4, e))
+    if (!o->sound(o->context, kind == 0 ? 4 : 3, e))
       return 0;
     s->hover[latch] = 1;
   }
@@ -346,7 +346,7 @@ int bk_gallery_menu_step(BkGalleryMenu *s, const BkGalleryMenuBindings *b,
       return 0;
     if (in->buttons & BK_GALLERY_BACK) {
       s->view_gate = 0;
-      if (!o->sound(o->context, 3, e) || !unload(s, 48, o, e))
+      if (!o->sound(o->context, 2, e) || !unload(s, 48, o, e))
         return 0;
       b->common->blocked = 1;
       s->transition = 3;
