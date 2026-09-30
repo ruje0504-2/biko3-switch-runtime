@@ -46,6 +46,10 @@ static int menu(void *context, int32_t selected, int32_t *out, char e[256]) {
   Trace *t = context; (void)selected; (void)e;
   t->calls[t->count++] = 60; *out = t->zone; return 1;
 }
+static int menu_zone(void *context, int32_t selected, int32_t *out, char e[256]) {
+  Trace *t = context; (void)selected; (void)e;
+  t->calls[t->count++] = 61; *out = t->zone; return 1;
+}
 static int voice(void *context, int32_t cue, unsigned slot, int32_t flags,
                  int32_t volume, char e[256]) {
   Trace *t = context; (void)e;
@@ -75,13 +79,14 @@ int main(void) {
   BkEndingFrameState frame = {.camera_mode = 0, .camera_cached = 2};
   BkEndingControlState control = {.state_721eec = 1};
   BkEndingAuxiliaryState auxiliary = {0};
+  int32_t open = 0;
   float timer = 0;
   int32_t delay = 30;
   BkEndingAuxiliaryState1Bindings bindings = {
-      &frame, &control, &auxiliary, &timer, &delay};
+      &frame, &control, &auxiliary, &open, &timer, &delay};
   BkEndingAuxiliaryState1Ops ops = {
-      &trace, key, present, status, audio, random_value, pick, menu, voice,
-      request, expression};
+      &trace, key, present, status, audio, random_value, pick, menu_zone, menu,
+      voice, request, expression};
   float pointer[2] = {100, 200};
   char error[256] = {0};
 
@@ -91,7 +96,7 @@ int main(void) {
       !check(control.state_721eec == 3 && auxiliary.pending == 2 &&
                  frame.camera_mode == 4 && frame.camera_event == 1,
              "selection state", error) ||
-      !check(trace.count == 7, "selection order", error))
+      !check(trace.count == 8, "selection order", error))
     return 1;
 
   control.state_721eec = 1;
@@ -106,6 +111,21 @@ int main(void) {
       !check(timer == 0 && delay == 37, "timer random delay", error) ||
       !check(trace.calls[0] == 30 && trace.calls[1] == 40,
              "timer service order", error))
+    return 1;
+
+  /* Open UI blocks only the picked/menu branch; native still runs idle keys. */
+  control.state_721eec = 1;
+  auxiliary.pending = 0;
+  open = 1;
+  trace.count = 0;
+  trace.confirm_pressed = 1;
+  trace.idle_a = trace.idle_b = 0;
+  if (!check(bk_ending_auxiliary_state1_step(&bindings, pointer, 0, -200,
+                                              &ops, error),
+             "open menu guard", error) ||
+      !check(control.state_721eec == 2 && trace.count == 6 &&
+                 trace.calls[2] == 132,
+             "open menu idle fallback", error))
     return 1;
 
   control.state_721eec = 2;

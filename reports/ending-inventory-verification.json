@@ -1,6 +1,6 @@
 {
   "date": "2026-10-01",
-  "scope": "Live application inventory -> third-ending UI/phase4 or6 entry and owner lifecycle, plus a narrow disabled-target hover compatibility fix. Not complete third-ending natural routes or full port acceptance.",
+  "scope": "Live application inventory -> third-ending UI/phase4 or6 entry, 47DC79 state1/2 ordering, effect-slot service, and owner lifecycle. Not complete third-ending natural routes or full port acceptance.",
   "validated_inventory_cases": 12,
   "inventory_frames_per_build": 48679,
   "inventory_inputs_per_build": 45727,
@@ -430,8 +430,8 @@
   },
   "python_tests": 29,
   "switch": {
-    "nro_sha256": "feb7ac9481281b424c6abf5002de6ffe83a2bb0d699a641ce7a83a7c622531d3",
-    "nro_bytes": 16232504,
+    "nro_sha256": "c556d24a4efe0d760b3522fc67538a2295cb9071bc8140c0ce2e75561bdcdfb4",
+    "nro_bytes": 16240696,
     "mesa_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
     "undefined": [],
     "linked": [
@@ -534,8 +534,8 @@
     "runtime/game/ending_auxiliary_presentation.h": "626ce9087bd8acc01f05e6d278e1710d533d17f2a0e9240a40825beb5ea33b14",
     "runtime/game/ending_auxiliary_sequence.c": "c9ea85107001131687b31b3a707898cbd03adc10f410b75b08dec9e58095fb09",
     "runtime/game/ending_auxiliary_sequence.h": "2e295e46f1738410b3822a0ea38182068b225f62281f1385375cf9b19b8e45f5",
-    "runtime/game/ending_auxiliary_state1.c": "1e89935c83c5e0989f94bb107c680eaa530686c6ade95871aa60315a8af27b2e",
-    "runtime/game/ending_auxiliary_state1.h": "13a9e5c1b8f80fb0625cb21eb95e3fa014d29d2852781bc34f13afffd5d2bc5a",
+    "runtime/game/ending_auxiliary_state1.c": "1e67be89c8ab960e1b1560faaec2b36fc6b2e98f9bb0dd3a3634bc6bc2a74f10",
+    "runtime/game/ending_auxiliary_state1.h": "a5648a90797636b584d55b49c6182c4af96f80deab7b1b934519739e43679f9e",
     "runtime/game/ending_auxiliary_state3.c": "68e2f423df3ab4f9702c52354127b29f85722133ced21e04de62d222a91209cc",
     "runtime/game/ending_auxiliary_state3.h": "8d9bfdbc2a2483641add01ea268e25fba21e8bcad2b7587a9547df3da91a551f",
     "runtime/game/ending_auxiliary_state4.c": "3b6bc94a4f40c08fb3378c4cf4b7f6ba1344d4e85d8aa379c4878017a985189a",
@@ -862,7 +862,7 @@
     "runtime/scene/ending_normal_controller.h": "cd5f011df7ae1004cab2192f5ad9e168c649d68b7c1116ced67d7c984be7eba4",
     "runtime/scene/ending_normal_render.c": "a087a8018f57b50b3ce635e27795ad1a4ce489c551fb10a0e33ebaada6ce2cc9",
     "runtime/scene/ending_normal_render.h": "e508096b4ffaa22170921551818b41692fa8400ac48465c95ece19f41075b66d",
-    "runtime/scene/ending_normal_session.c": "1547cb39edd10ff104dcd17ab74e1bb3ec082215f164e08fb95f3d2a308c7da7",
+    "runtime/scene/ending_normal_session.c": "b998e7c0c6ffa2b261f16268462369687484381114b3d3df9cc95046aa06b34a",
     "runtime/scene/ending_normal_session.h": "597341ed7de23b6867ed18152a2c8ba149125c4a37490318c27426f4c0a85b83",
     "runtime/scene/ending_opening.c": "4c0a4d27ee0387e053ad026345c338560c36415d2106d48f09db86fd2c01e329",
     "runtime/scene/ending_opening.h": "d4d51300bb1e5c2143f271c6fd389b6f6ac7c346abf0b538de70e9240af10da9",
@@ -1160,5 +1160,29 @@
         }
       ]
     }
-  ]
+  ],
+  "validation_report": "build/validation/ending-runtime-fktzogzu/result.json",
+  "validation_report_passed": true,
+  "state1_state2_fix": {
+    "native_addresses": [
+      "47E1DA",
+      "47E2AC",
+      "47E843",
+      "481C2C",
+      "47CB41"
+    ],
+    "open_address": "0x72210c",
+    "pending_address": "0x722100",
+    "changes": [
+      "state1 reads live open flag",
+      "busy/camera skip only pick and continue idle branch",
+      "key services use low AL",
+      "47CB41 zone and 481C2C placement are separate callbacks",
+      "state5-7 presence accepts ending effect slots 2..46"
+    ],
+    "unit_host_asan": true,
+    "inventory_matrix_report": "build/validation/ending-runtime-fktzogzu/result.json"
+  },
+  "previous_pending_gap_closed": true,
+  "phase4_full_route_validated": false
 }

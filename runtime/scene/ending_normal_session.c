@@ -1064,8 +1064,9 @@ static const float *ending_cached_target(EndingNormalScene *s,
 static int auxiliary_state4_present(void *context, unsigned owner, int *present,
                                     char e[256]) {
   EndingNormalScene *s = context;
-  if (!s || !s->audio || owner >= 2 || !present)
+  if (!s || !s->audio || owner >= 2 || !present) {
     return fail(e, "auxiliary state4 media owner is unavailable");
+  }
   return bk_ending_audio_present(s->audio, owner, present)
              ? 1
              : fail(e, "auxiliary state4 media slot is unavailable");
@@ -1096,6 +1097,18 @@ static int auxiliary_state4_status(void *context, unsigned owner, int *playing,
   return bk_ending_audio_call(s->audio, s->state->frame.group,
                               s->state->auxiliary.variant,
                               s->state->auxiliary.selection, &call, playing, e);
+}
+
+/* State5/6/7 reuses the same ending mixer but addresses effect slots2..46.
+ * Keep that wider bank service separate from state4's two speech-owner API. */
+static int auxiliary_sequence_present(void *context, unsigned owner,
+                                      int *present, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !s->audio || !present || owner >= BK_ENDING_SOUND_BUFFERS)
+    return fail(e, "auxiliary sequence media owner is unavailable");
+  return bk_ending_audio_present(s->audio, owner, present)
+             ? 1
+             : fail(e, "auxiliary sequence media slot is unavailable");
 }
 
 static int auxiliary_state4_expression(void *context, int32_t a, int32_t b,
@@ -1275,10 +1288,12 @@ static int auxiliary_state1_menu(void *context, int32_t selected, int32_t *out,
                                      &zone, e))
     return 0;
   *out = zone;
-  if (zone < 0)
-    return 1;
   s->state->choices[0] = 0;
   s->state->choices[1] = s->state->choices[2] = -1;
+  if (zone < 0) {
+    s->state->retained.stage4.word_54e2f8 = -1;
+    return 1;
+  }
   static const int32_t base[9] = {180, 225, 45, 135, 315,
                                   270, 90, 180, 0};
   if (zone >= 0 &&
@@ -1288,6 +1303,18 @@ static int auxiliary_state1_menu(void *context, int32_t selected, int32_t *out,
     return 0;
   s->state->retained.stage4.word_54e2f8 = zone;
   return 1;
+}
+
+static int auxiliary_state1_menu_zone(void *context, int32_t selected,
+                                      int32_t *out, char e[256]) {
+  EndingNormalScene *s = context;
+  if (!s || !out || selected < 0 || selected >= 39)
+    return fail(e, "auxiliary state1 menu zone target is unavailable");
+  BkEndingSecondaryMenuGeometry geometry = {
+      s->viewport.width, s->viewport.height,
+      (float)((double)s->viewport.width / 1280.0), s->ui.sprites[51].rect[2]};
+  return bk_ending_secondary_menu_zone(&geometry, s->state->targets[selected],
+                                       out, e);
 }
 
 static int auxiliary_state1_voice(void *context, int32_t cue, unsigned slot,
@@ -2160,13 +2187,15 @@ static int frame_invoke(void *context, const BkEndingCall *call,
     if (s->state->control.state_721eec == 1) {
       BkEndingAuxiliaryState1Bindings bindings = {
           &s->state->frame, &s->state->control, &s->state->auxiliary,
+          &s->state->open,
           &s->state->retained.stage4.timer_6c7f6c,
           &s->state->retained.stage4.delay_54f8e0};
       BkEndingAuxiliaryState1Ops ops = {
           s, control_key, auxiliary_state4_present, auxiliary_state4_status,
           auxiliary_state1_audio, auxiliary_state1_random,
-          auxiliary_state1_pick, auxiliary_state1_menu, auxiliary_state1_voice,
-          auxiliary_state1_request, auxiliary_state4_expression};
+          auxiliary_state1_pick, auxiliary_state1_menu_zone,
+          auxiliary_state1_menu, auxiliary_state1_voice, auxiliary_state1_request,
+          auxiliary_state4_expression};
       float pointer[2];
       for (unsigned i = 0; i < 2; ++i) {
         int32_t coordinate;
@@ -2177,8 +2206,8 @@ static int frame_invoke(void *context, const BkEndingCall *call,
           &bindings, pointer, s->active_seconds, s->voice_volume, &ops, e);
     }
     if (s->state->control.state_721eec == 2) {
-      BkEndingAuxiliaryState1Ops ops = {s, control_key, NULL, NULL, NULL,
-                                        NULL, NULL, NULL, NULL, NULL, NULL};
+      BkEndingAuxiliaryState1Ops ops = {
+          .context = s, .key = control_key};
       return bk_ending_auxiliary_state2_step(&s->state->control, &ops, e);
     }
     if (s->state->control.state_721eec == 3) {
@@ -2245,7 +2274,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
           .timing = auxiliary_sequence_timing,
           .request = auxiliary_state1_request,
           .restart = auxiliary_sequence_restart,
-          .present = auxiliary_state4_present,
+          .present = auxiliary_sequence_present,
           .audio = auxiliary_state1_audio,
           .voice = auxiliary_state1_voice,
           .expression = auxiliary_state4_expression,

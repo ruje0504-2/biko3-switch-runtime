@@ -13,7 +13,8 @@ static int query(const BkEndingAuxiliaryState1Ops *o, unsigned code,
   uint32_t value = 0;
   if (!pressed || !o || !o->key || !o->key(o->context, code, mode, &value, e))
     return 0;
-  *pressed = value != 0;
+  /* The original service returns a 32-bit word but the caller keeps AL. */
+  *pressed = (value & UINT32_C(0xff)) != 0;
   return 1;
 }
 
@@ -34,8 +35,8 @@ int bk_ending_auxiliary_state1_step(
     const BkEndingAuxiliaryState1Bindings *b, const float pointer[2],
     float seconds, int32_t voice_volume,
     const BkEndingAuxiliaryState1Ops *o, char e[256]) {
-  if (!b || !b->frame || !b->control || !b->auxiliary || !b->timer_6c7f6c ||
-      !b->delay_54f8e0 || !pointer || !o ||
+  if (!b || !b->frame || !b->control || !b->auxiliary || !b->open_72210c ||
+      !b->timer_6c7f6c || !b->delay_54f8e0 || !pointer || !o ||
       b->control->state_721eec != 1 || !isfinite(seconds) || seconds < 0)
     return fail(e, "invalid state1 bindings/time");
 
@@ -59,14 +60,12 @@ int bk_ending_auxiliary_state1_step(
   int busy = 0;
   if (!media_busy(o, 1, &busy, e))
     return 0;
-  if (busy)
-    return 1;
-
-  if (b->frame->camera_mode != 1) {
-    int32_t picked = 0;
+  int32_t picked = 0;
+  if (!busy && b->frame->camera_mode != 1) {
     if (!o->pick || !o->pick(o->context, pointer, 4, &picked, e))
       return 0;
-    if (picked == 1 && b->auxiliary->pending == 0) {
+  }
+  if (picked == 1 && *b->open_72210c == 0) {
       int pressed = 0;
       if (!query(o, 0, 1, &pressed, e))
         return 0;
@@ -76,11 +75,15 @@ int bk_ending_auxiliary_state1_step(
         return 0;
       if (pressed) {
         int32_t zone = -1;
-        if (!o->menu || !o->menu(o->context, b->frame->camera_cached,
-                                 &zone, e))
+        if (!o->menu_zone ||
+            !o->menu_zone(o->context, b->frame->camera_cached, &zone, e))
           return 0;
         if (zone != -1) {
+          /* Native prefix: state3 is written before 481C2C. */
           b->control->state_721eec = 3;
+          if (!o->menu || !o->menu(o->context, b->frame->camera_cached,
+                                   &zone, e))
+            return 0;
           if (!o->voice || !o->voice(o->context, 3, 0, 0, voice_volume, e))
             return 0;
           b->auxiliary->pending = 2;
@@ -93,21 +96,18 @@ int bk_ending_auxiliary_state1_step(
           return 1;
         }
       }
-    }
   }
-  if (b->auxiliary->pending != 1) {
-    int pressed = 0;
-    if (!query(o, 0, 2, &pressed, e))
-      return 0;
-    if (!pressed && !query(o, 1, 2, &pressed, e))
-      return 0;
-    if (!pressed && !query(o, 0x5a, 1, &pressed, e))
-      return 0;
-    if (!pressed && !query(o, 0x33450, 1, &pressed, e))
-      return 0;
-    if (!pressed)
-      b->control->state_721eec = 2;
-  }
+  int pressed = 0;
+  if (!query(o, 0, 2, &pressed, e))
+    return 0;
+  if (!pressed && !query(o, 1, 2, &pressed, e))
+    return 0;
+  if (!pressed && !query(o, 0x5a, 1, &pressed, e))
+    return 0;
+  if (!pressed && !query(o, 0x33450, 1, &pressed, e))
+    return 0;
+  if (!pressed)
+    b->control->state_721eec = 2;
   return 1;
 }
 

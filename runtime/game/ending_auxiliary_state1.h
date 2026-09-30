@@ -11,6 +11,7 @@ typedef struct {
   BkEndingFrameState *frame;
   BkEndingControlState *control;
   BkEndingAuxiliaryState *auxiliary;
+  int32_t *open_72210c;
   float *timer_6c7f6c;
   int32_t *delay_54f8e0;
 } BkEndingAuxiliaryState1Bindings;
@@ -24,6 +25,8 @@ typedef struct {
   int (*random)(void *, int32_t *, char[256]);
   int (*pick)(void *, const float pointer[2], int32_t preferred,
               int32_t *result, char[256]); /*47C334*/
+  int (*menu_zone)(void *, int32_t selected, int32_t *zone,
+                   char[256]); /*47CB41*/
   int (*menu)(void *, int32_t selected, int32_t *zone, char[256]); /*481C2C*/
   int (*voice)(void *, int32_t cue, unsigned slot, int32_t flags,
                int32_t volume, char[256]); /*481E0A*/
