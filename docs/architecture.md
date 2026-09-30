@@ -1,3 +1,5 @@
+2026-09-30 选择阶段服务直接操作实际actor、UI sprite、PCM与共享表情所有者，删除无人消费的影子UI表。动画restart与audio restart、401B0A固定过渡与4018C8配置过渡保持独立，slot53+166不混同notice+167；见 `reports/ending-selected-adapters.md`。生产phase8与自然结束仍未完成。
+
 2026-09-30 选择阶段实际装配：4D1025只消费当前动作参数与共享721ED8，加载器写721EF0开场gate并保留回放/其他阶段的721EE4；背景替换沿原分支更新selected。拾取和菜单借用同一frame/control/targets/choices，表达式先写共享状态再由表现阶段消费，无BOM绘制传空表。原版标量与真实日文场景配对证据见 `reports/ending-selected-session.md`；phase8夹具只覆盖资源边界，生产回放仍需进程owner与真实服务。
 
 2026-09-30 phase8第五类回放边界：`game/ending_gallery_auxiliary`恢复488674六状态与镜头/语音/音效时序，仅新增原5545FC与6DDCE1过程值；`scene/ending_state_gallery_auxiliary_bindings`借用同一retained.final、GalleryCameraState、presets与表情字段，不复制既有所有者。source写入不推进/发布姿态，音频和模型必须通过真实scene适配；证据见 `reports/ending-gallery-auxiliary.md`。五类CPU齐备，生产phase8尚待进程owner、入口和跨loader装配。

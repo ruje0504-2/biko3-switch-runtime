@@ -24,6 +24,7 @@ SUITES = {
     "session": [("secondary-session", "ending-secondary-session-probe", [])],
     "stage": [("stage-reload", "ending-stage-reload-probe", [])],
     "selected-session": [("selected-session", "ending-selected-session-probe", [])],
+    "selected-adapters": [("selected-adapters", "ending-selected-adapters-probe", [])],
     "final-image": [("final-image", "ending-final-image-probe", [])],
     "story": [("story-reload", "ending-story-reload-probe", [])],
     "third-cpu": [("third-scene", "ending-tertiary-scene-probe", [])],

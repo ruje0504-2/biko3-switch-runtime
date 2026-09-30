@@ -109,8 +109,9 @@ typedef struct {
   BkEndingSelectedCycle diagnostic_selected_cycle;
   BkEndingSelectedCycle *selected_cycle;
   int32_t selected_plain_scheduled;
-  uint8_t selected_ui_bytes[80][3];
-  float selected_ui_alpha[80];
+  /*48E75B writes slot53+166 once. It is distinct from the consumed +167
+   *notice request; the original UI has no reader for this retained byte.*/
+  uint8_t ui_notice53_byte_166;
   int32_t diagnostic_duck_transition;
   int32_t *duck_transition;
   BkEndingUiNoticeState ui_notices;
@@ -1047,18 +1048,16 @@ static int auxiliary_state4_status(void *context, unsigned owner, int *playing,
 static int auxiliary_state4_expression(void *context, int32_t a, int32_t b,
                                        unsigned eye, char e[256]) {
   EndingNormalScene *s = context;
-  BkFaceState *face = s && s->auxiliary_assets
-                          ? bk_ending_auxiliary_assets_face_state(
-                                s->auxiliary_assets)
-                          : NULL;
   BkEyeAssets *eyes = s && s->auxiliary_assets
                           ? bk_ending_auxiliary_assets_eyes(s->auxiliary_assets)
                           : NULL;
-  (void)b;
-  if (!face || !eyes)
-    return fail(e, "auxiliary state4 face/eye owner is unavailable");
-  return bk_face_request(face, a, s->now_ms, e) &&
-         bk_eye_assets_select(eyes, eye, e);
+  if (!eyes)
+    return fail(e, "auxiliary state4 eye owner is unavailable");
+  /*4DFB96 only writes the shared expression words and selects eyes. The
+   *later48181F presentation pass requests/samples the actual face.*/
+  s->state->auxiliary.expression_a = a;
+  s->state->auxiliary.expression_b = b;
+  return bk_eye_assets_select(eyes, eye, e);
 }
 
 static int auxiliary_state4_target(void *context, float position[3],
@@ -1201,10 +1200,11 @@ static int auxiliary_state1_pick(void *context, const float pointer[2],
   BkActorForest *forest = scene_forest(s);
   uint32_t node = s ? (uint32_t)s->state->retained.normal.word_719b40 : 0;
   const float *alternate = node ? bk_actor_forest_world(forest, node) : NULL;
-  if (!s || !pointer || !result || (node && !alternate))
+  if (!s || !s->normal_controller || !pointer || !result || (node && !alternate))
     return fail(e, "auxiliary state1 pick owner is unavailable");
   BkEndingSecondaryPickBindings bindings = {
-      &s->state->frame, NULL, NULL, s->state->targets, s->state->alternate,
+      &s->state->frame, &s->normal_controller->control.action_kind,
+      &s->normal_controller->control.action_column, s->state->targets, s->state->alternate,
       &s->ui.sprites[50], &s->ui_pick, alternate};
   return bk_ending_secondary_pick(&bindings, pointer, preferred, result, e);
 }
@@ -1648,6 +1648,13 @@ static int selected_request(void *context, unsigned slot, char e[256]) {
       ? bk_actor_pose_request_mode(pose, slot, BK_CLIP_REQUEST_CONFIGURED, e)
       : fail(e, "selected configured request is unavailable");
 }
+static int selected_request_ten(void *context, unsigned slot, char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorPose *pose = s && s->selected_assets
+      ? bk_ending_selected_assets_pose(s->selected_assets, 0) : NULL;
+  return pose && slot < 32 ? bk_actor_pose_request(pose, slot, e)
+      : fail(e, "selected ten-tick request is unavailable");
+}
 static int selected_write(void *context, unsigned slot, BkEndingClipWrite kind,
                           int32_t value, char e[256]) {
   EndingNormalScene *s = context;
@@ -1724,7 +1731,7 @@ static int selected_manual(void *context, int32_t proposed, int32_t *accepted,
   BkEndingSelectedManualOps ops = {0};
   ops.context = s;
   ops.active = selected_active;
-  ops.request_ten = selected_request;
+  ops.request_ten = selected_request_ten;
   ops.write = selected_write;
   ops.audio = selected_audio;
   return bk_ending_selected_manual(&s->state->auxiliary, proposed, &ops,
@@ -1841,38 +1848,52 @@ static int selected_clock(void *context, uint32_t *milliseconds, char e[256]) {
   return frame_clock(context, milliseconds, e);
 }
 static int selected_stop(void *context, unsigned slot, char e[256]) {
-  int playing;
+  int playing, present;
   EndingNormalScene *s = context;
+  if (!s || !s->audio || !bk_ending_audio_present(s->audio, slot, &present) || !present)
+    return fail(e, "selected direct Stop requires an actual buffer");
   BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_PAUSE, .slot = slot};
   return selected_audio(s, &call, &playing, e);
 }
 static int selected_repeat(void *context, unsigned slot, char e[256]) {
-  int playing;
   EndingNormalScene *s = context;
-  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_RESTART, .slot = slot};
-  return selected_audio(s, &call, &playing, e);
+  BkActorPose *pose = s && s->selected_assets
+      ? bk_ending_selected_assets_pose(s->selected_assets, 0) : NULL;
+  /*401F71 restarts the animation even when this slot is already active;
+   *it is not an audio operation or4018C8's same-request no-op.*/
+  return pose && slot < BK_CLIP_SLOTS ? bk_actor_pose_select(pose, slot, 0, e)
+      : fail(e, "selected animation restart owner is unavailable");
 }
 static int selected_ui_byte(void *context, unsigned slot,
                             BkEndingSelectedUiByte field, uint8_t value,
                             char e[256]) {
   EndingNormalScene *s = context;
-  if (!s || slot >= 80 || (unsigned)field > BK_ENDING_SELECTED_UI_BYTE_167)
-    return fail(e, "selected UI byte is outside owner");
-  s->selected_ui_bytes[slot][field] = value;
+  if (!s) return fail(e, "selected UI byte owner is missing");
+  if (slot == 52 && field == BK_ENDING_SELECTED_UI_BYTE_134) {
+    if (value > 5) return fail(e, "invalid selected flash stage");
+    s->ui.sprites[52].transform.fade.stage = value;
+  } else if (slot == 52 && field == BK_ENDING_SELECTED_UI_BYTE_167) {
+    s->ui_flash_wanted = value;
+  } else if (slot == 53 && field == BK_ENDING_SELECTED_UI_BYTE_166) {
+    s->ui_notice53_byte_166 = value;
+  } else {
+    return fail(e, "selected UI byte has no native binding");
+  }
   return 1;
 }
 static int selected_ui_uv_reset(void *context, unsigned slot, char e[256]) {
   EndingNormalScene *s = context;
-  if (!s || slot >= 80) return fail(e, "selected UI UV owner is missing");
-  memset(s->selected_ui_bytes[slot], 0, sizeof(s->selected_ui_bytes[slot]));
+  if (!s || (slot != 53 && slot != 54) || !(s->ui.loaded & (UINT64_C(1) << slot)))
+    return fail(e, "selected UI UV owner is missing");
+  memcpy(s->ui.sprites[slot].uv, (float[4]){0, 0, 1, 1}, sizeof(float) * 4);
   return 1;
 }
 static int selected_ui_fade(void *context, unsigned slot, float alpha,
                             char e[256]) {
   EndingNormalScene *s = context;
-  if (!s || slot >= 80 || !isfinite(alpha))
+  if (!s || slot != 52 || !isfinite(alpha) || alpha < 0 || alpha > 1)
     return fail(e, "selected UI fade is outside owner");
-  s->selected_ui_alpha[slot] = alpha;
+  s->ui.sprites[52].transform.fade.alpha = alpha;
   return 1;
 }
 

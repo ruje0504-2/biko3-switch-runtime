@@ -1,0 +1,199 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Actual selected-stage services and completion from an explicit last-interaction threshold; auxiliary menu from an explicit action8 boundary; not natural complete story, persistent unlock, production gallery or hardware acceptance.",
+  "validation_path": "build/validation/ending-runtime-fqyk004_/result.json",
+  "validation_sha256": "7d947fa2241415fbcafbaf7e64d144af2aa9a0ac4660786c92af06e91307e368",
+  "started_at": "2026-09-30T07:55:45.004019+00:00",
+  "finished_at": "2026-09-30T08:07:23.900595+00:00",
+  "source_manifest_count": 676,
+  "source_manifest_sha256": "637ca77243c95436458612ced2d9fd0110daf3ea8a98097382af6fcd6e554615",
+  "source_sha256": {
+    "CMakeLists.txt": "0ac9a1efc800cac843d6194569c0c548adbb8493553801f8b969d249f2789d8a",
+    "runtime/scene/ending_normal_session.c": "56351fdd35d57f7e522f591bb1b9b8656cdd515137fc32ce74b088326bf422e8",
+    "tests/check_ending_runtime.py": "a60093cefd98363f083106bbc98c9658c78891dfe2efc0880a21e153383c1da6",
+    "tools/ending_selected_adapters_probe.c": "05f62aff9a98266443fdb7440cc7bf2afd7f754b425ab877bc90f9b3c1e6cde5",
+    "tools/ending_selected_session_probe.c": "763427473d3addb097b43cff90e536a4230cf5faa6627d14e335f625fd7b6862"
+  },
+  "paired_checks": [
+    {
+      "name": "selected-adapters",
+      "suite": "selected-adapters",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "13c048ed007c7bbcfb804ebc040d938f9659bd91bf009f8a33fd7bb1b6c275dd",
+          "summary": "PASS selected adapters entries10 manual40 restarts10 flashes10 uv20 cancels10 replay10 completion10 auxiliary10 rejects50 frames52702 state=b9f574493057d877 pcm=3c4be7cbc8c05cc6"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "509d08df6a9af889a41b0e0625670232c00aa4d9deb85cb833be0fb29c969241",
+          "summary": "PASS selected adapters entries10 manual40 restarts10 flashes10 uv20 cancels10 replay10 completion10 auxiliary10 rejects50 frames52702 state=b9f574493057d877 pcm=3c4be7cbc8c05cc6"
+        }
+      ]
+    },
+    {
+      "name": "selected-session",
+      "suite": "selected-session",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "3a7da4aae9b8c4b088155e7c814667635a38950b53a7dd65296b8e64c8377aa2",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "1caf43d581e75914dd21eed16c77e67fc4e57a438e0e53df842a2ab0105cb7fa",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        }
+      ]
+    },
+    {
+      "name": "stage-reload",
+      "suite": "stage",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "31306b79dfb97980e34913cdb815654b3badacccdeaa6ffcac11a7fc26fb2332",
+          "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "3118a359123bd30c28cac8487e9479307faa6c5354fd1d1599e57149e5ae20c2",
+          "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+        }
+      ]
+    },
+    {
+      "name": "normal-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "88a8e258c589105d2fdeb5112aad7360f0d9545f24d0df2c772cd1517fc39459",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "98e013e6af6e60b01a739a7ca2ddee10bc2b239da1806bb344fd83d22ea1ca97",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    },
+    {
+      "name": "third-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "88a8e258c589105d2fdeb5112aad7360f0d9545f24d0df2c772cd1517fc39459",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "98e013e6af6e60b01a739a7ca2ddee10bc2b239da1806bb344fd83d22ea1ca97",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    }
+  ],
+  "native_loader_check": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "checks": [
+      {
+        "log": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-fqyk004_/selected-session-host.log",
+        "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+        "loads": 60,
+        "scalar_words": 960
+      },
+      {
+        "log": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-fqyk004_/selected-session-asan.log",
+        "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+        "loads": 60,
+        "scalar_words": 960
+      }
+    ],
+    "scope": "Check production loader scalar results against the pinned original EXE.\n\nReads SELECTED_LOAD rows from the real Japanese resource/session probe. Runs\n4D152C..4D15BF,4D194D..4D19B9,4D1A77..4D1A81,4D1C07..4D1CC1. The native\nmemset/strcpy execute unchanged; only4D460B background IO is observed/stubbed.\nResource identity/lifetime, opening and PCM are checked by the C probe, not\nclaimed by this isolated scalar replay. Parent721EE0/721EE4 must stay intact.\n",
+    "hooks": [
+      "4D460B background IO"
+    ]
+  },
+  "regression": {
+    "python_tests": 29,
+    "architecture_tests_included": 2,
+    "shell_syntax": true,
+    "diff_check": true
+  },
+  "logs": {
+    "local/selected-adapters-final-python.log": "ac160e3eacdc97c5e0942fb18d07aff83e611063eaab871aeab8d4487a17aec3",
+    "local/selected-adapters-final-switch.log": "e0404f08505236312722525d9136fe8964da9a59df904d5c4c9fa8f63c24202e",
+    "local/selected-adapters-before.log": "97588d2740131a512fddbf40ae8822e5a05a12e30adbac586fd1377aae7325a1",
+    "local/selected-manual-before.log": "e9a31099331bf9cee222e77d1036072987b5c9e650aa88750246be09f2b96a8a",
+    "local/selected-adapters-pair.log": "e22e2191522cc45194f3d1e0cb6911a981bf00ea489765f4f6e0b6fbe481bcae"
+  },
+  "old_implementation_reproductions": {
+    "source_commit": "569a0ef",
+    "restart": "local/selected-adapters-before.log",
+    "manual_transition": "local/selected-manual-before.log",
+    "exit_codes": [
+      1,
+      1
+    ]
+  },
+  "interrupted_run": {
+    "directory": "build/validation/ending-runtime-jx8rfv06",
+    "paired_pass": false,
+    "completed_only": "selected-adapters-host, before the later manual/Stop fixes",
+    "reason": "User interruption; old exec handle and parent/child processes were absent when checked; final result JSON was not produced."
+  },
+  "native_ui_byte_166_scan": {
+    "absolute_53_166": [
+      [
+        "0x492a5c",
+        "mov",
+        "byte ptr [0x738d1a], 0"
+      ]
+    ],
+    "generic_ui_166": []
+  },
+  "switch": {
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "mesa_version": "26.2.2",
+    "artifacts": {
+      "build-switch/biko3-preview.elf": {
+        "sha256": "973de3c7384d76059ac87ea4df319273c192557eea147423f386a3303ba7ca25",
+        "bytes": 34363040
+      },
+      "build-switch/biko3-preview.nro": {
+        "sha256": "9170952d15efb30df11897836038aee19bdbc54f350fd5e832ab198c84f9f62b",
+        "bytes": 16076856
+      }
+    },
+    "unresolved_symbols": 0,
+    "dependencies_lock_sha256": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "leak_detection": false,
+  "gpu_allocation_baseline_checked": true,
+  "real_japanese_assets": true,
+  "hardware_validation": false,
+  "production_gallery": false,
+  "full_port_complete": false,
+  "pushed": false,
+  "full_delivery_packaged": false,
+  "awake_pid": 64008,
+  "remaining": [
+    "distinct719B40 anchor and719B48 special node bindings in selected/auxiliary scene adapters",
+    "actual alternate-target gesture paths",
+    "process ownership and production phase8 services/prepare_final",
+    "natural complete story, persistent unlock and gallery front end",
+    "production pixels9/12 only",
+    "Switch full acceptance"
+  ],
+  "consolidated_at": "2026-09-30T08:07:42.781216+00:00"
+}
