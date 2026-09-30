@@ -2,6 +2,7 @@
 #define BK_SCENE_ENDING_STATE_H
 #include "game/ending_special.h"
 #include "game/ending_gallery_control.h"
+#include "game/ending_gallery_normal.h"
 #include "scene/ending_retained.h"
 #include "scene/ending_ui_frame.h"
 /* Process-retained scalar/table ownership for the recovered ending modules.
@@ -71,6 +72,9 @@ int bk_ending_state_entry_bindings(BkEndingState *, uint8_t *option_a,
 int bk_ending_state_gallery_bindings(BkEndingState *, const BkEndingRecords *,
                                      const int32_t *voice_volume,
                                      BkEndingGalleryControlBindings *);
+int bk_ending_state_gallery_normal_bindings(BkEndingState *,
+    const int32_t *voice_volume, const int32_t *effect_volume,
+    BkEndingGalleryNormalBindings *);
 int bk_ending_state_reload_bindings(BkEndingState *, BkCommonHudState *,
                                     const int8_t *previous_flow,
                                     BkEndingReloadBindings *);

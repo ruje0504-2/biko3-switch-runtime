@@ -54,7 +54,7 @@ typedef struct {
 typedef struct {
   uint8_t byte_6c7f70, byte_6d1be0, byte_6d1bd4, byte_6d1c0d;
   uint8_t byte_6ddce0, byte_6d1be1;
-  int32_t word_6c7f74, word_6dde4c, word_6d1bcc;
+  int32_t word_6c7f74, word_6dde4c, word_6d1bcc; /*last is FLOAT bits in483af0*/
   uint8_t byte_6dde50, byte_6dde51;
   int32_t word_6d1bd8, word_6d1bdc, word_6dde54;
   uint8_t byte_6dde58;
