@@ -131,6 +131,18 @@ int bk_renderer_draw_lit_mesh(BkRenderer *r, BkTexture *texture,
                               BkGpuMesh *mesh, BkLightSet *lights,
                               const float matrix[16], const float world[16],
                               BkDrawState state, char error[256]);
+/* Prepare the GPU depth row from separate view/projection matrices, before
+ * their near-equal Z/W rows are rounded by matrix composition. Reuse once
+ * per camera; the native CPU clip matrix still supplies X/Y/W unchanged.
+ * Double coefficients retain precision until each object's final GPU row. */
+typedef struct {
+  double view_row[4];
+} BkDepthTransform;
+int bk_renderer_depth_transform(BkDepthTransform *, const float view[16],
+                                 const float projection[16], char error[256]);
+int bk_renderer_draw_lit_mesh_projected(
+    BkRenderer *, BkTexture *, BkGpuMesh *, BkLightSet *, const float matrix[16],
+    const float world[16], const BkDepthTransform *, BkDrawState, char error[256]);
 /* Switch: loaderless Mesa NVK + NWindow. Host: offscreen Vulkan for tests. */
 BkRenderer *bk_renderer_create(unsigned width, unsigned height, FILE *log,
                                char error[256]);

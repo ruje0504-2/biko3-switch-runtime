@@ -100,6 +100,9 @@ static int draw(BkScene *base, const BkSceneFrame *frame, char error[256]) {
   if (!bk_renderer_viewport(s->renderer, &viewport, error))
     return 0;
   bk_matrix_multiply(vp, view, projection);
+  BkDepthTransform depth;
+  if (!bk_renderer_depth_transform(&depth, view, projection, error))
+    return 0;
   if (!bk_static_model_order_textures(s->static_model, view, s->texture_keys,
                                       s->order, s->distances, error))
     return 0;
@@ -114,9 +117,9 @@ static int draw(BkScene *base, const BkSceneFrame *frame, char error[256]) {
     BkTexture *texture =
         sub->texture_count ? s->textures[sub->texture_indices[0]] : s->white;
     bk_matrix_multiply(mvp, s->static_model->world + instance.frame * 16, vp);
-    if (!bk_renderer_draw_lit_mesh(
+    if (!bk_renderer_draw_lit_mesh_projected(
             s->renderer, texture, s->meshes[instance.submesh], s->lights, mvp,
-            s->static_model->world + instance.frame * 16,
+            s->static_model->world + instance.frame * 16, &depth,
             (BkDrawState){blends[part->material.blend], part->depth_write,
                           BK_CULL_COUNTER_CLOCKWISE},
             error))

@@ -1296,10 +1296,32 @@ static int depth_matrix(float out[16], const float matrix[16], char error[256]) 
   }
   return 1;
 }
+int bk_renderer_depth_transform(BkDepthTransform *out, const float view[16],
+                                 const float projection[16], char error[256]) {
+  if (!out || !view || !projection) {
+    snprintf(error, 256, "missing separate depth view/projection");
+    return 0;
+  }
+  for (unsigned i = 0; i < 16; ++i)
+    if (!isfinite(view[i]) || !isfinite(projection[i])) {
+      snprintf(error, 256, "nonfinite depth view/projection");
+      return 0;
+    }
+  /* Form projection W-Z before either view or object multiplication. The
+   * old composed float MVP has already rounded away those small differences;
+   * converting it afterwards cannot recover them when the camera rotates. */
+  BkDepthTransform next = {{0}};
+  for (unsigned i = 0; i < 4; ++i)
+    for (unsigned k = 0; k < 4; ++k)
+      next.view_row[i] += (double)view[i * 4 + k] *
+          ((double)projection[k * 4 + 3] - projection[k * 4 + 2]);
+  *out = next;
+  return 1;
+}
 static int draw_mesh(BkRenderer *r, BkTexture *texture, BkGpuMesh *mesh,
                      BkLightSet *lights, const float matrix[16],
-                     const float world[16], BkDrawState state,
-                     char error[256]) {
+                     const float world[16], const BkDepthTransform *depth,
+                     BkDrawState state, char error[256]) {
   int lit = world != NULL;
   if (!r || !r->active || !texture || texture->owner != r || !mesh ||
       mesh->owner != r || mesh->lit != lit ||
@@ -1316,7 +1338,19 @@ static int draw_mesh(BkRenderer *r, BkTexture *texture, BkGpuMesh *mesh,
       return 0;
     }
   float gpu_matrix[16];
-  if (!depth_matrix(gpu_matrix, matrix, error))
+  if (depth && world) {
+    memcpy(gpu_matrix, matrix, sizeof(gpu_matrix));
+    for (unsigned i = 0; i < 4; ++i) {
+      double value = 0;
+      for (unsigned k = 0; k < 4; ++k)
+        value += (double)world[i * 4 + k] * depth->view_row[k];
+      gpu_matrix[i * 4 + 2] = (float)value;
+      if (!isfinite(gpu_matrix[i * 4 + 2])) {
+        snprintf(error, 256, "GPU separate depth transform overflow");
+        return 0;
+      }
+    }
+  } else if (!depth_matrix(gpu_matrix, matrix, error))
     return 0;
   if (lit) {
     for (unsigned i = 0; i < 16; i++)
@@ -1389,7 +1423,7 @@ static int draw_mesh(BkRenderer *r, BkTexture *texture, BkGpuMesh *mesh,
 int bk_renderer_draw_mesh(BkRenderer *r, BkTexture *t, BkGpuMesh *m,
                           const float matrix[16], BkDrawState state,
                           char error[256]) {
-  return draw_mesh(r, t, m, NULL, matrix, NULL, state, error);
+  return draw_mesh(r, t, m, NULL, matrix, NULL, NULL, state, error);
 }
 int bk_renderer_draw_lit_mesh(BkRenderer *r, BkTexture *t, BkGpuMesh *m,
                               BkLightSet *lights, const float matrix[16],
@@ -1399,7 +1433,17 @@ int bk_renderer_draw_lit_mesh(BkRenderer *r, BkTexture *t, BkGpuMesh *m,
     snprintf(error, 256, "missing lit world transform");
     return 0;
   }
-  return draw_mesh(r, t, m, lights, matrix, world, state, error);
+  return draw_mesh(r, t, m, lights, matrix, world, NULL, state, error);
+}
+int bk_renderer_draw_lit_mesh_projected(
+    BkRenderer *r, BkTexture *t, BkGpuMesh *m, BkLightSet *lights,
+    const float matrix[16], const float world[16], const BkDepthTransform *depth,
+    BkDrawState state, char error[256]) {
+  if (!world || !depth) {
+    snprintf(error, 256, "missing world or separate depth transform");
+    return 0;
+  }
+  return draw_mesh(r, t, m, lights, matrix, world, depth, state, error);
 }
 void bk_renderer_extent(const BkRenderer *r, unsigned *width,
                         unsigned *height) {

@@ -1,0 +1,724 @@
+{
+  "complete": true,
+  "commands": [
+    {
+      "name": "verified-host-transform",
+      "command": [
+        "build/depth-transform-probe"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 5.392447459002142,
+      "log": "local/lighting-video/verified-host-transform.log",
+      "sha256": "1bf8599fe0404658ff79f7793a4899fcc67abb232ea2b9b0c34458c7c60e9167",
+      "summary": [
+        "DEPTH_TRANSFORM frames2880 wrong_pixels0 coverage_changes0",
+        "PASS depth transform frames2880 wrong_pixels0 coverage_changes0 brightness_errors0",
+        "PHASE wrong0/0/0 changes0/0/0"
+      ]
+    },
+    {
+      "name": "verified-host-transform-legacy",
+      "command": [
+        "build/depth-transform-probe",
+        "--legacy"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "seconds": 2.3215560000098776,
+      "log": "local/lighting-video/verified-host-transform-legacy.log",
+      "sha256": "89d1e831122c75ea2c090e252bd3d46dd5e6fb963c8b6b85c8fb1a18dbdcba7e",
+      "summary": [
+        "DEPTH_TRANSFORM frames2880 wrong_pixels109056 coverage_changes248",
+        "FAIL depth transform frames2880 wrong_pixels109056 coverage_changes248 brightness_errors0",
+        "PHASE wrong52224/56832/0 changes106/142/0"
+      ]
+    },
+    {
+      "name": "verified-host-surfaces",
+      "command": [
+        "build/light-surface-motion-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 10.842246500003967,
+      "log": "local/lighting-video/verified-host-surfaces.log",
+      "sha256": "e917adfaa32f0f7225ceeb70a96a01f21c70ec9b5b7f2ebd7eff1976204cd958",
+      "summary": [
+        "PASS light surfaces cases22 frames7920 wrong0/0/0 changes0/0/0"
+      ]
+    },
+    {
+      "name": "verified-host-surfaces-legacy",
+      "command": [
+        "build/light-surface-motion-probe",
+        "local/game/MAINDIR/Data",
+        "--legacy"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "seconds": 8.425680457992712,
+      "log": "local/lighting-video/verified-host-surfaces-legacy.log",
+      "sha256": "12ac84704552f0fec8618c9472acf2f0529c0b1e002143a53ca37bab117281dc",
+      "summary": [
+        "FAIL light surfaces cases22 frames7920 wrong6/8/0 changes11/1/0"
+      ]
+    },
+    {
+      "name": "verified-host-background",
+      "command": [
+        "build/background-render-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 3.5383298750093672,
+      "log": "local/lighting-video/verified-host-background.log",
+      "sha256": "27d5721bf9cda78870ccfcde800ebd0d9212104c1eb24486b99a82b3afb00400",
+      "summary": [
+        "PASS background quality0 g0 a0: 614294 colored pixels",
+        "PASS background quality0 g0 a1: 614233 colored pixels",
+        "PASS background quality0 g0 a2: 614311 colored pixels",
+        "PASS background quality0 g0 a3: 614012 colored pixels",
+        "PASS background quality0 g0 a4: 613551 colored pixels",
+        "PASS background quality0 g0 a5: 612584 colored pixels",
+        "PASS background quality0 g0 a6: 612154 colored pixels",
+        "PASS background quality0 g0 a7: 583830 colored pixels",
+        "PASS background quality0 g0 a8: 582954 colored pixels",
+        "PASS background quality0 g1 a0: 613856 colored pixels",
+        "PASS background quality0 g1 a1: 614370 colored pixels",
+        "PASS background quality0 g1 a2: 614233 colored pixels",
+        "PASS background quality0 g1 a3: 614102 colored pixels",
+        "PASS background quality0 g1 a4: 613346 colored pixels",
+        "PASS background quality0 g1 a5: 614316 colored pixels",
+        "PASS background quality0 g1 a6: 613894 colored pixels",
+        "PASS background quality0 g1 a7: 614253 colored pixels",
+        "PASS background quality0 g1 a8: 614400 colored pixels",
+        "PASS background quality0 g2 a0: 614064 colored pixels",
+        "PASS background quality0 g2 a1: 613449 colored pixels",
+        "PASS background quality0 g2 a2: 614156 colored pixels",
+        "PASS background quality0 g2 a3: 614266 colored pixels",
+        "PASS background quality0 g2 a4: 561504 colored pixels",
+        "PASS background quality0 g2 a5: 595387 colored pixels",
+        "PASS background quality0 g2 a6: 573517 colored pixels",
+        "PASS background quality0 g2 a7: 509962 colored pixels",
+        "PASS background quality0 g2 a8: 598308 colored pixels",
+        "PASS background quality0 g3 a0: 611164 colored pixels",
+        "PASS background quality0 g3 a1: 613121 colored pixels",
+        "PASS background quality0 g3 a2: 613449 colored pixels",
+        "PASS background quality0 g3 a3: 614226 colored pixels",
+        "PASS background quality0 g3 a4: 613781 colored pixels",
+        "PASS background quality0 g3 a5: 612554 colored pixels",
+        "PASS background quality0 g3 a6: 607253 colored pixels",
+        "PASS background quality0 g3 a7: 614400 colored pixels",
+        "PASS background quality0 g3 a8: 614208 colored pixels",
+        "PASS background quality0 g4 a0: 614172 colored pixels",
+        "PASS background quality0 g4 a1: 614224 colored pixels",
+        "PASS background quality0 g4 a2: 614233 colored pixels",
+        "PASS background quality0 g4 a3: 613155 colored pixels",
+        "PASS background quality0 g4 a4: 596359 colored pixels",
+        "PASS background quality0 g4 a5: 515587 colored pixels",
+        "PASS background quality0 g4 a6: 604823 colored pixels",
+        "PASS background quality0 g4 a7: 563625 colored pixels",
+        "PASS background quality0 g4 a8: 590991 colored pixels",
+        "PASS background quality1 g0 a0: 614347 colored pixels",
+        "PASS background quality1 g0 a1: 614395 colored pixels",
+        "PASS background quality1 g0 a2: 614200 colored pixels",
+        "PASS background quality1 g0 a3: 614012 colored pixels",
+        "PASS background quality1 g0 a4: 613563 colored pixels",
+        "PASS background quality1 g0 a5: 612591 colored pixels",
+        "PASS background quality1 g0 a6: 612156 colored pixels",
+        "PASS background quality1 g0 a7: 585410 colored pixels",
+        "PASS background quality1 g0 a8: 582954 colored pixels",
+        "PASS background quality1 g1 a0: 613856 colored pixels",
+        "PASS background quality1 g1 a1: 614384 colored pixels",
+        "PASS background quality1 g1 a2: 614395 colored pixels",
+        "PASS background quality1 g1 a3: 614177 colored pixels",
+        "PASS background quality1 g1 a4: 613352 colored pixels",
+        "PASS background quality1 g1 a5: 614217 colored pixels",
+        "PASS background quality1 g1 a6: 613949 colored pixels",
+        "PASS background quality1 g1 a7: 614253 colored pixels",
+        "PASS background quality1 g1 a8: 614400 colored pixels",
+        "PASS background quality1 g2 a0: 614164 colored pixels",
+        "PASS background quality1 g2 a1: 614291 colored pixels",
+        "PASS background quality1 g2 a2: 614162 colored pixels",
+        "PASS background quality1 g2 a3: 614288 colored pixels",
+        "PASS background quality1 g2 a4: 551704 colored pixels",
+        "PASS background quality1 g2 a5: 595400 colored pixels",
+        "PASS background quality1 g2 a6: 594215 colored pixels",
+        "PASS background quality1 g2 a7: 565647 colored pixels",
+        "PASS background quality1 g2 a8: 598308 colored pixels",
+        "PASS background quality1 g3 a0: 614085 colored pixels",
+        "PASS background quality1 g3 a1: 613685 colored pixels",
+        "PASS background quality1 g3 a2: 614291 colored pixels",
+        "PASS background quality1 g3 a3: 614228 colored pixels",
+        "PASS background quality1 g3 a4: 613763 colored pixels",
+        "PASS background quality1 g3 a5: 612702 colored pixels",
+        "PASS background quality1 g3 a6: 608907 colored pixels",
+        "PASS background quality1 g3 a7: 614400 colored pixels",
+        "PASS background quality1 g3 a8: 614208 colored pixels",
+        "PASS background quality1 g4 a0: 614324 colored pixels",
+        "PASS background quality1 g4 a1: 614225 colored pixels",
+        "PASS background quality1 g4 a2: 614129 colored pixels",
+        "PASS background quality1 g4 a3: 613728 colored pixels",
+        "PASS background quality1 g4 a4: 594386 colored pixels",
+        "PASS background quality1 g4 a5: 512278 colored pixels",
+        "PASS background quality1 g4 a6: 585437 colored pixels",
+        "PASS background quality1 g4 a7: 544891 colored pixels",
+        "PASS background quality1 g4 a8: 590991 colored pixels",
+        "PASS 90 background GPU profiles, 720 frames, 145496 submitted instances, 6 fog profiles, 54282079 colored pixels; inspection views/explicit object groups, native light passes and bound frame forest"
+      ]
+    },
+    {
+      "name": "verified-host-actor",
+      "command": [
+        "build/actor-render-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 1.637346458999673,
+      "log": "local/lighting-video/verified-host-actor.log",
+      "sha256": "df4a7ad011c1b9bd81d8d05018a8c437808ef4bec2c268a832458168d54da1df",
+      "summary": [
+        "PASS actor group0 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS 45 real actor entry profiles, 540 animated Vulkan readbacks, 15 visible eye replacements, 9 gaze profiles/4 visible gaze changes"
+      ]
+    },
+    {
+      "name": "verified-host-static",
+      "command": [
+        "build/scene-probe",
+        "local/game/MAINDIR"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 0.9378747919981834,
+      "log": "local/lighting-video/verified-host-static.log",
+      "sha256": "69e530e2524dc74f2481f1ad1d46a3f0f0a0a1c77248898298fde0f79f443163",
+      "summary": [
+        "PASS: perspective, clockwise front/reversed back, cull disable, near/far clip, UV corners",
+        "PASS: XAN camera 60-step movement, reset, 400-tick end and endpoint hold; 3 clip/office cycles; missing camera pack failure",
+        "PASS: actor scene120-step animation, draw-only stability, 3 actor/office cycles, missing resources failure",
+        "PASS: original office 16 identical frames, camera movement/reset, 3 title/office cycles, missing-data failure"
+      ]
+    },
+    {
+      "name": "verified-host-ending",
+      "command": [
+        "build/ending-draw-event-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 2.217646417004289,
+      "log": "local/lighting-video/verified-host-ending.log",
+      "sha256": "157d5372a3ae52620509011a2333232a7bf9cec08f19a24dbb5dbb7c21d1d558",
+      "summary": [
+        "PASS ending draw events: profiles10 frames540 dual70 empty110 gain_checks30 exact_redraws540; real PCM status, retained duck, mode/phase dispatch and resource retirement"
+      ]
+    },
+    {
+      "name": "verified-host-game",
+      "command": [
+        "build/game-session-probe",
+        "local/game/MAINDIR/Data",
+        "local/lighting-video/captures-host",
+        "local/lighting-video/game-host.rgba"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 4.9112147919950075,
+      "log": "local/lighting-video/verified-host-game.log",
+      "sha256": "120782bb71750afe541377e31402052b17f10c9258a644823ea8044d55376449",
+      "summary": [
+        "PASS game-session frames=1054 phase1=60 photos=2 outcome=0 pause-frames=135"
+      ]
+    },
+    {
+      "name": "verified-asan-transform",
+      "command": [
+        "build/asan-static/depth-transform-probe"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 2.300579208007548,
+      "log": "local/lighting-video/verified-asan-transform.log",
+      "sha256": "1bf8599fe0404658ff79f7793a4899fcc67abb232ea2b9b0c34458c7c60e9167",
+      "summary": [
+        "DEPTH_TRANSFORM frames2880 wrong_pixels0 coverage_changes0",
+        "PASS depth transform frames2880 wrong_pixels0 coverage_changes0 brightness_errors0",
+        "PHASE wrong0/0/0 changes0/0/0"
+      ]
+    },
+    {
+      "name": "verified-asan-transform-legacy",
+      "command": [
+        "build/asan-static/depth-transform-probe",
+        "--legacy"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "seconds": 1.4260732919938164,
+      "log": "local/lighting-video/verified-asan-transform-legacy.log",
+      "sha256": "89d1e831122c75ea2c090e252bd3d46dd5e6fb963c8b6b85c8fb1a18dbdcba7e",
+      "summary": [
+        "DEPTH_TRANSFORM frames2880 wrong_pixels109056 coverage_changes248",
+        "FAIL depth transform frames2880 wrong_pixels109056 coverage_changes248 brightness_errors0",
+        "PHASE wrong52224/56832/0 changes106/142/0"
+      ]
+    },
+    {
+      "name": "verified-asan-surfaces",
+      "command": [
+        "build/asan-static/light-surface-motion-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 8.745253708999371,
+      "log": "local/lighting-video/verified-asan-surfaces.log",
+      "sha256": "e917adfaa32f0f7225ceeb70a96a01f21c70ec9b5b7f2ebd7eff1976204cd958",
+      "summary": [
+        "PASS light surfaces cases22 frames7920 wrong0/0/0 changes0/0/0"
+      ]
+    },
+    {
+      "name": "verified-asan-surfaces-legacy",
+      "command": [
+        "build/asan-static/light-surface-motion-probe",
+        "local/game/MAINDIR/Data",
+        "--legacy"
+      ],
+      "exit": 1,
+      "expected_exit": 1,
+      "seconds": 4.4188096660072915,
+      "log": "local/lighting-video/verified-asan-surfaces-legacy.log",
+      "sha256": "12ac84704552f0fec8618c9472acf2f0529c0b1e002143a53ca37bab117281dc",
+      "summary": [
+        "FAIL light surfaces cases22 frames7920 wrong6/8/0 changes11/1/0"
+      ]
+    },
+    {
+      "name": "verified-asan-background",
+      "command": [
+        "build/asan-static/background-render-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 7.935475917009171,
+      "log": "local/lighting-video/verified-asan-background.log",
+      "sha256": "27d5721bf9cda78870ccfcde800ebd0d9212104c1eb24486b99a82b3afb00400",
+      "summary": [
+        "PASS background quality0 g0 a0: 614294 colored pixels",
+        "PASS background quality0 g0 a1: 614233 colored pixels",
+        "PASS background quality0 g0 a2: 614311 colored pixels",
+        "PASS background quality0 g0 a3: 614012 colored pixels",
+        "PASS background quality0 g0 a4: 613551 colored pixels",
+        "PASS background quality0 g0 a5: 612584 colored pixels",
+        "PASS background quality0 g0 a6: 612154 colored pixels",
+        "PASS background quality0 g0 a7: 583830 colored pixels",
+        "PASS background quality0 g0 a8: 582954 colored pixels",
+        "PASS background quality0 g1 a0: 613856 colored pixels",
+        "PASS background quality0 g1 a1: 614370 colored pixels",
+        "PASS background quality0 g1 a2: 614233 colored pixels",
+        "PASS background quality0 g1 a3: 614102 colored pixels",
+        "PASS background quality0 g1 a4: 613346 colored pixels",
+        "PASS background quality0 g1 a5: 614316 colored pixels",
+        "PASS background quality0 g1 a6: 613894 colored pixels",
+        "PASS background quality0 g1 a7: 614253 colored pixels",
+        "PASS background quality0 g1 a8: 614400 colored pixels",
+        "PASS background quality0 g2 a0: 614064 colored pixels",
+        "PASS background quality0 g2 a1: 613449 colored pixels",
+        "PASS background quality0 g2 a2: 614156 colored pixels",
+        "PASS background quality0 g2 a3: 614266 colored pixels",
+        "PASS background quality0 g2 a4: 561504 colored pixels",
+        "PASS background quality0 g2 a5: 595387 colored pixels",
+        "PASS background quality0 g2 a6: 573517 colored pixels",
+        "PASS background quality0 g2 a7: 509962 colored pixels",
+        "PASS background quality0 g2 a8: 598308 colored pixels",
+        "PASS background quality0 g3 a0: 611164 colored pixels",
+        "PASS background quality0 g3 a1: 613121 colored pixels",
+        "PASS background quality0 g3 a2: 613449 colored pixels",
+        "PASS background quality0 g3 a3: 614226 colored pixels",
+        "PASS background quality0 g3 a4: 613781 colored pixels",
+        "PASS background quality0 g3 a5: 612554 colored pixels",
+        "PASS background quality0 g3 a6: 607253 colored pixels",
+        "PASS background quality0 g3 a7: 614400 colored pixels",
+        "PASS background quality0 g3 a8: 614208 colored pixels",
+        "PASS background quality0 g4 a0: 614172 colored pixels",
+        "PASS background quality0 g4 a1: 614224 colored pixels",
+        "PASS background quality0 g4 a2: 614233 colored pixels",
+        "PASS background quality0 g4 a3: 613155 colored pixels",
+        "PASS background quality0 g4 a4: 596359 colored pixels",
+        "PASS background quality0 g4 a5: 515587 colored pixels",
+        "PASS background quality0 g4 a6: 604823 colored pixels",
+        "PASS background quality0 g4 a7: 563625 colored pixels",
+        "PASS background quality0 g4 a8: 590991 colored pixels",
+        "PASS background quality1 g0 a0: 614347 colored pixels",
+        "PASS background quality1 g0 a1: 614395 colored pixels",
+        "PASS background quality1 g0 a2: 614200 colored pixels",
+        "PASS background quality1 g0 a3: 614012 colored pixels",
+        "PASS background quality1 g0 a4: 613563 colored pixels",
+        "PASS background quality1 g0 a5: 612591 colored pixels",
+        "PASS background quality1 g0 a6: 612156 colored pixels",
+        "PASS background quality1 g0 a7: 585410 colored pixels",
+        "PASS background quality1 g0 a8: 582954 colored pixels",
+        "PASS background quality1 g1 a0: 613856 colored pixels",
+        "PASS background quality1 g1 a1: 614384 colored pixels",
+        "PASS background quality1 g1 a2: 614395 colored pixels",
+        "PASS background quality1 g1 a3: 614177 colored pixels",
+        "PASS background quality1 g1 a4: 613352 colored pixels",
+        "PASS background quality1 g1 a5: 614217 colored pixels",
+        "PASS background quality1 g1 a6: 613949 colored pixels",
+        "PASS background quality1 g1 a7: 614253 colored pixels",
+        "PASS background quality1 g1 a8: 614400 colored pixels",
+        "PASS background quality1 g2 a0: 614164 colored pixels",
+        "PASS background quality1 g2 a1: 614291 colored pixels",
+        "PASS background quality1 g2 a2: 614162 colored pixels",
+        "PASS background quality1 g2 a3: 614288 colored pixels",
+        "PASS background quality1 g2 a4: 551704 colored pixels",
+        "PASS background quality1 g2 a5: 595400 colored pixels",
+        "PASS background quality1 g2 a6: 594215 colored pixels",
+        "PASS background quality1 g2 a7: 565647 colored pixels",
+        "PASS background quality1 g2 a8: 598308 colored pixels",
+        "PASS background quality1 g3 a0: 614085 colored pixels",
+        "PASS background quality1 g3 a1: 613685 colored pixels",
+        "PASS background quality1 g3 a2: 614291 colored pixels",
+        "PASS background quality1 g3 a3: 614228 colored pixels",
+        "PASS background quality1 g3 a4: 613763 colored pixels",
+        "PASS background quality1 g3 a5: 612702 colored pixels",
+        "PASS background quality1 g3 a6: 608907 colored pixels",
+        "PASS background quality1 g3 a7: 614400 colored pixels",
+        "PASS background quality1 g3 a8: 614208 colored pixels",
+        "PASS background quality1 g4 a0: 614324 colored pixels",
+        "PASS background quality1 g4 a1: 614225 colored pixels",
+        "PASS background quality1 g4 a2: 614129 colored pixels",
+        "PASS background quality1 g4 a3: 613728 colored pixels",
+        "PASS background quality1 g4 a4: 594386 colored pixels",
+        "PASS background quality1 g4 a5: 512278 colored pixels",
+        "PASS background quality1 g4 a6: 585437 colored pixels",
+        "PASS background quality1 g4 a7: 544891 colored pixels",
+        "PASS background quality1 g4 a8: 590991 colored pixels",
+        "PASS 90 background GPU profiles, 720 frames, 145496 submitted instances, 6 fog profiles, 54282079 colored pixels; inspection views/explicit object groups, native light passes and bound frame forest"
+      ]
+    },
+    {
+      "name": "verified-asan-actor",
+      "command": [
+        "build/asan-static/actor-render-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 6.496675458009122,
+      "log": "local/lighting-video/verified-asan-actor.log",
+      "sha256": "df4a7ad011c1b9bd81d8d05018a8c437808ef4bec2c268a832458168d54da1df",
+      "summary": [
+        "PASS actor group0 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group0 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group1 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group2 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group3 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area0:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area1:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area2:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area3:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area4:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area5:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area6:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area7:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS actor group4 area8:12 moving frames, skin/face, hidden subtree, zero-alpha queue, failed snapshot/recovery",
+        "PASS 45 real actor entry profiles, 540 animated Vulkan readbacks, 15 visible eye replacements, 9 gaze profiles/4 visible gaze changes"
+      ]
+    },
+    {
+      "name": "verified-asan-static",
+      "command": [
+        "build/asan-static/scene-probe",
+        "local/game/MAINDIR"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 1.986554957999033,
+      "log": "local/lighting-video/verified-asan-static.log",
+      "sha256": "69e530e2524dc74f2481f1ad1d46a3f0f0a0a1c77248898298fde0f79f443163",
+      "summary": [
+        "PASS: perspective, clockwise front/reversed back, cull disable, near/far clip, UV corners",
+        "PASS: XAN camera 60-step movement, reset, 400-tick end and endpoint hold; 3 clip/office cycles; missing camera pack failure",
+        "PASS: actor scene120-step animation, draw-only stability, 3 actor/office cycles, missing resources failure",
+        "PASS: original office 16 identical frames, camera movement/reset, 3 title/office cycles, missing-data failure"
+      ]
+    },
+    {
+      "name": "verified-asan-ending",
+      "command": [
+        "build/asan-static/ending-draw-event-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 7.274276124997414,
+      "log": "local/lighting-video/verified-asan-ending.log",
+      "sha256": "157d5372a3ae52620509011a2333232a7bf9cec08f19a24dbb5dbb7c21d1d558",
+      "summary": [
+        "PASS ending draw events: profiles10 frames540 dual70 empty110 gain_checks30 exact_redraws540; real PCM status, retained duck, mode/phase dispatch and resource retirement"
+      ]
+    },
+    {
+      "name": "verified-asan-game",
+      "command": [
+        "build/asan-static/game-session-probe",
+        "local/game/MAINDIR/Data",
+        "local/lighting-video/captures-asan",
+        "local/lighting-video/game-asan.rgba"
+      ],
+      "exit": 0,
+      "expected_exit": 0,
+      "seconds": 8.967951792001259,
+      "log": "local/lighting-video/verified-asan-game.log",
+      "sha256": "120782bb71750afe541377e31402052b17f10c9258a644823ea8044d55376449",
+      "summary": [
+        "PASS game-session frames=1054 phase1=60 photos=2 outcome=0 pause-frames=135"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "CMakeLists.txt": "5832db33fad247b969b14b1a87c5fa96f1ada6d97981ece52fbaa43247a3c747",
+    "runtime/render/renderer.h": "fd4244d9533e9c0911aa85f479db0b7eb44ccee3bb749e5a090f00552acd2010",
+    "runtime/render/vulkan/renderer.c": "55d406852b88f5c0f0dff9b869bc6968341a5115684c26bd6b9d5e8cd486f7ca",
+    "runtime/scene/actor_render.c": "ed9390f2d1b3cef79bcc6604006bb901869153f9a2f0cd72d80c48fbe64ac8cf",
+    "runtime/scene/static_world.c": "f3b3c99ab1c36275b356a490265bcec4bdf962d5fd9edf33fc87863b08db8fd6",
+    "tools/depth_transform_probe.c": "473bd0818657a93f9847df74c54c2bb6718ee93d77f83afd51eca1172f44ca1a",
+    "tools/light_surface_motion_probe.c": "9f095724fd40373bd4f70fa5f61ae6fdb18f66009c1f95808f30655c9791cfa7",
+    "test-host.sh": "452a116b6e8d1dafddcbf3ac4d6036435bab0d984b9638d6159c452e643ccd02",
+    "runtime/core/camera.c": "9e7e77428edec03da0b8b0794a5c3a42a5002eb02de7a97484fc9671ff57b4dd",
+    "runtime/core/matrix.c": "1d3430fc276035fda78230f64139de89d2c7e5e7bcba9ac27bdcebee7fc8d7d2",
+    "runtime/render/shaders/lit.vert": "733f3fb34b909a022b0a6a92d2013e04625dae254f0bb54e5184a0d83f8de445",
+    "runtime/render/shaders/lit.frag": "484d28666d246edb9b8146975dadb6023888983569416c9c4ba8b0fd360f23b0",
+    "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "date": "2026-10-01",
+  "finished_at": "2026-09-30T17:01:36.772094+00:00",
+  "baseline_commit": "ab3727b051d4889216e6300b7c65e3c3f69bf51c",
+  "targeted_fix_verified": true,
+  "hardware_validated": false,
+  "full_visual_acceptance": false,
+  "full_port_complete": false,
+  "user_scope": "First character, first outdoor scene most obvious; indoors probably stable; moving camera then several seconds of flicker after releasing input. Previous build not fixed per user.",
+  "scope": "Separate GPU reverse-depth row before float matrix composition; synthetic geometry and isolated real first-area glow/wall geometry, not a Switch or Windows video replay.",
+  "viewport": [
+    {
+      "label": "host",
+      "command": [
+        "build/ending-viewport-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "summary": [
+        "PASS ending viewport UI: 12 paired cases, 3368 actual scene frames, 102988800 UI readback RGBA bytes; changed_UI_pixels=0 UI_edges=0 max_UI_display_error=0; exact CPU states, stick/touch/13 toolbar hitboxes/modal cancel/bars/projection/resources",
+        "Full-scene optical diagnostic: 11/12 within stated raster bounds, max_display_error=131; not a Windows screenshot or full-ending acceptance",
+        "PASS scene geometry pairing: 12/12 camera/projection, all actor local/world/parent matrices and submitted queue topology agree"
+      ]
+    },
+    {
+      "label": "asan",
+      "command": [
+        "build/asan-static/ending-viewport-probe",
+        "local/game/MAINDIR/Data"
+      ],
+      "exit": 0,
+      "summary": [
+        "PASS ending viewport UI: 12 paired cases, 3368 actual scene frames, 102988800 UI readback RGBA bytes; changed_UI_pixels=0 UI_edges=0 max_UI_display_error=0; exact CPU states, stick/touch/13 toolbar hitboxes/modal cancel/bars/projection/resources",
+        "Full-scene optical diagnostic: 11/12 within stated raster bounds, max_display_error=131; not a Windows screenshot or full-ending acceptance",
+        "PASS scene geometry pairing: 12/12 camera/projection, all actor local/world/parent matrices and submitted queue topology agree"
+      ]
+    }
+  ],
+  "viewport_full_rgb_pairs": 11,
+  "viewport_total_pairs": 12,
+  "viewport_max_rgb_error": 131,
+  "python_tests": 29,
+  "archive": {
+    "path": "local/game/MAINDIR/Data/bk3_03.pp",
+    "bytes": 155467744,
+    "sha256": "b44383b0b67dfcfcf80c4bd93f4a73da533a2c57303e8bf70c3770841340060b"
+  },
+  "switch": {
+    "nro": {
+      "path": "build-switch/biko3-preview.nro",
+      "bytes": 16232504,
+      "sha256": "de369a84e294ee638277211923dcb3f4a42ec89fdc2e5f4d4644d635ebfa455d"
+    },
+    "elf": {
+      "path": "build-switch/biko3-preview.elf",
+      "bytes": 35107240,
+      "sha256": "b813f82b367519ebae912e279ba8a560c7f202aee2b9a79d675204264e005045"
+    },
+    "mesa": {
+      "path": "local/mesa-sdk/opt/devkitpro/portlibs/switch/lib/libvulkan.a",
+      "bytes": 93756428,
+      "sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256"
+    },
+    "undefined_symbols": 0
+  },
+  "pushed": false,
+  "packaged": false,
+  "awake_pid_retained": 64008,
+  "exploratory_limits": {
+    "normal_views_four_backgrounds": {
+      "cases": 70,
+      "frames": 25200,
+      "legacy_and_fixed_wrong": 0,
+      "interpretation": "Does not reproduce reported failure."
+    },
+    "low_resolution_oblique": {
+      "dimensions": [
+        65,
+        49
+      ],
+      "cases": 66,
+      "frames": 23760,
+      "legacy_wrong": [
+        13,
+        10,
+        0
+      ],
+      "fixed_wrong": [
+        8,
+        5,
+        0
+      ],
+      "interpretation": "Residual low-resolution raster precision; not a passing result and not claimed fixed at all resolutions."
+    }
+  },
+  "logs": [
+    {
+      "path": "local/lighting-video/rebuild-host.log",
+      "bytes": 7396,
+      "sha256": "241f5d6242d8e0ca9e1da2c230ca1620ec1588d5efb14b1c7da7be6a5b7ec5dd"
+    },
+    {
+      "path": "local/lighting-video/rebuild-asan.log",
+      "bytes": 7396,
+      "sha256": "95f0e8958e35888dbdb688012d4a00d25b0db587c64cc6d94ac973e855d68902"
+    },
+    {
+      "path": "local/lighting-video/build-switch-final.log",
+      "bytes": 4697,
+      "sha256": "5d5e21538317025611f8d551da94902d92a95c1c8a635d6c805edb691a8594c1"
+    },
+    {
+      "path": "local/lighting-video/python-tests.log",
+      "bytes": 128,
+      "sha256": "f23e530f204bc151a11dfc55fd4c3890474be4e0cff469fb9fdd2e8be009764e"
+    },
+    {
+      "path": "local/lighting-video/viewport-host.log",
+      "bytes": 5070,
+      "sha256": "b92eeabd84ba33b7a0da01590d54dcb6b98aaca628d7608d8a782427c25ec09c"
+    },
+    {
+      "path": "local/lighting-video/viewport-asan.log",
+      "bytes": 5070,
+      "sha256": "b92eeabd84ba33b7a0da01590d54dcb6b98aaca628d7608d8a782427c25ec09c"
+    },
+    {
+      "path": "local/lighting-video/oblique-legacy.log",
+      "bytes": 268,
+      "sha256": "6f39829ccd3906270c48f185c5154d1c7f5b0052505bc618aa65dc58d623547f"
+    },
+    {
+      "path": "local/lighting-video/oblique-fixed.log",
+      "bytes": 266,
+      "sha256": "ff5ea17a58a43387a4eb07e8435457c8e15dd46a1c4d6163c36faf4f059b2ae5"
+    },
+    {
+      "path": "local/lighting-video/surfaces-host.log",
+      "bytes": 188,
+      "sha256": "231b566e4939d9a4c58589e3db3db30ce05c1883aa1edef12ef552494531c152"
+    },
+    {
+      "path": "local/lighting-video/surfaces-legacy.log",
+      "bytes": 188,
+      "sha256": "231b566e4939d9a4c58589e3db3db30ce05c1883aa1edef12ef552494531c152"
+    }
+  ]
+}

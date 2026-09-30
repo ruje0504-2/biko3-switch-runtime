@@ -32,6 +32,7 @@ struct BkActorRender {
   uint32_t *hidden, *draw_disabled, *order, *traversal, *frame_begin, *frame_size;
   BkDrawKey *keys, *frame_keys;
   float *scratch, vp[16];
+  BkDepthTransform depth;
   uint64_t generation;
   BkActorRenderStats stats;
   int ready, order_ready;
@@ -279,6 +280,8 @@ static int prepare(BkActorRender *a, const BkActorPose *pose,
     if (!isfinite(view[i]) || !isfinite(projection[i]))
       goto invalid;
   bk_matrix_multiply(a->vp, view, projection);
+  if (!bk_renderer_depth_transform(&a->depth, view, projection, error))
+    return 0;
   const BkModel *m = a->model;
   a->eye_selected = bk_eye_assets_selected(a->eyes);
   for (uint32_t i = 0; i < m->frame_count; i++) {
@@ -464,8 +467,9 @@ static int draw_instance(BkActorRender *a, uint32_t index, BkLightSet *lights,
                            : a->layout->world + inst->frame * 16;
   float mvp[16];
   bk_matrix_multiply(mvp, world, a->vp);
-  if (!bk_renderer_draw_lit_mesh(
+  if (!bk_renderer_draw_lit_mesh_projected(
           a->renderer, texture, a->meshes[inst->submesh], lights, mvp, world,
+          &a->depth,
           (BkDrawState){blends[p->material.blend], p->depth_write,
                         BK_CULL_COUNTER_CLOCKWISE},
           error)) {

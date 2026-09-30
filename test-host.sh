@@ -171,6 +171,7 @@ if [ "$#" -ge 1 ]; then
     build/asan/entry-probe "$1/Data"
     build/face-probe "$1/Data"
     build/actor-render-probe "$1/Data"
+    build/light-surface-motion-probe "$1/Data"
     build/asan/face-probe "$1/Data"
     build/gpu-skin-probe "$1"/Data/*.pp
     build/skin-probe "$1/Data/bk3_01.pp" h00_80.x h01_80.x h02_80.x h03_80.x h04_80.x h05_80.x
