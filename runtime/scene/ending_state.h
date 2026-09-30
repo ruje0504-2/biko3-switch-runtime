@@ -1,6 +1,7 @@
 #ifndef BK_SCENE_ENDING_STATE_H
 #define BK_SCENE_ENDING_STATE_H
 #include "game/ending_special.h"
+#include "game/ending_gallery_control.h"
 #include "scene/ending_retained.h"
 #include "scene/ending_ui_frame.h"
 /* Process-retained scalar/table ownership for the recovered ending modules.
@@ -65,6 +66,11 @@ int bk_ending_state_leave(BkEndingState *, BkEndingLeave, char error[256]);
 int bk_ending_state_entry_bindings(BkEndingState *, uint8_t *option_a,
                                    uint8_t *option_b, int32_t *selected_group,
                                    BkEndingEntryBindings *);
+/*48302B borrows the existing retained.final workspace and scalar owners.
+ *This binding neither resets them nor opens an unimplemented gallery scene.*/
+int bk_ending_state_gallery_bindings(BkEndingState *, const BkEndingRecords *,
+                                     const int32_t *voice_volume,
+                                     BkEndingGalleryControlBindings *);
 int bk_ending_state_reload_bindings(BkEndingState *, BkCommonHudState *,
                                     const int8_t *previous_flow,
                                     BkEndingReloadBindings *);

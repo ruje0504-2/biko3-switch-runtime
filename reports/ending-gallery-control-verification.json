@@ -1,0 +1,226 @@
+{
+  "passed": true,
+  "scope": "Full48302B parent and483A36 classification with actual BkEndingState aliases. Five children remain required services; no production gallery entry.",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "validation": "build/validation/ending-gallery-cpu-bkd4cppl/verification.json",
+  "validation_sha256": "0321512552c2a2b6406f4af397dc905ccdd82b1ac9181bb9e0c0f8bcec7d0019",
+  "source_files": 909,
+  "source_stable": true,
+  "checks": [
+    {
+      "mode": "host",
+      "suite": "control",
+      "result": {
+        "passed": true,
+        "scope": "Full48302B parent and483A36 classification against native instructions.\n\nNative state tables, CRT record copies/clears, threshold arithmetic and\nclassification run unchanged. Camera/audio/expression and the five child\ncontrollers are observing service boundaries. Real BkEndingState aliases\nare bound by the production binding helper, with no duplicated workspace.\nThis does not implement those children or validate a playable gallery.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 12000,
+        "boundary_frames": 1054,
+        "retained_frames": 100,
+        "calls": 7922,
+        "live_mutations": 190,
+        "failure_prefixes": 785,
+        "record_copies": 129,
+        "bounded_rejections": 18,
+        "missing_services": 12,
+        "operations": [
+          "camera",
+          "child",
+          "cue",
+          "expression",
+          "fov",
+          "load",
+          "play",
+          "status",
+          "voice",
+          "voice_name"
+        ],
+        "children": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "loaded_names": [
+          "PH10001.wav",
+          "PH10260.wav",
+          "PH10261.wav",
+          "PH11101.wav",
+          "PH13101.wav",
+          "PH13213.wav",
+          "PH13311.wav",
+          "PH20001.wav",
+          "PH20260.wav",
+          "PH20261.wav",
+          "PH23101.wav",
+          "PH23213.wav",
+          "PH23311.wav",
+          "PH30001.wav",
+          "PH30260.wav",
+          "PH30261.wav",
+          "PH33101.wav",
+          "PH33213.wav",
+          "PH33311.wav",
+          "PH40001.wav",
+          "PH40260.wav",
+          "PH40261.wav",
+          "PH43101.wav",
+          "PH43213.wav",
+          "PH43311.wav",
+          "PH50001.wav",
+          "PH50260.wav",
+          "PH50261.wav",
+          "PH53101.wav",
+          "PH53213.wav",
+          "PH53311.wav"
+        ],
+        "state_sha256": "1293cab51cfedf0fece8bbcc2540fed8d820306600bb10b2f05c3c52cf14d381",
+        "max_error": 0,
+        "full_gallery": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery control: {'random_frames': 12000, 'boundary_frames': 1054, 'retained_frames': 100, 'calls': 7922, 'live_mutations': 190, 'failure_prefixes': 785, 'record_copies': 129} 1293cab51cfedf0fece8bbcc2540fed8d820306600bb10b2f05c3c52cf14d381",
+      "library_sha256": "877dafa9e4f48ed396d954b6ad9fe5e3d728089ee6257bdbc4aaa69296e6a646",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "asan",
+      "suite": "control",
+      "result": {
+        "passed": true,
+        "scope": "Full48302B parent and483A36 classification against native instructions.\n\nNative state tables, CRT record copies/clears, threshold arithmetic and\nclassification run unchanged. Camera/audio/expression and the five child\ncontrollers are observing service boundaries. Real BkEndingState aliases\nare bound by the production binding helper, with no duplicated workspace.\nThis does not implement those children or validate a playable gallery.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 12000,
+        "boundary_frames": 1054,
+        "retained_frames": 100,
+        "calls": 7922,
+        "live_mutations": 190,
+        "failure_prefixes": 785,
+        "record_copies": 129,
+        "bounded_rejections": 18,
+        "missing_services": 12,
+        "operations": [
+          "camera",
+          "child",
+          "cue",
+          "expression",
+          "fov",
+          "load",
+          "play",
+          "status",
+          "voice",
+          "voice_name"
+        ],
+        "children": [
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "loaded_names": [
+          "PH10001.wav",
+          "PH10260.wav",
+          "PH10261.wav",
+          "PH11101.wav",
+          "PH13101.wav",
+          "PH13213.wav",
+          "PH13311.wav",
+          "PH20001.wav",
+          "PH20260.wav",
+          "PH20261.wav",
+          "PH23101.wav",
+          "PH23213.wav",
+          "PH23311.wav",
+          "PH30001.wav",
+          "PH30260.wav",
+          "PH30261.wav",
+          "PH33101.wav",
+          "PH33213.wav",
+          "PH33311.wav",
+          "PH40001.wav",
+          "PH40260.wav",
+          "PH40261.wav",
+          "PH43101.wav",
+          "PH43213.wav",
+          "PH43311.wav",
+          "PH50001.wav",
+          "PH50260.wav",
+          "PH50261.wav",
+          "PH53101.wav",
+          "PH53213.wav",
+          "PH53311.wav"
+        ],
+        "state_sha256": "1293cab51cfedf0fece8bbcc2540fed8d820306600bb10b2f05c3c52cf14d381",
+        "max_error": 0,
+        "full_gallery": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery control: {'random_frames': 12000, 'boundary_frames': 1054, 'retained_frames': 100, 'calls': 7922, 'live_mutations': 190, 'failure_prefixes': 785, 'record_copies': 129} 1293cab51cfedf0fece8bbcc2540fed8d820306600bb10b2f05c3c52cf14d381",
+      "library_sha256": "465d83c1718ba45d10157b54ecaf4081a9654fc7b65962b750aef154922d04db",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    }
+  ],
+  "regressions": [
+    {
+      "mode": "host",
+      "count": 3,
+      "passed": true,
+      "log": "local/gallery-control-regression.log"
+    },
+    {
+      "mode": "asan",
+      "count": 3,
+      "passed": true,
+      "log": "local/gallery-control-regression-asan.log"
+    }
+  ],
+  "python_unittests": {
+    "count": 29,
+    "passed": true,
+    "log": "local/gallery-control-python.log"
+  },
+  "shell_syntax": true,
+  "switch": {
+    "passed": true,
+    "log": "local/gallery-control-switch.log",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0,
+    "static_control_symbols": true,
+    "elf_binding_helper": true,
+    "elf_parent_control": false,
+    "artifacts": {
+      "build-switch/biko3-preview.nro": {
+        "bytes": 16076856,
+        "sha256": "8cf378a42c507737733eeda09fd0f5cc04b9baa3403869e6b7155512ebf3c049"
+      },
+      "build-switch/biko3-preview.elf": {
+        "bytes": 34358040,
+        "sha256": "2b5477f850a10946e89e9b3c541f6aa5da3cd9e1a820207c85572f944941b762"
+      }
+    }
+  },
+  "leak_detection": false,
+  "real_asset_flow": false,
+  "gpu_validation": false,
+  "hardware_validation": false,
+  "packaged": false,
+  "pushed": false,
+  "awake": {
+    "pid": 64008,
+    "start": "Wed Sep 30 05:37:13 2026",
+    "command": "/usr/bin/caffeinate -ims",
+    "verified_live": true
+  },
+  "remaining": [
+    "483AF0",
+    "4843AA",
+    "4855C9",
+    "48758C",
+    "488674",
+    "phase8 production entry, retained state and cross-loader binding",
+    "natural ending, persistent unlock and return",
+    "production pixels and Switch acceptance"
+  ]
+}

@@ -181,6 +181,20 @@ int bk_ending_state_entry_bindings(BkEndingState *s, uint8_t *oa, uint8_t *ob,
                                  ob,        selected,    &s->gauge_y};
   return 1;
 }
+int bk_ending_state_gallery_bindings(BkEndingState *s, const BkEndingRecords *records,
+                                     const int32_t *volume,
+                                     BkEndingGalleryControlBindings *out) {
+  if (!s || !records || !volume || !out) return 0;
+  BkEndingRetainedFinal *a = &s->retained.final;
+  *out = (BkEndingGalleryControlBindings){
+      &s->frame, &s->control, &s->auxiliary, records,
+      &a->byte_6ddce0, &a->byte_6d1be1, &a->byte_6dde58,
+      &a->byte_6c7f70, &a->byte_6d1be0, &a->byte_6d1bd4, &a->byte_6d1c0d,
+      &a->byte_6dde50, &s->final_state, &a->word_6c7f74, a->workspace_6c7f80,
+      BK_ENDING_RECORD_CAPACITY, a->words_6dde24, &a->word_6d1bcc,
+      &a->word_6dde4c, &s->next_mode, s->speech_names[0], volume};
+  return 1;
+}
 int bk_ending_state_reload_bindings(BkEndingState *s, BkCommonHudState *common,
                                     const int8_t *previous,
                                     BkEndingReloadBindings *out) {

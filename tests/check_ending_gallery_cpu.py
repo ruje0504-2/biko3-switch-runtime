@@ -1,4 +1,4 @@
-"""Pair48BCBB/48CC18 native oracles and optional real effect/audio adapters.
+"""Pair48302B/48BCBB/48CC18 oracles and optional real effect/audio adapters.
 
 Needs the fixed EXE and the existing sanitized Python launcher. Outputs go to
 a fresh validation directory. --data adds Japanese actor/PCM checks. None of
@@ -27,11 +27,11 @@ def main():
     p.add_argument('--asan-python', type=Path, default=ROOT/'build/asan/ending-oracle-python')
     p.add_argument('--jobs', type=int, default=8)
     p.add_argument('--data', type=Path)
-    p.add_argument('--suites', default='presentation,effect')
+    p.add_argument('--suites', default='control,presentation,effect')
     args = p.parse_args()
     suites = args.suites.split(',')
-    if not suites or len(set(suites)) != len(suites) or any(s not in ['presentation', 'effect'] for s in suites):
-        p.error('--suites must be distinct members of presentation,effect')
+    if not suites or len(set(suites)) != len(suites) or any(s not in ['control', 'presentation', 'effect'] for s in suites):
+        p.error('--suites must be distinct members of control,presentation,effect')
     if args.data:
         if 'effect' not in suites: p.error('--data requires the effect suite')
         suites.append('effect-scene')
