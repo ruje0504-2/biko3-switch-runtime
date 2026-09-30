@@ -23,6 +23,7 @@ SUITES = {
     ],
     "session": [("secondary-session", "ending-secondary-session-probe", [])],
     "stage": [("stage-reload", "ending-stage-reload-probe", [])],
+    "selected-session": [("selected-session", "ending-selected-session-probe", [])],
     "final-image": [("final-image", "ending-final-image-probe", [])],
     "story": [("story-reload", "ending-story-reload-probe", [])],
     "third-cpu": [("third-scene", "ending-tertiary-scene-probe", [])],
@@ -59,6 +60,9 @@ def source_manifest() -> dict[str, str]:
     paths.extend(p for p in (ROOT / "runtime").rglob("*") if p.is_file())
     paths.extend((ROOT / "tools").glob("ending_*probe.c"))
     paths.extend((ROOT / "tools").glob("ending_*.h"))
+    paths.extend(ROOT / "tests" / name for name in [
+        "original_ending_selected_session_oracle.py", "original_prop_route_oracle.py",
+        "original_matrix_oracle.py", "model_binding.py"])
     return {str(p.relative_to(ROOT)): digest(p) for p in sorted(paths)}
 
 
@@ -68,6 +72,9 @@ def main() -> int:
     parser.add_argument("--suite", action="append", choices=tuple(SUITES))
     parser.add_argument("--reuse-host-build", action="store_true",
                         help="test-host.sh has already built all host targets")
+    parser.add_argument("--original-exe", type=Path, default=os.environ.get("BK3_ORIGINAL_EXE"),
+                        help="also compare selected-session loader state to the pinned EXE")
+    parser.add_argument("--oracle-python", default=os.environ.get("BK3_TEST_PYTHON", "local/venv/bin/python"))
     parser.add_argument("--jobs", type=int, default=int(os.environ.get("BK_BUILD_JOBS", "8")))
     args = parser.parse_args()
     if args.jobs < 1:
@@ -144,6 +151,16 @@ def main() -> int:
                 if summaries[0] != summaries[1]:
                     raise RuntimeError(f"{name}: host and sanitized coverage/hashes differ")
                 comparison["passed"] = True
+        if "selected-session" in suites and args.original_exe:
+            native_report = output / "selected-session-native.json"
+            execute("selected-session-native", [args.oracle_python,
+                "tests/original_ending_selected_session_oracle.py", str(args.original_exe),
+                str(output / "selected-session-host.log"),
+                str(output / "selected-session-asan.log"), "--output", str(native_report)])
+            native = json.loads(native_report.read_text())
+            if not native.get("passed"):
+                raise RuntimeError("selected-session native scalar comparison failed")
+            report["selected_session_native"] = native
         if source_manifest() != manifest:
             raise RuntimeError("source changed during validation; results cannot identify one source state")
         report["passed"] = True

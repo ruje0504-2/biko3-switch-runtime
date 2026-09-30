@@ -84,7 +84,6 @@ typedef struct {
   double wall_seconds;
   int clock_supplied;
   unsigned group, variant;
-  uint32_t gallery_selection;
   BkEndingRecords *records;
   BkEndingCameraTransitions camera_transitions;
   BkEndingUi ui;
@@ -1621,13 +1620,15 @@ static int selected_load(void *context, unsigned slot, const char *name,
 static int selected_expression(void *context, int32_t a, int32_t b,
                                int32_t mode, char e[256]) {
   EndingNormalScene *s = context;
-  (void)b;
-  (void)mode;
-  BkFaceState *face = s && s->selected_assets
-      ? bk_ending_selected_assets_face_state(s->selected_assets) : NULL;
-  if (!face) return fail(e, "selected face owner is missing");
-  uint32_t now = s->now_ms;
-  return bk_face_request(face, a, now, e);
+  BkEyeAssets *eyes = s && s->selected_assets
+      ? bk_ending_selected_assets_eyes(s->selected_assets) : NULL;
+  if (!eyes) return fail(e, "selected expression owner is missing");
+  /*4DFB96 stores both live expression words and selects the eye texture.
+   *The later494015 face pass consumes these; do not sample a face here.*/
+  s->state->auxiliary.expression_a = a;
+  s->state->auxiliary.expression_b = b;
+  return mode >= 0 ? bk_eye_assets_select(eyes, (unsigned)mode, e)
+                   : fail(e, "negative selected eye texture mode");
 }
 static int selected_active(void *context, int32_t *slot, char e[256]) {
   EndingNormalScene *s = context;
@@ -1732,12 +1733,16 @@ static int selected_manual(void *context, int32_t proposed, int32_t *accepted,
 static int selected_pick(void *context, const float pointer[2], int32_t *result,
                          char e[256]) {
   EndingNormalScene *s = context;
-  if (!s || !pointer || !result) return fail(e, "selected target picker is missing");
-  *result = 0;
-  float dx = pointer[0] - (float)s->state->alternate[0];
-  float dy = pointer[1] - (float)s->state->alternate[1];
-  if (dx * dx + dy * dy <= 150.f * 150.f) *result = 2;
-  return 1;
+  if (!s || !s->selected_assets || !s->normal_controller)
+    return fail(e, "selected target picker is missing");
+  uint32_t node = (uint32_t)s->state->retained.normal.word_719b40;
+  const float *alternate = node ? bk_actor_forest_world(scene_forest(s), node) : NULL;
+  if (node && !alternate) return fail(e, "selected alternate target is stale");
+  BkEndingSecondaryPickBindings bindings = {
+      &s->state->frame, &s->normal_controller->control.action_kind,
+      &s->normal_controller->control.action_column, s->state->targets,
+      s->state->alternate, &s->ui.sprites[50], &s->ui_pick, alternate};
+  return bk_ending_secondary_pick(&bindings, pointer, 4, result, e);
 }
 static int selected_choose(void *context, const int32_t point[2], int32_t *result,
                            char e[256]) {
@@ -1754,11 +1759,9 @@ static int selected_begin(void *context, char e[256]) {
   BkEndingSecondaryMenuGeometry geometry = {
       s->viewport.width, s->viewport.height,
       (float)((double)s->viewport.width / 1280.0), s->ui.sprites[51].rect[2]};
-  int32_t selected = s->state->frame.camera_cached;
-  if (selected < 0 || selected >= 39) selected = 0;
   return bk_ending_selected_menu(&geometry, &s->ui_pick,
-      s->state->frame.camera_event ? s->state->frame.camera_event : 1,
-      s->state->auxiliary.selection, selected, s->state->targets,
+      s->state->frame.camera_event,
+      s->state->auxiliary.selection, s->state->frame.camera_cached, s->state->targets,
       s->state->alternate, s->state->choices, s->state->points, e);
 }
 static int selected_action(void *context, const BkEndingFrameInput *input,
@@ -1770,6 +1773,7 @@ static int selected_action(void *context, const BkEndingFrameInput *input,
   BkEndingSelectedActionBindings bindings = selected_action_bindings(s, control);
   BkEndingSelectedActionOps ops = selected_action_ops();
   ops.control.context = s;
+  ops.choices = s->state->choices;
   return bk_ending_selected_action_step(&s->selected_action, &bindings, input,
                                         seconds, &ops, e);
 }
@@ -1827,15 +1831,11 @@ static int selected_hit(void *context, unsigned menu, const int32_t point[2],
                         int *result, char e[256]) {
   EndingNormalScene *s = context;
   if (!s || menu >= 2 || !point || !result) return fail(e, "selected hit owner is missing");
-  *result = 0;
-  if (s->state->points[menu][0] || s->state->points[menu][1]) {
-    float scale = (float)((double)s->viewport.width / 1280.0);
-    float dx = (float)point[0] - (float)s->state->points[menu][0];
-    float dy = (float)point[1] - (float)s->state->points[menu][1];
-    float radius = 96.f * scale;
-    *result = dx * dx + dy * dy <= radius * radius;
-  }
-  return 1;
+  float center[] = {(float)s->state->points[menu][0], (float)s->state->points[menu][1]};
+  float cursor[] = {(float)point[0], (float)point[1]}, distance = 0;
+  float radius = (float)((double)s->ui.sprites[51].rect[2] * .5);
+  return bk_ending_ui_circle_hit(center, radius, cursor, result, &distance)
+      ? 1 : fail(e, "invalid selected menu hit geometry");
 }
 static int selected_clock(void *context, uint32_t *milliseconds, char e[256]) {
   return frame_clock(context, milliseconds, e);
@@ -2461,8 +2461,9 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
         (s->flow.common && !s->flow.tertiary_controller))
       return fail(e, "third loader requires retained controller and recording owners");
   } else if (loader == BK_ENDING_LOAD_4D1025) {
-    if (argument < 0 || argument >= 3 ||
-        (s->gallery_selection != 2 && s->gallery_selection != 5))
+    /*4D1025 receives the live action selection from both story and replay
+     *reloads. The outer gallery menu selection is not a loader constraint.*/
+    if (argument < 0 || argument >= 3)
       return fail(e, "invalid selected-ending loader argument");
     variant = s->state->auxiliary.variant != 0;
     stage_kind = BK_ENDING_UI_FOURTH;
@@ -2522,7 +2523,7 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
       goto bad;
     BkEndingSelectedLoad load = {
         s->state->frame.group, variant, (unsigned)argument,
-        s->gallery_selection, s->state->model_paths[selected_config.event],
+        s->state->selected, s->state->model_paths[selected_config.event],
         background};
     s->selected_assets = bk_ending_selected_assets_create(
         s->services.resources, &load, clocks, s->random, &s->camera,
@@ -2667,15 +2668,24 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->state->control.toggles[6] = s->option_b == 1;
     s->state->control.toggles[5] = 1;
     s->state->control.toggles[3] = s->state->frame.group != 1;
+    if (s->state->frame.group == 1)
+      s->state->control.toggles[4] = 1;
     s->state->frame.camera_cached = -1;
+    s->state->control.target_choice = 0;
     s->state->frame.camera_mode = 5;
     s->state->retained.normal.follow_target = bk_actor_forest_node(
         scene_forest(s), 0, bk_ending_selected_assets_follow(s->selected_assets));
     if (s->state->retained.normal.follow_target == BK_FRAME_NONE)
       goto bad;
     s->state->frame.phase = config->phase;
-    s->state->frame.state_721ee4 = 4;
-    s->state->selected = (int32_t)s->gallery_selection;
+    /*4D1C26 writes721EF0, not the second stage's721EE4 (also a replay
+     *release tag). Preserve that tag and the live721ED8 selection unless
+     *the actual4D1C64 background replacement assigned1.*/
+    s->state->auxiliary.gate = 4;
+    s->state->frame.camera_event = 0;
+    if (bk_ending_selected_assets_replaced_background(s->selected_assets))
+      s->state->selected = 1;
+    s->state->control.variant = (uint8_t)config->event;
     s->state->auxiliary.selection = (int32_t)argument;
     s->state->auxiliary.pending = 0;
     s->state->frame.camera_clip = 0;
@@ -2862,7 +2872,7 @@ static int prepare_scene_draw(EndingNormalScene *s, char e[256]) {
                  .primary_materials = s->materials,
                  .materials = s->special_materials,
                  .material_count = s->special_material_count,
-                 .bom_disabled = s->secondary_assets ? NULL : s->disabled,
+                 .bom_disabled = s->disabled_count ? s->disabled : NULL,
                  .bom_count = s->disabled_count,
                  .main_viewport = s->viewport,
                  .special_viewport = s->special_viewport},
@@ -3013,7 +3023,6 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   s->group = group;
   s->variant = variant;
   s->records = records;
-  s->gallery_selection = selected;
   s->frame_active = records != NULL || (previous == 0x18 &&
       (selected == 1 || selected == 2 || selected == 5));
   s->previous_flow = previous;

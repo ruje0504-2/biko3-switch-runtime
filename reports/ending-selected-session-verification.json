@@ -1,0 +1,186 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Selected-stage actual entry, opening, input menu/change/reload and old-frame preservation; phase8 resource boundaries only, not complete gallery or game acceptance.",
+  "original_exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "original_run": {
+    "path": "build/validation/ending-runtime-xai0f3ai/result.json",
+    "sha256": "0df5699b2bedab52726f46d633472eb25d3d280176eb5f7a566f4cd944a97e2a",
+    "passed": false,
+    "error": "selected-session-native failed; exit 1; see /Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-xai0f3ai/selected-session-native.log",
+    "started_at": "2026-09-30T07:28:36.513285+00:00",
+    "finished_at": "2026-09-30T07:34:43.797832+00:00"
+  },
+  "verifier_correction": {
+    "reason": "Pinned original background name includes a leading backslash omitted by the test assertion. Corrected only that literal; original failed result kept unchanged.",
+    "source_changes": {
+      "tests/original_ending_selected_session_oracle.py": {
+        "before": "d686fd295d978d06be9925ce7f7662af9c43b7763805a63c04abd9c566a079d0",
+        "after": "d712ef1c62de1b91119a9d863efaa7dc20ef547c1cbb427397f6c53fc43173d1"
+      }
+    },
+    "unchanged_manifest_entries": 674,
+    "unchanged_runtime_and_probe_binaries": true,
+    "repeated_gpu_frames": false
+  },
+  "current_source_manifest_count": 675,
+  "current_source_manifest_sha256": "08582492a5c9c25f3fcd9d8c62782a8c9aa0cd1d02a11c929dc820fe6354eb37",
+  "source_sha256": {
+    "CMakeLists.txt": "1c231fafa395064f62df9fc7b2dc8a16b76807d67c5716292eaf1cd5f282a108",
+    "runtime/scene/ending_normal_session.c": "c8d43cc6d8d3b25604f713afbdbe5ed6a76b8b13821566b26d7a6f26d9232be3",
+    "runtime/scene/ending_selected_assets.c": "048d640063a39722edc68befd3ca5f9bff44729195fa1d4c605b1ed59925836e",
+    "tools/ending_selected_session_probe.c": "763427473d3addb097b43cff90e536a4230cf5faa6627d14e335f625fd7b6862",
+    "tests/check_ending_runtime.py": "d0f3c05aa7cfee22e92973001c5e88727514d1692b842f7b80acfde6b86734dc",
+    "tests/original_ending_selected_session_oracle.py": "d712ef1c62de1b91119a9d863efaa7dc20ef547c1cbb427397f6c53fc43173d1"
+  },
+  "paired_checks": [
+    {
+      "name": "selected-session",
+      "suite": "selected-session",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "c019dafaba741345935fd352b6bfcb7960aab3a7fa200db3ac6eef116b05e43e",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "20f7901fd569783ca1cc6cfbac4c1de2dbfd9548f7edc47f5840b89852e6c3d1",
+          "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+        }
+      ]
+    },
+    {
+      "name": "stage-reload",
+      "suite": "stage",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "34a98f1393413c5c10592cbb496147a43751352ddd7bebeaa165d22cd30fe74b",
+          "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "4bed7cc463e37f49e13eec16031533b5a7d9b160fcd36984c618845a1d0c203a",
+          "summary": "PASS stage reload entries5 boundary20 curtain10 frames1560 redraws70 pcm=a5e06f355843498f"
+        }
+      ]
+    },
+    {
+      "name": "normal-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "b6b60d84d274432429d078382bd1ad7f5a000086c34e40fc37de1da629945e78",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "2124db442bf0c4d4e31032c6cdbd922fd3f66f8af73332865205deb6c9ec258b",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    },
+    {
+      "name": "third-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "b6b60d84d274432429d078382bd1ad7f5a000086c34e40fc37de1da629945e78",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "2124db442bf0c4d4e31032c6cdbd922fd3f66f8af73332865205deb6c9ec258b",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    }
+  ],
+  "native_corrected": {
+    "path": "build/validation/ending-runtime-xai0f3ai/selected-session-native-corrected.json",
+    "sha256": "91f3992e1dd681cc8961a68cbc207876bf8fced446a7c04c43b3abdf23bcf262",
+    "result": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "checks": [
+        {
+          "log": "build/validation/ending-runtime-xai0f3ai/selected-session-host.log",
+          "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+          "loads": 60,
+          "scalar_words": 960
+        },
+        {
+          "log": "build/validation/ending-runtime-xai0f3ai/selected-session-asan.log",
+          "sha256": "8d221ee3e5f8a645e575b9e29f5437c5e893a7e98513e69cac588a1c4f510bf3",
+          "loads": 60,
+          "scalar_words": 960
+        }
+      ],
+      "scope": "Check production loader scalar results against the pinned original EXE.\n\nReads SELECTED_LOAD rows from the real Japanese resource/session probe. Runs\n4D152C..4D15BF,4D194D..4D19B9,4D1A77..4D1A81,4D1C07..4D1CC1. The native\nmemset/strcpy execute unchanged; only4D460B background IO is observed/stubbed.\nResource identity/lifetime, opening and PCM are checked by the C probe, not\nclaimed by this isolated scalar replay. Parent721EE0/721EE4 must stay intact.\n",
+      "hooks": [
+        "4D460B background IO"
+      ]
+    }
+  },
+  "regression": {
+    "python_tests": 29,
+    "architecture_tests_included": 2,
+    "ctest_host": {
+      "passed": 3,
+      "failed": 0,
+      "names": [
+        "ending-state",
+        "ending-entry",
+        "ending-reload"
+      ]
+    },
+    "shell_syntax": true,
+    "diff_check": true
+  },
+  "logs": {
+    "local/selected-session-python.log": "7f06577a0bea7b1677edd1a511621deaf5e29cd3086eadf23abbfb31b9ffc02b",
+    "local/selected-session-units.log": "c970a960bd96c293310f38ed19e7c1a81933e4285c33e31fc3338af6ccebe617",
+    "local/selected-session-switch.log": "74249dd57df46f3bc9a1b4c9d015eb0cfd2aec62ba44d73d71df50190572cd52"
+  },
+  "switch": {
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "mesa_version": "26.2.2",
+    "artifacts": {
+      "build-switch/biko3-preview.elf": {
+        "sha256": "17d2855b979f5dcc0f8112db20de280ce13a9dbd815e10d682d16f892338d59d",
+        "bytes": 34362896
+      },
+      "build-switch/biko3-preview.nro": {
+        "sha256": "b09eb9d244015a2de4b4f448c12b6fc099fdd3a72364f0031159de1b516f0891",
+        "bytes": 16076856
+      }
+    },
+    "unresolved_symbols": 0,
+    "dependencies_lock_sha256": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8"
+  },
+  "leak_detection": false,
+  "gpu_allocation_baseline_checked": true,
+  "real_japanese_assets": true,
+  "hardware_validation": false,
+  "production_gallery": false,
+  "full_port_complete": false,
+  "pushed": false,
+  "full_delivery_packaged": false,
+  "awake_pid": 64008,
+  "remaining": [
+    "selected gesture/finish UI services and repeat gain",
+    "auxiliary picking and expression adapters",
+    "production phase8 process owner, services, prepare_final and transitions",
+    "natural ending, persistent unlock and gallery front end",
+    "production pixels: 9/12 only",
+    "Switch full acceptance"
+  ],
+  "consolidated_at": "2026-09-30T07:38:29.490715+00:00"
+}

@@ -220,7 +220,11 @@ BkEndingSelectedAssets *bk_ending_selected_assets_create(
     const char *actual = bk_ending_background_assets_name(load->background);
     const char *first = bk_ending_normal_background(load->group, 0);
     const char *second = bk_ending_normal_background(load->group, 1);
-    if (!actual || (strcmp(actual, first) && strcmp(actual, second))) {
+    /*4CF318's group1 stage owns m02_92, outside the outer4CC582 two-name
+     *table. It can reach4D1025, which either keeps it or replaces it at
+     *4D1C64 according to the live721ED8 value. Other groups remain strict.*/
+    if (!actual || (strcmp(actual, first) && strcmp(actual, second) &&
+        !(load->group == 1 && !strcmp(actual, "m02_92.xan")))) {
       fail(e, "retained background belongs to another group");
       return NULL;
     }
