@@ -1,5 +1,6 @@
 #include "app/play_session.h"
 #include "app/front_end.h"
+#include "app/capture_output.h"
 #include "app/game_preview.h"
 #include "app/pause_preview.h"
 #include "app/retry_preview.h"
@@ -35,6 +36,8 @@ typedef struct {
   BkOutcomeAudio *outcome;
   BkSystemAudio *confirm;
   BkFrontEnd *front;
+  BkCaptureOutput capture_output;
+  BkScreenshot *screenshot;
   BkEndingRecords ending_records;
   BkEndingAuxiliaryCycle ending_auxiliary_cycle;
   BkEndingNormalControllerRetained ending_normal_controller;
@@ -356,7 +359,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
       memset(s->inventory_tail, 0, sizeof(s->inventory_tail));
     s->game = bk_game_preview_create_entry(
         &s->services, &s->game_state, &s->progress, s->game_state.group,
-        s->game_state.area, previous, s->elapsed, error);
+        s->game_state.area, previous, s->elapsed, s->screenshot, error);
     if (!s->game)
       return 0;
     s->outcome = bk_outcome_audio_create(
@@ -397,6 +400,9 @@ static int step(void *context, double seconds, const BkInput *input,
    * step), notably the secondary selection-camera initialization. */
   s->pending_seconds = (float)seconds;
   s->shown = s->flow.current;
+  /*51917c updates B53954 before every dispatch, including menus/loaders.
+   * The process screenshot reads this live latch only when it is written. */
+  s->game_state.album_group = s->game_state.group;
   switch (s->shown) {
   case 2:
     bk_game_preview_clock(s->game, s->elapsed - seconds);
@@ -599,6 +605,7 @@ static void destroy(void *context) {
   bk_scene_destroy(s->game);
   bk_scene_destroy(s->title);
   bk_scene_destroy(s->ending);
+  bk_screenshot_destroy(s->screenshot);
   bk_outcome_audio_destroy(s->outcome);
   bk_system_audio_destroy(s->confirm);
   bk_curtain_render_destroy(s->curtain);
@@ -641,6 +648,16 @@ static BkScene *create(const BkSceneServices *services,
                                  s->viewport.height))
     goto bad;
   bk_common_hud_initialize(&s->common);
+  if (services->capture_files) {
+    s->capture_output = (BkCaptureOutput){services->capture_files,
+                                          bk_capture_output_platform_clock()};
+    BkScreenshotOutput output = bk_capture_output_service(&s->capture_output);
+    s->screenshot = bk_screenshot_create(services->renderer,
+                                         services->resources, &output, error);
+    if (!s->screenshot || !bk_screenshot_bind_album_group(
+            s->screenshot, &s->game_state.album_group, error))
+      goto bad;
+  }
   bk_flow_loading_initialize(&s->loading, 0);
   s->curtain =
       bk_curtain_render_create(services->renderer, services->resources, error);

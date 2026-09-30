@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
     BkEntryProgress progress;
     REQUIRE(bk_scene_game_frame_boot_state(&state, &progress, 123));
     game = bk_game_preview_create_entry(&services, &state, &progress, group, 0,
-                                        8, 1, error);
+                                        8, 1, NULL, error);
     REQUIRE(game);
     for (unsigned i = 0; i < 4; ++i)
       REQUIRE(tick(game, renderer, audio, (BkInput){0}, error));

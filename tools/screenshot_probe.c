@@ -226,8 +226,57 @@ int main(int argc, char **argv) {
   bk_screenshot_cancel(shot);
   CHECK(service.capture(service.context, e));
   assert(clock.reads == 5);
+  /* Requests survive a live B53954 change; writes use the new value, not
+   * the group copied by configuration. Invalid values retain pending. */
+  uint32_t live_group = 0;
+  CHECK(bk_screenshot_bind_album_group(shot, &live_group, e));
+  for (unsigned i = 0; i < 5; ++i) {
+    CHECK(bk_screenshot_request(shot, 1, i, &crop, e));
+    clock.time.ticks_ms = 40 + i;
+    CHECK(bk_renderer_begin(r, e));
+    CHECK(bk_renderer_draw(r, bg, quad, 6, bk_identity, e));
+    live_group = UINT32_MAX;
+    CHECK(!service.capture(service.context, e));
+    CHECK(clock.reads == 5 + i);
+    live_group = (i + 1) % 5;
+    CHECK(service.capture(service.context, e));
+    CHECK(bk_renderer_end(r, e));
+    CHECK(service.capture(service.context, e));
+    char name[128];
+    CHECK(bk_capture_photo_name(name, live_group, &clock.time));
+    snprintf(path, sizeof(path), "%s/album/%s", argv[2], name);
+    CHECK(load_image(path, &written, e));
+    CHECK(written.width == crop.width && written.height == crop.height);
+    bk_image_free(&written);
+  }
+  /* Pauses do not read the photo group; detach restores the old standalone
+   * configure-copy contract without requiring the borrowed field to live. */
+  live_group = UINT32_MAX;
+  CHECK(bk_screenshot_request(shot, 0, 0, &crop, e));
+  CHECK(bk_renderer_begin(r, e));
+  CHECK(bk_renderer_draw(r, bg, quad, 6, bk_identity, e));
+  CHECK(service.capture(service.context, e));
+  CHECK(bk_renderer_end(r, e));
+  CHECK(clock.reads == 10);
+  CHECK(bk_screenshot_bind_album_group(shot, NULL, e));
+  CHECK(bk_screenshot_request(shot, 1, 3, &crop, e));
+  clock.time.ticks_ms = 55;
+  CHECK(bk_renderer_begin(r, e));
+  CHECK(bk_renderer_draw(r, bg, quad, 6, bk_identity, e));
+  CHECK(service.capture(service.context, e));
+  CHECK(bk_renderer_end(r, e));
+  char fallback[128];
+  CHECK(bk_capture_photo_name(fallback, 3, &clock.time));
+  snprintf(path, sizeof(path), "%s/album/%s", argv[2], fallback);
+  CHECK(load_image(path, &written, e));
+  bk_image_free(&written);
+  CHECK(clock.reads == 11);
+  int32_t inventory[5];
+  CHECK(bk_capture_files_count_photos(files, inventory, e));
+  CHECK(!memcmp(inventory, (int32_t[]){2, 2, 2, 3, 2}, sizeof(inventory)));
   printf("PASS screenshot: 5 pause replacements +5 photos, %u RGB bytes exact, "
-         "%u later-HUD pixels excluded\n",
+         "%u later-HUD pixels excluded; 5 live-group retries +1 detached "
+         "photo, invalid photo group ignored for pause, 11-file inventory\n",
          samples, changed);
   rc = 0;
 done:

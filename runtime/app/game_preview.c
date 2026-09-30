@@ -63,6 +63,7 @@ typedef struct {
   BkActorRenderBatch *world_batch;
   uint32_t prop_count, item_count;
   BkScreenshot *screenshot;
+  int owns_screenshot;
   BkCaptureOutput capture_output;
   BkScreenshotRequest screenshot_request;
   BkItemNoticeRender *notice_render;
@@ -130,20 +131,12 @@ static int capture_draw(void *context, char error[256]) {
   BkPlayerHudCapture capture = bk_screenshot_service(g->screenshot);
   return capture.capture(capture.context, error);
 }
-static int read_clock(void *context, BkCaptureTime *out, char error[256]) {
-  (void)context;
-  BkCalendarTime t;
-  if (!bk_platform_calendar_time(&t, error))
-    return 0;
-  *out = (BkCaptureTime){t.year,   t.month,  t.day,     t.hour,
-                         t.minute, t.second, t.ticks_ms};
-  return 1;
-}
 static void destroy(void *context) {
   GamePreview *g = context;
   bk_player_hud_render_destroy(g->hud_render);
   bk_item_notice_render_destroy(g->notice_render);
-  bk_screenshot_destroy(g->screenshot);
+  if (g->owns_screenshot)
+    bk_screenshot_destroy(g->screenshot);
   bk_actor_render_batch_destroy(g->world_batch);
   for (uint32_t i = 0; g->prop_render && i < g->prop_count; ++i)
     bk_actor_render_destroy(g->prop_render[i]);
@@ -688,13 +681,15 @@ static int load(GamePreview *g, const BkSceneServices *services,
                                        bk_entry_assets_shadow(g->entry))),
                                    NULL, error)))
     return 0;
-  if (services->capture_files) {
+  if (!g->screenshot && services->capture_files) {
     g->capture_output = (BkCaptureOutput){services->capture_files,
-                                          (BkCaptureClock){g, read_clock}};
+                                          bk_capture_output_platform_clock()};
     BkScreenshotOutput output = bk_capture_output_service(&g->capture_output);
     g->screenshot =
         bk_screenshot_create(g->renderer, services->resources, &output, error);
-    if (!g->screenshot)
+    g->owns_screenshot = 1;
+    if (!g->screenshot || !bk_screenshot_bind_album_group(
+            g->screenshot, &g->state->album_group, error))
       return 0;
   }
   if (!(g->notice_render = bk_item_notice_render_create(
@@ -725,6 +720,7 @@ BkScene *bk_game_preview_create_entry(const BkSceneServices *services,
                                       const BkEntryProgress *progress,
                                       uint32_t group, uint32_t area,
                                       uint8_t previous_flow, double elapsed,
+                                      BkScreenshot *capture,
                                       char error[256]) {
   if (!services || !services->renderer || !services->resources ||
       !isfinite(elapsed) || elapsed < 0 || elapsed > 1e12) {
@@ -754,6 +750,7 @@ BkScene *bk_game_preview_create_entry(const BkSceneServices *services,
   g->elapsed = elapsed;
   g->renderer = services->renderer;
   g->resources = services->resources;
+  g->screenshot = capture;
   if (!load(g, services, error)) {
     destroy(g);
     return NULL;
@@ -789,7 +786,8 @@ int bk_game_preview_resume(BkScene *scene, char error[256]) {
 
 BkScene *bk_game_preview_create(const BkSceneServices *services,
                                 char error[256]) {
-  return bk_game_preview_create_entry(services, NULL, NULL, 0, 0, 8, 1, error);
+  return bk_game_preview_create_entry(services, NULL, NULL, 0, 0, 8, 1, NULL,
+                                       error);
 }
 void bk_game_preview_block(BkScene *scene, uint8_t blocked) {
   GamePreview *g = bk_scene_custom_context(scene);

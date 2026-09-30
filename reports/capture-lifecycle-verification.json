@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "scope": "Process screenshot ownership and original album count; no complete flow48 or Switch hardware acceptance",
+  "native": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "cases": 110,
+    "names": 12064,
+    "rescans": 220,
+    "failures": 3,
+    "missing_directory_policy_checks": 1,
+    "state_sha256": "d6fa8e4f1917d4c9f35736dd711b090ec92f21413591749b32cf7862035b1b7c",
+    "scope": "Compare4af5e1 name classification/counts to real flat-directory scans.\n\nOnly Windows string and directory-enumeration APIs are fixtures. CRT prefix\ncomparisons and all original count/cap instructions execute in the pinned EXE.\nMissing directories have an explicit zero policy, not equivalence to the\noriginal FindFirstFile failure's uninitialized filename. DOS8.3 wildcard\naliases and non-ASCII filesystem equivalence are outside this check.\n"
+  },
+  "gpu_checks": [
+    {
+      "name": "capture-lifecycle",
+      "summary": "PASS capture lifecycle: 5 retire/reenter +5 failed borrowers, 4968 frames, 5 live-group photos, files=ece4bd284ae2689e, GPU owners retired"
+    },
+    {
+      "name": "screenshot",
+      "summary": "PASS screenshot: 5 pause replacements +5 photos, 7464960 RGB bytes exact, 93916 later-HUD pixels excluded; 5 live-group retries +1 detached photo, invalid photo group ignored for pause, 11-file inventory"
+    },
+    {
+      "name": "play-flow",
+      "summary": "PASS play-flow opening=994 pause=136 title=141 loading=125 reentry=995 exit=141 photos=2"
+    }
+  ],
+  "paired_checks": 4,
+  "ctest_per_build": 4,
+  "python_tests": 29,
+  "source_count": 1014,
+  "nro_sha256": "a720c826ab2c279103320509ad945732fc6ba5893f5412e54fd22e1653454b79",
+  "nro_size": 16183352,
+  "elf_sha256": "7a81aa3d5c7e71f23003250785937805ee291b94feb6d9d83d3a09ab8cb2b46c",
+  "unresolved_symbols": 0,
+  "mesa_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
+  "awake": "64008 Wed Sep 30 05:37:13 2026     /usr/bin/caffeinate -ims",
+  "leak_detection": false,
+  "flow48_application_registered": false,
+  "references": [
+    "build/validation/ending-runtime-b9qg41du/result.json",
+    "build/validation/special-inventory-4cgwscva/verification.json"
+  ],
+  "failed_build_log": "local/capture-lifecycle-switch-build.log",
+  "successful_build_log": "local/capture-lifecycle-switch-build-final.log",
+  "aggregate": "build/validation/capture-lifecycle-m6h_jbwn/verification.json"
+}

@@ -43,6 +43,11 @@ SUITES = {
         ("third-application", "ending-exit-probe", ["{output}", "--third"]),
     ],
     "gallery-app": [("gallery-application", "ending-gallery-app-probe", ["{output}"])],
+    "capture-lifecycle": [
+        ("capture-lifecycle", "capture-lifecycle-probe", ["{output}"]),
+        ("screenshot", "screenshot-probe", ["{output}"]),
+        ("play-flow", "play-flow-probe", ["{output}", "{output}.rgba"]),
+    ],
     "special-ui-media": [
         ("special-ui-media", "special-ui-media-probe", ["{output}"]),
         ("screenshot", "screenshot-probe", ["{output}"]),
@@ -73,7 +78,8 @@ def source_manifest() -> dict[str, str]:
     paths.extend((ROOT / "tools").glob("ending_*probe.c"))
     paths.extend((ROOT / "tools").glob("ending_*.h"))
     paths.extend(ROOT / "tools" / name for name in [
-        "special_ui_media_probe.c", "screenshot_probe.c", "capture_render_probe.c"])
+        "special_ui_media_probe.c", "screenshot_probe.c", "capture_render_probe.c",
+        "capture_lifecycle_probe.c", "play_flow_probe.c"])
     paths.extend(ROOT / "tests" / name for name in [
         "original_ending_selected_session_oracle.py", "original_prop_route_oracle.py",
         "original_matrix_oracle.py", "model_binding.py",
@@ -102,8 +108,11 @@ def main() -> int:
     parent.mkdir(parents=True, exist_ok=True)
     output = Path(tempfile.mkdtemp(prefix="ending-runtime-", dir=parent))
     manifest = source_manifest()
-    archives = {pack: digest(data / (pack + ".pp")) for pack in
-                (["bk3_00", "bk3_02", "bk3_15"] if "special-ui-media" in suites else [])}
+    packs = set(["bk3_00", "bk3_02", "bk3_15"] if "special-ui-media" in suites else [])
+    if "capture-lifecycle" in suites:
+        packs.update(["bk3_00", "bk3_01", "bk3_02", "bk3_03", "bk3_04",
+                      "bk3_05", "bk3_06", "bk3_07", "bk3_15", "bk3_16", "bk3_20"])
+    archives = {pack: digest(data / (pack + ".pp")) for pack in sorted(packs)}
     report = {
         "started_at": datetime.now(timezone.utc).isoformat(),
         "data": str(data), "suites": suites, "reuse_host_build": args.reuse_host_build,

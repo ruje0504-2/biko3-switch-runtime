@@ -1,5 +1,6 @@
 #include "save/capture_file.h"
 #include "save/file_replace_internal.h"
+#include <dirent.h>
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,6 +42,56 @@ BkCaptureFiles *bk_capture_files_create(const char *root, char e[256]) {
   return f;
 }
 void bk_capture_files_destroy(BkCaptureFiles *f) { free(f); }
+int bk_capture_files_count_photos(BkCaptureFiles *f, int32_t counts[5],
+                                   char e[256]) {
+  if (!f || !counts) {
+    snprintf(e, 256, "capture files: missing inventory owner/output");
+    return 0;
+  }
+  char path[sizeof(f->root) + sizeof("/album")];
+  snprintf(path, sizeof(path), "%s/album", f->root);
+  int32_t found[5] = {0};
+  DIR *dir = opendir(path);
+  if (!dir) {
+    if (errno == ENOENT) {
+      memcpy(counts, found, sizeof(found));
+      return 1;
+    }
+    snprintf(e, 256, "capture files: scan album: %s", strerror(errno));
+    return 0;
+  }
+  static const char *const prefixes[] = {"ri_", "re_", "cr_", "ma_", "mi_"};
+  int scan_error;
+  for (;;) {
+    errno = 0;
+    struct dirent *entry = readdir(dir);
+    if (!entry) {
+      scan_error = errno;
+      break;
+    }
+    const char *name = entry->d_name;
+    size_t n = strlen(name);
+    if (n < 7 || name[n - 4] != '.' ||
+        (name[n - 3] != 'b' && name[n - 3] != 'B') ||
+        (name[n - 2] != 'm' && name[n - 2] != 'M') ||
+        (name[n - 1] != 'p' && name[n - 1] != 'P'))
+      continue;
+    for (unsigned group = 0; group < 5; ++group)
+      if (!strncmp(name, prefixes[group], 3)) {
+        if (found[group] < 100)
+          ++found[group];
+        break;
+      }
+  }
+  int close_error = closedir(dir) ? errno : 0;
+  if (scan_error || close_error) {
+    snprintf(e, 256, "capture files: scan album: %s",
+             strerror(scan_error ? scan_error : close_error));
+    return 0;
+  }
+  memcpy(counts, found, sizeof(found));
+  return 1;
+}
 int bk_capture_photo_name(char out[128], unsigned group,
                           const BkCaptureTime *t) {
   if (!out || !t || group >= 5 || t->year < 1 || t->year > 9999 ||

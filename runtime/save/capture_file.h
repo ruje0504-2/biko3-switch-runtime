@@ -12,6 +12,12 @@ typedef struct {
 BkCaptureFiles *bk_capture_files_create(const char *output_root,
                                         char error[256]);
 void bk_capture_files_destroy(BkCaptureFiles *);
+/*4af5e1: flat album BMP inventory, case-insensitive extension but exact
+ * ri_/re_/cr_/ma_/mi_ prefixes, capped at100 per group. Like the original,
+ * count names without decoding files or filtering directory attributes.
+ * A missing album is explicitly empty; other I/O failures preserve output. */
+int bk_capture_files_count_photos(BkCaptureFiles *, int32_t counts[5],
+                                   char error[256]);
 /* Native49cf48 stamp and49c7e3 group prefix. Clock supplied at capture time,
  * including the signed low32-bit tick remainder from original timeGetTime. */
 int bk_capture_photo_name(char out[128], unsigned album_group,

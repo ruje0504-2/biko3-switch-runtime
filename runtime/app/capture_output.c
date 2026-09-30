@@ -1,4 +1,17 @@
 #include "app/capture_output.h"
+#include "platform/platform.h"
+static int read_clock(void *context, BkCaptureTime *out, char e[256]) {
+  (void)context;
+  BkCalendarTime t;
+  if (!bk_platform_calendar_time(&t, e))
+    return 0;
+  *out = (BkCaptureTime){t.year, t.month, t.day, t.hour, t.minute, t.second,
+                         t.ticks_ms};
+  return 1;
+}
+BkCaptureClock bk_capture_output_platform_clock(void) {
+  return (BkCaptureClock){NULL, read_clock};
+}
 static int write_capture(void *ctx, int photo, unsigned group,
                          const BkBlob *bmp, char e[256]) {
   BkCaptureOutput *out = ctx;

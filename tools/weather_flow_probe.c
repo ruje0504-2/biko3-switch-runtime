@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
     REQUIRE(bk_scene_game_frame_boot_state(&state[k], &progress[k], 123));
     game[k] = bk_game_preview_create_entry(
         &(BkSceneServices){.resources = store[k], .renderer = renderer},
-        &state[k], &progress[k], 4, 0, 8, 1, error);
+        &state[k], &progress[k], 4, 0, 8, 1, NULL, error);
     REQUIRE(game[k]);
     bk_common_hud_initialize(&common[k]);
   }

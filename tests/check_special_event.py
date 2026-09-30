@@ -1,4 +1,4 @@
-"""Pair special-event CPU or UI oracles in ordinary and ASan/UBSan builds.
+"""Pair special-event CPU, UI or album inventory original-instruction checks.
 
 Uses explicit service fixtures, not a production flow48 scene or hardware.
 Preserves commands, source/library hashes and terminal results in a fresh folder.
@@ -23,7 +23,7 @@ def main():
     p.add_argument('--host-python', type=Path, default=ROOT/'local/venv/bin/python')
     p.add_argument('--asan-python', type=Path, default=ROOT/'build/asan/ending-oracle-python')
     p.add_argument('--jobs', type=int, default=8)
-    p.add_argument('--suite', choices=['event', 'ui'], default='event')
+    p.add_argument('--suite', choices=['event', 'ui', 'inventory'], default='event')
     args = p.parse_args()
     for path in [args.exe, args.host_python, args.asan_python]:
         if not path.is_file(): p.error('missing required input: '+str(path))
@@ -67,8 +67,11 @@ def main():
                 BK3_BUILD_DIR=str(ROOT/folder), ASAN_OPTIONS='detect_leaks=0',
                 UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1')
             result = output/(mode+'.json')
-            script='original_special_ui_oracle.py' if args.suite=='ui' else 'original_special_event_oracle.py'
-            marker='"passed": true' if args.suite=='ui' else 'PASS special event:'
+            script, marker = {
+                'ui': ('original_special_ui_oracle.py', '"passed": true'),
+                'event': ('original_special_event_oracle.py', 'PASS special event:'),
+                'inventory': ('original_capture_inventory_oracle.py', 'PASS capture inventory:'),
+            }[args.suite]
             text = run('oracle-'+mode, [str(python.absolute()),
                 str(ROOT/'tests'/script), str(args.exe.resolve()),
                 '--output', str(result)], env)
@@ -77,8 +80,12 @@ def main():
                 raise RuntimeError(mode+' omitted matching terminal pass')
             report['checks'].append(dict(mode=mode, result=data,
                 library_sha256=digest(ROOT/folder/'libmodel-test.dylib'), python_sha256=digest(python.resolve())))
-            calls=data['events'] if args.suite=='ui' else data['calls']
-            print('PASS '+mode+': '+str(calls)+' calls; '+str(data['failure_prefixes'])+' failure prefixes', flush=True)
+            if args.suite == 'inventory':
+                print(f"PASS {mode}: {data['cases']} directories, {data['names']} names, "
+                      f"{data['rescans']} rescans", flush=True)
+            else:
+                calls=data['events'] if args.suite=='ui' else data['calls']
+                print('PASS '+mode+': '+str(calls)+' calls; '+str(data['failure_prefixes'])+' failure prefixes', flush=True)
         if report['checks'][0]['result'] != report['checks'][1]['result']:
             raise RuntimeError('ordinary and sanitized outcomes differ')
         if any(not (ROOT/path).is_file() or digest(ROOT/path) != value for path,value in sources.items()):

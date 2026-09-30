@@ -4,17 +4,21 @@
 #include "scene/game_frame.h"
 #include "scene/rain_render.h"
 #include "scene/scene.h"
+#include "scene/screenshot.h"
 BkScene *bk_game_preview_create(const BkSceneServices *, char error[256]);
 /* Borrow a read-only state from a scene created by this factory. */
 const BkGameFrameState *bk_game_preview_state(BkScene *);
 BkAudio *bk_game_preview_audio(BkScene *);
 /* Entry loader borrows retained process state/progress. Never applies boot
- * defaults. The caller owns these until the entry is destroyed. */
+ * defaults. The caller owns these until the entry is destroyed. Shared
+ * capture, when provided, survives entry retirement; NULL creates a local
+ * owner only when capture_files is supplied (standalone diagnostics). */
 BkScene *bk_game_preview_create_entry(const BkSceneServices *,
                                       BkGameFrameState *,
                                       const BkEntryProgress *, uint32_t group,
                                       uint32_t area, uint8_t previous_flow,
-                                      double elapsed, char error[256]);
+                                      double elapsed, BkScreenshot *capture,
+                                      char error[256]);
 void bk_game_preview_block(BkScene *, uint8_t blocked);
 uint32_t bk_game_preview_now(BkScene *);
 void bk_game_preview_clock(BkScene *, double elapsed);

@@ -8,6 +8,7 @@ struct BkScreenshot {
   BkScreenshotOutput output;
   uint8_t *pixels;
   unsigned width, height, group;
+  const uint32_t *live_group;
   BkViewport crop;
   int pending, photo, configured;
 };
@@ -50,6 +51,12 @@ void bk_screenshot_destroy(BkScreenshot *s) {
     free(s->pixels);
     free(s);
   }
+}
+int bk_screenshot_bind_album_group(BkScreenshot *s, const uint32_t *group,
+                                    char e[256]) {
+  if (!s) return fail(e, "missing owner");
+  s->live_group = group;
+  return 1;
 }
 int bk_screenshot_configure(BkScreenshot *s, int photo, unsigned group,
                           const BkViewport *v, char e[256]) {
@@ -138,8 +145,14 @@ static int capture(void *ctx, char e[256]) {
         dest[3] = 255;
       }
   }
-  if (!bk_bitmap_encode(&output, &bmp, e) ||
-      !s->output.write(s->output.context, s->photo, s->group, &bmp, e))
+  if (!bk_bitmap_encode(&output, &bmp, e))
+    goto done;
+  unsigned group = s->photo && s->live_group ? *s->live_group : s->group;
+  if (s->photo && group >= 5) {
+    fail(e, "invalid live album group");
+    goto done;
+  }
+  if (!s->output.write(s->output.context, s->photo, group, &bmp, e))
     goto done;
   s->pending = 0;
   ok = 1;

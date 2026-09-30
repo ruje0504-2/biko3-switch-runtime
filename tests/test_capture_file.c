@@ -51,6 +51,12 @@ int main(void) {
   assert(bk_capture_photo_name(name, 4, &t));
   assert(!strcmp(name, "mi_2026_0927_2358_5999.bmp"));
   assert(bk_capture_file_write(files, 1, name, &b, e));
+  int32_t counts[5] = {-1, -1, -1, -1, -1};
+  assert(bk_capture_files_count_photos(files, counts, e));
+  assert(!memcmp(counts, (int32_t[]){0, 0, 0, 0, 1}, sizeof(counts)));
+  assert(!bk_capture_files_count_photos(NULL, counts, e));
+  assert(!bk_capture_files_count_photos(files, NULL, e));
+  assert(!memcmp(counts, (int32_t[]){0, 0, 0, 0, 1}, sizeof(counts)));
   for (unsigned w = 1; w <= 33; ++w)
     for (unsigned h = 1; h <= 11; h += 5) {
       BkImage im = {w, h, malloc((size_t)w * h * 4)}, decoded = {0};

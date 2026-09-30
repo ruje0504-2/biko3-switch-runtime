@@ -15,4 +15,6 @@ typedef struct {
  * prefix/timestamp; pauses atomically replace sy_99.bmp without clock access.
  */
 BkScreenshotOutput bk_capture_output_service(BkCaptureOutput *);
+/* Actual platform calendar/timeGetTime source; context is NULL. */
+BkCaptureClock bk_capture_output_platform_clock(void);
 #endif

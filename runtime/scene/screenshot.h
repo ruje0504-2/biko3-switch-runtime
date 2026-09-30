@@ -12,6 +12,12 @@ typedef struct {
 BkScreenshot *bk_screenshot_create(BkRenderer *, BkResourceStore *,
                                    const BkScreenshotOutput *, char error[256]);
 void bk_screenshot_destroy(BkScreenshot *);
+/* Borrow process B53954 until destruction/unbinding. Photos read its live
+ * value at output, after pixel conversion (49c7e3), including requests kept
+ * across flow changes. NULL restores configure()'s copied-group behavior.
+ * Invalid live values fail at output and retain the pending request. */
+int bk_screenshot_bind_album_group(BkScreenshot *, const uint32_t *,
+                                    char error[256]);
 /*4afeb0/4affb8's capture configuration and49d085 request; latest request wins,
  * even pause+photo on one frame. Caller handles se000/se099, counters/menu.
  * Native photo source is bk3_15/cp.bmp with RED COLORREF0xff key,128x32 at
@@ -33,7 +39,8 @@ typedef struct {
   BkViewport crop;
 } BkScreenshotRequest;
 /* Borrowed request binding, suitable for BkPlayerHotkeyServices.capture.
- * Copies the current crop and album group into the pending screenshot. */
+ * Copies the crop and fallback group; an explicitly bound live group wins
+ * when the photo is written. */
 int bk_screenshot_request_service(void *, int photo, unsigned album_group,
                                   char error[256]);
 /* Concrete49d0eb callback: if pending, synchronous mid-frame GPU capture,

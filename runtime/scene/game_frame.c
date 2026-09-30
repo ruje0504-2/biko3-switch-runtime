@@ -346,7 +346,8 @@ int bk_scene_game_frame(const BkGameFrameServices *v, BkGameFrameState *s,
           bk_background_config(s->group, s->area))
     return fail(error, "invalid live bindings/state/step");
   *out = (BkGameFrameResult){0};
-  /*51917c: latch BEFORE the main update. Capture retains this value. */
+  /*51917c: latch BEFORE the main update. Standalone game diagnostics need
+   * this too; the application latches the same field for all other flows. */
   s->album_group = s->group;
   Frame frame = {v, s, in, out, bk_background_assets_collision(v->background)};
   int ok = bk_game_frame_dispatch(
