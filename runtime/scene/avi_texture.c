@@ -10,8 +10,8 @@ struct BkAviTexture {
   BkImage image;
   BkTexture *texture;
 };
-BkAviTexture *bk_avi_texture_create(BkRenderer *renderer, const void *bytes,
-                                    size_t size, int32_t now, char error[256]) {
+static BkAviTexture *create(BkRenderer *renderer, const void *bytes,
+    size_t size, int32_t now, BkAviClockRead read, void *context, char error[256]) {
   if (!renderer) {
     snprintf(error, 256, "AVI texture: missing renderer");
     return NULL;
@@ -46,11 +46,21 @@ BkAviTexture *bk_avi_texture_create(BkRenderer *renderer, const void *bytes,
       bk_texture_create_sampled(renderer, &v->image, BK_WRAP_REPEAT, error);
   if (!v->texture)
     goto fail;
+  if (read && !read(context, &now, error)) goto fail;
   bk_avi_clock_init(&v->clock, now);
   return v;
 fail:
   bk_avi_texture_destroy(v);
   return NULL;
+}
+BkAviTexture *bk_avi_texture_create(BkRenderer *r, const void *bytes,
+    size_t size, int32_t now, char e[256]) {
+  return create(r, bytes, size, now, NULL, NULL, e);
+}
+BkAviTexture *bk_avi_texture_create_clock(BkRenderer *r, const void *bytes,
+    size_t size, BkAviClockRead read, void *context, char e[256]) {
+  if (!read) { snprintf(e, 256, "AVI texture: missing live clock"); return NULL; }
+  return create(r, bytes, size, 0, read, context, e);
 }
 void bk_avi_texture_destroy(BkAviTexture *v) {
   if (!v)
@@ -61,15 +71,7 @@ void bk_avi_texture_destroy(BkAviTexture *v) {
   bk_avi_destroy(v->avi);
   free(v);
 }
-int bk_avi_texture_step(BkAviTexture *v, int32_t now, int32_t restart,
-                        char error[256]) {
-  if (!v) {
-    snprintf(error, 256, "AVI texture: missing owner");
-    return 0;
-  }
-  uint32_t index;
-  int request = bk_avi_clock_select(&v->clock, bk_avi_info(v->avi), now,
-                                    restart, &index, error);
+static int apply_frame(BkAviTexture *v, int request, uint32_t index, char error[256]) {
   if (request < 0)
     return 0;
   if (!request)
@@ -80,6 +82,22 @@ int bk_avi_texture_step(BkAviTexture *v, int32_t now, int32_t restart,
                            (size_t)v->image.width * v->image.height * 4, error))
     return 0;
   return bk_texture_update(v->renderer, v->texture, &v->image, error);
+}
+int bk_avi_texture_step(BkAviTexture *v, int32_t now, int32_t restart,
+                        char error[256]) {
+  if (!v) { snprintf(error, 256, "AVI texture: missing owner"); return 0; }
+  uint32_t index = 0;
+  int request = bk_avi_clock_select(&v->clock, bk_avi_info(v->avi), now,
+                                    restart, &index, error);
+  return apply_frame(v, request, index, error);
+}
+int bk_avi_texture_poll(BkAviTexture *v, BkAviClockRead read, void *context,
+                         char error[256]) {
+  if (!v) { snprintf(error, 256, "AVI texture: missing owner"); return 0; }
+  uint32_t index = 0;
+  int request = bk_avi_clock_poll(&v->clock, bk_avi_info(v->avi), read,
+                                  context, &index, error);
+  return apply_frame(v, request, index, error);
 }
 BkTexture *bk_avi_texture_gpu(const BkAviTexture *v) {
   return v ? v->texture : NULL;

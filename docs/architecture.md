@@ -1,3 +1,5 @@
+2026-09-30 flow48生产边界：`app/front_end`负责真实相册文件扫描与菜单分派，`scene/special_session`负责世界/媒体/UI借用与提交后停止，下一tick才销毁旧资源；场景不直接依赖save/platform。PlaySession只持有一个菜单/结局相机及过渡状态。平台提供逐次运行时钟，AVI在完成构造后取起点并只在片尾重取，数值层保留纯CPU可注入服务。原码等价、主机实际资产与尚缺Switch实机的范围见 `reports/special-session.md`。
+
 2026-09-30 跨流程截图所有者与相册扫描已修复，见 `reports/capture-lifecycle.md` / verification JSON。PlaySession持有截图、入口仅借用，B53954每分派前锁存、照片输出时读活值；晚回收/失败构造不取消请求。4AF5E1真实目录计数普通/ASan各110组12064名称220重扫一致；应用各五角色4968帧五照片/五失败借用者、旧截图及暂停返回共四项配对通过。4普通4ASan、29Python、指定NVK通过，NROa720c826…/16183352字节、nm0。扫描API仍待4E29B0调用，完整flow48加载/释放/应用未接，action8仍拒绝；自然记录/像素9/12/实机缺口保持。防休眠64008、本地提交、不推送、不整包；完全访问never，终端直接执行。接续local/ending-gallery-next.md。
 
 2026-09-30 flow48真实UI/GPU/系统音/截图相册组件已验证，见 `reports/special-ui-media.md` / verification JSON。三组终态共7项普通/ASan配对：新UI各960帧4178493像素分量最大1/255、6实际照片/66重绘/12黑幕原网格对照；原UI11812帧、鉴赏30914帧及应用40803帧通过。已纠正旧夹具1起始音槽错误，special现在0/2/3/5/7、gallery0/2/3/4，直接取原4E72FE加载表；旧音效报告不可作正确映射证据。6普通6ASan、29Python、指定NVK通过，NRO73abceb1…仅构建目录；新增special组件仅静态库，flow48入口仍拒绝。下一项完整4E29B0/4E42E4、722224共享语音、app注册及跨流程待截图/B53954活值生命周期；自然记录/完整像素9/12/实机仍缺。防休眠64008保持，本地提交、不推送、不整包；完全访问never，终端直接执行。

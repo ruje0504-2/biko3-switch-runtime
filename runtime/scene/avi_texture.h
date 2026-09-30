@@ -12,6 +12,9 @@ typedef struct BkAviTexture BkAviTexture;
 BkAviTexture *bk_avi_texture_create(BkRenderer *, const void *bytes,
                                     size_t size, int32_t clock_ms,
                                     char error[256]);
+/* Query initial time only after AVI/decoder/surface creation completes. */
+BkAviTexture *bk_avi_texture_create_clock(BkRenderer *, const void *, size_t,
+    BkAviClockRead, void *, char error[256]);
 void bk_avi_texture_destroy(BkAviTexture *);
 /* Outside a GPU frame. Latch native request, decode/reconstruct, convert,
  * queue same-size texture update. Failure is fatal; do not retry a partial
@@ -19,6 +22,7 @@ void bk_avi_texture_destroy(BkAviTexture *);
 int bk_avi_texture_step(BkAviTexture *, int32_t clock_ms,
                         int32_t restart_clock_ms, char error[256]);
 BkTexture *bk_avi_texture_gpu(const BkAviTexture *);
+int bk_avi_texture_poll(BkAviTexture *, BkAviClockRead, void *, char error[256]);
 /* Borrowed CPU copy of queued image, for inspection; black before request. */
 const BkImage *bk_avi_texture_image(const BkAviTexture *);
 uint32_t

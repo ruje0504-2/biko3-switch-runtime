@@ -31,6 +31,10 @@ typedef struct {
   BkEndingState *state;
   BkEndingTertiaryControllerRetained *tertiary_controller;
   BkEndingProcess *process; /*required application owner; initialize once*/
+  /*Borrow the process camera71AF38 and7199A8/E4; NULL only for legacy
+   * standalone fixtures. Resource release never resets these values.*/
+  BkMenuCamera *camera;
+  BkEndingCameraTransitions *camera_transitions;
 } BkEndingNormalFlow;
 /* Explicit normal-ending scene owner. The default diagnostic entry is the
  * gallery normal branch (previous flow0x18, selection0, action variant0/1); it owns the

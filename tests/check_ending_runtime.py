@@ -48,6 +48,7 @@ SUITES = {
         ("screenshot", "screenshot-probe", ["{output}"]),
         ("play-flow", "play-flow-probe", ["{output}", "{output}.rgba"]),
     ],
+    "special-session": [("special-session", "special-session-probe", ["{output}"])],
     "special-ui-media": [
         ("special-ui-media", "special-ui-media-probe", ["{output}"]),
         ("screenshot", "screenshot-probe", ["{output}"]),
@@ -78,7 +79,7 @@ def source_manifest() -> dict[str, str]:
     paths.extend((ROOT / "tools").glob("ending_*probe.c"))
     paths.extend((ROOT / "tools").glob("ending_*.h"))
     paths.extend(ROOT / "tools" / name for name in [
-        "special_ui_media_probe.c", "screenshot_probe.c", "capture_render_probe.c",
+        "special_session_probe.c", "special_ui_media_probe.c", "screenshot_probe.c", "capture_render_probe.c",
         "capture_lifecycle_probe.c", "play_flow_probe.c"])
     paths.extend(ROOT / "tests" / name for name in [
         "original_ending_selected_session_oracle.py", "original_prop_route_oracle.py",
@@ -112,6 +113,10 @@ def main() -> int:
     if "capture-lifecycle" in suites:
         packs.update(["bk3_00", "bk3_01", "bk3_02", "bk3_03", "bk3_04",
                       "bk3_05", "bk3_06", "bk3_07", "bk3_15", "bk3_16", "bk3_20"])
+    if "special-session" in suites:
+        packs.update(["bk3_00", "bk3_01", "bk3_02", "bk3_03", "bk3_04", "bk3_06",
+                      "bk3_08", "bk3_09", "bk3_10", "bk3_11", "bk3_12", "bk3_13",
+                      "bk3_14", "bk3_15", "bk3_18", "fambom"])
     archives = {pack: digest(data / (pack + ".pp")) for pack in sorted(packs)}
     report = {
         "started_at": datetime.now(timezone.utc).isoformat(),

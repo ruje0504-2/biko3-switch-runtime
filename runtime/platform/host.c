@@ -57,8 +57,25 @@ static int load_replay(BkPlatform *p, const char *path, char error[256]) {
   p->replay = 1;
   return ok;
 }
+static uint64_t runtime_origin_ms;
+static int runtime_clock_started;
+int bk_platform_runtime_clock(int timer, uint32_t *out, char error[256]) {
+  if (!out || timer < 0 || timer > 2) {
+    snprintf(error, 256, "platform: invalid runtime clock domain"); return 0;
+  }
+  struct timespec ts;
+  if (clock_gettime(CLOCK_MONOTONIC, &ts)) {
+    snprintf(error, 256, "platform: monotonic clock unavailable"); return 0;
+  }
+  uint64_t now = (uint64_t)ts.tv_sec * 1000 + (uint64_t)ts.tv_nsec / 1000000;
+  if (!runtime_clock_started) { runtime_origin_ms = now; runtime_clock_started = 1; }
+  *out = (uint32_t)(timer == 2 ? now - runtime_origin_ms : now);
+  return 1;
+}
 BkPlatform *bk_platform_open(int argc, char **argv, BkLaunchConfig *config,
                              char error[256]) {
+  uint32_t initial_clock;
+  if (!bk_platform_runtime_clock(2, &initial_clock, error)) return NULL;
   unsigned frames = 1;
   const char *scene = "game";
   const char *pause_root = NULL;

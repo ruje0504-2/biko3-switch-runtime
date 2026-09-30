@@ -8,8 +8,21 @@ struct BkPlatform {
   FILE *log;
   PadState pad;
 };
+static uint64_t runtime_origin_ms;
+static int runtime_clock_started;
+int bk_platform_runtime_clock(int timer, uint32_t *out, char error[256]) {
+  if (!out || timer < 0 || timer > 2) {
+    snprintf(error, 256, "platform: invalid runtime clock domain"); return 0;
+  }
+  uint64_t now = armTicksToNs(armGetSystemTick()) / 1000000;
+  if (!runtime_clock_started) { runtime_origin_ms = now; runtime_clock_started = 1; }
+  *out = (uint32_t)(timer == 2 ? now - runtime_origin_ms : now);
+  return 1;
+}
 BkPlatform *bk_platform_open(int argc, char **argv, BkLaunchConfig *config,
                              char error[256]) {
+  uint32_t initial_clock;
+  if (!bk_platform_runtime_clock(2, &initial_clock, error)) return NULL;
   if (appletGetAppletType() != AppletType_Application &&
       appletGetAppletType() != AppletType_SystemApplication) {
     snprintf(error, 256, "Full-memory application mode is required.");

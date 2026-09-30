@@ -27,8 +27,9 @@ void bk_special_render_destroy(BkSpecialRender *r) {
   free(r->visits);
   free(r);
 }
-BkSpecialRender *bk_special_render_create(BkRenderer *renderer,
-    BkResourceStore *store, BkSpecialWorld *world, int32_t clock_ms, char e[256]) {
+static BkSpecialRender *create(BkRenderer *renderer,
+    BkResourceStore *store, BkSpecialWorld *world, int32_t clock_ms,
+    BkAviClockRead read, void *context, char e[256]) {
   if (!renderer || !store || !world) {
     fail(e, "missing services"); return NULL;
   }
@@ -59,7 +60,8 @@ BkSpecialRender *bk_special_render_create(BkRenderer *renderer,
     if (target == BK_MODEL_NONE) { fail(e, "missing D_moza.bmp surface"); goto bad; }
     BkBlob raw = {0};
     if (bk_resources_read(store, "bk3_18", "poi.avi", &raw, e) != BK_RESOURCE_OK) goto bad;
-    r->movie = bk_avi_texture_create(renderer, raw.data, raw.size, clock_ms, e);
+    r->movie = read ? bk_avi_texture_create_clock(renderer, raw.data, raw.size, read, context, e)
+                    : bk_avi_texture_create(renderer, raw.data, raw.size, clock_ms, e);
     bk_blob_free(&raw);
     if (!r->movie || !bk_actor_render_texture_surface(r->actor, target,
                                               bk_avi_texture_gpu(r->movie), e)) goto bad;
@@ -68,8 +70,21 @@ BkSpecialRender *bk_special_render_create(BkRenderer *renderer,
 bad:
   bk_special_render_destroy(r); return NULL;
 }
+BkSpecialRender *bk_special_render_create(BkRenderer *r, BkResourceStore *store,
+    BkSpecialWorld *world, int32_t ms, char e[256]) {
+  return create(r, store, world, ms, NULL, NULL, e);
+}
+BkSpecialRender *bk_special_render_create_clock(BkRenderer *r, BkResourceStore *store,
+    BkSpecialWorld *world, BkAviClockRead read, void *context, char e[256]) {
+  if (!read) { fail(e, "missing live movie clock"); return NULL; }
+  return create(r, store, world, 0, read, context, e);
+}
 int bk_special_render_movie_step(BkSpecialRender *r, int32_t now, int32_t restart, char e[256]) {
   return r && r->movie ? bk_avi_texture_step(r->movie, now, restart, e)
+                        : fail(e, "movie is not loaded");
+}
+int bk_special_render_movie_poll(BkSpecialRender *r, BkAviClockRead read, void *context, char e[256]) {
+  return r && r->movie ? bk_avi_texture_poll(r->movie, read, context, e)
                         : fail(e, "movie is not loaded");
 }
 uint32_t bk_special_render_movie_frame(const BkSpecialRender *r) {

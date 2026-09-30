@@ -84,6 +84,8 @@ def main():
     exe=a.exe.read_bytes();native=Native(exe);lib=library();error=C.create_string_buffer(256)
     lib.bk_avi_clock_init.argtypes=[C.POINTER(Clock),C.c_int32]
     lib.bk_avi_clock_select.argtypes=[C.POINTER(Clock),C.POINTER(Info),C.c_int32,C.c_int32,C.POINTER(C.c_uint32),C.c_void_p]
+    Read=C.CFUNCTYPE(C.c_int,C.c_void_p,C.POINTER(C.c_int32),C.c_void_p)
+    lib.bk_avi_clock_poll.argtypes=[C.POINTER(Clock),C.POINTER(Info),Read,C.c_void_p,C.POINTER(C.c_uint32),C.c_void_p]
     lib.bk_avi_surface_rgba.argtypes=[C.POINTER(C.c_uint16),C.c_uint32,C.c_uint32,C.c_int,C.c_void_p,C.c_size_t,C.c_void_p]
     topdown=(C.c_uint16*32)(*[v for y in reversed(range(4)) for v in native.source[y*8:(y+1)*8]])
     rgba=C.create_string_buffer(128)
@@ -103,8 +105,18 @@ def main():
                 native.get_fail=i%19==0;native.lock_fail=i%23==0;native.green565=bool(i%2)
                 expected,state,events=native.step(now,restart)
                 index=C.c_uint32(0xcafebabe)
+                live=Clock.from_buffer_copy(bytes(c));reads=[]
+                @Read
+                def read_clock(ctx,out,err):
+                    value=now if not reads else restart
+                    reads.append(['clock',value&0xffffffff]);out[0]=value
+                    return 1
+                live_index=C.c_uint32(0xcafebabe)
+                live_result=lib.bk_avi_clock_poll(C.byref(live),C.byref(info),read_clock,None,C.byref(live_index),error)
                 result=lib.bk_avi_clock_select(C.byref(c),C.byref(info),now,restart,C.byref(index),error)
                 assert result>=0,error.value
+                assert reads==[e for e in events if e[0]=='clock'],(reads,events)
+                assert live_result==result and live_index.value==index.value and bytes(live)==bytes(c)
                 assert bytes(c)==state,(rate,scale,origin,i,now,bytes(c).hex(),state.hex(),events)
                 requests=[e[1] for e in events if e[0]=='frame']
                 assert requests==([index.value] if result else []),(requests,index.value,result)

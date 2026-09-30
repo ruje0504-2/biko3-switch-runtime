@@ -58,7 +58,8 @@ typedef struct {
   BkEndingState diagnostic_state;
   BkEndingState *state;
   BkFadeSprite overlay;
-  BkMenuCamera camera;
+  BkMenuCamera camera; /*standalone diagnostic fallback*/
+  BkMenuCamera *camera_owner;
   BkEndingCameraPresets presets;
   BkEndingNormalAssets *assets;
   BkEndingSecondaryAssets *secondary_assets;
@@ -85,7 +86,8 @@ typedef struct {
   int clock_supplied;
   unsigned group, variant;
   BkEndingRecords *records;
-  BkEndingCameraTransitions camera_transitions;
+  BkEndingCameraTransitions camera_transitions; /*diagnostic fallback*/
+  BkEndingCameraTransitions *transitions_owner;
   BkEndingUi ui;
   BkEndingStageUi stage_ui;
   BkCommonHudState diagnostic_common;
@@ -928,7 +930,7 @@ static int prepare_ui_geometry(EndingNormalScene *s, unsigned width,
   memcpy(s->ui_view, view, sizeof(s->ui_view));
   if (!bk_camera_projection(
           s->ui_projection,
-          &(BkCameraLens){s->camera.fov, .75f, .5f, 126384}))
+          &(BkCameraLens){s->camera_owner->fov, .75f, .5f, 126384}))
     return fail(e, "ending UI projection is invalid");
   memset(s->ui_viewport, 0, sizeof(s->ui_viewport));
   s->ui_viewport[0] = (float)width * .5f;
@@ -938,7 +940,7 @@ static int prepare_ui_geometry(EndingNormalScene *s, unsigned width,
   s->ui_viewport[10] = s->ui_viewport[15] = 1;
   s->ui_viewport[12] = (float)width * .5f;
   s->ui_viewport[13] = (float)height * .5f;
-  memcpy(s->ui_camera_position, s->camera.pose.position,
+  memcpy(s->ui_camera_position, s->camera_owner->pose.position,
          sizeof(s->ui_camera_position));
   memset(s->ui_present, 0, sizeof(s->ui_present));
   for (unsigned i = 0; i < BK_ENDING_NORMAL_NODES; ++i) {
@@ -1107,7 +1109,7 @@ static int auxiliary_state4_camera(void *context, BkEndingOpeningCamera kind,
   if (kind == BK_ENDING_OPENING_TRACK) {
     BkEndingCameraOpeningInput input = {s, control_key};
     if (!bk_ending_camera_assets_opening(
-            assets, forest, tracks, &s->camera,
+            assets, forest, tracks, s->camera_owner,
             bk_actor_forest_node(forest, scene_registry(s, 0),
                                  bk_ending_auxiliary_assets_follow(
                                      s->auxiliary_assets)),
@@ -1127,7 +1129,7 @@ static int auxiliary_state4_camera(void *context, BkEndingOpeningCamera kind,
         s->state->next_mode};
     (void)extra;
     if (!bk_ending_camera_assets_preset(
-            assets, forest, tracks, &s->camera, &s->camera_transitions,
+            assets, forest, tracks, s->camera_owner, s->transitions_owner,
             &s->presets, BK_ENDING_PRESET, (unsigned)choice, offset_f, &gate,
             0x10, s->active_seconds, &complete, e))
       return 0;
@@ -1173,10 +1175,10 @@ static int auxiliary_state8_camera_setup(void *context, unsigned group,
   if (!s || !values || group != s->state->frame.group || group >= 5 ||
       (preset != 0 && preset != 1))
     return fail(e, "auxiliary state8 camera owner is unavailable");
-  s->camera.yaw = values[0];
-  s->camera.pitch = values[1];
-  s->camera.radius = values[2];
-  s->camera.height = values[3];
+  s->camera_owner->yaw = values[0];
+  s->camera_owner->pitch = values[1];
+  s->camera_owner->radius = values[2];
+  s->camera_owner->height = values[3];
   if (preset) {
     for (unsigned i = 0; i < 4; ++i)
       s->presets.active[i][0] = values[i];
@@ -1534,7 +1536,7 @@ static BkEndingSelectedControlBindings selected_control_bindings(
       .frame = &s->state->frame,
       .control = &s->state->control,
       .auxiliary = &s->state->auxiliary,
-      .camera = &s->camera,
+      .camera = s->camera_owner,
       .presets = &s->presets,
       .substate = &s->state->retained.auxiliary.byte_6ea358,
       .mode = &ui->mode,
@@ -1733,7 +1735,7 @@ static int selected_camera(void *context, BkEndingOpeningCamera kind,
     BkEndingCameraOpeningInput input = {s, selected_key};
     int complete = 0;
     if (!bk_ending_camera_assets_opening(scene_cameras(s), scene_forest(s),
-          tracks, &s->camera, s->state->retained.normal.follow_target,
+          tracks, s->camera_owner, s->state->retained.normal.follow_target,
           s->active_seconds, &input, &complete, e)) return 0;
     *result = (uint32_t)complete;
     return 1;
@@ -1749,7 +1751,7 @@ static int selected_camera(void *context, BkEndingOpeningCamera kind,
   float offset_f[3];
   memcpy(offset_f, offset, sizeof(offset_f));
   if (!bk_ending_camera_assets_preset(scene_cameras(s), scene_forest(s), tracks,
-          &s->camera, &s->camera_transitions, &s->presets,
+          s->camera_owner, s->transitions_owner, &s->presets,
           BK_ENDING_PRESET, (unsigned)choice, offset_f, &gate,
           0x10, s->active_seconds, &complete, e)) return 0;
   (void)extra;
@@ -1982,7 +1984,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       return fail(e, "cached camera anchor is stale");
     BkEndingControlBindings bindings = {
         &s->state->frame,
-        &s->camera,
+        s->camera_owner,
         &s->presets,
         /*4d7ac4 reads old published721ef4/719b40/721f08/721f28.
          * The normal loader's three captured offsets are a different table.
@@ -2005,7 +2007,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
     BkEndingNormalControllerScene controller = {
         .assets = s->assets, .audio = s->audio, .state = s->state,
         .retained = s->normal_controller, .records = s->records,
-        .camera = &s->camera, .transitions = &s->camera_transitions,
+        .camera = s->camera_owner, .transitions = s->transitions_owner,
         .presets = &s->presets, .ring = &s->ui.sprites[50],
         .geometry = &s->ui_pick, .previous_flow = &s->previous_flow,
         .voice_volume = &s->voice_volume, .effect_volume = &s->effect_volume,
@@ -2047,7 +2049,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         &s->secondary_presentation->rate,
         &s->normal_controller->control.action_kind,
         &s->normal_controller->control.action_column,
-        &s->camera, &s->camera_transitions, &s->presets, &s->ui, &s->ui_pick,
+        s->camera_owner, s->transitions_owner, &s->presets, &s->ui, &s->ui_pick,
         s->viewport.width, s->viewport.height, &s->previous_flow,
         &s->voice_volume, s->random, s, control_key};
     return bk_ending_secondary_controller_scene_step(
@@ -2075,7 +2077,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
     BkEndingTertiaryActionBindings bindings = {
       .control = {
         .frame = &s->state->frame, .control = &s->state->control,
-        .auxiliary = &s->state->auxiliary, .camera = &s->camera,
+        .auxiliary = &s->state->auxiliary, .camera = s->camera_owner,
         .records = s->records, .state = &s->state->stage3_state,
         .face_mode = &s->state->face_mode, .part_mode = &retained->word_6a3c20,
         .voice_latches = retained->words_6afcfc, .return_ready = &retained->word_6afd08,
@@ -2092,7 +2094,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       .gauge_y = &s->state->gauge_y, .scale = &scale, .choices = s->state->choices};
     BkEndingTertiaryControllerScene controller = {
       .assets = s->tertiary_assets, .audio = s->audio,
-      .retained = s->tertiary_controller, .transitions = &s->camera_transitions,
+      .retained = s->tertiary_controller, .transitions = s->transitions_owner,
       .presets = &s->presets, .ui = &s->ui, .geometry = &s->ui_pick,
       .width = s->viewport.width, .height = s->viewport.height,
       .speech_names = s->state->speech_names, .targets = s->state->targets,
@@ -2189,7 +2191,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
           .frame = &s->state->frame,
           .control = &s->state->control,
           .auxiliary = &s->state->auxiliary,
-          .camera = &s->camera,
+          .camera = s->camera_owner,
           .records = s->records,
           .substate = &s->state->retained.stage4.byte_6c7f50,
           .latches = &s->state->retained.stage4.bytes_6c7f54[0],
@@ -2225,7 +2227,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         &s->state->frame,
         &s->state->control,
         &s->state->auxiliary,
-        &s->camera,
+        s->camera_owner,
         &s->state->retained.stage4.byte_6c7f50,
         &s->state->retained.stage4.value_54e310,
         &s->previous_flow};
@@ -2273,12 +2275,12 @@ static int frame_invoke(void *context, const BkEndingCall *call,
     uint32_t target;
     if (call->operation == BK_ENDING_CAMERA_4BB0A4)
       return bk_ending_camera_assets_step(
-          scene_cameras(s), scene_forest(s), tracks, &s->camera,
+          scene_cameras(s), scene_forest(s), tracks, s->camera_owner,
           BK_ENDING_CAMERA_ORBIT, offset, motion, buttons, BK_FRAME_NONE,
           s->active_seconds, e);
     if (call->operation == BK_ENDING_CAMERA_4DF411)
       return bk_ending_camera_assets_step(
-          scene_cameras(s), scene_forest(s), tracks, &s->camera,
+          scene_cameras(s), scene_forest(s), tracks, s->camera_owner,
           BK_ENDING_CAMERA_FIXED, offset, NULL, 0, BK_FRAME_NONE, 0, e);
     /*4e1711 follows719448 (A_kuch);4e1d16 explicitly aims at721ef4
      * (A_kao). Preset controllers do not read either node. */
@@ -2290,11 +2292,11 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       return 0;
     if (call->operation == BK_ENDING_CAMERA_4E1711)
       return bk_ending_camera_assets_step(
-          scene_cameras(s), scene_forest(s), tracks, &s->camera,
+          scene_cameras(s), scene_forest(s), tracks, s->camera_owner,
           BK_ENDING_CAMERA_AUTO, offset, NULL, 0, target, s->active_seconds, e);
     if (call->operation == BK_ENDING_CAMERA_4E1D16)
       return bk_ending_camera_assets_step(
-          scene_cameras(s), scene_forest(s), tracks, &s->camera,
+          scene_cameras(s), scene_forest(s), tracks, s->camera_owner,
           BK_ENDING_CAMERA_MANUAL, offset, motion, buttons, target,
           s->active_seconds, e);
     if (call->count < 5)
@@ -2309,8 +2311,8 @@ static int frame_invoke(void *context, const BkEndingCall *call,
                                     s->state->next_mode};
     int done = 0;
     int ok = bk_ending_camera_assets_preset(
-        scene_cameras(s), scene_forest(s), tracks, &s->camera,
-        &s->camera_transitions, &s->presets,
+        scene_cameras(s), scene_forest(s), tracks, s->camera_owner,
+        s->transitions_owner, &s->presets,
         call->operation == BK_ENDING_CAMERA_4BC444 ? BK_ENDING_PRESET_ZOOM
                                                    : BK_ENDING_PRESET,
         call->args[1], offset, &gate, 0x10, s->active_seconds, &done, e);
@@ -2551,20 +2553,20 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->auxiliary_assets = background
         ? bk_ending_auxiliary_assets_create_reloaded(
               s->services.resources, s->state->frame.group, variant, background,
-              clocks, s->random, &s->camera, &s->presets, e)
+              clocks, s->random, s->camera_owner, &s->presets, e)
         : bk_ending_auxiliary_assets_create(
               s->services.resources, s->state->frame.group, variant,
-              clocks, s->random, &s->camera, &s->presets, e);
+              clocks, s->random, s->camera_owner, &s->presets, e);
     if (!s->auxiliary_assets)
       goto bad;
   } else if (stage_kind == BK_ENDING_UI_THIRD) {
     s->tertiary_assets = background
         ? bk_ending_tertiary_assets_create_reloaded(s->services.resources,
               s->state->frame.group, variant, background, clocks, s->random,
-              &s->camera, &s->presets, e)
+              s->camera_owner, &s->presets, e)
         : bk_ending_tertiary_assets_create(s->services.resources,
               s->state->frame.group, variant, clocks, s->random,
-              &s->camera, &s->presets, e);
+              s->camera_owner, &s->presets, e);
     if (!s->tertiary_assets)
       goto bad;
     /*4d34d1..4d35bf, before a fresh outer background is registered. The
@@ -2580,10 +2582,10 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->secondary_assets = background
         ? bk_ending_secondary_assets_create_reloaded(s->services.resources,
               s->state->frame.group, variant, background, clocks, s->random,
-              &s->camera, &s->presets, e)
+              s->camera_owner, &s->presets, e)
         : bk_ending_secondary_assets_create(s->services.resources,
               s->state->frame.group, variant, clocks, s->random,
-              &s->camera, &s->presets, e);
+              s->camera_owner, &s->presets, e);
   } else if (stage_kind == BK_ENDING_UI_FOURTH) {
     BkEndingSelectedConfig selected_config;
     if (!bk_ending_selected_config(&selected_config, s->state->frame.group,
@@ -2594,16 +2596,16 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
         s->state->selected, s->state->model_paths[selected_config.event],
         background};
     s->selected_assets = bk_ending_selected_assets_create(
-        s->services.resources, &load, clocks, s->random, &s->camera,
+        s->services.resources, &load, clocks, s->random, s->camera_owner,
         &s->presets, e);
   } else {
     s->assets = background
         ? bk_ending_normal_assets_create_reloaded(s->services.resources,
               s->state->frame.group, variant, background, clocks, s->random,
-              &s->camera, &s->presets, e)
+              s->camera_owner, &s->presets, e)
         : bk_ending_normal_assets_create(s->services.resources,
               s->state->frame.group, variant, clocks, s->random,
-              &s->camera, &s->presets, e);
+              s->camera_owner, &s->presets, e);
   }
   if (!scene_forest(s))
     goto bad;
@@ -2947,7 +2949,7 @@ static int prepare_scene_draw(EndingNormalScene *s, char e[256]) {
       .roots = in,
       .event_mode = s->state->control.mode_721ec4,
       .scene = {.bindings = &bindings,
-                 .camera = &s->camera,
+                 .camera = s->camera_owner,
                  .fog = &fog,
                  .primary_materials = s->materials,
                  .materials = s->special_materials,
@@ -3100,6 +3102,9 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   if (!s)
     return NULL;
   s->services = *services;
+  s->camera_owner = flow && flow->camera ? flow->camera : &s->camera;
+  s->transitions_owner = flow && flow->camera_transitions
+      ? flow->camera_transitions : &s->camera_transitions;
   s->state = flow ? flow->state : &s->diagnostic_state;
   if (!flow)
     bk_ending_state_initialize(s->state);
@@ -3163,7 +3168,7 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   height = s->viewport.height;
   float scale = (float)((double)width / 1280.0);
   BkEndingStateOps state_ops = {s, warp};
-  if (!bk_menu_camera_dialogue(&s->camera) ||
+  if (!bk_menu_camera_dialogue(s->camera_owner) ||
       !bk_ending_state_begin(s->state, &s->overlay, group, variant, scale,
                              (int32_t[2]){0, 0}, &state_ops, e))
     goto bad;

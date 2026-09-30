@@ -21,7 +21,7 @@ static int gallery_expression(void *p, int32_t a, int32_t b, int32_t mode,
 static int gallery_fov(void *p, float value, char e[256]) {
   if (!isfinite(value) || value <= 0 || value >= 3.14159265f)
     return fail(e, "invalid gallery field of view");
-  ((EndingNormalScene *)p)->camera.fov = value;
+  ((EndingNormalScene *)p)->camera_owner->fov = value;
   return 1;
 }
 static int gallery_target(void *p, unsigned node, uint32_t out[3], char e[256]) {
@@ -53,7 +53,7 @@ static int gallery_camera(void *p, BkEndingOpeningCamera kind, int32_t choice,
       return fail(e, "gallery opening target is absent");
     BkEndingCameraOpeningInput input = {s, control_key};
     ok = bk_ending_camera_assets_opening(scene_cameras(s), scene_forest(s),
-        tracks, &s->camera, target, s->active_seconds, &input, &complete, e);
+        tracks, s->camera_owner, target, s->active_seconds, &input, &complete, e);
   } else if (kind == BK_ENDING_OPENING_PRESET) {
     float offset[3];
     memcpy(offset, words, sizeof(offset));
@@ -62,7 +62,7 @@ static int gallery_camera(void *p, BkEndingOpeningCamera kind, int32_t choice,
       s->state->frame.state_721ee0, s->state->frame.state_721ee4,
       s->state->control.state_721eec, s->state->auxiliary.gate, s->state->next_mode};
     ok = bk_ending_camera_assets_preset(scene_cameras(s), scene_forest(s),
-        tracks, &s->camera, &s->camera_transitions, &s->presets,
+        tracks, s->camera_owner, s->transitions_owner, &s->presets,
         BK_ENDING_PRESET, (unsigned)choice, offset, &gate, 0x10,
         s->active_seconds, &complete, e);
   } else return fail(e, "unknown gallery camera service");
@@ -278,7 +278,7 @@ static int gallery_child(void *p, unsigned child, char e[256]) {
   }
   case 5: {
     BkEndingGallerySecondaryBindings b;
-    if (!bk_ending_state_gallery_secondary_bindings(s->state, &s->camera,
+    if (!bk_ending_state_gallery_secondary_bindings(s->state, s->camera_owner,
           &process->gallery_camera, &b)) return fail(e, "missing gallery secondary bindings");
     BkEndingGallerySecondaryOps ops = {s, frame_clock, selected_random,
       gallery_present, gallery_status, gallery_secondary_voice,
@@ -288,7 +288,7 @@ static int gallery_child(void *p, unsigned child, char e[256]) {
                                              s->active_seconds, &ops, e);
   }
   case 6: {
-    BkEndingGallerySelectedViews views = {&s->camera, &s->presets,
+    BkEndingGallerySelectedViews views = {s->camera_owner, &s->presets,
       &process->gallery_camera, &process->gallery_override,
       &s->ui.sprites[52].transform.fade.stage, &s->ui_flash_wanted,
       &s->state->frame.transition_action, &s->state->frame.curtain_wanted,
@@ -319,7 +319,7 @@ static int gallery_child(void *p, unsigned child, char e[256]) {
     return bk_ending_gallery_tertiary_step(&b, &ops, e);
   }
   case 8: {
-    BkEndingGalleryAuxiliaryViews views = {&s->camera, &s->presets,
+    BkEndingGalleryAuxiliaryViews views = {s->camera_owner, &s->presets,
       &process->gallery_camera, &process->gallery_override, &s->effect_volume};
     BkEndingGalleryAuxiliaryBindings b;
     if (!bk_ending_state_gallery_auxiliary_bindings(s->state, &views, &b))

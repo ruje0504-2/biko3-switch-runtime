@@ -235,8 +235,8 @@ int main(int argc, char **argv) {
     }
   }
   CHECK(entries == 40 && pictures == 25 && returns == 10 && sink.nonzero);
-  /*Action8 keeps its independent native flow48 boundary. A missing loader
-   *must fail, not launch an unrelated dialogue/gameplay entry.*/
+  /*This fixture has no writable capture storage. The real flow48 loader
+   *must reject that missing service; special-session-probe covers success.*/
   CHECK(wait_frames(scene, renderer, audio, &sink, 64, pointer(4, 920), error));
   CHECK(click(scene, renderer, audio, &sink, 1084, 262, error));
   CHECK(await_flow(scene, renderer, audio, &sink, 0x18, 200, error));
@@ -244,7 +244,7 @@ int main(int argc, char **argv) {
   CHECK(click(scene, renderer, audio, &sink, 92, 806, error));
   CHECK(click(scene, renderer, audio, &sink, 840, 288, error));
   CHECK(!await_flow(scene, renderer, audio, &sink, 0x48, 250, error));
-  CHECK(strstr(error, "target flow0x48 has no resource loader") &&
+  CHECK(strstr(error, "special entry requires writable capture storage") &&
         s->game_state.group == 4 && s->game_state.area == 0 && !s->game);
   error[0] = 0;
   bk_scene_destroy(scene); scene = NULL;

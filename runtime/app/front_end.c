@@ -1,4 +1,5 @@
 #include "app/front_end.h"
+#include "save/capture_file.h"
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,7 +9,9 @@ struct BkFrontEnd {
   BkSelectionUi selection;
   BkDialogueSessionState dialogue;
   BkMenuCamera camera;
+  BkMenuCamera *camera_owner;
   BkVoiceEnvelope envelope;
+  BkVoiceEnvelope *envelope_owner;
   BkFadeSprite backdrop_curtain;
   BkDialogueResult result;
   BkGalleryMenu gallery;
@@ -26,6 +29,7 @@ struct BkFrontEnd {
   BkGalleryMenuRender *gallery_render;
   BkSelectionSession *selection_session;
   BkDialogueSession *dialogue_session;
+  BkSpecialSession *special_session;
   uint8_t active;
   int released;
 };
@@ -65,6 +69,22 @@ static int release(void *p, uint8_t flow, char e[256]) {
 static int schedule(void *p, uint8_t target, uint8_t mode, char e[256]) {
   BkFrontEnd *s = p;
   return s->c.schedule(s->c.context, target, mode, e);
+}
+static int special_clock(void *p, int timer, uint32_t *out, char e[256]) {
+  BkFrontEnd *s = p;
+  return s->c.special.clock
+      ? s->c.special.clock(s->c.special.context, timer, out, e)
+      : fail(e, "special clock service is unavailable");
+}
+static int special_inventory(void *p, int32_t out[5], char e[256]) {
+  BkFrontEnd *s = p;
+  return bk_capture_files_count_photos(s->c.services.capture_files, out, e);
+}
+static int special_release_speech(void *p, char e[256]) {
+  BkFrontEnd *s = p;
+  return s->c.special.release_speech
+      ? s->c.special.release_speech(s->c.special.context, e)
+      : fail(e, "shared speech owner is unavailable");
 }
 static int gallery_image(void *p, unsigned slot, const char *name, char e[256]) {
   return bk_gallery_menu_render_image(((BkFrontEnd *)p)->gallery_render,
@@ -106,15 +126,19 @@ BkFrontEnd *bk_front_end_create(const BkFrontEndConfig *c, char e[256]) {
     return NULL;
   }
   s->c = *c;
+  s->camera_owner = c->camera ? c->camera : &s->camera;
+  s->envelope_owner = c->envelope ? c->envelope : &s->envelope;
   if (c->unlock_file &&
       bk_unlock_file_read(c->unlock_file, &s->unlocked, e) == BK_RESOURCE_ERROR) {
     bk_front_end_destroy(s);
     return NULL;
   }
-  for (unsigned i = 0; i < 16; i++)
-    s->camera.pose.world[i] = s->camera.matrix[i] = i % 5 == 0;
+  if (!c->camera)
+    for (unsigned i = 0; i < 16; i++)
+      s->camera.pose.world[i] = s->camera.matrix[i] = i % 5 == 0;
   bk_fade_sprite_initialize(&s->backdrop_curtain);
-  for (unsigned i = 0; i <= 5; i++) {
+  for (unsigned i = 0; i < 8; i++) {
+    if (i == 6) continue;
     s->sounds[i] = bk_system_audio_create_slot(
         c->services.resources, c->services.audio, 48 + i, i, -600, e);
     if (!s->sounds[i]) {
@@ -138,6 +162,8 @@ int bk_front_end_stop(BkFrontEnd *s, uint8_t flow, char e[256]) {
     s->gallery.loaded = 0;
   if (flow == 8 && !bk_dialogue_session_stop(s->dialogue_session, e))
     return 0;
+  if (flow == 0x48 && !bk_special_session_stop(s->special_session, e))
+    return 0;
   if (flow == 0x38 && !bk_selection_session_released(s->selection_session))
     return fail(e, "selection release must finish its native control step");
   s->released = 1;
@@ -158,6 +184,8 @@ void bk_front_end_collect(BkFrontEnd *s) {
   s->selection_session = NULL;
   bk_dialogue_session_destroy(s->dialogue_session);
   s->dialogue_session = NULL;
+  bk_special_session_destroy(s->special_session);
+  s->special_session = NULL;
   s->active = 0;
   s->released = 0;
 }
@@ -239,13 +267,30 @@ int bk_front_end_load(BkFrontEnd *s, uint8_t flow, uint8_t previous,
         !bk_audio_play(s->c.services.audio, 60, s->gallery_music, 1, -900, 0, e))
       goto bad;
     s->music_playing = 1;
+  } else if (flow == 0x48) {
+    if (!s->c.services.capture_files || !s->c.special.screenshot)
+      return fail(e, "special entry requires writable capture storage");
+    BkSpecialSessionConfig c = s->c.special;
+    c.common = s->c.common; c.curtain = s->c.curtain;
+    c.camera = s->camera_owner; c.envelope = s->envelope_owner;
+    c.group = &s->group; c.photos = s->c.photos; c.photo_count = s->c.photo_count;
+    c.random = s->c.random; c.hover = s->c.hover;
+    c.previous_flow = &s->c.flow->previous;
+    c.viewport = s->c.viewport; c.loading_seconds = seconds;
+    c.context = s; c.clock = special_clock; c.inventory = special_inventory;
+    c.release_speech = special_release_speech; c.schedule = schedule;
+    c.first_voice = 0; c.speech_voice = 61;
+    memcpy(c.sounds, s->sounds, sizeof(c.sounds));
+    s->special_session = bk_special_session_create(s->c.services.renderer,
+        s->c.services.resources, s->c.services.audio, &c, e);
+    if (!s->special_session) goto bad;
   } else if (flow == 0x38) {
     BkSelectionSessionConfig c = {
         .ui = &s->selection,
         .bindings = {s->c.common, s->c.flow, s->c.cursor, s->c.hover,
                      s->c.photos, &s->group, &s->area, s->c.photo_count},
-        .camera = &s->camera,
-        .envelope = &s->envelope,
+        .camera = s->camera_owner,
+        .envelope = s->envelope_owner,
         .random = s->c.random,
         .unlocked = s->unlocked.flags,
         .pointer = {s, position, motion, warp},
@@ -266,13 +311,13 @@ int bk_front_end_load(BkFrontEnd *s, uint8_t flow, uint8_t previous,
       goto bad;
   } else if (flow == 8) {
     BkDialogueSessionConfig c = {.state = &s->dialogue,
-                                 .camera = &s->camera,
+                                 .camera = s->camera_owner,
                                  .common = s->c.common,
                                  .common_render = s->c.curtain,
                                  .backdrop_curtain = &s->backdrop_curtain,
                                  .backdrop_curtain_wanted = &s->backdrop_wanted,
                                  .result = &s->result,
-                                 .envelope = &s->envelope,
+                                 .envelope = s->envelope_owner,
                                  .random = s->c.random,
                                  .context = s,
                                  .unlock = unlock,
@@ -396,6 +441,8 @@ int bk_front_end_step(BkFrontEnd *s, double seconds, double wall,
                                     .voice_volume = -700};
     return bk_dialogue_session_step(s->dialogue_session, &input, e);
   }
+  if (s->active == 0x48)
+    return bk_special_session_step(s->special_session, dt, in, e);
   return fail(e, "unbound frame");
 }
 int bk_front_end_draw(BkFrontEnd *s, char e[256]) {
@@ -409,6 +456,7 @@ int bk_front_end_draw(BkFrontEnd *s, char e[256]) {
            : s->active == 0x38
                ? bk_selection_session_draw(s->selection_session, e)
            : s->active == 8 ? bk_dialogue_session_draw(s->dialogue_session, e)
+           : s->active == 0x48 ? bk_special_session_draw(s->special_session, e)
                             : 0;
   return ok && bk_renderer_viewport(s->c.services.renderer, NULL, e);
 }
@@ -419,5 +467,10 @@ int bk_front_end_after_present(BkFrontEnd *s, char e[256]) {
     return bk_selection_session_after_present(s->selection_session, e);
   if (s->active == 8)
     return bk_dialogue_session_after_present(s->dialogue_session, e);
+  if (s->active == 0x48) {
+    const BkVirtualPointer *p = bk_special_session_pointer(s->special_session);
+    memcpy(s->pointer, p->position, sizeof(s->pointer));
+    return bk_special_session_after_present(s->special_session, e);
+  }
   return 1;
 }

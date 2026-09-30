@@ -17,6 +17,21 @@ BkSpecialWorld *bk_special_world_create(BkResourceStore *, unsigned group,
     float loading_seconds, BkMenuCamera *, BkEndingCameraTransitions *,
     const uint32_t face_clocks[4], uint32_t *random,
     uint8_t *latches, size_t latch_count, char error[256]);
+typedef struct {
+  void *context;
+  int (*media)(void *, BkSpecialWorld *, char error[256]);
+  void (*discard_media)(void *); /*failure cleanup before CPU world dies*/
+  uint8_t *visibility; /*7220f8/f9, two live bytes cleared after lights*/
+} BkSpecialWorldLoad;
+/* Production4e29b0 ordering: body/face/Back, media, lights, visibility clear,
+ * camera/focus. Camera files are decoded as a resource preflight before media
+ * to size the forest, but remain detached/unadvanced until the final stage.
+ * Unlike the standalone atomic constructor, face RNG commits before media;
+ * a later failure retains that prefix. Failed construction is terminal. */
+BkSpecialWorld *bk_special_world_load(BkResourceStore *, unsigned group,
+    float loading_seconds, BkMenuCamera *, BkEndingCameraTransitions *,
+    const uint32_t face_clocks[4], uint32_t *random,
+    uint8_t *latches, size_t latch_count, const BkSpecialWorldLoad *, char[256]);
 void bk_special_world_destroy(BkSpecialWorld *);
 unsigned bk_special_world_group(const BkSpecialWorld *);
 BkActorPose *bk_special_world_pose(BkSpecialWorld *, unsigned object);

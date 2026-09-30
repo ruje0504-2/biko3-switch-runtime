@@ -21,6 +21,9 @@ int bk_platform_poll(BkPlatform *platform, BkInput *input);
 double bk_platform_seconds(BkPlatform *platform);
 /* Actual monotonic wall time, also during deterministic host input replays. */
 double bk_platform_performance_seconds(BkPlatform *platform);
+/*0/1: unsigned monotonic milliseconds;2: elapsed since platform startup,
+ * the signed low32-bit CRT clock domain used by AVI. Each call reads time.*/
+int bk_platform_runtime_clock(int timer, uint32_t *, char error[256]);
 typedef struct {
   unsigned year, month, day, hour, minute, second;
   uint32_t ticks_ms;

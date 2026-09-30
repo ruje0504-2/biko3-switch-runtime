@@ -55,10 +55,10 @@ void bk_special_world_destroy(BkSpecialWorld *w) {
   bk_model_destroy(w->model);
   free(w);
 }
-BkSpecialWorld *bk_special_world_create(BkResourceStore *store, unsigned group,
+static BkSpecialWorld *create(BkResourceStore *store, unsigned group,
     float seconds, BkMenuCamera *camera, BkEndingCameraTransitions *transitions,
     const uint32_t clocks[4], uint32_t *random, uint8_t *latches, size_t count,
-    char e[256]) {
+    const BkSpecialWorldLoad *load, char e[256]) {
   if (!store || group >= 5 || !camera || !transitions || !clocks || !random ||
       !latches || count <= 120 || !isfinite(seconds) || seconds < 0) {
     fail(e, "invalid construction services"); return NULL;
@@ -105,20 +105,44 @@ BkSpecialWorld *bk_special_world_create(BkResourceStore *store, unsigned group,
   if (!w->forest || !bk_actor_forest_anchor(w->forest, 1, next.pose.world, 0, e)) goto bad;
   w->roots[2] = bk_actor_forest_node(w->forest, 2, w->root);
   if (!bk_actor_forest_attach(w->forest, 0, w->roots[2], e)) goto bad;
+  if (load) {
+    *random = rng;
+    if (!load->media(load->context, w, e)) goto bad;
+  }
   w->lighting = bk_scene_lighting_create_key(w->model, bk_actor_pose_frame(w->body, 0),
                                          (size_t)w->model->frame_count * 16, NULL, e);
-  if (!w->lighting || !bk_special_camera_assets_attach(w->tracks, w->forest,
-      (uint32_t[2]){0, 1}, seconds, &next, &w->presets, e)) goto bad;
+  if (!w->lighting) goto bad;
+  if (load) memset(load->visibility, 0, 2);
+  if (!bk_special_camera_assets_attach(w->tracks, w->forest,
+      (uint32_t[2]){0, 1}, seconds, load ? camera : &next, &w->presets, e)) goto bad;
   for (unsigned i = 0; i < 2; ++i)
     w->roots[i] = bk_actor_forest_node(w->forest, i, bk_special_camera_assets_root(w->tracks, i));
   static const char *const focus[] = {"A_kao", "A_Kao", "kubiX", "mune", "atama"};
   uint32_t frame;
   if (!bk_model_find_frame(w->model, focus[group], &frame, e)) goto bad;
   w->focus = bk_actor_forest_node(w->forest, 2, frame);
-  *camera = next; *random = rng;
+  if (!load) { *camera = next; *random = rng; }
   return w;
 bad:
+  if (load) load->discard_media(load->context);
   bk_blob_free(&raw); bk_special_world_destroy(w); return NULL;
+}
+BkSpecialWorld *bk_special_world_create(BkResourceStore *store, unsigned group,
+    float seconds, BkMenuCamera *camera, BkEndingCameraTransitions *transitions,
+    const uint32_t clocks[4], uint32_t *random, uint8_t *latches, size_t count,
+    char e[256]) {
+  return create(store, group, seconds, camera, transitions, clocks, random,
+                  latches, count, NULL, e);
+}
+BkSpecialWorld *bk_special_world_load(BkResourceStore *store, unsigned group,
+    float seconds, BkMenuCamera *camera, BkEndingCameraTransitions *transitions,
+    const uint32_t clocks[4], uint32_t *random, uint8_t *latches, size_t count,
+    const BkSpecialWorldLoad *load, char e[256]) {
+  if (!load || !load->media || !load->discard_media || !load->visibility) {
+    fail(e, "missing loader media/visibility"); return NULL;
+  }
+  return create(store, group, seconds, camera, transitions, clocks, random,
+                  latches, count, load, e);
 }
 typedef struct {
   BkSpecialWorld *world;

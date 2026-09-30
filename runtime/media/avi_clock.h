@@ -5,6 +5,7 @@ typedef struct {
   float start_seconds;
   uint32_t last_frame;
 } BkAviClock;
+typedef int (*BkAviClockRead)(void *, int32_t *milliseconds, char error[256]);
 /* Original521d78/521ed2 clock(): signed process-elapsed milliseconds, NOT
  * game_seconds or the unsigned GetTickCount timer. Keep float rounding and
  * the separate clock read when restarting a loop. This actual AVI subset
@@ -18,4 +19,8 @@ void bk_avi_clock_init(BkAviClock *, int32_t clock_ms);
 int bk_avi_clock_select(BkAviClock *, const BkAviInfo *, int32_t clock_ms,
                         int32_t restart_clock_ms, uint32_t *frame,
                         char error[256]);
+/* Live clock service: one read per update, a second only on loop restart.
+ * A failed read leaves the clock and frame untouched. */
+int bk_avi_clock_poll(BkAviClock *, const BkAviInfo *, BkAviClockRead, void *,
+                       uint32_t *frame, char error[256]);
 #endif

@@ -1,0 +1,216 @@
+{
+  "passed": true,
+  "scope": "Actual gallery action8 flow48 lifecycle and shared camera; no full-game or Switch hardware acceptance",
+  "references": [
+    "build/validation/ending-runtime-9h9bek61/result.json",
+    "build/validation/special-world-udohpvt6/verification.json",
+    "build/validation/special-session-clock-jdqyvb5x/result.json"
+  ],
+  "checks": [
+    {
+      "name": "special-session",
+      "summary": "PASS special-app entries10 returns10 photos10 frames15309 redraws53 clocks30517/7411/4137 statecb110f9be08f349f PCM737a4736aff16ebc samples24498240 nonzero21599703"
+    },
+    {
+      "name": "gallery-application",
+      "summary": "PASS gallery-app entries40 pictures25 replay-returns10 locked9 flow48-reject1 frames40803 redraws172 statec19d878830914e90 PCM08e8c6e0457d3770 samples65289600 nonzero61042606"
+    },
+    {
+      "name": "capture-lifecycle",
+      "summary": "PASS capture lifecycle: 5 retire/reenter +5 failed borrowers, 4968 frames, 5 live-group photos, files=ece4bd284ae2689e, GPU owners retired"
+    },
+    {
+      "name": "screenshot",
+      "summary": "PASS screenshot: 5 pause replacements +5 photos, 7464960 RGB bytes exact, 93916 later-HUD pixels excluded; 5 live-group retries +1 detached photo, invalid photo group ignored for pause, 11-file inventory"
+    },
+    {
+      "name": "play-flow",
+      "summary": "PASS play-flow opening=994 pause=136 title=141 loading=125 reentry=995 exit=141 photos=2"
+    }
+  ],
+  "world_checks": {
+    "world": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 900,
+      "matrices": 1799280,
+      "face_vertices": 1498140,
+      "service_calls": 6928,
+      "construction_rejections": 25,
+      "max_relative_error": 8.881784197001252e-16,
+      "state_sha256": "de85b32cadc7588efa303d7b0bc3073fe7c743ca331dfcf2e6a1354123a6e948",
+      "groups": [
+        {
+          "group": 0,
+          "body": "h01_55.xan",
+          "back": 287,
+          "focus": "A_kao",
+          "phase": 2,
+          "sequence": 0
+        },
+        {
+          "group": 1,
+          "body": "h02_55.xan",
+          "back": 149,
+          "focus": "A_Kao",
+          "phase": 2,
+          "sequence": 2
+        },
+        {
+          "group": 2,
+          "body": "h03_55.xan",
+          "back": 211,
+          "focus": "kubiX",
+          "phase": 2,
+          "sequence": 0
+        },
+        {
+          "group": 3,
+          "body": "h04_55.xan",
+          "back": 493,
+          "focus": "mune",
+          "phase": 2,
+          "sequence": 0
+        },
+        {
+          "group": 4,
+          "body": "h05_55.xan",
+          "back": 277,
+          "focus": "atama",
+          "phase": 2,
+          "sequence": 0
+        }
+      ],
+      "scope": "Compose complete51b647 with real Japanese body/face/camera native instances.\n\nOriginal caller, XAN/SRT, gaze, face control, camera and world traversal execute\nin independent x86 VMs. Only key/audio/video/clock services are explicit fixtures.\nNative face commands drive a second MORP owner; initialization uses the already\nverified face warm-up boundary. No PCM/video/GPU or full4e29b0/UI claim.\n"
+    },
+    "forest": {
+      "passed": true,
+      "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+      "frames": 160,
+      "matrices": 128400,
+      "draw_disable_checks": 51200,
+      "max_relative_error": 0,
+      "records": [
+        {
+          "name": "h00_80",
+          "frames": 46,
+          "sha256": "5f3d4564182e3f5363f35dc5e26a23e1e10aeee6ebb381d1fcc43618e72bdf02"
+        },
+        {
+          "name": "h01_80",
+          "frames": 274,
+          "sha256": "09bad92a87bf541a48b15671b6d9d60f5b43ac340bff8e881b63a035b1eb224c"
+        }
+      ],
+      "scope": "Bound actor_forest assembly vs native global attachment/draw and original\nD3DX matrices: two real models, hidden and cross-model reparenting, camera\nprepass/view, and atomic invalid draws. Animation locals are shared inputs;\nthis validates the registry/publication adapter, not animation sampling.\nRecursive423b01 draw-disable flags remain independent of423a99 visibility;\ndraw-suppressed children must still receive their original matrix updates.\nOnly native matrix-stack lifetime and GPU view-upload boundaries are hooked.\n"
+    },
+    "gpu": "PASS actor view GPU: 88 frames 282240 channels max_error=1; 8 texture-free clones, 4 retirement orders, 8 draw-disable snapshots; stable allocations"
+  },
+  "avi_clock": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "frames": 18000,
+    "surface_copies": 9113,
+    "loops": 4367,
+    "max_clock_error": 0,
+    "scope": "Run original521d78/521ed2, including clock selection and both surface copies.\n\nAVI/VFW/DDraw are explicit deterministic service fixtures, not codec proof.\nThe original code, including x87 conversion/copy loops, executes unchanged.\n",
+    "surface_format5": [
+      32,
+      64,
+      0,
+      16,
+      31744,
+      992,
+      31,
+      0
+    ],
+    "defined_surface_pixels": 273390,
+    "zero_tail_pixels": 18226,
+    "limitation": "VFW fixture proves source+44 copy. Compact positive RGB555 DIB, RGB555 device target, initial black and two black tail pixels are explicit portable policies; Windows codec layout is not proved"
+  },
+  "paired_checks": 9,
+  "actual_photo_files": 10,
+  "photo_dimensions": [
+    160,
+    120
+  ],
+  "photo_files": [
+    {
+      "name": "cr_2026_0930_1300_0003.bmp",
+      "size": 57654,
+      "sha256": "8199477105eea4361760fdc70ae6a73d0fc0000bb104e34a0422426d2259aefe"
+    },
+    {
+      "name": "cr_2026_0930_1300_0008.bmp",
+      "size": 57654,
+      "sha256": "8199477105eea4361760fdc70ae6a73d0fc0000bb104e34a0422426d2259aefe"
+    },
+    {
+      "name": "ma_2026_0930_1300_0004.bmp",
+      "size": 57654,
+      "sha256": "0b34dd64cae16b496c70e79a0b5d93697089a2c9ef0988d2d14ff1e567d3004d"
+    },
+    {
+      "name": "ma_2026_0930_1300_0009.bmp",
+      "size": 57654,
+      "sha256": "79f64732c97e7da4b15fd1f17327e7ce438c7ca120d01e21da0724ea381cd0ac"
+    },
+    {
+      "name": "mi_2026_0930_1300_0005.bmp",
+      "size": 57654,
+      "sha256": "46e33b9193137b40efaf714a21320c74b7b3cb4396153bcd979a4484ea64b5ab"
+    },
+    {
+      "name": "mi_2026_0930_1300_0010.bmp",
+      "size": 57654,
+      "sha256": "cea420490b26c6bd76b5495ed612df01c8b54f3a5af6b44516cc64e6af3e5c52"
+    },
+    {
+      "name": "re_2026_0930_1300_0002.bmp",
+      "size": 57654,
+      "sha256": "4bfe4f7913df42d20bd48df30af8121a09b5921370576dc3d4087070a2e49cbb"
+    },
+    {
+      "name": "re_2026_0930_1300_0007.bmp",
+      "size": 57654,
+      "sha256": "ad380238fe88f8949fae975e38a342deb98847a191b3683faccfac0342209ed3"
+    },
+    {
+      "name": "ri_2026_0930_1300_0001.bmp",
+      "size": 57654,
+      "sha256": "e9c5e5eaeeef38cd254eb8af1420df8f5294f731f9060b9041fe3db84f32d049"
+    },
+    {
+      "name": "ri_2026_0930_1300_0006.bmp",
+      "size": 57654,
+      "sha256": "f9fe3fc54c9c3acc2e10c5bfe013d5dfadce7e6614112e606df704eb54a5800d"
+    }
+  ],
+  "source_count": 1118,
+  "unit_checks": {
+    "passed": true,
+    "per_build": 10,
+    "world_suite_per_build": 6,
+    "additional": [
+      "foundation",
+      "ending-camera",
+      "capture-file",
+      "avi-clock"
+    ],
+    "additional_evidence": "Direct ctest tool results during this turn; world suite logs in second reference"
+  },
+  "python_tests": 29,
+  "nro_sha256": "c43a06ac3cc6fda94aff5061a1e7d0d7936b64cca96f0db00411954c6ce6e37f",
+  "nro_size": 16228408,
+  "elf_sha256": "3dcf6ae82df2b745163a77695d2d2fdef239cc6cb763e977e8bbd36e5944f7e1",
+  "unresolved_symbols": 0,
+  "mesa_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
+  "awake": "64008 Wed Sep 30 05:37:13 2026     /usr/bin/caffeinate -ims",
+  "leak_detection": false,
+  "flow48_application_registered": true,
+  "hardware_validation": false,
+  "natural_record_persistence": false,
+  "full_3d_comparison": "prior9/12 gap remains",
+  "build_log": "build/validation/special-session-nvk.log",
+  "aggregate": "build/validation/special-session-final-ujqeic3m/verification.json"
+}

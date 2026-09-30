@@ -63,8 +63,8 @@ static BkScene *load_scene(BkSceneKind kind, const BkSceneServices *services,
      * application resource store. Mount all normal-ending dependencies while
      * the persistent game session is created, using disjoint mount bits. */
     const char *ending[] = {"bk3_08", "bk3_09", "bk3_10", "bk3_11",
-                            "bk3_12", "bk3_13", "fambom"};
-    const unsigned ending_bits[] = {16, 17, 18, 19, 20, 21, 22};
+                            "bk3_12", "bk3_13", "fambom", "bk3_14"};
+    const unsigned ending_bits[] = {16, 17, 18, 19, 20, 21, 22, 23};
     for (unsigned i = 0; i < sizeof(ending) / sizeof(*ending); ++i) {
       if (*mounted & (1u << ending_bits[i]))
         continue;

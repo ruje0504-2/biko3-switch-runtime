@@ -10,6 +10,7 @@
 #include "scene/flow_loading_render.h"
 #include "scene/outcome_audio.h"
 #include "scene/system_audio.h"
+#include "platform/platform.h"
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
@@ -46,6 +47,11 @@ typedef struct {
   BkEndingSecondaryPresentationState ending_secondary_presentation;
   BkEndingState ending_state;
   BkEndingProcess ending_process;
+  BkMenuCamera menu_camera;
+  BkEndingCameraTransitions camera_transitions;
+  BkSpecialProcess special_process;
+  void *special_clock_context;
+  int (*special_clock_read)(void *, int, uint32_t *, char[256]);
   BkEndingTertiaryControllerRetained ending_tertiary_controller;
   int32_t ending_duck_transition; /*719c5c: process zero-init, audio owns writes*/
   uint8_t ending_unlock_flags[BK_UNLOCK_FLAGS];
@@ -61,6 +67,23 @@ typedef struct {
   int pending, drawn, retire_game, retire_pause, retire_title, retire_retry,
       retire_checkpoint, retire_save, retire_ending;
 } PlaySession;
+static int platform_clock(void *p, int timer, uint32_t *out, char e[256]) {
+  (void)p; return bk_platform_runtime_clock(timer, out, e);
+}
+static int special_clock(void *p, int timer, uint32_t *out, char e[256]) {
+  PlaySession *s = p;
+  return s->special_clock_read(s->special_clock_context, timer, out, e);
+}
+static int special_release_speech(void *p, char e[256]) {
+  PlaySession *s = p;
+  int32_t volume, pan;
+  int loaded = bk_audio_get_gain(s->services.audio, 61, &volume, &pan);
+  if (!bk_audio_clear(s->services.audio, 61, e)) return 0;
+  /*50da5f clears the name only when a shared speech buffer existed.*/
+  if (loaded) memset(s->ending_state.speech_names[0], 0,
+                       sizeof(s->ending_state.speech_names[0]));
+  return 1;
+}
 static void log_line(PlaySession *s, const char *message) {
   if (s->services.log) {
     BkRenderStats r = bk_renderer_stats(s->services.renderer);
@@ -78,7 +101,7 @@ static void log_line(PlaySession *s, const char *message) {
 static int release(void *context, uint8_t flow, char error[256]) {
   PlaySession *s = context;
   log_line(s, "Flow release begin");
-  if (s->front && (flow == 1 || flow == 0x38 || flow == 8 || flow == 0x18))
+  if (s->front && (flow == 1 || flow == 0x38 || flow == 8 || flow == 0x18 || flow == 0x48))
     return bk_front_end_stop(s->front, flow, error);
   if (flow == 0x40 && s->failure_active && s->game) {
     if (!bk_game_preview_release_failure_audio(s->game, error))
@@ -235,7 +258,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
      * this byte. Actual process teardown is owned by application.c. */
     return 1;
   }
-  if (s->front && (target == 1 || target == 0x38 || target == 8 || target == 0x18)) {
+  if (s->front && (target == 1 || target == 0x38 || target == 8 || target == 0x18 || target == 0x48)) {
     if (!bk_front_end_load(s->front, target, s->flow.previous,
                            s->game_state.interaction.response, s->elapsed,
                            s->pending_seconds, error))
@@ -278,6 +301,8 @@ static int load_target(void *context, uint8_t target, char error[256]) {
                                       .secondary_presentation = &s->ending_secondary_presentation,
                                       .state = &s->ending_state,
                                       .process = &s->ending_process,
+                                      .camera = &s->menu_camera,
+                                      .camera_transitions = &s->camera_transitions,
                                       .tertiary_controller = &s->ending_tertiary_controller};
     if (s->flow.previous == 0x18) {
       BkGalleryMenuSelection result;
@@ -475,6 +500,7 @@ static int step(void *context, double seconds, const BkInput *input,
   case 0x38:
   case 8:
   case 0x18:
+  case 0x48:
     if (s->front) {
       if (!bk_front_end_step(s->front, seconds, s->elapsed, input, error))
         return 0;
@@ -535,7 +561,7 @@ static int draw(void *context, const BkSceneFrame *frame, char error[256]) {
   } else if (s->shown == 0x10) {
     if (!bk_scene_draw(s->ending, frame, error))
       return 0;
-  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18) {
+  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48) {
     if (!(s->front ? bk_front_end_draw(s->front, error)
                    : bk_scene_draw(s->title, frame, error)))
       return 0;
@@ -559,7 +585,7 @@ int bk_play_session_after_present(BkScene *scene, char error[256]) {
   }
   if (!s->pending)
     return 1;
-  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18) &&
+  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48) &&
       !bk_front_end_after_present(s->front, error))
     return 0;
   if (s->shown == 2) {
@@ -627,6 +653,9 @@ static BkScene *create(const BkSceneServices *services,
     return NULL;
   }
   s->services = *services;
+  s->special_clock_read = platform_clock;
+  for (unsigned i = 0; i < 16; ++i)
+    s->menu_camera.pose.world[i] = s->menu_camera.matrix[i] = i % 5 == 0;
   s->ending_auxiliary_cycle = bk_ending_auxiliary_cycle_initial();
   bk_ending_normal_controller_initialize(&s->ending_normal_controller);
   s->ending_secondary_controller = bk_ending_secondary_control_initial();
@@ -686,6 +715,19 @@ static BkScene *create(const BkSceneServices *services,
                           .ending_flags = s->ending_unlock_flags,
                           .ending_flags_valid = &s->ending_unlock_valid,
                           .ending_flags_group = &s->ending_unlock_group};
+    c.camera = &s->menu_camera;
+    c.envelope = &s->game_state.voice;
+    c.special = (BkSpecialSessionConfig){
+        .process = &s->special_process, .transitions = &s->camera_transitions,
+        .camera_clip = &s->ending_state.frame.camera_clip,
+        .camera_mode = &s->ending_state.frame.camera_mode,
+        .album_group = &s->game_state.album_group,
+        .latches = s->game_state.shared_latches,
+        .latch_count = sizeof(s->game_state.shared_latches),
+        .visibility = s->ending_state.control.toggles,
+        .paused = (const int8_t *)&s->ending_state.frame.finish_blocked,
+        .screenshot = s->screenshot, .context = s, .clock = special_clock,
+        .release_speech = special_release_speech};
     s->front = bk_front_end_create(&c, error);
     if (!s->front)
       goto bad;

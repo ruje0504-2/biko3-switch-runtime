@@ -6,6 +6,7 @@
 #include "scene/title_menu_render.h"
 #include "scene/gallery_menu_render.h"
 #include "save/unlock_file.h"
+#include "scene/special_session.h"
 typedef struct BkFrontEnd BkFrontEnd;
 typedef struct {
   BkSceneServices services;
@@ -26,6 +27,11 @@ typedef struct {
   const uint8_t *ending_flags;
   const int *ending_flags_valid;
   const unsigned *ending_flags_group;
+  BkMenuCamera *camera; /*shared71AF38; NULL for standalone menu fixtures*/
+  BkVoiceEnvelope *envelope; /*shared708878*/
+  /*Application-owned process aliases/clock/capture. Front end supplies its
+   * actual UI/audio, album inventory, group, viewport and scheduler.*/
+  BkSpecialSessionConfig special;
 } BkFrontEndConfig;
 /* Original retail title1/selection38/dialogue8/gallery18 owner. Retains menu globals
  * between entries; collects released GPU snapshots on the following step.
