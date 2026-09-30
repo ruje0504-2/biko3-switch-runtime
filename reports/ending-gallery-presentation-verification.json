@@ -1,0 +1,167 @@
+{
+  "passed": true,
+  "date": "2026-09-30",
+  "scope": "48BCBB CPU orchestration with mutable child fixtures, not production phase8/48CC18/assets/hardware",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "pair_verification": "build/validation/ending-gallery-cpu-k1m1u8z3/verification.json",
+  "pair_verification_sha256": "d31ac5d68f63ad4e93e9c6a7ccd07ebc6389cddf34cd1f61aa5e1dbfee1294a7",
+  "source_manifest_files": 900,
+  "source_manifest_stable": true,
+  "source_sha256": {
+    "CMakeLists.txt": "1a1099862c84e2f1b59cbb177fdeb50e22d33c7d724626fa77d9e70b04ef9fbf",
+    "test-host.sh": "59f4990d0d958420b83271203f34cd921c27c7aadcebb0ddd6700972a9192c96",
+    "runtime/game/ending_gallery_presentation.c": "94ed53f8be8accdf630159d4235443e8b8ef88a3485d230b2e8e61359cc1c75f",
+    "runtime/game/ending_gallery_presentation.h": "208a8e9df8e96555ec7900e7b1e5bd17ea8951b846ba2295d39c44ae790d8810",
+    "tests/check_ending_gallery_cpu.py": "4336200f82c2aa6558d09e342674159a9d62b039a479bf49cc3f3eb2237e9609",
+    "tests/original_ending_gallery_presentation_oracle.py": "45b7b056a44a6488bfdc603a838a391e960ea94eb2577e6602b5f7e11f8bc6aa"
+  },
+  "checks": [
+    {
+      "mode": "host",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 12000,
+        "calls": 386816,
+        "failure_prefixes": 1091,
+        "live_mutations": 2253,
+        "rewinds": 82,
+        "boundary_frames": 924,
+        "sequence_frames": 360,
+        "bounded_rejections": 11,
+        "missing_service_checks": 18,
+        "actors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "directions": [
+          0,
+          1
+        ],
+        "operations": [
+          "advance",
+          "blink",
+          "clock",
+          "disable",
+          "effect",
+          "expression",
+          "find",
+          "follow",
+          "gaze",
+          "hide",
+          "level",
+          "material",
+          "mouth",
+          "publish",
+          "range"
+        ],
+        "state_sha256": "6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+        "max_error": 0,
+        "scope": "Entire original48bcbb presentation against the portable dispatcher.\n\nExecutes original x86 branches, inline timing rewinds and mouth oscillator.\nChildren (including48cc18) are explicit mutable service fixtures. Compares\nordered calls, each live snapshot, final state and interrupted prefixes.\nThis is not real-asset sampling,48cc18 recovery, a phase8 scene or Switch proof.\n"
+      },
+      "summary": "PASS gallery presentation: 12000 frames; 386816 calls; 1091 failure prefixes; 2253 live mutations; 82 rewinds; 11 rejections; 18 missing services; 924 boundary frames; 360 retained frames; state 6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+      "library_sha256": "9bf99ca345cfcc419d8fa43b58066360362f412c74c46433bfcc60472aa217fd",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "asan",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 12000,
+        "calls": 386816,
+        "failure_prefixes": 1091,
+        "live_mutations": 2253,
+        "rewinds": 82,
+        "boundary_frames": 924,
+        "sequence_frames": 360,
+        "bounded_rejections": 11,
+        "missing_service_checks": 18,
+        "actors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "directions": [
+          0,
+          1
+        ],
+        "operations": [
+          "advance",
+          "blink",
+          "clock",
+          "disable",
+          "effect",
+          "expression",
+          "find",
+          "follow",
+          "gaze",
+          "hide",
+          "level",
+          "material",
+          "mouth",
+          "publish",
+          "range"
+        ],
+        "state_sha256": "6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+        "max_error": 0,
+        "scope": "Entire original48bcbb presentation against the portable dispatcher.\n\nExecutes original x86 branches, inline timing rewinds and mouth oscillator.\nChildren (including48cc18) are explicit mutable service fixtures. Compares\nordered calls, each live snapshot, final state and interrupted prefixes.\nThis is not real-asset sampling,48cc18 recovery, a phase8 scene or Switch proof.\n"
+      },
+      "summary": "PASS gallery presentation: 12000 frames; 386816 calls; 1091 failure prefixes; 2253 live mutations; 82 rewinds; 11 rejections; 18 missing services; 924 boundary frames; 360 retained frames; state 6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+      "library_sha256": "6f79a4ec068e6588199d67b0dc0270f3d77a83dd5cb2e2467fbbc6974222b234",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    }
+  ],
+  "regressions": {
+    "host_ctest": {
+      "passed": 111,
+      "total": 111,
+      "cpu_first_pass": 102,
+      "gpu_sandbox_failures": 9,
+      "gpu_unsandboxed_rerun_passed": 9,
+      "logs": [
+        "local/gallery-ctest-host.log",
+        "local/gallery-ctest-host-gpu.log"
+      ]
+    },
+    "python_unittest": {
+      "passed": 29,
+      "architecture_included": 2
+    },
+    "shell_syntax": true,
+    "python_compile": true
+  },
+  "switch": {
+    "build_exit_code": 0,
+    "build_log": "local/gallery-build-switch.log",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "new_symbol_in_game_archive": true,
+    "new_symbol_referenced_by_elf": false,
+    "undefined_elf_symbols": 0,
+    "nro_bytes": 16076856,
+    "nro_sha256": "784d0019fbd5393b7e0637d9597b4f017439e4f023959c70724bb7b6fe0a5254",
+    "elf_sha256": "bcbbc4ba945790a4619bec552e94c8bfed99595a7f835b706114932ded049e4a",
+    "nro_changed": false
+  },
+  "awake": {
+    "pid": 64008,
+    "command": "/usr/bin/caffeinate -ims",
+    "process_start": "Wed Sep 30 05:37:13 2026",
+    "scope": "Keep Mac awake until the full Biko3 Switch port is complete, or user explicitly asks to restore. Do not stop at milestone completion.",
+    "restore": "Verify PID, command and process_start with ps, then send SIGTERM to this process only. Existing power settings are not changed."
+  },
+  "remaining": [
+    "48302B and its child controllers",
+    "48CC18 effect/voice service",
+    "phase8 loader and actual scene adapters",
+    "gallery menu/entry and full flow",
+    "natural completion/persistent unlock",
+    "production 3D pixel discrepancies and Switch full-flow verification"
+  ],
+  "no_new_hardware_validation": true,
+  "no_delivery_package": true,
+  "no_push": true
+}
