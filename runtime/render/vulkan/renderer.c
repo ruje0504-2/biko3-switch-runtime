@@ -722,7 +722,7 @@ BkRenderer *bk_renderer_create(unsigned width, unsigned height, FILE *log,
       .sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO,
       .depthTestEnable = VK_TRUE,
       .depthWriteEnable = VK_TRUE,
-      .depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL};
+      .depthCompareOp = VK_COMPARE_OP_GREATER_OR_EQUAL};
   VkPipelineColorBlendAttachmentState blend = {
       .blendEnable = VK_TRUE,
       .srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA,
@@ -1281,6 +1281,21 @@ void bk_mesh_destroy(BkRenderer *r, BkGpuMesh *mesh) {
   buffer_destroy(r, &mesh->indices);
   free(mesh);
 }
+/* Public transforms/clear values retain the native near=0, far=1 convention.
+ * Reverse only the GPU depth row, BEFORE vertex multiplication: subtracting
+ * rounded clip Z from W in the shader would already have lost far precision.
+ * D32 float then keeps precision near zero for distant, adjacent surfaces. */
+static int depth_matrix(float out[16], const float matrix[16], char error[256]) {
+  memcpy(out, matrix, 16 * sizeof(float));
+  for (unsigned i = 0; i < 4; ++i) {
+    out[i * 4 + 2] = (float)((double)matrix[i * 4 + 3] - matrix[i * 4 + 2]);
+    if (!isfinite(out[i * 4 + 2])) {
+      snprintf(error, 256, "GPU depth transform overflow");
+      return 0;
+    }
+  }
+  return 1;
+}
 static int draw_mesh(BkRenderer *r, BkTexture *texture, BkGpuMesh *mesh,
                      BkLightSet *lights, const float matrix[16],
                      const float world[16], BkDrawState state,
@@ -1300,6 +1315,9 @@ static int draw_mesh(BkRenderer *r, BkTexture *texture, BkGpuMesh *mesh,
       snprintf(error, 256, "nonfinite mesh transform");
       return 0;
     }
+  float gpu_matrix[16];
+  if (!depth_matrix(gpu_matrix, matrix, error))
+    return 0;
   if (lit) {
     for (unsigned i = 0; i < 16; i++)
       if (!isfinite(world[i])) {
@@ -1363,7 +1381,7 @@ static int draw_mesh(BkRenderer *r, BkTexture *texture, BkGpuMesh *mesh,
   vkCmdBindDescriptorSets(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
                           r->layout, 0, 1, &texture->descriptor, 0, NULL);
   vkCmdPushConstants(r->command, r->layout, VK_SHADER_STAGE_VERTEX_BIT, 0, 64,
-                     matrix);
+                     gpu_matrix);
   vkCmdDrawIndexed(r->command, mesh->index_count, 1, 0, 0, 0);
   r->stats.draws++;
   return 1;
@@ -1413,7 +1431,7 @@ int bk_renderer_clear_depth(BkRenderer *r, float depth, char error[256]) {
   }
   VkClearAttachment attachment = {
       .aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT,
-      .clearValue = {.depthStencil = {depth, 0}}};
+      .clearValue = {.depthStencil = {1.0f - depth, 0}}};
   VkClearRect rect = {
       .rect = {{(int32_t)r->viewport.x, (int32_t)r->viewport.y},
                {r->viewport.width, r->viewport.height}},
@@ -1444,7 +1462,7 @@ int bk_renderer_begin(BkRenderer *r, char error[256]) {
       .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
       .flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT};
   VK_TRY(vkBeginCommandBuffer(r->command, &cb));
-  VkClearValue clear[2] = {{.color = {{0, 0, 0, 1}}}, {.depthStencil = {1, 0}}};
+  VkClearValue clear[2] = {{.color = {{0, 0, 0, 1}}}, {.depthStencil = {0, 0}}};
   record_texture_uploads(r);
   record_skin_updates(r);
   VkRenderPassBeginInfo rp = {.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
@@ -1489,6 +1507,9 @@ int bk_renderer_draw_vertices(BkRenderer *r, BkTexture *t, const BkVertex *v,
     if (!isfinite(matrix[i])) {
       snprintf(error, 256, "nonfinite transient transform"); return 0;
     }
+  float gpu_matrix[16];
+  if (!depth_matrix(gpu_matrix, matrix, error))
+    return 0;
   for (unsigned i = 0; i < n; ++i) {
     float values[9]; memcpy(values, &v[i], sizeof values);
     for (unsigned j = 0; j < 9; ++j)
@@ -1505,7 +1526,7 @@ int bk_renderer_draw_vertices(BkRenderer *r, BkTexture *t, const BkVertex *v,
   vkCmdBindDescriptorSets(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
                           r->layout, 0, 1, &t->descriptor, 0, NULL);
   vkCmdPushConstants(r->command, r->layout, VK_SHADER_STAGE_VERTEX_BIT, 0, 64,
-                     matrix);
+                     gpu_matrix);
   vkCmdDraw(r->command, n, 1, r->vertex_count, 0);
   r->stats.draws++;
   r->stats.uploaded_bytes += (uint64_t)n * sizeof(*v);

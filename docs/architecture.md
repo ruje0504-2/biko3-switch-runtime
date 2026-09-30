@@ -1,3 +1,5 @@
+2026-10-01 GPU深度精度转换仅位于`render/vulkan/renderer.c`：公开变换与clear_depth继续0近/1远，提交时仅复制并反转深度行，GPU比较与清除反向。`core/camera`、游戏屏幕坐标、灯光、世界矩阵及着色器保持；CPU不依赖Vulkan。运动遮挡测试和实际资源回归见`reports/lighting-motion-depth.md`；完整三维当前11/12、实机尚缺。
+
 2026-10-01 路线固定标志表与有效运动节点分开访问：`world/route`保存终点后输入标志并提供0..1023有界flag-slot接口，`scene/game_frame`用于换区域后保留NPC索引的道具查询。`bk_route_point`仍限制有效节点/终点，game区域重置和save格式不变。原版读取及实际连续存档换场证据见 `reports/checkpoint-next-story.md`。
 
 2026-09-30 连续选择回放的原action7会调用前段释放函数，但原函数实际释放公共槽中的当前资源。scene仅在flow18/phase8/action7及前后同class2或5、当前确有selected owner时转为回收实际选择资源/UI；快照仍晚一tick退役，game分派和记录格式不变。普通五角色真实输入与保存/新进程回放已配对通过，见 `reports/ending-natural-record.md`。下一项将原71BCDC背包字节从app唯一owner借入结局；当前ui_item零副本不能作为已接入道具分支的证据。

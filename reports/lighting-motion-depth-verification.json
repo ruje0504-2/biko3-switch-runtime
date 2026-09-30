@@ -1,0 +1,217 @@
+{
+  "date": "2026-10-01",
+  "finished_at": "2026-09-30T16:24:56.969962+00:00",
+  "targeted_fix_verified": true,
+  "hardware_validated": false,
+  "full_visual_acceptance": false,
+  "full_port_complete": false,
+  "scope": "GPU depth precision under camera motion and fixed lighting; synthetic known occlusion, current resource/app regressions. Not proof of all reported Switch light flicker causes.",
+  "baseline": {
+    "commit": "a0be93a661c00eac18378853a88671cbbf3df187",
+    "renderer": {
+      "path": "local/depth-motion-old-renderer.c",
+      "sha256": "f4c0f7ae3e307bb8a504e688f65ede8ccf87a3c2c5336cefc883f1b3314e3ec1"
+    },
+    "probe": {
+      "path": "local/depth-motion-formal-old",
+      "sha256": "75e462660568f95be8e633ad3415711928283fa5b092ec598a74f336c529c76d"
+    },
+    "expected_exit": 1,
+    "log": {
+      "path": "local/depth-motion-formal-before.log",
+      "sha256": "b415a71c4418dd9599bd498ee2f000e501a110fe0f68242699407e92b4411ddc"
+    },
+    "frames": 4608,
+    "wrong_pixels": 1400832,
+    "coverage_changes": 1596,
+    "brightness_errors_on_visible_front_pixels": 0
+  },
+  "fixed": {
+    "per_build": {
+      "frames": 4608,
+      "wrong_pixels": 0,
+      "coverage_changes": 0,
+      "brightness_errors": 0,
+      "pixel_tolerance": 2
+    },
+    "modes": [
+      "DEPTH_MOTION mode0 frames768 wrong_pixels0 coverage_changes0",
+      "DEPTH_MOTION mode1 frames768 wrong_pixels0 coverage_changes0",
+      "DEPTH_MOTION mode2 frames768 wrong_pixels0 coverage_changes0",
+      "DEPTH_MOTION mode3 frames768 wrong_pixels0 coverage_changes0",
+      "DEPTH_MOTION mode4 frames768 wrong_pixels0 coverage_changes0",
+      "DEPTH_MOTION mode5 frames768 wrong_pixels0 coverage_changes0"
+    ],
+    "host_log": {
+      "path": "local/depth-motion-formal-host.log",
+      "sha256": "6e2510383059fa32e05ccdc418fa39725f9d253ccf37e2bded3d1a09d2bb24d3"
+    },
+    "asan_log": {
+      "path": "local/depth-motion-asan-tests-detail.log",
+      "sha256": "4371652c1372d1090c4848d76815cea7fcedabd62011d9686d5a638e26cc4cb2"
+    },
+    "host_binary": {
+      "path": "build/depth-motion-probe",
+      "sha256": "5ee0fd0f464320967e025c2ee03168dc279dba769c9534e7911eae0f51e398e3"
+    },
+    "asan_binary": {
+      "path": "build/asan-static/depth-motion-probe",
+      "sha256": "f9f010c634108614cd9aba02f820c2e36f1a24bb2211b81b91d0547e6e6d2f30"
+    },
+    "asan_leak_detection": false
+  },
+  "gpu_regressions": {
+    "host": 10,
+    "host_ctest": 7,
+    "host_individual": [
+      "lighting-render-probe",
+      "camera-render-probe",
+      "depth-motion-probe"
+    ],
+    "asan_ctest": 10,
+    "depth_clear_frames_each": 120,
+    "depth_clear_channels_each": 921600,
+    "depth_clear_capture_resumes_each": 120,
+    "gpu_transfer_scalars_each": 628276,
+    "background_profiles_each": 90,
+    "background_frames_each": 720,
+    "background_instances_each": 145496,
+    "fog_profiles_each": 6,
+    "app_frames_each": 1700
+  },
+  "optical_diagnostic": {
+    "old_pairs": 9,
+    "current_pairs_each": 11,
+    "pairs": 12,
+    "max_rgb_error": 131,
+    "ui_max_rgb_error": 0,
+    "geometry_pairs_equal_each": 12,
+    "frames_each": 3368,
+    "draw_checks_each": 3392,
+    "movie_changes_each": 136,
+    "empty_draw_readbacks_each": 24,
+    "remaining_case": {
+      "mode": 2,
+      "target": [
+        1280,
+        720
+      ]
+    },
+    "exit_zero_is_not_full_visual_pass": true,
+    "thresholds_changed": false
+  },
+  "python_tests": 29,
+  "logs": [
+    {
+      "path": "local/depth-motion-camera.log",
+      "sha256": "3f11eb29a6e178edf2a1badd0cb6febf600e42284978c20df5da9a503d39d71e"
+    },
+    {
+      "path": "local/depth-motion-lighting.log",
+      "sha256": "0c5b57d1deab88ed2240dfcc9117146577789ffef969e147ea63ef5c15ba76f1"
+    },
+    {
+      "path": "local/depth-motion-clear.log",
+      "sha256": "be06da977a8294f48dddd8ac854c0827a2eb2ac358d7728ab0d7e4aea15694ca"
+    },
+    {
+      "path": "local/depth-motion-gpu-host.log",
+      "sha256": "93777cee61e08eb4a7da5a3b4807ac28734cccbcd35ecc24e1b589d0fcb04733"
+    },
+    {
+      "path": "local/depth-motion-gpu-asan.log",
+      "sha256": "dbaee2f08b4bc77874da39b5921ad9da7a88f683e38ebe59e41f62680ea2c076"
+    },
+    {
+      "path": "local/depth-motion-transfer-host.log",
+      "sha256": "a04866a484794cfa634741ad4a4c10de784612d275974e527d6e42d0454e9aa3"
+    },
+    {
+      "path": "local/depth-motion-transfer-asan.log",
+      "sha256": "a04866a484794cfa634741ad4a4c10de784612d275974e527d6e42d0454e9aa3"
+    },
+    {
+      "path": "local/depth-motion-background-host.log",
+      "sha256": "94c25719aa693644abbb8cd3b45bcf76e02f1ad79b7ba72ee2017d755061e64b"
+    },
+    {
+      "path": "local/depth-motion-background-asan.log",
+      "sha256": "94c25719aa693644abbb8cd3b45bcf76e02f1ad79b7ba72ee2017d755061e64b"
+    },
+    {
+      "path": "local/depth-motion-ending-host.log",
+      "sha256": "b92eeabd84ba33b7a0da01590d54dcb6b98aaca628d7608d8a782427c25ec09c"
+    },
+    {
+      "path": "local/depth-motion-ending-asan.log",
+      "sha256": "b92eeabd84ba33b7a0da01590d54dcb6b98aaca628d7608d8a782427c25ec09c"
+    },
+    {
+      "path": "local/depth-motion-ending-before.log",
+      "sha256": "e77d3239b6c77347ba38774432eba8cf46b321d8982b8d1adb02d451ca6df7a5"
+    },
+    {
+      "path": "local/depth-motion-clear-asan.log",
+      "sha256": "be06da977a8294f48dddd8ac854c0827a2eb2ac358d7728ab0d7e4aea15694ca"
+    },
+    {
+      "path": "local/depth-motion-app-host.log",
+      "sha256": "d4d6cfa9c953e701904f4a30e8054d6cf336ffdaf92bf8b6da9ce8d6dec3f2fa"
+    },
+    {
+      "path": "local/depth-motion-app-asan.log",
+      "sha256": "9c514df392957f2538757735a6c5b360c50cc761304813a835e118b1e5398f1b"
+    },
+    {
+      "path": "local/depth-motion-python.log",
+      "sha256": "f23e530f204bc151a11dfc55fd4c3890474be4e0cff469fb9fdd2e8be009764e"
+    },
+    {
+      "path": "local/depth-motion-switch.log",
+      "sha256": "34ce6a2e6a8e0762127a73008460bce61e6da09769fefc45f12a33f0d33bbf09"
+    }
+  ],
+  "switch": {
+    "nro": {
+      "path": "build-switch/biko3-preview.nro",
+      "sha256": "687e9e24c87c1739ba0d9346daafc751093d60664e916d70c793327cef1b1934",
+      "bytes": 16232504
+    },
+    "elf": {
+      "path": "build-switch/biko3-preview.elf",
+      "sha256": "d5ff779487e7ea3ae581af0b48498f41cbc52298f7b5e406cb22c4281a85c2b6"
+    },
+    "undefined_symbols": 0,
+    "mesa": {
+      "path": "local/mesa-sdk/opt/devkitpro/portlibs/switch/lib/libvulkan.a",
+      "sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256"
+    }
+  },
+  "source_sha256": {
+    "CMakeLists.txt": "143fbf5ed53078fc9f41ff1c095ae729de90b0209426deffdfda2f814de50ccb",
+    "runtime/render/vulkan/renderer.c": "0e12e6c96776b468638ae040dc5c43c872166397951f1436c32261063bd942c3",
+    "tools/depth_motion_probe.c": "bd8430b5f34ff004c45a502d1df0d2de5247db8b33bbbd501026a95adc1d120c",
+    "tools/ending_viewport_probe.c": "40a84c1c777b25b8b5c57adc85a4a6773b060b7ca827e967a2517b4763e5c1ce",
+    "runtime/core/camera.c": "9e7e77428edec03da0b8b0794a5c3a42a5002eb02de7a97484fc9671ff57b4dd",
+    "runtime/core/matrix.c": "1d3430fc276035fda78230f64139de89d2c7e5e7bcba9ac27bdcebee7fc8d7d2",
+    "runtime/render/shaders/lit.vert": "733f3fb34b909a022b0a6a92d2013e04625dae254f0bb54e5184a0d83f8de445",
+    "runtime/render/shaders/lit.frag": "484d28666d246edb9b8146975dadb6023888983569416c9c4ba8b0fd360f23b0",
+    "runtime/render/shaders/sprite.vert": "069791cd0ad3815ae94734a002f17764c67cdbe66afaced5c52f49f3f8d97eb8",
+    "runtime/render/shaders/sprite.frag": "9f3f349852a9ded2ad612cd7d935871ba893110f86bec92ecd81275e4c49d09e"
+  },
+  "unchanged_from_base": [
+    "runtime/core/camera.c",
+    "runtime/core/matrix.c",
+    "runtime/render/shaders/lit.vert",
+    "runtime/render/shaders/lit.frag",
+    "runtime/render/shaders/sprite.vert",
+    "runtime/render/shaders/sprite.frag"
+  ],
+  "pushed": false,
+  "packaged": false,
+  "awake_pid_retained": 64008,
+  "sources": [
+    "https://docs.vulkan.org/guide/latest/depth.html",
+    "https://developer.nvidia.com/blog/visualizing-depth-precision/"
+  ]
+}
