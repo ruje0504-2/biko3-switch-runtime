@@ -2,6 +2,8 @@
 D3DX matrices: two real models, hidden and cross-model reparenting, camera
 prepass/view, and atomic invalid draws. Animation locals are shared inputs;
 this validates the registry/publication adapter, not animation sampling.
+Recursive423b01 draw-disable flags remain independent of423a99 visibility;
+draw-suppressed children must still receive their original matrix updates.
 Only native matrix-stack lifetime and GPU view-upload boundaries are hooked.
 """
 import argparse,ctypes as C,hashlib,json,math,struct,sys
@@ -39,13 +41,15 @@ class VM(Native):
   u.reg_write(UC_X86_REG_ESP,sp+4+extra);u.reg_write(UC_X86_REG_EIP,ret);u.reg_write(UC_X86_REG_EAX,eax)
 
 def main():
- ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path);args=ap.parse_args();exe=args.exe.read_bytes();vm=VM(exe);lib=library();bind(lib);err=C.create_string_buffer(256);fp=C.POINTER(C.c_float)
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path);ap.add_argument('--output',type=Path,default=ROOT/'local/original-actor-forest-oracle.json');args=ap.parse_args();exe=args.exe.read_bytes();vm=VM(exe);lib=library();bind(lib);err=C.create_string_buffer(256);fp=C.POINTER(C.c_float)
  lib.bk_actor_pose_publish_node.argtypes=[C.c_void_p,C.c_uint32,fp,C.c_void_p]
  lib.bk_actor_pose_parent_world.argtypes=[C.c_void_p,C.c_uint32];lib.bk_actor_pose_parent_world.restype=fp
  lib.bk_actor_pose_advance.argtypes=[C.c_void_p,C.c_int,C.c_float,C.c_void_p]
  class Edit(C.Structure):_fields_=[('frame',C.c_uint32),('hidden',C.c_uint32)]
  lib.bk_actor_pose_visibility.argtypes=[C.c_void_p,C.POINTER(Edit),C.c_size_t,C.c_void_p]
  lib.bk_actor_pose_hidden.argtypes=[C.c_void_p,C.c_uint32,C.POINTER(C.c_uint32)]
+ lib.bk_actor_pose_draw_disabled.argtypes=[C.c_void_p,C.c_uint32,C.POINTER(C.c_uint32)]
+ lib.bk_actor_forest_draw_disable.argtypes=[C.c_void_p,C.c_uint32,C.c_uint32,C.c_void_p]
  for name,types,result in [('create',[C.c_uint32],C.c_void_p),('destroy',[C.c_void_p],None),('attach',[C.c_void_p,C.c_uint32,C.c_uint32,C.POINTER(C.c_int)],C.c_int),('parent',[C.c_void_p,C.c_uint32],C.c_uint32),('first',[C.c_void_p,C.c_uint32],C.c_uint32),('next',[C.c_void_p,C.c_uint32],C.c_uint32),('refresh_walk',[C.c_void_p,C.POINTER(Visit),C.c_uint32,C.POINTER(C.c_uint32)],C.c_int),('draw_walk',[C.c_void_p,C.c_uint32,C.POINTER(C.c_uint32),C.POINTER(Visit),C.c_uint32,C.POINTER(C.c_uint32)],C.c_int)]:
   fn=getattr(lib,'bk_frame_tree_'+name);fn.argtypes=types;fn.restype=result
  for name,types,result in [
@@ -54,7 +58,7 @@ def main():
  ('anchor',[C.c_void_p,C.c_uint32,fp,C.c_uint32,C.c_void_p],C.c_int),('attach',[C.c_void_p,C.c_uint32,C.c_uint32,C.c_void_p],C.c_int),
  ('draw',[C.c_void_p,C.c_uint32,C.POINTER(C.POINTER(Visit)),C.POINTER(C.c_uint32),C.c_void_p],C.c_int)]:
   fn=getattr(lib,'bk_actor_forest_'+name);fn.argtypes=types;fn.restype=result
- arc=Archive(args.data/'bk3_01.pp');objects=[];bindings=[None,None];roots=[];records=[];refresh=C.c_int();t=None;forest=None;matrices=steps=0;worst=0
+ arc=Archive(args.data/'bk3_01.pp');objects=[];bindings=[None,None];roots=[];records=[];refresh=C.c_int();t=None;forest=None;matrices=steps=flags=0;worst=0
  manual_local=[I.copy(),I.copy()];manual_world=[I.copy(),I.copy()];manual_parent=[I.copy(),I.copy()]
  try:
   for name in ['h00_80','h01_80']:
@@ -99,6 +103,15 @@ def main():
     assert lib.bk_actor_forest_attach(forest,parent,child,err),err.value
     vm.call(0x422015,struct.pack('<II',vm.frames+parent*0x400,vm.frames+child*0x400));check(('attach',step))
    target=[0,roots[0],roots[1],roots[0]+10][step%4]
+   disabled=[0,1,255,NONE][(step//4)%4]
+   assert lib.bk_actor_forest_draw_disable(forest,target,disabled,err)
+   vm.call(0x423b01,struct.pack('<II',vm.frames+target*0x400,disabled))
+   for node in range(2,n):
+    value=C.c_uint32();assert lib.bk_actor_pose_draw_disabled(*bindings[node],C.byref(value))
+    assert value.value==vm.read(vm.frames+node*0x400+0x240),(step,node,'draw-disable')
+    assert lib.bk_actor_pose_hidden(*bindings[node],C.byref(value)) and value.value==hidden[node]
+    flags+=1
+   assert not lib.bk_actor_forest_draw_disable(forest,n,0,err)
    assert lib.bk_actor_forest_draw(forest,target,C.byref(visits),C.byref(count),err),err.value
    vm.call(0x42261a,struct.pack('<I',vm.frames+target*0x400));check(('draw',step))
    for a,b in zip(lib.bk_actor_forest_view(forest)[:16],vm.floats(0x642fa8)):
@@ -113,6 +126,6 @@ def main():
  finally:
   lib.bk_actor_forest_destroy(forest)
   for m,clips,pose,start in objects:lib.bk_actor_pose_destroy(pose);lib.bk_clip_set_destroy(clips);lib.bk_model_destroy(m)
- report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),frames=steps,matrices=matrices,max_relative_error=worst,records=records,scope=__doc__)
- (ROOT/'local/original-actor-forest-oracle.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
+ report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),frames=steps,matrices=matrices,draw_disable_checks=flags,max_relative_error=worst,records=records,scope=__doc__)
+ args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
 if __name__=='__main__':main()

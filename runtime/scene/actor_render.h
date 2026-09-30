@@ -43,6 +43,8 @@ int bk_actor_render_texture_surface(BkActorRender *, uint32_t texture_index,
  * NULL material pose/face uses immutable model values. No per-frame allocation.
  * Unchanged rigid geometry reuses its GPU vertices; matrices/lights/queue
  * still update. Material edits and dropping MORP restore/upload as needed.
+ * Recursive draw-disable flags are captured separately from hidden subtrees;
+ * they suppress submissions without pruning CPU world publication.
  * Failure invalidates the prepared draw; retrying prepare rebuilds everything.
  * Caller must set the light viewer to match view before renderer.begin. */
 int bk_actor_render_prepare(BkActorRender *actor, const BkActorPose *pose,

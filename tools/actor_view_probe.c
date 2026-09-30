@@ -1,6 +1,7 @@
 /* Synthetic colored quads only: independent view snapshots, retained shared
  * textures, original sort identities, and viewport/depth preservation. */
 #include "scene/actor_render.h"
+#include "world/actor_forest.h"
 #include <errno.h>
 #include <math.h>
 #include <stdio.h>
@@ -41,6 +42,7 @@ int main(int argc, char **argv) {
   BkResourceStore *store = NULL;
   BkClipSet *clips = NULL;
   BkActorPose *pose = NULL;
+  BkActorForest *forest = NULL;
   BkMaterialPose *materials = NULL;
   BkLightSet *light = NULL;
   BkActorRender *a[3] = {0};
@@ -104,6 +106,8 @@ int main(int argc, char **argv) {
   pose = bk_actor_pose_create_loaded(&model, clips, 0, (float[3]){0}, 0, e);
   materials = bk_material_pose_create(&model, e);
   CHECK(pose && materials);
+  forest = bk_actor_forest_create(&pose, 1, e);
+  CHECK(forest && bk_actor_forest_attach(forest, 0, 2, e));
   r = bk_renderer_create(W, H, stderr, e);
   CHECK(r);
   light = bk_light_set_create(r, &(BkLighting){0}, e);
@@ -160,6 +164,39 @@ int main(int argc, char **argv) {
       CHECK(now.live_allocations == baseline.live_allocations &&
             now.live_bytes == baseline.live_bytes);
     }
+    /*423b01 suppresses both queue paths, without changing a previously
+     * captured visible view. Clearing CPU flags cannot revive an old hidden
+     * GPU snapshot. Publication is covered independently by the native VM. */
+    CHECK(bk_actor_forest_draw_disable(forest, 2, 255, e));
+    uint32_t hidden = 99;
+    CHECK(bk_actor_pose_hidden(pose, 0, &hidden) && hidden == 0);
+    CHECK(bk_actor_render_prepare(a[2], pose, materials, NULL, bk_identity,
+                                 bk_identity, e));
+    CHECK(bk_actor_render_batch_prepare(batch[2], a + 2, 1, e) &&
+          bk_actor_render_batch_count(batch[2]) == 0);
+    BkActorRenderVisit visit = {a[2], 0};
+    CHECK(bk_actor_render_batch_prepare_visits(batch[2], &visit, 1, e) &&
+          bk_actor_render_batch_count(batch[2]) == 0);
+    CHECK(bk_renderer_begin(r, e) &&
+          bk_actor_render_batch_draw(batch[0], light, e) &&
+          bk_actor_render_batch_draw(batch[2], light, e) &&
+          bk_renderer_end(r, e) &&
+          bk_renderer_readback(r, rgba, sizeof(rgba), e));
+    CHECK(pixels(rgba, .725f, 0, 0));
+    frames++;
+    CHECK(bk_actor_forest_draw_disable(forest, 2, 0, e));
+    CHECK(bk_renderer_begin(r, e) &&
+          bk_actor_render_batch_draw(batch[2], light, e) &&
+          bk_renderer_end(r, e) &&
+          bk_renderer_readback(r, rgba, sizeof(rgba), e));
+    CHECK(pixels(rgba, 0, 0, 0));
+    frames++;
+    CHECK(bk_actor_render_prepare(a[2], pose, materials, NULL, bk_identity,
+                                 bk_identity, e));
+    CHECK(bk_actor_render_batch_prepare_visits(batch[2], &visit, 1, e) &&
+          bk_actor_render_batch_count(batch[2]) == 1);
+    CHECK(bk_actor_render_batch_prepare(batch[2], a + 2, 1, e) &&
+          bk_actor_render_batch_count(batch[2]) == 1);
     /* Both owner-first and clone-first retirement; last view still samples
      * the retained texture and retains its prepared color/matrix. */
     unsigned survivor = iteration % 2 ? 0 : 2;
@@ -187,7 +224,7 @@ int main(int argc, char **argv) {
           bk_renderer_stats(r).live_bytes == empty.live_bytes);
   }
   printf("PASS actor view GPU: %u frames %u channels max_error=%u; 8 "
-         "texture-free clones, 4 retirement orders; stable allocations\n",
+         "texture-free clones, 4 retirement orders, 8 draw-disable snapshots; stable allocations\n",
          frames, channels, max_error);
   rc = 0;
 done:
@@ -199,6 +236,7 @@ done:
   }
   bk_light_set_destroy(r, light);
   bk_renderer_destroy(r);
+  bk_actor_forest_destroy(forest);
   bk_actor_pose_destroy(pose);
   bk_material_pose_destroy(materials);
   bk_clip_set_destroy(clips);

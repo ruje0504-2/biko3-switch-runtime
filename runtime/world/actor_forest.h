@@ -43,6 +43,11 @@ int bk_actor_forest_find(const BkActorForest *, uint32_t root, const char *name,
  * change clocks or use stale model ancestry. Raw hidden values retained. */
 int bk_actor_forest_visibility(BkActorForest *, uint32_t root, uint32_t hidden,
                                char error[256]);
+/*423b01: recursively assign frame+240 along LIVE topology. This only gates
+ * geometry submission; clocks, world/cache publication and+70 are unchanged.
+ * Invalid root changes nothing. Newly attached nodes keep their own flag. */
+int bk_actor_forest_draw_disable(BkActorForest *, uint32_t root, uint32_t value,
+                                 char error[256]);
 /* Independent local/world/held parent snapshots for anchors0/1. Commit keeps
  * visibility and parent cache; rejects a stale parent and invalid matrices.
  * Does not recompute world from local (native aim preserves its world result).

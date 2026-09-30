@@ -14,7 +14,7 @@ struct BkActorPose {
   uint32_t root, head, count;
   BkActorPlacement placement;
   float *published, *parent_world, *composed;
-  uint32_t *hidden, *pending_hidden;
+  uint32_t *hidden, *pending_hidden, *draw_disabled;
 };
 static int fail(char *error, const char *message) {
   snprintf(error, 256, "actor pose: %s", message);
@@ -31,6 +31,7 @@ void bk_actor_pose_destroy(BkActorPose *a) {
   free(a->parent_world);
   free(a->composed);
   free(a->hidden);
+  free(a->draw_disabled);
   free(a->pending_hidden);
   free(a);
 }
@@ -81,9 +82,10 @@ static BkActorPose *create(const BkModel *model, const BkClipSet *clips,
   a->parent_world = malloc((size_t)a->count * 16 * sizeof(float));
   a->composed = malloc((size_t)a->count * 16 * sizeof(float));
   a->hidden = calloc(a->count, sizeof(*a->hidden));
+  a->draw_disabled = calloc(a->count, sizeof(*a->draw_disabled));
   a->pending_hidden = malloc((size_t)a->count * sizeof(*a->pending_hidden));
   if (!a->published || !a->parent_world || !a->composed || !a->hidden ||
-      !a->pending_hidden) {
+      !a->pending_hidden || !a->draw_disabled) {
     fail(error, "pose allocation failed");
     goto bad;
   }
@@ -454,6 +456,13 @@ int bk_actor_pose_node_reference(const BkActorPose *a, uint32_t frame,
 }
 void bk_actor_pose_commit_hidden(BkActorPose *a, uint32_t frame, uint32_t hidden) {
   a->hidden[frame] = hidden;
+}
+void bk_actor_pose_commit_draw_disabled(BkActorPose *a, uint32_t frame, uint32_t value) {
+  a->draw_disabled[frame] = value;
+}
+int bk_actor_pose_draw_disabled(const BkActorPose *a, uint32_t frame, uint32_t *out) {
+  if (!a || !out || frame >= a->count) return 0;
+  *out = a->draw_disabled[frame]; return 1;
 }
 int bk_actor_pose_commit_reference(BkActorPose *a, uint32_t frame,
                                    const BkNodeReference *node,

@@ -29,7 +29,7 @@ struct BkActorRender {
   BkLitVertex *material_signatures;
   uint8_t *rigid_uploaded;
   int *alpha;
-  uint32_t *hidden, *order, *traversal, *frame_begin, *frame_size;
+  uint32_t *hidden, *draw_disabled, *order, *traversal, *frame_begin, *frame_size;
   BkDrawKey *keys, *frame_keys;
   float *scratch, vp[16];
   uint64_t generation;
@@ -69,6 +69,7 @@ void bk_actor_render_destroy(BkActorRender *a) {
   free(a->material_signatures);
   free(a->rigid_uploaded);
   free(a->hidden);
+  free(a->draw_disabled);
   free(a->frame_begin);
   free(a->frame_size);
   free(a->order);
@@ -154,10 +155,11 @@ static BkActorRender *create(BkRenderer *renderer, BkResourceStore *resources,
       calloc(m->submesh_count, sizeof(*a->material_signatures));
   a->rigid_uploaded = calloc(m->submesh_count, sizeof(*a->rigid_uploaded));
   a->hidden = calloc(m->frame_count, sizeof(*a->hidden));
+  a->draw_disabled = calloc(m->frame_count, sizeof(*a->draw_disabled));
   a->frame_begin = calloc(m->frame_count, sizeof(*a->frame_begin));
   a->frame_size = calloc(m->frame_count, sizeof(*a->frame_size));
   if (!a->textures || !a->alpha || !a->meshes || !a->skin_meshes ||
-      !a->hidden || !a->frame_begin || !a->frame_size ||
+      !a->hidden || !a->draw_disabled || !a->frame_begin || !a->frame_size ||
       !a->material_signatures || !a->rigid_uploaded)
     goto oom;
   for (uint32_t i = 0; !shared && i < m->texture_count; i++) {
@@ -281,7 +283,8 @@ static int prepare(BkActorRender *a, const BkActorPose *pose,
   a->eye_selected = bk_eye_assets_selected(a->eyes);
   for (uint32_t i = 0; i < m->frame_count; i++) {
     const float *world = bk_actor_pose_frame(pose, i);
-    if (!world || !bk_actor_pose_hidden(pose, i, &a->hidden[i]))
+    if (!world || !bk_actor_pose_hidden(pose, i, &a->hidden[i]) ||
+        !bk_actor_pose_draw_disabled(pose, i, &a->draw_disabled[i]))
       goto invalid;
     memcpy(a->layout->world + i * 16, world, 16 * sizeof(float));
   }
@@ -348,7 +351,7 @@ static int prepare(BkActorRender *a, const BkActorPose *pose,
   for (uint32_t i = 0; i < a->layout->instance_count; ++i) {
     const BkStaticInstance *inst = &a->layout->instances[i];
     const BkStaticPart *p = &a->layout->parts[inst->submesh];
-    if (a->hidden[inst->frame])
+    if (a->hidden[inst->frame] || a->draw_disabled[inst->frame])
       continue;
     const BkModelSubmesh *sub = &m->submeshes[inst->submesh];
     BkTexture *texture =
@@ -589,7 +592,7 @@ int bk_actor_render_batch_prepare_visits(BkActorRenderBatch *b,
     if (!a || !a->ready || a->renderer != b->renderer ||
         f >= a->model->frame_count)
       goto invalid;
-    if (a->hidden[f])
+    if (a->hidden[f] || a->draw_disabled[f])
       continue;
     if (a->frame_size[f] > b->capacity - b->count)
       goto invalid;

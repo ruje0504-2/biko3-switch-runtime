@@ -10,4 +10,5 @@ void bk_actor_pose_commit_composed(BkActorPose *, uint32_t frame,
 /* Forest visibility uses the live cross-model topology, not the model's
  * original subtree. Called only with a validated binding. */
 void bk_actor_pose_commit_hidden(BkActorPose *, uint32_t frame, uint32_t hidden);
+void bk_actor_pose_commit_draw_disabled(BkActorPose *, uint32_t frame, uint32_t);
 #endif

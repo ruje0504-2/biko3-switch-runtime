@@ -10,7 +10,7 @@ typedef struct {
 } Binding;
 typedef struct {
   float local[16], world[16], parent[16];
-  uint32_t hidden;
+  uint32_t hidden, draw_disabled;
 } Anchor;
 struct BkActorForest {
   BkActorPose **actors;
@@ -248,6 +248,19 @@ int bk_actor_forest_visibility(BkActorForest *f, uint32_t root, uint32_t hidden,
     else {
       Binding b = f->bindings[n];
       bk_actor_pose_commit_hidden(f->actors[b.actor], b.frame, hidden);
+    }
+  }
+  f->visits_count = 0;
+  return 1;
+}
+int bk_actor_forest_draw_disable(BkActorForest *f, uint32_t root, uint32_t value,
+                                 char error[256]) {
+  if (!f || root >= f->count) return fail(error, "invalid draw-disable root");
+  for (uint32_t n = root; n != BK_FRAME_NONE; n = subtree_next(f->tree, root, n)) {
+    if (n < 2) f->anchors[n].draw_disabled = value;
+    else {
+      Binding b = f->bindings[n];
+      bk_actor_pose_commit_draw_disabled(f->actors[b.actor], b.frame, value);
     }
   }
   f->visits_count = 0;

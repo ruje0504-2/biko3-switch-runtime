@@ -96,6 +96,9 @@ int bk_actor_pose_visibility(BkActorPose *actor,
                              char error[256]);
 int bk_actor_pose_hidden(const BkActorPose *actor, uint32_t frame,
                          uint32_t *hidden);
+/* Frame+240 suppresses geometry submission only; independent of+70 hidden.
+ * Does not pause animation or prune world-cache traversal. */
+int bk_actor_pose_draw_disabled(const BkActorPose *, uint32_t frame, uint32_t *);
 /* Borrow contiguous published cache (frame order). Read-only; contents may
  * change on the next pose mutation and storage expires with the actor. */
 const float *bk_actor_pose_world(const BkActorPose *, size_t *float_count);
