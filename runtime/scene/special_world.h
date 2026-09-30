@@ -18,6 +18,7 @@ BkSpecialWorld *bk_special_world_create(BkResourceStore *, unsigned group,
     const uint32_t face_clocks[4], uint32_t *random,
     uint8_t *latches, size_t latch_count, char error[256]);
 void bk_special_world_destroy(BkSpecialWorld *);
+unsigned bk_special_world_group(const BkSpecialWorld *);
 BkActorPose *bk_special_world_pose(BkSpecialWorld *, unsigned object);
 BkActorForest *bk_special_world_forest(BkSpecialWorld *);
 BkFaceAssets *bk_special_world_face(BkSpecialWorld *);

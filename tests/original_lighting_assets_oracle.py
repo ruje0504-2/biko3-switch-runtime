@@ -1,4 +1,4 @@
-"""Real 58 backgrounds: native registry/enumeration/parent classification,
+"""Real 58 backgrounds and optional five special bodies: native registry/enumeration/parent classification,
 initial ambient and four light-pass plans. CPU light snapshots use the actual
 per-frame cached light nodes. Graphics services are captured, not rendered.
 """
@@ -11,10 +11,11 @@ from environment_binding import Environment,Lighting
 from bk3_assets import Archive
 
 def main():
- ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path);args=ap.parse_args();exe=args.exe.read_bytes();lib=library();n=Native(exe);err=C.create_string_buffer(256)
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path);ap.add_argument('--special',action='store_true');ap.add_argument('--output',type=Path,default=ROOT/'local/original-lighting-assets-oracle.json');args=ap.parse_args();exe=args.exe.read_bytes();lib=library();n=Native(exe);err=C.create_string_buffer(256)
  for name,types,result in [
  ('bk_background_config',[C.c_uint32,C.c_uint32],C.POINTER(Config)),
  ('bk_scene_lighting_create',[C.POINTER(Model),C.POINTER(C.c_float),C.c_size_t,C.c_void_p],C.c_void_p),
+ ('bk_scene_lighting_create_key',[C.POINTER(Model),C.POINTER(C.c_float),C.c_size_t,C.c_char_p,C.c_void_p],C.c_void_p),
  ('bk_scene_lighting_destroy',[C.c_void_p],None),
  ('bk_scene_lighting_input',[C.c_void_p,C.POINTER(Input)],C.c_int),
  ('bk_scene_lighting_environment',[C.c_void_p],C.POINTER(Environment)),
@@ -23,11 +24,13 @@ def main():
  ('bk_lighting_pass',[C.POINTER(Input),C.POINTER(Pass)],C.c_int)]:
   f=getattr(lib,name);f.argtypes=types;f.restype=result
  profiles=snapshots=lights=0;records=[]
- for pack in ['bk3_03','bk3_17']:
+ for pack in ['bk3_03','bk3_17']+(['bk3_14'] if args.special else []):
   arc=Archive(args.data/(pack+'.pp'));names=sorted({lib.bk_background_config(g,a).contents.clip.decode().replace('.xan','.x') for g in range(5) for a in range(9)})
+  if pack=='bk3_14':names=[f'h{i:02}_55.x' for i in range(1,6)]
+  key=None if pack=='bk3_14' else b'BK3_L'
   for name in names:
    raw=arc.read(next(e for e in arc.entries if e.name==name));ok,m,msg=decode(lib,raw);assert ok,msg;world=(C.c_float*(m.contents.frame_count*16))();assert lib.bk_model_world_matrices(m,world,len(world),err)
-   scene=lib.bk_scene_lighting_create(m,world,len(world),err);assert scene,(name,err.value)
+   scene=lib.bk_scene_lighting_create_key(m,world,len(world),key,err);assert scene,(name,err.value)
    try:
     inp=Input();assert lib.bk_scene_lighting_input(scene,C.byref(inp));env=lib.bk_scene_lighting_environment(scene).contents
     # Mirror loader-produced registry order, execute original full4a435a.
@@ -37,7 +40,7 @@ def main():
      n.u.mem_write(p,bytes(0x100));n.word(p+4,0x3ef);n.word(p+0x6c,1);n.word(p+0xe0,frame);n.word(frame+0x22c,parent)
      n.u.mem_write(p+8,light.name+b'\0');n.u.mem_write(parent+8,m.contents.frames[m.contents.frames[light.frame_index].parent_index].name+b'\0');n.u.mem_write(p+0x7c,bytes(light.diffuse))
      n.word(registry+i*0x88+0x80,p);n.word(registry+i*0x88+0x84,0x3ef)
-    n.call(0x4a435a,struct.pack('<I',n.key));n.call(0x4a4438,b'')
+    n.call(0x4a435a,struct.pack('<I',n.key if key else 0));n.call(0x4a4438,b'')
     groups=struct.unpack('<'+'i'*env.light_count,n.u.mem_read(0x7056f8,env.light_count*4));ranks=struct.unpack('<'+'i'*env.light_count,n.u.mem_read(0x70573c,env.light_count*4))
     assert [l.group for l in inp.lights[:inp.light_count]]==list(groups)
     assert [l.ambient_rank for l in inp.lights[:inp.light_count]]==list(ranks)
@@ -68,8 +71,8 @@ def main():
         assert [p.range,p.attenuation0,p.attenuation1,p.attenuation2]==[l.range,*l.attenuation]
        snapshots+=1
     before=bytes(snapshot);assert not lib.bk_scene_lighting_values(scene,world,len(world)-1,C.byref(snapshot),err);assert bytes(snapshot)==before
-    profiles+=1;lights+=env.light_count;records.append(dict(pack=pack,file=name,sha256=hashlib.sha256(raw).hexdigest(),groups=list(groups),ranks=list(ranks)))
+    profiles+=1;lights+=env.light_count;records.append(dict(pack=pack,file=name,sha256=hashlib.sha256(raw).hexdigest(),groups=list(groups),ranks=list(ranks),key=key.decode() if key else None))
    finally:lib.bk_scene_lighting_destroy(scene);lib.bk_model_destroy(m)
  report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),profiles=profiles,lights=lights,draw_snapshots=snapshots,max_error=0,records=records,scope=__doc__)
- (ROOT/'local/original-lighting-assets-oracle.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
+ args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
 if __name__=='__main__':main()

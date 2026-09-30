@@ -2,8 +2,8 @@
 
 Camera suite covers duplicate SRT and existing ending cameras. World suite
 covers original51b647 with real body/face/eyes/cameras, recursive draw-disable
-flags, and synthetic Vulkan snapshot regression. No production flow48 UI,
-PCM/video playback or Switch hardware acceptance is claimed.
+flags, and synthetic Vulkan snapshot regression. Media suite adds real PCM transport, light registration and Vulkan/video
+snapshots. No production flow48 UI or Switch hardware acceptance is claimed.
 """
 import argparse
 from datetime import datetime, timezone
@@ -20,7 +20,7 @@ def main():
     parser.add_argument('--host-python',type=Path,default=ROOT/'local/venv/bin/python')
     parser.add_argument('--asan-python',type=Path,default=ROOT/'build/asan/ending-oracle-python')
     parser.add_argument('--jobs',type=int,default=8)
-    parser.add_argument('--suite',choices=['camera','world'],default='camera')
+    parser.add_argument('--suite',choices=['camera','world','media'],default='camera')
     args=parser.parse_args()
     for path in [args.exe,args.host_python,args.asan_python,args.data/'bk3_04.pp',args.data/'bk3_14.pp']:
         if not path.is_file():parser.error('missing input: '+str(path))
@@ -30,10 +30,11 @@ def main():
     paths=[ROOT/'CMakeLists.txt',ROOT/'test-host.sh',ROOT/'config/dependencies.lock.json']
     paths += [p for p in (ROOT/'runtime').rglob('*') if p.is_file()]
     paths += list((ROOT/'tests').glob('*.py'))+list((ROOT/'tests').glob('*.c'))
-    paths += [ROOT/'tools/actor_view_probe.c']
+    paths += [ROOT/'tools/actor_view_probe.c',ROOT/'tools/special_media_probe.c']
     sources={str(p.relative_to(ROOT)):digest(p) for p in sorted(paths)}
     asset_paths=[args.data/'bk3_04.pp',args.data/'bk3_14.pp']
-    if args.suite=='world':asset_paths += [args.data/'bk3_01.pp']+[args.data/f'h{i:02}_55.fam' for i in range(1,6)]
+    if args.suite in ['world','media']:asset_paths += [args.data/'bk3_01.pp']+[args.data/f'h{i:02}_55.fam' for i in range(1,6)]
+    if args.suite=='media':asset_paths += [args.data/(p+'.pp') for p in ['bk3_02','bk3_03','bk3_17','bk3_18']]
     assets={str(p.resolve()):digest(p) for p in asset_paths}
     report=dict(passed=False,started_at=datetime.now(timezone.utc).isoformat(),scope=__doc__,
         exe_sha256=digest(args.exe),source_sha256=sources,asset_sha256=assets,commands=[],checks=[],
@@ -57,6 +58,9 @@ def main():
                 '-DBK_SANITIZE='+sanitize,'-DBK_WITH_VULKAN='+vulkan,'-DCMAKE_BUILD_TYPE='+kind])
             targets=['test-animation','test-menu-camera','test-ending-camera','test-node-reference'] if args.suite=='camera' else ['test-actor-forest','test-frame-tree','test-face','test-eye-pose','test-menu-camera','test-lighting-pass']
             ctests='camera-animation|menu-camera|ending-camera|node-reference' if args.suite=='camera' else 'actor-forest|frame-tree|face-controller|eye-pose|menu-camera|lighting-pass'
+            if args.suite=='media':
+                targets=['test-lighting-pass','test-voice','test-audio','test-avi','test-avi-clock','test-skin']
+                ctests='lighting-pass|voice-envelope|audio-queue|avi-decoder|avi-clock|skin-deformation'
             run('build-'+mode,['cmake','--build',folder,'--target','model-test',*targets,'--parallel',str(args.jobs)])
             env=dict(os.environ)
             env.update(PYTHONPATH=os.pathsep.join([str(ROOT/'tests'),str(ROOT/'tools'),site]),
@@ -70,23 +74,31 @@ def main():
                 ('ending-regression','original_ending_camera_assets_oracle.py','PASS {')] if args.suite=='camera' else [
                 ('world','original_special_world_oracle.py','PASS special world:'),
                 ('forest','original_actor_forest_oracle.py','"passed": true')]
+            if args.suite=='media':suites=[
+                ('audio','original_special_audio_oracle.py','PASS special audio:'),
+                ('lighting-assets','original_lighting_assets_oracle.py','\"passed\": true'),
+                ('lighting-pass','original_lighting_pass_oracle.py','\"passed\": true')]
             for name,script,marker in suites:
                 result=output/(mode+'-'+name+'.json')
+                inputs=[] if name=='lighting-pass' else [str(args.data.resolve())]
+                if name=='lighting-assets':inputs+=['--special']
                 text=run(mode+'-'+name,[str(python.absolute()),str(ROOT/'tests'/script),
-                    str(args.exe.resolve()),str(args.data.resolve()),'--output',str(result)],env)
+                    str(args.exe.resolve()),*inputs,'--output',str(result)],env)
                 data=json.loads(result.read_text())
                 if not data.get('passed') or data.get('exe_sha256')!=report['exe_sha256'] or text.count(marker)!=1:
                     raise RuntimeError(mode+' '+name+' omitted matching terminal pass')
                 results[name]=data
                 print('PASS',mode,name,flush=True)
-            if args.suite=='world':
+            if args.suite in ['world','media']:
                 gpu_folder='build' if mode=='host' else 'build/asan-static'
                 if mode=='asan':
                     run('configure-asan-vulkan',['cmake','-S','.','-B',gpu_folder,'-DBK_BUILD_TESTS=ON',
                         '-DBK_SANITIZE=ON','-DBK_WITH_VULKAN=ON','-DCMAKE_BUILD_TYPE=Debug'])
-                run('build-'+mode+'-vulkan',['cmake','--build',gpu_folder,'--target','actor-view-probe','--parallel',str(args.jobs)])
-                text=run(mode+'-gpu',[str(ROOT/gpu_folder/'actor-view-probe'),str(output/(mode+'-gpu-fixture'))],env)
-                summaries=[line for line in text.splitlines() if line.startswith('PASS actor view GPU:')]
+                probe='special-media-probe' if args.suite=='media' else 'actor-view-probe'
+                run('build-'+mode+'-vulkan',['cmake','--build',gpu_folder,'--target',probe,'--parallel',str(args.jobs)])
+                gpu_arg=args.data.resolve() if args.suite=='media' else output/(mode+'-gpu-fixture')
+                text=run(mode+'-gpu',[str(ROOT/gpu_folder/probe),str(gpu_arg)],env)
+                summaries=[line for line in text.splitlines() if line.startswith('PASS special media:' if args.suite=='media' else 'PASS actor view GPU:')]
                 if len(summaries)!=1:raise RuntimeError(mode+' GPU omitted terminal pass')
                 results['gpu']=summaries[0]
                 print('PASS',mode,'GPU',flush=True)

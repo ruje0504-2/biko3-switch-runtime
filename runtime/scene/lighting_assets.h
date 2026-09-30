@@ -3,6 +3,10 @@
 #include "game/lighting_pass.h"
 #include "model/environment.h"
 typedef struct BkSceneLighting BkSceneLighting;
+/*Original4a435a key, including NULL (all lights group2). The default
+ * constructor below uses BK3_L. Parent-name comparison is case-sensitive. */
+BkSceneLighting *bk_scene_lighting_create_key(const BkModel *, const float *,
+                                              size_t, const char *, char[256]);
 /* Owns environment, borrows model. Registry order follows its LIGH records.
  * Initial ambient follows4a4438; all drawable pass modes explicitly set the
  * non-ambient lights before drawing. No GPU object or implicit publication. */

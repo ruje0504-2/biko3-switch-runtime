@@ -30,7 +30,8 @@ typedef struct {
   BkLightingCommand commands[BK_PASS_COMMANDS];
 } BkLightingPass;
 /*4a4159: scan case-sensitively for the first B in a light node's parent name,
- * then compare the suffix case-insensitively to the loader's key(BK3_L).
+ * then compare the suffix case-sensitively (lstrcmpA) to the loader's key.
+ * A NULL key selects group2 for every nonnull parent, including empty names.
  * Registry names have at most64 bytes; no host locale or filesystem names. */
 int bk_light_group(const char *parent_name, const char *key, int32_t *out);
 /*4a4438: all ambient-named lights receive rank1; first group1 ambient wins,

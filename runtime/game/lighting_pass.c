@@ -20,12 +20,12 @@ static uint32_t color(const BkPassLight *l) {
     result |= (uint32_t)(int32_t)((double)l->diffuse[i] * 255) << (16 - i * 8);
   return result;
 }
-static unsigned lower(unsigned c) {
-  return c >= 'A' && c <= 'Z' ? c + 'a' - 'A' : c;
-}
 int bk_light_group(const char *parent, const char *key, int32_t *out) {
-  if (!parent || !key || !out)
+  if (!parent || !out)
     return 0;
+  /*4a4159 imports lstrcmpA, not lstrcmpiA. A null second string is
+   * unequal to the nonnull extracted parent name, even an empty name. */
+  if (!key) { *out = 2; return 1; }
   size_t n = 0, k = 0;
   while (n <= 64 && parent[n])
     ++n;
@@ -38,7 +38,7 @@ int bk_light_group(const char *parent, const char *key, int32_t *out) {
     ++b;
   int same = n - b == k;
   for (size_t i = 0; same && i < k; ++i)
-    same = lower((unsigned char)parent[b + i]) == lower((unsigned char)key[i]);
+    same = parent[b + i] == key[i];
   *out = same ? 1 : 2;
   return 1;
 }

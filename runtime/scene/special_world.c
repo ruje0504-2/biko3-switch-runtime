@@ -32,6 +32,7 @@ BkActorPose *bk_special_world_pose(BkSpecialWorld *w, unsigned i) {
   return !w || i >= 3 ? NULL : i == 2 ? w->body
                                          : bk_special_camera_assets_pose(w->tracks, i);
 }
+unsigned bk_special_world_group(const BkSpecialWorld *w) { return w ? w->group : 5; }
 BkActorForest *bk_special_world_forest(BkSpecialWorld *w) { return w ? w->forest : NULL; }
 BkFaceAssets *bk_special_world_face(BkSpecialWorld *w) { return w ? w->face : NULL; }
 BkEyeAssets *bk_special_world_eyes(BkSpecialWorld *w) { return w ? w->eyes : NULL; }
@@ -104,8 +105,8 @@ BkSpecialWorld *bk_special_world_create(BkResourceStore *store, unsigned group,
   if (!w->forest || !bk_actor_forest_anchor(w->forest, 1, next.pose.world, 0, e)) goto bad;
   w->roots[2] = bk_actor_forest_node(w->forest, 2, w->root);
   if (!bk_actor_forest_attach(w->forest, 0, w->roots[2], e)) goto bad;
-  w->lighting = bk_scene_lighting_create(w->model, bk_actor_pose_frame(w->body, 0),
-                                         (size_t)w->model->frame_count * 16, e);
+  w->lighting = bk_scene_lighting_create_key(w->model, bk_actor_pose_frame(w->body, 0),
+                                         (size_t)w->model->frame_count * 16, NULL, e);
   if (!w->lighting || !bk_special_camera_assets_attach(w->tracks, w->forest,
       (uint32_t[2]){0, 1}, seconds, &next, &w->presets, e)) goto bad;
   for (unsigned i = 0; i < 2; ++i)

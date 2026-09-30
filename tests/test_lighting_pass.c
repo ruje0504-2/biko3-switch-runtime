@@ -42,7 +42,10 @@ int main(void) {
   memset(long_name, 'B', sizeof(long_name));
   int32_t group = 71;
   assert(!bk_light_group(long_name, "BK3_L", &group) && group == 71);
-  assert(bk_light_group("LightGroup_BK3_L", "bk3_l", &group) && group == 1);
+  assert(bk_light_group("LightGroup_BK3_L", "bk3_l", &group) && group == 2);
+  assert(bk_light_group("LightGroup_BK3_L", "BK3_L", &group) && group == 1);
+  assert(bk_light_group("LightGroup_BK3_L", NULL, &group) && group == 2);
+  assert(bk_light_group("", NULL, &group) && group == 2);
   assert(bk_light_group("LightGroup_bk3_l", "BK3_L", &group) && group == 2);
   puts("PASS lighting pass: maximum registry/root arrays, ordered bounds, "
        "atomic invalid plans, bounded name classification");

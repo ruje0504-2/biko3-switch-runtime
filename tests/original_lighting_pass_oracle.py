@@ -25,7 +25,8 @@ class Native:
   if a==self.copy:
    u.mem_write(args[0],self.string(args[1])+b'\0');clean=12;value=args[0]
   elif a==self.compare:
-   value=int(self.string(args[0]).lower()!=self.string(args[1]).lower());clean=12
+   #53f0f8 is KERNEL32.lstrcmpA. NULL is unequal to any nonnull string.
+   value=int(not args[1] or self.string(args[0])!=self.string(args[1]));clean=12
   elif a==self.renderstate:
    assert args[0]==self.device and args[1]==139
    self.commands.append((0,0,args[2]));clean=16
@@ -46,7 +47,7 @@ class Native:
   self.bind(inp);self.call(0x4a4701,bytes(inp.objects)+struct.pack('<iI',inp.mode,0));return self.commands
 
 def main():
- ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);args=ap.parse_args();exe=args.exe.read_bytes();lib=library();n=Native(exe);rng=random.Random(0x4a4701)
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('--output',type=Path,default=ROOT/'local/original-lighting-pass-oracle.json');args=ap.parse_args();exe=args.exe.read_bytes();lib=library();n=Native(exe);rng=random.Random(0x4a4701)
  lib.bk_lighting_pass.argtypes=[C.POINTER(Input),C.POINTER(Pass)]
  lib.bk_light_group.argtypes=[C.c_char_p,C.c_char_p,C.POINTER(C.c_int32)]
  lib.bk_light_ambient_initialize.argtypes=[C.POINTER(Light),C.POINTER(C.c_uint8),C.c_uint32,C.POINTER(C.c_uint32)]
@@ -69,12 +70,12 @@ def main():
   n.bind(inp,names);n.call(0x4a4438,b'');argb=C.c_uint32();assert lib.bk_light_ambient_initialize(inp.lights,names,inp.light_count,C.byref(argb));assert argb.value==n.commands[-1][2]
   assert [l.ambient_rank for l in inp.lights[:inp.light_count]]==list(struct.unpack('<'+'i'*inp.light_count,n.u.mem_read(0x70573c,inp.light_count*4)))
  for case in range(4000):
-  parent=rng.choice([b'LightGroup_BK3_L',b'BK3_L',b'bk3_l',b'BBK3_L',b'',b'abc',b'LightGroup_Bk3_l',b'BK3_P',b'z'*64]);key=rng.choice([b'BK3_L',b'bk3_l',b''])
-  n.u.mem_write(n.parent,bytes(0x400));n.u.mem_write(n.key,key+b'\0');n.u.mem_write(n.parent+8,parent+b'\0');n.word(n.frame+0x22c,n.parent);n.word(n.light+0xe0,n.frame)
-  wanted=n.call(0x4a4159,struct.pack('<II',n.light,n.key));actual=C.c_int32();assert lib.bk_light_group(parent,key,C.byref(actual));assert actual.value==wanted,(parent,key,actual.value,wanted)
+  parent=rng.choice([b'LightGroup_BK3_L',b'BK3_L',b'bk3_l',b'BBK3_L',b'',b'abc',b'LightGroup_Bk3_l',b'BK3_P',b'z'*64]);key=rng.choice([b'BK3_L',b'bk3_l',b'',None])
+  n.u.mem_write(n.parent,bytes(0x400));n.u.mem_write(n.key,(key or b'')+b'\0');n.u.mem_write(n.parent+8,parent+b'\0');n.word(n.frame+0x22c,n.parent);n.word(n.light+0xe0,n.frame)
+  wanted=n.call(0x4a4159,struct.pack('<II',n.light,n.key if key is not None else 0));actual=C.c_int32();assert lib.bk_light_group(parent,key,C.byref(actual));assert actual.value==wanted,(parent,key,actual.value,wanted)
  # Failed plans cannot leak partial commands.
  before=bytes(out);inp.light_count=17;assert not lib.bk_lighting_pass(C.byref(inp),C.byref(out));assert bytes(out)==before
  inp.light_count=1;inp.lights[0].diffuse[1]=float('nan');assert not lib.bk_lighting_pass(C.byref(inp),C.byref(out));assert bytes(out)==before
  report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),passes=16000,commands=total,objects=draws,projected_shadow_calls=shadows,ambient_initializations=4000,name_classifications=4000,signed_color_passes=5334,signed_ambient_initializations=1334,max_error=0,scope=__doc__)
- (ROOT/'local/original-lighting-pass-oracle.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
+ args.output.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report),flush=True)
 if __name__=='__main__':main()

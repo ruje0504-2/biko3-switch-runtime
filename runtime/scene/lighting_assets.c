@@ -20,6 +20,11 @@ void bk_scene_lighting_destroy(BkSceneLighting *s) {
 }
 BkSceneLighting *bk_scene_lighting_create(const BkModel *m, const float *world,
                                           size_t floats, char error[256]) {
+  return bk_scene_lighting_create_key(m, world, floats, "BK3_L", error);
+}
+BkSceneLighting *bk_scene_lighting_create_key(const BkModel *m, const float *world,
+                                              size_t floats, const char *key,
+                                              char error[256]) {
   if (!m || !world || floats < (size_t)m->frame_count * 16) {
     fail(error, "missing model/world");
     return NULL;
@@ -43,7 +48,7 @@ BkSceneLighting *bk_scene_lighting_create(const BkModel *m, const float *world,
     const BkModelLight *light = &s->environment->lights[i];
     uint32_t parent = m->frames[light->frame_index].parent_index;
     if (parent == BK_MODEL_NONE ||
-        !bk_light_group(m->frames[parent].name, "BK3_L",
+        !bk_light_group(m->frames[parent].name, key,
                         &s->registry[i].group)) {
       fail(error, "light has no classified parent");
       goto bad;
