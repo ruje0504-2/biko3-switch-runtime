@@ -27,14 +27,15 @@ int main(int argc, char **argv) {
     return 2;
   char error[256] = {0}, path[2048];
   int ok = 0;
-  unsigned entries = 0, advances = 0;
-  BkResourceStore *store = NULL;
+  unsigned entries = 0, advances = 0, fresh = 0, missing = 0;
+  BkResourceStore *store = NULL, *empty = NULL;
   BkEndingBackgroundAssets *background = NULL;
   BkEndingAuxiliaryAssets *owner = NULL;
   const char *packs[] = {"bk3_03", "bk3_04", "bk3_12", "fambom"};
 
   store = bk_resources_create(error);
   CHECK(store);
+  CHECK(empty = bk_resources_create(error));
   for (unsigned i = 0; i < sizeof(packs) / sizeof(*packs); ++i) {
     int n = snprintf(path, sizeof(path), "%s/%s.pp", argv[1], packs[i]);
     CHECK(n > 0 && (size_t)n < sizeof(path));
@@ -53,6 +54,8 @@ int main(int argc, char **argv) {
           store, group, variant, background, clocks, &random, &camera,
           &presets, error);
       CHECK(owner);
+      uint32_t expected_random = random;
+      BkMenuCamera expected_camera = camera;
       CHECK(bk_ending_auxiliary_assets_background(owner));
       CHECK(bk_ending_auxiliary_assets_pose(owner, 0));
       CHECK(bk_ending_auxiliary_assets_pose(owner, 1));
@@ -102,12 +105,35 @@ int main(int argc, char **argv) {
       bk_ending_background_assets_destroy(background);
       background = NULL;
       ++entries;
+      camera = initial_camera();
+      random = 123 + group * 11 + variant;
+      owner = bk_ending_auxiliary_assets_create(store, group, variant, clocks,
+                                                &random, &camera, &presets, error);
+      CHECK(owner && random == expected_random &&
+            !memcmp(&camera, &expected_camera, sizeof(camera)));
+      CHECK(!bk_ending_auxiliary_assets_background(owner));
+      CHECK(!bk_ending_auxiliary_assets_load_background(owner, empty, error));
+      CHECK(!bk_ending_auxiliary_assets_background(owner));
+      ++missing; error[0] = 0;
+      CHECK(bk_ending_auxiliary_assets_load_background(owner, store, error));
+      BkEndingBackgroundAssets *loaded = bk_ending_auxiliary_assets_background(owner);
+      CHECK(loaded && !strcmp(bk_ending_background_assets_name(loaded),
+                               bk_ending_normal_background(group, variant)));
+      CHECK(bk_ending_auxiliary_assets_load_background(owner, store, error));
+      CHECK(bk_ending_auxiliary_assets_background(owner) == loaded);
+      CHECK(bk_actor_forest_binding(bk_ending_auxiliary_assets_forest(owner),
+          bk_ending_auxiliary_assets_root(owner, 3), &actor_index, &root_frame));
+      CHECK(actor_index == 3);
+      CHECK(bk_ending_auxiliary_assets_advance(owner, 3, 1.f / 60, error));
+      bk_ending_auxiliary_assets_destroy(owner); owner = NULL;
+      ++fresh;
     }
-  printf("PASS 4D39E6 resources: %u group/variant entries, %u primary/background advances; retained background and bk3_12/FAM/camera ownership\n", entries, advances);
+  printf("PASS 4D39E6 resources: %u group/variant entries, %u primary/background advances; fresh%u missing-retry%u; retained background and bk3_12/FAM/camera ownership\n", entries, advances, fresh, missing);
   ok = 1;
 done:
   bk_ending_auxiliary_assets_destroy(owner);
   bk_ending_background_assets_destroy(background);
   bk_resources_destroy(store);
+  bk_resources_destroy(empty);
   return !ok;
 }

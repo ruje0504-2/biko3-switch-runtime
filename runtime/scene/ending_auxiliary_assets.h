@@ -13,7 +13,7 @@ typedef struct BkEndingAuxiliaryAssets BkEndingAuxiliaryAssets;
  * No BOM owner exists in this topology. Camera variant is0;
  * background_variant is the separate retained outer action-table choice.
  * Face/RNG initialization, root placement, named visibility, configured
- * request1, flow16 tracks, cached targets, fixed camera and group1 background
+ * request1, flow16 tracks, cached targets and fixed camera
  * keep their original order. Outputs commit only after successful creation.
  * Process flags, UI/audio/video and the 47DC79/48181F controllers remain separate; this
  * component alone must never be exposed as a complete playable entry. */
@@ -22,8 +22,7 @@ BkEndingAuxiliaryAssets *bk_ending_auxiliary_assets_create(
     const uint32_t face_clocks[4], uint32_t *random, BkMenuCamera *,
     BkEndingCameraPresets *, char error[256]);
 void bk_ending_auxiliary_assets_destroy(BkEndingAuxiliaryAssets *);
-/*4D00FA stage replacement: retain the live outer background except group1,
- * whose4d460b explicitly replaces it with m02_90. Restore its global order
+/*4D39E6 stage replacement: retain the live outer background. Restore its global order
  * before loading new actors, without clip selection or effect reset. Old
  * and new stage snapshots may coexist. Later failure retains cache writes. */
 BkEndingAuxiliaryAssets *bk_ending_auxiliary_assets_create_reloaded(
@@ -32,7 +31,7 @@ BkEndingAuxiliaryAssets *bk_ending_auxiliary_assets_create_reloaded(
     BkMenuCamera *, BkEndingCameraPresets *, char error[256]);
 BkEndingBackgroundAssets *bk_ending_auxiliary_assets_background(
     const BkEndingAuxiliaryAssets *);
-/* Outer4CC582 background stage; group1 retains its own m02_90. A failure
+/* Outer4CC582 background stage on fresh entry; a reload retains its owner. A failure
  * after registration makes the owner unusable except for destruction. */
 int bk_ending_auxiliary_assets_load_background(BkEndingAuxiliaryAssets *,
                                                 BkResourceStore *, char error[256]);

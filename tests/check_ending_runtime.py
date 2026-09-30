@@ -42,6 +42,7 @@ SUITES = {
         ("normal-application", "ending-exit-probe", ["{output}"]),
         ("third-application", "ending-exit-probe", ["{output}", "--third"]),
     ],
+    "gallery-app": [("gallery-application", "ending-gallery-app-probe", ["{output}"])],
     "render": [
         ("normal-render", "ending-render-probe", []),
         ("normal-dual-render", "ending-render-probe", ["--special"]),

@@ -70,6 +70,12 @@ BkScene *bk_ending_normal_scene_create_story(const BkSceneServices *,
                                              const uint8_t unlocked[5][8],
                                              const BkEndingNormalFlow *flow,
                                              char error[256]);
+/* Production flow18 -> flow10, all seven native selections. Requires the
+ * real application record/process owners; entry never clears gallery lanes.
+ * selection6 is replay and uses variant to choose its recorded lane. */
+BkScene *bk_ending_scene_create_gallery(const BkSceneServices *, unsigned group,
+    unsigned variant, unsigned selection, BkEndingRecords *,
+    const uint8_t unlocked[5][8], const BkEndingNormalFlow *, char error[256]);
 /*Actual4CC582 gallery selection1 dispatch into4D00FA, with its real parent,
  * presentation, common camera/UI, input, audio and dual-view renderer.
  * background_variant remains independent of the fixed camera variant1.

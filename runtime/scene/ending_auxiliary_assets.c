@@ -273,11 +273,28 @@ BkEndingBackgroundAssets *bk_ending_auxiliary_assets_background(
 int bk_ending_auxiliary_assets_load_background(BkEndingAuxiliaryAssets *a,
                                                 BkResourceStore *store,
                                                 char error[256]) {
-  (void)store;
-  if (!a) return fail(error, "missing auxiliary owner");
-  return a->background_owner
-      ? 1
-      : fail(error, "4D39E6 does not own an outer background");
+  if (!a || !store || a->background_state == 2)
+    return fail(error, "invalid or failed background owner");
+  if (a->background_state == 1) return 1;
+  /*Fresh4CC582 reaches4CE7CB..4CE806 after4D39E6, loading the outer
+   *55F4BC[group*2+variant] background. Reloads already retained this owner.*/
+  BkEndingBackgroundAssets *background =
+      bk_ending_background_assets_create(store, a->background_name, error);
+  const BkEndingBackgroundData *next = bk_ending_background_assets_data(background);
+  uint32_t index;
+  if (!next || !bk_actor_forest_append(a->forest, next->pose, &index, error)) {
+    bk_ending_background_assets_destroy(background);
+    return 0;
+  }
+  a->background_owner = background;
+  a->background = *next;
+  a->background_state = 2;
+  if (index != 3) return fail(error, "background registry changed outside owner");
+  if (!attach_actor(a, &a->background, index, error) ||
+      !bk_actor_pose_request_mode(a->background.pose, 0, BK_CLIP_REQUEST_CONFIGURED, error))
+    return 0;
+  a->background_state = 1;
+  return 1;
 }
 const BkEnding4d39Config *
 bk_ending_auxiliary_assets_config(const BkEndingAuxiliaryAssets *a) {

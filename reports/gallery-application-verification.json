@@ -1,0 +1,163 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Production application title/gallery/ending inputs and ownership; explicit saved unlock and short end-marker recording fixtures, not natural recording or full-game/Switch acceptance.",
+  "validation_path": "build/validation/ending-runtime-s915vrgu/result.json",
+  "validation_sha256": "e506bfbec3bbf290eb0a2d68d31d78f3001ac0e910739909a3798e0fa1c09d1c",
+  "started_at": "2026-09-30T11:00:05.372779+00:00",
+  "finished_at": "2026-09-30T11:03:32.854345+00:00",
+  "source_sha256": {
+    "CMakeLists.txt": "14292065106008bf913fccc723db28a5906b3d92fd91cc21b3d93af97df3cd54",
+    "runtime/app/front_end.c": "0033b16f25a80ac340a1f387a9597b813121bc328a64d3876134615a50018877",
+    "runtime/app/front_end.h": "23dbcdff7d6a868df61d312be2c4041934dcc831f423b15d191a131d0fba0c96",
+    "runtime/app/play_session.c": "a055cd3668561c6ed8c8406083e6952061e9750ec0b923994f615dc706681a59",
+    "runtime/scene/ending_auxiliary_assets.c": "80cc989d8c64ffd8e559f18daf223eed60bac426662343c83edfabce81c6e873",
+    "runtime/scene/ending_auxiliary_assets.h": "72c76e712a6721f55376f50abba5f706622795ef18468bc7227a75266ab6410a",
+    "runtime/scene/ending_normal_session.c": "b93441021489887d8e388bca64ee9d204ea19a9ac8b60ff705059907a3224980",
+    "runtime/scene/ending_normal_session.h": "06e3817c5587494a8d64ab48bf411f79ea44fb3aade3dbc421677b691400bda6",
+    "tests/check_ending_runtime.py": "687d9b04fe854b4fd8e39f28c8fafc212019fb24d9c295648c2c7c51029496ac",
+    "tools/ending_4d39e6_probe.c": "00440615725217fb8d913a178c4152b67780b1fe7abd7f24f0c22b16b06b879f",
+    "tools/ending_gallery_app_probe.c": "a1ffe99c4d935716d37f15eeae434a1388ff0cbafd85774ce786a7102949e0b7"
+  },
+  "paired_checks": [
+    {
+      "name": "gallery-application",
+      "suite": "gallery-app",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "8434599b0addbc1e604e3eb2cee6f03290eef8ab39041cdaca31d0b91825014d",
+          "summary": "PASS gallery-app entries40 pictures25 replay-returns10 locked9 flow48-reject1 frames40803 redraws172 statec19d878830914e90 PCM6001576f20ebe7cc samples65289600 nonzero61043265"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "dc91778f1a46633e71fc03e232b006e039639aa238116f5019ed01182e0434b8",
+          "summary": "PASS gallery-app entries40 pictures25 replay-returns10 locked9 flow48-reject1 frames40803 redraws172 statec19d878830914e90 PCM6001576f20ebe7cc samples65289600 nonzero61043265"
+        }
+      ]
+    },
+    {
+      "name": "normal-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "a62a9bc0851264599e09d8a31f12a7b45a25ecc5e8b02149331e6818e7e231cb",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "445bc138a3c93043241f17acdd6931b8eb17cd9a1d203e2246b7d583c9475e89",
+          "summary": "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    },
+    {
+      "name": "third-application",
+      "suite": "application",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "a62a9bc0851264599e09d8a31f12a7b45a25ecc5e8b02149331e6818e7e231cb",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "445bc138a3c93043241f17acdd6931b8eb17cd9a1d203e2246b7d583c9475e89",
+          "summary": "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+        }
+      ]
+    },
+    {
+      "name": "auxiliary-assets",
+      "suite": "auxiliary-assets",
+      "passed": true,
+      "runs": [
+        {
+          "kind": "host",
+          "binary_sha256": "43d9f017e6115661c559c67c4d365774af5afa626f2f08546a600e21a1ed75fb",
+          "summary": "PASS 4D39E6 resources: 10 group/variant entries, 40 primary/background advances; fresh10 missing-retry10; retained background and bk3_12/FAM/camera ownership"
+        },
+        {
+          "kind": "asan",
+          "binary_sha256": "dec4fd313600f979dea88bcee6b0a002373948e0d10d4379bdeef04108d671c3",
+          "summary": "PASS 4D39E6 resources: 10 group/variant entries, 40 primary/background advances; fresh10 missing-retry10; retained background and bk3_12/FAM/camera ownership"
+        }
+      ]
+    }
+  ],
+  "auxiliary_targets_native": {
+    "passed": true,
+    "scope": "Compare4D39E6 targets with original4D4167..4D4203, without hooks.\n\nThe original copies published nodes5/13/0, independently of optional719B40.\nSynthetic samples exercise distinct inputs and float bit preservation. Optional\nAUX_TARGET rows verify the actual Japanese resource probe's captured inputs.\nThis segment comparison is not a full loader, frame or hardware acceptance.\n",
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "library_sha256": "9248c9f250ec09f979832d4cc68610ce1322a5ffaa1808631d82c537573ffa18",
+    "synthetic_samples": 4096,
+    "synthetic_components": 36864,
+    "real_asset_logs": [
+      {
+        "path": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-s915vrgu/auxiliary-assets-host.log",
+        "sha256": "1fa0ea42798d08844042c6fa7784a6739969827a56517adb127d2951fdd6f9ce",
+        "loads": 10,
+        "target_components": 90
+      },
+      {
+        "path": "/Users/rujian/Documents/Codex/WX3/build/validation/ending-runtime-s915vrgu/auxiliary-assets-asan.log",
+        "sha256": "1fa0ea42798d08844042c6fa7784a6739969827a56517adb127d2951fdd6f9ce",
+        "loads": 10,
+        "target_components": 90
+      }
+    ],
+    "hooks": [],
+    "max_error": 0
+  },
+  "ctest": {
+    "host": 8,
+    "asan": 8
+  },
+  "python_tests": 29,
+  "application_flow18": true,
+  "leak_detection": false,
+  "packaged": false,
+  "pushed": false,
+  "switch": {
+    "compiled": true,
+    "device_tested": false,
+    "new_symbols_in_final_elf": true,
+    "nro_sha256": "dd27f0aff44c1865063d141e634c0b80136e76478a65f07c53928cb194d6f5a1",
+    "nro_size": 16175160,
+    "undefined_symbols": 0,
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "mesa_version": "26.2.2",
+    "libvulkan_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256"
+  },
+  "remaining": [
+    "Independent flow48 special scene (4E29B0/51B647/51B617)",
+    "Natural story -> actual recorded retained lanes -> persistence/reload -> gallery replay and unlock end-to-end",
+    "Full original 3D pixels remain9/12; no new Switch full-game/device acceptance"
+  ],
+  "prior_attempts": [
+    {
+      "path": "local/gallery-app-initial.log",
+      "status": "failed",
+      "reason": "Probe clicked before picture close curtain settled; replaced fixed delay with live curtain wait."
+    },
+    {
+      "path": "local/gallery-app-settled.log",
+      "status": "failed",
+      "reason": "Fresh auxiliary gallery entry incorrectly required an inherited background."
+    },
+    {
+      "path": "local/gallery-app-fresh.log",
+      "status": "failed",
+      "reason": "Fresh auxiliary outer-background stage was still an explicit unsupported boundary; implemented original4CE7CB..4CE806."
+    },
+    {
+      "path": "build/validation/ending-runtime-rwr9f1f7/result.json",
+      "status": "interrupted",
+      "reason": "Stopped own probe to add inherited hidden-cursor wake handling; not counted as a pass."
+    }
+  ]
+}

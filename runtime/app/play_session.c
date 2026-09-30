@@ -75,7 +75,7 @@ static void log_line(PlaySession *s, const char *message) {
 static int release(void *context, uint8_t flow, char error[256]) {
   PlaySession *s = context;
   log_line(s, "Flow release begin");
-  if (s->front && (flow == 1 || flow == 0x38 || flow == 8))
+  if (s->front && (flow == 1 || flow == 0x38 || flow == 8 || flow == 0x18))
     return bk_front_end_stop(s->front, flow, error);
   if (flow == 0x40 && s->failure_active && s->game) {
     if (!bk_game_preview_release_failure_audio(s->game, error))
@@ -232,7 +232,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
      * this byte. Actual process teardown is owned by application.c. */
     return 1;
   }
-  if (s->front && (target == 1 || target == 0x38 || target == 8)) {
+  if (s->front && (target == 1 || target == 0x38 || target == 8 || target == 0x18)) {
     if (!bk_front_end_load(s->front, target, s->flow.previous,
                            s->game_state.interaction.response, s->elapsed,
                            s->pending_seconds, error))
@@ -258,17 +258,9 @@ static int load_target(void *context, uint8_t target, char error[256]) {
   if (target == 4)
     return load_pause(s, error);
   if (target == 0x10 && !s->ending) {
-    BkDialogueResult result;
     BkUnlockTable unlocked;
-    if (!s->front || !bk_front_end_result(s->front, &result, error) ||
-        !bk_front_end_unlocks(s->front, &unlocked, error))
+    if (!s->front || !bk_front_end_unlocks(s->front, &unlocked, error))
       return 0;
-    if (result.group < 0 || result.group >= BK_ENDING_RECORD_GROUPS ||
-        (result.kind != 0 && result.kind != 1)) {
-      snprintf(error, 256,
-               "play session: flow16 dialogue result is outside implemented entries");
-      return 0;
-    }
     s->ending_unlock_valid = 0;
     BkEndingNormalFlow ending_flow = {.common = &s->common,
                                       .context = s,
@@ -284,14 +276,33 @@ static int load_target(void *context, uint8_t target, char error[256]) {
                                       .state = &s->ending_state,
                                       .process = &s->ending_process,
                                       .tertiary_controller = &s->ending_tertiary_controller};
-    s->ending = bk_ending_normal_scene_create_story(
-        &s->services, (unsigned)result.group, (unsigned)result.kind, &s->ending_records,
-        unlocked.flags, &ending_flow, error);
+    if (s->flow.previous == 0x18) {
+      BkGalleryMenuSelection result;
+      if (!bk_front_end_gallery_result(s->front, &result, error))
+        return 0;
+      s->ending = bk_ending_scene_create_gallery(
+          &s->services, (unsigned)result.group, (unsigned)result.variant,
+          (unsigned)result.selection, &s->ending_records, unlocked.flags,
+          &ending_flow, error);
+    } else {
+      BkDialogueResult result;
+      if (!bk_front_end_result(s->front, &result, error))
+        return 0;
+      if (result.group < 0 || result.group >= BK_ENDING_RECORD_GROUPS ||
+          (result.kind != 0 && result.kind != 1)) {
+        snprintf(error, 256,
+                 "play session: flow16 dialogue result is outside implemented entries");
+        return 0;
+      }
+      s->ending = bk_ending_normal_scene_create_story(
+          &s->services, (unsigned)result.group, (unsigned)result.kind,
+          &s->ending_records, unlocked.flags, &ending_flow, error);
+    }
     if (!s->ending)
       return 0;
     s->ending_first_present = 1;
-    log_line(s, result.kind ? "Third story ending loaded for flow16"
-                           : "Normal story ending loaded for flow16");
+    log_line(s, s->flow.previous == 0x18 ? "Gallery ending loaded for flow16"
+                                       : "Story ending loaded for flow16");
     return 1;
   }
   if (target == 0x40 && s->game && !s->retire_game && !s->failure_active) {
@@ -457,6 +468,7 @@ static int step(void *context, double seconds, const BkInput *input,
   case 1:
   case 0x38:
   case 8:
+  case 0x18:
     if (s->front) {
       if (!bk_front_end_step(s->front, seconds, s->elapsed, input, error))
         return 0;
@@ -517,7 +529,7 @@ static int draw(void *context, const BkSceneFrame *frame, char error[256]) {
   } else if (s->shown == 0x10) {
     if (!bk_scene_draw(s->ending, frame, error))
       return 0;
-  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8) {
+  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18) {
     if (!(s->front ? bk_front_end_draw(s->front, error)
                    : bk_scene_draw(s->title, frame, error)))
       return 0;
@@ -541,7 +553,7 @@ int bk_play_session_after_present(BkScene *scene, char error[256]) {
   }
   if (!s->pending)
     return 1;
-  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8) &&
+  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18) &&
       !bk_front_end_after_present(s->front, error))
     return 0;
   if (s->shown == 2) {

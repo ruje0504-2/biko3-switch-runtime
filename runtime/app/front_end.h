@@ -4,6 +4,7 @@
 #include "scene/scene.h"
 #include "scene/selection_session.h"
 #include "scene/title_menu_render.h"
+#include "scene/gallery_menu_render.h"
 #include "save/unlock_file.h"
 typedef struct BkFrontEnd BkFrontEnd;
 typedef struct {
@@ -26,7 +27,7 @@ typedef struct {
   const int *ending_flags_valid;
   const unsigned *ending_flags_group;
 } BkFrontEndConfig;
-/* Original retail title1/selection38/dialogue8 owner. Retains menu globals
+/* Original retail title1/selection38/dialogue8/gallery18 owner. Retains menu globals
  * between entries; collects released GPU snapshots on the following step.
  * Unimplemented destination flows still fail in the application's loader.
  */
@@ -44,6 +45,10 @@ int bk_front_end_after_present(BkFrontEnd *, char error[256]);
 int bk_front_end_active(const BkFrontEnd *);
 int bk_front_end_result(const BkFrontEnd *, BkDialogueResult *,
                         char error[256]);
+/* Retained after logical menu release until the next gallery entry. Rejects
+ * before an actual unlocked selection has dispatched flow10. */
+int bk_front_end_gallery_result(const BkFrontEnd *, BkGalleryMenuSelection *,
+                                char error[256]);
 /* Copy the latest successfully persisted table for ending entry50ca48.
  * The scene receives bytes only and owns its independent working copy. */
 int bk_front_end_unlocks(const BkFrontEnd *, BkUnlockTable *, char error[256]);

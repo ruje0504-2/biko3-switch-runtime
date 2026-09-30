@@ -2548,11 +2548,13 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
   if (s->retired.render && !background)
     return fail(e, "released stage has no retained outer background");
   if (stage_kind == BK_ENDING_UI_AUXILIARY) {
-    if (!background)
-      return fail(e, "4D39E6 requires the preceding retained outer background");
-    s->auxiliary_assets = bk_ending_auxiliary_assets_create_reloaded(
-        s->services.resources, s->state->frame.group, variant, background,
-        clocks, s->random, &s->camera, &s->presets, e);
+    s->auxiliary_assets = background
+        ? bk_ending_auxiliary_assets_create_reloaded(
+              s->services.resources, s->state->frame.group, variant, background,
+              clocks, s->random, &s->camera, &s->presets, e)
+        : bk_ending_auxiliary_assets_create(
+              s->services.resources, s->state->frame.group, variant,
+              clocks, s->random, &s->camera, &s->presets, e);
     if (!s->auxiliary_assets)
       goto bad;
   } else if (stage_kind == BK_ENDING_UI_THIRD) {
@@ -2641,7 +2643,8 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
              : bk_ending_normal_assets_config(s->assets)->camera_table,
          sizeof(s->state->frame.camera_table));
   if (s->auxiliary_assets) {
-    if (!bk_ending_auxiliary_assets_background(s->auxiliary_assets))
+    if (!bk_ending_auxiliary_assets_load_background(s->auxiliary_assets,
+                                                    s->services.resources, e))
       goto bad;
     s->render = bk_ending_auxiliary_render_create(
         s->services.renderer, s->services.resources, s->auxiliary_assets,
@@ -3219,6 +3222,19 @@ BkScene *bk_ending_replay_scene_create(const BkSceneServices *services,
     return NULL;
   }
   return create_entry(services, group, variant, 0x18, 6, records, unlocked, flow, e);
+}
+
+BkScene *bk_ending_scene_create_gallery(const BkSceneServices *services,
+    unsigned group, unsigned variant, unsigned selection, BkEndingRecords *records,
+    const uint8_t unlocked[5][8], const BkEndingNormalFlow *flow, char e[256]) {
+  if (selection > 6 || !records || !unlocked || !flow ||
+      !flow->secondary_controller || !flow->secondary_presentation ||
+      !flow->tertiary_controller) {
+    fail(e, "gallery entry requires selection0..6 and all application owners");
+    return NULL;
+  }
+  return create_entry(services, group, variant, 0x18, selection, records,
+                       unlocked, flow, e);
 }
 
 BkScene *bk_ending_normal_scene_create_story(const BkSceneServices *services,
