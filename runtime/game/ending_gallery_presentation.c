@@ -16,7 +16,7 @@ static int choice(const BkEndingGalleryPresentationBindings *b, int32_t *out,
 int bk_ending_gallery_presentation_step(
     const BkEndingGalleryPresentationBindings *b, float seconds,
     const BkEndingGalleryPresentationOps *o, char e[256]) {
-  if (!b || !b->frame || !b->auxiliary || !b->face || !b->area ||
+  if (!b || !b->frame || !b->auxiliary || !b->face || !b->event ||
       !b->action || !b->requested || !b->cursor || !b->workspace ||
       !b->reverse || !b->face_mode || !b->expression_override ||
       !b->eye_lower || !b->expression_latch || !b->mouth_falling ||
@@ -83,8 +83,8 @@ int bk_ending_gallery_presentation_step(
     CALL(advance, BK_ENDING_GALLERY_PRIMARY, (float)((double)seconds * .5), 0, e);
   }
   if (b->frame->state_721ee0 == 6 &&
-      ((b->frame->group == 0 && *b->area == 2) ||
-       (b->frame->group == 2 && *b->area == 8))) {
+      ((b->frame->group == 0 && *b->event == 2) ||
+       (b->frame->group == 2 && *b->event == 8))) {
     for (unsigned slot = 17; slot <= 18; ++slot) {
       BkEndingClipTiming timing;
       CALL(timing, slot, &timing, e);

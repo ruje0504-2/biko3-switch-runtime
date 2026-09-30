@@ -34,7 +34,7 @@ class Timing(C.Structure):
 
 class Bindings(C.Structure):
     _fields_ = [('frame', C.POINTER(Frame)), ('auxiliary', C.POINTER(Auxiliary)),
-                ('face', C.POINTER(Face)), ('area', C.POINTER(S)),
+                ('face', C.POINTER(Face)), ('event', C.POINTER(B)),
                 ('action', C.POINTER(S)), ('requested', C.POINTER(S)),
                 ('cursor', C.POINTER(I)), ('workspace', C.POINTER(I)), ('workspace_capacity', U),
                 ('reverse', C.POINTER(I)), ('face_mode', C.POINTER(I)),
@@ -73,7 +73,7 @@ class Ops(C.Structure):
                 ('expression', Expression), ('blink', Blink), ('level', Level), ('mouth', Mouth)]
 
 
-SCALARS = [('area', 0x721b3d), ('action', 0x6ddce0), ('requested', 0x6d1be1),
+SCALARS = [('event', 0x721b3d), ('action', 0x6ddce0), ('requested', 0x6d1be1),
            ('cursor', 0x6c7f74), ('workspace', 0x6c7f80), ('reverse', 0x725704),
            ('face_mode', 0x721dfc), ('expression_override', 0x6c7f78),
            ('eye_lower', 0x721df8), ('expression_latch', 0x6dde52),
@@ -384,7 +384,7 @@ def fixture(rng, case):
     f.auxiliary.expression_a = rng.choice([-0x80000000, 0, 5, 9, 0x7fffffff])
     f.auxiliary.expression_b = rng.choice([3, 4, 5])
     f.face.blink_phase, f.face.rapid_count = rng.randrange(3), rng.randrange(3)
-    f.area = S(rng.choice([0, 2, 8, 9, -1]))
+    f.event = B(rng.choice([0, 2, 8, 9, -1]))
     f.action, f.requested = S(rng.choice([0, 1, 2, 3, 3])), S(rng.choice([0, 3]))
     f.cursor, f.workspace_capacity = I(rng.randrange(24)), U(24)
     f.workspace = (I*24)(*[rng.choice([-1, 0, 1, 2, 4, 15, 16, 17, 20]) for _ in range(24)])
@@ -532,7 +532,7 @@ def main():
     baseline = fixture(rng, 2)
     baseline.mutate_at, baseline.next_clip = 0, [-1]*4
     baseline.frame.group, baseline.frame.state_721ee0 = 2, 6
-    baseline.area.value, baseline.action.value, baseline.face_mode.value = 8, 3, 1
+    baseline.event.value, baseline.action.value, baseline.face_mode.value = 8, 3, 1
     baseline.auxiliary.variant = 0
     baseline.workspace[baseline.cursor.value] = 16
     baseline.hidden_nodes[:] = [1, 2, 3]

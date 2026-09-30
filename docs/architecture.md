@@ -1,3 +1,5 @@
+2026-09-30 phase8 效果边界：`game/ending_gallery_effect`恢复完整48CC18及49717C，四个效果/语音标记属于进程生命周期；`scene/ending_gallery_effect`借用当前ActorPose、同一音频owner和共享RNG，只读片段时序，不推进/发布动画。721B3D统一命名event，借用control.variant。普通/ASan原指令和真实日文演员/PCM配对通过，见 `reports/ending-gallery-effect.md`。生产48302B及跨loader绑定仍未完成。
+
 2026-09-30 phase8 表现边界：`game/ending_gallery_presentation`只恢复48BCBB原CPU调度，通过必需回调借用动画、材质、BOM、音频和时钟；片段只读时序用game自有`BkEndingClipTiming`，不会直接调用model/GPU。记录工作区和BOM容量显式提供，越界及缺服务按原执行前缀失败；725704等共享字段不复制出第二个状态。48CC18与48302B及场景装配仍待完成，不能据CPU原指令夹具宣称phase8已接入。见 `reports/ending-gallery-presentation.md`。
 
 # 2026-09-30 结局序列边界：`game/ending_auxiliary_sequence`、`ending_auxiliary_state3` 和 `ending_auxiliary_presentation` 使用 game 层自有的只读片段时序/普通提交类型；`scene/ending_normal_session` 才把它们转换为 model/world 的播放接口。这样 47DC79 state5/6/7 的控制器不会直接依赖 model、Vulkan 或 libnx。证据见 `reports/ending-47dc79-state567.md`。

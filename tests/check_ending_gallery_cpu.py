@@ -1,7 +1,8 @@
-"""Run the48BCBB original-instruction oracle on ordinary and ASan/UBSan builds.
+"""Pair48BCBB/48CC18 native oracles and optional real effect/audio adapters.
 
 Needs the fixed EXE and the existing sanitized Python launcher. Outputs go to
-a fresh validation directory. Does not load game assets or run a Switch scene.
+a fresh validation directory. --data adds Japanese actor/PCM checks. None of
+these checks constitutes a complete phase8 scene or Switch validation.
 """
 import argparse
 from datetime import datetime, timezone
@@ -25,10 +26,24 @@ def main():
     p.add_argument('--host-python', type=Path, default=ROOT/'local/venv/bin/python')
     p.add_argument('--asan-python', type=Path, default=ROOT/'build/asan/ending-oracle-python')
     p.add_argument('--jobs', type=int, default=8)
+    p.add_argument('--data', type=Path)
+    p.add_argument('--suites', default='presentation,effect')
     args = p.parse_args()
+    suites = args.suites.split(',')
+    if not suites or len(set(suites)) != len(suites) or any(s not in ['presentation', 'effect'] for s in suites):
+        p.error('--suites must be distinct members of presentation,effect')
+    if args.data:
+        if 'effect' not in suites: p.error('--data requires the effect suite')
+        suites.append('effect-scene')
     for path in [args.exe, args.host_python, args.asan_python]:
         if not path.is_file(): p.error(f'missing required input/launcher: {path}')
     if args.jobs < 1: p.error('--jobs must be positive')
+    archives = {}
+    if args.data:
+        for pack in ['bk3_10', 'bk3_13', 'bk3_03', 'bk3_04', 'fambom', 'bk3_02', 'bk3_06']:
+            path = args.data/(pack+'.pp')
+            if not path.is_file(): p.error('missing archive: '+str(path))
+            archives[pack] = digest(path)
     parent = ROOT/'build/validation'
     parent.mkdir(parents=True, exist_ok=True)
     output = Path(tempfile.mkdtemp(prefix='ending-gallery-cpu-', dir=parent))
@@ -38,7 +53,8 @@ def main():
     sources = {str(path.relative_to(ROOT)): digest(path) for path in sorted(paths)}
     report = dict(passed=False, started_at=datetime.now(timezone.utc).isoformat(),
                   source_sha256=sources, exe_sha256=digest(args.exe), commands=[], checks=[],
-                  leak_detection=False, real_asset_scene=False, switch_validation=False,
+                  leak_detection=False, real_asset_effect=bool(args.data), switch_validation=False,
+                  archive_sha256=archives, suites=suites,
                   scope=__doc__)
     print('Gallery CPU validation:', output, flush=True)
 
@@ -69,20 +85,28 @@ def main():
             env.update(PYTHONPATH=os.pathsep.join([str(ROOT/'tests'), str(ROOT/'tools'), site]),
                        BK3_BUILD_DIR=str(ROOT/folder), ASAN_OPTIONS='detect_leaks=0',
                        UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1')
-            result = output/(mode+'.json')
-            text = run('oracle-'+mode, [str(python.absolute()),
-                str(ROOT/'tests/original_ending_gallery_presentation_oracle.py'),
-                str(args.exe.resolve()), '--output', str(result)], env)
-            data = json.loads(result.read_text())
-            summaries = [line for line in text.splitlines() if line.startswith('PASS gallery presentation:')]
-            if len(summaries) != 1 or not data.get('passed') or data.get('exe_sha256') != report['exe_sha256']:
-                raise RuntimeError(mode+' omitted a matching terminal pass')
-            report['checks'].append(dict(mode=mode, result=data, summary=summaries[0],
-                library_sha256=digest(ROOT/folder/'libmodel-test.dylib'),
-                python_sha256=digest(python.resolve())))
-            print(summaries[0], flush=True)
-        if report['checks'][0]['result'] != report['checks'][1]['result']:
-            raise RuntimeError('ordinary and sanitized outcomes differ')
+            for suite in suites:
+                result = output/(mode+'-'+suite+'.json')
+                script = ('check_ending_gallery_effect_scene.py' if suite == 'effect-scene'
+                          else 'original_ending_gallery_'+suite+'_oracle.py')
+                command = [str(python.absolute()), str(ROOT/'tests'/script), str(args.exe.resolve())]
+                if suite == 'effect-scene': command.append(str(args.data.resolve()))
+                text = run('oracle-'+mode+'-'+suite, command+['--output', str(result)], env)
+                data = json.loads(result.read_text())
+                prefix = 'PASS gallery '+suite.replace('-', ' ')+':'
+                summaries = [line for line in text.splitlines() if line.startswith(prefix)]
+                if len(summaries) != 1 or not data.get('passed') or data.get('exe_sha256') != report['exe_sha256']:
+                    raise RuntimeError(mode+' '+suite+' omitted a matching terminal pass')
+                report['checks'].append(dict(mode=mode, suite=suite, result=data, summary=summaries[0],
+                    library_sha256=digest(ROOT/folder/'libmodel-test.dylib'),
+                    python_sha256=digest(python.resolve())))
+                print(summaries[0], flush=True)
+        for suite in suites:
+            results = [check['result'] for check in report['checks'] if check['suite'] == suite]
+            if len(results) != 2 or results[0] != results[1]:
+                raise RuntimeError(suite+' ordinary and sanitized outcomes differ')
+        if args.data and any(digest(args.data/(pack+'.pp')) != value for pack,value in archives.items()):
+            raise RuntimeError('archive changed during validation')
         if any(not (ROOT/path).is_file() or digest(ROOT/path) != value for path, value in sources.items()):
             raise RuntimeError('source changed during validation')
         report['passed'] = True

@@ -1,0 +1,776 @@
+{
+  "passed": true,
+  "scope": "48CC18 CPU and real actor/audio adapter; 48BCBB event alias correction. Production phase8 remains unimplemented.",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "validation": "build/validation/ending-gallery-cpu-x7lcz1cj/verification.json",
+  "validation_sha256": "13e6c88bd04c33c5f7dc2837b59bd18dd417a28668b309599531abd4e4759576",
+  "source_files": 906,
+  "source_stable": true,
+  "archive_sha256": {
+    "bk3_10": "77adf8022c259dc6d3b961270798b8b1a5ec95f688319f7df7ca2e3dab2a1e3f",
+    "bk3_13": "aa08c86165b38004817911e937ea01aa5baf99db60bd52078a05956460d17894",
+    "bk3_03": "b44383b0b67dfcfcf80c4bd93f4a73da533a2c57303e8bf70c3770841340060b",
+    "bk3_04": "92f41c1a42805d5f698c8f984920f4fdbd71b6030c037ab8c47f0874f5bdd3a2",
+    "fambom": "a82ed75f107cff5e3db4b01b66b239f5c8c52fb8939a98db8d38ef5c1edde6bb",
+    "bk3_02": "32790a9436ee5070c30639d56001d334d0b372ce2fde3c380fc15791a1454854",
+    "bk3_06": "f0042a3a0649f263362c97425e49a3603fd5d089534e48ea702b0e9ef7cf535d"
+  },
+  "checks": [
+    {
+      "mode": "host",
+      "suite": "presentation",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 12000,
+        "calls": 386816,
+        "failure_prefixes": 1091,
+        "live_mutations": 2253,
+        "rewinds": 82,
+        "boundary_frames": 924,
+        "sequence_frames": 360,
+        "bounded_rejections": 11,
+        "missing_service_checks": 18,
+        "actors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "directions": [
+          0,
+          1
+        ],
+        "operations": [
+          "advance",
+          "blink",
+          "clock",
+          "disable",
+          "effect",
+          "expression",
+          "find",
+          "follow",
+          "gaze",
+          "hide",
+          "level",
+          "material",
+          "mouth",
+          "publish",
+          "range"
+        ],
+        "state_sha256": "6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+        "max_error": 0,
+        "scope": "Entire original48bcbb presentation against the portable dispatcher.\n\nExecutes original x86 branches, inline timing rewinds and mouth oscillator.\nChildren (including48cc18) are explicit mutable service fixtures. Compares\nordered calls, each live snapshot, final state and interrupted prefixes.\nThis is not real-asset sampling,48cc18 recovery, a phase8 scene or Switch proof.\n"
+      },
+      "summary": "PASS gallery presentation: 12000 frames; 386816 calls; 1091 failure prefixes; 2253 live mutations; 82 rewinds; 11 rejections; 18 missing services; 924 boundary frames; 360 retained frames; state 6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+      "library_sha256": "c994c13870abc3510a2de844734ab5f020e03e311bc5494666e52417e6f3cd88",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "host",
+      "suite": "effect",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 12000,
+        "boundary_frames": 2208,
+        "retained_frames": 4000,
+        "calls": 12267,
+        "live_mutations": 633,
+        "failure_prefixes": 908,
+        "undefined_cue_rejections": 528,
+        "banks": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bounded_service_rejections": 12,
+        "cue_table_words": 60,
+        "state_sha256": "6188e022864a5953a6a522f9b0b7c0e8bccc7378e44e66d39d2058f0edc24c74",
+        "max_error": 0,
+        "scope": "Execute the full48CC18 and49717C against the portable gallery effect.\n\nThe native thresholds, branching, timer, latches and tables run unchanged.\nOnly audio leaves and RNG are fixtures. Compare every observable prefix and\nretained byte, including live callback mutations. Stop at the first native\nuninitialized cue read; the portable side must explicitly reject it there.\nThis is not a complete phase8 scene or hardware test.\n",
+        "full_loader": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery effect: {'random_frames': 12000, 'boundary_frames': 2208, 'retained_frames': 4000, 'calls': 12267, 'live_mutations': 633, 'failure_prefixes': 908, 'undefined_cue_rejections': 528} 6188e022864a5953a6a522f9b0b7c0e8bccc7378e44e66d39d2058f0edc24c74",
+      "library_sha256": "c994c13870abc3510a2de844734ab5f020e03e311bc5494666e52417e6f3cd88",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "host",
+      "suite": "effect-scene",
+      "result": {
+        "passed": true,
+        "scope": "Real Japanese actors and PCM with48CC18 audio commands from native execution.\n\nExplicit clip/time inputs across30 selected asset configurations and60 loads;\nthis verifies the reusable gallery effect adapter, not a natural phase8 load.\nThe reference mixer replays only commands observed from the native function.\nCompare state, shared RNG, status, gain, consumed PCM and unchanged actor\nclocks/locals/worlds. No GPU, Switch or complete gallery acceptance is implied.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "archive_sha256": {
+          "bk3_10": "77adf8022c259dc6d3b961270798b8b1a5ec95f688319f7df7ca2e3dab2a1e3f",
+          "bk3_13": "aa08c86165b38004817911e937ea01aa5baf99db60bd52078a05956460d17894",
+          "bk3_03": "b44383b0b67dfcfcf80c4bd93f4a73da533a2c57303e8bf70c3770841340060b",
+          "bk3_04": "92f41c1a42805d5f698c8f984920f4fdbd71b6030c037ab8c47f0874f5bdd3a2",
+          "fambom": "a82ed75f107cff5e3db4b01b66b239f5c8c52fb8939a98db8d38ef5c1edde6bb",
+          "bk3_02": "32790a9436ee5070c30639d56001d334d0b372ce2fde3c380fc15791a1454854",
+          "bk3_06": "f0042a3a0649f263362c97425e49a3603fd5d089534e48ea702b0e9ef7cf535d"
+        },
+        "profiles": 30,
+        "entries": 60,
+        "frames": 1920,
+        "audio_commands": 1665,
+        "effects": 712,
+        "voices": 241,
+        "retained_states": 30,
+        "undefined_cue_rejections": 232,
+        "missing_resource_rejections": 180,
+        "state_sha256": "e00be7346dd4995501dc61c774dc03462920ca549f99be69559f0b0fc3379f1a",
+        "pcm": [
+          {
+            "group": 0,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "4f5eb86beebd1e8af0a35eb3d5e93ff5199f4eea0667093aa6cdbc80cc309160"
+          },
+          {
+            "group": 0,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "c35a711817db627d49a7f1b6caee3ff984a122101fce5d35ba971b6a1ae29e91"
+          },
+          {
+            "group": 0,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "2f017a502a7beb4460f89dc05e5d81afe40d2ebf15973bafa819c3eb06e4ad45"
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "23830c8166a76990c8e6b014986b699d86309ca7a31742121e0c0e633838e67d"
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "7e42adc48bcd4e989d4cb21ec8ef1f469034a0885cf7c9ba564b6dc2ea435ff4"
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "1118f4d23ce506c1838175d360e4c168cd27d1297f8997f46d1c3a33b7ff01e1"
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "eb01dfcda54a7f5c39f932525277e4fd4ca77a168f2616334df43860aa07b473"
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "45d4dd8a007d6bca7667c66788ac609112faaf47c8b48f534efa2b8b278f2658"
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "d369443602f1f9368d0ed1230428561d1b8a9cda46c140217c2d78af21a31651"
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "e6225997b25cfd2ef201d9f1398e1996507a26a019458b1bcc8599463b09b3a3"
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "0c35479b437d509c96fc0f80a8f083c9c684c2392f86a51cb5ca6babe5bee2bf"
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "bb8f8156c7b1a7ee8ec76cdd1cbadcbbdb9c8b1de1dba69e368aae23128904de"
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "cce9cfee1448c3902dd12fb2f97a486f68d7326167a7898ac06ad71b2bf0642f"
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "a2afc9bba54eebd26b0a93b583c510595c6cfd47ceaf7d26f5f3352cc14c93b4"
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "4bbe33633dd42c486b062c764e843976cc2f6a5330e3245a69b3d37dbb122f2a"
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "2fcfafa48963a957693bda03a56db52ad228b084ef80f930f10fef841ebf866c"
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "f32001a598152cadcfa153f9bf3dbc0a7def92a841a63a5d7c97949a51c72ad8"
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "c81d6aee146199f02816e9981673b854144e1feece8aa3c4ad2a914e1c8424f1"
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "217f54396764dec30372077f0eb266955faa2398bfffde2d0e7da8008c81ee02"
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "971b52c364cd556f36f0bb2fd35cb7bffd8384459d72843f49398c5ff6492a87"
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "e47d803b048b928ab426a7e376abaa693355e53d44fa7f342bb3ab6c97abd7dd"
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "4a91726bccaa493ab6081e42c27cf622aade7c98c3929875958557e750655a8d"
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "47d18548e3dcabceb3e311b90da1edb9db909f902fd7c312ae68491e328ec764"
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "aa73ff790d71d932bfca48452a048693dabb82a4b248f79f7c0c27d33975bd05"
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "851c3e80b9380bd8c0ef31da3cedec516858e5d74afe1ecae198f37d1f170bc0"
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "43fcfc3614207bdfb01e600bf6afe9cd283dc7b0807baa6a03c0b53763712b69"
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "72fc4f07e87a15db0c3f7c168d3c7cb6a09d1faad0060f2490a6094e167ea1df"
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "a1e408494b24b8778aeb8eae96603b30469e8c9ab83df3d23622d0054a66f4f5"
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "dab6539bc92f31f5c3c1769db015701bfea2c0dd5dc756a7959c8f525a111ae9"
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "c344458c2c745d99821554d006d36012a760909aaacb49ebe0ca30149da2494a"
+          }
+        ],
+        "natural_gallery": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery effect scene: 1920 frames 1665 audio commands e00be7346dd4995501dc61c774dc03462920ca549f99be69559f0b0fc3379f1a",
+      "library_sha256": "c994c13870abc3510a2de844734ab5f020e03e311bc5494666e52417e6f3cd88",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "asan",
+      "suite": "presentation",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "frames": 12000,
+        "calls": 386816,
+        "failure_prefixes": 1091,
+        "live_mutations": 2253,
+        "rewinds": 82,
+        "boundary_frames": 924,
+        "sequence_frames": 360,
+        "bounded_rejections": 11,
+        "missing_service_checks": 18,
+        "actors": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "directions": [
+          0,
+          1
+        ],
+        "operations": [
+          "advance",
+          "blink",
+          "clock",
+          "disable",
+          "effect",
+          "expression",
+          "find",
+          "follow",
+          "gaze",
+          "hide",
+          "level",
+          "material",
+          "mouth",
+          "publish",
+          "range"
+        ],
+        "state_sha256": "6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+        "max_error": 0,
+        "scope": "Entire original48bcbb presentation against the portable dispatcher.\n\nExecutes original x86 branches, inline timing rewinds and mouth oscillator.\nChildren (including48cc18) are explicit mutable service fixtures. Compares\nordered calls, each live snapshot, final state and interrupted prefixes.\nThis is not real-asset sampling,48cc18 recovery, a phase8 scene or Switch proof.\n"
+      },
+      "summary": "PASS gallery presentation: 12000 frames; 386816 calls; 1091 failure prefixes; 2253 live mutations; 82 rewinds; 11 rejections; 18 missing services; 924 boundary frames; 360 retained frames; state 6d43815f8459ab9d0d21f7db46a20f0a930ff010054b0aedaff5dd30a0717b34",
+      "library_sha256": "9c98dff3ac6883b24a8f109c0a65db4f986bfac7ded32ac2b90cfa0d3f0a66b0",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    },
+    {
+      "mode": "asan",
+      "suite": "effect",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 12000,
+        "boundary_frames": 2208,
+        "retained_frames": 4000,
+        "calls": 12267,
+        "live_mutations": 633,
+        "failure_prefixes": 908,
+        "undefined_cue_rejections": 528,
+        "banks": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "bounded_service_rejections": 12,
+        "cue_table_words": 60,
+        "state_sha256": "6188e022864a5953a6a522f9b0b7c0e8bccc7378e44e66d39d2058f0edc24c74",
+        "max_error": 0,
+        "scope": "Execute the full48CC18 and49717C against the portable gallery effect.\n\nThe native thresholds, branching, timer, latches and tables run unchanged.\nOnly audio leaves and RNG are fixtures. Compare every observable prefix and\nretained byte, including live callback mutations. Stop at the first native\nuninitialized cue read; the portable side must explicitly reject it there.\nThis is not a complete phase8 scene or hardware test.\n",
+        "full_loader": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery effect: {'random_frames': 12000, 'boundary_frames': 2208, 'retained_frames': 4000, 'calls': 12267, 'live_mutations': 633, 'failure_prefixes': 908, 'undefined_cue_rejections': 528} 6188e022864a5953a6a522f9b0b7c0e8bccc7378e44e66d39d2058f0edc24c74",
+      "library_sha256": "9c98dff3ac6883b24a8f109c0a65db4f986bfac7ded32ac2b90cfa0d3f0a66b0",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    },
+    {
+      "mode": "asan",
+      "suite": "effect-scene",
+      "result": {
+        "passed": true,
+        "scope": "Real Japanese actors and PCM with48CC18 audio commands from native execution.\n\nExplicit clip/time inputs across30 selected asset configurations and60 loads;\nthis verifies the reusable gallery effect adapter, not a natural phase8 load.\nThe reference mixer replays only commands observed from the native function.\nCompare state, shared RNG, status, gain, consumed PCM and unchanged actor\nclocks/locals/worlds. No GPU, Switch or complete gallery acceptance is implied.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "archive_sha256": {
+          "bk3_10": "77adf8022c259dc6d3b961270798b8b1a5ec95f688319f7df7ca2e3dab2a1e3f",
+          "bk3_13": "aa08c86165b38004817911e937ea01aa5baf99db60bd52078a05956460d17894",
+          "bk3_03": "b44383b0b67dfcfcf80c4bd93f4a73da533a2c57303e8bf70c3770841340060b",
+          "bk3_04": "92f41c1a42805d5f698c8f984920f4fdbd71b6030c037ab8c47f0874f5bdd3a2",
+          "fambom": "a82ed75f107cff5e3db4b01b66b239f5c8c52fb8939a98db8d38ef5c1edde6bb",
+          "bk3_02": "32790a9436ee5070c30639d56001d334d0b372ce2fde3c380fc15791a1454854",
+          "bk3_06": "f0042a3a0649f263362c97425e49a3603fd5d089534e48ea702b0e9ef7cf535d"
+        },
+        "profiles": 30,
+        "entries": 60,
+        "frames": 1920,
+        "audio_commands": 1665,
+        "effects": 712,
+        "voices": 241,
+        "retained_states": 30,
+        "undefined_cue_rejections": 232,
+        "missing_resource_rejections": 180,
+        "state_sha256": "e00be7346dd4995501dc61c774dc03462920ca549f99be69559f0b0fc3379f1a",
+        "pcm": [
+          {
+            "group": 0,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "4f5eb86beebd1e8af0a35eb3d5e93ff5199f4eea0667093aa6cdbc80cc309160"
+          },
+          {
+            "group": 0,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "c35a711817db627d49a7f1b6caee3ff984a122101fce5d35ba971b6a1ae29e91"
+          },
+          {
+            "group": 0,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "2f017a502a7beb4460f89dc05e5d81afe40d2ebf15973bafa819c3eb06e4ad45"
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "23830c8166a76990c8e6b014986b699d86309ca7a31742121e0c0e633838e67d"
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "7e42adc48bcd4e989d4cb21ec8ef1f469034a0885cf7c9ba564b6dc2ea435ff4"
+          },
+          {
+            "group": 0,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "1118f4d23ce506c1838175d360e4c168cd27d1297f8997f46d1c3a33b7ff01e1"
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "eb01dfcda54a7f5c39f932525277e4fd4ca77a168f2616334df43860aa07b473"
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "45d4dd8a007d6bca7667c66788ac609112faaf47c8b48f534efa2b8b278f2658"
+          },
+          {
+            "group": 1,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "d369443602f1f9368d0ed1230428561d1b8a9cda46c140217c2d78af21a31651"
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "e6225997b25cfd2ef201d9f1398e1996507a26a019458b1bcc8599463b09b3a3"
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "0c35479b437d509c96fc0f80a8f083c9c684c2392f86a51cb5ca6babe5bee2bf"
+          },
+          {
+            "group": 1,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "bb8f8156c7b1a7ee8ec76cdd1cbadcbbdb9c8b1de1dba69e368aae23128904de"
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "cce9cfee1448c3902dd12fb2f97a486f68d7326167a7898ac06ad71b2bf0642f"
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "a2afc9bba54eebd26b0a93b583c510595c6cfd47ceaf7d26f5f3352cc14c93b4"
+          },
+          {
+            "group": 2,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "4bbe33633dd42c486b062c764e843976cc2f6a5330e3245a69b3d37dbb122f2a"
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "2fcfafa48963a957693bda03a56db52ad228b084ef80f930f10fef841ebf866c"
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "f32001a598152cadcfa153f9bf3dbc0a7def92a841a63a5d7c97949a51c72ad8"
+          },
+          {
+            "group": 2,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "c81d6aee146199f02816e9981673b854144e1feece8aa3c4ad2a914e1c8424f1"
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "217f54396764dec30372077f0eb266955faa2398bfffde2d0e7da8008c81ee02"
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "971b52c364cd556f36f0bb2fd35cb7bffd8384459d72843f49398c5ff6492a87"
+          },
+          {
+            "group": 3,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "e47d803b048b928ab426a7e376abaa693355e53d44fa7f342bb3ab6c97abd7dd"
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "4a91726bccaa493ab6081e42c27cf622aade7c98c3929875958557e750655a8d"
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "47d18548e3dcabceb3e311b90da1edb9db909f902fd7c312ae68491e328ec764"
+          },
+          {
+            "group": 3,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "aa73ff790d71d932bfca48452a048693dabb82a4b248f79f7c0c27d33975bd05"
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "851c3e80b9380bd8c0ef31da3cedec516858e5d74afe1ecae198f37d1f170bc0"
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "43fcfc3614207bdfb01e600bf6afe9cd283dc7b0807baa6a03c0b53763712b69"
+          },
+          {
+            "group": 4,
+            "variant": 0,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "72fc4f07e87a15db0c3f7c168d3c7cb6a09d1faad0060f2490a6094e167ea1df"
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "selection": 0,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "a1e408494b24b8778aeb8eae96603b30469e8c9ab83df3d23622d0054a66f4f5"
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "selection": 1,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "dab6539bc92f31f5c3c1769db015701bfea2c0dd5dc756a7959c8f525a111ae9"
+          },
+          {
+            "group": 4,
+            "variant": 1,
+            "selection": 2,
+            "pcm_frames": 32160,
+            "nonzero_blocks": 67,
+            "pcm_sha256": "c344458c2c745d99821554d006d36012a760909aaacb49ebe0ca30149da2494a"
+          }
+        ],
+        "natural_gallery": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery effect scene: 1920 frames 1665 audio commands e00be7346dd4995501dc61c774dc03462920ca549f99be69559f0b0fc3379f1a",
+      "library_sha256": "9c98dff3ac6883b24a8f109c0a65db4f986bfac7ded32ac2b90cfa0d3f0a66b0",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    }
+  ],
+  "python_unittests": {
+    "count": 29,
+    "passed": true,
+    "log": "local/gallery-effect-python.log"
+  },
+  "shell_syntax": true,
+  "switch": {
+    "passed": true,
+    "log": "local/gallery-effect-switch.log",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0,
+    "static_game_and_scene_symbols": true,
+    "production_references": false,
+    "artifacts": {
+      "build-switch/biko3-preview.nro": {
+        "bytes": 16076856,
+        "sha256": "784d0019fbd5393b7e0637d9597b4f017439e4f023959c70724bb7b6fe0a5254"
+      },
+      "build-switch/biko3-preview.elf": {
+        "bytes": 34356928,
+        "sha256": "bcbbc4ba945790a4619bec552e94c8bfed99595a7f835b706114932ded049e4a"
+      }
+    }
+  },
+  "leak_detection": false,
+  "hardware_validation": false,
+  "natural_gallery": false,
+  "packaged": false,
+  "pushed": false,
+  "awake": {
+    "pid": 64008,
+    "command": "/usr/bin/caffeinate -ims",
+    "process_start": "Wed Sep 30 05:37:13 2026",
+    "verified_live": true
+  },
+  "remaining": [
+    "48302B and five child controllers",
+    "48BCBB/48CC18 production scene binding and process lifetime",
+    "phase8 entry and cross-loader reloads",
+    "natural ending, persistent unlock and gallery return",
+    "full production pixels and Switch acceptance"
+  ]
+}

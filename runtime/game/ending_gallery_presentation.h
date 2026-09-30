@@ -13,7 +13,7 @@ typedef struct {
   BkEndingFrameState *frame;
   BkEndingAuxiliaryState *auxiliary;
   BkFaceState *face;
-  const int8_t *area;                 /*721b3d*/
+  const uint8_t *event;                 /*721b3d: control.variant*/
   const int8_t *action, *requested;   /*6ddce0/6d1be1*/
   const int32_t *cursor, *workspace;  /*6c7f74/6c7f80*/
   uint32_t workspace_capacity;
