@@ -154,9 +154,9 @@ static int commit_sample(BkModelPlayback *p, BkClipSample clip,
   int plain_submitted = !clip.blend && p->plain_time != clip.from;
   int sampled = clip.blend || plain_submitted;
   size_t count = (size_t)p->model->frame_count * 16;
-  int ok = bk_model_animation_update(p->animation, sampled ? &sample : NULL,
-                                     root, p->local, p->next_world,
-                                     p->next_local, count, error);
+  int ok = bk_model_animation_update_reuse(
+      p->animation, sampled ? &sample : NULL, root, p->local, p->next_world,
+      p->next_local, count, error);
   if (!ok)
     return 0;
   BkClipPlayer *old = p->player;
@@ -269,8 +269,9 @@ int bk_model_playback_place(BkModelPlayback *p,
     return fail(error, "missing instance");
   size_t count = (size_t)p->model->frame_count * 16;
   int ok =
-      bk_model_animation_update(p->animation, NULL, root, p->local,
-                                p->next_world, p->next_local, count, error);
+      bk_model_animation_update_reuse(p->animation, NULL, root, p->local,
+                                      p->next_world, p->next_local, count,
+                                      error);
   if (!ok)
     return 0;
   float *previous = p->world;

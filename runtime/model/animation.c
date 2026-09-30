@@ -286,7 +286,7 @@ static Key key_at(const Track *track, float t, int loop) {
 static int pose(const BkModelAnimation *a, float from, float to, float weight,
                 int blend, int loop, int base, const BkModelRootTransform *root,
                 float *world, float *local_output, const float *previous_local,
-                size_t count, char error[256]) {
+                int reuse_outputs, size_t count, char error[256]) {
   if (!a || !world || count != (size_t)a->model->frame_count * 16 ||
       !isfinite(from) || from < 0 || from >= 2147483648.0f || !isfinite(to) ||
       to < 0 || to >= 2147483648.0f || !isfinite(weight) ||
@@ -310,9 +310,11 @@ static int pose(const BkModelAnimation *a, float from, float to, float weight,
     weight = 0;
   if (weight > 1)
     weight = 1;
-  float *local = malloc(count * sizeof(float)),
-        *result = malloc(count * sizeof(float));
-  if (!local || !result) {
+  if (reuse_outputs && (!local_output || local_output == world))
+    return fail(error, "invalid reusable pose outputs");
+  float *local = reuse_outputs ? local_output : malloc(count * sizeof(float));
+  float *result = reuse_outputs ? world : malloc(count * sizeof(float));
+  if (!reuse_outputs && (!local || !result)) {
     free(local);
     free(result);
     return fail(error, "pose allocation failed");
@@ -356,25 +358,27 @@ static int pose(const BkModelAnimation *a, float from, float to, float weight,
   if (root)
     memcpy(local + root->frame * 16, root->world, 64);
   int ok = bk_model_pose_world_matrices(a->model, local, result, count, error);
-  if (ok) {
+  if (ok && !reuse_outputs) {
     memcpy(world, result, count * sizeof(float));
     if (local_output)
       memcpy(local_output, local, count * sizeof(float));
   }
-  free(local);
-  free(result);
+  if (!reuse_outputs) {
+    free(local);
+    free(result);
+  }
   return ok;
 }
 int bk_model_animation_sample(const BkModelAnimation *a, float time, int loop,
                               float *world, size_t count, char error[256]) {
-  return pose(a, time, time, 0, 0, loop, 0, NULL, world, NULL, NULL, count,
-              error);
+  return pose(a, time, time, 0, 0, loop, 0, NULL, world, NULL, NULL, 0,
+              count, error);
 }
 int bk_model_animation_blend(const BkModelAnimation *a, float from, float to,
                              float weight, int loop, float *world, size_t count,
                              char error[256]) {
-  return pose(a, from, to, weight, 1, loop, 0, NULL, world, NULL, NULL, count,
-              error);
+  return pose(a, from, to, weight, 1, loop, 0, NULL, world, NULL, NULL, 0,
+              count, error);
 }
 int bk_model_animation_pose(const BkModelAnimation *a,
                             const BkModelPoseSample *sample,
@@ -383,12 +387,13 @@ int bk_model_animation_pose(const BkModelAnimation *a,
   if (!sample)
     return fail(error, "missing sample request");
   return pose(a, sample->from, sample->to, sample->weight, sample->blend,
-              sample->loop, 0, root, world, NULL, NULL, count, error);
+              sample->loop, 0, root, world, NULL, NULL, 0, count, error);
 }
 int bk_model_animation_base_pose(const BkModelAnimation *a,
                                  const BkModelRootTransform *root, float *world,
                                  size_t count, char error[256]) {
-  return pose(a, 0, 0, 0, 0, 0, 1, root, world, NULL, NULL, count, error);
+  return pose(a, 0, 0, 0, 0, 0, 1, root, world, NULL, NULL, 0, count,
+              error);
 }
 int bk_model_animation_matrices(const BkModelAnimation *a,
                                 const BkModelPoseSample *sample,
@@ -397,9 +402,10 @@ int bk_model_animation_matrices(const BkModelAnimation *a,
   if (local && local == world)
     return fail(error, "local and world outputs overlap");
   if (!sample)
-    return pose(a, 0, 0, 0, 0, 0, 1, root, world, local, NULL, count, error);
+    return pose(a, 0, 0, 0, 0, 0, 1, root, world, local, NULL, 0, count,
+                error);
   return pose(a, sample->from, sample->to, sample->weight, sample->blend,
-              sample->loop, 0, root, world, local, NULL, count, error);
+              sample->loop, 0, root, world, local, NULL, 0, count, error);
 }
 
 int bk_model_animation_update(const BkModelAnimation *a,
@@ -410,9 +416,25 @@ int bk_model_animation_update(const BkModelAnimation *a,
   if (!previous_local || !local || local == world)
     return fail(error, "missing/overlapping incremental pose arrays");
   if (!sample)
-    return pose(a, 0, 0, 0, 0, 0, 1, root, world, local, previous_local, count,
-                error);
+    return pose(a, 0, 0, 0, 0, 0, 1, root, world, local, previous_local, 0,
+                count, error);
   return pose(a, sample->from, sample->to, sample->weight, sample->blend,
-              sample->loop, 0, root, world, local, previous_local, count,
+              sample->loop, 0, root, world, local, previous_local, 0, count,
+              error);
+}
+
+int bk_model_animation_update_reuse(const BkModelAnimation *a,
+                                    const BkModelPoseSample *sample,
+                                    const BkModelRootTransform *root,
+                                    const float *previous_local, float *world,
+                                    float *local, size_t count,
+                                    char error[256]) {
+  if (!previous_local || !local || local == world)
+    return fail(error, "missing/overlapping incremental pose arrays");
+  if (!sample)
+    return pose(a, 0, 0, 0, 0, 0, 1, root, world, local, previous_local, 1,
+                count, error);
+  return pose(a, sample->from, sample->to, sample->weight, sample->blend,
+              sample->loop, 0, root, world, local, previous_local, 1, count,
               error);
 }

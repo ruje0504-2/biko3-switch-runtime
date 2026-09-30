@@ -1,4 +1,5 @@
 #include "core/matrix.h"
+#include "core/arm64_math.h"
 #include <math.h>
 #include <string.h>
 int bk_matrix_axis_rotation(float out[16], const float axis[3], float radians) {
@@ -124,6 +125,9 @@ void bk_matrix_quaternion(float out[16], const float q[4]) {
   memcpy(out, result, sizeof(result));
 }
 void bk_matrix_multiply(float out[16], const float a[16], const float b[16]) {
+#ifdef BK_ARM64_NEON
+  bk_arm64_matrix_multiply(out, a, b);
+#else
   float result[16];
   for (unsigned i = 0; i < 4; i++)
     for (unsigned j = 0; j < 4; j++) {
@@ -133,13 +137,18 @@ void bk_matrix_multiply(float out[16], const float a[16], const float b[16]) {
       result[i * 4 + j] = (float)value;
     }
   memcpy(out, result, sizeof(result));
+#endif
 }
 void bk_matrix_point(float out[4], const float p[3], const float m[16]) {
+#ifdef BK_ARM64_NEON
+  bk_arm64_matrix_point(out, p, m);
+#else
   float result[4];
   for (unsigned j = 0; j < 4; j++)
     result[j] = (float)((double)p[0] * m[j] + (double)p[1] * m[4 + j] +
                         (double)p[2] * m[8 + j] + m[12 + j]);
   memcpy(out, result, sizeof(result));
+#endif
 }
 int bk_matrix_transform_coord(float out[3], const float p[3], const float m[16]) {
   if (!out || !p || !m)

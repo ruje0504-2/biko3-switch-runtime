@@ -76,4 +76,13 @@ int bk_model_animation_update(const BkModelAnimation *animation,
                               const float *previous_local, float *world,
                               float *local, size_t float_count,
                               char error[256]);
+/* Playback fast path. local/world are the caller's inactive double-buffer
+ * outputs and may be modified if evaluation fails; previous_local remains the
+ * published pose. This avoids a malloc/free pair on every animation tick. */
+int bk_model_animation_update_reuse(const BkModelAnimation *animation,
+                                    const BkModelPoseSample *sample,
+                                    const BkModelRootTransform *root,
+                                    const float *previous_local, float *world,
+                                    float *local, size_t float_count,
+                                    char error[256]);
 #endif

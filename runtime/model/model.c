@@ -1,4 +1,6 @@
 #include "model/model.h"
+#include "core/arm64_math.h"
+#include "core/matrix.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -427,6 +429,42 @@ int bk_model_pose_world_matrices_under(const BkModel *m, const float *local,
   if (external &&
       (root >= m->frame_count || m->frames[root].parent_index != BK_MODEL_NONE))
     return fail(error, "invalid external parent root");
+
+  /* Decoded game models are normally stored parent-before-child. Avoid the
+   * per-frame calloc/stack walk in that common layout; retain the old path for
+   * synthetic or unusual files whose parents appear later. */
+  int ordered = 1;
+  for (uint32_t i = 0; i < m->frame_count; i++) {
+    uint32_t parent = m->frames[i].parent_index;
+    if (parent != BK_MODEL_NONE && parent >= i) {
+      ordered = 0;
+      break;
+    }
+  }
+  if (ordered) {
+    for (uint32_t i = 0; i < m->frame_count; i++) {
+      const BkModelFrame *f = &m->frames[i];
+      float *dest = output + i * 16;
+      const float *matrix = local ? local + i * 16 : f->local;
+      const float *parent = i == root && external ? external
+                            : f->parent_index == BK_MODEL_NONE
+                                ? NULL
+                                : output + f->parent_index * 16;
+      if (!parent)
+        memcpy(dest, matrix, 64);
+      else {
+#ifdef BK_ARM64_NEON
+        bk_arm64_prefetch_l1(parent);
+#endif
+        bk_matrix_multiply(dest, matrix, parent);
+      }
+      for (unsigned k = 0; k < 16; k++)
+        if (!isfinite(dest[k]))
+          return fail(error, "world matrix overflow");
+    }
+    return 1;
+  }
+
   uint8_t *state = calloc(m->frame_count ? m->frame_count : 1, 1);
   uint32_t *stack = array(m->frame_count, sizeof(*stack), error);
   int ok = 0;
@@ -462,15 +500,8 @@ int bk_model_pose_world_matrices_under(const BkModel *m, const float *local,
                                 : output + f->parent_index * 16;
       if (!parent)
         memcpy(dest, matrix, 64);
-      else {
-        for (unsigned r = 0; r < 4; r++)
-          for (unsigned c = 0; c < 4; c++) {
-            double sum = 0;
-            for (unsigned k = 0; k < 4; k++)
-              sum += (double)matrix[r * 4 + k] * parent[k * 4 + c];
-            dest[r * 4 + c] = (float)sum;
-          }
-      }
+      else
+        bk_matrix_multiply(dest, matrix, parent);
       for (unsigned k = 0; k < 16; k++)
         if (!isfinite(dest[k])) {
           fail(error, "world matrix overflow");
