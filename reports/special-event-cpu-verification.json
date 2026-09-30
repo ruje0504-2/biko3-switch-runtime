@@ -1,0 +1,146 @@
+{
+  "passed": true,
+  "scope": "Complete flow48 CPU frame with native helpers and explicit leaf-service fixtures; not assets, PCM, production scene or Switch acceptance.",
+  "pair": "build/validation/special-event-0j3ddd7r/verification.json",
+  "pair_sha256": "a2f5655fef69cedca23ebd58d2b024e89f727fa03ab063a5b4f14c3f20a4b2c4",
+  "checks": [
+    {
+      "mode": "host",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "scope": "Run complete51B647 with its five helpers, native timers and target envelope.\n\nOnly model/camera/input/audio/clock leaves are fixtures. Compare every ordered\ncall and persistent state, including callback mutations and failure prefixes.\nNo real assets, PCM playback, flow48 loader/UI or Switch validation is claimed.\n",
+        "random_frames": 6000,
+        "boundary_frames": 876,
+        "retained_frames": 12000,
+        "calls": 357045,
+        "live_mutations": 1993,
+        "failure_prefixes": 1067,
+        "rejections": 33,
+        "envelope_cases": 4096,
+        "state_sha256": "335189866745590b85632c0b165bfee84a5abc03f5c84942761c1fec13a803f3",
+        "max_error": 0,
+        "functions": [
+          "51b647",
+          "4e5c91",
+          "4e5901",
+          "4e5dc0",
+          "4e6154",
+          "4e620a",
+          "4adbb9",
+          "4af2d1"
+        ]
+      },
+      "library_sha256": "1622f8b3ce2082456e0aad44c3ff4bee02d9ac77908d6607c715c7bb542dd5c1",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "asan",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "scope": "Run complete51B647 with its five helpers, native timers and target envelope.\n\nOnly model/camera/input/audio/clock leaves are fixtures. Compare every ordered\ncall and persistent state, including callback mutations and failure prefixes.\nNo real assets, PCM playback, flow48 loader/UI or Switch validation is claimed.\n",
+        "random_frames": 6000,
+        "boundary_frames": 876,
+        "retained_frames": 12000,
+        "calls": 357045,
+        "live_mutations": 1993,
+        "failure_prefixes": 1067,
+        "rejections": 33,
+        "envelope_cases": 4096,
+        "state_sha256": "335189866745590b85632c0b165bfee84a5abc03f5c84942761c1fec13a803f3",
+        "max_error": 0,
+        "functions": [
+          "51b647",
+          "4e5c91",
+          "4e5901",
+          "4e5dc0",
+          "4e6154",
+          "4e620a",
+          "4adbb9",
+          "4af2d1"
+        ]
+      },
+      "library_sha256": "d246d1d79d06cd5a5019484765c338e43b61cea5c4f5070acbd1afb754af3920",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    }
+  ],
+  "source_sha256": {
+    "CMakeLists.txt": "51f833206eb8888e107a00ab19310bb045b41e480fd1420139a008dd1cf78967",
+    "test-host.sh": "113776ed151fd306a4536cc71239e9ccef85a3aa05efe2ee86b74e9b345fdeef",
+    "runtime/game/special_event.c": "cb985113f3a20355911abc7ddecb13ea367d612abb8cdec0caf2d38beb94b11a",
+    "runtime/game/special_event.h": "c997481bfce92d16a28ce950fabef6c26efa498684ae7e0c8a1b0816bb2f8a98",
+    "runtime/world/voice_envelope.c": "9df90daef6b25bbe69c354a61ac58b61138dc988c6eb9cb42870393d0ce7573d",
+    "runtime/world/voice_envelope.h": "fa50b1483cebef2bd1405c4f3fcc58d35f4fdcfc1ec6b910e43ac9f1acbc93ff",
+    "tests/check_special_event.py": "4bc0e3676593d4824aed7cddf79107bb79ae4e4ca9e609ddd8497625fbadd0cd",
+    "tests/original_special_event_oracle.py": "9d0b1c3a14827acdb55571847f728803a864a49188b255fd35c19a2591f2119c"
+  },
+  "supplemental": {
+    "host_ctest": [
+      "voice-envelope",
+      "ending-frame",
+      "ending-state"
+    ],
+    "asan_ctest": [
+      "voice-envelope",
+      "ending-frame",
+      "ending-state"
+    ],
+    "python_tests": 29,
+    "logs": {
+      "local/special-event-unit-host.log": "00f4cbb95dbe3e38d9b33f86599638baba9762bff1add433e527c966c9abd17a",
+      "local/special-event-unit-asan.log": "5817e906eeb7c4aec19701950f31e4d9365606fc09c4d2cb731966cf0ada1c3b",
+      "local/special-event-python.log": "51d514b2b65183f67766a3db398ea32d52528eb662862d60dcdf1d101c6288b7",
+      "local/special-event-nvk-build.log": "38a641d47df1481daee0a148c9d101af74073255abcbc34d192bf2dcd75e030c",
+      "local/special-event-final-nvk.log": "eee092b0757402481dbbebd7f12149f578be17feee849034525ef2c8c28db8cc"
+    }
+  },
+  "switch": {
+    "passed": true,
+    "nro_sha256": "1977887897d9391941a04205012c42113082f4595f1af3f823ea464ae1c2493e",
+    "nro_bytes": 16175160,
+    "undefined_symbols": 0,
+    "controller_in_static_library": true,
+    "controller_in_elf": false,
+    "envelope_in_elf": true,
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "vulkan_library_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256"
+  },
+  "failure_history": [
+    "local/special-event-smoke.log"
+  ],
+  "production_flow48": false,
+  "real_assets": false,
+  "real_pcm": false,
+  "hardware_acceptance": false,
+  "unresolved": [
+    "flow48 actual loader/cameras/UI/release/application",
+    "natural records/persistence/unlocks",
+    "full pixels remain9/12",
+    "Switch full acceptance"
+  ],
+  "push": false,
+  "full_package": false,
+  "awake_pid": 64008,
+  "post_validation_documentation_correction": {
+    "file": "runtime/game/special_event.h",
+    "before_sha256": "f34aac798caa4e40f052fbcd68b7c036df635dd00e2fbd6d6adac6320ab5bff9",
+    "after_sha256": "c997481bfce92d16a28ce950fabef6c26efa498684ae7e0c8a1b0816bb2f8a98",
+    "preprocessing_unchanged": true,
+    "preprocessed_sha256": "c4b5ad9e03dc3e3c688b19e02ebc0306677e95d3a277f8406f163ecfdb2c40d8",
+    "command": [
+      "/usr/bin/clang",
+      "-E",
+      "-P",
+      "-x",
+      "c",
+      "-Iruntime",
+      "runtime/game/special_event.c"
+    ],
+    "import_table": {
+      "0x53f358": "timeGetTime",
+      "0x53f10c": "GetTickCount"
+    },
+    "scope": "Clock import names in one comment corrected after final paired tests; C preprocessed translation unit is byte-identical."
+  }
+}

@@ -1,3 +1,5 @@
+2026-09-30 flow48逐帧CPU已恢复51B647与五辅助函数，见 `reports/special-event-cpu.md` / verification JSON。普通/ASan各6,000随机、876边界、12,000连续CPU帧、357,045调用/1,067失败前缀与4,096直接包络对照一致；共享708878/7C不得另建owner。3普通/3ASan及29Python、指定NVK通过，NRO19778878…仅构建目录，新控制器仅在静态库、未进生产ELF。真实4E29B0资源/4BB82E镜头/4E4472界面/释放及应用仍缺，不能称flow48可玩。721B38=Back、71AF48=角色焦点；groups1/4的4E6138是视频更新。自然记录/像素9/12/实机缺口保持，防休眠64008、本地提交、不推送、不整包。接续local/ending-gallery-next.md。
+
 2026-09-30 鉴赏菜单已接实际应用flow18与全部selection0..6入口，见 `reports/gallery-application.md` / verification JSON。四组普通/ASan配对终态通过；各40,803帧/40入口/25图片/10回放返回/172重绘，显式保存表与结束标记记录夹具不等于自然故事录制。第五类独立背景缺口已按4CE7CB..4CE806补齐；左摇杆/方向键/触屏与闲置光标唤醒已接。8普通/8ASan单测、29Python、指定NVK通过；NRO dd27f0af…/16,175,160字节，新增入口已进ELF。下一项独立flow48（4E29B0/51B647/51B617/4E42E4）、自然记录持久化及解锁链；完整像素9/12与实机缺口保持。防休眠64008、本地提交、不推送、不整包。接续local/ending-gallery-next.md。下文“菜单未接应用”为历史快照。
 
 2026-09-30 鉴赏菜单边界：`scene/gallery_menu`只接收上层提供的解锁字节，不依赖save，保留原指令点击/换页/图片/分派顺序。`gallery_menu_render`拥有真实图片与immutable绘制快照，关闭图片的最后一帧先捕获再延迟释放；下一真实tick才退役，重绘不推进。两组普通/ASan原版与真实纹理/PCM检查通过，见 `reports/gallery-menu.md`。front_end/PlaySession的flow18尚未注册，不能将独立组件验证当成应用或实机验收。

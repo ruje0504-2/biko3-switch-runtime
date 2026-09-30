@@ -60,6 +60,26 @@ int bk_voice_envelope_step(BkVoiceEnvelope *state, int available,
   *out = next.smoothed;
   return 1;
 }
+int bk_voice_envelope_target(BkVoiceEnvelope *state, float target,
+                              float seconds, float *out, char error[256]) {
+  if (!state || !out || !isfinite(target) || !isfinite(state->smoothed) ||
+      !isfinite(seconds) || seconds < 0)
+    return fail(error, "invalid direct envelope input");
+  BkVoiceEnvelope next = {target, state->smoothed};
+  if (target < next.smoothed) {
+    next.smoothed = (float)((double)next.smoothed - 10.0 * seconds);
+    if (target >= next.smoothed) next.smoothed = target;
+  } else if (target > next.smoothed) {
+    next.smoothed = (float)((double)next.smoothed + 10.0 * seconds);
+    if (target <= next.smoothed) next.smoothed = target;
+  } else {
+    next.smoothed = target;
+  }
+  if (next.smoothed >= 9) next.smoothed = 9;
+  *state = next;
+  *out = next.smoothed;
+  return 1;
+}
 int bk_ending_voice_pcm_level(const int16_t *samples, size_t count,
                                size_t source, int *sampled, int32_t *magnitude,
                                char error[256]) {

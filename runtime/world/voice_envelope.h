@@ -21,6 +21,10 @@ int bk_voice_pcm_level(const void *first, size_t first_bytes,
 int bk_voice_envelope_step(BkVoiceEnvelope *state, int available,
                             int32_t level, float seconds, float *out,
                             char error[256]);
+/*4af2d1 uses the SAME708878/7c owner but takes a direct target without
+ * PCM scaling; it retains the cap at9. Invalid input leaves state/out intact.*/
+int bk_voice_envelope_target(BkVoiceEnvelope *, float target, float seconds,
+                              float *out, char error[256]);
 /*4ad363 over decoded host-endian PCM16, indexed in interleaved samples.
  * The native DWORD guard is offset < buffer_bytes-443. A221-sample buffer
  * underflows that subtraction and admits a442-byte lock, possibly split
