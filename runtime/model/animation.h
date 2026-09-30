@@ -3,6 +3,8 @@
 #include "model/model.h"
 /* ANIM adapter for the verified 220-byte S/R/T key layout. Missing channels
  * use original preprocessing; non-unit quaternions are retained unchanged.
+ * Repeated targets are submitted in file order; the final track wins for
+ * that node in both plain sampling and blending (original4097d6/409a94).
  * Curved translation and legacy layouts are unsupported.
  * Missing ANIM or a valid72-byte zero-track chunk has zero SRT tracks:
  * its XAN timeline may

@@ -21,6 +21,12 @@ int bk_menu_camera_orbit(BkMenuCamera *, const float pointer_motion[2],
 int bk_menu_camera_track(BkMenuCamera *, const float track_world[3],
                          const float *focus_world, uint8_t flow, float seconds,
                          char error[256]);
+/*4bb82e math after secondary request/advance and global refresh. The fresh
+ *track is copied through native float subtraction/addition (factor1).
+ *Aim uses the OLD camera position, then installs the new position; focus
+ *and orbit scalars remain held. The original third argument is unused.*/
+int bk_menu_camera_opening(BkMenuCamera *, const float track_world[3],
+                           const float target_world[3], char error[256]);
 /*4bd641: reset yaw/pitch/position and install a fixed world/FOV. Radius,
  * height, focus and the separate +4a4 matrix are retained. The adapter must
  * install pose.world via the camera world setter, respecting parent cache. */

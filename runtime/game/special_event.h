@@ -52,8 +52,9 @@ typedef enum {
 } BkSpecialEventFace;
 typedef struct {
   void *context;
-  /*seconds exposes the original implicit733700 input for all controllers;
-   * OPEN alone substitutes zero when paused. clip applies to OPEN/TRANSITION,
+  /*For OPEN seconds is the original third argument (zero when paused), but
+   *4bb82e ignores it: the adapter must borrow live733700 from its context.
+   *Other operations receive that live733700 explicitly. clip applies to OPEN/TRANSITION,
    * center to TRANSITION/ORBIT; done is consumed only for TRANSITION.*/
   int (*camera)(void *, BkSpecialEventCamera, int32_t clip,
                  const float center[3], float seconds, uint8_t *done, char[256]);
@@ -64,7 +65,7 @@ typedef struct {
   int (*present)(void *, BkSpecialEventObject, int *, char[256]);
   /*422c49 or4241e3 relative to the actual645600 reference. object0/1
    * selects the primary/secondary camera root. Values are XYZ or axis.*/
-  int (*place)(void *, unsigned object, const float values[3], float degrees,
+  int (*place)(void *, unsigned object, const float values[3], float radians,
                 char[256]);
   int (*audio)(void *, const BkSpecialEventAudioCall *, char[256]);
   int (*cue)(void *, int32_t tick, uint8_t *triggered, char[256]); /*4afe00(...,0)*/

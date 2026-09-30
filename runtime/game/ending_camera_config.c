@@ -321,3 +321,18 @@ int bk_ending_camera_config(BkEndingCameraPresets *out, unsigned group,
   *out = next;
   return 1;
 }
+
+/*4be4f8(flow48): five independent literal profiles, column-major banks.*/
+int bk_special_event_camera_config(BkEndingCameraPresets *out, unsigned group) {
+  static const uint32_t bits[5][12] = {
+    {0x43340000, 0x431e0000, 0x40800000, 0xc1200000, 0x41a80000, 0xc0a00000, 0x424c0000, 0x41700000, 0x41f00000, 0x41300000, 0x41800000, 0x41800000},
+    {0x3faa3d71, 0x438fdd71, 0x43207ae1, 0x40351eb8, 0x42765c29, 0x401f5c29, 0x423fd70a, 0x429628f6, 0x4215c28f, 0x00000000, 0x3fe00000, 0x40bccccd},
+    {0x42818f5c, 0x43ac4b85, 0x43a5347b, 0xc0c00000, 0x4153d70a, 0x4234d70a, 0x42c80000, 0x41c43d71, 0x42195c29, 0x416147ae, 0x4189ae14, 0x41868f5c},
+    {0x435d9eb8, 0x42d6eb85, 0x438a90a4, 0x414170a4, 0x411570a4, 0x427d0000, 0x428d51ec, 0x423ca3d7, 0x429975c3, 0x409f0a3d, 0x3ecccccd, 0x3fc66666},
+    {0x43a5d99a, 0x42906b85, 0x439b2000, 0x3fd9999a, 0x41126666, 0x42167ae1, 0x42167ae1, 0x421a51ec, 0x42abdc29, 0x417828f6, 0x416e6666, 0x4196f5c3},
+  };
+  if (!out || group >= 5) return 0;
+  memcpy(out->active, bits[group], sizeof out->active);
+  memcpy(out->authored, bits[group], sizeof out->authored);
+  return 1;
+}

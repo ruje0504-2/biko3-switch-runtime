@@ -6,4 +6,6 @@
  * Does not change the live camera or derive a variant from gameplay state. */
 int bk_ending_camera_config(BkEndingCameraPresets *, unsigned group,
                             unsigned variant);
+/*4be4f8(flow48), independent of ending variants.*/
+int bk_special_event_camera_config(BkEndingCameraPresets *, unsigned group);
 #endif

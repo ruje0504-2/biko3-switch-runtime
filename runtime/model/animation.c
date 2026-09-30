@@ -136,7 +136,7 @@ BkModelAnimation *bk_model_animation_create(const BkModel *m, char error[256]) {
   }
   const uint8_t *data = m->source + c->offset;
   uint32_t count = u32(data + 68);
-  if (count > m->frame_count || count > (c->size - 72) / 24) {
+  if (count > (c->size - 72) / 24) {
     fail(error, "invalid track count");
     return NULL;
   }
@@ -170,11 +170,9 @@ BkModelAnimation *bk_model_animation_create(const BkModel *m, char error[256]) {
       fail(error, "missing target frame");
       goto bad;
     }
-    for (uint32_t j = 0; j < i; j++)
-      if (a->tracks[j].frame == track->frame) {
-        fail(error, "duplicate target frame");
-        goto bad;
-      }
+    /* 4097d6/409a94 submit every track in file order. h02_55 contains
+     * repeated targets: later tracks replace earlier complete SRT matrices.
+     * Keep all tracks (and their independent duration/preprocessing). */
     for (unsigned j = 4; j < 20; j += 4)
       if (u32(header + j)) {
         fail(error, "unsupported track header");

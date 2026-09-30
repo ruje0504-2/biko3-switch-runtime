@@ -30,6 +30,7 @@ if [ "$#" -ge 1 ]; then
         "$python" tests/check_ending_tertiary_cpu.py "$BK3_ORIGINAL_EXE" --host-python "$python" --data "$1/Data"
         "$python" tests/check_bom_dual_assets.py "$BK3_ORIGINAL_EXE" "$1/Data" --with-ending-assets
         "$python" tests/check_ending_selected_assets.py "$BK3_ORIGINAL_EXE" "$1/Data"
+        "$python" tests/check_special_camera.py "$BK3_ORIGINAL_EXE" "$1/Data" --host-python "$python"
     fi
     "$python" tests/audit_game.py "$1/Data"
     "$python" tests/audit_models.py "$1/Data"

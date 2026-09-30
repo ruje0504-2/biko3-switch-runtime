@@ -40,10 +40,11 @@ class Loader(Base):
    i=len(self.loads);self.loads.append(self.string(args[0]).decode());result=0x4000000+i*0x10000
   elif a==0x42cf0e:self.fov=self.floats(sp+4,1)[0]
   u.reg_write(UC_X86_REG_EAX,result);u.reg_write(UC_X86_REG_ESP,sp+4);u.reg_write(UC_X86_REG_EIP,ret)
- def run(self,g,v,degrees,state,models,xans):
+ def run(self,g,v,degrees,state,models,xans,flow=0x10,seconds=0):
   self.loads=[];self.fov=state.fov;self.u.mem_write(self.camera,bytes(0x600))
   self.word(self.camera+0x41c,degrees);self.vector(self.camera+0x4a4,state.matrix);self.vector(self.camera+0x5c8,state.focus)
   self.word(0x7219a8,g);self.u.mem_write(0x721b3d,bytes([v]));self.u.mem_write(0x5767c8,b'\1')
+  self.vector(0x733700,[seconds])
   self.roots=[];self.frames=[]
   for i,(m,xan) in enumerate(zip(models,xans)):
    clip=0x4000000+i*0x10000;model=clip+0x5000;frames=clip+0x6000;links=clip+0xe000
@@ -60,8 +61,8 @@ class Loader(Base):
     if c:self.word(p+0x230,links+c[0]*16)
     for k,n in enumerate(c):
      self.word(links+n*16,frames+n*0x400);self.word(links+n*16+8,links+c[k+1]*16 if k+1<len(c) else 0)
-  self.call(0x4b79e0,struct.pack('<II',self.camera,0x10))
-  assert self.loads==['\\cam00_00.xan','\\cam00_03.xan'],self.loads
+  self.call(0x4b79e0,struct.pack('<II',self.camera,flow))
+  assert self.loads==['\\cam00_00.xan',f'\\cam{g+1:02}_50.xan' if flow==0x48 else '\\cam00_03.xan'],self.loads
   out=State.from_buffer_copy(state);out.pose.position[:]=self.floats(self.camera+0x420,3)
   out.yaw,out.pitch,out.radius,out.height=self.floats(self.camera+0x42c,4);out.fov=self.fov
   out.matrix[:]=self.floats(self.camera+0x4a4,16);out.focus[:]=self.floats(self.camera+0x5c8,3)
@@ -82,7 +83,8 @@ def bindings(lib):
  ('bk_ending_camera_root_rotation',[Fp,Fp,C.c_int32],C.c_int),('bk_ending_camera_config',[C.POINTER(Presets),C.c_uint,C.c_uint],C.c_int)]
  for name,args,res in defs:f=getattr(lib,name);f.argtypes=args;f.restype=res
 def main():
- ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path);a=ap.parse_args()
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('exe',type=Path);ap.add_argument('data',type=Path)
+ ap.add_argument('--output',type=Path,default=ROOT/'local/original-ending-camera-six-oracle.json');a=ap.parse_args()
  exe=a.exe.read_bytes();lib=library();bindings(lib);e=C.create_string_buffer(256);loader=Loader(exe);arc=Archive(a.data/'bk3_04.pp');worst=0.;matrices=frames=0;indices=(U*2)(1,2)
  xans=[arc.read(next(t for t in arc.entries if t.name==name)) for name in ['cam00_00.xan','cam00_03.xan']]
  def equal(got,want,label):
@@ -163,5 +165,5 @@ def main():
    equal(out,loader.floats(ptr+0x80,16),('root',case));matrices+=1
  finally:lib.bk_actor_pose_destroy(target);lib.bk_clip_set_destroy(clips);lib.bk_resources_destroy(store)
  report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),profiles=50,native_loaders=50,frames=frames,matrices=matrices,integer_root_rotations=1000,max_relative_error=worst,scope=__doc__)
- (ROOT/'local/original-ending-camera-six-oracle.json').write_text(json.dumps(report,indent=2)+'\n');print('PASS',report,flush=True)
+ a.output.write_text(json.dumps(report,indent=2)+'\n');print('PASS',report,flush=True)
 if __name__=='__main__':main()

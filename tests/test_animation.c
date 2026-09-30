@@ -127,6 +127,37 @@ int main(void) {
   assert(bk_model_animation_sample(a, 20, 0, pose, 32, error));
   assert(pose[16] == 1);
   bk_model_animation_destroy(a);
+  /* Repeated targets are authored data (h02_55). Three independent tracks
+   * on two frames also prove the track count is not bounded by frame count.
+   * Both samplers retain the last full SRT, not the first or an average. */
+  {
+    enum { track_size = 24 + 3 * 220 };
+    uint8_t repeated[72 + 3 * track_size] = {0};
+    memcpy(repeated, original, 72);
+    word(repeated + 68, 3);
+    for (unsigned t = 0; t < 3; ++t) {
+      uint8_t *track = repeated + 72 + t * track_size;
+      memcpy(track, original + 72, track_size);
+      word(track, 101);
+      for (unsigned k = 0; k < 3; ++k)
+        number(track + 24 + k * 220 + 8, (float)(t * 100 + k * 10));
+    }
+    BkModelChunk repeated_chunk = {"ANIM", 0, sizeof(repeated)};
+    BkModel repeated_model = model;
+    repeated_model.source = repeated;
+    repeated_model.source_size = sizeof(repeated);
+    repeated_model.chunks = &repeated_chunk;
+    a = bk_model_animation_create(&repeated_model, error);
+    assert(a && bk_model_animation_track_count(a) == 3);
+    assert(bk_model_animation_sample(a, 5, 0, pose, 32, error));
+    assert(pose[12] == 207 && pose[28] == 2);
+    assert(bk_model_animation_blend(a, 0, 20, .25f, 0, pose, 32, error));
+    assert(pose[12] == 205.125f && pose[28] == 2);
+    bk_model_animation_destroy(a);
+    /* A malformed late duplicate must fail, even if a prior one is valid. */
+    word(repeated + 72 + 2 * track_size + 24 + 4, 2);
+    assert(!bk_model_animation_create(&repeated_model, error));
+  }
   strcpy(frames[0].name, "export head");
   strcpy(frames[1].name, "root");
   uint32_t node = 99;

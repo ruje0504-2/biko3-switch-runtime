@@ -84,3 +84,22 @@ int bk_menu_camera_track(BkMenuCamera *s, const float track[3],
   *s = n;
   return 1;
 }
+int bk_menu_camera_opening(BkMenuCamera *s, const float track[3],
+                           const float target[3], char e[256]) {
+  if (!s || !track || !target || !finite_values(track, 3) ||
+      !finite_values(target, 3) || !finite_values(s->pose.position, 3))
+    return fail(e);
+  BkMenuCamera n = *s;
+  for (unsigned i = 0; i < 3; ++i) {
+    float delta = (float)((double)track[i] - s->pose.position[i]);
+    n.pose.position[i] = (float)((double)delta + s->pose.position[i]);
+  }
+  if (!finite_values(n.pose.position, 3) ||
+      !bk_camera_aim(n.pose.world, s->pose.world, target))
+    return fail(e);
+  memcpy(n.pose.world + 12, n.pose.position, sizeof n.pose.position);
+  memcpy(n.matrix, n.pose.world, sizeof n.matrix);
+  n.fov = 1;
+  *s = n;
+  return 1;
+}
