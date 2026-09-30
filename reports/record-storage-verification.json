@@ -1,0 +1,414 @@
+{
+  "passed": true,
+  "date": "2026-09-30",
+  "scope": "Verify full Gray record codecs, durable file errors, and actual app round trips.\nApp entry/selected-stage/drag start are explicit fixtures. Production input then\ncreates the recorded menu action, eleven finish crossings, terminal21 and unlock.\nA fresh process loads the files and plays that lane from the actual gallery UI.\nThis is not a complete natural story walkthrough or Switch hardware validation.\n",
+  "authoritative_run": "build/validation/record-storage-dxj90s6p/verification.json",
+  "run_sha256": "bc066baa06149685096e9192585ecfca7c18fe20f25d966c79495a07eb0c6524",
+  "started_at": "2026-09-30T14:32:21.642169+00:00",
+  "finished_at": "2026-09-30T14:39:18.728097+00:00",
+  "source_files_verified": 1110,
+  "data_files_verified": 45,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "native_pair": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "native_writes": 16,
+    "native_reads": 17,
+    "bytes_per_file": 600020,
+    "compared_bytes": 19800660,
+    "max_error": 0,
+    "shipped_sha256": "32d3264d16a6f57667961da05fc6a9802da6f977d67c3443c3df88e1d56fd741",
+    "hazards": [
+      {
+        "handle": 0,
+        "success": true,
+        "length": 600020,
+        "retained": true,
+        "sha256": "48f430d4adf1ca996abf6c56b7f959167cd526773b3a421a7b3c07b8137c9954",
+        "events": [
+          "open"
+        ]
+      },
+      {
+        "handle": -1,
+        "success": true,
+        "length": 600020,
+        "retained": false,
+        "sha256": "32d3264d16a6f57667961da05fc6a9802da6f977d67c3443c3df88e1d56fd741",
+        "events": [
+          "open",
+          "close"
+        ]
+      },
+      {
+        "handle": 123,
+        "success": false,
+        "length": 0,
+        "retained": false,
+        "sha256": "32d3264d16a6f57667961da05fc6a9802da6f977d67c3443c3df88e1d56fd741",
+        "events": [
+          "open",
+          "read",
+          "close"
+        ]
+      },
+      {
+        "handle": 123,
+        "success": true,
+        "length": 7,
+        "retained": false,
+        "sha256": "974ba3d3029983e2d59377d256d8c0d0e8febf2427835ab3ef09830d360e45eb",
+        "events": [
+          "open",
+          "read",
+          "close"
+        ]
+      }
+    ],
+    "scope": "Original50CAA2/50CC47 full five-group Gray records, including real50D245.\nOnly path and Win32 file IO are hooks. Missing/short native-file hazards are\nobserved separately, not reproduced as valid empty progress in the port.\n"
+  },
+  "application_pairs": 10,
+  "new_process_replays": 20,
+  "per_build": {
+    "host": {
+      "profiles": 10,
+      "produce_frames": 73659,
+      "replay_frames": 66079,
+      "redraws": 30
+    },
+    "asan": {
+      "profiles": 10,
+      "produce_frames": 73659,
+      "replay_frames": 66079,
+      "redraws": 30
+    }
+  },
+  "unit_tests_per_build": 5,
+  "python_tests": 29,
+  "application_evidence": [
+    {
+      "mode": "asan",
+      "group": 0,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group0 variant0 frames8299 redraws1 state4cfa22e6362a45ce PCMbc9e1c1a8e656369 samples13281600 nonzero13121271",
+        "PASS record-app replay group0 variant0 frames7150 redraws2 statedba502a0782cf8b6 PCM2871ae599bc305dc samples11443200 nonzero11335271"
+      ],
+      "files": {
+        "expected.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+        "save/records.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+        "save/unlocks.bku": "e76607430d98bc2935403f941ba270316b27b35770ad3b49ce8e0b668bb9e1dd"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 0,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group0 variant0 frames8299 redraws1 state4cfa22e6362a45ce PCMbc9e1c1a8e656369 samples13281600 nonzero13121271",
+        "PASS record-app replay group0 variant0 frames7150 redraws2 statedba502a0782cf8b6 PCM2871ae599bc305dc samples11443200 nonzero11335271"
+      ],
+      "files": {
+        "expected.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+        "save/records.bkr": "d04361dd871678184a6c88c8108f81da1b1931e5587ae235779de4af0fa096de",
+        "save/unlocks.bku": "e76607430d98bc2935403f941ba270316b27b35770ad3b49ce8e0b668bb9e1dd"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 0,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group0 variant1 frames6341 redraws1 state4073fce417cac0d4 PCMb097230d6994cee5 samples10149120 nonzero9990573",
+        "PASS record-app replay group0 variant1 frames6010 redraws2 stateee7810b594168bb6 PCMd18b4871f1604d93 samples9619200 nonzero9511762"
+      ],
+      "files": {
+        "expected.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+        "save/records.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+        "save/unlocks.bku": "2ca3c809d53c6d8227c05a88c100805782ee565aadd7b66ea6543eb22b8865c7"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 0,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group0 variant1 frames6341 redraws1 state4073fce417cac0d4 PCMb097230d6994cee5 samples10149120 nonzero9990573",
+        "PASS record-app replay group0 variant1 frames6010 redraws2 stateee7810b594168bb6 PCMd18b4871f1604d93 samples9619200 nonzero9511762"
+      ],
+      "files": {
+        "expected.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+        "save/records.bkr": "3c64b55aab4bb3082459c75665c30f2bcdaf426c04e841f893e9a2a2a5c3bea3",
+        "save/unlocks.bku": "2ca3c809d53c6d8227c05a88c100805782ee565aadd7b66ea6543eb22b8865c7"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 1,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group1 variant0 frames6557 redraws1 stateb6c1afc3c2f99bd3 PCM2c31050ad9ba829d samples10494720 nonzero10375925",
+        "PASS record-app replay group1 variant0 frames6550 redraws2 state445cfb98a79000a6 PCM6cb71561d715effc samples10483200 nonzero10374897"
+      ],
+      "files": {
+        "expected.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+        "save/records.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+        "save/unlocks.bku": "907453e7ac81f16680f2d89177b3be576ea5089ef45adf2287343279a0ffae9b"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 1,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group1 variant0 frames6557 redraws1 stateb6c1afc3c2f99bd3 PCM2c31050ad9ba829d samples10494720 nonzero10375925",
+        "PASS record-app replay group1 variant0 frames6550 redraws2 state445cfb98a79000a6 PCM6cb71561d715effc samples10483200 nonzero10374897"
+      ],
+      "files": {
+        "expected.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+        "save/records.bkr": "6d72312fbb305d892b5dae7ac851aaef007b43e825d12371b158694beeeebb3b",
+        "save/unlocks.bku": "907453e7ac81f16680f2d89177b3be576ea5089ef45adf2287343279a0ffae9b"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 1,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group1 variant1 frames7525 redraws1 state32ff0bf69c2c0095 PCM572c157f6eb8936f samples12043200 nonzero11924198",
+        "PASS record-app replay group1 variant1 frames6471 redraws2 state9b22fede24123a49 PCMc6c9f45b609a8dc3 samples10357440 nonzero10251140"
+      ],
+      "files": {
+        "expected.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+        "save/records.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+        "save/unlocks.bku": "83f776aaec64c38cebdf1d597a9317b273fc47c67d512b74aa0e666741c12958"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 1,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group1 variant1 frames7525 redraws1 state32ff0bf69c2c0095 PCM572c157f6eb8936f samples12043200 nonzero11924198",
+        "PASS record-app replay group1 variant1 frames6471 redraws2 state9b22fede24123a49 PCMc6c9f45b609a8dc3 samples10357440 nonzero10251140"
+      ],
+      "files": {
+        "expected.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+        "save/records.bkr": "d66f244ce25c94859642c3deb6a5446c8135828418ea7dbaae2dd4390ad0fd58",
+        "save/unlocks.bku": "83f776aaec64c38cebdf1d597a9317b273fc47c67d512b74aa0e666741c12958"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 2,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group2 variant0 frames5730 redraws1 state8185de9b0b8194d8 PCMcad4a1913ff6df1b samples9171840 nonzero8984933",
+        "PASS record-app replay group2 variant0 frames5511 redraws2 state41c151993be811f7 PCMf41b2d39dab94944 samples8821440 nonzero8714906"
+      ],
+      "files": {
+        "expected.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+        "save/records.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+        "save/unlocks.bku": "0e46a16a4cd559d943906d2853f7dcd39342e6b027b061ec3c8ac595dbf44b91"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 2,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group2 variant0 frames5730 redraws1 state8185de9b0b8194d8 PCMcad4a1913ff6df1b samples9171840 nonzero8984933",
+        "PASS record-app replay group2 variant0 frames5511 redraws2 state41c151993be811f7 PCMf41b2d39dab94944 samples8821440 nonzero8714906"
+      ],
+      "files": {
+        "expected.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+        "save/records.bkr": "8642649ad046c64ca869b21ae1c9f8faa31c1dce62cfc50b927ff68bee226013",
+        "save/unlocks.bku": "0e46a16a4cd559d943906d2853f7dcd39342e6b027b061ec3c8ac595dbf44b91"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 2,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group2 variant1 frames7100 redraws1 statea223cc3ee6f51720 PCM5902c8154749f693 samples11363520 nonzero11175860",
+        "PASS record-app replay group2 variant1 frames6665 redraws2 statec8aa17cd822912a2 PCMf02e2892d67a550b samples10667520 nonzero10559372"
+      ],
+      "files": {
+        "expected.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+        "save/records.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+        "save/unlocks.bku": "5a44320c1033214ceaecfdb03e48212dd459e4c203ca1ac7ca8858254e9c9950"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 2,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group2 variant1 frames7100 redraws1 statea223cc3ee6f51720 PCM5902c8154749f693 samples11363520 nonzero11175860",
+        "PASS record-app replay group2 variant1 frames6665 redraws2 statec8aa17cd822912a2 PCMf02e2892d67a550b samples10667520 nonzero10559372"
+      ],
+      "files": {
+        "expected.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+        "save/records.bkr": "ea2a345ac675789b255e41da10f25423846b1729550f0f0854d47ef649c353e4",
+        "save/unlocks.bku": "5a44320c1033214ceaecfdb03e48212dd459e4c203ca1ac7ca8858254e9c9950"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 3,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group3 variant0 frames7820 redraws1 state2e2f50c024a1b8b8 PCMf22f30c0d2c34198 samples12515520 nonzero12005278",
+        "PASS record-app replay group3 variant0 frames6799 redraws2 statedd6d59f7ceeed796 PCM771a68e4beec330a samples10881600 nonzero10771373"
+      ],
+      "files": {
+        "expected.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+        "save/records.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+        "save/unlocks.bku": "2dd1913c2508c60a4f216fae3c0080f67fb7e2fad3edfacc2a4cc19d91f22b50"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 3,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group3 variant0 frames7820 redraws1 state2e2f50c024a1b8b8 PCMf22f30c0d2c34198 samples12515520 nonzero12005278",
+        "PASS record-app replay group3 variant0 frames6799 redraws2 statedd6d59f7ceeed796 PCM771a68e4beec330a samples10881600 nonzero10771373"
+      ],
+      "files": {
+        "expected.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+        "save/records.bkr": "ffddb64c29dda9d95cdcf50c2891f2660113794e1bfc0b15f4cd75dd1c74c2a1",
+        "save/unlocks.bku": "2dd1913c2508c60a4f216fae3c0080f67fb7e2fad3edfacc2a4cc19d91f22b50"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 3,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group3 variant1 frames8101 redraws1 state0abf96f1beb58f85 PCM52ea11b4a3e403c9 samples12964800 nonzero12457007",
+        "PASS record-app replay group3 variant1 frames7449 redraws2 stateea21fb42952e4efd PCM25cae2fefcd3932e samples11922240 nonzero11816025"
+      ],
+      "files": {
+        "expected.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+        "save/records.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+        "save/unlocks.bku": "e57dd838931d5ec5a8c81e53994e37c1cf6dc119bee83133bcbb16fb923ca746"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 3,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group3 variant1 frames8101 redraws1 state0abf96f1beb58f85 PCM52ea11b4a3e403c9 samples12964800 nonzero12457007",
+        "PASS record-app replay group3 variant1 frames7449 redraws2 stateea21fb42952e4efd PCM25cae2fefcd3932e samples11922240 nonzero11816025"
+      ],
+      "files": {
+        "expected.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+        "save/records.bkr": "92d194ff5394a0c3b5178b233230e1426737b193c7968d5993bb23acc23d3ede",
+        "save/unlocks.bku": "e57dd838931d5ec5a8c81e53994e37c1cf6dc119bee83133bcbb16fb923ca746"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 4,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group4 variant0 frames7837 redraws1 state4fbbb5d5ca39d2ca PCM02edc86992caccbb samples12542400 nonzero12179476",
+        "PASS record-app replay group4 variant0 frames6842 redraws2 state16d9b8663a856ef0 PCM04baf355ac0c3001 samples10950720 nonzero10842989"
+      ],
+      "files": {
+        "expected.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+        "save/records.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+        "save/unlocks.bku": "71a855057f2d5822d8d5ee4f7f151bf27c5188d07e82052569eccbe466f369a2"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 4,
+      "variant": 0,
+      "summaries": [
+        "PASS record-app produce group4 variant0 frames7837 redraws1 state4fbbb5d5ca39d2ca PCM02edc86992caccbb samples12542400 nonzero12179476",
+        "PASS record-app replay group4 variant0 frames6842 redraws2 state16d9b8663a856ef0 PCM04baf355ac0c3001 samples10950720 nonzero10842989"
+      ],
+      "files": {
+        "expected.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+        "save/records.bkr": "8f639fcbf75cd2de6d63b98b121cb76e506fc4bdaff2dad4296408a1002c447b",
+        "save/unlocks.bku": "71a855057f2d5822d8d5ee4f7f151bf27c5188d07e82052569eccbe466f369a2"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    },
+    {
+      "mode": "asan",
+      "group": 4,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group4 variant1 frames8349 redraws1 state90f3b9cd16cf2c02 PCM6bb3047fc851caed samples13362240 nonzero13000217",
+        "PASS record-app replay group4 variant1 frames6632 redraws2 state0c3616541d884bc8 PCM8c7f5614e392496f samples10614720 nonzero10507054"
+      ],
+      "files": {
+        "expected.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+        "save/records.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+        "save/unlocks.bku": "64963977ff65c1086490b237194b75fc328975bfb0453775d383b574a09101be"
+      },
+      "binary_sha256": "82fd4f06bf2f7ca66e31c30dbb7442871645cd3c483264b1b87f7c2f4ec5512a"
+    },
+    {
+      "mode": "host",
+      "group": 4,
+      "variant": 1,
+      "summaries": [
+        "PASS record-app produce group4 variant1 frames8349 redraws1 state90f3b9cd16cf2c02 PCM6bb3047fc851caed samples13362240 nonzero13000217",
+        "PASS record-app replay group4 variant1 frames6632 redraws2 state0c3616541d884bc8 PCM8c7f5614e392496f samples10614720 nonzero10507054"
+      ],
+      "files": {
+        "expected.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+        "save/records.bkr": "a76664770ef165a8cc10784537b1ab682d9faf37e6f8725b411034d987ceee89",
+        "save/unlocks.bku": "64963977ff65c1086490b237194b75fc328975bfb0453775d383b574a09101be"
+      },
+      "binary_sha256": "edf4dad3cb7b96724794a87fe69f1be2a5762796901ef8d165133dde9a277755"
+    }
+  ],
+  "nvk": {
+    "nro_sha256": "b4063eaf555e9023bd26faf5ab41eaacb16c17fb695bcd7661b9852158e546a9",
+    "nro_bytes": 16232504,
+    "elf_sha256": "eb80eae6ab1deff5c6c36387764da0dcfed791b28f1fa35b80537bf018189e99",
+    "unresolved_symbols": 0,
+    "required_symbols": [
+      "bk_record_file_store",
+      "bk_record_file_read",
+      "bk_record_encode",
+      "bk_record_decode",
+      "bk_play_session_create_with_progress"
+    ],
+    "mesa_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256"
+  },
+  "nvk_build_log": "build/validation/record-storage-dev/nvk-build.log",
+  "switch_hardware_validated": false,
+  "full_natural_story_validated": false,
+  "full_3d_pixel_cases_passed": 9,
+  "full_3d_pixel_cases_total": 12,
+  "delivery_updated": false,
+  "push": {
+    "completed_previous_authorized_batch": "4a26efff33063c1b1c86ad158a14e29ca176e7cd",
+    "current_persistence_batch_pushed": false
+  }
+}

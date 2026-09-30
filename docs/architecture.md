@@ -1,3 +1,5 @@
+2026-09-30 记录持久化边界：app持有唯一BkEndingRecords和独立BkRecordFile，向save提供非连续数组视图；save不依赖game/scene/platform/render。正常启动在解锁表之后装载全部记录，flow10退出先持久化再停止场景，失败不继续退役。原600020字节格式显式编解码，生产采用600052字节CRC文件和既有备份替换；记录与解锁分别提交，不宣称跨文件原子性。缺失不制造结束标记，损坏不覆盖。五角色两路线的边界录制、结束保存与独立进程鉴赏回放已配对验证，完整自然故事及实机仍待验收，见 `reports/record-storage.md`。
+
 2026-09-30 flow48生产边界：`app/front_end`负责真实相册文件扫描与菜单分派，`scene/special_session`负责世界/媒体/UI借用与提交后停止，下一tick才销毁旧资源；场景不直接依赖save/platform。PlaySession只持有一个菜单/结局相机及过渡状态。平台提供逐次运行时钟，AVI在完成构造后取起点并只在片尾重取，数值层保留纯CPU可注入服务。原码等价、主机实际资产与尚缺Switch实机的范围见 `reports/special-session.md`。
 
 2026-09-30 跨流程截图所有者与相册扫描已修复，见 `reports/capture-lifecycle.md` / verification JSON。PlaySession持有截图、入口仅借用，B53954每分派前锁存、照片输出时读活值；晚回收/失败构造不取消请求。4AF5E1真实目录计数普通/ASan各110组12064名称220重扫一致；应用各五角色4968帧五照片/五失败借用者、旧截图及暂停返回共四项配对通过。4普通4ASan、29Python、指定NVK通过，NROa720c826…/16183352字节、nm0。扫描API仍待4E29B0调用，完整flow48加载/释放/应用未接，action8仍拒绝；自然记录/像素9/12/实机缺口保持。防休眠64008、本地提交、不推送、不整包；完全访问never，终端直接执行。接续local/ending-gallery-next.md。

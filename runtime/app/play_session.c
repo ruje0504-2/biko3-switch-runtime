@@ -40,6 +40,8 @@ typedef struct {
   BkCaptureOutput capture_output;
   BkScreenshot *screenshot;
   BkEndingRecords ending_records;
+  BkRecordFile *record_file;
+  int require_record_file;
   BkEndingAuxiliaryCycle ending_auxiliary_cycle;
   BkEndingNormalControllerRetained ending_normal_controller;
   BkEndingPresentationRetained ending_presentation;
@@ -98,6 +100,15 @@ static void log_line(PlaySession *s, const char *message) {
     fflush(s->services.log);
   }
 }
+/* Borrow the one process owner; neither save nor game depends on the other. */
+static void record_views(PlaySession *s, BkRecordView v[BK_RECORD_GROUPS]) {
+  _Static_assert(BK_RECORD_GROUPS == (int)BK_ENDING_RECORD_GROUPS &&
+      BK_RECORD_CAPACITY == (int)BK_ENDING_RECORD_CAPACITY, "record dimensions");
+  for (unsigned g = 0; g < BK_RECORD_GROUPS; ++g) {
+    BkEndingRecord *r = &s->ending_records.groups[g];
+    v[g] = (BkRecordView){{r->retained[0], r->retained[1]}, r->actions, &r->count};
+  }
+}
 static int release(void *context, uint8_t flow, char error[256]) {
   PlaySession *s = context;
   log_line(s, "Flow release begin");
@@ -146,6 +157,16 @@ static int release(void *context, uint8_t flow, char error[256]) {
     if (!ending_state || ending_state->frame.group >= BK_UNLOCK_GROUPS) {
       snprintf(error, 256, "play session: ending unlock row is unavailable");
       return 0;
+    }
+    /*4EB8FF writes Gray before4CEB27 stops/releases the ending owner.
+     * Failure preserves the current live scene and the old disk snapshot. */
+    if (s->require_record_file && !s->record_file) {
+      snprintf(error, 256, "play session: ending record storage unavailable");
+      return 0;
+    }
+    if (s->record_file) {
+      BkRecordView v[BK_RECORD_GROUPS]; record_views(s, v);
+      if (!bk_record_file_store(s->record_file, v, error)) return 0;
     }
     if (!bk_ending_normal_scene_stop(s->ending, error))
       return 0;
@@ -640,6 +661,7 @@ static void destroy(void *context) {
 }
 static BkScene *create(const BkSceneServices *services,
                        BkCheckpointFiles *files, BkUnlockFile *unlock_file,
+                       BkRecordFile *record_file, int require_record_file,
                        int development,
                        char error[256]) {
   if (!services || !services->renderer || !services->resources ||
@@ -653,6 +675,8 @@ static BkScene *create(const BkSceneServices *services,
     return NULL;
   }
   s->services = *services;
+  s->record_file = record_file;
+  s->require_record_file = require_record_file;
   s->special_clock_read = platform_clock;
   for (unsigned i = 0; i < 16; ++i)
     s->menu_camera.pose.world[i] = s->menu_camera.matrix[i] = i % 5 == 0;
@@ -731,6 +755,12 @@ static BkScene *create(const BkSceneServices *services,
     s->front = bk_front_end_create(&c, error);
     if (!s->front)
       goto bad;
+    /*4E6F33 saved flags, then4E6F38 records; before any title/ending load.*/
+    if (record_file) {
+      BkRecordView v[BK_RECORD_GROUPS]; record_views(s, v);
+      if (bk_record_file_read(record_file, v, error) == BK_RESOURCE_ERROR)
+        goto bad;
+    }
   }
   if (!load_target(s, development ? 2 : 1, error) ||
       !step(s, 1.0 / 60, &(BkInput){0}, error))
@@ -747,18 +777,23 @@ bad:
 BkScene *bk_play_session_create_with_saves(const BkSceneServices *services,
                                            BkCheckpointFiles *files,
                                            char error[256]) {
-  return create(services, files, NULL, 0, error);
+  return create(services, files, NULL, NULL, 0, 0, error);
 }
 BkScene *bk_play_session_create_with_storage(const BkSceneServices *services,
                                              BkCheckpointFiles *files,
                                              BkUnlockFile *unlock_file,
                                              char error[256]) {
-  return create(services, files, unlock_file, 0, error);
+  return create(services, files, unlock_file, NULL, 0, 0, error);
+}
+BkScene *bk_play_session_create_with_progress(const BkSceneServices *services,
+    BkCheckpointFiles *files, BkUnlockFile *unlock_file, BkRecordFile *record_file,
+    char error[256]) {
+  return create(services, files, unlock_file, record_file, 1, 0, error);
 }
 BkScene *bk_play_session_create_development(const BkSceneServices *services,
                                             BkCheckpointFiles *files,
                                             char error[256]) {
-  return create(services, files, NULL, 1, error);
+  return create(services, files, NULL, NULL, 0, 1, error);
 }
 BkScene *bk_play_session_create(const BkSceneServices *services,
                                 char error[256]) {

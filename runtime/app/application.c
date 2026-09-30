@@ -15,7 +15,7 @@
 #include <string.h>
 static BkScene *load_scene(BkSceneKind kind, const BkSceneServices *services,
                            BkCheckpointFiles *save_files,
-                           BkUnlockFile *unlock_file, const char *root,
+                           BkUnlockFile *unlock_file, BkRecordFile *record_file, const char *root,
                            unsigned *mounted, char error[256]) {
   unsigned required = kind == BK_SCENE_TITLE_PREVIEW   ? 1u
                       : kind == BK_SCENE_CAMERA_TRACK  ? 6u
@@ -144,8 +144,8 @@ static BkScene *load_scene(BkSceneKind kind, const BkSceneServices *services,
     const char *development = getenv("BK_DEVELOPMENT_ENTRY");
     if (development && !strcmp(development, "1"))
       return bk_play_session_create_development(services, save_files, error);
-    return bk_play_session_create_with_storage(services, save_files,
-                                               unlock_file, error);
+    return bk_play_session_create_with_progress(services, save_files,
+                                               unlock_file, record_file, error);
   }
   return bk_scene_create(kind, services, error);
 }
@@ -200,6 +200,7 @@ int bk_application_run(int argc, char **argv) {
   BkCaptureFiles *capture_files = NULL;
   BkCheckpointFiles *save_files = NULL;
   BkUnlockFile *unlock_file = NULL;
+  BkRecordFile *record_file = NULL;
   int result = 1;
   if (!platform)
     goto done;
@@ -240,6 +241,9 @@ int bk_application_run(int argc, char **argv) {
     unlock_file = bk_unlock_file_create(config.capture_root, error);
     if (!unlock_file)
       goto done;
+    record_file = bk_record_file_create(config.capture_root, error);
+    if (!record_file)
+      goto done;
   }
   BkSceneServices services = {resources, renderer, log, audio, capture_files};
   BkSceneKind kind = !strcmp(config.scene, "camera-track")
@@ -251,7 +255,7 @@ int bk_application_run(int argc, char **argv) {
                      : !strcmp(config.scene, "office") ? BK_SCENE_STATIC_WORLD
                                                        : BK_SCENE_TITLE_PREVIEW;
   unsigned mounted = 0;
-  scene = load_scene(kind, &services, save_files, unlock_file, config.game_root,
+  scene = load_scene(kind, &services, save_files, unlock_file, record_file, config.game_root,
                      &mounted, error);
   if (!scene)
     goto done;
@@ -336,7 +340,7 @@ int bk_application_run(int argc, char **argv) {
               goto done;
             }
         BkScene *next =
-            load_scene(requested, &services, save_files, unlock_file,
+            load_scene(requested, &services, save_files, unlock_file, record_file,
                        config.game_root, &mounted, error);
         if (!next)
           goto done;
@@ -492,6 +496,7 @@ done:
   bk_capture_files_destroy(capture_files);
   bk_checkpoint_files_destroy(save_files);
   bk_unlock_file_destroy(unlock_file);
+  bk_record_file_destroy(record_file);
   if (result)
     bk_platform_report_error(platform, error);
   bk_platform_close(platform);
