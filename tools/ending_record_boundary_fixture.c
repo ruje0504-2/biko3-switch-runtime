@@ -217,6 +217,83 @@ int record_probe_third_input(BkScene *scene, BkRecordNaturalInput *d,
   return 1;
 }
 
+static int auxiliary_target(EndingNormalScene *s, BkInput *in, char e[256]) {
+  if (!s || !s->auxiliary_assets)
+    return -1;
+  uint32_t node = (uint32_t)s->state->retained.normal.word_719b40;
+  const float *alternate = node ? bk_actor_forest_world(scene_forest(s), node) : NULL;
+  BkEndingFrameState frame = s->state->frame;
+  int32_t kind, column, targets[39][2], alternate_point[2];
+  BkEndingUiSprite ring = s->ui.sprites[50];
+  BkEndingSecondaryPickBindings bindings = {
+      &frame, &kind, &column, targets, alternate_point, &ring, &s->ui_pick,
+      alternate};
+  BkEndingSecondaryMenuGeometry geometry = {
+      s->viewport.width, s->viewport.height,
+      (float)((double)s->viewport.width / 1280.0), s->ui.sprites[51].rect[2]};
+  memcpy(targets, s->state->targets, sizeof(targets));
+  memcpy(alternate_point, s->state->alternate, sizeof(alternate_point));
+
+  /* State1's preferred target is the auxiliary camera slot4. Search through
+   * the same picker and menu-zone services as the live controller. The
+   * scratch frame prevents this observer from publishing a second target. */
+  for (unsigned y = 0; y < s->viewport.height; ++y)
+    for (unsigned x = 0; x < s->viewport.width; ++x) {
+      float point[2] = {(float)x, (float)y};
+      int32_t hit, zone;
+      if (!bk_ending_secondary_pick(&bindings, point, 4, &hit, e))
+        return -1;
+      if (hit != 1 || frame.camera_cached != 4)
+        continue;
+      if (!bk_ending_secondary_menu_zone(&geometry, targets[4], &zone, e))
+        return -1;
+      if (zone < 0)
+        continue;
+      *in = (BkInput){
+          .pointer_active = 1,
+          .pointer_x = s->viewport.x + (float)x,
+          .pointer_y = s->viewport.y + (float)y};
+      return 1;
+    }
+  return 0;
+}
+
+int record_probe_auxiliary_input(BkScene *scene, BkRecordNaturalInput *d,
+                                 BkInput *in, char e[256]) {
+  EndingNormalScene *s = bk_scene_custom_context(scene);
+  if (!s || !d || !in || s->state->frame.phase != 4)
+    return fail(e, "auxiliary input expects the actual phase4 owner");
+  ++d->frames;
+  int state = s->state->control.state_721eec;
+  d->phases |= 1u << 4;
+  if (d->phase != 4 || d->gate != state) {
+    d->phase = 4;
+    d->gate = state;
+    d->held_frames = 0;
+    d->has_aim = -1;
+  }
+
+  *in = (BkInput){0};
+  if (state == 1) {
+    int found = auxiliary_target(s, in, e);
+    if (found < 0)
+      return 0;
+    if (!found)
+      *in = (BkInput){.held = BK_BUTTON_CAMERA_ADJUST, .look_x = -.5f};
+    else
+      in->held = BK_BUTTON_CONFIRM;
+  } else if (state == 3) {
+    in->pointer_active = 1;
+    in->pointer_x = s->viewport.x + (float)s->state->points[0][0];
+    in->pointer_y = s->viewport.y + (float)s->state->points[0][1];
+    in->held = ++d->held_frames < 60 ? BK_BUTTON_CONFIRM : 0;
+  }
+  in->pressed = in->held & ~d->previous_buttons;
+  in->released = d->previous_buttons & ~in->held;
+  d->previous_buttons = in->held;
+  return 1;
+}
+
 static int natural_target(EndingNormalScene *s, BkInput *in, char e[256]) {
   BkClipState clip;
   BkNodeReference camera;

@@ -257,12 +257,17 @@ static int state5_substate0(const BkEndingAuxiliarySequenceBindings *b,
   int32_t current;
   if (!active(o, &current, e)) return 0;
   if (current != 5 && current != 6) return 1;
-  BkEndingClipTiming t;
-  if (!timing(o, (unsigned)current, &t, e) || t.source < t.end)
-    return 1;
+  /* Groups2/3 can enter this state with clip6 already active. The native
+   * branch for active5 waits for its authored end and requests6; the active6
+   * branch is a separate handoff and must not wait for a looping clip to end. */
+  if (current == 5) {
+    BkEndingClipTiming t;
+    if (!timing(o, 5, &t, e) || t.source < t.end)
+      return 1;
+    if (!o->request || !o->request(o->context, 6, e)) return 0;
+  }
   if (!media_busy(o, 0, &playing, e) || playing) return 1;
-  if (!o->request || !o->request(o->context, 6, e)) return 0;
-  if (g < 2 &&
+  if (current == 5 && g < 2 &&
       (!o->expression || !o->expression(o->context, 0, 4, 0, e)))
     return 0;
   if (!voice(b, o, 8, 0, e)) return 0;
@@ -272,8 +277,12 @@ static int state5_substate0(const BkEndingAuxiliarySequenceBindings *b,
         !effect_play(b, o, initial[g], 1, e) ||
         !effect_play(b, o, initial[g] + 1, 1, e))
       return 0;
-  } else if (g < 2 && !effect_play(b, o, middle[g][0], 1, e)) {
-    return 0;
+  } else if (g < 2) {
+    if (!effect_play(b, o, middle[g][0], 1, e)) return 0;
+  } else if (g == 2 && current == 6) {
+    if (!effect_play(b, o, middle[g][0], 1, e) ||
+        !effect_play(b, o, middle[g][1], 1, e))
+      return 0;
   }
   *b->substate = 1;
   memset(b->latches, 0, 10);
@@ -373,12 +382,21 @@ static int state5_substate3(const BkEndingAuxiliarySequenceBindings *b,
     }
   }
 
-  BkEndingClipTiming t;
-  if (!timing(o, (unsigned)current, &t, e) || t.source < t.end)
-    return 1;
-  if (!o->request) return fail(e, "missing state5 next clip request");
-  if (!o->request(o->context, g == 0 ? 9 : 8, e)) return 0;
-  if (!active(o, &current, e) || current != 9) return 1;
+  /* For groups1..4, clip8 may chain into clip9 before the controller gets
+   * its next tick. Clip9 is the handoff marker in that path; waiting for its
+   * authored end loops the animation forever. Group0 owns a real clip9 tail
+   * and must retain the normal end test. */
+  if (!(g != 0 && current == 9)) {
+    BkEndingClipTiming t;
+    if (!timing(o, (unsigned)current, &t, e) || t.source < t.end)
+      return 1;
+    if (!o->request) return fail(e, "missing state5 next clip request");
+    unsigned next = g == 0 ? 9 : 8;
+    if (!o->request(o->context, next, e)) return 0;
+    if (!active(o, &current, e) ||
+        (current != 9 && current != (int32_t)next))
+      return 1;
+  }
   if (!o->expression || !o->expression(o->context, 0, 4, 0, e)) return 0;
   *b->expression_override = 0;
   *b->face_mode = 1;

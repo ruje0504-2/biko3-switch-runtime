@@ -112,13 +112,29 @@ int main(int argc, char **argv) {
   CHECK(record->count > 1 && record->count < BK_ENDING_RECORD_CAPACITY);
   CHECK(record->actions[record->count - 1] == (item == 1 ? 20 :
       12 + s->ending_state.auxiliary.selection));
-  CHECK(wait_frames(scene, renderer, audio, &sink, 120, pointer(4, 920), error));
+  unsigned auxiliary_frames = 0;
+  BkInput input = {0};
+  if (item == 1) {
+    /* Continue the real phase4 state machine until its public flow handoff.
+     * The driver only supplies pointer/button input; frame, state and curtain
+     * transitions remain owned by the production scene and UI reload path. */
+    while (s->flow.current == 0x10 && s->ending_state.frame.phase == 4 &&
+           auxiliary_frames++ < 60000) {
+      CHECK(record_probe_auxiliary_input(s->ending, &driver, &input, error));
+      CHECK(tick(scene, renderer, audio, &sink, input, error));
+    }
+    CHECK(auxiliary_frames < 60000);
+    CHECK(s->flow.current != 0x10 || s->ending_state.frame.phase != 4);
+  } else {
+    CHECK(wait_frames(scene, renderer, audio, &sink, 120, pointer(4, 920), error));
+  }
   CHECK(again(scene, renderer, audio, error));
   CHECK(!memcmp(s->game_state.pickup.collected, expected, sizeof(expected)));
   CHECK(bk_ending_normal_scene_stop(s->ending, error));
   CHECK(!memcmp(s->game_state.pickup.collected, expected, sizeof(expected)));
-  printf("PASS inventory-app group%u item%u phase%d frames%u input%u cursors%u count%d state%016llx pcm%016llx\n",
-      inventory_group, item, s->ending_state.frame.phase, frames, driver.frames, cursor_checks,
+  printf("PASS inventory-app group%u item%u phase%d frames%u input%u aux%u cursors%u count%d state%016llx pcm%016llx\n",
+      inventory_group, item, s->ending_state.frame.phase, frames, driver.frames,
+      auxiliary_frames, cursor_checks,
       record->count, (unsigned long long)state_hash, (unsigned long long)sink.hash);
   CHECK(record_probe_inventory_lifecycle(s->ending, error));
   bk_scene_destroy(scene); scene = NULL;

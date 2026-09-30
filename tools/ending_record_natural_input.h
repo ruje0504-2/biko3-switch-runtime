@@ -19,6 +19,10 @@ int record_probe_early_input(BkScene *, BkRecordNaturalInput *, BkInput *,
  * input; an entry inventory fixture is separate from natural item pickup. */
 int record_probe_third_input(BkScene *, BkRecordNaturalInput *, BkInput *,
                              char error[256]);
+/* Continue the item-owned route through the real phase4 controller. The
+ * caller stops at the public flow handoff; no phase/state fields are forced. */
+int record_probe_auxiliary_input(BkScene *, BkRecordNaturalInput *, BkInput *,
+                                 char error[256]);
 int record_probe_inventory(BkScene *, const uint8_t inventory[5],
                             int check_cursor, char error[256]);
 int record_probe_inventory_lifecycle(BkScene *, char error[256]);

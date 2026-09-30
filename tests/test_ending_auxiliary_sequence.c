@@ -198,6 +198,30 @@ int main(void) {
     fprintf(stderr, "special audio missing-service boundary was not rejected\n"); return 1;
   }
 
+  init(&f, 1, 5);
+  f.substate = 3; f.active = 8;
+  f.timings[8][1] = f.timings[8][2] = 250;
+  if (!run(&f, e) || f.substate != 4 || f.active != 8) {
+    fprintf(stderr, "group1 clip8 tail did not advance: %s sub=%u active=%d\n",
+            e, f.substate, f.active); return 1;
+  }
+
+  init(&f, 1, 5);
+  f.substate = 3; f.active = 9;
+  f.timings[9][1] = 270; f.timings[9][2] = 0;
+  if (!run(&f, e) || f.substate != 4 || f.active != 9 || f.request_count != 0) {
+    fprintf(stderr, "group1 chained clip9 tail did not advance: %s sub=%u active=%d\n",
+        e, f.substate, f.active); return 1;
+  }
+
+  init(&f, 2, 5);
+  f.substate = 0; f.active = 6; f.timings[6][1] = 150; f.timings[6][2] = 115;
+  if (!run(&f, e) || f.substate != 1 || f.request_count != 0 ||
+      !f.playing[2 + 34] || !f.playing[2 + 35]) {
+    fprintf(stderr, "group2 active6 looping handoff failed: %s sub=%u requests=%d\n",
+        e, f.substate, f.request_count); return 1;
+  }
+
   init(&f, 3, 5);
   f.substate = 3; f.active = 7; f.timings[7][2] = 152;
   if (!run(&f, e) || !f.playing[2 + 24]) {

@@ -1,9 +1,9 @@
 {
   "date": "2026-10-01",
-  "scope": "Live application inventory -> third-ending UI/phase4 or6 entry, 47DC79 state1/2 ordering, effect-slot service, and owner lifecycle. Not complete third-ending natural routes or full port acceptance.",
+  "scope": "Live application inventory -> third-ending UI and complete phase4/6 handoff, 47DC79 state1/2/5 ordering, effect-slot service, and owner lifecycle. The incoming story/inventory bytes remain explicit fixtures; natural pickup/save/reload and full port acceptance are outside this check.",
   "validated_inventory_cases": 12,
-  "inventory_frames_per_build": 48679,
-  "inventory_inputs_per_build": 45727,
+  "inventory_frames_per_build": 64002,
+  "inventory_inputs_per_build": 61650,
   "cursor_checks_per_build": 60,
   "lifecycle_entries_per_build": 24,
   "failed_constructors_per_build": 12,
@@ -15,13 +15,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group0 item0 phase6 frames4090 input3844 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group0 item0 phase6 frames4090 input3844 aux0 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group0 item0 phase6 frames4090 input3844 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group0 item0 phase6 frames4090 input3844 aux0 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -32,13 +32,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group0 item1 phase4 frames4214 input3968 cursors5 count4 state5c8e01928f847321 pcma354a05fb18632f1\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group0 item1 phase6 frames6872 input6746 aux2778 cursors5 count5 stateb8aab5f038e73752 pcm942ee3863aeccea4\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group0 item1 phase4 frames4214 input3968 cursors5 count4 state5c8e01928f847321 pcma354a05fb18632f1\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group0 item1 phase6 frames6872 input6746 aux2778 cursors5 count5 stateb8aab5f038e73752 pcm942ee3863aeccea4\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -49,13 +49,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group1 item0 phase6 frames3970 input3724 cursors5 count4 stateb9b77c3a35663a32 pcm50ee0371e57041cb\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group1 item0 phase6 frames3970 input3724 aux0 cursors5 count4 stateb9b77c3a35663a32 pcm50ee0371e57041cb\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group1 item0 phase6 frames3970 input3724 cursors5 count4 stateb9b77c3a35663a32 pcm50ee0371e57041cb\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group1 item0 phase6 frames3970 input3724 aux0 cursors5 count4 stateb9b77c3a35663a32 pcm50ee0371e57041cb\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -66,13 +66,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group1 item1 phase4 frames4135 input3889 cursors5 count4 state31decfd0320ce4ed pcm99e353781663d874\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group1 item1 phase6 frames6499 input6373 aux2484 cursors5 count5 stated96a37fbf6b9dffe pcmf50d24b877be4c78\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group1 item1 phase4 frames4135 input3889 cursors5 count4 state31decfd0320ce4ed pcm99e353781663d874\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group1 item1 phase6 frames6499 input6373 aux2484 cursors5 count5 stated96a37fbf6b9dffe pcmf50d24b877be4c78\nPASS inventory-lifecycle group1 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -83,13 +83,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group2 item0 phase6 frames4030 input3784 cursors5 count4 state663b1908d6f737cd pcm307c59a9870ef6f8\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group2 item0 phase6 frames4030 input3784 aux0 cursors5 count4 state663b1908d6f737cd pcm307c59a9870ef6f8\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group2 item0 phase6 frames4030 input3784 cursors5 count4 state663b1908d6f737cd pcm307c59a9870ef6f8\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group2 item0 phase6 frames4030 input3784 aux0 cursors5 count4 state663b1908d6f737cd pcm307c59a9870ef6f8\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -100,13 +100,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group2 item1 phase4 frames4195 input3949 cursors5 count4 state9735f9253e9cefce pcmfae02133672d50c9\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group2 item1 phase6 frames7182 input7056 aux3107 cursors5 count5 state71b4faeaeac3d04a pcme4e77230b9e8e41d\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group2 item1 phase4 frames4195 input3949 cursors5 count4 state9735f9253e9cefce pcmfae02133672d50c9\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group2 item1 phase6 frames7182 input7056 aux3107 cursors5 count5 state71b4faeaeac3d04a pcme4e77230b9e8e41d\nPASS inventory-lifecycle group2 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -117,13 +117,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group3 item0 phase6 frames3940 input3694 cursors5 count4 state52541a3863cfa312 pcm1f22da6a67ee9ce2\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group3 item0 phase6 frames3940 input3694 aux0 cursors5 count4 state52541a3863cfa312 pcm1f22da6a67ee9ce2\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group3 item0 phase6 frames3940 input3694 cursors5 count4 state52541a3863cfa312 pcm1f22da6a67ee9ce2\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group3 item0 phase6 frames3940 input3694 aux0 cursors5 count4 state52541a3863cfa312 pcm1f22da6a67ee9ce2\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -134,13 +134,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group3 item1 phase4 frames4133 input3887 cursors5 count4 state91f8364475e8374f pcm0ed3f5cb197007a8\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group3 item1 phase6 frames7725 input7599 aux3712 cursors5 count5 statedee7db1fbb22849c pcmd14bec7f94b4bb85\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group3 item1 phase4 frames4133 input3887 cursors5 count4 state91f8364475e8374f pcm0ed3f5cb197007a8\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group3 item1 phase6 frames7725 input7599 aux3712 cursors5 count5 statedee7db1fbb22849c pcmd14bec7f94b4bb85\nPASS inventory-lifecycle group3 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -151,13 +151,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group4 item0 phase6 frames3790 input3544 cursors5 count4 state7bacd7a031264352 pcmd289fcfd4e649a1e\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group4 item0 phase6 frames3790 input3544 aux0 cursors5 count4 state7bacd7a031264352 pcmd289fcfd4e649a1e\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group4 item0 phase6 frames3790 input3544 cursors5 count4 state7bacd7a031264352 pcmd289fcfd4e649a1e\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group4 item0 phase6 frames3790 input3544 aux0 cursors5 count4 state7bacd7a031264352 pcmd289fcfd4e649a1e\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -168,13 +168,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group4 item1 phase4 frames4002 input3756 cursors5 count4 statee7a238e43c768c21 pcm5793cbdcc087dd70\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group4 item1 phase6 frames7724 input7598 aux3842 cursors5 count5 state82ddc7d98d9e17d2 pcm9d2cfb581b36451f\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group4 item1 phase4 frames4002 input3756 cursors5 count4 statee7a238e43c768c21 pcm5793cbdcc087dd70\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group4 item1 phase6 frames7724 input7598 aux3842 cursors5 count5 state82ddc7d98d9e17d2 pcm9d2cfb581b36451f\nPASS inventory-lifecycle group4 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -185,13 +185,13 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group0 item2 phase6 frames4090 input3844 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group0 item2 phase6 frames4090 input3844 aux0 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group0 item2 phase6 frames4090 input3844 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group0 item2 phase6 frames4090 input3844 aux0 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         }
       ]
     },
@@ -202,20 +202,20 @@
       "runs": [
         {
           "kind": "host",
-          "binary_sha256": "864c9e3f16235d54326bcd22ab03d2ede6231f59189df6c0dc56d68cd6290794",
-          "summary": "PASS inventory-app group0 item255 phase6 frames4090 input3844 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "07d92ca31f46e6ff5370f97d86dc17295e57474dc6cbcca5af26a2ff71d3b9f7",
+          "summary": "PASS inventory-app group0 item255 phase6 frames4090 input3844 aux0 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         },
         {
           "kind": "asan",
-          "binary_sha256": "bf8afbdbf17829601c2763d2fb0aff45fd86b8043dc6c7be7a62a0dff21f2fc7",
-          "summary": "PASS inventory-app group0 item255 phase6 frames4090 input3844 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
+          "binary_sha256": "e0ffff2bfddea1ec680e7b5a0da28b07cf1c85d7cad8c86a777f13b6ad5a1598",
+          "summary": "PASS inventory-app group0 item255 phase6 frames4090 input3844 aux0 cursors5 count4 state7cf3d10f1ee3b3d2 pcmfcfae68054bbc2a6\nPASS inventory-lifecycle group0 failed1 entries2 stops3 late-retirement1"
         }
       ]
     }
   ],
-  "inventory_parent_report": "build/validation/ending-runtime-k18v5g3e/result.json",
-  "inventory_parent_report_passed": false,
-  "inventory_parent_failure": "The inventory-only checks passed; the earlier combined run remained false only because its later third-session test used historical B/old camera input. Corrected third-session and selected-session rerun passed in build/validation/ending-runtime-28bg8h9t/result.json.",
+  "inventory_parent_report": "build/validation/ending-runtime-0f5two7o/result.json",
+  "inventory_parent_report_passed": true,
+  "inventory_parent_failure": null,
   "cpu": [
     {
       "report": "build/validation/ending-tertiary-cpu-k26yo10d/result.json",
@@ -430,7 +430,7 @@
   },
   "python_tests": 29,
   "switch": {
-    "nro_sha256": "c556d24a4efe0d760b3522fc67538a2295cb9071bc8140c0ce2e75561bdcdfb4",
+    "nro_sha256": "24a5de85d24861e629f57340627f1d02f1cb0327c2d7b5e8f6183ec0768e4271",
     "nro_bytes": 16240696,
     "mesa_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
     "undefined": [],
@@ -456,9 +456,9 @@
     "passed": true
   },
   "remaining": [
-    "Full held-item phase4 route: native47E1DA checks72210C open; existing state1 incorrectly checks722100 pending. Idle/key/method ordering also need full oracle before repair.",
-    "Natural item pickup/save/reload/story handoff",
-    "All-character complete third routes and final visual/hardware acceptance"
+    "Natural item pickup -> save/reload -> story handoff",
+    "All-character natural record/replay coverage beyond the maintained fixture route",
+    "One remaining 3D visual comparison mode and Switch hardware acceptance"
   ],
   "awake_pid": 64008,
   "github_authorization": "User explicitly authorized this one incremental GitHub push; no continuing push authorization.",
@@ -532,7 +532,7 @@
     "runtime/game/ending_auxiliary_controller.h": "0c93c053e20b76f526872497520d20a53f07fbf175fcafabfce7049f7f8903d8",
     "runtime/game/ending_auxiliary_presentation.c": "532c49163ad645afa5456bc3fa1d3791bdf33114002a5f2539fce5eebf03252e",
     "runtime/game/ending_auxiliary_presentation.h": "626ce9087bd8acc01f05e6d278e1710d533d17f2a0e9240a40825beb5ea33b14",
-    "runtime/game/ending_auxiliary_sequence.c": "c9ea85107001131687b31b3a707898cbd03adc10f410b75b08dec9e58095fb09",
+    "runtime/game/ending_auxiliary_sequence.c": "dbd9c0bf0795ef94fdf289517695e0ce7dc2ca9c5fef073769d51fb087d4ff1e",
     "runtime/game/ending_auxiliary_sequence.h": "2e295e46f1738410b3822a0ea38182068b225f62281f1385375cf9b19b8e45f5",
     "runtime/game/ending_auxiliary_state1.c": "1e67be89c8ab960e1b1560faaec2b36fc6b2e98f9bb0dd3a3634bc6bc2a74f10",
     "runtime/game/ending_auxiliary_state1.h": "a5648a90797636b584d55b49c6182c4af96f80deab7b1b934519739e43679f9e",
@@ -1181,8 +1181,20 @@
       "state5-7 presence accepts ending effect slots 2..46"
     ],
     "unit_host_asan": true,
-    "inventory_matrix_report": "build/validation/ending-runtime-fktzogzu/result.json"
+    "inventory_matrix_report": "build/validation/ending-runtime-0f5two7o/result.json"
   },
   "previous_pending_gap_closed": true,
-  "phase4_full_route_validated": false
+  "phase4_full_route_validated": true,
+  "inventory_auxiliary_frames_per_build": 15923,
+  "current_unit_regression": {
+    "host": 1,
+    "asan": 1,
+    "test": "ending-auxiliary-sequence",
+    "logs": [
+      "build/CTestTestfile.cmake (host)",
+      "build/asan/CTestTestfile.cmake (asan)"
+    ]
+  },
+  "phase4_route_scope": "Explicit completed-story and live inventory item1 fixture; real phase4 input through production flow handoff. Natural pickup/save/reload is separate.",
+  "natural_pickup_route_validated": false
 }
