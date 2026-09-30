@@ -179,5 +179,16 @@
   "pending_inventory": "local/ending-inventory-pending-20261001",
   "awake_pid": 64008,
   "pushed": false,
-  "full_package": false
+  "full_package": false,
+  "issue_status": "resolved",
+  "user_confirmation": {
+    "date": "2026-10-01",
+    "fixed": true,
+    "preexisting_pc_bug": true,
+    "source": "direct user feedback",
+    "quote": "之前那个阴影明暗闪烁是PC就有的BUG，请记录已修复",
+    "scope": "Previously reported lit-surface brightness/shadow flicker; not full-port acceptance",
+    "exact_nro_identified_by_user": false,
+    "agent_performed_switch_test": false
+  }
 }
