@@ -205,6 +205,16 @@ int bk_ending_state_gallery_normal_bindings(BkEndingState *s,
       &a->word_6d1bcc, s->speech_names, voice, effect};
   return 1;
 }
+int bk_ending_state_gallery_secondary_bindings(BkEndingState *s, BkMenuCamera *camera,
+    BkEndingGalleryCameraState *saved, BkEndingGallerySecondaryBindings *out) {
+  if (!s || !camera || !saved || !out) return 0;
+  BkEndingRetainedFinal *a = &s->retained.final;
+  *out = (BkEndingGallerySecondaryBindings){
+      &s->frame, &s->control, &s->auxiliary, camera, saved,
+      &a->byte_6d1be0, &a->byte_6dde58, &a->word_6c7f74, a->words_6dde24,
+      &a->word_6d1bd8, &a->word_6d1bdc, &a->word_6dde54};
+  return 1;
+}
 int bk_ending_state_reload_bindings(BkEndingState *s, BkCommonHudState *common,
                                     const int8_t *previous,
                                     BkEndingReloadBindings *out) {
