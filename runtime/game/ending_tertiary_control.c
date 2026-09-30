@@ -227,7 +227,7 @@ static int speech(BkEndingTertiaryControlState *s,
 }
 static int hover(BkEndingTertiaryControlState *s,
                  const BkEndingTertiaryControlBindings *b,
-                 const BkEndingTertiaryControlOps *o, char e[256]) {
+                 const BkEndingTertiaryControlOps *o, int playable, char e[256]) {
   int cue, assigned = 0;
   if (b->frame->camera_cached == b->actions[0]) { cue = 5; assigned = 1; }
   else if (b->frame->camera_cached == b->actions[5]) {
@@ -237,7 +237,17 @@ static int hover(BkEndingTertiaryControlState *s,
   } else if (b->frame->camera_cached == 6 && b->auxiliary->progress >= .39f) {
     cue = 8; assigned = 1;
   }
-  if (!assigned) return fail(e, "native hover cue reads an uninitialized local");
+  if (!assigned) {
+    /*4771d6/477243 reach477305 without initializing the cue. Actual cursor
+     * motion can hit these disabled targets. The playable path suppresses
+     * only that undefined hover sound; UI and confirm/choose still run with
+     * the original target, so disabled actions remain disabled. */
+    if (playable &&
+        ((b->frame->camera_cached == b->actions[5] && b->unavailable[0]) ||
+         (b->frame->camera_cached == b->actions[10] && b->unavailable[1])))
+      return 1;
+    return fail(e, "native hover cue reads an uninitialized local");
+  }
   *b->face_mode = 0;
   b->voice_latches[2] = 0;
   if (special(b)) {
@@ -400,7 +410,7 @@ static int active(BkEndingTertiaryControlState *s,
                   const BkEndingTertiaryControlBindings *b,
                   BkEndingRecord *r, const BkEndingFrameInput *input,
                   float seconds, const BkEndingTertiaryControlOps *o,
-                  char e[256]) {
+                  int playable, char e[256]) {
   if (!effects(b,o,e) || !speech(s,b,seconds,o,e)) return 0;
   int busy, clip, hit = 0;
   if (!playing(o,1,&busy,e)) return 0;
@@ -419,7 +429,7 @@ static int active(BkEndingTertiaryControlState *s,
   if (hit != 1) return idle(b,o,e);
   if (!*b->open) {
     if (!CALL(active,&clip,e)) return 0;
-    if (clip == 4 && !hover(s,b,o,e)) return 0;
+    if (clip == 4 && !hover(s,b,o,playable,e)) return 0;
     int pressed;
     if (!confirm(o,&pressed,e)) return 0;
     if (pressed) {
@@ -460,9 +470,9 @@ static int finish(BkEndingTertiaryControlState *s,
   s->replay_after = 30;
   return 1;
 }
-int bk_ending_tertiary_control_step(BkEndingTertiaryControlState *s,
+static int step(BkEndingTertiaryControlState *s,
     const BkEndingTertiaryControlBindings *b, const BkEndingFrameInput *input,
-    float seconds, const BkEndingTertiaryControlOps *o, char e[256]) {
+    float seconds, const BkEndingTertiaryControlOps *o, int playable, char e[256]) {
   if (!s || !b || !input || !o || !b->frame || !b->control || !b->auxiliary ||
       !b->camera || !b->records || !b->state || !b->face_mode || !b->part_mode ||
       !b->voice_latches || !b->return_ready || !b->unavailable ||
@@ -475,7 +485,7 @@ int bk_ending_tertiary_control_step(BkEndingTertiaryControlState *s,
   BkEndingRecord *r = b->records->groups+b->frame->group;
   switch (*b->state) {
   case 0: return initial(b,o,e);
-  case 1: return active(s,b,r,input,seconds,o,e);
+  case 1: return active(s,b,r,input,seconds,o,playable,e);
   case 3: return CALL(action,input,seconds,e);
   case 2: {
     int released;
@@ -490,4 +500,15 @@ int bk_ending_tertiary_control_step(BkEndingTertiaryControlState *s,
   case 5: return finish(s,b,r,o,e);
   default: return 1;
   }
+}
+
+int bk_ending_tertiary_control_step(BkEndingTertiaryControlState *s,
+    const BkEndingTertiaryControlBindings *b, const BkEndingFrameInput *input,
+    float seconds, const BkEndingTertiaryControlOps *o, char e[256]) {
+  return step(s,b,input,seconds,o,0,e);
+}
+int bk_ending_tertiary_control_play(BkEndingTertiaryControlState *s,
+    const BkEndingTertiaryControlBindings *b, const BkEndingFrameInput *input,
+    float seconds, const BkEndingTertiaryControlOps *o, char e[256]) {
+  return step(s,b,input,seconds,o,1,e);
 }

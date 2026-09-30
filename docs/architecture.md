@@ -1,3 +1,5 @@
+2026-10-01 结局背包由`PlaySession.game_state.pickup.collected[5]`唯一持有，`BkEndingNormalFlow`借用；UI/控制/加载器读活值，鉴赏第二/三字节在逻辑停止清理一次，失败构造恢复，迟退GPU快照不重复写入。game保留严格第三类step，生产play仅隔离两个禁用目标的未初始化hover语音；明确兼容边界见 `reports/ending-inventory.md`。背包后续phase4仍有state1字段误读待修，不宣称完整路线通过。光影闪烁已获用户确认关闭。
+
 2026-10-01 物体表面闪烁：`game_preview`仅为背景显式开启actor透明层稳定策略；排序原点近零残差归零只影响key，world/lighting不变，包含此背景的全局batch稳定按priority/distance/insertion排序。model保留严格原版API，新增独立stable入口；renderer仅为lit/no-depth-write/inverse-color阴影加微小反向深度偏移。详见 `reports/lighting-surface-layers.md`，这是显式兼容策略，非原指令等价。无新Switch实机结论。
 
 2026-10-01 GPU深度精度转换仅位于`render/vulkan/renderer.c`：公开变换与clear_depth继续0近/1远，提交时仅复制并反转深度行，GPU比较与清除反向。`core/camera`、游戏屏幕坐标、灯光、世界矩阵及着色器保持；CPU不依赖Vulkan。运动遮挡测试和实际资源回归见`reports/lighting-motion-depth.md`；完整三维当前11/12、实机尚缺。

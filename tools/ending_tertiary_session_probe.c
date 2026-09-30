@@ -124,7 +124,8 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
   int32_t duck = 0;
   BkEndingProcess process;
   bk_ending_process_initialize(&process);
-  BkEndingNormalFlow flow = {.process = &process, .common = &common, .schedule = third_schedule,
+  uint8_t inventory[5] = {0};
+  BkEndingNormalFlow flow = {.inventory = inventory, .process = &process, .common = &common, .schedule = third_schedule,
       .wall_seconds = 1, .auxiliary_cycle = &cycle, .random = &random,
       .normal_controller = &normal, .presentation = &presentation, .duck_transition = &duck,
       .secondary_controller = &secondary, .secondary_presentation = &secondary_display,
@@ -163,8 +164,10 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
       if (found) input.pressed = input.held = BK_BUTTON_CONFIRM;
       else {
         VERIFY(state->frame.camera_mode == 0 && s->camera.radius < 120 && zooms < 120);
-        input.look_x = 60;
-        input.held = BK_BUTTON_BACK;
+        /* Current public controls: R and leftward input zoom out. The
+         * manual adapter reverses axes and applies the sixfold speed. */
+        input.look_x = -10;
+        input.held = BK_BUTTON_CAMERA_ADJUST;
         ++zooms; ++out->zooms;
       }
     } else if (state->stage3_state == 3) {

@@ -15,4 +15,11 @@ typedef struct {
  * by this test driver and are rejected, not bypassed. */
 int record_probe_early_input(BkScene *, BkRecordNaturalInput *, BkInput *,
                              char error[256]);
+/* Third route phase3 until its actual phase4/6 transition. All changes use
+ * input; an entry inventory fixture is separate from natural item pickup. */
+int record_probe_third_input(BkScene *, BkRecordNaturalInput *, BkInput *,
+                             char error[256]);
+int record_probe_inventory(BkScene *, const uint8_t inventory[5],
+                            int check_cursor, char error[256]);
+int record_probe_inventory_lifecycle(BkScene *, char error[256]);
 #endif

@@ -35,6 +35,10 @@ typedef struct {
    * standalone fixtures. Resource release never resets these values.*/
   BkMenuCamera *camera;
   BkEndingCameraTransitions *camera_transitions;
+  /* Live71BCDC..E0, borrowed from game pickup.collected[5]. Required for
+   * application entries. Gallery sets bytes1/2 on entry and clears them at
+   * logical stop; byte0 is read by both the third-stage UI and controller. */
+  uint8_t *inventory;
 } BkEndingNormalFlow;
 /* Explicit normal-ending scene owner. The default diagnostic entry is the
  * gallery normal branch (previous flow0x18, selection0, action variant0/1); it owns the

@@ -43,6 +43,10 @@ SUITES = {
         ("third-application", "ending-exit-probe", ["{output}", "--third"]),
     ],
     "gallery-app": [("gallery-application", "ending-gallery-app-probe", ["{output}"])],
+    "inventory": [(f"inventory-{group}-{item}", "ending-inventory-app-probe",
+                   ["{output}", str(group), str(item)])
+                  for group, item in ([(g, i) for g in range(5) for i in [0, 1]] +
+                                      [(0, 2), (0, 255)])],
     "capture-lifecycle": [
         ("capture-lifecycle", "capture-lifecycle-probe", ["{output}"]),
         ("screenshot", "screenshot-probe", ["{output}"]),
@@ -80,7 +84,7 @@ def source_manifest() -> dict[str, str]:
     paths.extend((ROOT / "tools").glob("ending_*.h"))
     paths.extend(ROOT / "tools" / name for name in [
         "special_session_probe.c", "special_ui_media_probe.c", "screenshot_probe.c", "capture_render_probe.c",
-        "capture_lifecycle_probe.c", "play_flow_probe.c"])
+        "capture_lifecycle_probe.c", "play_flow_probe.c", "ending_record_boundary_fixture.c"])
     paths.extend(ROOT / "tests" / name for name in [
         "original_ending_selected_session_oracle.py", "original_prop_route_oracle.py",
         "original_matrix_oracle.py", "model_binding.py",
@@ -145,9 +149,12 @@ def main() -> int:
         summaries = [line for line in text.splitlines() if line.startswith("PASS ")]
         if not summaries:
             raise RuntimeError(f"{name} exited successfully without its final coverage assertion")
-        print(summaries[-1], flush=True)
-        entry["summary"] = summaries[-1]
-        return summaries[-1]
+        # Inventory has an input/state/PCM assertion followed by a separate
+        # lifecycle assertion. Compare both, not only the final short line.
+        summary = "\n".join(summaries) if name.startswith("inventory-") else summaries[-1]
+        print(summary, flush=True)
+        entry["summary"] = summary
+        return summary
 
     try:
         jobs = [job for suite in suites for job in SUITES[suite]]

@@ -82,4 +82,11 @@ typedef struct {
 int bk_ending_tertiary_control_step(BkEndingTertiaryControlState *,
     const BkEndingTertiaryControlBindings *, const BkEndingFrameInput *,
     float seconds, const BkEndingTertiaryControlOps *, char error[256]);
+/* Production compatibility for the reachable disabled-target branch:
+ * skip its uninitialized hover-cue read/voice request, preserving target,
+ * expression/latches and subsequent confirm/choose. All defined branches
+ * are identical to step; other undefined/bounds failures still reject. */
+int bk_ending_tertiary_control_play(BkEndingTertiaryControlState *,
+    const BkEndingTertiaryControlBindings *, const BkEndingFrameInput *,
+    float seconds, const BkEndingTertiaryControlOps *, char error[256]);
 #endif

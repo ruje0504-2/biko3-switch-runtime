@@ -78,7 +78,8 @@ typedef struct {
   size_t special_material_count;
   int32_t disabled[64];
   size_t disabled_count;
-  uint8_t option_a, option_b;
+  uint8_t diagnostic_inventory[5], *inventory;
+  int inventory_active;
   int32_t selected_group;
   uint32_t diagnostic_random, now_ms;
   uint32_t *random;
@@ -131,7 +132,7 @@ typedef struct {
   int32_t ui_active_clip;
   int8_t previous_flow;
   int32_t voice_volume, effect_volume;
-  uint8_t ui_flash_wanted, ui_item;
+  uint8_t ui_flash_wanted;
   BkEndingControlRect control_rects[BK_ENDING_CONTROL_RECTS];
   BkSystemAudio *control_audio[4];
   BkVirtualPointer pointer;
@@ -324,6 +325,13 @@ static int stop_audio(EndingNormalScene *s, char e[256]) {
     s->state->retained.normal.direct_node = 0;
     s->state->retained.normal.word_719b40 = 0;
   }
+  /*4CEB27 only clears71BCDD/DE after a gallery entry. Do this exactly once
+   * while releasing the live owner, not when its last GPU snapshot retires. */
+  if (s->inventory_active && s->previous_flow == 0x18) {
+    s->inventory[1] = 0;
+    s->inventory[2] = 0;
+  }
+  s->inventory_active = 0;
   s->stopped = 1;
   return 1;
 }
@@ -1013,7 +1021,7 @@ static int prepare_ui_frame(EndingNormalScene *s, float seconds, unsigned width,
       s->final_image ? NULL : &s->ui_pick,
       &s->ui_notices,
       &s->ui_flash_wanted,
-      &s->ui_item,
+      s->inventory,
       &s->previous_flow,
       &s->voice_volume,
       s->random};
@@ -2110,7 +2118,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         .substate = &retained->byte_6afd18, .expression_override = &retained->word_6a3c24,
         .pending_effect = &retained->word_54ccc8, .fov = &retained->value_54ccd0,
         .open = &s->state->open, .previous_flow = &s->previous_flow,
-        .finish_setting = (const int8_t *)&s->ui_item,
+        .finish_setting = (const int8_t *)s->inventory,
         .actions = config->actions + 5, .targets = s->state->targets,
         .initial_targets = bk_ending_tertiary_initial_targets(),
         .voice_volume = &s->voice_volume, .effect_volume = &s->effect_volume,
@@ -2759,8 +2767,8 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->state->control.toggles[1] = bk_ending_selected_assets_missing_visible(
         s->selected_assets) == 3;
     s->state->control.toggles[2] = !s->state->control.toggles[1];
-    s->state->control.toggles[4] = s->option_a == 1;
-    s->state->control.toggles[6] = s->option_b == 1;
+    s->state->control.toggles[4] = s->inventory[1] == 1;
+    s->state->control.toggles[6] = s->inventory[2] == 1;
     s->state->control.toggles[5] = 1;
     s->state->control.toggles[3] = s->state->frame.group != 1;
     if (s->state->frame.group == 1)
@@ -2806,7 +2814,7 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->state->control.toggles[3] = s->state->frame.group != 1;
     s->state->control.toggles[4] = s->state->frame.group == 1;
     s->state->control.toggles[5] = 1;
-    s->state->control.toggles[6] = s->option_b == 1;
+    s->state->control.toggles[6] = s->inventory[2] == 1;
     s->state->frame.camera_cached = -1;
     s->state->frame.camera_mode = 5;
     s->state->retained.normal.follow_target = bk_actor_forest_node(
@@ -2838,8 +2846,8 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->state->control.toggles[0] = 0;
     s->state->control.toggles[1] = missing == 3;
     s->state->control.toggles[2] = missing != 3;
-    s->state->control.toggles[4] = s->option_a == 1;
-    s->state->control.toggles[6] = s->option_b == 1;
+    s->state->control.toggles[4] = s->inventory[1] == 1;
+    s->state->control.toggles[6] = s->inventory[2] == 1;
     s->state->control.toggles[5] = 1;
     s->state->control.toggles[3] = s->state->frame.group != 1;
     if (s->state->frame.group == 1)
@@ -2872,8 +2880,8 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
     s->state->control.toggles[0] = 0;
     s->state->control.toggles[1] = missing == 3;
     s->state->control.toggles[2] = missing != 3;
-    s->state->control.toggles[4] = s->option_a == 1;
-    s->state->control.toggles[6] = s->option_b == 1;
+    s->state->control.toggles[4] = s->inventory[1] == 1;
+    s->state->control.toggles[6] = s->inventory[2] == 1;
     s->state->control.toggles[5] = 1;
     s->state->control.toggles[3] = s->state->frame.group != 1;
     if (s->state->frame.group == 1)
@@ -2907,8 +2915,8 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
   if (!s->state->next_mode)
     memset(s->state->normal_inputs, 0, sizeof(s->state->normal_inputs));
   s->state->frame.camera_cached = -1;
-  s->state->control.toggles[4] = s->option_a == 1;
-  s->state->control.toggles[6] = s->option_b == 1;
+  s->state->control.toggles[4] = s->inventory[1] == 1;
+  s->state->control.toggles[6] = s->inventory[2] == 1;
   s->state->control.toggles[5] = 1;
   s->state->control.toggles[3] = s->state->frame.group != 1;
   if (s->state->frame.group == 1)
@@ -3115,7 +3123,7 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   }
   if (flow && (!flow->common || !flow->schedule || !flow->state || !flow->auxiliary_cycle ||
                !flow->random || !flow->normal_controller || !flow->presentation ||
-               !flow->duck_transition || !flow->process ||
+               !flow->duck_transition || !flow->process || !flow->inventory ||
                !isfinite(flow->wall_seconds) || flow->wall_seconds < 0 ||
                flow->wall_seconds > 1e12)) {
     fail(e, "shared process owners, scheduler and valid wall clock are required");
@@ -3134,6 +3142,8 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   if (!s)
     return NULL;
   s->services = *services;
+  s->inventory = flow ? flow->inventory : s->diagnostic_inventory;
+  uint8_t inventory_before[2] = {s->inventory[1], s->inventory[2]};
   s->camera_owner = flow && flow->camera ? flow->camera : &s->camera;
   s->transitions_owner = flow && flow->camera_transitions
       ? flow->camera_transitions : &s->camera_transitions;
@@ -3214,7 +3224,7 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
       !bk_ending_ui_control_rects(&s->ui, s->control_rects))
     goto bad;
   BkEndingEntryBindings bindings;
-  if (!bk_ending_state_entry_bindings(s->state, &s->option_a, &s->option_b,
+  if (!bk_ending_state_entry_bindings(s->state, s->inventory + 1, s->inventory + 2,
                                       &s->selected_group, &bindings))
     goto bad;
   BkEndingEntryOps ops = {s, normal_load, records ? clear_record : NULL,
@@ -3238,8 +3248,13 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
       s, (BkSceneCustomOps){step, draw, destroy}, e);
   if (!scene)
     goto bad;
+  s->inventory_active = 1;
   return scene;
 bad:
+  /* A failed constructor never published a live entry. Restore only the
+   * inventory flags its gallery dispatch may have changed. */
+  s->inventory[1] = inventory_before[0];
+  s->inventory[2] = inventory_before[1];
   destroy(s);
   return NULL;
 }

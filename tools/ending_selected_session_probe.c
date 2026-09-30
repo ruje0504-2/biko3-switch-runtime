@@ -57,7 +57,7 @@ static int probe_load(void *p, BkEndingLoader loader, int32_t arg, char e[256]) 
       s->state->selected, s->state->auxiliary.gate, s->state->frame.state_721ee0,
       s->state->frame.state_721ee4, s->state->frame.camera_event,
       s->state->control.target_choice, s->state->control.variant,
-      s->option_a, s->option_b};
+      s->inventory[1], s->inventory[2]};
   if (!ui_reload_load(s, loader, arg, e)) return 0;
   /*Consumed by the fixed-EXE oracle, which executes loader scalar regions.
    *It checks untouched parent states as well as the actual initialized gate.*/

@@ -40,7 +40,7 @@ def main():
     parser.add_argument('--jobs', type=int, default=8)
     parser.add_argument('--data', type=Path,
                         help='Explicit Data directory enables the real-XAN playback oracle')
-    parser.add_argument('--only', choices=['all', 'control', 'presentation', 'action',
+    parser.add_argument('--only', choices=['all', 'control', 'hover', 'inventory', 'presentation', 'action',
                                            'motion', 'playback', 'services'],
                         default='all', help='Run a focused changed component or all CPU callers')
     args = parser.parse_args()
@@ -106,12 +106,15 @@ def main():
                            UBSAN_OPTIONS='halt_on_error=1:print_stacktrace=1')
                 name = suffix+'-'+mode
                 result = output/(name+'.json')
-                text = execute(name, [str(python.absolute()),
-                    str(ROOT/'tests'/('original_ending_tertiary_'+suffix+'_oracle.py')),
+                script = ({'hover': 'ending_tertiary_hover_compat_oracle.py',
+                           'inventory': 'original_ending_inventory_oracle.py'}.get(suffix,
+                          'original_ending_tertiary_'+suffix+'_oracle.py'))
+                text = execute(name, [str(python.absolute()), str(ROOT/'tests'/script),
                     str(args.exe.resolve()),
                     *([str(args.data.resolve())] if suffix == 'playback' else []),
                     '--output', str(result)], env)
-                summaries = [s for s in text.splitlines() if s.startswith('PASS tertiary ')]
+                prefix = 'PASS ending inventory:' if suffix == 'inventory' else 'PASS tertiary '
+                summaries = [s for s in text.splitlines() if s.startswith(prefix)]
                 if len(summaries) != 1 or not result.is_file():
                     raise RuntimeError(name+' omitted its final coverage report')
                 data = json.loads(result.read_text())
@@ -128,7 +131,7 @@ def main():
 
         errors = []
         if args.only == 'all':
-            selected = ['control', 'presentation', 'action', 'motion']
+            selected = ['control', 'hover', 'inventory', 'presentation', 'action', 'motion']
             if args.data is not None:
                 selected.append('playback')
         elif args.only == 'services':

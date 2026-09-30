@@ -310,6 +310,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
       return 0;
     s->ending_unlock_valid = 0;
     BkEndingNormalFlow ending_flow = {.common = &s->common,
+        .inventory = s->game_state.pickup.collected,
                                       .context = s,
                                       .schedule = schedule,
                                       .wall_seconds = s->elapsed,

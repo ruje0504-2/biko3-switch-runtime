@@ -180,7 +180,8 @@ static int story_profile(BkRenderer *renderer, BkResourceStore *store,
   int32_t duck = 0;
   BkEndingProcess process;
   bk_ending_process_initialize(&process);
-  BkEndingNormalFlow flow = {.process = &process, .common = &common, .schedule = story_schedule,
+  uint8_t inventory[5] = {0};
+  BkEndingNormalFlow flow = {.inventory = inventory, .process = &process, .common = &common, .schedule = story_schedule,
       .wall_seconds = 1, .auxiliary_cycle = &cycle, .random = &random,
       .normal_controller = &controller, .presentation = &presentation,
       .duck_transition = &duck, .secondary_controller = &secondary,

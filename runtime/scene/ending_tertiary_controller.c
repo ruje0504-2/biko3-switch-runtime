@@ -304,6 +304,6 @@ int bk_ending_tertiary_controller_scene_step(
       {&context, key, present, status, voice, play, effect, expression, active,
        source, request, hidden, appearance, target, camera, pick, choose, begin, action},
       effect_slot, material, manual, drag, hit, rewind_source, refresh, place_menu};
-  return bk_ending_tertiary_control_step(&s->retained->control,
+  return bk_ending_tertiary_control_play(&s->retained->control,
       &bindings.control, input, seconds, &context.ops.control, e);
 }
