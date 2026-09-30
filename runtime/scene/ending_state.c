@@ -39,6 +39,7 @@ int bk_ending_state_leave(BkEndingState *s, BkEndingLeave operation,
     memset(s->retained.stage3.words_6bbe2c, 0,
            sizeof(s->retained.stage3.words_6bbe2c));
     s->retained.stage3.byte_6bbe34 = 0;
+    memset(s->auxiliary_saved_target, 0, sizeof(s->auxiliary_saved_target));
     break;
   case BK_ENDING_LEAVE_49739A: {
     BkEndingRetainedAuxiliary *a = &s->retained.auxiliary;
@@ -92,6 +93,7 @@ int bk_ending_state_leave(BkEndingState *s, BkEndingLeave operation,
     a->timer_6c7f6c = 0;
     a->delay_54f8e0 = 30;
     a->value_54e310 = 1;
+    memset(s->auxiliary_saved_orbit, 0, sizeof(s->auxiliary_saved_orbit));
     break;
   }
   case BK_ENDING_LEAVE_48D7F2: {

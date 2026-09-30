@@ -3,7 +3,6 @@
 
 #include "game/ending_auxiliary.h"
 #include "game/ending_control.h"
-#include "model/clip.h"
 
 /* 47DC79 state3 is the parent around the recoverable 481EA5 child prefix.
  * Keep the child as a required service: the native parent invokes it before
@@ -71,7 +70,7 @@ typedef struct {
   int (*voice)(void *, int32_t cue, unsigned slot, int32_t flags,
                int32_t volume, char[256]);
   int (*random)(void *, int32_t *, char[256]);
-  int (*timing)(void *, unsigned slot, BkClipTiming *, char[256]);
+  int (*timing)(void *, unsigned slot, BkEndingClipTiming *, char[256]);
   int (*effect_present)(void *, unsigned effect, int *, char[256]);
   int (*effect_status)(void *, unsigned effect, int *, char[256]);
   int (*effect)(void *, unsigned effect, unsigned flags, int32_t volume,

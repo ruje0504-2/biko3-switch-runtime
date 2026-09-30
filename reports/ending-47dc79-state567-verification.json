@@ -1,0 +1,34 @@
+{
+  "date": "2026-09-30",
+  "scope": "47DC79 state5/6/7 sequence integration",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "fixed_exe_state_oracle": {
+    "passed": true,
+    "frames": 6000,
+    "mapped_regions": 175,
+    "compared_bytes": 281868000,
+    "max_error": 0,
+    "native_constructors": 27
+  },
+  "host_ctest": {"passed": 111, "failed": 0},
+  "asan_ctest": {"passed": 102, "failed": 0},
+  "python_tests": {"passed": 29, "failed": 0},
+  "ending_sequence_tests": [
+    "state6_to_state7_camera_save_restore",
+    "state7_three_pass_restore",
+    "state5_finish_record",
+    "group3_effect_threshold",
+    "special_audio_explicit_failure"
+  ],
+  "switch_nvk": {
+    "passed": true,
+    "nro_sha256": "2a4c5931eacbe112d5186b748d5388c530ae88433fa62b1d0bb3027959db4aa8",
+    "elf_sha256": "2132fee8b6348719c7ed4869221e0b9fce686efe2f05240e32e47bfd695679f9"
+  },
+  "known_limits": [
+    "native 0x722D54 special DirectSound buffer is an explicit required service and is not yet resource-bound",
+    "no new Switch hardware run in this checkpoint",
+    "full game flow, natural ending, gallery and persistent unlock remain incomplete"
+  ],
+  "awake_process": {"pid": 64008, "command": "/usr/bin/caffeinate -ims"}
+}

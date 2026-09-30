@@ -30,6 +30,10 @@ typedef struct {
   float special_cameras[BK_ENDING_SPECIAL_CAMERAS][4]; /*71944c*/
   BkEndingRetained retained;
   int32_t eye_lower, face_mode; /*721df8/721dfc; shared across stage adapters*/
+  /* Portable storage for state6's 6bbe50/6c7f34 snapshots. Appended so the
+   * verified retained aggregate layout remains stable. */
+  uint32_t auxiliary_saved_target[3];
+  float auxiliary_saved_orbit[4];
 } BkEndingState;
 /* Once per process/session, before any entry. Reproduces all represented
  * PE/CRT initial values; subsequent4cc582 entries retain outside-block state.

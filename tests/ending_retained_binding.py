@@ -11,7 +11,8 @@ class Normal(C.Structure):
 
 
 class Stage3(C.Structure):
-    _fields_ = [('words_6bbe2c', I * 2), ('byte_6bbe34', B)]
+    _fields_ = [('words_6bbe2c', I * 2), ('byte_6bbe34', B),
+                ('byte_6bbe4c', B), ('word_6bbe48', I)]
 
 
 class Auxiliary(C.Structure):
@@ -33,7 +34,9 @@ class Stage2(C.Structure):
 class Stage4(C.Structure):
     _fields_ = [('words_6c7f44', I * 2), ('bytes_6c7f54', B * 10),
                 ('bytes_6c7f60', B * 10), ('word_54e2f8', I),
-                ('word_6c7f4c', I), ('byte_6c7f50', B), ('value_54e310', F)]
+                ('word_6c7f48', I), ('word_6c7f4c', I),
+                ('byte_6c7f50', B), ('value_54e310', F),
+                ('timer_6c7f6c', F), ('delay_54f8e0', I)]
 
 
 class Final(C.Structure):
@@ -58,6 +61,10 @@ def regions(base):
     for group, typ in Retained._fields_:
         group_base = base + getattr(Retained, group).offset
         for name, field_type in typ._fields_:
+            # 6c7f48 is the second word already covered by words_6c7f44;
+            # keep it in the ctypes layout but do not register the alias twice.
+            if name == 'word_6c7f48':
+                continue
             offset = group_base + getattr(typ, name).offset
             label = 'retained.' + group + '.' + name
             if name in ('group_prefix', 'group_suffix'):

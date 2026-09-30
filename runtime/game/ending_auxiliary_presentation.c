@@ -39,7 +39,7 @@ int bk_ending_auxiliary_presentation_step(
            (float)((double)seconds * .3), e);
     } else {
       CALL(plain, BK_ENDING_AUX_PRESENT_PRIMARY, 0,
-           BK_CLIP_PLAIN_SCHEDULED, e);
+           BK_ENDING_CLIP_PLAIN_SCHEDULED, e);
     }
   } else if (b->control->state_721eec == 5) {
     float rate = b->frame->group == 4 ? .3f : .5f;

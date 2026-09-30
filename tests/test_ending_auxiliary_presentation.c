@@ -8,7 +8,7 @@ typedef struct {
   unsigned expressions, eyes, gazes, blinks, levels, mouths;
   BkEndingAuxiliaryPresentationActor actors[8];
   float seconds[8];
-  BkClipPlainMode plain_mode;
+  BkEndingClipPlainMode plain_mode;
   int32_t active_clip;
 } Trace;
 
@@ -28,7 +28,7 @@ static int advance(void *p, BkEndingAuxiliaryPresentationActor actor,
   return 1;
 }
 static int plain(void *p, BkEndingAuxiliaryPresentationActor actor,
-                 float seconds, BkClipPlainMode mode, char e[256]) {
+                 float seconds, BkEndingClipPlainMode mode, char e[256]) {
   Trace *t = p; (void)e;
   t->plains++; t->actors[7] = actor; t->seconds[7] = seconds;
   t->plain_mode = mode; return 1;
@@ -101,7 +101,7 @@ int main(void) {
     fprintf(stderr, "%s\n", error); return 1;
   }
   CHECK(trace.plains == 1 && trace.advances == 1 &&
-        trace.plain_mode == BK_CLIP_PLAIN_SCHEDULED &&
+        trace.plain_mode == BK_ENDING_CLIP_PLAIN_SCHEDULED &&
         trace.seconds[7] == 0);
 
   memset(&trace, 0, sizeof(trace));

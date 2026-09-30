@@ -11,6 +11,7 @@
 #include "scene/ending_auxiliary_assets.h"
 #include "game/ending_auxiliary_presentation.h"
 #include "game/ending_auxiliary_controller.h"
+#include "game/ending_auxiliary_sequence.h"
 #include "game/ending_auxiliary_state1.h"
 #include "game/ending_auxiliary_state3.h"
 #include "game/ending_auxiliary_state4.h"
@@ -418,6 +419,8 @@ static int frame_clock(void *context, uint32_t *milliseconds, char e[256]) {
   *milliseconds = s->now_ms;
   return 1;
 }
+static int auxiliary_state3_native_timing(void *, unsigned, BkClipTiming *,
+                                          char[256]);
 
 static int auxiliary_presentation_advance(
     void *context, BkEndingAuxiliaryPresentationActor actor, float seconds,
@@ -431,12 +434,23 @@ static int auxiliary_presentation_advance(
 }
 static int auxiliary_presentation_plain(
     void *context, BkEndingAuxiliaryPresentationActor actor, float seconds,
-    BkClipPlainMode mode, char e[256]) {
+    BkEndingClipPlainMode mode, char e[256]) {
   EndingNormalScene *s = context;
   if (!s || actor != BK_ENDING_AUX_PRESENT_PRIMARY || !s->auxiliary_assets)
     return fail(e, "auxiliary plain scheduler owner is missing");
+  BkClipPlainMode native_mode;
+  switch (mode) {
+  case BK_ENDING_CLIP_PLAIN_SCHEDULED:
+    native_mode = BK_CLIP_PLAIN_SCHEDULED; break;
+  case BK_ENDING_CLIP_PLAIN_SOURCE:
+    native_mode = BK_CLIP_PLAIN_SOURCE; break;
+  case BK_ENDING_CLIP_PLAIN_FORCE_CHAIN:
+    native_mode = BK_CLIP_PLAIN_FORCE_CHAIN; break;
+  default:
+    return fail(e, "auxiliary plain scheduler mode is invalid");
+  }
   return bk_ending_auxiliary_assets_advance_plain(s->auxiliary_assets,
-                                                   seconds, mode, e);
+                                                   seconds, native_mode, e);
 }
 static int auxiliary_presentation_active(
     void *context, BkEndingAuxiliaryPresentationActor actor, int32_t *out,
@@ -1247,6 +1261,35 @@ static int auxiliary_state1_request(void *context, unsigned slot,
                                     e);
 }
 
+static int auxiliary_sequence_restart(void *context, unsigned slot,
+                                      char e[256]) {
+  EndingNormalScene *s = context;
+  BkActorPose *primary = scene_primary(s);
+  if (!primary || slot >= BK_CLIP_SLOTS)
+    return fail(e, "auxiliary sequence clip restart is unavailable");
+  return bk_actor_pose_select(primary, slot, 0, e);
+}
+
+static int auxiliary_sequence_timing(void *context, unsigned slot,
+                                      BkEndingClipTiming *out, char e[256]) {
+  BkClipTiming native;
+  if (!out || !auxiliary_state3_native_timing(context, slot, &native, e))
+    return 0;
+  *out = (BkEndingClipTiming){native.start, native.end, native.source};
+  return 1;
+}
+
+static int auxiliary_sequence_special_audio(void *context, int32_t volume,
+                                            char e[256]) {
+  EndingNormalScene *s = context;
+  (void)volume;
+  if (!s || !s->audio)
+    return fail(e, "auxiliary sequence special audio owner is unavailable");
+  /*722D54 is a separate native DirectSound buffer. It has not been mapped to
+   * a packaged asset yet; do not alias it to an ending effect.*/
+  return fail(e, "native 722D54 special audio buffer is not bound");
+}
+
 static int auxiliary_state3_active(void *context, int32_t *slot,
                                    char e[256]) {
   EndingNormalScene *s = context;
@@ -1331,12 +1374,20 @@ static int auxiliary_state3_effect_stop(void *context, unsigned effect,
                               e);
 }
 
-static int auxiliary_state3_timing(void *context, unsigned slot,
-                                   BkClipTiming *timing, char e[256]) {
+static int auxiliary_state3_native_timing(void *context, unsigned slot,
+                                          BkClipTiming *timing, char e[256]) {
   EndingNormalScene *s = context;
   if (!s || !timing || slot >= BK_CLIP_SLOTS ||
       !bk_actor_pose_timing(scene_primary(s), slot, timing))
     return fail(e, "auxiliary state3 clip timing is unavailable");
+  return 1;
+}
+static int auxiliary_state3_timing(void *context, unsigned slot,
+                                   BkEndingClipTiming *timing, char e[256]) {
+  BkClipTiming native;
+  if (!timing || !auxiliary_state3_native_timing(context, slot, &native, e))
+    return 0;
+  *timing = (BkEndingClipTiming){native.start, native.end, native.source};
   return 1;
 }
 
@@ -2057,6 +2108,43 @@ static int frame_invoke(void *context, const BkEndingCall *call,
           auxiliary_state8_target,
           s->voice_volume};
       return bk_ending_auxiliary_controller_begin(&bindings, &ops, e);
+    }
+    if (s->state->control.state_721eec == 5 ||
+        s->state->control.state_721eec == 6 ||
+        s->state->control.state_721eec == 7) {
+      BkEndingAuxiliarySequenceBindings bindings = {
+          .frame = &s->state->frame,
+          .control = &s->state->control,
+          .auxiliary = &s->state->auxiliary,
+          .camera = &s->camera,
+          .records = s->records,
+          .substate = &s->state->retained.stage4.byte_6c7f50,
+          .latches = &s->state->retained.stage4.bytes_6c7f54[0],
+          .saved_toggle = &s->state->retained.stage3.byte_6bbe4c,
+          .voice_latches = &s->state->retained.stage4.words_6c7f44[0],
+          .timer = &s->state->retained.stage4.timer_6c7f6c,
+          .pass = &s->state->retained.stage4.delay_54f8e0,
+          .saved_orbit = &s->state->auxiliary_saved_orbit[0],
+          .saved_target = &s->state->auxiliary_saved_target[0],
+          .expression_override = &s->state->retained.stage3.word_6bbe48,
+          .face_mode = &s->state->face_mode,
+          .previous_flow = &s->previous_flow,
+          .voice_volume = &s->voice_volume,
+          .effect_volume = &s->effect_volume,
+          .seconds = s->active_seconds};
+      BkEndingAuxiliarySequenceOps ops = {
+          .context = s,
+          .active = auxiliary_state3_active,
+          .timing = auxiliary_sequence_timing,
+          .request = auxiliary_state1_request,
+          .restart = auxiliary_sequence_restart,
+          .present = auxiliary_state4_present,
+          .audio = auxiliary_state1_audio,
+          .voice = auxiliary_state1_voice,
+          .expression = auxiliary_state4_expression,
+          .target = auxiliary_state4_target,
+          .special_audio = auxiliary_sequence_special_audio};
+      return bk_ending_auxiliary_sequence_step(&bindings, &ops, e);
     }
     if (s->state->control.state_721eec != 4)
       return fail(e, "47DC79 state is not yet implemented");

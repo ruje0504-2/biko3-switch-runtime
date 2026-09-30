@@ -136,15 +136,15 @@ static int child_voice(void *context, int32_t cue, unsigned slot,
           (cue == 6 && slot == 1)) &&
          flags == 0 && volume == -333;
 }
-static int child_timing(void *context, unsigned slot, BkClipTiming *out,
+static int child_timing(void *context, unsigned slot, BkEndingClipTiming *out,
                         char e[256]) {
   Trace *t = context;
   (void)e;
   t->calls[t->count++] = 140 + slot;
   if (slot == 2)
-    *out = (BkClipTiming){0, t->clip2_end, 40};
+    *out = (BkEndingClipTiming){0, t->clip2_end, 40};
   else if (slot == 3)
-    *out = (BkClipTiming){0, 100, 65};
+    *out = (BkEndingClipTiming){0, 100, 65};
   else
     return 0;
   return 1;

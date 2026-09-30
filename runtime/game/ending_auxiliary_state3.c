@@ -53,7 +53,7 @@ static int child_clip4_interpolate(
   if (index < 0 || index >= 39)
     return fail(e, "481EA5 clip3 interpolation target is unavailable");
 
-  BkClipTiming clip2, clip3;
+  BkEndingClipTiming clip2, clip3;
   if (!o->request(o->context, 3, e) ||
       !o->end(o->context, (unsigned)active, e) ||
       !o->timing(o->context, 2, &clip2, e) ||
@@ -117,7 +117,7 @@ static int child_success_transition(
     return 0;
   if (busy)
     return 1;
-  BkClipTiming clip2;
+  BkEndingClipTiming clip2;
   if (!o->timing || !o->timing(o->context, 2, &clip2, e))
     return fail(e, "481EA5 successful transition timing is unavailable");
   if (clip2.end < active_source) {
@@ -203,7 +203,7 @@ int bk_ending_auxiliary_state3_child_step(
         return 0;
     }
     if (b->frame->group == 2) {
-      BkClipTiming clip3;
+      BkEndingClipTiming clip3;
       if (!o->timing || !o->effect ||
           !o->timing(o->context, 3, &clip3, e))
         return fail(e, "481EA5 group2 timing/effect service is unavailable");
@@ -218,7 +218,7 @@ int bk_ending_auxiliary_state3_child_step(
         b->effect_latches_6c7f60[1] = 1;
       }
     } else if (b->frame->group == 3) {
-      BkClipTiming clip2, clip3;
+      BkEndingClipTiming clip2, clip3;
       if (!o->timing || !o->effect ||
           !o->timing(o->context, 2, &clip2, e) ||
           !o->timing(o->context, 3, &clip3, e))
@@ -270,7 +270,7 @@ int bk_ending_auxiliary_state3_child_step(
         }
       }
     } else if (b->frame->group == 4) {
-      BkClipTiming clip2;
+      BkEndingClipTiming clip2;
       if (!o->timing || !o->effect ||
           !o->timing(o->context, 2, &clip2, e))
         return fail(e, "481EA5 group4 timing/effect service is unavailable");

@@ -2,7 +2,6 @@
 #define BK_GAME_ENDING_AUXILIARY_PRESENTATION_H
 #include "game/ending_presentation.h"
 #include "game/ending_control.h"
-#include "model/clip.h"
 #include "world/face_controller.h"
 
 /* Portable boundary for native 48181F. It owns no resource, device, audio or
@@ -32,7 +31,7 @@ typedef struct {
   int (*advance)(void *, BkEndingAuxiliaryPresentationActor, float,
                  char[256]);              /*4026FE*/
   int (*plain)(void *, BkEndingAuxiliaryPresentationActor, float,
-               BkClipPlainMode, char[256]); /*402E18*/
+               BkEndingClipPlainMode, char[256]); /*402E18*/
   int (*active)(void *, BkEndingAuxiliaryPresentationActor, int32_t *,
                 char[256]);
   int (*hide)(void *, uint32_t, uint32_t, char[256]); /*423A99*/

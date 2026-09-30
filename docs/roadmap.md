@@ -1,3 +1,5 @@
+# 2026-09-30 当前接续：47DC79 state5/6/7 已接入 `ending_normal_session`，恢复 state6→7 相机保存/恢复、三次 pass、state5 记录/黑幕和效果音链，见 `reports/ending-47dc79-state567.md`。主机 111/111、ASan 102/102、Python 29/29 及指定 NVK 构建通过；`0x722D54` 特殊 DirectSound 缓冲仍明确失败，完整结局、gallery、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包，防休眠保持。
+
 # 分阶段移植顺序
 
 2026-09-30 47DC79 state3 父控制器及 481EA5 已继续接入结局 session：补齐活动片段 authored end/source 写入、插值成功后的 slot2 end 比较与 cue3/cue4 pending 转移，并按原版含等号语义恢复 group2/3/4 效果链；见 `reports/ending-47dc79-state3-parent.md`。普通 CTest `101/101`、普通/ASan 定向单测及指定 NVK 构建通过，当前 NRO 为 `e2fa65f5…`。state5/6/7、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包。

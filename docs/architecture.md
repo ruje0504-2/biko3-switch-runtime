@@ -1,3 +1,5 @@
+# 2026-09-30 结局序列边界：`game/ending_auxiliary_sequence`、`ending_auxiliary_state3` 和 `ending_auxiliary_presentation` 使用 game 层自有的只读片段时序/普通提交类型；`scene/ending_normal_session` 才把它们转换为 model/world 的播放接口。这样 47DC79 state5/6/7 的控制器不会直接依赖 model、Vulkan 或 libnx。证据见 `reports/ending-47dc79-state567.md`。
+
 # 移植工程架构
 
 2026-09-30 增量：`scene/ending_auxiliary_assets` 负责 4D39E6 的 `bk3_12` 资源、保留外层背景、姿态/材质/MORP/MATA和相机轨道；`game/ending_auxiliary_presentation` 只负责 48181F 的 CPU 调用顺序，通过 session 适配器借用资源、森林、面部和音频所有者。该边界不向 `core/resource/model/world/game` 引入 libnx 或 Vulkan，也不把 47DC79 前置控制器隐藏成空成功。验证见 `reports/ending-4d39e6-presentation.md`。

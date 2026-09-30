@@ -9,6 +9,16 @@ typedef struct {
   float progress;                         /*721e20*/
   int32_t expression_a, expression_b;     /*721df4/721df0*/
 } BkEndingAuxiliaryState;
+/* Game-owned timing view used by ending controllers. The scene adapter copies
+ * the model player's read-only timing into this boundary type. */
+typedef struct {
+  float start, end, source;
+} BkEndingClipTiming;
+typedef enum {
+  BK_ENDING_CLIP_PLAIN_SCHEDULED,
+  BK_ENDING_CLIP_PLAIN_SOURCE,
+  BK_ENDING_CLIP_PLAIN_FORCE_CHAIN
+} BkEndingClipPlainMode;
 typedef enum {
   BK_ENDING_CLIP_CHAIN,
   BK_ENDING_CLIP_NEXT,
