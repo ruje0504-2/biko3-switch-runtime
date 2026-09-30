@@ -231,6 +231,20 @@ int bk_ending_state_gallery_selected_bindings(BkEndingState *s,
       s->speech_names[0], v->voice_volume, v->effect_volume};
   return 1;
 }
+int bk_ending_state_gallery_tertiary_bindings(BkEndingState *s,
+    BkEndingGalleryNormalState *normal, const BkEndingGalleryTertiaryViews *v,
+    BkEndingGalleryTertiaryBindings *out) {
+  if (!s || !normal || !v || !out || !v->reverse || !v->expression_override ||
+      !v->expression_latch || !v->voice_volume || !v->effect_volume) return 0;
+  BkEndingRetainedFinal *a = &s->retained.final;
+  *out = (BkEndingGalleryTertiaryBindings){
+      &s->frame, &s->control, &s->auxiliary, &a->byte_6d1bd4, &normal->clip,
+      &a->byte_6dde50, &a->byte_6dde51, v->expression_latch,
+      &a->word_6c7f74, a->workspace_6c7f80, BK_ENDING_RECORD_CAPACITY,
+      a->words_6dde24, &a->word_6d1bcc, v->reverse, &s->face_mode,
+      v->expression_override, v->voice_volume, v->effect_volume};
+  return 1;
+}
 int bk_ending_state_reload_bindings(BkEndingState *s, BkCommonHudState *common,
                                     const int8_t *previous,
                                     BkEndingReloadBindings *out) {

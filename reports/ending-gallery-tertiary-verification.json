@@ -1,0 +1,160 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Complete48758C CPU controller with existing retained state and shared clip/reverse aliases; not production gallery/real assets/PCM/GPU/Switch acceptance.",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "validation_path": "build/validation/ending-gallery-cpu-q4ge50s0/verification.json",
+  "validation_sha256": "7fac57a711b46aa4a5fca70480e54d121c06ad9647a9e3d4eb217804a23e8688",
+  "started_at": "2026-09-30T06:50:50.620392+00:00",
+  "finished_at": "2026-09-30T06:51:43.120194+00:00",
+  "source_manifest_count": 924,
+  "source_manifest_sha256": "4e3e8c43d1639b957fcbb7437302560db399e41cc936cb3d677aaddf80e650e6",
+  "source_sha256": {
+    "CMakeLists.txt": "3effe1639b60c2211192a9f5a6a3348e2e0afa39ac87f3e913d52404a9c2006a",
+    "runtime/game/ending_gallery_tertiary.c": "02c047b5dc7cdee03bbbd8aeeddc490508f16655cf89bde706797f8c65458658",
+    "runtime/game/ending_gallery_tertiary.h": "bb0acc0121e7c51d1a62d95d6e34026a9cb374e6d2dd2526d2998aa2038620b0",
+    "runtime/scene/ending_state.c": "c3ef931511dd5792f669fbf223a9917116b2f90990feade849a02bd1ae7e8577",
+    "runtime/scene/ending_state.h": "957ea1978a01002133c91452d7ac30e8bd8e3c96618955b3f626f1222d970393",
+    "tests/check_ending_gallery_cpu.py": "22666bd08f20d294f2d94523013add1dda19b8ec753f1a2998e4794e403e69a3",
+    "tests/original_ending_gallery_tertiary_oracle.py": "7d447b0a024745615b60706b761865570efe9948fa58a7b9bacad33d052b0c6b"
+  },
+  "paired_checks": [
+    {
+      "mode": "host",
+      "suite": "tertiary",
+      "result": {
+        "passed": true,
+        "scope": "Complete48758C and nested479739 with real retained-state bindings.\n\nNative dispatch, comparisons, signed arithmetic, table addressing, filename\nselection and shared writes execute. Actor/material/expression/audio/RNG\nleaves are fixtures. This does not validate actual XAN, PCM, GPU or phase8.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 6000,
+        "boundary_frames": 1082,
+        "retained_frames": 7015,
+        "calls": 14313,
+        "live_mutations": 320,
+        "failure_prefixes": 716,
+        "bounded_rejections": 15,
+        "reverse_frames": 1260,
+        "material_table_entries": 60,
+        "missing_services": 12,
+        "input_query_rejections": 13,
+        "operations": [
+          "expression",
+          "hidden",
+          "load",
+          "material",
+          "play",
+          "random",
+          "request",
+          "status",
+          "voice"
+        ],
+        "state_sha256": "190c66f6ad693b7800ca90a18fe9acb172f62b64a789fe7448757d3f7d6ed85d",
+        "max_error": 0,
+        "full_gallery": false,
+        "real_assets": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery tertiary: {'random_frames': 6000, 'boundary_frames': 1082, 'retained_frames': 7015, 'calls': 14313, 'live_mutations': 320, 'failure_prefixes': 716, 'bounded_rejections': 15, 'reverse_frames': 1260} 190c66f6ad693b7800ca90a18fe9acb172f62b64a789fe7448757d3f7d6ed85d",
+      "library_sha256": "d0b9d236738fb0b032fa7296e1e01bbdb2b14c8f3e5db73e2d81a92ccbcf9285",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "asan",
+      "suite": "tertiary",
+      "result": {
+        "passed": true,
+        "scope": "Complete48758C and nested479739 with real retained-state bindings.\n\nNative dispatch, comparisons, signed arithmetic, table addressing, filename\nselection and shared writes execute. Actor/material/expression/audio/RNG\nleaves are fixtures. This does not validate actual XAN, PCM, GPU or phase8.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 6000,
+        "boundary_frames": 1082,
+        "retained_frames": 7015,
+        "calls": 14313,
+        "live_mutations": 320,
+        "failure_prefixes": 716,
+        "bounded_rejections": 15,
+        "reverse_frames": 1260,
+        "material_table_entries": 60,
+        "missing_services": 12,
+        "input_query_rejections": 13,
+        "operations": [
+          "expression",
+          "hidden",
+          "load",
+          "material",
+          "play",
+          "random",
+          "request",
+          "status",
+          "voice"
+        ],
+        "state_sha256": "190c66f6ad693b7800ca90a18fe9acb172f62b64a789fe7448757d3f7d6ed85d",
+        "max_error": 0,
+        "full_gallery": false,
+        "real_assets": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery tertiary: {'random_frames': 6000, 'boundary_frames': 1082, 'retained_frames': 7015, 'calls': 14313, 'live_mutations': 320, 'failure_prefixes': 716, 'bounded_rejections': 15, 'reverse_frames': 1260} 190c66f6ad693b7800ca90a18fe9acb172f62b64a789fe7448757d3f7d6ed85d",
+      "library_sha256": "7904c686fea20c2fa5a631d5880df32b6d21624097565535facbf3e076c913ff",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    }
+  ],
+  "regression": {
+    "ctest": {
+      "host": {
+        "passed": 3,
+        "failed": 0
+      },
+      "asan": {
+        "passed": 3,
+        "failed": 0
+      },
+      "names": [
+        "ending-state",
+        "ending-entry",
+        "ending-reload"
+      ]
+    },
+    "python_tests": 29,
+    "architecture_tests_included": 2,
+    "shell_syntax": true,
+    "diff_check": true
+  },
+  "switch": {
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "mesa_version": "26.2.2",
+    "artifacts": {
+      "build-switch/biko3-preview.elf": {
+        "sha256": "f82af898c84d3e080cf13a13686fe6f649167ee41440652a7b0336b0ebc86f94",
+        "bytes": 34362184
+      },
+      "build-switch/biko3-preview.nro": {
+        "sha256": "0c9a3ca469c0993d183deeca86f264095dad4f30250691c654f4c71755839387",
+        "bytes": 16076856
+      }
+    },
+    "unresolved_symbols": 0,
+    "build-switch/libbk_game.a_symbols": [
+      "0000000000000290 T bk_ending_gallery_tertiary_step"
+    ],
+    "build-switch/biko3-preview.elf_symbols": [
+      "000000000050e7e0 T bk_ending_state_gallery_tertiary_bindings"
+    ],
+    "dependencies_lock_sha256": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8",
+    "controller_linked_to_application": false
+  },
+  "leak_detection": false,
+  "full_port_complete": false,
+  "production_gallery": false,
+  "real_assets": false,
+  "hardware_validation": false,
+  "pushed": false,
+  "full_delivery_packaged": false,
+  "awake_pid": 64008,
+  "remaining": [
+    "488674",
+    "phase8 real services and cross-loader event selection",
+    "natural ending, persistent unlock and return",
+    "production pixels: 9/12 only",
+    "Switch full acceptance"
+  ]
+}
