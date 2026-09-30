@@ -1,0 +1,108 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Gallery CPU controller and real Japanese texture/PCM/Vulkan renderer; application flow18 is not registered. Not natural ending-record/unlock or Switch/full-port acceptance.",
+  "validation_path": "build/validation/gallery-menu-pwydi6zh/result.json",
+  "validation_sha256": "769238e56667406a873643e739f849a97000cad59d53ed58ab3ef7d5a2d76533",
+  "started_at": "2026-09-30T10:42:55.071026+00:00",
+  "finished_at": "2026-09-30T10:46:15.619839+00:00",
+  "source_sha256": {
+    "CMakeLists.txt": "62142d06e9e10d78ba625507bffa4e0d9ac01ba95d09dc3224ff3f8bcc3b2d7e",
+    "test-host.sh": "4aea53642a44de29f4c95084e41246a6f33848c108ac9c01bbddf2ca670128b2",
+    "runtime/scene/gallery_menu.c": "1e42f9d7eca85d6a3a72717766820a23bae4a3fb8b3ff547f290c51d4a39f746",
+    "runtime/scene/gallery_menu.h": "8acbf4a7cb99f0fd7cff17512968961f8684b1852d66517474a3a4e730d326ff",
+    "runtime/scene/gallery_menu_render.c": "c99bc3a2d79ef7350f5ead4cd5b6c7588e034eac3aa3cad912f28678801e989e",
+    "runtime/scene/gallery_menu_render.h": "a52024a0673864731fe9391373bdc88af003b8ac92c4f7182e815d0fc7862640",
+    "tests/check_gallery_menu.py": "66e3d5ffd31d2a2280c7ebc576e5b5fd9d4a6fa99112f4398d3909c24ea883f2",
+    "tests/original_gallery_menu_oracle.py": "26911316f4b06008738211d6cfba11c5d063bfc05f8dddf59bc1c6dee0e414a3",
+    "tools/gallery_menu_probe.c": "971dcb5ddcb657eba2c8f9e962bd8ab97efc8bb38be03f4f9f384a894ed2cf24"
+  },
+  "source_manifest_count": 942,
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "archive_sha256": {
+    "bk3_00": "bd20b2d0a83be7ea9075cb4faea12774e15e07f57e7abde08b857c518ea12dfd",
+    "bk3_02": "32790a9436ee5070c30639d56001d334d0b372ce2fde3c380fc15791a1454854"
+  },
+  "paired_checks": [
+    {
+      "kind": "native",
+      "mode": "host",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "constructors": 90,
+        "frames": 30914,
+        "draws": 570993,
+        "events": 38270,
+        "dispatches": 75,
+        "names": 75,
+        "rejections": 10,
+        "continuous_sequences": 225,
+        "max_error": 0,
+        "scope": "Original4C59C0/4C7916/4C8768/51B9B3 gallery UI.\nTexture, audio, pointer and allocation are service boundaries. Original sprite\nconstructors, hit tests, input order, transitions, name formatting, resource\nreplacement, vertex generation and flow scheduling execute in Unicorn.\nThis is a CPU/service oracle, not a real asset or Switch acceptance test.\n"
+      },
+      "library_sha256": "6873a0bf1634f0ecc78f670e2872e0fa5bdd508828bd83504e0b55e6cebf34a4"
+    },
+    {
+      "kind": "native",
+      "mode": "asan",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "constructors": 90,
+        "frames": 30914,
+        "draws": 570993,
+        "events": 38270,
+        "dispatches": 75,
+        "names": 75,
+        "rejections": 10,
+        "continuous_sequences": 225,
+        "max_error": 0,
+        "scope": "Original4C59C0/4C7916/4C8768/51B9B3 gallery UI.\nTexture, audio, pointer and allocation are service boundaries. Original sprite\nconstructors, hit tests, input order, transitions, name formatting, resource\nreplacement, vertex generation and flow scheduling execute in Unicorn.\nThis is a CPU/service oracle, not a real asset or Switch acceptance test.\n"
+      },
+      "library_sha256": "d22db15d259282dac50dc617210f94c54d197c4a6252e960ef4781556d8dc625"
+    },
+    {
+      "kind": "gpu",
+      "mode": "host",
+      "result": "gallery-menu GPU PASS frames=900 pictures=50 samples=2372520 worst=1 redraws=100 loads=210 releases=114 sounds=160 rejects=2 pixels=3852ed5cdc11f5a8 PCM=1728000 nonzero=1727785 hash=cdc0e050244006ea",
+      "binary_sha256": "e3afdc505b9ef4d3cd4f37056185e2438a639ae574962b72d2d3ae5cc2695a7c"
+    },
+    {
+      "kind": "gpu",
+      "mode": "asan",
+      "result": "gallery-menu GPU PASS frames=900 pictures=50 samples=2372520 worst=1 redraws=100 loads=210 releases=114 sounds=160 rejects=2 pixels=3852ed5cdc11f5a8 PCM=1728000 nonzero=1727785 hash=cdc0e050244006ea",
+      "binary_sha256": "62c5fc545709d03d87e095f63896d372671056e95b063f9394523ff9952f2f62"
+    }
+  ],
+  "python_tests": 29,
+  "ctest": {
+    "host": 6,
+    "asan": 6
+  },
+  "leak_detection": false,
+  "application_flow18": false,
+  "packaged": false,
+  "pushed": false,
+  "switch": {
+    "compiled": true,
+    "new_symbols_in_static_libraries": true,
+    "new_symbols_in_final_elf": false,
+    "nro_unchanged": true,
+    "nro_sha256": "25c5940d2c192ae49d992ece859bc2b7a1a7bd5c3ac86ad2a31dd7ee14a7190e",
+    "nro_size": 16162872,
+    "undefined_symbols": 0,
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "mesa_version": "26.2.2",
+    "libvulkan_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
+    "device_tested": false
+  },
+  "remaining": [
+    "app/front_end and PlaySession flow18 lifecycle and input wiring",
+    "production gallery entry factories for selections0/3/4 with real shared process and records",
+    "independent flow48 page and return chain",
+    "natural recording/persistence/unlock/reentry evidence",
+    "complete 3D pixel comparison (production still9/12)",
+    "Switch full-game acceptance"
+  ]
+}

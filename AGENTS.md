@@ -1,3 +1,5 @@
+2026-09-30 鉴赏菜单CPU和实际资源渲染已恢复，见 `reports/gallery-menu.md` / verification JSON。两组普通/ASan配对各30,914原指令帧、570,993绘制与38,270调用一致；真实日文资源各900帧/50图片/100重绘，像素最大1/255、PCM一致。6普通/6ASan及29Python、指定NVK通过。菜单尚未注册app/front_end/PlaySession，新增符号只在静态库，NRO仍25c5940d…；不是flow18可玩或完整移植验收。下一项实际前端owner、selection0/3/4公开生产入口、独立flow48（4EB913→4E29B0）、自然记录/解锁/返回链；防休眠64008、本地提交、不推送、不整包。接续local/ending-gallery-next.md。
+
 # 协作约定
 
 - 2026-09-30 生产phase8真实回放与进程owner已接通，见 `reports/ending-gallery-session.md` / verification JSON。应用一次初始化BkEndingProcess，交互6DDE98与鉴赏6C7F78/6DDE52分离，725704与保存镜头继续共享。最终六项普通/ASan配对通过：显式记录路线各10入口164,220帧/25资源切换/332重绘，另混合11,054帧；52,702与39,463帧交互回归及原60加载960标量一致。原控制与真实XAN核对发现三项等待问题，链完成、短语音开场等待、快速循环跨界为明确兼容修正，不能混入严格原指令等价；4普通/4ASan单测、29 Python/NVK通过，NRO25c5940d…仅构建目录。下一项真正flow18鉴赏菜单（4E7671跳表确认4EB93B→4C59C0）、自然记录/解锁/返回链；本批终点是退出请求，仍非完整移植/像素9/12/实机验收。防休眠64008、不整包；用户仅授权本批结束增量推送一次，之后恢复不自动推送。接续见local/ending-gallery-next.md。下文生产phase8未接为旧快照。
