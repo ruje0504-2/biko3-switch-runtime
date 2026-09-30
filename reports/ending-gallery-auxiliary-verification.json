@@ -1,0 +1,161 @@
+{
+  "date": "2026-09-30",
+  "passed": true,
+  "scope": "Complete488674 CPU controller and real retained-state binder; no production gallery, real assets, PCM, GPU or Switch acceptance.",
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "validation_path": "build/validation/ending-gallery-cpu-p07dtnwb/verification.json",
+  "validation_sha256": "5e0c008cf7eee2c70517c6bad436b26f666abac78160639561d0bd9327b8766d",
+  "started_at": "2026-09-30T07:08:01.630803+00:00",
+  "finished_at": "2026-09-30T07:10:06.090116+00:00",
+  "source_manifest_count": 928,
+  "source_manifest_sha256": "dc3361c2eb85ebaf363221bf466cd49aa0e632f81f5f6305cc0e476a10bc7b03",
+  "source_sha256": {
+    "CMakeLists.txt": "2d217ef77af3d9505950d3079d5a29c6b80052f9eb882458d906435a1ae41c7a",
+    "runtime/game/ending_gallery_auxiliary.c": "b4813c6fc7e0b8a893eb5b3266f1479de970d8e51b6559e7cba2b5a5c258d174",
+    "runtime/game/ending_gallery_auxiliary.h": "2f77b6ec3e92878bb5ddb995b1bc4abfc290d7af4fe30c66962a5ff285caafb3",
+    "runtime/game/ending_gallery_auxiliary_tables.inc": "d8bd679796d24ce26c7cd5e1ba78103b498799d890ecb869e6060e2f3e60c0a2",
+    "runtime/scene/ending_state.c": "3ab28883cca59682e3abf894f781b9487d10b8837a0617aff4826657fdbe847f",
+    "runtime/scene/ending_state.h": "a3a80835f7b8962513b29c74a63a68ffa62cf6ecce52afb0004d0147d3e17a13",
+    "tests/check_ending_gallery_cpu.py": "da8afa2aae7fcf9e2294ba218ec65dfbcf8946c908e472d878161db3b90fbd20",
+    "tests/original_ending_gallery_auxiliary_oracle.py": "e7109e4450f5b3f8887a52d55a9fda76653123cf1aebdc07d2ea0c1b09abe3db"
+  },
+  "paired_checks": [
+    {
+      "mode": "host",
+      "suite": "auxiliary",
+      "result": {
+        "passed": true,
+        "scope": "Complete488674 versus native instructions and actual retained-state aliases.\n\nNative dispatch/tables/descriptor stores and arithmetic execute; animation,\n481E0A voice, sound, expression and camera services are observing fixtures.\nThis is not actual asset/PCM/GPU/production phase8 or hardware acceptance.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 6000,
+        "boundary_frames": 1720,
+        "retained_frames": 35223,
+        "calls": 23970,
+        "live_mutations": 274,
+        "failure_prefixes": 563,
+        "write_failure_prefixes": 2,
+        "bounded_rejections": 41,
+        "missing_services": 14,
+        "input_query_rejections": 15,
+        "operations": [
+          "camera",
+          "expression",
+          "fov",
+          "play",
+          "request",
+          "restart",
+          "status",
+          "stop",
+          "voice"
+        ],
+        "state_sha256": "31c336eb6335e6f1b452d6dbfa14565437eb46016d8c3dbea0570b00467ae3cb",
+        "max_error": 0,
+        "full_gallery": false,
+        "real_assets": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery auxiliary: {'random_frames': 6000, 'boundary_frames': 1720, 'retained_frames': 35223, 'calls': 23970, 'live_mutations': 274, 'failure_prefixes': 563, 'write_failure_prefixes': 2, 'bounded_rejections': 41} 31c336eb6335e6f1b452d6dbfa14565437eb46016d8c3dbea0570b00467ae3cb",
+      "library_sha256": "f00fe2fabc92f3d15c1514dc840df7a4f988d99fb906b97f6f37122a954ae21d",
+      "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+    },
+    {
+      "mode": "asan",
+      "suite": "auxiliary",
+      "result": {
+        "passed": true,
+        "scope": "Complete488674 versus native instructions and actual retained-state aliases.\n\nNative dispatch/tables/descriptor stores and arithmetic execute; animation,\n481E0A voice, sound, expression and camera services are observing fixtures.\nThis is not actual asset/PCM/GPU/production phase8 or hardware acceptance.\n",
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "random_frames": 6000,
+        "boundary_frames": 1720,
+        "retained_frames": 35223,
+        "calls": 23970,
+        "live_mutations": 274,
+        "failure_prefixes": 563,
+        "write_failure_prefixes": 2,
+        "bounded_rejections": 41,
+        "missing_services": 14,
+        "input_query_rejections": 15,
+        "operations": [
+          "camera",
+          "expression",
+          "fov",
+          "play",
+          "request",
+          "restart",
+          "status",
+          "stop",
+          "voice"
+        ],
+        "state_sha256": "31c336eb6335e6f1b452d6dbfa14565437eb46016d8c3dbea0570b00467ae3cb",
+        "max_error": 0,
+        "full_gallery": false,
+        "real_assets": false,
+        "gpu_or_device_validation": false
+      },
+      "summary": "PASS gallery auxiliary: {'random_frames': 6000, 'boundary_frames': 1720, 'retained_frames': 35223, 'calls': 23970, 'live_mutations': 274, 'failure_prefixes': 563, 'write_failure_prefixes': 2, 'bounded_rejections': 41} 31c336eb6335e6f1b452d6dbfa14565437eb46016d8c3dbea0570b00467ae3cb",
+      "library_sha256": "a4ba01525bfca77d958ddf133993d3e0dad6b7aa7b135876bc1ede6e78360157",
+      "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+    }
+  ],
+  "regression": {
+    "ctest": {
+      "host": {
+        "passed": 3,
+        "failed": 0
+      },
+      "asan": {
+        "passed": 3,
+        "failed": 0
+      },
+      "names": [
+        "ending-state",
+        "ending-entry",
+        "ending-reload"
+      ]
+    },
+    "python_tests": 29,
+    "architecture_tests_included": 2,
+    "shell_syntax": true,
+    "diff_check": true
+  },
+  "switch": {
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "mesa_version": "26.2.2",
+    "artifacts": {
+      "build-switch/biko3-preview.elf": {
+        "sha256": "61e5cdcb1b8c4f3fe8092ed0b8161ca37485186e3569ea4edaf6df4304fa8522",
+        "bytes": 34363136
+      },
+      "build-switch/biko3-preview.nro": {
+        "sha256": "95e2969131a966eaa734b8ee813e9ea1677a31cec30cf722beca5685f6dea500",
+        "bytes": 16076856
+      }
+    },
+    "unresolved_symbols": 0,
+    "build-switch/libbk_game.a_symbols": [
+      "0000000000001300 T bk_ending_gallery_auxiliary_initial",
+      "0000000000001310 T bk_ending_gallery_auxiliary_step"
+    ],
+    "build-switch/biko3-preview.elf_symbols": [
+      "000000000050e8a0 T bk_ending_state_gallery_auxiliary_bindings"
+    ],
+    "dependencies_lock_sha256": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8",
+    "controller_linked_to_application": false
+  },
+  "leak_detection": false,
+  "full_port_complete": false,
+  "production_gallery": false,
+  "real_assets": false,
+  "hardware_validation": false,
+  "pushed": false,
+  "full_delivery_packaged": false,
+  "awake_pid": 64008,
+  "remaining": [
+    "production phase8 process owners, controller services and entry",
+    "original event selection and cross-loader lifecycle",
+    "natural ending, persistent unlock and return",
+    "front-end gallery",
+    "production pixels: 9/12 only",
+    "Switch full acceptance"
+  ]
+}

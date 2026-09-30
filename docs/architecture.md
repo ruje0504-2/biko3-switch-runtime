@@ -1,3 +1,5 @@
+2026-09-30 phase8第五类回放边界：`game/ending_gallery_auxiliary`恢复488674六状态与镜头/语音/音效时序，仅新增原5545FC与6DDCE1过程值；`scene/ending_state_gallery_auxiliary_bindings`借用同一retained.final、GalleryCameraState、presets与表情字段，不复制既有所有者。source写入不推进/发布姿态，音频和模型必须通过真实scene适配；证据见 `reports/ending-gallery-auxiliary.md`。五类CPU齐备，生产phase8尚待进程owner、入口和跨loader装配。
+
 2026-09-30 phase8第四类回放边界：`game/ending_gallery_tertiary` 恢复48758C，通过必需服务调用角色、材质和音频，不推进/发布姿态。`scene/ending_state_gallery_tertiary_bindings`借用同一个GalleryNormalState片段字节与现有retained.final、reverse、expression字段，禁止复制第二个状态所有者。三组材质表与既有原表逐字节一致后复用；越界与条件未初始化局部值在使用处失败并保留前缀。证据见 `reports/ending-gallery-tertiary.md`；下一项488674与生产phase8真实装配。
 
 2026-09-30 phase8选择回放边界：`game/ending_gallery_selected` 恢复4855C9，通过必需服务读写实际动画描述符；source/chain改动不推进或发布姿态。`scene/ending_state_gallery_selected_bindings` 借用已有记录、计时、UI与common所有者；6D1BC0保存焦点和6DDE14轨道/6C7F7C开关共用同一个进程GalleryCameraState。普通/ASan及共享状态回归见 `reports/ending-gallery-selected.md`。生产phase8仍待剩余子控制器和真实服务装配。

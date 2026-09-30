@@ -245,6 +245,17 @@ int bk_ending_state_gallery_tertiary_bindings(BkEndingState *s,
       v->expression_override, v->voice_volume, v->effect_volume};
   return 1;
 }
+int bk_ending_state_gallery_auxiliary_bindings(BkEndingState *s,
+    const BkEndingGalleryAuxiliaryViews *v, BkEndingGalleryAuxiliaryBindings *out) {
+  if(!s||!v||!out||!v->camera||!v->presets||!v->saved||
+      !v->expression_override||!v->effect_volume) return 0;
+  BkEndingRetainedFinal *a=&s->retained.final;
+  *out=(BkEndingGalleryAuxiliaryBindings){&s->frame,&s->control,&s->auxiliary,
+      v->camera,v->presets,v->saved,&a->byte_6d1c0d,&a->byte_6dde58,
+      &a->word_6c7f74,a->words_6dde24,&a->word_6d1bcc,
+      v->expression_override,&s->face_mode,v->effect_volume};
+  return 1;
+}
 int bk_ending_state_reload_bindings(BkEndingState *s, BkCommonHudState *common,
                                     const int8_t *previous,
                                     BkEndingReloadBindings *out) {

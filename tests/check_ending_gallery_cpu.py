@@ -1,4 +1,4 @@
-"""Pair48302B/483AF0/4843AA/4855C9/48758C/48C8C2/48BCBB/48CC18 and optional effect/audio adapters.
+"""Pair48302B/483AF0/4843AA/4855C9/48758C/488674/48C8C2/48BCBB/48CC18 and optional effect/audio adapters.
 
 Needs the fixed EXE and the existing sanitized Python launcher. Outputs go to
 a fresh validation directory. --data adds Japanese actor/PCM checks. None of
@@ -27,11 +27,11 @@ def main():
     p.add_argument('--asan-python', type=Path, default=ROOT/'build/asan/ending-oracle-python')
     p.add_argument('--jobs', type=int, default=8)
     p.add_argument('--data', type=Path)
-    p.add_argument('--suites', default='control,normal,secondary,selected,tertiary,presentation,effect')
+    p.add_argument('--suites', default='control,normal,secondary,selected,tertiary,auxiliary,presentation,effect')
     args = p.parse_args()
     suites = args.suites.split(',')
-    if not suites or len(set(suites)) != len(suites) or any(s not in ['control', 'normal', 'secondary', 'selected', 'tertiary', 'presentation', 'effect'] for s in suites):
-        p.error('--suites must be distinct members of control,normal,secondary,selected,tertiary,presentation,effect')
+    if not suites or len(set(suites)) != len(suites) or any(s not in ['control', 'normal', 'secondary', 'selected', 'tertiary', 'auxiliary', 'presentation', 'effect'] for s in suites):
+        p.error('--suites must be distinct members of control,normal,secondary,selected,tertiary,auxiliary,presentation,effect')
     if args.data:
         if 'effect' not in suites: p.error('--data requires the effect suite')
         suites.append('effect-scene')
