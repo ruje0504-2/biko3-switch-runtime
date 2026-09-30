@@ -1,8 +1,9 @@
 /* Actual recorder -> flow10 save -> closing dialogue/unlock -> new-process
- * load -> menu-selected replay. Story/selected-stage handoffs are explicit
- * boundary fixtures. Actions, terminal21, clocks, PCM, returns and persistence
- * all run production code; no recorded lane or unlock flag is prepopulated. */
+ * load -> menu-selected replay. The story handoff is an explicit boundary.
+ * Isolated mode also supplies the selected-stage handoff; natural mode runs
+ * ordinary phases1/2/7 through public input. No saved lane/unlock is injected. */
 #include "app/front_end.h"
+#include "ending_record_natural_input.h"
 static double record_wall_step=1./60.;
 #define BK_APP_PROBE_WALL_STEP record_wall_step
 static unsigned record_group, record_variant;
@@ -39,16 +40,18 @@ static int expected_file(const char *root,PlaySession *s,int write,char e[256]) 
   free(bytes);free(other);return ok;
 }
 int main(int argc,char **argv) {
-  if(argc!=6&&argc!=7){fprintf(stderr,"usage: ending-record-app-probe DATA OUTPUT produce|replay GROUP VARIANT [mixed-clock]\n");return 2;}
+  if(argc!=6&&argc!=7){fprintf(stderr,"usage: ending-record-app-probe DATA OUTPUT produce|replay|natural-produce|natural-replay GROUP VARIANT [mixed-clock]\n");return 2;}
   int mixed_clock=argc==7;
   if(mixed_clock&&strcmp(argv[6],"mixed-clock"))return 2;
   record_wall_step=mixed_clock?.05:1./60.;
   const unsigned input_limit=mixed_clock?22000:66000;
   const unsigned replay_limit=mixed_clock?14000:42000;
-  int produce=!strcmp(argv[3],"produce"),result=1;
-  if(!produce && strcmp(argv[3],"replay"))return 2;
+  int natural=!strncmp(argv[3],"natural-",8);
+  const char *operation=argv[3]+(natural?8:0);
+  int produce=!strcmp(operation,"produce"),result=1;
+  if(!produce && strcmp(operation,"replay"))return 2;
   record_group=(unsigned)strtoul(argv[4],NULL,10);record_variant=(unsigned)strtoul(argv[5],NULL,10);
-  if(record_group>=5||record_variant>1)return 2;
+  if(record_group>=5||record_variant>1||(natural&&record_variant))return 2;
   char error[256]={0},path[2048];
   BkResourceStore *store=NULL;BkRenderer *renderer=NULL;BkAudio *audio=NULL;
   BkScene *scene=NULL;BkUnlockFile *unlocks=NULL;BkRecordFile *records=NULL;
@@ -96,27 +99,49 @@ int main(int argc,char **argv) {
     int32_t after_volume,after_pan;
     CHECK(!s->retire_ending&&!s->ending_unlock_valid&&
         bk_audio_get_gain(audio,47,&after_volume,&after_pan)&&volume==after_volume&&pan==after_pan);
-    /* Supply only the selected-stage handoff, not record contents. */
-    s->ending_state.auxiliary.selection=0;s->common.action=7;s->common.blocked=1;
-    unsigned n=0;
-    while((s->ending_state.frame.phase!=(int32_t)(5+record_variant)||s->ending_state.auxiliary.gate!=1)&&n++<2400)
-      CHECK(tick(scene,renderer,audio,&sink,pointer(4,920),error));
-    CHECK(n<2400);CHECK(wait_frames(scene,renderer,audio,&sink,90,pointer(4,920),error));
-    BkInput point;CHECK(record_probe_point(s->ending,&point,error));
-    CHECK(tick(scene,renderer,audio,&sink,point,error));point.held=point.pressed=BK_BUTTON_CONFIRM;
-    CHECK(tick(scene,renderer,audio,&sink,point,error));
-    CHECK(s->ending_state.auxiliary.gate==3&&s->ending_state.ui_controller.auxiliary.mode==3);
-    int32_t choice=s->ending_state.choices[0];
-    point.pointer_x=s->viewport.x+(float)s->ending_state.points[0][0];
-    point.pointer_y=s->viewport.y+(float)s->ending_state.points[0][1];
-    point.pressed=point.held=0;point.released=BK_BUTTON_CONFIRM;
-    CHECK(tick(scene,renderer,audio,&sink,point,error));
+    if(natural) {
+      BkRecordNaturalInput driver={0};
+      while(s->ending_state.frame.phase!=5 && driver.frames<60000) {
+        BkInput in;
+        CHECK(record_probe_early_input(s->ending,&driver,&in,error));
+        CHECK(tick(scene,renderer,audio,&sink,in,error));
+      }
+      CHECK(driver.frames<60000 && s->ending_state.frame.phase==5);
+      CHECK((driver.phases&0x82u)==0x82u); /* Normal and final image visited. */
+      BkEndingRecord *record=&s->ending_records.groups[record_group];
+      CHECK(record->count>1 && record->count<BK_ENDING_RECORD_CAPACITY &&
+          record->actions[record->count-1]==12+s->ending_state.auxiliary.selection);
+      printf("PASS record-early group%u frames%u phases%x count%d\n",
+          record_group,driver.frames,driver.phases,record->count);
+    } else {
+      /* Explicit selected-stage fixture retained for isolated branch tests. */
+      s->ending_state.auxiliary.selection=0;s->common.action=7;s->common.blocked=1;
+    }
     BkEndingRecord *r=&s->ending_records.groups[record_group];
-    CHECK(r->count==1&&r->actions[0]==choice+12);
-    n=0;while((s->common.blocked||s->ending_state.auxiliary.gate!=1)&&n++<2400)
-      CHECK(tick(scene,renderer,audio,&sink,pointer(4,920),error));
-    printf("record-app menu recorded group%u variant%u\n",record_group,record_variant);fflush(stdout);
-    CHECK(n<2400);
+    unsigned n=0;
+    /* Natural entry already records its initial selection. Isolated entry
+     * performs two real menu changes to exercise consecutive replay choices. */
+    for(unsigned menu=0;menu<(natural?1u:2u);++menu) {
+      int32_t before_menu=s->ending_records.groups[record_group].count;
+      n=0;
+      while((s->ending_state.frame.phase!=(int32_t)(5+record_variant)||s->ending_state.auxiliary.gate!=1)&&n++<2400)
+        CHECK(tick(scene,renderer,audio,&sink,pointer(4,920),error));
+      CHECK(n<2400);CHECK(wait_frames(scene,renderer,audio,&sink,90,pointer(4,920),error));
+      BkInput point;CHECK(record_probe_point(s->ending,&point,error));
+      CHECK(tick(scene,renderer,audio,&sink,point,error));point.held=point.pressed=BK_BUTTON_CONFIRM;
+      CHECK(tick(scene,renderer,audio,&sink,point,error));
+      CHECK(s->ending_state.auxiliary.gate==3&&s->ending_state.ui_controller.auxiliary.mode==3);
+      int32_t choice=s->ending_state.choices[0];
+      point.pointer_x=s->viewport.x+(float)s->ending_state.points[0][0];
+      point.pointer_y=s->viewport.y+(float)s->ending_state.points[0][1];
+      point.pressed=point.held=0;point.released=BK_BUTTON_CONFIRM;
+      CHECK(tick(scene,renderer,audio,&sink,point,error));
+      CHECK(r->count==before_menu+1&&r->actions[before_menu]==choice+12);
+      n=0;while((s->common.blocked||s->ending_state.auxiliary.gate!=1)&&n++<2400)
+        CHECK(tick(scene,renderer,audio,&sink,pointer(4,920),error));
+      printf("record-app menu recorded group%u variant%u\n",record_group,record_variant);fflush(stdout);
+      CHECK(n<2400);
+    }
     /* Enter through the actual anchor, drag/release the original prompt,
      * then keep real input held through modes1/2/6/4 and the finish wait. */
     unsigned modes=0, clicks=0;int32_t last_mode=-1,last_gate=-1;
@@ -171,7 +196,26 @@ int main(int argc,char **argv) {
     CHECK(click(scene,renderer,audio,&sink,612,record_variant?738:432,error));
     CHECK(await_flow(scene,renderer,audio,&sink,0x10,200,error));
     CHECK(s->ending_state.frame.phase==8);
-    CHECK(await_flow(scene,renderer,audio,&sink,0x18,replay_limit,error));
+    unsigned replay=0,selected_loads=0;
+    int32_t old_main=-1,old_cursor=-1;
+    while(s->flow.current!=0x18&&replay++<replay_limit) {
+      int32_t before=s->ending_state.frame.state_721ee0;
+      CHECK(tick(scene,renderer,audio,&sink,pointer(4,920),error));
+      int32_t main_state=s->ending_state.frame.state_721ee0;
+      int32_t cursor=s->ending_state.retained.final.word_6c7f74;
+      if(main_state!=old_main||cursor!=old_cursor) {
+        printf("record-replay frame%u main%d cursor%d class%u action%u\n",
+            replay,main_state,cursor,s->ending_state.retained.final.byte_6ddce0,
+            s->common.action);
+        old_main=main_state;old_cursor=cursor;
+      }
+      if(before==2&&main_state==6&&s->flow.current==0x10) {
+        ++selected_loads;
+        CHECK(again(scene,renderer,audio,error)&&again(scene,renderer,audio,error));
+      }
+    }
+    CHECK(replay<replay_limit&&s->flow.current==0x18&&selected_loads>=2);
+    printf("PASS record-replay selected-loads%u frames%u\n",selected_loads,replay);
     CHECK(wait_frames(scene,renderer,audio,&sink,64,pointer(4,920),error));
     CHECK(s->ending_records.groups[record_group].retained[record_variant][s->ending_records.groups[record_group].count-1]==21);
   }

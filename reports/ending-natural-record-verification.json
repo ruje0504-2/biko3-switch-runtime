@@ -1,0 +1,496 @@
+{
+  "passed": true,
+  "date": "2026-09-30",
+  "finished_at": "2026-09-30T15:54:42.135199+00:00",
+  "scope": "Five ordinary characters use actual input after an explicit story handoff, then save and fresh-process replay. One variant1 isolated selected-stage regression. Simulated clocks; no complete natural story, full-resolution image or Switch hardware acceptance.",
+  "record_validation": {
+    "path": "build/validation/record-natural-dslblj2s/verification.json",
+    "sha256": "97bafa74b6b7e84310ad1a45bac97f35dc1dfbfa06c6de5e13cfce906645e4fd",
+    "started_at": "2026-09-30T15:30:30.944340+00:00",
+    "finished_at": "2026-09-30T15:42:24.618605+00:00",
+    "natural_pairs": 5,
+    "isolated_pairs": 1,
+    "fresh_process_replays": 12,
+    "per_build": {
+      "natural": {
+        "pairs": 5,
+        "produce_frames": 102783,
+        "replay_frames": 114731,
+        "redraws": 35
+      },
+      "isolated": {
+        "pairs": 1,
+        "produce_frames": 14382,
+        "replay_frames": 10507,
+        "redraws": 7
+      }
+    },
+    "source_files_verified": 1112,
+    "asset_files_verified": 45,
+    "profiles": [
+      {
+        "group": 0,
+        "variant": 0,
+        "natural": true,
+        "summaries": [
+          "PASS record-app natural-produce group0 variant0 frames22145 redraws1 statefad1e9695952c5dd PCMb518d2846e4f91d8 samples35435520 nonzero35271435",
+          "PASS record-app natural-replay group0 variant0 frames25967 redraws6 state59d8a8813cfa2520 PCM2c77da597ce9049b samples41550720 nonzero41436127"
+        ],
+        "files": {
+          "expected.bkr": "a4d9e7503e6ad8481e7943f6760d1c2947fad7eb48be58975405356887d6ffd1",
+          "save/records.bkr": "a4d9e7503e6ad8481e7943f6760d1c2947fad7eb48be58975405356887d6ffd1",
+          "save/unlocks.bku": "85d453d2a58ccd86ace0a66b51208294de098f4bd13024ac10817f0aea68b79d"
+        },
+        "input_summary": [
+          "PASS record-early group0 frames11253 phases86 count8",
+          "PASS record-input modesf7 clicks16 input_frames9031 missing_lane_rejected1"
+        ],
+        "replay_summary": [
+          "PASS record-replay selected-loads2 frames25516"
+        ],
+        "input_trace_sha256": "06649c82f8fd9ab1330069e653adbdf02c8c4b235c665e471b07b0f5447adcbf",
+        "replay_trace_sha256": "ded51593f3662151a8625449c5d95e5639e99130b4bc22a014158b805c811c30"
+      },
+      {
+        "group": 0,
+        "variant": 1,
+        "natural": false,
+        "summaries": [
+          "PASS record-app produce group0 variant1 frames14382 redraws1 state19b187376c2770b6 PCM6b836b69eb38679e samples23015040 nonzero22853421",
+          "PASS record-app replay group0 variant1 frames10507 redraws6 state532be2d2aad3a4b2 PCMcdc7f78e5e9d3da6 samples16814400 nonzero16705414"
+        ],
+        "files": {
+          "expected.bkr": "53f464e54e1b29b43442095ec6630eb99f4874f5b03f40503c46cebb28e0056d",
+          "save/records.bkr": "53f464e54e1b29b43442095ec6630eb99f4874f5b03f40503c46cebb28e0056d",
+          "save/unlocks.bku": "2ca3c809d53c6d8227c05a88c100805782ee565aadd7b66ea6543eb22b8865c7"
+        },
+        "input_summary": [
+          "PASS record-input modesf7 clicks18 input_frames11998 missing_lane_rejected1"
+        ],
+        "replay_summary": [
+          "PASS record-replay selected-loads2 frames10056"
+        ],
+        "input_trace_sha256": "84d59d9361fb89ffbfe9249794345157af6f0909b67b44004ceabad27c91e067",
+        "replay_trace_sha256": "633fe2b7ded9f93739a959f052c058024130d5132738f3430cbb7d6bb6886c25"
+      },
+      {
+        "group": 1,
+        "variant": 0,
+        "natural": true,
+        "summaries": [
+          "PASS record-app natural-produce group1 variant0 frames16569 redraws1 state28a111c3e5ff1855 PCM948604a5c2fdfb3c samples26514240 nonzero26389835",
+          "PASS record-app natural-replay group1 variant0 frames16329 redraws6 state52f5d35cb9376f87 PCMc80f0d157d52ca85 samples26130240 nonzero26017693"
+        ],
+        "files": {
+          "expected.bkr": "e1712b59ce267dd0252e6dee750c76d178b5dcb17191c8f442d397e6020f2205",
+          "save/records.bkr": "e1712b59ce267dd0252e6dee750c76d178b5dcb17191c8f442d397e6020f2205",
+          "save/unlocks.bku": "907453e7ac81f16680f2d89177b3be576ea5089ef45adf2287343279a0ffae9b"
+        },
+        "input_summary": [
+          "PASS record-early group1 frames3993 phases82 count5",
+          "PASS record-input modesf7 clicks13 input_frames10862 missing_lane_rejected1"
+        ],
+        "replay_summary": [
+          "PASS record-replay selected-loads2 frames15878"
+        ],
+        "input_trace_sha256": "7456946cf61806523133b8606ccf256086daae497714be1453647181b27d42eb",
+        "replay_trace_sha256": "8866baf39a398b72bd1c24019c37fd96aff1c3aeacd9b084c827c42c6dbc8123"
+      },
+      {
+        "group": 2,
+        "variant": 0,
+        "natural": true,
+        "summaries": [
+          "PASS record-app natural-produce group2 variant0 frames19095 redraws1 statece25e2fae45894e1 PCMf867f6067a4df675 samples30555840 nonzero30363363",
+          "PASS record-app natural-replay group2 variant0 frames22701 redraws6 state1bb5412b5f6890e7 PCMbcf49c65b557157a samples36325440 nonzero36211931"
+        ],
+        "files": {
+          "expected.bkr": "5b1fb8e9af2275b038be9831c9d468d313192d2979d0627a01fea80f585824cc",
+          "save/records.bkr": "5b1fb8e9af2275b038be9831c9d468d313192d2979d0627a01fea80f585824cc",
+          "save/unlocks.bku": "e5339d5a1e8cdf5df7bd06356a587a12daacaadbb84a2984be7ac89750c7c0d5"
+        },
+        "input_summary": [
+          "PASS record-early group2 frames10983 phases86 count8",
+          "PASS record-input modesf7 clicks15 input_frames5562 missing_lane_rejected1"
+        ],
+        "replay_summary": [
+          "PASS record-replay selected-loads2 frames22250"
+        ],
+        "input_trace_sha256": "d07ce03dbfeb8dc2695b4dd6d69a304bd74401a2713ffecd24efcb27c3040a85",
+        "replay_trace_sha256": "b06ffe901d8c7b9a038a686730f6457a9e9ee6043b90b28d93ffea935a110c83"
+      },
+      {
+        "group": 3,
+        "variant": 0,
+        "natural": true,
+        "summaries": [
+          "PASS record-app natural-produce group3 variant0 frames23090 redraws1 statede731f0259ff5e49 PCM6397a5d565e2c0cd samples36947520 nonzero36423983",
+          "PASS record-app natural-replay group3 variant0 frames25040 redraws6 state9c6fea17b4d731d1 PCMc1acbeb4d48a23d5 samples40067520 nonzero39941330"
+        ],
+        "files": {
+          "expected.bkr": "f0a5ed3f3a3af57af51319a676d9e4597f675385deea6e0679c4d0d1fde8ab38",
+          "save/records.bkr": "f0a5ed3f3a3af57af51319a676d9e4597f675385deea6e0679c4d0d1fde8ab38",
+          "save/unlocks.bku": "cac4a56cb5d332c468104e48865558729fe82ec942aa15588f2c0c971fc11015"
+        },
+        "input_summary": [
+          "PASS record-early group3 frames11493 phases86 count8",
+          "PASS record-input modesf7 clicks33 input_frames8613 missing_lane_rejected1"
+        ],
+        "replay_summary": [
+          "PASS record-replay selected-loads2 frames24589"
+        ],
+        "input_trace_sha256": "f416c77cf1dafc1129c7b88e20c3a5704d353aa719c8040731d69535f1eb5575",
+        "replay_trace_sha256": "f3359e3b597e180e7254703e1d0e8074ce036f626c6668df4b5b137df119d97e"
+      },
+      {
+        "group": 4,
+        "variant": 0,
+        "natural": true,
+        "summaries": [
+          "PASS record-app natural-produce group4 variant0 frames21884 redraws1 state010faf6ed8072320 PCM16ae91e1a2f5e18c samples35017920 nonzero34651173",
+          "PASS record-app natural-replay group4 variant0 frames24694 redraws6 statef3eb853926358a03 PCMbb98b109596616e9 samples39513600 nonzero39398657"
+        ],
+        "files": {
+          "expected.bkr": "e38b9d4cb0dc99c15b9948742c270cc7d9e1fa4c5889ac76e97dc86d8eed5b0b",
+          "save/records.bkr": "e38b9d4cb0dc99c15b9948742c270cc7d9e1fa4c5889ac76e97dc86d8eed5b0b",
+          "save/unlocks.bku": "af0c547e83d6d6da68bda077e7df5cdc8beed6e776c459281552e5c46b4a93ee"
+        },
+        "input_summary": [
+          "PASS record-early group4 frames11223 phases86 count8",
+          "PASS record-input modesf7 clicks27 input_frames7390 missing_lane_rejected1"
+        ],
+        "replay_summary": [
+          "PASS record-replay selected-loads2 frames24243"
+        ],
+        "input_trace_sha256": "c28ace62a25e42e8ecd21a0a5a718214e5075e30b8cde2c95ac7a7e127687737",
+        "replay_trace_sha256": "392e2e517f65ccbbb3be32243bab9daf1947017ca3860b22103472b877049dc2"
+      }
+    ]
+  },
+  "regression": {
+    "path": "build/validation/ending-runtime-eb9p1_5y/result.json",
+    "sha256": "c1cfb459d5b9eec08f3930fb1a3e3866335c65270d1e516f9eaadb68f6e37174",
+    "started_at": "2026-09-30T15:32:35.015288+00:00",
+    "finished_at": "2026-09-30T15:54:34.218651+00:00",
+    "checks": [
+      {
+        "name": "gallery-session",
+        "suite": "gallery-session",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "1d28ed0d32a473fc6224c778b070c61dccaca11150a0064daf357373ba054acb",
+            "summary": "PASS gallery session entries10 transitions25 children31 completed10 redraws332 frames164220 state=75488bd6e34f1909 pcm=dd9b917b384707e7"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "3b416795744e86148ecf2779db0bfd73423d6ca8d384f82044123c4d08604410",
+            "summary": "PASS gallery session entries10 transitions25 children31 completed10 redraws332 frames164220 state=75488bd6e34f1909 pcm=dd9b917b384707e7"
+          }
+        ]
+      },
+      {
+        "name": "gallery-mixed",
+        "suite": "gallery-session",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "1d28ed0d32a473fc6224c778b070c61dccaca11150a0064daf357373ba054acb",
+            "summary": "PASS gallery session entries1 transitions3 children7 completed1 redraws22 frames11054 state=c20c1506d8dde3ef pcm=b6f7816f7960ef43"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "3b416795744e86148ecf2779db0bfd73423d6ca8d384f82044123c4d08604410",
+            "summary": "PASS gallery session entries1 transitions3 children7 completed1 redraws22 frames11054 state=c20c1506d8dde3ef pcm=b6f7816f7960ef43"
+          }
+        ]
+      },
+      {
+        "name": "selected-session",
+        "suite": "selected-session",
+        "passed": true,
+        "runs": [
+          {
+            "kind": "host",
+            "binary_sha256": "9ef38f16f0c92d4ed1f678b40c9b7080d1d5289fe72019465dcebf728d61d5ed",
+            "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+          },
+          {
+            "kind": "asan",
+            "binary_sha256": "3c6185fa799244a5931dfeee03ae46b0941c76f0266d93786482b7be5d8f59d9",
+            "summary": "PASS selected session entries70 transitions60 openings40 frames39463 redraws220 replay-boundaries30 menus40 changes40 state=da0b073adf8e8c8c pcm=84966c369317dc40"
+          }
+        ]
+      }
+    ]
+  },
+  "native_release": {
+    "path": "build/validation/record-natural-native-release-final.json",
+    "sha256": "9d5bdd34d85e53a6939d05a1a7a090954207d3db6636130bf2bd86e645514644",
+    "passed": true,
+    "scope": "Focused original instruction evidence for repeated selected replay release.\nParent48302B and dispatcher4D9575 execute, then each selected legacy destructor\nexecutes against shared pointer slots. Only external IO/resource frees/COM are\nobserved leaves; this is not a rendered or fully allocated Windows session.\n",
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "source_sha256": "0b09c44b1f55b7d2d80583bb3104615abe88be26233209abc641a7120b5c5ffe",
+    "parent_dispatch_cases": [
+      {
+        "variant": 0,
+        "retained_marker": 4,
+        "parent_action": 7,
+        "requested_destructor": "0x4cfede",
+        "events": [
+          [
+            "cue",
+            2,
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "variant": 1,
+        "retained_marker": 1500,
+        "parent_action": 7,
+        "requested_destructor": "0x4d3753",
+        "events": [
+          [
+            "cue",
+            2,
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "variant": 1,
+        "retained_marker": 1000,
+        "parent_action": 7,
+        "requested_destructor": "0x4d43f5",
+        "events": [
+          [
+            "cue",
+            2,
+            1,
+            0,
+            0
+          ]
+        ]
+      }
+    ],
+    "shared_release_cases": [
+      {
+        "address": "0x4cfede",
+        "events": [
+          [
+            "critical-enter",
+            7380136
+          ],
+          [
+            "node-free",
+            50348288
+          ],
+          [
+            "sound-status",
+            50348544
+          ],
+          [
+            "sound-release",
+            50348544
+          ],
+          [
+            "sound-status",
+            50348608
+          ],
+          [
+            "sound-release",
+            50348608
+          ],
+          [
+            "camera-free",
+            7450424
+          ],
+          [
+            "bom-free",
+            0
+          ],
+          [
+            "face-free",
+            7394160
+          ],
+          [
+            "actor-free",
+            50348032
+          ]
+        ],
+        "primary_cleared": true,
+        "speech_cleared": true
+      },
+      {
+        "address": "0x4d3753",
+        "events": [
+          [
+            "node-free",
+            50348288
+          ],
+          [
+            "critical-enter",
+            7380136
+          ],
+          [
+            "sound-status",
+            50348544
+          ],
+          [
+            "sound-release",
+            50348544
+          ],
+          [
+            "sound-status",
+            50348608
+          ],
+          [
+            "sound-release",
+            50348608
+          ],
+          [
+            "camera-free",
+            7450424
+          ],
+          [
+            "face-free",
+            7394160
+          ],
+          [
+            "actor-free",
+            50348032
+          ],
+          [
+            "sprite-free",
+            7556024
+          ],
+          [
+            "sprite-free",
+            7577500
+          ],
+          [
+            "sprite-free",
+            7577136
+          ],
+          [
+            "sprite-free",
+            7576772
+          ],
+          [
+            "sprite-free",
+            7576408
+          ],
+          [
+            "sprite-free",
+            7576044
+          ]
+        ],
+        "primary_cleared": true,
+        "speech_cleared": true
+      },
+      {
+        "address": "0x4d43f5",
+        "events": [
+          [
+            "node-free",
+            50348288
+          ],
+          [
+            "critical-enter",
+            7380136
+          ],
+          [
+            "sound-status",
+            50348544
+          ],
+          [
+            "sound-release",
+            50348544
+          ],
+          [
+            "sound-status",
+            50348608
+          ],
+          [
+            "sound-release",
+            50348608
+          ],
+          [
+            "camera-free",
+            7450424
+          ],
+          [
+            "face-free",
+            7394160
+          ],
+          [
+            "actor-free",
+            50348032
+          ],
+          [
+            "sprite-free",
+            7576408
+          ],
+          [
+            "sprite-free",
+            7576044
+          ]
+        ],
+        "primary_cleared": true,
+        "speech_cleared": true
+      }
+    ]
+  },
+  "nvk": {
+    "nro_sha256": "c3493ae9227a5f2a56505cc8e2e940476e17f8ae06a57c56e4566fc776b218df",
+    "nro_bytes": 16232504,
+    "elf_sha256": "6f1b52d7363d9977201500dd9c7730f10817514d75cf33d08aabdb03bb3bd170",
+    "mesa_sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256",
+    "unresolved_symbols": 0,
+    "build_log": "build/validation/record-natural-nvk.log"
+  },
+  "post_validation_harness_change": {
+    "path": "tests/check_ending_natural_record.py",
+    "tested_sha256": "56add7dfc65146324c299dde5517ef7021ee40f9b46f9827859b065970ea4a50",
+    "committed_sha256": "ad3ead745325ca11111a76d7ce55f264aea461849fc11438475650172ba2504e",
+    "change": "After the paired run, ensure build/validation exists before mkdtemp. Exact insertion verified by reconstructing tested source hash; no runtime, input driver, assertions or test parameters changed.",
+    "reexecuted_full_suite": false
+  },
+  "python_checks": {
+    "passed": true,
+    "tests": 29,
+    "command": "python3 -m unittest discover -s tests -p 'test_*.py'",
+    "evidence": "Terminal exit0 observed in this batch before compaction; no separate output log was saved."
+  },
+  "pre_fix_failure": {
+    "directory": "build/validation/record-natural-dev-8hp130xh",
+    "groups": [
+      0,
+      2
+    ],
+    "condition": "Repeated selected stage; requested normal release despite actual selected assets; old snapshot valid."
+  },
+  "exploratory_variant1": {
+    "path": "local/record-third-experiment-pair.json",
+    "sha256": "28d6e3dfcafb3b6c4a6eee29b5f8c7c0ce6ac14740904dacc89151b7d7306b94",
+    "passed": true,
+    "group": 0,
+    "frames_per_build": 3731,
+    "included_in_formal_pairs": false,
+    "phase4_validated": false
+  },
+  "limitations": [
+    "Explicit incoming story/RNG boundary remains",
+    "Variant1 natural path only separate local single-character exploration",
+    "Production complete 3D pixel comparison remains 9/12",
+    "No new Switch hardware validation",
+    "No new push or complete delivery package"
+  ]
+}

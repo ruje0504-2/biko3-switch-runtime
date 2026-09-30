@@ -1,3 +1,5 @@
+2026-09-30 连续选择回放的原action7会调用前段释放函数，但原函数实际释放公共槽中的当前资源。scene仅在flow18/phase8/action7及前后同class2或5、当前确有selected owner时转为回收实际选择资源/UI；快照仍晚一tick退役，game分派和记录格式不变。普通五角色真实输入与保存/新进程回放已配对通过，见 `reports/ending-natural-record.md`。下一项将原71BCDC背包字节从app唯一owner借入结局；当前ui_item零副本不能作为已接入道具分支的证据。
+
 2026-09-30 回放入口预检由game只读扫描所选retained路线的低字节21终点；scene在加载资源或写共享所有者前拒绝缺失路线，不制造记录或改解锁，不依赖save文件存在位或当前动作count。其余动作合法性仍归实际消费者。选择阶段验证去掉直接写拖动状态，默认同步60Hz，另保留显式混合步长；两个故事/阶段入口边界仍保留，详见 `reports/ending-record-input.md`。
 
 2026-09-30 记录持久化边界：app持有唯一BkEndingRecords和独立BkRecordFile，向save提供非连续数组视图；save不依赖game/scene/platform/render。正常启动在解锁表之后装载全部记录，flow10退出先持久化再停止场景，失败不继续退役。原600020字节格式显式编解码，生产采用600052字节CRC文件和既有备份替换；记录与解锁分别提交，不宣称跨文件原子性。缺失不制造结束标记，损坏不覆盖。五角色两路线的边界录制、结束保存与独立进程鉴赏回放已配对验证，完整自然故事及实机仍待验收，见 `reports/record-storage.md`。

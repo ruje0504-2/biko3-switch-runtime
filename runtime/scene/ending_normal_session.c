@@ -757,12 +757,36 @@ static int ui_reload_release(void *context, BkEndingLoader loader, char e[256]) 
   int tertiary = loader == BK_ENDING_LOAD_4D2320;
   int selected = loader == BK_ENDING_LOAD_4D1025;
   int auxiliary = loader == BK_ENDING_LOAD_4D39E6;
+  /*4838FC still requests action7 for consecutive recorded selections. The
+   * native4D9575 therefore calls the preceding stage's release helper; those
+   * helpers free shared721B28/722334 pointers regardless of which loader last
+   * filled them. Our typed owners must retire the CURRENT selected assets and
+   * UI in that one replay case, including the old immutable draw snapshot.
+   * Keep the native CPU selector unchanged; do not accept arbitrary mismatches.*/
+  int repeated_selected = s && s->selected_assets && s->previous_flow == 0x18 &&
+      s->state->frame.phase == 8 && s->state->frame.transition_action == 7 &&
+      s->state->retained.final.byte_6ddce0 == s->state->retained.final.byte_6d1be1 &&
+      (s->state->retained.final.byte_6ddce0 == 2 ||
+       s->state->retained.final.byte_6ddce0 == 5);
+  if (repeated_selected && (loader == BK_ENDING_LOAD_4CF318 || tertiary || auxiliary)) {
+    selected = 1;
+    tertiary = auxiliary = 0;
+  }
   if (!s || s->retired.render || !s->render ||
       s->snapshot_render != s->render ||
       (tertiary ? !s->tertiary_assets : auxiliary ? !s->auxiliary_assets : selected ? !s->selected_assets :
        secondary ? !s->secondary_assets :
-         (loader != BK_ENDING_LOAD_4CF318 || !s->assets)))
-    return fail(e, "unsupported release or stage snapshot is not captured");
+         (loader != BK_ENDING_LOAD_4CF318 || !s->assets))) {
+    if (s && e)
+      snprintf(e, 256, "ending release: loader%d phase%d action%d next%d "
+          "assets%d%d%d%d%d retired%d render%d snapshot%d", (int)loader,
+          s->state->frame.phase, s->state->frame.transition_action,
+          s->state->next_mode, !!s->assets, !!s->secondary_assets,
+          !!s->tertiary_assets, !!s->selected_assets, !!s->auxiliary_assets,
+          !!s->retired.render, !!s->render, s->snapshot_render == s->render);
+    else fail(e, "unsupported release or stage snapshot is not captured");
+    return 0;
+  }
   if (secondary || selected || auxiliary) {
     s->state->retained.normal.word_719b40 = 0;
     s->state->retained.normal.follow_target = 0;
