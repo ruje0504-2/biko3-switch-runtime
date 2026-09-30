@@ -5,9 +5,10 @@
 #include "game/ending_record.h"
 
 /* 47DC79 states5/6/7. These pointers borrow process state, not loader
- * snapshots. The implementation keeps the native callback order and treats
- * the one extra DirectSound buffer at722d54 as a required service instead of
- * silently aliasing it to an ending effect. */
+ * snapshots. The implementation keeps the native callback order. Native
+ * 722d54 is the eighth loaded ending effect (se207.wav); the scene adapter
+ * keeps its direct-play callback boundary while resolving it through the
+ * shared effect bank. */
 typedef struct {
   BkEndingFrameState *frame;
   BkEndingControlState *control;

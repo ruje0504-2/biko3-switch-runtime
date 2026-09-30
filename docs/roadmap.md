@@ -1,4 +1,4 @@
-# 2026-09-30 当前接续：47DC79 state5/6/7 已接入 `ending_normal_session`，恢复 state6→7 相机保存/恢复、三次 pass、state5 记录/黑幕和效果音链，见 `reports/ending-47dc79-state567.md`。主机 111/111、ASan 102/102、Python 29/29 及指定 NVK 构建通过；`0x722D54` 特殊 DirectSound 缓冲仍明确失败，完整结局、gallery、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包，防休眠保持。
+# 2026-09-30 当前接续：47DC79 state5/6/7 已接入 `ending_normal_session`，恢复 state6→7 相机保存/恢复、三次 pass、state5 记录/黑幕和效果音链；`0x722D54` 已确认是共享结局效果表的第8项 `se207.wav`，并接入独立重播调用，见 `reports/ending-47dc79-state567.md`。本轮专项单测、主机/ASan历史套件与指定 NVK 构建通过；完整结局、gallery、自然结束/解锁和实机仍未完成。本轮只本地提交，不推送、不整包，防休眠保持。
 
 # 分阶段移植顺序
 

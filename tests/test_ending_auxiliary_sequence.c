@@ -83,7 +83,10 @@ static int target(void *p, float out[3], char e[256]) {
   return event(f, 90);
 }
 static int special(void *p, int32_t volume, char e[256]) {
-  Fixture *f = p; (void)e; (void)volume; ++f->special_calls; return 1;
+  Fixture *f = p; (void)e; (void)volume;
+  ++f->special_calls;
+  f->playing[2 + 7] = 1;
+  return 1;
 }
 
 static BkEndingAuxiliarySequenceBindings bindings(Fixture *f) {
@@ -167,11 +170,17 @@ int main(void) {
 
   init(&f, 0, 5);
   f.substate = 3; f.active = 7; f.timings[7][2] = 220;
+  if (!run(&f, e) || f.special_calls != 1 || f.auxiliary.pending != 100 ||
+      !f.playing[2 + 7]) {
+    fprintf(stderr, "special audio dispatch failed: %s calls=%d pending=%d\n",
+            e, f.special_calls, f.auxiliary.pending); return 1;
+  }
   BkEndingAuxiliarySequenceBindings b = bindings(&f);
   BkEndingAuxiliarySequenceOps o = ops(&f);
   o.special_audio = NULL;
+  f.auxiliary.pending = 0;
   if (bk_ending_auxiliary_sequence_step(&b, &o, e) || f.auxiliary.pending == 100) {
-    fprintf(stderr, "special audio boundary was not rejected\n"); return 1;
+    fprintf(stderr, "special audio missing-service boundary was not rejected\n"); return 1;
   }
 
   init(&f, 3, 5);

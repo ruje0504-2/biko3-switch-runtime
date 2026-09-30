@@ -12,13 +12,13 @@
 - group3 的四段效果音互锁和原始阈值比较，含等号通过语义；
 - state5/6/7 的 voice、动画重启、effect 状态/暂停/重播服务顺序。
 
-state5 group0 的 `0x722D54` 是原版独立 DirectSound 缓冲，不与结局效果音表别名。当前场景适配器对此服务明确返回失败，避免以错误音效伪装完成；该特殊缓冲的资源映射仍是后续工作。
+state5 group0 的 `0x722D54` 经全局槽位和步长核对为 `0x722574 + 7*0x120`，即结局效果表第 8 项 `se207.wav`。原版在该分支直接播放这个缓冲；场景适配器保留独立的特殊回调，但通过共享 48 槽结局音频 owner 的效果 7 真实重播，不再把它当成未绑定资源或另建重复 owner。
 
 新增的 state6 相机保存数据放在 `BkEndingState` 追加区，未改变已有 `BkEndingRetained` 的已验证布局。state8 的既有 toggle 和表情恢复字段仍借用原 retained owner。
 
 ## 验证
 
-`tests/test_ending_auxiliary_sequence.c` 覆盖 state6→7 相机保存、state7 pass/恢复、state5 结束/记录、group3 效果阈值和特殊音频失败边界。普通与 ASan 均通过。
+`tests/test_ending_auxiliary_sequence.c` 覆盖 state6→7 相机保存、state7 pass/恢复、state5 结束/记录、group3 效果阈值、特殊音频效果 7 重播和缺失服务边界。普通与 ASan 均通过。
 
 固定 EXE 状态 oracle 对 175 个映射区域执行 6000 个随机前缀，比较 281,868,000 字节，最大误差 0；它验证的是既有 `4CC582..4CC7E6` 状态初始化/前缀，不把它误写成 state5/6/7 的完整原指令回放。
 
@@ -26,7 +26,7 @@ state5 group0 的 `0x722D54` 是原版独立 DirectSound 缓冲，不与结局�
 
 - 主机 `test-host.sh`：普通 CTest 111/111，ASan CTest 102/102，Python 检查 29/29；
 - `test-ending-auxiliary-presentation`、`test-ending-auxiliary-state3`、`test-ending-auxiliary-sequence`：通过；
-- 指定 Mesa NVK Switch 构建：通过。`build-switch/biko3-preview.nro` SHA-256 为 `2a4c5931eacbe112d5186b748d5388c530ae88433fa62b1d0bb3027959db4aa8`，ELF SHA-256 为 `2132fee8b6348719c7ed4869221e0b9fce686efe2f05240e32e47bfd695679f9`；
+- 指定 Mesa NVK Switch 构建：通过。`build-switch/biko3-preview.nro` SHA-256 为 `fd7e013151d616089d2597e490247a5725b68071fab9e2f0cfbebd0e6fe700eb`，ELF SHA-256 为 `aabc93af5992da2fe5d59b3a597903c4e0ec3b7a0c4024e61dfc6ee536ecd198`；
 - 本轮没有 Switch 实机回归，因此不能把交叉构建等同于实机声音、完整结局或全流程通过。
 
-下一步接着恢复 `722D54` 特殊音频资源和 state5/6/7 的真实长流程，再继续自然结束、正式 gallery、持久解锁及整体验收。Mac 防休眠 PID 64008 继续保持。
+下一步继续接入 state5/6/7 的真实长流程，再继续自然结束、正式 gallery、持久解锁及整体验收。当前没有新增 Switch 实机回归；Mac 防休眠 PID 64008 继续保持。

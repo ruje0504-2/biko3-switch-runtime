@@ -1282,12 +1282,20 @@ static int auxiliary_sequence_timing(void *context, unsigned slot,
 static int auxiliary_sequence_special_audio(void *context, int32_t volume,
                                             char e[256]) {
   EndingNormalScene *s = context;
-  (void)volume;
-  if (!s || !s->audio)
+  if (!s || !s->audio || volume < -10000 || volume > 0)
     return fail(e, "auxiliary sequence special audio owner is unavailable");
-  /*722D54 is a separate native DirectSound buffer. It has not been mapped to
-   * a packaged asset yet; do not alias it to an ending effect.*/
-  return fail(e, "native 722D54 special audio buffer is not bound");
+  /*722D54 = 722574 + 7*120: the eighth loaded ending effect (se207.wav).
+   * Keep this call separate because the native state5 branch addresses the
+   * buffer directly, even though the resource bank owns it with the other
+   * effects.*/
+  BkEndingAudioCall call = {.operation = BK_ENDING_AUDIO_RESTART,
+                            .slot = 2 + 7,
+                            .flags = 0,
+                            .volume = volume};
+  int ignored = 0;
+  return bk_ending_audio_call(s->audio, s->state->frame.group,
+                              s->state->auxiliary.variant, 0, &call, &ignored,
+                              e);
 }
 
 static int auxiliary_state3_active(void *context, int32_t *slot,
