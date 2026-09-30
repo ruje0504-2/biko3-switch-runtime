@@ -6,6 +6,7 @@
 typedef struct {
   float orbit[4]; /*6dde14: yaw,pitch,radius,height*/
   uint8_t toggle; /*6c7f7c*/
+  uint32_t target[3]; /*6d1bc0: shared4855c9/488674 saved focus*/
 } BkEndingGalleryCameraState;
 BkEndingGalleryCameraState bk_ending_gallery_camera_initial(void);
 typedef struct {

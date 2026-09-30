@@ -34,7 +34,7 @@ class State(C.Structure):
 
 
 class Saved(C.Structure):
-    _fields_ = [('orbit',F*4),('toggle',B)]
+    _fields_ = [('orbit',F*4),('toggle',B),('target',U*3)]
 
 
 class Clip(C.Structure):
@@ -126,7 +126,8 @@ class Native:
         views=[(a,C.addressof(f.scene)+off,size) for off,a,size,_ in REGIONS]
         for obj,name,a,n in [(f.state,'remaining',0x5545e8,4),(f.state,'alternate',0x5545ec,4),
                             (f.state,'fov',0x5545f0,4),(f.state,'cycles',0x6dde59,1),
-                            (f.saved,'orbit',0x6dde14,16),(f.saved,'toggle',0x6c7f7c,1)]:
+                            (f.saved,'orbit',0x6dde14,16),(f.saved,'toggle',0x6c7f7c,1),
+                            (f.saved,'target',0x6d1bc0,12)]:
             views.append((a,C.addressof(obj)+getattr(type(obj),name).offset,n))
         for i,name in enumerate(['yaw','pitch','radius','height']):
             views.append((0x71b364+i*4,C.addressof(f.camera)+getattr(Camera,name).offset,4))
@@ -306,7 +307,7 @@ def fixture(rng,case):
                   rng.choice([.2,.21,.5,1,float('nan')]),rng.choice([0,1,2,3,127,128,255]))
     f.camera=Camera.from_buffer_copy(rng.randbytes(C.sizeof(Camera)))
     f.camera.yaw=19.25;f.camera.pitch=-13.75;f.camera.radius=51.5;f.camera.height=3.25
-    f.saved=Saved((F*4)(-7,11,52,3),rng.randrange(256))
+    f.saved=Saved((F*4)(-7,11,52,3),rng.randrange(256),(U*3)(bits(11),bits(12),bits(13)))
     f.clips=(Clip*128)(*[Clip(19,rng.choice([18,19,20,float('nan')]),rng.choice([0,0,1,-1]),rng.choice([0,0,1,-1])) for _ in range(128)])
     f.active=I(rng.choice([0,2,8,9,11,12,13,14,15,16,17,127]));f.clip_capacity=128
     f.randoms=(I*16)(*[rng.choice([0,25,26,999,1000,-1,-6,-10,-11,0x7fffffff,-0x80000000,rng.randrange(32768)]) for _ in range(16)])
@@ -352,6 +353,7 @@ def main():
     initial=lib.bk_ending_gallery_secondary_initial();saved=lib.bk_ending_gallery_camera_initial()
     assert bytes(initial)[:12]==native.u.mem_read(0x5545e8,12)
     assert initial.cycles==native.u.mem_read(0x6dde59,1)[0]
+    assert bytes(saved.target)==native.u.mem_read(0x6d1bc0,12)
     assert bytes(saved)[:16]==native.u.mem_read(0x6dde14,16) and saved.toggle==native.u.mem_read(0x6c7f7c,1)[0]
     assert struct.unpack('<8I',native.u.mem_read(0x4855a9,32))==(0x4843ef,0x484586,0x484702,0x484798,0x484b81,0x484dc3,0x4855a4,0x485320)
     for group in range(5):

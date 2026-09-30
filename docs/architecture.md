@@ -1,3 +1,5 @@
+2026-09-30 phase8选择回放边界：`game/ending_gallery_selected` 恢复4855C9，通过必需服务读写实际动画描述符；source/chain改动不推进或发布姿态。`scene/ending_state_gallery_selected_bindings` 借用已有记录、计时、UI与common所有者；6D1BC0保存焦点和6DDE14轨道/6C7F7C开关共用同一个进程GalleryCameraState。普通/ASan及共享状态回归见 `reports/ending-gallery-selected.md`。生产phase8仍待剩余子控制器和真实服务装配。
+
 2026-09-30 phase8 父控制边界：`game/ending_gallery_control`恢复48302B/483A36，借用已有记录与状态，捕获入口group再按实际时点复制保留记录；`scene/ending_state_gallery_bindings`直接绑定retained.final工作区和同一frame/control/auxiliary。子控制4..8仍为必需服务，不开放空实现入口。FOV过程值独立进程持有，资源重载不等于初始化。原指令/实际状态别名验证见 `reports/ending-gallery-control.md`。
 
 2026-09-30 phase8 效果边界：`game/ending_gallery_effect`恢复完整48CC18及49717C，四个效果/语音标记属于进程生命周期；`scene/ending_gallery_effect`借用当前ActorPose、同一音频owner和共享RNG，只读片段时序，不推进/发布动画。721B3D统一命名event，借用control.variant。普通/ASan原指令和真实日文演员/PCM配对通过，见 `reports/ending-gallery-effect.md`。生产48302B及跨loader绑定仍未完成。

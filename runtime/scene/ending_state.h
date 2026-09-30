@@ -4,6 +4,7 @@
 #include "game/ending_gallery_control.h"
 #include "game/ending_gallery_normal.h"
 #include "game/ending_gallery_secondary.h"
+#include "game/ending_gallery_selected.h"
 #include "scene/ending_retained.h"
 #include "scene/ending_ui_frame.h"
 /* Process-retained scalar/table ownership for the recovered ending modules.
@@ -78,6 +79,16 @@ int bk_ending_state_gallery_normal_bindings(BkEndingState *,
     BkEndingGalleryNormalBindings *);
 int bk_ending_state_gallery_secondary_bindings(BkEndingState *, BkMenuCamera *,
     BkEndingGalleryCameraState *, BkEndingGallerySecondaryBindings *);
+typedef struct {
+  BkMenuCamera *camera;
+  BkEndingCameraPresets *presets;
+  BkEndingGalleryCameraState *saved;
+  int32_t *expression_override;
+  uint8_t *fade_stage, *flash_wanted, *action, *curtain_wanted;
+  const int32_t *voice_volume, *effect_volume;
+} BkEndingGallerySelectedViews;
+int bk_ending_state_gallery_selected_bindings(BkEndingState *,
+    const BkEndingGallerySelectedViews *, BkEndingGallerySelectedBindings *);
 int bk_ending_state_reload_bindings(BkEndingState *, BkCommonHudState *,
                                     const int8_t *previous_flow,
                                     BkEndingReloadBindings *);

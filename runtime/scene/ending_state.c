@@ -215,6 +215,22 @@ int bk_ending_state_gallery_secondary_bindings(BkEndingState *s, BkMenuCamera *c
       &a->word_6d1bd8, &a->word_6d1bdc, &a->word_6dde54};
   return 1;
 }
+int bk_ending_state_gallery_selected_bindings(BkEndingState *s,
+    const BkEndingGallerySelectedViews *v, BkEndingGallerySelectedBindings *out) {
+  if (!s || !v || !out || !v->camera || !v->presets || !v->saved ||
+      !v->expression_override || !v->fade_stage || !v->flash_wanted ||
+      !v->action || !v->curtain_wanted || !v->voice_volume || !v->effect_volume) return 0;
+  BkEndingRetainedFinal *a = &s->retained.final;
+  *out = (BkEndingGallerySelectedBindings){
+      &s->frame, &s->control, &s->auxiliary, v->camera, v->presets, v->saved,
+      &s->final_state, &a->byte_6dde58, &a->word_6c7f74, a->workspace_6c7f80,
+      BK_ENDING_RECORD_CAPACITY, a->words_6dde24, a->words_6ddce4,
+      &a->word_6d1bd8, &a->word_6d1bdc, &a->word_6dde54,
+      &s->open, v->expression_override, &s->face_mode,
+      v->fade_stage, v->flash_wanted, v->action, v->curtain_wanted,
+      s->speech_names[0], v->voice_volume, v->effect_volume};
+  return 1;
+}
 int bk_ending_state_reload_bindings(BkEndingState *s, BkCommonHudState *common,
                                     const int8_t *previous,
                                     BkEndingReloadBindings *out) {

@@ -8,7 +8,8 @@ static int fail(char e[256], const char *why) {
   return 0;
 }
 BkEndingGalleryCameraState bk_ending_gallery_camera_initial(void) {
-  return (BkEndingGalleryCameraState){{0}, 0};
+  BkEndingGalleryCameraState s = {0};
+  return s;
 }
 BkEndingGallerySecondaryState bk_ending_gallery_secondary_initial(void) {
   return (BkEndingGallerySecondaryState){5000, 1, 1.f, 0};
