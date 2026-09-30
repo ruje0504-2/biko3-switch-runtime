@@ -218,11 +218,11 @@ static int consume(void *context, BkGameFrameEvent event, char *error) {
       return 0;
     if (prop.npc_last_crossed > 2)
       for (unsigned i = 0; i < 2; ++i) {
-        const BkRoutePoint *point = bk_route_point(
-            bk_entry_assets_route(v->entry), s->npc.path.last_crossed - 1 - i);
-        if (!point)
-          return fail(error, "NPC previous point out of range");
-        prop.npc_previous_flags[i] = (int8_t)point->flags;
+        uint8_t flags;
+        if (!bk_route_flag_slot(bk_entry_assets_route(v->entry),
+                                s->npc.path.last_crossed - 1 - i, &flags))
+          return fail(error, "NPC previous flag slot out of range");
+        prop.npc_previous_flags[i] = (int8_t)flags;
       }
     BkNpcSceneInput ground[16] = {0};
     for (unsigned i = 0; i < bk_prop_assets_count(v->props); ++i) {

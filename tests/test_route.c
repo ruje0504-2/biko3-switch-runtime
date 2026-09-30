@@ -44,11 +44,23 @@ int main(void) {
   assert(!bk_route_decode(data, sizeof(data), error));
   data[16] = 5;
   memset(data + 37, 0xff, 3);  /* ignored padding on the zero sentinel */
-  word(data + 40, 0x7fc00000); /* records after sentinel are not consumed */
+  word(data + 40, 0x7fc00000); /* inactive coordinates are not consumed */
+  data[56] = 3;              /* inactive flags still belong to the table */
+  data[1023 * 20 + 16] = 255;
   BkRoute *route = bk_route_decode(data, sizeof(data), error);
   assert(route && bk_route_count(route) == 1);
   assert(bk_route_point(route, 0)->flags == 5);
+  uint8_t flags = 99;
+  assert(bk_route_flag_slot(route, 0, &flags) && flags == 5);
+  assert(bk_route_flag_slot(route, 1, &flags) && flags == 0);
+  assert(bk_route_flag_slot(route, 2, &flags) && flags == 3);
+  assert(bk_route_flag_slot(route, 1023, &flags) && flags == 255);
+  assert(!bk_route_flag_slot(route, 1024, &flags) && flags == 255);
+  assert(!bk_route_flag_slot(route, UINT32_MAX, &flags) && flags == 255);
+  assert(!bk_route_flag_slot(NULL, 0, &flags) && flags == 255);
+  assert(!bk_route_flag_slot(route, 0, NULL));
   assert(bk_route_set_flags(route, 0, 1));
+  assert(bk_route_flag_slot(route, 0, &flags) && flags == 1);
   assert(!bk_route_set_flags(route, 0, 0)); /* Would create early terminator. */
   assert(!bk_route_set_flags(route, 1, 1));
   assert(!bk_route_set_flags(NULL, 0, 1));
@@ -78,8 +90,10 @@ int main(void) {
   assert(!bk_actor_placement(&placement, (float[]){1, NAN, 3}, 0));
   assert(!bk_actor_placement(&placement, (float[]){1, 2, 3}, INFINITY));
   assert(!memcmp(&placement, &saved, sizeof(saved)));
-  route = bk_route_decode(data, 20, error); /* native loader zero-extension */
+  route = bk_route_decode(data, 20, error); /* decoder short-input policy */
   assert(route && bk_route_count(route) == 1);
+  assert(bk_route_flag_slot(route, 2, &flags) && flags == 0);
+  assert(bk_route_flag_slot(route, 1023, &flags) && flags == 0);
   bk_route_destroy(route);
   assert(!bk_route_decode(data, 19, error));
   assert(!bk_route_decode(data, 21, error));

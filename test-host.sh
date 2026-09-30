@@ -27,8 +27,10 @@ if [ -n "${BK3_ORIGINAL_EXE:-}" ] && [ "$#" -lt 1 ]; then
 fi
 if [ "$#" -ge 1 ]; then
     python=${BK3_TEST_PYTHON:-local/venv/bin/python}
+    "$python" tests/check_checkpoint_chain.py "$1/Data"
     "$python" tests/check_ending_natural_record.py "$1/Data"
     if [ -n "${BK3_ORIGINAL_EXE:-}" ]; then
+        "$python" tests/original_checkpoint_route_flags_oracle.py "$BK3_ORIGINAL_EXE" "$1/Data" local/original-checkpoint-route-flags.json
         "$python" tests/check_record_storage.py "$BK3_ORIGINAL_EXE" "$1/Data"
         "$python" tests/check_gallery_menu.py "$BK3_ORIGINAL_EXE" "$1/Data" --host-python "$python"
         "$python" tests/check_ending_tertiary_cpu.py "$BK3_ORIGINAL_EXE" --host-python "$python" --data "$1/Data"

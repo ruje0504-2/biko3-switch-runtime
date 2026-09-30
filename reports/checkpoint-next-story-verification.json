@@ -1,0 +1,845 @@
+{
+  "passed": true,
+  "date": "2026-10-01",
+  "finished_at": "2026-09-30T16:10:00.301648+00:00",
+  "scope": "Post-checkpoint next-area opening and tracking regression. Explicit area-completion/initial-checkpoint fixtures, actual app menus, files and resources. No full natural walkthrough or Switch hardware proof.",
+  "failure_before": {
+    "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/result.json",
+    "sha256": "97630a7f34089e1c068d27436692be0c23b8b6a5e8df478980d28ddf2d203881",
+    "runs": [
+      {
+        "mode": "host",
+        "group": 0,
+        "exit_code": 1,
+        "summary": [
+          "save chain group0 area3 line126: click(r, 1100, 908, e) && wait_flow(r, 2, e) && ready(r, e) (game frame: NPC previous point out of range)",
+          "save-flow line179: !*end && group < 5 && chain(&run, files, (unsigned)group, e) (game frame: NPC previous point out of range)"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/host-0.log",
+          "sha256": "564bc8650bbbb401e6309c2a0816b4bd453fc82d90488afff885c11902989dcf"
+        }
+      },
+      {
+        "mode": "asan",
+        "group": 0,
+        "exit_code": 1,
+        "summary": [
+          "save chain group0 area3 line126: click(r, 1100, 908, e) && wait_flow(r, 2, e) && ready(r, e) (game frame: NPC previous point out of range)",
+          "save-flow line179: !*end && group < 5 && chain(&run, files, (unsigned)group, e) (game frame: NPC previous point out of range)"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/asan-0.log",
+          "sha256": "564bc8650bbbb401e6309c2a0816b4bd453fc82d90488afff885c11902989dcf"
+        }
+      },
+      {
+        "mode": "host",
+        "group": 1,
+        "exit_code": 0,
+        "summary": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group1 saves8 openings8 frames7154"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/host-1.log",
+          "sha256": "260be53c202270de6e263192ed7f6c4d5f085f8ef3ef1a71ba5f65dc6f41e9dd"
+        }
+      },
+      {
+        "mode": "host",
+        "group": 2,
+        "exit_code": 0,
+        "summary": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group2 saves8 openings8 frames7166"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/host-2.log",
+          "sha256": "00c0fde96c7b317a58bc12915c82336be19958da19455235ccaca1850303ca67"
+        }
+      },
+      {
+        "mode": "asan",
+        "group": 1,
+        "exit_code": 0,
+        "summary": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group1 saves8 openings8 frames7154"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/asan-1.log",
+          "sha256": "260be53c202270de6e263192ed7f6c4d5f085f8ef3ef1a71ba5f65dc6f41e9dd"
+        }
+      },
+      {
+        "mode": "asan",
+        "group": 2,
+        "exit_code": 0,
+        "summary": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group2 saves8 openings8 frames7166"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/asan-2.log",
+          "sha256": "00c0fde96c7b317a58bc12915c82336be19958da19455235ccaca1850303ca67"
+        }
+      },
+      {
+        "mode": "host",
+        "group": 3,
+        "exit_code": 1,
+        "summary": [
+          "save chain group3 area8 line126: click(r, 1100, 908, e) && wait_flow(r, 2, e) && ready(r, e) (game frame: NPC previous point out of range)",
+          "save-flow line179: !*end && group < 5 && chain(&run, files, (unsigned)group, e) (game frame: NPC previous point out of range)"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/host-3.log",
+          "sha256": "3fe3937ac1ae56e3d8ac08dad38df44bce7afe9c0a6cdb8b395212be4122587a"
+        }
+      },
+      {
+        "mode": "host",
+        "group": 4,
+        "exit_code": 1,
+        "summary": [
+          "save chain group4 area8 line126: click(r, 1100, 908, e) && wait_flow(r, 2, e) && ready(r, e) (game frame: NPC previous point out of range)",
+          "save-flow line179: !*end && group < 5 && chain(&run, files, (unsigned)group, e) (game frame: NPC previous point out of range)"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/host-4.log",
+          "sha256": "69597db9eebfe6e385b45704d9e3d5db362d9dc111c3ea1fae7cd2867746b670"
+        }
+      },
+      {
+        "mode": "asan",
+        "group": 3,
+        "exit_code": 1,
+        "summary": [
+          "save chain group3 area8 line126: click(r, 1100, 908, e) && wait_flow(r, 2, e) && ready(r, e) (game frame: NPC previous point out of range)",
+          "save-flow line179: !*end && group < 5 && chain(&run, files, (unsigned)group, e) (game frame: NPC previous point out of range)"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/asan-3.log",
+          "sha256": "3fe3937ac1ae56e3d8ac08dad38df44bce7afe9c0a6cdb8b395212be4122587a"
+        }
+      },
+      {
+        "mode": "asan",
+        "group": 4,
+        "exit_code": 1,
+        "summary": [
+          "save chain group4 area8 line126: click(r, 1100, 908, e) && wait_flow(r, 2, e) && ready(r, e) (game frame: NPC previous point out of range)",
+          "save-flow line179: !*end && group < 5 && chain(&run, files, (unsigned)group, e) (game frame: NPC previous point out of range)"
+        ],
+        "log": {
+          "path": "build/validation/checkpoint-chain-dev-7pjmmvbo/asan-4.log",
+          "sha256": "69597db9eebfe6e385b45704d9e3d5db362d9dc111c3ea1fae7cd2867746b670"
+        }
+      }
+    ]
+  },
+  "fixed_application": {
+    "path": "build/validation/checkpoint-chain-a63fnlqz/result.json",
+    "sha256": "d1e232f0c16e128c4ce30c0d0b7d9b199dbb322b5e250861fa6551e4c711cd4f",
+    "started_at": "2026-09-30T16:06:32.830780+00:00",
+    "finished_at": "2026-09-30T16:09:02.357926+00:00",
+    "paired_profiles": 6,
+    "per_build": {
+      "chain_frames": 34803,
+      "saves": 40,
+      "next_openings": 40,
+      "post_opening_frames_each": 30,
+      "repeat_save_and_five_load_frames": 5599
+    },
+    "profiles": [
+      {
+        "group": 0,
+        "frames_per_build": 6365,
+        "saves_per_build": 8,
+        "openings_per_build": 8,
+        "trace": [
+          "CHECKPOINT_STORED group0 area1 last_crossed1",
+          "CHECKPOINT_CHAIN group0 area1 saved opening+tracking complete frames1277",
+          "CHECKPOINT_STORED group0 area2 last_crossed24",
+          "CHECKPOINT_CHAIN group0 area2 saved opening+tracking complete frames2062",
+          "CHECKPOINT_STORED group0 area3 last_crossed49",
+          "CHECKPOINT_CHAIN group0 area3 saved opening+tracking complete frames2850",
+          "CHECKPOINT_STORED group0 area4 last_crossed7",
+          "CHECKPOINT_CHAIN group0 area4 saved opening+tracking complete frames3635",
+          "CHECKPOINT_STORED group0 area5 last_crossed7",
+          "CHECKPOINT_CHAIN group0 area5 saved opening+tracking complete frames4413",
+          "CHECKPOINT_STORED group0 area6 last_crossed21",
+          "CHECKPOINT_CHAIN group0 area6 saved opening+tracking complete frames5198",
+          "CHECKPOINT_STORED group0 area7 last_crossed35",
+          "CHECKPOINT_CHAIN group0 area7 saved opening+tracking complete frames5983",
+          "CHECKPOINT_STORED group0 area8 last_crossed10",
+          "CHECKPOINT_CHAIN group0 area8 saved opening+tracking complete frames6365"
+        ]
+      },
+      {
+        "group": 1,
+        "frames_per_build": 7154,
+        "saves_per_build": 8,
+        "openings_per_build": 8,
+        "trace": [
+          "CHECKPOINT_STORED group1 area1 last_crossed42",
+          "CHECKPOINT_CHAIN group1 area1 saved opening+tracking complete frames2059",
+          "CHECKPOINT_STORED group1 area2 last_crossed26",
+          "CHECKPOINT_CHAIN group1 area2 saved opening+tracking complete frames2840",
+          "CHECKPOINT_STORED group1 area3 last_crossed24",
+          "CHECKPOINT_CHAIN group1 area3 saved opening+tracking complete frames3622",
+          "CHECKPOINT_STORED group1 area4 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area4 saved opening+tracking complete frames4412",
+          "CHECKPOINT_STORED group1 area5 last_crossed2",
+          "CHECKPOINT_CHAIN group1 area5 saved opening+tracking complete frames5200",
+          "CHECKPOINT_STORED group1 area6 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area6 saved opening+tracking complete frames5984",
+          "CHECKPOINT_STORED group1 area7 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area7 saved opening+tracking complete frames6772",
+          "CHECKPOINT_STORED group1 area8 last_crossed22",
+          "CHECKPOINT_CHAIN group1 area8 saved opening+tracking complete frames7154"
+        ]
+      },
+      {
+        "group": 2,
+        "frames_per_build": 7166,
+        "saves_per_build": 8,
+        "openings_per_build": 8,
+        "trace": [
+          "CHECKPOINT_STORED group2 area1 last_crossed3",
+          "CHECKPOINT_CHAIN group2 area1 saved opening+tracking complete frames2076",
+          "CHECKPOINT_STORED group2 area2 last_crossed8",
+          "CHECKPOINT_CHAIN group2 area2 saved opening+tracking complete frames2854",
+          "CHECKPOINT_STORED group2 area3 last_crossed34",
+          "CHECKPOINT_CHAIN group2 area3 saved opening+tracking complete frames3640",
+          "CHECKPOINT_STORED group2 area4 last_crossed34",
+          "CHECKPOINT_CHAIN group2 area4 saved opening+tracking complete frames4427",
+          "CHECKPOINT_STORED group2 area5 last_crossed22",
+          "CHECKPOINT_CHAIN group2 area5 saved opening+tracking complete frames5211",
+          "CHECKPOINT_STORED group2 area6 last_crossed46",
+          "CHECKPOINT_CHAIN group2 area6 saved opening+tracking complete frames5997",
+          "CHECKPOINT_STORED group2 area7 last_crossed46",
+          "CHECKPOINT_CHAIN group2 area7 saved opening+tracking complete frames6784",
+          "CHECKPOINT_STORED group2 area8 last_crossed38",
+          "CHECKPOINT_CHAIN group2 area8 saved opening+tracking complete frames7166"
+        ]
+      },
+      {
+        "group": 3,
+        "frames_per_build": 7173,
+        "saves_per_build": 8,
+        "openings_per_build": 8,
+        "trace": [
+          "CHECKPOINT_STORED group3 area1 last_crossed4",
+          "CHECKPOINT_CHAIN group3 area1 saved opening+tracking complete frames2081",
+          "CHECKPOINT_STORED group3 area2 last_crossed13",
+          "CHECKPOINT_CHAIN group3 area2 saved opening+tracking complete frames2873",
+          "CHECKPOINT_STORED group3 area3 last_crossed20",
+          "CHECKPOINT_CHAIN group3 area3 saved opening+tracking complete frames3656",
+          "CHECKPOINT_STORED group3 area4 last_crossed26",
+          "CHECKPOINT_CHAIN group3 area4 saved opening+tracking complete frames4441",
+          "CHECKPOINT_STORED group3 area5 last_crossed32",
+          "CHECKPOINT_CHAIN group3 area5 saved opening+tracking complete frames5221",
+          "CHECKPOINT_STORED group3 area6 last_crossed38",
+          "CHECKPOINT_CHAIN group3 area6 saved opening+tracking complete frames6006",
+          "CHECKPOINT_STORED group3 area7 last_crossed36",
+          "CHECKPOINT_CHAIN group3 area7 saved opening+tracking complete frames6791",
+          "CHECKPOINT_STORED group3 area8 last_crossed30",
+          "CHECKPOINT_CHAIN group3 area8 saved opening+tracking complete frames7173"
+        ]
+      },
+      {
+        "group": 4,
+        "frames_per_build": 6945,
+        "saves_per_build": 8,
+        "openings_per_build": 8,
+        "trace": [
+          "CHECKPOINT_STORED group4 area1 last_crossed10",
+          "CHECKPOINT_CHAIN group4 area1 saved opening+tracking complete frames2064",
+          "CHECKPOINT_STORED group4 area2 last_crossed18",
+          "CHECKPOINT_CHAIN group4 area2 saved opening+tracking complete frames2851",
+          "CHECKPOINT_STORED group4 area3 last_crossed18",
+          "CHECKPOINT_CHAIN group4 area3 saved opening+tracking complete frames3643",
+          "CHECKPOINT_STORED group4 area4 last_crossed22",
+          "CHECKPOINT_CHAIN group4 area4 saved opening+tracking complete frames4319",
+          "CHECKPOINT_STORED group4 area5 last_crossed30",
+          "CHECKPOINT_CHAIN group4 area5 saved opening+tracking complete frames4994",
+          "CHECKPOINT_STORED group4 area6 last_crossed48",
+          "CHECKPOINT_CHAIN group4 area6 saved opening+tracking complete frames5776",
+          "CHECKPOINT_STORED group4 area7 last_crossed38",
+          "CHECKPOINT_CHAIN group4 area7 saved opening+tracking complete frames6563",
+          "CHECKPOINT_STORED group4 area8 last_crossed26",
+          "CHECKPOINT_CHAIN group4 area8 saved opening+tracking complete frames6945"
+        ]
+      }
+    ],
+    "source_files_verified": 655,
+    "asset_files_verified": 157,
+    "runs": [
+      {
+        "mode": "host",
+        "group": 0,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-host-0.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-0-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-0.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "0"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group0 saves8 openings8 frames6365"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group0 area1 last_crossed1",
+          "CHECKPOINT_CHAIN group0 area1 saved opening+tracking complete frames1277",
+          "CHECKPOINT_STORED group0 area2 last_crossed24",
+          "CHECKPOINT_CHAIN group0 area2 saved opening+tracking complete frames2062",
+          "CHECKPOINT_STORED group0 area3 last_crossed49",
+          "CHECKPOINT_CHAIN group0 area3 saved opening+tracking complete frames2850",
+          "CHECKPOINT_STORED group0 area4 last_crossed7",
+          "CHECKPOINT_CHAIN group0 area4 saved opening+tracking complete frames3635",
+          "CHECKPOINT_STORED group0 area5 last_crossed7",
+          "CHECKPOINT_CHAIN group0 area5 saved opening+tracking complete frames4413",
+          "CHECKPOINT_STORED group0 area6 last_crossed21",
+          "CHECKPOINT_CHAIN group0 area6 saved opening+tracking complete frames5198",
+          "CHECKPOINT_STORED group0 area7 last_crossed35",
+          "CHECKPOINT_CHAIN group0 area7 saved opening+tracking complete frames5983",
+          "CHECKPOINT_STORED group0 area8 last_crossed10",
+          "CHECKPOINT_CHAIN group0 area8 saved opening+tracking complete frames6365"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "aea88ff07b18eb29978443bfb01d15c10461b97bc0137303593722b994bae089"
+      },
+      {
+        "mode": "host",
+        "group": 1,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-host-1.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-1-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-1.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "1"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group1 saves8 openings8 frames7154"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group1 area1 last_crossed42",
+          "CHECKPOINT_CHAIN group1 area1 saved opening+tracking complete frames2059",
+          "CHECKPOINT_STORED group1 area2 last_crossed26",
+          "CHECKPOINT_CHAIN group1 area2 saved opening+tracking complete frames2840",
+          "CHECKPOINT_STORED group1 area3 last_crossed24",
+          "CHECKPOINT_CHAIN group1 area3 saved opening+tracking complete frames3622",
+          "CHECKPOINT_STORED group1 area4 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area4 saved opening+tracking complete frames4412",
+          "CHECKPOINT_STORED group1 area5 last_crossed2",
+          "CHECKPOINT_CHAIN group1 area5 saved opening+tracking complete frames5200",
+          "CHECKPOINT_STORED group1 area6 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area6 saved opening+tracking complete frames5984",
+          "CHECKPOINT_STORED group1 area7 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area7 saved opening+tracking complete frames6772",
+          "CHECKPOINT_STORED group1 area8 last_crossed22",
+          "CHECKPOINT_CHAIN group1 area8 saved opening+tracking complete frames7154"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "aea88ff07b18eb29978443bfb01d15c10461b97bc0137303593722b994bae089"
+      },
+      {
+        "mode": "asan",
+        "group": 0,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-asan-0.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-0-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-0.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "0"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group0 saves8 openings8 frames6365"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group0 area1 last_crossed1",
+          "CHECKPOINT_CHAIN group0 area1 saved opening+tracking complete frames1277",
+          "CHECKPOINT_STORED group0 area2 last_crossed24",
+          "CHECKPOINT_CHAIN group0 area2 saved opening+tracking complete frames2062",
+          "CHECKPOINT_STORED group0 area3 last_crossed49",
+          "CHECKPOINT_CHAIN group0 area3 saved opening+tracking complete frames2850",
+          "CHECKPOINT_STORED group0 area4 last_crossed7",
+          "CHECKPOINT_CHAIN group0 area4 saved opening+tracking complete frames3635",
+          "CHECKPOINT_STORED group0 area5 last_crossed7",
+          "CHECKPOINT_CHAIN group0 area5 saved opening+tracking complete frames4413",
+          "CHECKPOINT_STORED group0 area6 last_crossed21",
+          "CHECKPOINT_CHAIN group0 area6 saved opening+tracking complete frames5198",
+          "CHECKPOINT_STORED group0 area7 last_crossed35",
+          "CHECKPOINT_CHAIN group0 area7 saved opening+tracking complete frames5983",
+          "CHECKPOINT_STORED group0 area8 last_crossed10",
+          "CHECKPOINT_CHAIN group0 area8 saved opening+tracking complete frames6365"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "9499738c3f82154248b69aa042377182e2af6927b203436a11239c352a073cd4"
+      },
+      {
+        "mode": "host",
+        "group": 2,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-host-2.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-2-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-2.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "2"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group2 saves8 openings8 frames7166"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group2 area1 last_crossed3",
+          "CHECKPOINT_CHAIN group2 area1 saved opening+tracking complete frames2076",
+          "CHECKPOINT_STORED group2 area2 last_crossed8",
+          "CHECKPOINT_CHAIN group2 area2 saved opening+tracking complete frames2854",
+          "CHECKPOINT_STORED group2 area3 last_crossed34",
+          "CHECKPOINT_CHAIN group2 area3 saved opening+tracking complete frames3640",
+          "CHECKPOINT_STORED group2 area4 last_crossed34",
+          "CHECKPOINT_CHAIN group2 area4 saved opening+tracking complete frames4427",
+          "CHECKPOINT_STORED group2 area5 last_crossed22",
+          "CHECKPOINT_CHAIN group2 area5 saved opening+tracking complete frames5211",
+          "CHECKPOINT_STORED group2 area6 last_crossed46",
+          "CHECKPOINT_CHAIN group2 area6 saved opening+tracking complete frames5997",
+          "CHECKPOINT_STORED group2 area7 last_crossed46",
+          "CHECKPOINT_CHAIN group2 area7 saved opening+tracking complete frames6784",
+          "CHECKPOINT_STORED group2 area8 last_crossed38",
+          "CHECKPOINT_CHAIN group2 area8 saved opening+tracking complete frames7166"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "aea88ff07b18eb29978443bfb01d15c10461b97bc0137303593722b994bae089"
+      },
+      {
+        "mode": "asan",
+        "group": 1,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-asan-1.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-1-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-1.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "1"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group1 saves8 openings8 frames7154"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group1 area1 last_crossed42",
+          "CHECKPOINT_CHAIN group1 area1 saved opening+tracking complete frames2059",
+          "CHECKPOINT_STORED group1 area2 last_crossed26",
+          "CHECKPOINT_CHAIN group1 area2 saved opening+tracking complete frames2840",
+          "CHECKPOINT_STORED group1 area3 last_crossed24",
+          "CHECKPOINT_CHAIN group1 area3 saved opening+tracking complete frames3622",
+          "CHECKPOINT_STORED group1 area4 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area4 saved opening+tracking complete frames4412",
+          "CHECKPOINT_STORED group1 area5 last_crossed2",
+          "CHECKPOINT_CHAIN group1 area5 saved opening+tracking complete frames5200",
+          "CHECKPOINT_STORED group1 area6 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area6 saved opening+tracking complete frames5984",
+          "CHECKPOINT_STORED group1 area7 last_crossed32",
+          "CHECKPOINT_CHAIN group1 area7 saved opening+tracking complete frames6772",
+          "CHECKPOINT_STORED group1 area8 last_crossed22",
+          "CHECKPOINT_CHAIN group1 area8 saved opening+tracking complete frames7154"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "9499738c3f82154248b69aa042377182e2af6927b203436a11239c352a073cd4"
+      },
+      {
+        "mode": "host",
+        "group": 3,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-host-3.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-3-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-3.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "3"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group3 saves8 openings8 frames7173"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group3 area1 last_crossed4",
+          "CHECKPOINT_CHAIN group3 area1 saved opening+tracking complete frames2081",
+          "CHECKPOINT_STORED group3 area2 last_crossed13",
+          "CHECKPOINT_CHAIN group3 area2 saved opening+tracking complete frames2873",
+          "CHECKPOINT_STORED group3 area3 last_crossed20",
+          "CHECKPOINT_CHAIN group3 area3 saved opening+tracking complete frames3656",
+          "CHECKPOINT_STORED group3 area4 last_crossed26",
+          "CHECKPOINT_CHAIN group3 area4 saved opening+tracking complete frames4441",
+          "CHECKPOINT_STORED group3 area5 last_crossed32",
+          "CHECKPOINT_CHAIN group3 area5 saved opening+tracking complete frames5221",
+          "CHECKPOINT_STORED group3 area6 last_crossed38",
+          "CHECKPOINT_CHAIN group3 area6 saved opening+tracking complete frames6006",
+          "CHECKPOINT_STORED group3 area7 last_crossed36",
+          "CHECKPOINT_CHAIN group3 area7 saved opening+tracking complete frames6791",
+          "CHECKPOINT_STORED group3 area8 last_crossed30",
+          "CHECKPOINT_CHAIN group3 area8 saved opening+tracking complete frames7173"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "aea88ff07b18eb29978443bfb01d15c10461b97bc0137303593722b994bae089"
+      },
+      {
+        "mode": "asan",
+        "group": 2,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-asan-2.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-2-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-2.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "2"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group2 saves8 openings8 frames7166"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group2 area1 last_crossed3",
+          "CHECKPOINT_CHAIN group2 area1 saved opening+tracking complete frames2076",
+          "CHECKPOINT_STORED group2 area2 last_crossed8",
+          "CHECKPOINT_CHAIN group2 area2 saved opening+tracking complete frames2854",
+          "CHECKPOINT_STORED group2 area3 last_crossed34",
+          "CHECKPOINT_CHAIN group2 area3 saved opening+tracking complete frames3640",
+          "CHECKPOINT_STORED group2 area4 last_crossed34",
+          "CHECKPOINT_CHAIN group2 area4 saved opening+tracking complete frames4427",
+          "CHECKPOINT_STORED group2 area5 last_crossed22",
+          "CHECKPOINT_CHAIN group2 area5 saved opening+tracking complete frames5211",
+          "CHECKPOINT_STORED group2 area6 last_crossed46",
+          "CHECKPOINT_CHAIN group2 area6 saved opening+tracking complete frames5997",
+          "CHECKPOINT_STORED group2 area7 last_crossed46",
+          "CHECKPOINT_CHAIN group2 area7 saved opening+tracking complete frames6784",
+          "CHECKPOINT_STORED group2 area8 last_crossed38",
+          "CHECKPOINT_CHAIN group2 area8 saved opening+tracking complete frames7166"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "9499738c3f82154248b69aa042377182e2af6927b203436a11239c352a073cd4"
+      },
+      {
+        "mode": "host",
+        "group": 4,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-host-4.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-4-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-host-4.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "4"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group4 saves8 openings8 frames6945"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group4 area1 last_crossed10",
+          "CHECKPOINT_CHAIN group4 area1 saved opening+tracking complete frames2064",
+          "CHECKPOINT_STORED group4 area2 last_crossed18",
+          "CHECKPOINT_CHAIN group4 area2 saved opening+tracking complete frames2851",
+          "CHECKPOINT_STORED group4 area3 last_crossed18",
+          "CHECKPOINT_CHAIN group4 area3 saved opening+tracking complete frames3643",
+          "CHECKPOINT_STORED group4 area4 last_crossed22",
+          "CHECKPOINT_CHAIN group4 area4 saved opening+tracking complete frames4319",
+          "CHECKPOINT_STORED group4 area5 last_crossed30",
+          "CHECKPOINT_CHAIN group4 area5 saved opening+tracking complete frames4994",
+          "CHECKPOINT_STORED group4 area6 last_crossed48",
+          "CHECKPOINT_CHAIN group4 area6 saved opening+tracking complete frames5776",
+          "CHECKPOINT_STORED group4 area7 last_crossed38",
+          "CHECKPOINT_CHAIN group4 area7 saved opening+tracking complete frames6563",
+          "CHECKPOINT_STORED group4 area8 last_crossed26",
+          "CHECKPOINT_CHAIN group4 area8 saved opening+tracking complete frames6945"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "aea88ff07b18eb29978443bfb01d15c10461b97bc0137303593722b994bae089"
+      },
+      {
+        "mode": "asan",
+        "group": 3,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-asan-3.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-3-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-3.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "3"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group3 saves8 openings8 frames7173"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group3 area1 last_crossed4",
+          "CHECKPOINT_CHAIN group3 area1 saved opening+tracking complete frames2081",
+          "CHECKPOINT_STORED group3 area2 last_crossed13",
+          "CHECKPOINT_CHAIN group3 area2 saved opening+tracking complete frames2873",
+          "CHECKPOINT_STORED group3 area3 last_crossed20",
+          "CHECKPOINT_CHAIN group3 area3 saved opening+tracking complete frames3656",
+          "CHECKPOINT_STORED group3 area4 last_crossed26",
+          "CHECKPOINT_CHAIN group3 area4 saved opening+tracking complete frames4441",
+          "CHECKPOINT_STORED group3 area5 last_crossed32",
+          "CHECKPOINT_CHAIN group3 area5 saved opening+tracking complete frames5221",
+          "CHECKPOINT_STORED group3 area6 last_crossed38",
+          "CHECKPOINT_CHAIN group3 area6 saved opening+tracking complete frames6006",
+          "CHECKPOINT_STORED group3 area7 last_crossed36",
+          "CHECKPOINT_CHAIN group3 area7 saved opening+tracking complete frames6791",
+          "CHECKPOINT_STORED group3 area8 last_crossed30",
+          "CHECKPOINT_CHAIN group3 area8 saved opening+tracking complete frames7173"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "9499738c3f82154248b69aa042377182e2af6927b203436a11239c352a073cd4"
+      },
+      {
+        "mode": "host",
+        "group": null,
+        "kind": "rename",
+        "exit_code": 0,
+        "log": "rename-host.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/save-flow-switch-fs-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/rename-host-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/rename-host.rgba"
+        ],
+        "env": {
+          "BK_REPEAT_SAVE": "1"
+        },
+        "summaries": [
+          "PASS three repeated menu saves to the same checkpoint",
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS save-flow area-fixture->save->resume; pause->cancel->pause retained; five checkpoint entries->phase1 frames=5599"
+        ],
+        "trace": [
+          "checkpoint entry group0 area1 phase1",
+          "checkpoint entry group1 area2 phase1",
+          "checkpoint entry group2 area3 phase1",
+          "checkpoint entry group3 area4 phase1",
+          "checkpoint entry group4 area5 phase1"
+        ],
+        "readback_sha256": "dd0c43f86067fd22215d213246d65355a3ba4a7e27266ce0ac6def0b3e15d8f7",
+        "binary_sha256": "626bb748a6ae775669f6c770965df5b90ec0146827cf9dcc98591ab4d31a314b"
+      },
+      {
+        "mode": "asan",
+        "group": 4,
+        "kind": "chain",
+        "exit_code": 0,
+        "log": "chain-asan-4.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/save-flow-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-4-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/chain-asan-4.rgba"
+        ],
+        "env": {
+          "BK_SAVE_CHAIN_GROUP": "4"
+        },
+        "summaries": [
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS checkpoint chain group4 saves8 openings8 frames6945"
+        ],
+        "trace": [
+          "CHECKPOINT_STORED group4 area1 last_crossed10",
+          "CHECKPOINT_CHAIN group4 area1 saved opening+tracking complete frames2064",
+          "CHECKPOINT_STORED group4 area2 last_crossed18",
+          "CHECKPOINT_CHAIN group4 area2 saved opening+tracking complete frames2851",
+          "CHECKPOINT_STORED group4 area3 last_crossed18",
+          "CHECKPOINT_CHAIN group4 area3 saved opening+tracking complete frames3643",
+          "CHECKPOINT_STORED group4 area4 last_crossed22",
+          "CHECKPOINT_CHAIN group4 area4 saved opening+tracking complete frames4319",
+          "CHECKPOINT_STORED group4 area5 last_crossed30",
+          "CHECKPOINT_CHAIN group4 area5 saved opening+tracking complete frames4994",
+          "CHECKPOINT_STORED group4 area6 last_crossed48",
+          "CHECKPOINT_CHAIN group4 area6 saved opening+tracking complete frames5776",
+          "CHECKPOINT_STORED group4 area7 last_crossed38",
+          "CHECKPOINT_CHAIN group4 area7 saved opening+tracking complete frames6563",
+          "CHECKPOINT_STORED group4 area8 last_crossed26",
+          "CHECKPOINT_CHAIN group4 area8 saved opening+tracking complete frames6945"
+        ],
+        "readback_sha256": null,
+        "binary_sha256": "9499738c3f82154248b69aa042377182e2af6927b203436a11239c352a073cd4"
+      },
+      {
+        "mode": "asan",
+        "group": null,
+        "kind": "rename",
+        "exit_code": 0,
+        "log": "rename-asan.log",
+        "argv": [
+          "/Users/rujian/Documents/Codex/WX3/build/asan-static/save-flow-switch-fs-probe",
+          "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/rename-asan-files",
+          "/Users/rujian/Documents/Codex/WX3/build/validation/checkpoint-chain-a63fnlqz/rename-asan.rgba"
+        ],
+        "env": {
+          "BK_REPEAT_SAVE": "1"
+        },
+        "summaries": [
+          "PASS three repeated menu saves to the same checkpoint",
+          "PASS GPU allocations returned to renderer baseline",
+          "PASS save-flow area-fixture->save->resume; pause->cancel->pause retained; five checkpoint entries->phase1 frames=5599"
+        ],
+        "trace": [
+          "checkpoint entry group0 area1 phase1",
+          "checkpoint entry group1 area2 phase1",
+          "checkpoint entry group2 area3 phase1",
+          "checkpoint entry group3 area4 phase1",
+          "checkpoint entry group4 area5 phase1"
+        ],
+        "readback_sha256": "dd0c43f86067fd22215d213246d65355a3ba4a7e27266ce0ac6def0b3e15d8f7",
+        "binary_sha256": "2337bd4c3370e5f17e8b034f61de18548ea8c723960ecda888c1be80180b70be"
+      }
+    ]
+  },
+  "native_flags": {
+    "path": "local/checkpoint-route-flags-dev.json",
+    "sha256": "9a83c15e3545503f00858cfa94125dc8a5d1b340756a3eb0c5be5b12bcf6515f",
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "profiles": 45,
+    "fixed_flag_checks": 46080,
+    "prop_decisions": 360,
+    "tail_reads": 630,
+    "scope": "Fixed CKP flag slots versus native area loader and prop consumers.\n\nRuns unmodified 4ff78e/5011bc for all45 actor entries after dirtying the\ndestination. All selected actor CKPs are full20480-byte tables. Then runs\n512595/4f56a3 with a retained index past each active route's sentinel, both\nwith authored flags and explicit tail-flag fixtures. Windows I/O and recursive\nmaterial writes are existing boundary hooks; route/prop decisions are x86.\nShort-input zero extension is decoder policy, not inferred native behavior.\n"
+  },
+  "native_area": {
+    "path": "local/original-area-entry-oracle.json",
+    "sha256": "3ad3703e75525d81e4b6234290b0afbbc327fc306fc1976dd068aeb9a6a7cc67",
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "profiles": 40,
+    "cases": 2560,
+    "rejections": 40,
+    "max_error": 0,
+    "scope": "Native4e94e4 actor/controller stores across40 next-area profiles. Runs\n4e952b..4e9706 (including original CKP loading and both4befc0 calls), mode2\ncontroller stores4b7d50..4b7e38,4e9715..4e973c and full4ebfd0 with existing\nUI/clip service hooks. Assets/scene-release ordering outside this CPU scope.\n"
+  },
+  "native_route": {
+    "path": "local/original-route-oracle.json",
+    "sha256": "8c6844f529b93481d473034496e1575fdbf0223edcc6f829473a8c8f40bf57e5",
+    "files": 53,
+    "points": 9086,
+    "selection_checks": 90,
+    "scope": "Native filename dispatch, file-read size and actor active-count loop. Short files use a pre-zeroed fixture destination; this does not prove native loading clears unread bytes. Windows I/O/path prefix are boundary substitutes; route AI/movement not exercised."
+  },
+  "units": {
+    "host": 3,
+    "asan": 3,
+    "asan_leak_detection": false,
+    "logs": [
+      {
+        "path": "local/checkpoint-route-unit-host.log",
+        "sha256": "10e71549bcafa1601bb0a6fa2575c5204e14be762bb23bfb4bc45d02f4d0e4ad"
+      },
+      {
+        "path": "local/checkpoint-route-unit-asan.log",
+        "sha256": "d340200ff0f4cf1a6df35c98165ab170dd9f0044ccce102d2e48e4b5823cc53b"
+      },
+      {
+        "path": "local/checkpoint-related-unit-host.log",
+        "sha256": "a68b6d88441abe22e926a570bffc0d6ca2b839b151299a57eb4430838a7df024"
+      },
+      {
+        "path": "local/checkpoint-related-unit-asan.log",
+        "sha256": "7b342ad2a7ae5114c99c326a972bce0ecbc780aaa0b905d8e363063c9e70c2db"
+      }
+    ]
+  },
+  "python": {
+    "passed": 29,
+    "path": "local/checkpoint-python-tests.log",
+    "sha256": "65a21fac72940dda2c8c199e4e7eb45f10cb6fc8c9f8fc013c00443cf2112397"
+  },
+  "switch": {
+    "nro": {
+      "path": "build-switch/biko3-preview.nro",
+      "sha256": "51b9679ac73d939915529e65775b8eef5d637ad8446d1cb266f40d7dbe38c934",
+      "bytes": 16232504
+    },
+    "elf": {
+      "path": "build-switch/biko3-preview.elf",
+      "sha256": "97bb0ba11be60895f4d1985d30e15ff50e09b4bad214b2b71fd4a53bc95cf5c8"
+    },
+    "undefined_symbols": 0,
+    "flag_slot_linked": true,
+    "nvk_linked": true,
+    "mesa": {
+      "path": "local/mesa-sdk/opt/devkitpro/portlibs/switch/lib/libvulkan.a",
+      "sha256": "d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256"
+    },
+    "build_log": {
+      "path": "local/checkpoint-switch-build.log",
+      "sha256": "6b6e1f655e08be82cf7eea163432a2017eda0720a7b036515ebc78e5ff646570"
+    },
+    "hardware_validated": false
+  },
+  "source_sha256": {
+    "runtime/world/route.c": "ff8a3550eb21f410aec4de3bf79ccb638575dfe08bc46071c7dfc698a6d1969e",
+    "runtime/world/route.h": "e5e9d3f791f0e34ff261a8f83cca4c38e034c35fb57f472736b59dcaf7b22e16",
+    "runtime/scene/game_frame.c": "94639523f8786c0aedfc0c1796a4548a52bcd2b555c2f5449d949b76d999a39c",
+    "tests/test_route.c": "a34930b040bf998945a3293b0f41bcfa341352b7c5c480b2d69085d48c87fe23",
+    "tools/save_flow_probe.c": "2faca80e638c965d3fff8c0f2e3f84ce4241e56b1bf443a61ea420f9212036bc",
+    "tools/no_replace_rename.c": "4c54d563f18c1e67b93e97bd5ac7c40b1357c123b52ad514bb34869bd7e988ff",
+    "tests/check_checkpoint_chain.py": "5ca049dc8c09fd6282affe42ebcb446dd61326790cdc048230a44f32117b69b3",
+    "tests/original_checkpoint_route_flags_oracle.py": "a8b50329cb83270ca6e74976e6e1ca58ddb2debae0a749f57a39a38840fe82bc",
+    "tests/original_route_oracle.py": "9bac78cb4b668b849a37cf6f051463493633e154be6c0c391683f8f13b127e77",
+    "test-host.sh": "5350c888a8ee842e6f92353cffc9c2283d45cfa1bfc7e6e3157de058b0288cdf"
+  },
+  "git": {
+    "base_commit": "b638eb8dd41a28f72f4c642f29e7ebffee1cda9f",
+    "pushed": false
+  },
+  "remaining": [
+    "Natural complete story and remaining ending inventory branch",
+    "Complete production 3D pixel equivalence (9/12 previously)",
+    "Switch hardware confirmation of this fix"
+  ],
+  "full_port_complete": false,
+  "awake_pid_retained": 64008
+}

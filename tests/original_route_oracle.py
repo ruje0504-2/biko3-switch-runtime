@@ -75,7 +75,7 @@ def main():
             first=native.select(group,area,1);second=native.select(group,area,0);assert first==second
             mapping.append(dict(group=group,area=area,file=first[0],points=first[1]))
     report=dict(passed=True,exe_sha256=hashlib.sha256(exe).hexdigest(),files=len(records),active_points=sum(r['points'] for r in records),selection_checks=len(mapping)*2,records=records,mapping=mapping,
-                scope='Native filename dispatch, file-read size/zero-extension, and actor active-count loop. Windows I/O/path prefix are boundary substitutes; route AI/movement not exercised.')
+                scope='Native filename dispatch, file-read size and actor active-count loop. Short files use a pre-zeroed fixture destination; this does not prove native loading clears unread bytes. Windows I/O/path prefix are boundary substitutes; route AI/movement not exercised.')
     (ROOT/'local/original-route-oracle.json').write_text(json.dumps(report,indent=2)+'\n')
     print('PASS',report['files'],'files',report['active_points'],'points',report['selection_checks'],'selections')
 if __name__=='__main__':main()

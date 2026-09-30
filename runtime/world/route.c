@@ -25,13 +25,16 @@ BkRoute *bk_route_decode(const void *bytes, size_t size, char error[256]) {
     snprintf(error, 256, "CKP: allocation failed");
     return NULL;
   }
+  /* Props read the fixed CKP flag table using last_crossed retained across
+   * area entry. Those slots may be past this route's active terminator. */
+  for (uint32_t i = 0; i < size / 20; ++i)
+    route->points[i].flags = data[i * 20 + 16];
   for (uint32_t i = 0; i < 1024; i++) {
     BkRoutePoint *point = &route->points[i];
     if (i < size / 20) {
       for (unsigned j = 0; j < 3; j++)
         point->position[j] = f32(data + i * 20 + j * 4);
       point->parameter = f32(data + i * 20 + 12);
-      point->flags = data[i * 20 + 16];
     }
     if (!isfinite(point->position[0]) || !isfinite(point->position[1]) ||
         !isfinite(point->position[2]) || !isfinite(point->parameter)) {
@@ -59,6 +62,12 @@ uint32_t bk_route_count(const BkRoute *route) {
 }
 const BkRoutePoint *bk_route_point(const BkRoute *route, uint32_t index) {
   return route && index <= route->count ? &route->points[index] : NULL;
+}
+int bk_route_flag_slot(const BkRoute *route, uint32_t index, uint8_t *flags) {
+  if (!route || index >= 1024 || !flags)
+    return 0;
+  *flags = route->points[index].flags;
+  return 1;
 }
 int bk_route_set_flags(BkRoute *route, uint32_t index, uint8_t flags) {
   if (!route || index >= route->count)

@@ -1,4 +1,4 @@
-/* Area-completion/inventory are explicitly injected once. Every subsequent
+/* Area completion/inventory are explicit boundary fixtures. Every subsequent
  * prompt/save/pause/load/return uses real app input, resources, files and GPU.
  * This is a lifecycle fixture, not a claim of natural mission completion. */
 #include "app/play_session.h"
@@ -91,6 +91,57 @@ static int settle(Run *r, char e[256]) {
       return 0;
   return 1;
 }
+/* All eight real checkpoint menus and subsequent opening/tracking updates.
+ * Only each area's completion response is a boundary fixture. The initial
+ * cross-character load is an explicit checkpoint file fixture. */
+static int chain(Run *r, BkCheckpointFiles *files, unsigned group, char e[256]) {
+#define CHAIN(x)                                                               \
+  do {                                                                        \
+    if (!(x)) {                                                               \
+      fprintf(stderr, "save chain group%u area%u line%d: %s (%s)\n", group,    \
+              bk_play_session_state(r->scene)->area, __LINE__, #x, e);         \
+      return 0;                                                               \
+    }                                                                         \
+  } while (0)
+  BkCheckpointBank bank;
+  if (group) {
+    const uint8_t items[8] = {0};
+    BkCheckpointTime stamp = {2026, 9, 30, 12, 0, 0};
+    CHAIN(bk_checkpoint_file_store(files, group, 0, 0, items, &stamp,
+                                    123, &bank, e));
+    CHAIN(tick(r, (BkInput){.pressed = BK_BUTTON_PAUSE}, e));
+    CHAIN(wait_flow(r, 4, e) && settle(r, e));
+    CHAIN(click(r, 640, 336, e) && wait_flow(r, 0x28, e) && settle(r, e));
+    CHAIN(click(r, 514 + 168 * group, 170, e) && click(r, 750, 250, e) &&
+          click(r, 496, 548, e));
+    CHAIN(wait_flow(r, 2, e) && ready(r, e));
+  }
+  CHAIN(bk_play_session_state(r->scene)->group == group &&
+        bk_play_session_state(r->scene)->area == 0);
+  for (unsigned area = 1; area < 9; ++area) {
+    BkGameFrameState *fixture = (BkGameFrameState *)bk_play_session_state(r->scene);
+    fixture->interaction.response = 1;
+    CHAIN(wait_flow(r, 0x20, e) && settle(r, e));
+    CHAIN(click(r, 496, 548, e) && wait_flow(r, 0x28, e));
+    CHAIN(bk_play_session_state(r->scene)->area == area && settle(r, e));
+    CHAIN(click(r, 750, 250, e) && click(r, 496, 548, e));
+    CHAIN(bk_checkpoint_file_read(files, group, &bank, e) == BK_RESOURCE_OK);
+    CHAIN(bank.slots[0].area == area && bank.slots[0].stamp[0]);
+    fprintf(stderr, "CHECKPOINT_STORED group%u area%u last_crossed%u\n",
+            group, area, bk_play_session_state(r->scene)->npc.path.last_crossed);
+    CHAIN(click(r, 1100, 908, e) && wait_flow(r, 2, e) && ready(r, e));
+    for (unsigned i = 0; i < 30; ++i) CHAIN(tick(r, (BkInput){0}, e));
+    CHAIN(bk_play_session_flow(r->scene)->current == 2 &&
+          bk_play_session_state(r->scene)->area == area &&
+          bk_play_session_state(r->scene)->camera.phase == 1);
+    fprintf(stderr, "CHECKPOINT_CHAIN group%u area%u saved opening+tracking complete frames%u\n",
+            group, area, frames);
+    fflush(stderr);
+  }
+  printf("PASS checkpoint chain group%u saves8 openings8 frames%u\n", group, frames);
+  return 1;
+#undef CHAIN
+}
 int main(int argc, char **argv) {
   if (argc != 4) {
     fprintf(stderr, "save-flow-probe DATA OUTPUT_ROOT OUTPUT.rgba\n");
@@ -128,6 +179,13 @@ int main(int argc, char **argv) {
   run.scene = bk_play_session_create_development(&services, files, e);
   CHECK(run.scene && present(&run, e));
   CHECK(ready(&run, e));
+  if (getenv("BK_SAVE_CHAIN_GROUP")) {
+    char *end;
+    unsigned long group = strtoul(getenv("BK_SAVE_CHAIN_GROUP"), &end, 10);
+    CHECK(!*end && group < 5 && chain(&run, files, (unsigned)group, e));
+    status = 0;
+    goto done;
+  }
   /* Only explicit fixture writes: completed first area and collected items. */
   BkGameFrameState *fixture =
       (BkGameFrameState *)bk_play_session_state(run.scene);
