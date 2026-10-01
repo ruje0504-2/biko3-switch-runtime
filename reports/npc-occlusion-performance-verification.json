@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-01",
+  "change": "Stop NPC occlusion tests after cone rejection or first blocker; retain all ordered ground queries and behavior updates",
+  "baseline_commit": "b159113",
+  "native_oracle": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "cases": 1392,
+    "visible_cases": 112,
+    "behavior4_cases": 292,
+    "named_surface_cases": 590,
+    "max_normalized_error": 0,
+    "scene_files": [
+      "m00_10.atr",
+      "m00_11.atr",
+      "m00_12.atr",
+      "m00_13.atr",
+      "m01_00.atr",
+      "m01_01.atr",
+      "m01_02.atr",
+      "m01_03.atr",
+      "m01_04.atr",
+      "m02_00.atr",
+      "m02_01.atr",
+      "m02_02.atr",
+      "m02_03.atr",
+      "m02_04.atr",
+      "m03_00.atr",
+      "m03_01.atr",
+      "m03_02.atr",
+      "m03_03.atr",
+      "m03_04.atr",
+      "m04_00.atr",
+      "m04_01.atr",
+      "m04_02.atr",
+      "m04_03.atr",
+      "m04_04.atr",
+      "m05_00.atr",
+      "m05_01.atr",
+      "m05_02.atr",
+      "m05_03.atr",
+      "m05_04.atr"
+    ],
+    "native_functions": [
+      "0x4b3e6f and complete geometry callees",
+      "0x4b2330 static construction"
+    ],
+    "hooks": [
+      "allocation/reallocation and frame lookup for construction only; query has no hooks"
+    ],
+    "scope": "Complete NPC visibility/occlusion, suppression, ground mesh order and height smoothing on 29 real scenes; supplied cached head line/facing. Dynamic props/player sliding/full actor loop not implied.",
+    "x87_control_word": "0x037f"
+  },
+  "application": {
+    "game_frames_each": 1054,
+    "active_frames_each": 60,
+    "pause_last_iteration": 135,
+    "counts": {
+      "before": {
+        "queries": 1057,
+        "triangle_tests": 697620,
+        "thread_cpu_ns_single_run": 23754590,
+        "npc_state_digest": "d608476fcd6960ce"
+      },
+      "after": {
+        "queries": 1057,
+        "triangle_tests": 660,
+        "thread_cpu_ns_single_run": 5037860,
+        "npc_state_digest": "d608476fcd6960ce"
+      }
+    },
+    "final_rgba_sha256": {
+      "before": "8bb0f73890feb710a0cd545254b2d691be0a3920c4bf9d5c321f6cc8dd5d9cf1",
+      "after": "8bb0f73890feb710a0cd545254b2d691be0a3920c4bf9d5c321f6cc8dd5d9cf1",
+      "asan": "8bb0f73890feb710a0cd545254b2d691be0a3920c4bf9d5c321f6cc8dd5d9cf1"
+    },
+    "photo_sha256": {
+      "before": [
+        "5b549c44097ceb5d1412822f93f4a8f9d71f85cf8dfa42598e6cad0139b94bb6",
+        "75af1bf1235bf9f459dad287d7a4cbac09609028e9f91b0f57bc0b276a8be136"
+      ],
+      "after": [
+        "5b549c44097ceb5d1412822f93f4a8f9d71f85cf8dfa42598e6cad0139b94bb6",
+        "75af1bf1235bf9f459dad287d7a4cbac09609028e9f91b0f57bc0b276a8be136"
+      ],
+      "asan": [
+        "5b549c44097ceb5d1412822f93f4a8f9d71f85cf8dfa42598e6cad0139b94bb6",
+        "75af1bf1235bf9f459dad287d7a4cbac09609028e9f91b0f57bc0b276a8be136"
+      ]
+    },
+    "measurement_only_local": true,
+    "timing_limit": "Single M4 run, not a Switch benchmark or total CPU/FPS gain"
+  },
+  "checks": {
+    "host_collision_scene": true,
+    "asan_ubsan_collision_scene": true,
+    "asan_ubsan_application": true,
+    "architecture_tests": 2
+  },
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "da16a25a097169dc0d027a4999c79e42a8c0fe2a8bdba561a96b0c6539ac68fc",
+    "undefined_symbols": 0,
+    "bytes": 16318520,
+    "hardware_tested": false
+  },
+  "delivery": {
+    "local_commit": true,
+    "github_push": false,
+    "sd_write": false,
+    "full_package": false
+  }
+}

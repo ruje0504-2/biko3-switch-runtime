@@ -20,16 +20,23 @@ int bk_npc_scene_step(BkNpcSceneState *state, const BkCollision *collision,
   next.visible = (uint8_t)visible;
   memset(next.surface_name, 0, sizeof(next.surface_name));
   float original_y = state->position[1], best = -9999;
-  for (uint32_t i = 0; i < bk_collision_count(collision); i++) {
+  uint32_t count = bk_collision_count(collision);
+  if (count)
+    for (unsigned i = 0; i < 3; i++)
+      if (!isfinite(input->sight.start[i]) || !isfinite(input->sight.end[i]))
+        goto invalid;
+  for (uint32_t i = 0; i < count; i++) {
     const BkCollisionMesh *mesh = bk_collision_mesh(collision, i);
-    for (uint32_t j = 0; j < mesh->index_count; j += 3) {
+    /* Occlusion can only clear visibility. Ground queries below must still
+     * visit every mesh in order, including after the first blocker. */
+    for (uint32_t j = 0; next.visible && j < mesh->index_count; j += 3) {
       float t[3][3];
       for (unsigned k = 0; k < 3; k++)
         memcpy(t[k], mesh->vertices[mesh->indices[j + k]], sizeof(t[k]));
       int blocked;
       if (!bk_sight_triangle(&blocked, t, &input->sight))
         goto invalid;
-      if (blocked && next.visible == 1)
+      if (blocked)
         next.visible = 0;
     }
     int hit;

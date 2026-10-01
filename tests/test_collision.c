@@ -97,6 +97,25 @@ int main(void) {
   state.behavior = 1;
   assert(bk_npc_scene_step(&state, c, &input, .25f, error));
   assert(state.visible == 1 && state.behavior == 1);
+  /* Neither a rejected cone nor an occluder can skip ground/surface updates. */
+  for (unsigned occluded = 0; occluded < 2; ++occluded) {
+    BkNpcSceneState outside = state;
+    BkNpcSceneInput query = input;
+    outside.position[1] = 9;
+    if (occluded) {
+      query.sight.start[1] = query.sight.end[1] = 5;
+      query.sight.end[2] = 45;
+    } else
+      query.cone.facing = 180;
+    assert(bk_npc_scene_step(&outside, c, &query, .25f, error));
+    assert(outside.visible == 0 && outside.behavior == 1 &&
+           outside.position[1] == 8 &&
+           !strcmp(outside.surface_name, "Mesh_Floor_1@ROOM.X"));
+    BkNpcSceneState before_invalid = outside;
+    query.sight.end[2] = NAN;
+    assert(!bk_npc_scene_step(&outside, c, &query, .25f, error));
+    assert(!memcmp(&outside, &before_invalid, sizeof(outside)));
+  }
   BkNpcSceneState saved = state;
   input.sight.start[0] = INFINITY;
   assert(!bk_npc_scene_step(&state, c, &input, .25f, error));

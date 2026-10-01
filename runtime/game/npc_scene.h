@@ -18,7 +18,8 @@ typedef struct {
 /* 0x4b3e6f: cone -> per-mesh occlusion/ground -> detection -> smoothed Y.
  * Reads caller-supplied cached head endpoints/facing. Mesh iteration order
  * and intermediate Y changes are significant. Failure is atomic. This is
- * the NPC query; it does not implement player wall sliding or prop updates. */
+ * the NPC query; it does not implement player wall sliding or prop updates.
+ * Occlusion tests stop once invisible; ordered ground updates continue. */
 int bk_npc_scene_step(BkNpcSceneState *state, const BkCollision *collision,
                       const BkNpcSceneInput *input, float seconds,
                       char error[256]);
