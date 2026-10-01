@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-01",
+  "base_commit": "af5f855c07a1f2d4706f742291dfe60276d59b4d",
+  "scope": "Vulkan graphics bindings only; no story-route audit",
+  "evidence_directory": "local/render-bindings-work",
+  "source_sha256": "7b295c2a807047fc67ae027ac52c293c5dc47342e2f9af5ddfe06a60be8bc1a4",
+  "measurement": "Local wrapper counters around actual Vulkan graphics bind calls; same game-session probe and assets before/after",
+  "counts": {
+    "before": {
+      "draws": 459035,
+      "pipeline": 460227,
+      "texture": 459035,
+      "lights": 452565,
+      "vertex": 460227,
+      "index": 459035,
+      "image_sha256": "8bb0f73890feb710a0cd545254b2d691be0a3920c4bf9d5c321f6cc8dd5d9cf1"
+    },
+    "after": {
+      "draws": 459035,
+      "pipeline": 70794,
+      "texture": 307560,
+      "lights": 1056,
+      "vertex": 434152,
+      "index": 434152,
+      "image_sha256": "8bb0f73890feb710a0cd545254b2d691be0a3920c4bf9d5c321f6cc8dd5d9cf1"
+    },
+    "binding_calls": {
+      "before": 2291089,
+      "after": 1247714,
+      "reduction_pct": 45.54057044488451
+    }
+  },
+  "checks": {
+    "host_ctest_passed": 4,
+    "asan_ubsan_ctest_passed": 4,
+    "ctest_names": [
+      "vulkan-active-capture",
+      "vulkan-pixels",
+      "vulkan-lighting",
+      "vulkan-dynamic-mesh"
+    ],
+    "host_gpu_transfer_passed": true,
+    "asan_ubsan_gpu_transfer_passed": true,
+    "gpu_transfer_scalar_checks_per_build": 628276,
+    "game_session_frames": 1054,
+    "host_before_after_and_asan_rgba_equal": true,
+    "photos_equal_per_run": 2,
+    "architecture_passed": 2,
+    "pause_exit_frame_index": 135
+  },
+  "switch": {
+    "nro_sha256": "4009c0af715316c769d697ab6d776fd7f1caa187bd571e923931010e76d77715",
+    "nro_bytes": 16318520,
+    "undefined_symbols": 0,
+    "hardware_fps_measured": false,
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212"
+  },
+  "no_additional_push": true
+}

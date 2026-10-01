@@ -105,7 +105,45 @@ struct BkRenderer {
   VkDescriptorSetLayout transfer_descriptor_layout;
   VkPipelineLayout transfer_layout;
   VkPipeline transfer_pipeline;
+  VkPipeline bound_pipeline;
+  VkDescriptorSet bound_descriptors[2];
+  VkBuffer bound_vertices, bound_indices;
 };
+/* All graphics pipelines share r->layout. These bindings belong to one
+ * command-buffer recording; compute has independent pipeline/descriptor
+ * bindings. A screenshot starts a new recording and must reset them too. */
+static void reset_graphics_bindings(BkRenderer *r) {
+  r->bound_pipeline = VK_NULL_HANDLE;
+  r->bound_descriptors[0] = r->bound_descriptors[1] = VK_NULL_HANDLE;
+  r->bound_vertices = r->bound_indices = VK_NULL_HANDLE;
+}
+static void bind_graphics_pipeline(BkRenderer *r, VkPipeline pipeline) {
+  if (r->bound_pipeline != pipeline) {
+    vkCmdBindPipeline(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
+    r->bound_pipeline = pipeline;
+  }
+}
+static void bind_graphics_descriptor(BkRenderer *r, unsigned set,
+                                      VkDescriptorSet descriptor) {
+  if (r->bound_descriptors[set] != descriptor) {
+    vkCmdBindDescriptorSets(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            r->layout, set, 1, &descriptor, 0, NULL);
+    r->bound_descriptors[set] = descriptor;
+  }
+}
+static void bind_graphics_vertices(BkRenderer *r, VkBuffer buffer) {
+  if (r->bound_vertices != buffer) {
+    VkDeviceSize offset = 0;
+    vkCmdBindVertexBuffers(r->command, 0, 1, &buffer, &offset);
+    r->bound_vertices = buffer;
+  }
+}
+static void bind_graphics_indices(BkRenderer *r, VkBuffer buffer) {
+  if (r->bound_indices != buffer) {
+    vkCmdBindIndexBuffer(r->command, buffer, 0, VK_INDEX_TYPE_UINT16);
+    r->bound_indices = buffer;
+  }
+}
 static double performance_seconds(void) {
 #ifdef __SWITCH__
   return (double)armTicksToNs(armGetSystemTick()) * 1e-9;
@@ -1052,6 +1090,7 @@ BkTexture *bk_texture_create_sampled(BkRenderer *r, const BkImage *im,
       .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
       .flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT};
   VK_TRY(vkBeginCommandBuffer(r->command, &cb));
+  reset_graphics_bindings(r);
   barrier(r->command, t->image.handle, VK_IMAGE_LAYOUT_UNDEFINED,
           VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 0, VK_ACCESS_TRANSFER_WRITE_BIT,
           VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
@@ -1410,20 +1449,16 @@ static int draw_mesh(BkRenderer *r, BkTexture *texture, BkGpuMesh *mesh,
                det, scale, world[15], world[3], world[7], world[11]);
       return 0;
     }
-    vkCmdBindDescriptorSets(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                            r->layout, 1, 1, &lights->descriptor, 0, NULL);
+    bind_graphics_descriptor(r, 1, lights->descriptor);
     vkCmdPushConstants(r->command, r->layout, VK_SHADER_STAGE_VERTEX_BIT, 64,
                        64, world);
   }
-  vkCmdBindPipeline(
-      r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
+  bind_graphics_pipeline(
+      r,
       r->pipelines[lit][state.blend][state.depth_write][state.cull]);
-  VkDeviceSize offset = 0;
-  vkCmdBindVertexBuffers(r->command, 0, 1, &mesh->vertices.handle, &offset);
-  vkCmdBindIndexBuffer(r->command, mesh->indices.handle, 0,
-                       VK_INDEX_TYPE_UINT16);
-  vkCmdBindDescriptorSets(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                          r->layout, 0, 1, &texture->descriptor, 0, NULL);
+  bind_graphics_vertices(r, mesh->vertices.handle);
+  bind_graphics_indices(r, mesh->indices.handle);
+  bind_graphics_descriptor(r, 0, texture->descriptor);
   vkCmdPushConstants(r->command, r->layout, VK_SHADER_STAGE_VERTEX_BIT, 0, 64,
                      gpu_matrix);
   vkCmdDrawIndexed(r->command, mesh->index_count, 1, 0, 0, 0);
@@ -1516,6 +1551,7 @@ int bk_renderer_begin(BkRenderer *r, char error[256]) {
       .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
       .flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT};
   VK_TRY(vkBeginCommandBuffer(r->command, &cb));
+  reset_graphics_bindings(r);
   VkClearValue clear[2] = {{.color = {{0, 0, 0, 1}}}, {.depthStencil = {0, 0}}};
   record_texture_uploads(r);
   record_skin_updates(r);
@@ -1526,14 +1562,10 @@ int bk_renderer_begin(BkRenderer *r, char error[256]) {
                               .clearValueCount = 2,
                               .pClearValues = clear};
   vkCmdBeginRenderPass(r->command, &rp, VK_SUBPASS_CONTENTS_INLINE);
-  vkCmdBindPipeline(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                    r->pipelines[0][BK_BLEND_UI_ALPHA][1][BK_CULL_NONE]);
   VkViewport vp = {0, 0, (float)r->width, (float)r->height, 0, 1};
   VkRect2D sc = {{0, 0}, {r->width, r->height}};
   vkCmdSetViewport(r->command, 0, 1, &vp);
   vkCmdSetScissor(r->command, 0, 1, &sc);
-  VkDeviceSize off = 0;
-  vkCmdBindVertexBuffers(r->command, 0, 1, &r->vertices.handle, &off);
   r->vertex_count = 0;
   r->viewport = (BkViewport){0, 0, r->width, r->height};
   r->acquire_pending = r->swapchain != VK_NULL_HANDLE;
@@ -1573,12 +1605,10 @@ int bk_renderer_draw_vertices(BkRenderer *r, BkTexture *t, const BkVertex *v,
   }
   memcpy((BkVertex *)r->vertices.mapped + r->vertex_count, v,
          (size_t)n * sizeof(*v));
-  vkCmdBindPipeline(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                    r->pipelines[0][state.blend][state.depth_write][state.cull]);
-  VkDeviceSize off = 0;
-  vkCmdBindVertexBuffers(r->command, 0, 1, &r->vertices.handle, &off);
-  vkCmdBindDescriptorSets(r->command, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                          r->layout, 0, 1, &t->descriptor, 0, NULL);
+  bind_graphics_pipeline(
+      r, r->pipelines[0][state.blend][state.depth_write][state.cull]);
+  bind_graphics_vertices(r, r->vertices.handle);
+  bind_graphics_descriptor(r, 0, t->descriptor);
   vkCmdPushConstants(r->command, r->layout, VK_SHADER_STAGE_VERTEX_BIT, 0, 64,
                      gpu_matrix);
   vkCmdDraw(r->command, n, 1, r->vertex_count, 0);
@@ -1650,6 +1680,7 @@ int bk_renderer_capture(BkRenderer *r, uint8_t *rgba, size_t size,
       .sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,
       .flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT};
   VK_TRY(vkBeginCommandBuffer(r->command, &begin));
+  reset_graphics_bindings(r);
   VkRenderPassBeginInfo pass = {.sType =
                                     VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,
                                 .renderPass = r->resume_pass,
