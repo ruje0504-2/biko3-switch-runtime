@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-01",
+  "passed": true,
+  "scope": "Actual ARM64 NEON execution vs fixed original x86 functions on Apple M4, sanitized execution, and specified Mesa NVK cross-build; no Switch runtime or full game acceptance.",
+  "sources": {
+    "runtime/core/arm64_math.h": "bdb7e412d96b32ac2432211378343de3428846ca3f04d36fe2d947e055ce4b69",
+    "runtime/core/matrix.c": "0bfd9fabb970a716e6abb2f7f14c5751ae49f4cfe0a13d097cdf851d8d521ac0",
+    "runtime/model/skin.c": "29828d950e62f71a319155344d7ff0990c6923f48ed480460409c01c1236789d",
+    "tests/test_arm64_math.c": "df75c3b34719e4c9643f2285802e697dfe03bf154e9978d29146bc1483eed73a"
+  },
+  "builds": {
+    "neon-host": {
+      "flags": "-DBK_ARM64_FAST",
+      "library_sha256": "84f29d47222b8ea1eb721a9b90778143d7d57bea3284faf5eb1a042c2d91da77"
+    },
+    "neon-asan": {
+      "flags": "-DBK_ARM64_FAST",
+      "library_sha256": "696ce3309b4bb325950cd6434065e8048cce8b08cb7307b9ea4d308123b681e7"
+    }
+  },
+  "before": {
+    "header_sha256": "b642f044c78e98317d3657fe33d7321c4f18bfe12fd9433bce81730ea8a6c2cd",
+    "library_sha256": "b7bcfaed35291ebe26208c7a38528062ad3515b6d99c8ade42e98fb5139c211f",
+    "flags": "-DBK_ARM64_FAST -O2 -g -DNDEBUG",
+    "skin_homogeneous_passed": false,
+    "failure": "case1032: W=-0.007939049042761326, NEON=2478.090087890625, original=2478.106201171875; normalized error exceeded unchanged 3e-6 bound",
+    "matrix_passed": true,
+    "logs": [
+      "skin-before-native.log",
+      "matrix-before-native.log"
+    ],
+    "initial_setup_error": "First invocation used the Japanese EXE; the oracle rejected its unsupported SHA before running. Both comparisons then used the fixed a3c93603 original reference."
+  },
+  "regression": {
+    "expected_failure": true,
+    "exit_code": -6,
+    "log": "local/neon-conformance/old-regression.log"
+  },
+  "host_asan_results_equal": true,
+  "checks_per_build": {
+    "ctest": [
+      "arm64-math",
+      "x-pose",
+      "frame-tree",
+      "skin-deformation"
+    ],
+    "coordinate": {
+      "samples": 2048,
+      "unchanged": 411,
+      "divided": 1637,
+      "native_nonfinite": 102,
+      "max_normalized_error": 0.0,
+      "constants": [
+        1.0,
+        -9.999999747378752e-06,
+        9.999999747378752e-06
+      ]
+    },
+    "skin_weights_samples": 800,
+    "skin_weights_error": 0,
+    "skin_models": 80,
+    "skin_entries": 1645,
+    "skin_samples": 2077,
+    "skin_vertices": 947457,
+    "skin_error": 0,
+    "matrix_compositions": 212,
+    "matrix_error": 0,
+    "sanitizer_diagnostics": 0
+  },
+  "actor_host_only": {
+    "full_poses": 528,
+    "full_pose_matrices": 142296,
+    "head_ancestry_poses": 11040,
+    "max_normalized_error": 0
+  },
+  "leak_detection": false,
+  "benchmark": {
+    "scope": "Apple M4 host microbenchmark only; 256 deterministic matrices, 3,072,000 calls per round, 7 alternating-order rounds; round0 excluded. Identical -O2 scalar/NEON shared builds and checked output hashes. Not Switch or game-frame performance.",
+    "ns_per_call": {
+      "matrix": {
+        "scalar": 4.944,
+        "neon": 3.9314999999999998,
+        "speedup": 1.257535291873331
+      },
+      "point": {
+        "scalar": 1.306,
+        "neon": 1.3025,
+        "speedup": 1.0026871401151631
+      }
+    },
+    "log": "local/neon-conformance/bench-m4.log"
+  },
+  "switch": {
+    "passed": true,
+    "nro_bytes": 16240696,
+    "nro_sha256": "d8873a4ea515ba90a14ad4b22b99327b0b2b25a32d05d2548c1834357e9f230e",
+    "undefined_symbols": 0,
+    "instructions": {
+      "matrix_double_fma": 8,
+      "skin_double_fma": 4,
+      "skin_prefetch": 1
+    },
+    "hardware_test": false
+  },
+  "evidence_root": "local/neon-conformance",
+  "setup_failures_resolved": [
+    "Wrong original EXE rejected by hash; reran with fixed reference",
+    "New CMake target required explicit regeneration before build",
+    "ASan Python needed existing venv site-packages on PYTHONPATH"
+  ],
+  "not_covered": [
+    "Switch FPS, CPU utilization and physical rendering",
+    "Standalone effect of prefetch hint",
+    "Complete story traversal and full port acceptance"
+  ]
+}
