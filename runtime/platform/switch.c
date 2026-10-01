@@ -8,6 +8,9 @@ struct BkPlatform {
   PadState pad;
   int romfs_mounted;
   int save_mounted;
+#ifdef BK_SWITCH_FILE_LOG
+  FILE *log;
+#endif
 };
 static uint64_t runtime_origin_ms;
 static int runtime_clock_started;
@@ -34,6 +37,20 @@ BkPlatform *bk_platform_open(int argc, char **argv, BkLaunchConfig *config,
     snprintf(error, 256, "platform allocation failed");
     return NULL;
   }
+#ifdef BK_SWITCH_FILE_LOG
+  mkdir("sdmc:/switch", 0777);
+  mkdir("sdmc:/switch/biko3", 0777);
+  struct stat previous;
+  if (stat("sdmc:/switch/biko3/nvk.log", &previous) == 0) {
+    remove("sdmc:/switch/biko3/nvk.previous.log");
+    rename("sdmc:/switch/biko3/nvk.log", "sdmc:/switch/biko3/nvk.previous.log");
+  }
+  p->log = fopen("sdmc:/switch/biko3/nvk.log", "w");
+  if (p->log) {
+    setvbuf(p->log, NULL, _IOLBF, 0);
+    fprintf(p->log, "Diagnostic file logging enabled; sidebar monologue and pose state included.\n");
+  }
+#endif
   const char *game_root = argc > 1 ? argv[1] : "sdmc:/switch/biko3/game";
   const char *capture_root = "sdmc:/switch/biko3/captures";
   if (envIsNso()) {
@@ -89,6 +106,10 @@ failed:
   return NULL;
 }
 FILE *bk_platform_log(BkPlatform *p) {
+#ifdef BK_SWITCH_FILE_LOG
+  if (p && p->log)
+    return p->log;
+#endif
   (void)p;
   /* Keep the shared diagnostic stream API without creating SD log files. */
   return stderr;
@@ -204,5 +225,9 @@ void bk_platform_close(BkPlatform *p) {
   }
   if (p->romfs_mounted)
     romfsUnmount("romfs");
+#ifdef BK_SWITCH_FILE_LOG
+  if (p->log)
+    fclose(p->log);
+#endif
   free(p);
 }

@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-02",
+  "version": "1.0.79",
+  "backend": "Apple M4 / MoltenVK",
+  "before_error": "ending special: invalid secondary camera index",
+  "scene": {
+    "group": 1,
+    "phase": 4,
+    "monologue": true,
+    "native_reset_index": -1
+  },
+  "compatibility": "Use the live main view for the native -1 sentinel; preserve event/audio order and reject other invalid indices.",
+  "ordinary": {
+    "passed": true,
+    "driver_frames": 661,
+    "sentinel_frames": 600,
+    "voiced_sentinel_frames": 230,
+    "followup_frames": 600,
+    "gpu_baseline": true
+  },
+  "asan": {
+    "passed": true,
+    "driver_frames": 661,
+    "sentinel_frames": 600,
+    "voiced_sentinel_frames": 230,
+    "followup_frames": 600,
+    "gpu_baseline": true
+  },
+  "unit_tests": {
+    "ordinary": [
+      "draw-dispatch",
+      "ending-special"
+    ],
+    "asan": [
+      "draw-dispatch",
+      "ending-special"
+    ]
+  },
+  "fixtures": [
+    "entry",
+    "inventory"
+  ],
+  "live_inputs": [
+    "sidebar row10",
+    "target4 drag",
+    "release"
+  ],
+  "hardware_run_after_fix": false,
+  "switch_build": {
+    "version": "1.0.79",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "31320a8ce44f8e1826fc90ed5b26cb714c551413b286f8c69adb03f9e8b07178",
+    "undefined_symbols": 0,
+    "switch_file_log": false
+  }
+}

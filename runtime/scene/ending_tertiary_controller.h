@@ -30,7 +30,6 @@ typedef struct {
   const int32_t *selected, *next_mode; /*721ed8/719b20 camera gates*/
   void *input_context;
   int (*key)(void *, unsigned code, unsigned mode, uint32_t *, char[256]);
-  unsigned stick_motion_gain; /*apply after the native per-character drag cap*/
 } BkEndingTertiaryControllerScene;
 /*476720 plus47811c/478eab, actual target/menu geometry, PCM, clock edits,
  * configured requests, eye selection and both camera services. Bindings

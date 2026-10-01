@@ -19,7 +19,6 @@ typedef struct {
   uint32_t *random;
   void *clock_context;
   int (*clock)(void *, uint32_t *, char error[256]);
-  unsigned stick_motion_gain; /*0/1 keeps native drag,6 for the Switch stick*/
 } BkEndingPresentationScene;
 /* Bind complete4df6c0 to actual loaded normal assets. State references are
  * portable forest IDs, never x86 addresses or casts of retained words.

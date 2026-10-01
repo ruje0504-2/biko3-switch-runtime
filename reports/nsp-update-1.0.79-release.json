@@ -1,0 +1,75 @@
+{
+  "type": "bktr-update",
+  "application_id": "01094F68D7330000",
+  "title_id": "01094F68D7330800",
+  "display_version": "1.0.79cn",
+  "content_version": 196610,
+  "base_nsp_sha256": "85b4cf4706fd43284ab35dff0e78986334a6eb9b7ebecbbfcbf8b5978f428df6",
+  "source_update_sha256": "b1f1f64aff91a6e1591bbafa4d2f61b84e28a46dbba35d8af05b6f91f529d324",
+  "nsp": "biko3-01094F68D7330800-update.nsp",
+  "nsp_bytes": 49004256,
+  "nsp_sha256": "5efb68d81a422a60ded27ba465b29eec63b53c560483e87817c5d7f4b4821e36",
+  "bktr": {
+    "virtual_bytes": 2988539904,
+    "base_files": 168,
+    "base_bytes_reused": 2945457344,
+    "patch_payload_bytes": 43082560,
+    "section_bytes": 43155456,
+    "indirect_entries": 3,
+    "indirect_offset": 43089920,
+    "aes_ctr_ex_offset": 43122688,
+    "aes_ctr_ex_entries": 1,
+    "ranges": [
+      {
+        "virtual": 0,
+        "physical": 0,
+        "storage": 1,
+        "bytes": 5898752
+      },
+      {
+        "virtual": 5898752,
+        "physical": 5833216,
+        "storage": 0,
+        "bytes": 2945457344
+      },
+      {
+        "virtual": 2951356096,
+        "physical": 5898752,
+        "storage": 1,
+        "bytes": 37183808
+      }
+    ]
+  },
+  "patch_history_bytes": 156,
+  "contents": [
+    {
+      "type": 0,
+      "name": "0bc05796f3cb5a4e9b9294f02f77f5b5.cnmt.nca",
+      "sha256": "0bc05796f3cb5a4e9b9294f02f77f5b563997d507fe4b408d3da2b68b5a0b109",
+      "bytes": 4096
+    },
+    {
+      "type": 1,
+      "name": "8ec438ec428c9a00f52fb763e04a07db.nca",
+      "sha256": "8ec438ec428c9a00f52fb763e04a07db641ca47d1c3c5c926f8422c782c7f879",
+      "bytes": 48439808
+    },
+    {
+      "type": 3,
+      "name": "744e208e933794a8e6586b4526df379d.nca",
+      "sha256": "744e208e933794a8e6586b4526df379dfb274181ec05f4c8e0f9fe8910f8c172",
+      "bytes": 560128
+    }
+  ],
+  "date": "2026-10-02",
+  "switch_file_log": false,
+  "separate_nsp_verification": false,
+  "hardware_run": false,
+  "nro_version": "1.0.79",
+  "nro_bytes": 16408236,
+  "nro_sha256": "31320a8ce44f8e1826fc90ed5b26cb714c551413b286f8c69adb03f9e8b07178",
+  "actor_gain": {
+    "post_insertion_manual": 2,
+    "other_actions": 1
+  }
+}

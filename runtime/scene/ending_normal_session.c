@@ -624,9 +624,14 @@ static int ui_position(void *context, float out[2], char e[256]) {
 }
 
 static unsigned stick_action_gain(const EndingNormalScene *s) {
-  return !s->input.pointer_active &&
+  int32_t mode = s->state->ui_controller.auxiliary.mode;
+  /* These manual action modes follow the completed insertion gesture.
+   * Prelude, insertion/pose menus and automatic playback retain native input. */
+  return s->selected_assets && s->state->auxiliary.gate == 3 &&
+      (mode == 1 || mode == 2 || mode == 4 || mode == 6) &&
+      !s->input.pointer_active &&
       !(s->input.held & (BK_BUTTON_CAMERA_ORBIT | BK_BUTTON_CAMERA_ADJUST)) &&
-      hypotf(s->input.move_x, s->input.move_y) > .18f ? 6u : 1u;
+      hypotf(s->input.move_x, s->input.move_y) > .18f ? 2u : 1u;
 }
 
 static int ui_motion(void *context, float out[2], char e[256]) {
@@ -1706,6 +1711,14 @@ static int selected_audio(void *context, const BkEndingAudioCall *call,
     /*4946B4/49490A publish the name before replacing its actual sound.
      *The group0 cue30 effect also writes the second speech-name buffer.*/
     if (slot < 2) memcpy(s->state->speech_names[slot], name, strlen(name) + 1);
+#ifdef BK_SWITCH_FILE_LOG
+    if (s->services.log)
+      fprintf(s->services.log,
+          "ENDING_AUDIO group%u phase%d gate%d mode%d pose%d monologue%u op%d slot%u resource=%s/%s\n",
+          s->state->frame.group, s->state->frame.phase, s->state->auxiliary.gate,
+          s->state->ui_controller.auxiliary.mode, s->state->auxiliary.selection,
+          s->state->control.toggles[7], call->operation, slot, pack, name);
+#endif
   }
   return bk_ending_audio_call(s->audio, s->state->frame.group,
                               s->state->auxiliary.variant,
@@ -2064,8 +2077,20 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         &scale,
         &s->effect_volume};
     BkEndingControlOps ops = {s, control_key, control_sound, selected_manual, warp};
-    return bk_ending_control_step(&s->state->control, &bindings,
-                                  &call->input, &ops, e);
+#ifdef BK_SWITCH_FILE_LOG
+    uint8_t previous_monologue = s->state->control.toggles[7];
+#endif
+    int ok = bk_ending_control_step(&s->state->control, &bindings,
+                                     &call->input, &ops, e);
+#ifdef BK_SWITCH_FILE_LOG
+    if (s->services.log && previous_monologue != s->state->control.toggles[7])
+      fprintf(s->services.log,
+          "SIDEBAR_MONOLOGUE group%u phase%d gate%d mode%d pose%d enabled%u\n",
+          s->state->frame.group, s->state->frame.phase, s->state->auxiliary.gate,
+          s->state->ui_controller.auxiliary.mode, s->state->auxiliary.selection,
+          s->state->control.toggles[7]);
+#endif
+    return ok;
   }
   case BK_ENDING_STAGE_4DB608: {
     if (!s->assets)
@@ -2103,7 +2128,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         &s->state->retained.normal.direct_node, &s->normal_controller->flip};
     BkEndingPresentationScene presentation = {
         s->assets, s->audio, s->materials, s->disabled, s->disabled_count,
-        s->presentation, s->random, s, frame_clock, stick_action_gain(s)};
+        s->presentation, s->random, s, frame_clock};
     return bk_ending_presentation_scene_step(
         &presentation, &bindings, &call->input, s->active_seconds, e);
   }
@@ -2171,8 +2196,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       .action_column = &s->normal_controller->control.action_column,
       .follow_target = &s->state->retained.normal.follow_target,
       .selected = &s->state->selected, .next_mode = &s->state->next_mode,
-      .input_context = s, .key = control_key,
-      .stick_motion_gain = stick_action_gain(s)};
+      .input_context = s, .key = control_key};
     return bk_ending_tertiary_controller_scene_step(
         &controller, &bindings, &call->input, s->active_seconds, e);
   }

@@ -1,5 +1,4 @@
 #include "scene/ending_presentation.h"
-#include <limits.h>
 #include <stdio.h>
 #include <string.h>
 static int fail(char e[256], const char *why) {
@@ -99,12 +98,6 @@ static int manual(void *p, unsigned kind, const BkEndingFrameInput *in,
   int32_t dx, dy;
   memcpy(&dx, &in->words[6], 4);
   memcpy(&dy, &in->words[7], 4);
-  unsigned gain = s->stick_motion_gain ? s->stick_motion_gain : 1;
-  int64_t x = (int64_t)dx * gain, y = (int64_t)dy * gain;
-  if (x < INT32_MIN || x > INT32_MAX || y < INT32_MIN || y > INT32_MAX)
-    return fail(e, "manual motion outside native integer range");
-  dx = (int32_t)x;
-  dy = (int32_t)y;
   if (kind < 2) {
     BkBomAssets *bom = bk_ending_normal_assets_bom(s->assets);
     if (kind >= bk_bom_assets_count(bom))

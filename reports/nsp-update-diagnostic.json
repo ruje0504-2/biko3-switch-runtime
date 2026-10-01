@@ -1,0 +1,80 @@
+{
+  "type": "bktr-update",
+  "application_id": "01094F68D7330000",
+  "title_id": "01094F68D7330800",
+  "display_version": "1.0.79cn",
+  "content_version": 196609,
+  "base_nsp_sha256": "85b4cf4706fd43284ab35dff0e78986334a6eb9b7ebecbbfcbf8b5978f428df6",
+  "source_update_sha256": "ad93c5d2216a260ee2c5b69901adf45ab28fda5aa856ac958ba04d15e7408d94",
+  "nsp": "biko3-01094F68D7330800-update-log.nsp",
+  "nsp_bytes": 49004256,
+  "nsp_sha256": "91255c39f705e35cfade91f2eec332384437dbef02cd416645f2f29d1268c8fd",
+  "bktr": {
+    "virtual_bytes": 2988539904,
+    "base_files": 168,
+    "base_bytes_reused": 2945457344,
+    "patch_payload_bytes": 43082560,
+    "section_bytes": 43155456,
+    "indirect_entries": 3,
+    "indirect_offset": 43089920,
+    "aes_ctr_ex_offset": 43122688,
+    "aes_ctr_ex_entries": 1,
+    "ranges": [
+      {
+        "virtual": 0,
+        "physical": 0,
+        "storage": 1,
+        "bytes": 5898752
+      },
+      {
+        "virtual": 5898752,
+        "physical": 5833216,
+        "storage": 0,
+        "bytes": 2945457344
+      },
+      {
+        "virtual": 2951356096,
+        "physical": 5898752,
+        "storage": 1,
+        "bytes": 37183808
+      }
+    ]
+  },
+  "patch_history_bytes": 156,
+  "contents": [
+    {
+      "type": 0,
+      "name": "56ee1f7c915660c25539fb9f5715588a.cnmt.nca",
+      "sha256": "56ee1f7c915660c25539fb9f5715588a22008f64ecb2d45e7ccd222f729a41f4",
+      "bytes": 4096
+    },
+    {
+      "type": 1,
+      "name": "cd0a230f3298ffda0b3ebbdad8eefbcf.nca",
+      "sha256": "cd0a230f3298ffda0b3ebbdad8eefbcf6905d6cb30cd99d0235af50c921581b1",
+      "bytes": 48439808
+    },
+    {
+      "type": 3,
+      "name": "744e208e933794a8e6586b4526df379d.nca",
+      "sha256": "744e208e933794a8e6586b4526df379dfb274181ec05f4c8e0f9fe8910f8c172",
+      "bytes": 560128
+    }
+  ],
+  "date": "2026-10-02",
+  "diagnostic": true,
+  "switch_file_log": true,
+  "log_path": "sdmc:/switch/biko3/nvk.log",
+  "previous_log_path": "sdmc:/switch/biko3/nvk.previous.log",
+  "separate_nsp_verification": false,
+  "hardware_run": false,
+  "hardware_crash_fixed": false,
+  "diagnostic_nro_sha256": "f080a971987eeb5f48df57ea7d0c01056b6206119a5d63e58a04436a6a2a4454",
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "undefined_symbols": 0,
+  "actor_gain": {
+    "post_insertion_manual": 2,
+    "other_actions": 1
+  },
+  "existing_release_files_changed": false
+}

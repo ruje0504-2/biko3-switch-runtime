@@ -572,14 +572,19 @@ void bk_play_session_log_state(BkScene *scene, FILE *log) {
   fprintf(log, "Scene state shown=%02x group=%u area=%u ending_phase=%d "
       "ending_state=%d tertiary_state=%d target=%d progress=%.9g "
       "selected=%d variant=%d camera=%d/%d "
-      "special_phase=%d sequence=%d\n", s->shown,
+      "special_phase=%d sequence=%d aux_gate=%d action_mode=%d "
+      "pose=%d aux_index=%d pending=%d sidebar=%u monologue=%u\n", s->shown,
       s->game_state.group, s->game_state.area, s->ending_state.frame.phase,
       s->ending_state.frame.state_721ee0, s->ending_state.stage3_state,
       s->ending_state.frame.camera_cached, s->ending_state.auxiliary.progress,
       s->ending_state.selected,
       s->ending_state.control.variant, s->ending_state.frame.camera_mode,
       s->ending_state.frame.camera_clip, s->special_process.phase,
-      s->special_process.event.sequence);
+      s->special_process.event.sequence, s->ending_state.auxiliary.gate,
+      s->ending_state.ui_controller.auxiliary.mode,
+      s->ending_state.auxiliary.selection, s->ending_state.auxiliary.index,
+      s->ending_state.auxiliary.pending, s->ending_state.open,
+      s->ending_state.control.toggles[7]);
 }
 static int draw(void *context, const BkSceneFrame *frame, char error[256]) {
   PlaySession *s = context;

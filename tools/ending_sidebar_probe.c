@@ -20,16 +20,56 @@ static int sidebar_tick(BkScene *scene, BkRenderer *r, BkAudio *audio,
   return bk_audio_poll(audio, e) && bk_scene_step(scene, 1. / 60., &input, e) &&
       bk_audio_fill(audio, e) && sidebar_present(scene, r, e);
 }
+/* Exercise the preceding action using real target input, then toggle the
+ * item before the next pose menu. No live action state is injected here. */
+static int sidebar_preceding_action(BkScene *scene, BkRenderer *r, BkAudio *audio,
+                                    char e[256]) {
+  EndingNormalScene *s = bk_scene_custom_context(scene);
+  BkInput input;
+  if (!record_probe_alternate(scene, &input, e)) return 0;
+  for (unsigned frame = 0; frame < 24; ++frame)
+    if (!sidebar_tick(scene,r,audio,input,e)) return 0;
+  input.held = input.pressed = BK_BUTTON_CONFIRM;
+  if (!sidebar_tick(scene,r,audio,input,e)) return 0;
+  if (s->state->auxiliary.gate != 3)
+    return fail(e,"preceding action target did not open the real menu");
+  float from[2] = {input.pointer_x,input.pointer_y};
+  float to[2] = {s->viewport.x+s->state->points[0][0],s->viewport.y+s->state->points[0][1]};
+  input.pressed = 0;
+  for (unsigned frame = 1; frame <= 48; ++frame) {
+    input.pointer_x = from[0]+(to[0]-from[0])*frame/48.f;
+    input.pointer_y = from[1]+(to[1]-from[1])*frame/48.f;
+    if (!sidebar_tick(scene,r,audio,input,e)) return 0;
+  }
+  input.held = 0; input.released = BK_BUTTON_CONFIRM;
+  if (!sidebar_tick(scene,r,audio,input,e)) return 0;
+  BkClipState clip;
+  for (unsigned frame = 0; frame < 3600; ++frame) {
+    if (!bk_actor_pose_state(scene_primary(s),&clip)) return 0;
+    if (s->state->auxiliary.gate == 1 && clip.slot == 4 &&
+        !s->common->blocked && !s->state->auxiliary.pending) {
+      printf("preceding action ready group%u clip%d\n",s->group,clip.slot);
+      return 1;
+    }
+    if (!sidebar_tick(scene,r,audio,(BkInput){0},e)) return 0;
+  }
+  return fail(e,"preceding action did not reach its ready clip");
+}
 /* Manual-state fixtures check the native adapter against real clip clocks.
  * They do not advance story state or change the cursor/camera speed. */
 static int sidebar_motion_checks(EndingNormalScene *s, unsigned *count, char e[256]) {
   const BkInput cases[] = {{.move_x=1}, {.move_y=-1}, {.move_x=.1f},
       {.pointer_active=1,.move_x=1}, {.move_x=1,.held=BK_BUTTON_CAMERA_ADJUST}};
-  const unsigned gains[] = {6,6,1,1,1};
+  const unsigned gains[] = {2,2,1,1,1};
   for (unsigned rate = 30; rate <= 120; rate *= 2)
     for (unsigned trial = 0; trial < 5; ++trial) {
       s->input = cases[trial];
-      if (stick_action_gain(s) != gains[trial]) return fail(e,"stick gain selection failed");
+      if (s->selected_assets) {
+        s->state->auxiliary.gate = 3;
+        s->state->ui_controller.auxiliary.mode = 2;
+      }
+      unsigned gain = s->selected_assets ? gains[trial] : 1;
+      if (stick_action_gain(s) != gain) return fail(e,"stick gain selection failed");
       s->active_seconds = 1.f/rate;
       float pointer[2]; memcpy(pointer,s->pointer.position,sizeof(pointer));
       if (s->selected_assets || s->tertiary_assets) {
@@ -44,7 +84,7 @@ static int sidebar_motion_checks(EndingNormalScene *s, unsigned *count, char e[2
         float expected;
         if (s->selected_assets) {
           BkEndingSelectedMotionClip clip = {p.duration,t.start,t.end,start,p.rate,0};
-          float amplified[2] = {motion[0]*gains[trial],motion[1]*gains[trial]};
+          float amplified[2] = {motion[0]*gain,motion[1]*gain};
           s->selected_plain_scheduled = 1;
           s->state->retained.auxiliary.word_6ea314 = 0;
           float ignored;
@@ -58,7 +98,7 @@ static int sidebar_motion_checks(EndingNormalScene *s, unsigned *count, char e[2
           s->tertiary_controller->action.replay_elapsed = 0;
           s->tertiary_controller->motion.direction[0] = 1;
           BkEndingTertiaryMotionState state = s->tertiary_controller->motion;
-          BkEndingTertiaryMotionClip clip = {p.duration,t.start,t.end,start,p.rate*gains[trial],0};
+          BkEndingTertiaryMotionClip clip = {p.duration,t.start,t.end,start,p.rate,0};
           int32_t delta[2] = {(int32_t)motion[0],(int32_t)motion[1]};
           if (!bk_ending_tertiary_motion_drag(&state,s->group,0,s->active_seconds,delta,&clip,e)) return 0;
           BkEndingCall call = {.operation=BK_ENDING_STAGE_476720};
@@ -80,7 +120,7 @@ static int sidebar_motion_checks(EndingNormalScene *s, unsigned *count, char e[2
           int32_t delta[2] = {(int32_t)(480.f/rate),(int32_t)(-240.f/rate)};
           if (!bk_actor_pose_node_reference(pose,b->reference,&node,e) ||
               !bk_bom_manual_step(&expected,BK_BOM_MANUAL_FIRST,&node,bk_actor_pose_frame(pose,b->parent),
-                  delta[0]*(int32_t)gains[trial],delta[1]*(int32_t)gains[trial],.09f,7.5f,s->normal_controller->flip,e)) return 0;
+                  delta[0],delta[1],.09f,7.5f,s->normal_controller->flip,e)) return 0;
           s->presentation->manual[0] = (BkBomManual){.offset={.02f,-.03f}};
           s->state->normal_ready = 1;
           s->state->frame.state_721ee0 = 3; s->state->frame.camera_cached = 11;
@@ -95,7 +135,77 @@ static int sidebar_motion_checks(EndingNormalScene *s, unsigned *count, char e[2
       if (memcmp(pointer,s->pointer.position,sizeof(pointer))) return fail(e,"manual gain moved the menu cursor");
       ++*count;
     }
+  if (s->selected_assets) {
+    s->input = (BkInput){.move_x=1};
+    for (int gate = 1; gate <= 4; ++gate)
+      for (int mode = 0; mode < 8; ++mode) {
+        s->state->auxiliary.gate = gate;
+        s->state->ui_controller.auxiliary.mode = mode;
+        unsigned expected = gate == 3 && (mode == 1 || mode == 2 || mode == 4 || mode == 6) ? 2 : 1;
+        if (stick_action_gain(s) != expected)
+          return fail(e,"insertion action gain leaked into another stage");
+        ++*count;
+      }
+  }
   return 1;
+}
+/* The Switch log identifies row10 (monologue), followed by the phase4
+ * target4 drag. Observe the native -1 reset; do not inject a camera index. */
+static int sidebar_monologue_transition(BkScene *scene, BkRenderer *r,
+                                        BkAudio *audio, char e[256]) {
+  EndingNormalScene *s = bk_scene_custom_context(scene);
+  BkEndingControlRect bounds[BK_ENDING_CONTROL_RECTS];
+  if (!bk_ending_ui_control_rects(&s->ui,bounds)) return 0;
+  BkInput click = {.pointer_active=1,
+      .pointer_x=s->viewport.x+bounds[10].x+bounds[10].width*.5f,
+      .pointer_y=s->viewport.y+bounds[10].y+bounds[10].height*.5f};
+  if (!s->state->control.toggles[7]) {
+    if (!sidebar_tick(scene,r,audio,click,e)) return 0;
+    click.held = click.pressed = BK_BUTTON_CONFIRM;
+    if (!sidebar_tick(scene,r,audio,click,e)) return 0;
+    click.held = click.pressed = 0; click.released = BK_BUTTON_CONFIRM;
+    if (!sidebar_tick(scene,r,audio,click,e)) return 0;
+  }
+  if (!s->state->control.toggles[7]) return fail(e,"monologue row did not enable voice");
+  BkInput away = {.pointer_active=1,.pointer_x=s->viewport.x+4,
+      .pointer_y=s->viewport.y+s->viewport.height-4};
+  for (unsigned frame = 0; frame < 160; ++frame)
+    if (!sidebar_tick(scene,r,audio,away,e)) return 0;
+  if (s->state->open) return fail(e,"monologue sidebar did not close");
+  BkRecordNaturalInput driver = {0};
+  unsigned sentinel = 0, voiced = 0, after_reset = 0;
+  int reached = 0, old_state = -1;
+  for (unsigned frame = 0; frame < 3600; ++frame) {
+    if (s->state->control.state_721eec != old_state) {
+      old_state = s->state->control.state_721eec;
+      printf("monologue group%u phase%d state%d index%d camera%d enabled%u\n",
+          s->group,s->state->frame.phase,old_state,s->state->auxiliary.index,
+          s->state->control.mode_721ec4,s->state->control.toggles[7]);
+    }
+    BkInput input;
+    if (!record_probe_auxiliary_input(scene,&driver,&input,e)) return 0;
+    if (!sidebar_tick(scene,r,audio,input,e)) {
+      fprintf(stderr,"monologue failure phase%d state%d index%d camera%d enabled%u\n",
+          s->state->frame.phase,s->state->control.state_721eec,
+          s->state->auxiliary.index,s->state->control.mode_721ec4,
+          s->state->control.toggles[7]);
+      return 0;
+    }
+    if (s->state->auxiliary.index == -1) {
+      reached = 1; ++sentinel;
+      BkEndingAudioCall call = {.operation=BK_ENDING_AUDIO_STATUS,.slot=1};
+      int playing = 0;
+      if (!bk_ending_audio_call(s->audio,s->group,0,0,&call,&playing,e)) return 0;
+      if (playing && s->state->control.mode_721ec4 == 0) ++voiced;
+    }
+    if (reached && ++after_reset >= 600) {
+      if (!voiced) return fail(e,"native reset did not overlap monologue playback");
+      printf("monologue transition frames%u reset%u voiced%u followup%u\n",
+          frame+1,sentinel,voiced,after_reset);
+      return 1;
+    }
+  }
+  return fail(e,"monologue input did not reach the native camera reset");
 }
 #define CHECK(x) do { if (!(x)) { fprintf(stderr,"sidebar group%u mode%s variant%u line%d: %s\n",group,mode,variant,__LINE__,e); goto done; } } while (0)
 int main(int argc, char **argv) {
@@ -133,9 +243,9 @@ int main(int argc, char **argv) {
     scene = bk_ending_normal_scene_create_story(&services,group,1,records,unlocked,NULL,e);
   } else if (!strcmp(mode,"secondary")) {
     scene = bk_ending_secondary_scene_create_gallery(&services,group,variant,unlocked,NULL,e);
-  } else if (!strcmp(mode,"selected")) {
+  } else if ((!strcmp(mode,"selected") || !strcmp(mode,"selecteditems"))) {
     scene = bk_ending_selected_scene_create_gallery(&services,group,variant,variant ? 5 : 2,unlocked,NULL,e);
-  } else if (!strcmp(mode,"auxiliary")) {
+  } else if (!strcmp(mode,"auxiliary") || !strcmp(mode,"auxiliarymonologue")) {
     CHECK(records = calloc(1,sizeof(*records)));
     scene = create_entry(&services,group,variant,0x18,4,records,unlocked,NULL,e);
   } else goto done;
@@ -145,6 +255,15 @@ int main(int argc, char **argv) {
   s->inventory[1] = s->inventory[2] = 1;
   s->state->control.toggles[4] = s->state->control.toggles[6] = 1;
   CHECK(bk_audio_fill(audio,e) && sidebar_present(scene,r,e));
+  if (!strcmp(mode,"auxiliarymonologue")) {
+    CHECK(sidebar_tick(scene,r,audio,
+        (BkInput){.held=BK_BUTTON_CONFIRM,.pressed=BK_BUTTON_CONFIRM},e));
+    CHECK(sidebar_tick(scene,r,audio,
+        (BkInput){.released=BK_BUTTON_CONFIRM},e));
+    for (unsigned frame = 0; s->state->control.state_721eec != 1 && frame < 1800; ++frame)
+      CHECK(sidebar_tick(scene,r,audio,(BkInput){0},e));
+    CHECK(s->state->control.state_721eec == 1);
+  }
   if (s->selected_assets)
     for (unsigned frame = 0; s->state->auxiliary.gate == 4 && frame < 1800; ++frame)
       CHECK(sidebar_tick(scene,r,audio,(BkInput){0},e));
@@ -155,7 +274,12 @@ int main(int argc, char **argv) {
   for (unsigned frame = 0; frame < 160; ++frame)
     CHECK(sidebar_tick(scene,r,audio,open,e));
   CHECK(s->state->open);
-  for (unsigned cycle = 0; cycle < 8; ++cycle)
+  if (!strcmp(mode,"auxiliarymonologue")) {
+    CHECK(sidebar_monologue_transition(scene,r,audio,e));
+    ++clicks; ++pose_changes;
+    goto stop_scene;
+  }
+  for (unsigned cycle = 0; cycle < (!strcmp(mode,"selecteditems") ? 0u : 8u); ++cycle)
     for (unsigned item = 0; item < 2; ++item) {
       BkEndingControlRect bounds[BK_ENDING_CONTROL_RECTS];
       CHECK(bk_ending_ui_control_rects(&s->ui,bounds));
@@ -177,7 +301,7 @@ int main(int argc, char **argv) {
         CHECK(sidebar_tick(scene,r,audio,click,e));
       ++clicks;
     }
-  for (unsigned cycle = 0; cycle < 8; ++cycle)
+  for (unsigned cycle = 0; cycle < (!strcmp(mode,"selecteditems") ? 0u : 8u); ++cycle)
     for (unsigned row = 0; row < 11; ++row) {
       BkEndingControlRect bounds[BK_ENDING_CONTROL_RECTS];
       CHECK(bk_ending_ui_control_rects(&s->ui,bounds));
@@ -197,7 +321,15 @@ int main(int argc, char **argv) {
       ++clicks;
     }
   if (s->selected_assets) {
-    for (unsigned change = 0; change < 2; ++change) {
+    unsigned changes = !strcmp(mode,"selecteditems") ? 6u : 2u;
+    for (unsigned change = 0; change < changes; ++change) {
+      if (!strcmp(mode,"selecteditems")) {
+        BkInput away = {.pointer_active=1,.pointer_x=s->viewport.x+4,
+            .pointer_y=s->viewport.y+s->viewport.height-4};
+        for (unsigned frame = 0; frame < 160; ++frame)
+          CHECK(sidebar_tick(scene,r,audio,away,e));
+        CHECK(sidebar_preceding_action(scene,r,audio,e));
+      }
       BkInput input;
       /*Enable both actual item materials before dragging to the next pose.*/
       BkInput edge = {.pointer_active=1,.pointer_x=s->viewport.x+s->viewport.width-2,
@@ -206,7 +338,7 @@ int main(int argc, char **argv) {
         CHECK(sidebar_tick(scene,r,audio,edge,e));
       for (unsigned item = 0; item < 2; ++item) {
         unsigned value = item ? 5 : 3;
-        if (!s->state->control.toggles[value]) continue;
+        if (strcmp(mode,"selecteditems") && !s->state->control.toggles[value]) continue;
         BkEndingControlRect bounds[BK_ENDING_CONTROL_RECTS];
         CHECK(bk_ending_ui_control_rects(&s->ui,bounds));
         unsigned row = 6+item;
@@ -216,10 +348,17 @@ int main(int argc, char **argv) {
         CHECK(sidebar_tick(scene,r,audio,enable,e));
         enable.held = enable.pressed = BK_BUTTON_CONFIRM;
         CHECK(sidebar_tick(scene,r,audio,enable,e));
-        CHECK(!s->state->control.toggles[value]);
+        printf("pose preparation group%u change%u item%u value%u\n",group,change,item,s->state->control.toggles[value]);
         enable.held = enable.pressed = 0; enable.released = BK_BUTTON_CONFIRM;
         CHECK(sidebar_tick(scene,r,audio,enable,e));
         ++clicks;
+        if (!strcmp(mode,"selecteditems") && change % 2) {
+          enable.released = 0; enable.held = enable.pressed = BK_BUTTON_CONFIRM;
+          CHECK(sidebar_tick(scene,r,audio,enable,e));
+          enable.held = enable.pressed = 0; enable.released = BK_BUTTON_CONFIRM;
+          CHECK(sidebar_tick(scene,r,audio,enable,e));
+          ++clicks;
+        }
       }
       BkInput away = {.pointer_active=1,.pointer_x=s->viewport.x+4,
           .pointer_y=s->viewport.y+s->viewport.height-4};
@@ -237,7 +376,9 @@ int main(int argc, char **argv) {
         snprintf(e,sizeof(e),"pose menu gate%d mode%d open%u target%d view%d",s->state->auxiliary.gate,s->state->ui_controller.auxiliary.mode,s->state->open,s->state->frame.camera_cached,s->state->control.mode_721ec4);
       CHECK(s->state->auxiliary.gate == 3 && s->state->ui_controller.auxiliary.mode == 3);
       float from[2] = {input.pointer_x,input.pointer_y};
-      float to[2] = {s->viewport.x+s->state->points[0][0],s->viewport.y+s->state->points[0][1]};
+      unsigned menu = s->state->choices[0] == 0 ? 0u : s->state->choices[1] == 0 ? 1u : change % 2;
+      printf("pose drag group%u change%u selection%d menu%u next%d toggles%u/%u\n",group,change,s->state->auxiliary.selection,menu,s->state->choices[menu],s->state->control.toggles[3],s->state->control.toggles[5]);
+      float to[2] = {s->viewport.x+s->state->points[menu][0],s->viewport.y+s->state->points[menu][1]};
       input.pressed = 0;
       for (unsigned frame = 1; frame <= 48; ++frame) {
         input.pointer_x = from[0]+(to[0]-from[0])*frame/48.f;
@@ -271,6 +412,7 @@ int main(int argc, char **argv) {
     }
   }
   CHECK(sidebar_motion_checks(s,&motion_checks,e));
+stop_scene:
   CHECK(bk_ending_normal_scene_stop(scene,e));
   bk_scene_destroy(scene); scene = NULL;
   BkRenderStats final = bk_renderer_stats(r);

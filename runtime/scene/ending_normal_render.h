@@ -117,8 +117,10 @@ typedef struct {
   int32_t movie_clock, movie_restart_clock;
 } BkEndingEventRenderInput;
 /* Actual51c736/4d9733 service adapter: video, conditional/forced second
- * view, real speech1 status and speech0 volume, then regular fallback only
- * when native dispatch requests it. scene.dispatch is ignored: the mutable
+ * view, real speech1 status and speech0 volume. The native camera reset -1
+ * renders the main view until a real close-up index is published, without
+ * changing event/audio dispatch order. Other invalid indices still fail.
+ * scene.dispatch is ignored: the mutable
  * descriptor is created by the original root selector for this call.
  * Retained scalar owners and all special bindings remain caller-owned.
  * Missing owners needed by the chosen branch fail; any late failure makes

@@ -924,9 +924,17 @@ static int event_movie(void *context) {
                                             p->input->movie_restart_clock,
                                             p->error);
 }
+static int event_regular(void *context, const BkDrawDispatch *dispatch);
 static int event_special(void *context, BkDrawDispatch *dispatch) {
   EventPrepare *p = context;
   BkEndingSpecialRenderInput view = p->input->scene;
+  /* Native action transitions reset721EDC to -1 while speech1 can still
+   * request4D9898. There is no authored close-up for that sentinel; keep the
+   * live main camera until a real index is published. Leave event/audio
+   * dispatch order intact, and continue rejecting other invalid indices. */
+  if (view.bindings && view.bindings->camera_index &&
+      *view.bindings->camera_index == -1)
+    return event_regular(context, dispatch);
   view.dispatch = dispatch;
   return bk_ending_normal_render_prepare_special(p->render, &view, p->error);
 }

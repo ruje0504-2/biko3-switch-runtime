@@ -8,7 +8,7 @@
 
 ## 最近更新
 
-- **结局侧栏与人物动作**：修复物品启用后拖动换姿势、侧栏特殊视图及隐藏背景导致的退出；结局与特殊场景左摇杆手动人物动作加快 6 倍，菜单光标与已有镜头速度不变。[修复与验证](reports/ending-sidebar.md)
+- **结局侧栏与人物动作**：修复独白开关后切换动作时，副镜头索引重置为 `-1` 导致退出的问题；重置期间沿用主镜头，语音与流程继续正常推进。左摇杆仅在完成插入后的手动人物动作阶段加快 2 倍，其他人物动作原速；已有 L/R 镜头速度不变。[修复与验证](reports/ending-sidebar.md)
 - **中文流程文字**：修复开场空行被误算为滚动、额外消耗 A 键的问题；中文对白、流程开场/失败/道具文字放大 30%，按完整行显示。仅加载汉化时启用，日文及菜单、按键说明不变；共用文字纹理复用以减少换页重复工作。[修复与验证](reports/chinese-dialogue.md)
 - **汉化加载优化**：逐资源压缩，完整替换时跳过原资源读取；外挂由 79.1 MB 缩至 37.2 MB，109 项汉化图片、文本和字库的载荷读取量减少约 78%，全部 203 项最终资源不变。需同时更新 NRO 与 `patch.pp`。[优化与验证](reports/patch-loading.md)
 - **原版直装 NSP**：名称「尾行3」、作者 `ILLUSION`、版本 `1.0.78`、TitleID `01094F68D7330000`，内置完整日文 Data，未装入补丁。游戏内照片及进度写入所选用户的 HOS 存档。[打包与存储验证](reports/nsp-1.0.78.md)
@@ -21,13 +21,13 @@
 
 以上调用量变化不是总 CPU 用量或实机 FPS 的降幅。Switch 矩阵与 CPU 蒙皮也已使用 NEON intrinsics 和少量内联汇编预取，并完成 ARM64 原版数值对照；具体范围见 [NEON 验证](reports/neon-skinning.md)。最新 Switch 性能收益尚未测量。
 
-NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.79`，使用本地 `icon.jpg` 生成的图标。当前本地构建为 `build-switch/biko3-runtime.nro`，16,408,236 字节，ELF 未解析符号为 0；SHA256：
+NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.79`，使用本地 `icon.jpg` 生成的图标。已交付正式 NRO 为 `交付/biko3-runtime.nro`，16,408,236 字节，ELF 未解析符号为 0；SHA256：
 
 ```text
-25e71e306a55a8572a243a209f5bdda9e688f47339c9a2078482b72691eccdd3
+31320a8ce44f8e1826fc90ed5b26cb714c551413b286f8c69adb03f9e8b07178
 ```
 
-本次增量位于 `交付/汉化与去码外挂-20261001`，包含新版 NRO 和外挂；独立 NRO 在 `交付/biko3-runtime.nro`，原版直装包在 `交付/biko3-01094F68D7330000.nsp`，更新包在 `交付/biko3-01094F68D7330800-update.nsp`。旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。本次新外挂使用 BKPT2，需要与新版 NRO 一起更新，原 Data 无需重拷。
+本次增量位于 `交付/汉化与去码外挂-20261001`，包含新版 NRO 和外挂；独立 NRO 在 `交付/biko3-runtime.nro`，原版直装包在 `交付/biko3-01094F68D7330000.nsp`，更新包在 `交付/biko3-01094F68D7330800-update.nsp`。对应ZIP为 `交付/biko3-01094F68D7330800-1.0.79cn-update.zip` 与 `交付/biko3-1.0.79-SD-汉化去码补丁.zip`；SD补丁ZIP包含NRO，均使用密码1234。旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。本次新外挂使用 BKPT2，需要与新版 NRO 一起更新，原 Data 无需重拷。
 
 《尾行3》是 Direct3D 时代的 3D 游戏，与《鬼作》的 AI6WIN 不同。本项目参考 [kisaku-switch-runtime](https://github.com/ruje0504-2/kisaku-switch-runtime) 的本地素材隔离、主机验证和 Switch 打包方式。
 
@@ -35,7 +35,9 @@ NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.79`�
 
 ## 验证与当前范围
 
-本轮侧栏修复通过普通 18 项、ASan 7 项实际资源检查，共 2,624 次点击、30 次拖动换姿势及 375 项增益检查，GPU 资源回到基线。检查使用显式入口/库存夹具；不扩展完整剧情审核。指定 Mesa NVK 交叉构建及最新 BKTR 更新包独立合并校验通过，范围见本轮报告。
+独白开关后的副镜头索引退出已在主机复现。修复后普通/ASan 各通过 661 帧真实输入回归，包含 600 帧索引重置和 230 帧独白播放重叠，GPU 资源回到基线；两项相关单元检查也均通过。指定 Mesa NVK 交叉构建完成，文件日志关闭。最新更新 NSP 仅完成打包器的生成检查，未追加独立包检测或实机运行测试。
+
+首次侧栏修复的普通 18 项、ASan 7 项检查，以及后续 2 倍速率的 47 项检查属于此前独立构建的证据，详见 [侧栏记录](reports/ending-sidebar.md)。侧栏「物品」是汉化贴图对原版「モノローグ」（独白）的命名，控制语音，区别于附件开关和剧情背包。
 
 此前普通与 ASan 各完成 203 项补丁资源和 10 项存储检查；封包优化时的汉化开场 1,100 帧与旧补丁逐字节一致。随后文字修复各检查 121 段真实文本 / 242 个裁切、465 帧中文 UI、150 帧日文文字和中日流程提示，另运行 1,100 帧实际开场查看放大后的画面。此前两个 NSP 提取后逐项验证原版 Data、NSO、NACP、NPDM、更新关联和内容哈希，更新包另核对合并补丁。各阶段范围见上方报告。
 
@@ -102,7 +104,7 @@ python3 tools/prepare_combined_patch.py \
 
 若另行启用外挂，Atmosphere 的 RomFS 覆盖位置是 `atmosphere/contents/01094F68D7330000/romfs/patch.pp`，使用同一份优化版文件；这不改变 NSP 本体。该方式依赖用户的 LayeredFS 配置，未新增实机验证。实现依据见 [Atmosphere 变更记录](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/changelog.md)。
 
-也可安装 `交付/biko3-01094F68D7330800-update.nsp`，直接启用汉化与去码，无需另放外挂文件。它是关联上述本体的 BKTR Patch 更新（内容版本 196608），显示版本 `1.0.79cn`，大小 49,003,232 字节，SHA256 `9d16bf79161e0e4270288067c3dfff38a31629a2d1f935900d8c0d2b9f39bc67`。安装顺序为本体、更新包。游戏存档属于本体 ID，旧 `01094F68D7333000` 的 HOS 存档不会自动迁入；安装核对与格式说明见[更新包记录](reports/nsp-update-1.0.79.md)。
+也可安装 `交付/biko3-01094F68D7330800-update.nsp`，直接启用汉化与去码，无需另放外挂文件。它是关联上述本体的 BKTR Patch 更新（内容版本 196610），显示版本 `1.0.79cn`，大小 49,004,256 字节，SHA256 `5efb68d81a422a60ded27ba465b29eec63b53c560483e87817c5d7f4b4821e36`。安装顺序为本体、更新包。游戏存档属于本体 ID，旧 `01094F68D7333000` 的 HOS 存档不会自动迁入；安装核对与格式说明见[更新包记录](reports/nsp-update-1.0.79.md)。
 
 重新打包使用已有 devkitPro 工具、hacBrewPack 和用户本地密钥，不下载或分发密钥：
 
@@ -122,7 +124,7 @@ local/venv/bin/python tools/package_nsp.py local/game/MAINDIR \
   --update-patch local/patch-speed/patch.pp --output local/full-update.nsp
 local/venv/bin/python tools/package_bktr_update.py \
   '交付/biko3-01094F68D7330000.nsp' local/full-update.nsp \
-  --display-version 1.0.79cn --content-version 196608 \
+  --display-version 1.0.79cn --content-version 196610 \
   --workdir local/bktr-build --output '交付/biko3-01094F68D7330800-update.nsp'
 ```
 
