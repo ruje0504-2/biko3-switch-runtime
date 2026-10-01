@@ -40,8 +40,11 @@ def main():
     nro=ROOT/'build-switch/biko3-runtime.nro'
     if not nro.is_file():
         raise ValueError('Run build-switch.sh first')
+    # Match the game and diagnostic mounts in runtime/app/application.c.
     packs = ['bk3_00', 'bk3_01', 'bk3_02', 'bk3_03', 'bk3_04',
-             'bk3_05', 'bk3_06', 'bk3_07', 'bk3_15', 'bk3_16', 'bk3_18', 'bk3_20', 'bk3_19']
+             'bk3_05', 'bk3_06', 'bk3_07', 'bk3_08', 'bk3_09',
+             'bk3_10', 'bk3_11', 'bk3_12', 'bk3_13', 'bk3_14',
+             'bk3_15', 'bk3_16', 'bk3_18', 'bk3_19', 'bk3_20', 'fambom']
     data_dir = game/'Data'
     if args.complete_data:
         paths=sorted(p for p in data_dir.iterdir() if p.is_file())
@@ -67,23 +70,24 @@ def main():
     build_info=json.loads((ROOT/'build-switch/build-manifest.json').read_text())
     if build_info['sha256'] != digest(nro) or build_info['version'] != LOCK['project_version'] or build_info['mesa_commit'] != LOCK['mesa']['commit']:
         raise ValueError('NRO/build metadata does not match dependency lock; rebuild first')
-    manifest={'version':build_info['version'], 'status':'original-front-end-development-flow',
+    manifest={'version':build_info['version'], 'status':'development-build',
               'language':'Japanese resources and Shift-JIS save labels',
               'data_scope':data_scope,
               'default_scene':'game', 'first_flow':'original-title',
-              'scenes':['title','game','office','camera-track','actor','pause'],
+              'scenes':['title','game','office','camera-track','actor','pause','ending'],
               'implemented_flows':['original title/selection/five introductions/game entry',
-                                   'first-mission opening/gameplay', 'native rain/snow in game and failure scenes', 'photo', 'pause/resume',
+                                   'mission opening/gameplay/area handover', 'native rain/snow in game and failure scenes', 'photo', 'pause/resume',
                                    'pause/return-original-title', 'confirmed exit',
                                    'natural failure/dialogue', 'retry/reenter-game', 'retry/return-title',
                                    'area-completion/save prompt; both choices resume next area',
-                                   '50-slot checkpoint save/overwrite/load', 'cancel load/retain paused game'],
+                                   '50-slot checkpoint save/overwrite/load', 'cancel load/retain paused game',
+                                   'endings/special scenes', 'action record save/replay', 'persistent unlocks',
+                                   'gallery', 'photo album', 'volume settings/save/restore defaults'],
               'retained_process_state':True, 'scene_aspect':[4,3],
               'renderer':'static Mesa NVK Vulkan, no fallback',
               'mesh_skinning_implemented':True, 'fog_implemented':True, 'weather_enabled':True,
               'gameplay_complete':False, 'switch_hardware_tested':False,
-              'pending':['ending unlock persistence', 'gallery', 'other mission destinations',
-                         'full media', 'settings', 'new front-end hardware validation'],
+              'pending':['latest-build Switch performance/stability validation'],
               'mesa_commit':build_info['mesa_commit'],'files':[]}
     manifest['files'].append({'path':nro.name,'sha256':copy_verified(nro,target/nro.name,replace=True),'size':nro.stat().st_size})
     for path in paths:
