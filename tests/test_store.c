@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <zlib.h>
 #define CHECK(expr)                                                            \
   do {                                                                         \
     if (!(expr)) {                                                             \
@@ -53,6 +54,25 @@ static void expect(BkResourceStore *store, const char *pack, const char *key,
   bk_blob_free(&b);
   CHECK(!b.data && !b.size);
 }
+static void compressed_fixture(const char *path, const char **names,
+                                const char **values, const unsigned *sizes,
+                                unsigned damage) {
+  unsigned char config[12], bytes[3][256] = {{0}};
+  memcpy(config, values[0], 12); config[4] = 2;
+  const char *encoded[] = {(char *)config, (char *)bytes[0], (char *)bytes[1], (char *)bytes[2]};
+  unsigned lengths[] = {12, 0, 0, 0};
+  for (unsigned i = 1; i < 4; ++i) {
+    for (unsigned j = 0; j < 4; ++j) bytes[i-1][j] = sizes[i] >> (8*j);
+    uLongf length = sizeof(bytes[0]) - 4;
+    CHECK(compress2(bytes[i-1]+4, &length, (const Bytef *)values[i], sizes[i], 1) == Z_OK);
+    lengths[i] = (unsigned)length + 4;
+  }
+  if (damage == 1) --lengths[1];
+  if (damage == 2) ++bytes[0][0];
+  if (damage == 3) bytes[0][lengths[1]-1] ^= 0x80;
+  if (damage == 4) ++lengths[1];
+  binary_fixture(path, names, encoded, lengths, 4);
+}
 static void resource_patch(const char *base, const char *patch,
                            const char *directory, const char *loose) {
   char error[256], missing[256];
@@ -85,6 +105,23 @@ static void resource_patch(const char *base, const char *patch,
   expect(store, "fonts", "title.txt", "zh");
   expect(store, "unrelated", "title.txt", "original");
   bk_resources_destroy(store);
+  for (unsigned damage = 0; damage < 5; ++damage) {
+    compressed_fixture(patch, names, values, sizes, damage);
+    store = bk_resources_create(error);
+    CHECK(store && bk_resources_mount(store, "base", base, error));
+    CHECK(bk_resources_mount_directory(store, "fonts", directory, 64, error));
+    CHECK(bk_resources_load_patch(store, patch, error));
+    if (!damage) {
+      expect(store, "base", "title.txt", "NEWg!!!!");
+      expect(store, "base", "fallback.txt", "longer value");
+      expect(store, "fonts", "title.txt", "zh");
+    } else {
+      BkBlob blob = {0};
+      CHECK(bk_resources_read(store, "base", "title.txt", &blob, error) == BK_RESOURCE_ERROR);
+      CHECK(!blob.data && !blob.size);
+    }
+    bk_resources_destroy(store);
+  }
   /* Bad source size, out-of-range segment and truncated record must fail,
    * rather than expose base bytes or a partially applied model. */
   for (unsigned kind = 0; kind < 3; ++kind) {

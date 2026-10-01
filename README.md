@@ -4,11 +4,12 @@
 
 已接通原标题、五人选择、开场剧情、游戏跟踪、失败与重试、暂停与返回标题；结局、特殊场景、鉴赏回放、音量设置和相册均有实际应用入口。游戏支持动态角色、跟随镜头、碰撞、雨雪、HUD 与拍照，存读档、下一段剧情交接、动作记录、解锁、照片和音量配置也已接入。
 
-这是持续修复中的开发版本，尚未完成全部角色自然路线和最新构建的 Switch 整体验收。已有主机检查按各报告的范围记录，不等同于实机验收；后续优先修复实际反馈的问题。默认使用日文原始资源；加入 `game/patch.pp` 可启用原汉化、去码资源及中文操作说明。
+本次工程收尾交付包含 NRO 和原版直装 NSP。后续 Switch 安装、运行与稳定性由用户自行验证，按反馈继续维护；已有主机检查按各报告的范围记录，不等同于实机验收。默认使用日文原始资源；NRO 加入 `game/patch.pp` 可启用原汉化、去码资源及中文操作说明。
 
 ## 最近更新
 
-- **汉化与去码外挂**：合并为一个可移除的 `patch.pp`，不改写原始 Data；配套 NRO 自动切换中文说明，并继承关闭 Switch `.log` 文件生成的改动。[原理与验证](reports/combined-patch.md)
+- **汉化加载优化**：逐资源压缩，完整替换时跳过原资源读取；外挂由 79.1 MB 缩至 37.2 MB，109 项汉化图片、文本和字库的载荷读取量减少约 78%，全部 203 项最终资源不变。需同时更新 NRO 与 `patch.pp`。[优化与验证](reports/patch-loading.md)
+- **原版直装 NSP**：名称「尾行3」、作者 `ILLUSION`、版本 `1.0.78`、TitleID `01094F68D7333000`，内置完整日文 Data，未装入补丁。游戏内照片及进度写入所选用户的 HOS 存档。[打包与存储验证](reports/nsp-1.0.78.md)
 
 - **减少渲染重复提交**：缓存同一命令缓冲中的图形状态绑定；固定测试片段中，绑定调用从 2,291,089 次降至 1,247,714 次，减少约 **45.5%**，画面和照片保持一致。[验证记录](reports/vulkan-bindings.md)
 - **减少 NPC 无效遮挡计算**：视野外或已经确认被遮挡后停止继续检查视线三角形，地面高度与行为仍正常更新。[验证记录](reports/npc-occlusion-performance.md)
@@ -17,13 +18,13 @@
 
 以上调用量变化不是总 CPU 用量或实机 FPS 的降幅。Switch 矩阵与 CPU 蒙皮也已使用 NEON intrinsics 和少量内联汇编预取，并完成 ARM64 原版数值对照；具体范围见 [NEON 验证](reports/neon-skinning.md)。最新 Switch 性能收益尚未测量。
 
-NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.78`，使用本地 `icon.jpg` 生成的图标。当前本地构建为 `build-switch/biko3-runtime.nro`，16,371,372 字节，ELF 未解析符号为 0；SHA256：
+NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.78`，使用本地 `icon.jpg` 生成的图标。当前本地构建为 `build-switch/biko3-runtime.nro`，16,404,140 字节，ELF 未解析符号为 0；SHA256：
 
 ```text
-6d32498be6a256b62acbaf72ae573237c20f52f6fbfd2d7f852242acc738c024
+6688db9532718ac533839d1e3f92feaeda9a2d6f82c23606b5c295515c0e223f
 ```
 
-本次增量位于 `交付/汉化与去码外挂-20261001`，包含新版 NRO 和外挂。旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。更新已有安装时可单独替换 NRO；只有所需数据文件发生变化时才需要补充素材。
+本次增量位于 `交付/汉化与去码外挂-20261001`，包含新版 NRO 和外挂；独立 NRO 在 `交付/biko3-runtime.nro`，原版直装包在 `交付/biko3-01094F68D7333000.nsp`。旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。本次新外挂使用 BKPT2，需要与新版 NRO 一起更新，原 Data 无需重拷。
 
 《尾行3》是 Direct3D 时代的 3D 游戏，与《鬼作》的 AI6WIN 不同。本项目参考 [kisaku-switch-runtime](https://github.com/ruje0504-2/kisaku-switch-runtime) 的本地素材隔离、主机验证和 Switch 打包方式。
 
@@ -31,7 +32,9 @@ NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.78`�
 
 ## 验证与当前范围
 
-本批代码已完成针对性的普通与 ASan/UBSan 检查、真实素材输入回放和指定 Mesa NVK 交叉构建。渲染优化前后及 ASan 版本各回放 1,054 个游戏帧，最终画面和两张照片逐字节一致；NPC 查询与原版的 1,392 组结果一致；藏身退出修复通过同点边角复现及实际应用回放。详细数据分别见上方报告。
+本批普通与 ASan 各核对 203 项补丁资源和 10 项存储检查，资源读取单测、架构检查和指定 Mesa NVK 交叉构建通过；汉化开场 1,100 帧输出与旧补丁逐字节一致。最终 NSP 提取后逐项验证 168 个 Data 文件、NSO、NACP、NPDM 和内容哈希。详细范围见上方两份新报告。
+
+此前渲染优化前后及 ASan 版本各回放 1,054 个游戏帧，最终画面和两张照片逐字节一致；NPC 查询与原版的 1,392 组结果一致；藏身退出修复通过同点边角复现及实际应用回放。这些是各次改动的历史证据，未在本轮扩展重跑剧情。
 
 此前雨天、存档和撞车修复已获用户实机确认；物体表面光影闪烁也已确认修复，该问题在 PC 原版存在。它们不代表最新 NRO 的整体稳定性已经验收。主机 MoltenVK 跨视口原点的微小光栅差异仍保留为[单独诊断](reports/ending-raster-origin.md)，没有通过放宽阈值将其改为通过。
 
@@ -68,17 +71,40 @@ python3 tools/bk3_assets.py local/game/MAINDIR/Data --json local/resource-index.
 
 ## 汉化与去码外挂
 
-将本次增量交付中的 `switch` 文件夹合并到 SD 卡根目录，同时更新 NRO 和 `switch/biko3/game/patch.pp`；安装新文件名后移除 SD 卡同目录中旧的 `biko3-preview.nro`。保留已有 `game/Data`，无需重新复制完整游戏。外挂为 79,134,055 字节，启用汉化界面、剧情、字库、中文按键说明及原去码补丁；退出后移除 `patch.pp`，下次启动恢复日文与原版效果。旧 NRO 不支持此文件。
+将本次增量交付中的 `switch` 文件夹合并到 SD 卡根目录，同时更新 NRO 和 `switch/biko3/game/patch.pp`；安装新文件名后移除 SD 卡同目录中旧的 `biko3-preview.nro`。保留已有 `game/Data`，无需重新复制完整游戏。外挂为 37,165,253 字节（BKPT2），启用汉化界面、剧情、字库、中文按键说明及原去码补丁；退出后移除 `patch.pp`，下次启动恢复日文与原版效果。旧 NRO 不支持 BKPT2，新 NRO 仍支持旧 BKPT1。
 
 从自有原补丁重新生成：
 
 ```sh
 python3 tools/prepare_combined_patch.py \
   '尾行3 [汉化]/去码汉化补丁' local/game/MAINDIR \
-  local/patch-merge/patch.pp
+  local/patch-speed/patch.pp
 ```
 
-输出外挂及资源摘要，不运行 Windows 安装器、不改写原数据。原补丁署名/协议随本地交付保留，补丁素材不在源码仓库中。实现与检查范围见[合并补丁记录](reports/combined-patch.md)。
+输出外挂及资源摘要，不运行 Windows 安装器、不改写原数据。输出已存在时不覆盖，重新生成可指定新路径。原补丁署名/协议随本地交付保留，补丁素材不在源码仓库中。实现与检查范围见[合并补丁记录](reports/combined-patch.md)和[加载优化](reports/patch-loading.md)。
+
+## 原版直装 NSP
+
+本地成品 `交付/biko3-01094F68D7333000.nsp`，2,957,145,304 字节（约 2.96 GB），SHA256：
+
+```text
+2e6f56f56cd78260e226eebe107f8813561e3765cb0c22271937a3e16235b8b5
+```
+
+安装后从 HOME 进入，名称「尾行3」、作者 `ILLUSION`、版本 `1.0.78`，图标取自 `icon.jpg`。TitleID 为 `01094F68D7333000`。包内含全部 168 个原版日文 Data 文件，不含汉化或去码补丁，也不依赖 SD 上的 NRO 与 Data 目录。
+
+游戏内 Y 键 / 拍照图标生成的照片随当前用户存档保存在 HOS SaveData，和游戏进度、音量等一起管理；配置为 2 GiB 存档及 64 MiB journal。此处的照片仍由游戏相册查看。旧 NRO 的 SD 存档 / 照片不自动迁入；继续运行 NRO 时仍使用旧 SD 路径。
+
+若另行启用外挂，Atmosphere 的 RomFS 覆盖位置是 `atmosphere/contents/01094F68D7333000/romfs/patch.pp`，使用同一份优化版文件；这不改变 NSP 本体。该方式依赖用户的 LayeredFS 配置，未新增实机验证。实现依据见 [Atmosphere 变更记录](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/changelog.md)。
+
+重新打包使用已有 devkitPro 工具、hacBrewPack 和用户本地密钥，不下载或分发密钥：
+
+```sh
+local/venv/bin/python tools/package_nsp.py local/game/MAINDIR \
+  --output '交付/biko3-01094F68D7333000.nsp'
+```
+
+输出已存在时不覆盖，可换新输出路径。打包脚本生成同名 JSON 清单；实际成品核对见[NSP 记录](reports/nsp-1.0.78.md)。
 
 ## SD 卡预览
 

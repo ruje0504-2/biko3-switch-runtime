@@ -1,10 +1,13 @@
 #include "platform/platform.h"
 #include <stdlib.h>
+#include <string.h>
 #include <switch.h>
 #include <sys/stat.h>
 #include <time.h>
 struct BkPlatform {
   PadState pad;
+  int romfs_mounted;
+  int save_mounted;
 };
 static uint64_t runtime_origin_ms;
 static int runtime_clock_started;
@@ -31,22 +34,74 @@ BkPlatform *bk_platform_open(int argc, char **argv, BkLaunchConfig *config,
     snprintf(error, 256, "platform allocation failed");
     return NULL;
   }
-  mkdir("sdmc:/switch/biko3", 0777);
+  const char *game_root = argc > 1 ? argv[1] : "sdmc:/switch/biko3/game";
+  const char *capture_root = "sdmc:/switch/biko3/captures";
+  if (envIsNso()) {
+    Result rc = romfsMountSelf("romfs");
+    if (R_FAILED(rc)) {
+      snprintf(error, 256, "Cannot mount installed game data: %08x", rc);
+      goto failed;
+    }
+    p->romfs_mounted = 1;
+    AccountUid user = {0};
+    rc = accountInitialize(AccountServiceType_Application);
+    if (R_SUCCEEDED(rc)) {
+      rc = accountGetPreselectedUser(&user);
+      accountExit();
+    }
+    if (R_FAILED(rc) || !accountUidIsValid(&user)) {
+      snprintf(error, 256, "Cannot get the selected Switch user: %08x", rc);
+      goto failed;
+    }
+    /* IApplicationFunctions::EnsureSaveData (20): create the selected user's
+     * save on first launch, using the installed NACP's size/journal fields. */
+    u64 required_space = 0;
+    rc = serviceDispatchImpl(appletGetServiceSession_Functions(), 20,
+                             &user, sizeof(user), &required_space,
+                             sizeof(required_space), (SfDispatchParams){0});
+    if (R_FAILED(rc)) {
+      snprintf(error, 256, "Cannot prepare user save data: %08x", rc);
+      goto failed;
+    }
+    rc = fsdevMountSaveData("save", FS_SAVEDATA_CURRENT_APPLICATIONID, user);
+    if (R_FAILED(rc)) {
+      snprintf(error, 256, "Cannot mount user save data: %08x", rc);
+      goto failed;
+    }
+    p->save_mounted = 1;
+    game_root = "romfs:";
+    capture_root = "save:/biko3";
+  } else {
+    mkdir("sdmc:/switch/biko3", 0777);
+  }
   padConfigureInput(1, HidNpadStyleSet_NpadStandard);
   padInitializeDefault(&p->pad);
   hidInitializeTouchScreen();
-  *config = (BkLaunchConfig){argc > 1 ? argv[1] : "sdmc:/switch/biko3/game",
+  *config = (BkLaunchConfig){game_root,
                              NULL,
                              "game",
                              1,
-                             "sdmc:/switch/biko3/captures",
+                             capture_root,
                              0};
   return p;
+failed:
+  bk_platform_close(p);
+  return NULL;
 }
 FILE *bk_platform_log(BkPlatform *p) {
   (void)p;
   /* Keep the shared diagnostic stream API without creating SD log files. */
   return stderr;
+}
+int bk_platform_commit_save(const char *path, char error[256]) {
+  if (path && !strncmp(path, "save:/", 6)) {
+    Result rc = fsdevCommitDevice("save");
+    if (R_FAILED(rc)) {
+      snprintf(error, 256, "Save data commit failed: %08x", rc);
+      return 0;
+    }
+  }
+  return 1;
 }
 static uint32_t buttons(uint64_t raw) {
   uint32_t result = 0;
@@ -141,5 +196,13 @@ void bk_platform_report_error(BkPlatform *p, const char *error) {
 void bk_platform_close(BkPlatform *p) {
   if (!p)
     return;
+  if (p->save_mounted) {
+    Result rc = fsdevCommitDevice("save");
+    if (R_FAILED(rc))
+      fprintf(stderr, "Save data final commit failed: %08x\n", rc);
+    fsdevUnmountDevice("save");
+  }
+  if (p->romfs_mounted)
+    romfsUnmount("romfs");
   free(p);
 }

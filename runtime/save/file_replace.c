@@ -1,8 +1,14 @@
 #include "save/file_replace_internal.h"
+#include "save/file_commit.h"
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+static BkSaveCommit commit_save;
+void bk_save_set_commit(BkSaveCommit commit) { commit_save = commit; }
+int bk_save_file_commit(const char *path, char error[256]) {
+  return !commit_save || commit_save(path, error);
+}
 static int failure(char error[256], const char *operation, int code) {
   snprintf(error, 256, "file replacement: %s: %s (%d)", operation,
            strerror(code), code);
@@ -39,7 +45,7 @@ int bk_save_file_recover(const char *path, char e[256]) {
     return 0;
   if (present && rename(backup, path))
     return failure(e, "restore previous file", errno);
-  return 1;
+  return !present || bk_save_file_commit(path, e);
 }
 int bk_save_file_replace(const char *tmp, const char *path, char e[256]) {
   char backup[1320];
@@ -48,7 +54,7 @@ int bk_save_file_replace(const char *tmp, const char *path, char e[256]) {
   if (!rename(tmp, path)) {
     /* A stale backup only occurs after a previously completed installation. */
     remove(backup);
-    return 1;
+    return bk_save_file_commit(path, e);
   }
   int code = errno;
   if (code != EEXIST)
@@ -68,5 +74,5 @@ int bk_save_file_replace(const char *tmp, const char *path, char e[256]) {
     return failure(e, "install failed; previous file restored", code);
   }
   remove(backup);
-  return 1;
+  return bk_save_file_commit(path, e);
 }

@@ -5,6 +5,7 @@
 #include <string.h>
 #include <strings.h>
 #include <sys/stat.h>
+#include <zlib.h>
 #define BK_MAX_MOUNTS 64
 typedef struct {
   char pack[33];
@@ -17,6 +18,7 @@ struct BkResourceStore {
   unsigned count;
   BkArchive patch;
   unsigned patch_flags;
+  unsigned patch_version;
 };
 static uint32_t patch_word(const uint8_t *p) {
   return (uint32_t)p[0] | (uint32_t)p[1] << 8 | (uint32_t)p[2] << 16 |
@@ -36,12 +38,13 @@ int bk_resources_load_patch(BkResourceStore *s, const char *path, char e[256]) {
   const BkEntry *entry = bk_archive_find(&patch, "patch.cfg");
   uint8_t *raw = NULL;
   if (!entry || entry->size != 12 || !bk_archive_read(&patch, entry, &raw, e) ||
-      memcmp(raw, "BKPT", 4) || patch_word(raw + 4) != 1 ||
+      memcmp(raw, "BKPT", 4) || (patch_word(raw + 4) != 1 && patch_word(raw + 4) != 2) ||
       !patch_word(raw + 8) || (patch_word(raw + 8) & ~3u)) {
     free(raw); bk_archive_close(&patch);
     snprintf(e, 256, "invalid resource patch metadata"); return 0;
   }
   s->patch_flags = patch_word(raw + 8);
+  s->patch_version = patch_word(raw + 4);
   s->patch = patch;
   free(raw);
   return 1;
@@ -49,51 +52,84 @@ int bk_resources_load_patch(BkResourceStore *s, const char *path, char e[256]) {
 unsigned bk_resources_patch_flags(const BkResourceStore *s) {
   return s ? s->patch_flags : 0;
 }
-static BkResourceResult apply_patch(BkResourceStore *s, const char *pack,
-                                    const char *name, BkBlob *out, char e[256]) {
-  if (!s->patch.file) return BK_RESOURCE_OK;
+typedef struct {
+  uint8_t *bytes;
+  uint32_t size, count;
+  int complete;
+} ResourcePatch;
+static int prepare_patch(BkResourceStore *s, const char *pack,
+                          const char *name, size_t original_size,
+                          ResourcePatch *out, char e[256]) {
+  if (!s->patch.file) return 1;
   char key[100];
   int n = snprintf(key, sizeof(key), "%s.%s", pack, name);
-  if (n < 0 || n >= (int)sizeof(key)) return BK_RESOURCE_OK;
+  if (n < 0 || n >= (int)sizeof(key)) return 1;
   const BkEntry *entry = bk_archive_find(&s->patch, key);
-  if (!entry) return BK_RESOURCE_OK;
-  uint8_t *raw = NULL, *next = NULL;
+  if (!entry) return 1;
+  uint8_t *raw = NULL;
   if (!bk_archive_read(&s->patch, entry, &raw, e)) goto bad;
-  if (entry->size < 12 || patch_word(raw) != out->size) goto invalid;
+  size_t raw_size = entry->size;
+  if (s->patch_version == 2) {
+    if (raw_size < 4) goto invalid;
+    uint32_t expanded = patch_word(raw);
+    if (expanded < 12 || expanded > 256u * 1024 * 1024) goto invalid;
+    uint8_t *decoded = malloc(expanded);
+    if (!decoded) { snprintf(e, 256, "resource patch allocation failed"); goto bad; }
+    uLongf length = expanded;
+    uLong compressed = raw_size - 4;
+    int status = uncompress2(decoded, &length, raw + 4, &compressed);
+    if (status != Z_OK || length != expanded || compressed != raw_size - 4) {
+      free(decoded); goto invalid;
+    }
+    free(raw);
+    raw = decoded;
+    raw_size = expanded;
+  }
+  if (raw_size < 12 || patch_word(raw) != original_size) goto invalid;
   uint32_t size = patch_word(raw + 4), count = patch_word(raw + 8);
-  if (!size || !count || count > (entry->size - 12) / 8) goto invalid;
+  if (!size || !count || count > (raw_size - 12) / 8) goto invalid;
   size_t cursor = 12;
   for (uint32_t i = 0; i < count; ++i) {
-    if (entry->size - cursor < 8) goto invalid;
+    if (raw_size - cursor < 8) goto invalid;
     uint32_t offset = patch_word(raw + cursor), length = patch_word(raw + cursor + 4);
     cursor += 8;
-    if (offset > size || length > size - offset || length > entry->size - cursor)
+    if (offset > size || length > size - offset || length > raw_size - cursor)
       goto invalid;
     /* A size-changing replacement must supply the complete new resource. */
-    if (size != out->size && (count != 1 || offset || length != size)) goto invalid;
+    if (size != original_size && (count != 1 || offset || length != size)) goto invalid;
     cursor += length;
   }
-  if (cursor != entry->size) goto invalid;
-  /* Model ranges keep their size: apply in place after validating every
-   * segment, avoiding a second large model buffer on Switch. */
-  next = size == out->size ? out->data : malloc(size);
-  if (!next) { snprintf(e, 256, "resource patch allocation failed"); goto bad; }
-  cursor = 12;
-  for (uint32_t i = 0; i < count; ++i) {
-    uint32_t offset = patch_word(raw + cursor), length = patch_word(raw + cursor + 4);
-    cursor += 8;
-    memcpy(next + offset, raw + cursor, length);
-    cursor += length;
-  }
-  free(raw);
-  if (next != out->data) free(out->data);
-  *out = (BkBlob){next, size};
-  return BK_RESOURCE_OK;
+  if (cursor != raw_size) goto invalid;
+  *out = (ResourcePatch){raw, size, count,
+                        count == 1 && !patch_word(raw + 12) && patch_word(raw + 16) == size};
+  return 1;
 invalid:
   snprintf(e, 256, "resource patch incompatible/corrupt: %.32s/%.64s", pack, name);
 bad:
-  free(raw); free(next); bk_blob_free(out);
-  return BK_RESOURCE_ERROR;
+  free(raw);
+  return 0;
+}
+static int patch_complete(ResourcePatch *patch, BkBlob *out) {
+  if (!patch->complete) return 0;
+  /* Transfer the replacement buffer directly. No read/allocation/decoding of
+   * the base payload, and no second allocation for the replacement. */
+  memmove(patch->bytes, patch->bytes + 20, patch->size);
+  *out = (BkBlob){patch->bytes, patch->size};
+  return 1;
+}
+static void patch_ranges(ResourcePatch *patch, BkBlob *out) {
+  if (!patch->bytes) return;
+  /* All ranges were checked before reading the base. Same-size model edits
+   * remain in place; never retain another large model buffer. */
+  size_t cursor = 12;
+  for (uint32_t i = 0; i < patch->count; ++i) {
+    uint32_t offset = patch_word(patch->bytes + cursor);
+    uint32_t length = patch_word(patch->bytes + cursor + 4);
+    cursor += 8;
+    memcpy(out->data + offset, patch->bytes + cursor, length);
+    cursor += length;
+  }
+  free(patch->bytes);
 }
 static int valid_pack(const char *pack) {
   if (!pack || !*pack || strlen(pack) > 32)
@@ -166,7 +202,7 @@ int bk_resources_mount_directory(BkResourceStore *store, const char *pack,
   mount->size_limit = size_limit;
   return 1;
 }
-static BkResourceResult read_loose(const Mount *mount, const char *name,
+static BkResourceResult read_loose(BkResourceStore *store, const Mount *mount, const char *name,
                                    BkBlob *out, char error[256]) {
   DIR *dir = opendir(mount->directory);
   if (!dir) {
@@ -209,9 +245,22 @@ static BkResourceResult read_loose(const Mount *mount, const char *name,
     snprintf(error, 256, "loose resource is not a regular file: %.64s", name);
     return BK_RESOURCE_ERROR;
   }
+  ResourcePatch patch = {0};
+  if (info.st_size < 0 || (uintmax_t)info.st_size > mount->size_limit) {
+    free(path);
+    snprintf(error, 256, "loose resource exceeds size limit: %.64s", name);
+    return BK_RESOURCE_ERROR;
+  }
+  if (!prepare_patch(store, mount->pack, name, (size_t)info.st_size, &patch, error)) {
+    free(path); return BK_RESOURCE_ERROR;
+  }
+  if (patch_complete(&patch, out)) {
+    free(path); return BK_RESOURCE_OK;
+  }
   FILE *file = fopen(path, "rb");
   free(path);
   if (!file) {
+    free(patch.bytes);
     snprintf(error, 256, "cannot open loose resource: %.64s", name);
     return BK_RESOURCE_ERROR;
   }
@@ -219,7 +268,7 @@ static BkResourceResult read_loose(const Mount *mount, const char *name,
   if (fseek(file, 0, SEEK_END))
     goto bad;
   long size = ftell(file);
-  if (size < 0 || (uint64_t)size > mount->size_limit ||
+  if (size < 0 || size != info.st_size || (uint64_t)size > mount->size_limit ||
       fseek(file, 0, SEEK_SET))
     goto bad;
   data = malloc(size ? (size_t)size : 1);
@@ -228,13 +277,16 @@ static BkResourceResult read_loose(const Mount *mount, const char *name,
     goto bad;
   if (fclose(file)) {
     free(data);
+    free(patch.bytes);
     snprintf(error, 256, "loose resource close error");
     return BK_RESOURCE_ERROR;
   }
   *out = (BkBlob){data, (size_t)size};
+  patch_ranges(&patch, out);
   return BK_RESOURCE_OK;
 bad:
   free(data);
+  free(patch.bytes);
   fclose(file);
   snprintf(error, 256, "loose resource read error or size limit: %.64s", name);
   return BK_RESOURCE_ERROR;
@@ -257,9 +309,7 @@ BkResourceResult bk_resources_read(BkResourceStore *store, const char *pack,
     if (strcasecmp(mount->pack, pack))
       continue;
     if (mount->directory) {
-      BkResourceResult result = read_loose(mount, name, out, error);
-      if (result == BK_RESOURCE_OK)
-        return apply_patch(store, pack, name, out, error);
+      BkResourceResult result = read_loose(store, mount, name, out, error);
       if (result != BK_RESOURCE_MISSING)
         return result;
       continue;
@@ -267,10 +317,20 @@ BkResourceResult bk_resources_read(BkResourceStore *store, const char *pack,
     const BkEntry *entry = bk_archive_find(&mount->archive, name);
     if (!entry)
       continue;
-    if (!bk_archive_read(&mount->archive, entry, &out->data, error))
+    if (entry->size > 256u * 1024 * 1024) {
+      snprintf(error, 256, "resource exceeds 256 MiB");
       return BK_RESOURCE_ERROR;
+    }
+    ResourcePatch patch = {0};
+    if (!prepare_patch(store, pack, name, entry->size, &patch, error))
+      return BK_RESOURCE_ERROR;
+    if (patch_complete(&patch, out)) return BK_RESOURCE_OK;
+    if (!bk_archive_read(&mount->archive, entry, &out->data, error)) {
+      free(patch.bytes); return BK_RESOURCE_ERROR;
+    }
     out->size = entry->size;
-    return apply_patch(store, pack, name, out, error);
+    patch_ranges(&patch, out);
+    return BK_RESOURCE_OK;
   }
   snprintf(error, 256, "resource missing: %.32s/%.64s", pack, name);
   return BK_RESOURCE_MISSING;

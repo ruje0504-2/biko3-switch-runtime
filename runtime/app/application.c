@@ -6,6 +6,7 @@
 #include "platform/audio_output.h"
 #include "platform/platform.h"
 #include "save/capture_file.h"
+#include "save/file_commit.h"
 #include "scene/fps_overlay.h"
 #include "scene/control_help.h"
 #include "scene/ending_normal_session.h"
@@ -263,6 +264,7 @@ int bk_application_run(int argc, char **argv) {
     goto done;
   if (audio_output && !bk_audio_output_start(audio_output, audio, error))
     goto done;
+  bk_save_set_commit(bk_platform_commit_save);
   if (config.capture_root) {
     capture_files = bk_capture_files_create(config.capture_root, error);
     if (!capture_files)
@@ -550,6 +552,7 @@ done:
   bk_unlock_file_destroy(unlock_file);
   bk_record_file_destroy(record_file);
   bk_volume_file_destroy(volume_file);
+  bk_save_set_commit(NULL);
   if (result)
     bk_platform_report_error(platform, error);
   bk_platform_close(platform);

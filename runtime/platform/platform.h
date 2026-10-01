@@ -30,6 +30,7 @@ typedef struct {
 } BkCalendarTime;
 /* Local wall-clock date plus low32 monotonic milliseconds for photo names. */
 int bk_platform_calendar_time(BkCalendarTime *, char error[256]);
+int bk_platform_commit_save(const char *path, char error[256]);
 /* Must only be called after the renderer releases its native surface. */
 void bk_platform_report_error(BkPlatform *platform, const char *error);
 void bk_platform_close(BkPlatform *platform);

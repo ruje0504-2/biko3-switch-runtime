@@ -1,3 +1,7 @@
+2026-10-02 用户进一步澄清：慢在连续按A推进汉化对白，并要求剧情中文字体放大30%。正在修复实际文本排版/滚屏与纹理更新；下条交付完成是本批追加要求前的快照。新防休眠PID96044，修复后再更新NRO和同名NSP，本轮不推送。
+
+2026-10-02 工程收尾交付完成，用户明确余后实机自行验证。先完成BKPT2逐资源压缩及完整替换跳过原载荷，再打原版直装NSP；补丁79134055→37165253字节（−53%），109项汉化完整替换读取量−78%，203项875617033字节普通/ASan一致、1100开场帧与旧补丁同图，未扩大剧情审核。见reports/patch-loading.md及verification JSON。NSP为交付/biko3-01094F68D7333000.nsp，2957145304字节/SHA2e6f56f5…，尾行3/ILLUSION/1.0.78/icon.jpg，用户确认TitleID01094F68D7333000。实际提取校验168原版Data、NSO、NPDM、NACP、内容哈希通过，包内无补丁；CNMT零尾部为上游工具既定格式，已纠正检查假设，不是内容损坏。NSO的照片/进度/配置已接当前用户HOS save:/biko3（2GiB＋64MiB journal）及每次写删后的显式commit；普通/ASan各10存储检查通过，无新实机。见reports/nsp-1.0.78.md及verification JSON。NRO6688db95…/16404140、指定NVK/nm0；交付NRO与既有外挂目录已更新，patch.pp另放该目录最外层供直接取用。旧SD存档照片不自动迁入HOS。只本地提交，不推送、不ZIP、不另拷完整SD包；已结束本任务caffeinate PID9101，Mac恢复正常休眠。下文防休眠保持、旧NRO/补丁大小及待验收阻塞为历史，不再据此继续自动工程或反复要求用户验证。
+
 2026-10-02 打包收尾修正tools/package_sd.py旧13归档清单，按application.c实际挂载补齐bk3_08..14和fambom，共21个；manifest同步已接入的结局/特殊场景/回放/解锁/鉴赏/相册/音量，不再误列未实现。21个原始归档仅只读检查；小型合成包28文件、TBL配套、源文件不变及缺bk3_08时保留旧NRO/manifest通过，见reports/package-sd-verification.json。两个交付NRO摘要仍为6d32498b…；无运行时改动、整包或新增实机，仅本地提交、不推送，防休眠9101保持。
 
 2026-10-02 按用户指定重新打包NRO：文件/名称biko3-runtime，NACP作者ILLUSION、版本1.0.78；icon.jpg原图650×650保持原样，打包生成256×256 baseline JPEG。CMake的Switch输出/校验/package_sd路径同步，主机目标仍biko3-preview；Pillow转换器依赖已接，当前Switch Python为local/venv。实际NRO0/ASET回读确认图标字节、NACP所有已填/支持语言及版本，NVK构建/nm0通过；NRO 6d32498b…/16371372，交付/biko3-runtime.nro及既有汉化外挂目录已更新，后者旧NRO移除、校验/说明更新、Mac垃圾清理。见reports/nro-1.0.78-verification.json。此轮仅打包/版本元数据，不重新审核剧情；本地提交、不推送、不整包，防休眠9101保持，实机结果仍缺。

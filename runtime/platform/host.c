@@ -1,4 +1,9 @@
 #include "platform/platform.h"
+int bk_platform_commit_save(const char *path, char error[256]) {
+  (void)path;
+  (void)error;
+  return 1;
+}
 #include <errno.h>
 #include <limits.h>
 #include <stdlib.h>

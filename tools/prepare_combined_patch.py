@@ -154,10 +154,13 @@ def build(source: Path, game: Path, output: Path) -> dict:
     if len(exe_operations) != 21 or any(expected_exe.get(x['offset']) != x['value'] for x in exe_operations):
         raise ValueError('unexpected executable patch operation')
 
-    entries = {'patch.cfg': b'BKPT' + struct.pack('<II', 1, 3)}
+    entries = {'patch.cfg': b'BKPT' + struct.pack('<II', 2, 3)}
     for key, (old_size, new_size, segments) in sorted(records.items()):
-        entries[key] = struct.pack('<III', old_size, new_size, len(segments)) + b''.join(
+        record = struct.pack('<III', old_size, new_size, len(segments)) + b''.join(
             struct.pack('<II', offset, len(data)) + data for offset, data in segments)
+        # Independent streams preserve lazy loading; text does not require
+        # reading or decompressing the images/models elsewhere in the archive.
+        entries[key] = struct.pack('<I', len(record)) + zlib.compress(record, 1)
         if key not in evidence:
             pack, name = key.split('.', 1)
             a = archive(pack)
@@ -169,7 +172,7 @@ def build(source: Path, game: Path, output: Path) -> dict:
             evidence[key] = {'base_sha256': hashlib.sha256(before).hexdigest(),
                              'result_sha256': hashlib.sha256(after).hexdigest()}
     write_pp(output, entries)
-    result = {'format': 'BKPT1 within inline PP', 'flags': 3,
+    result = {'format': 'BKPT2 within inline PP', 'compression': 'zlib level 1 per resource', 'flags': 3,
               'source_hashes': SOURCE_HASHES, 'resources': len(records),
               'uncensored_resource_operations': operations,
               'native_executable_equivalents': expected_exe,

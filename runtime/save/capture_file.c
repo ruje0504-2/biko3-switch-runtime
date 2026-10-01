@@ -251,7 +251,7 @@ int bk_capture_file_remove_pause(BkCaptureFiles *f, char e[256]) {
     snprintf(e, 256, "capture files: remove pause: %s", strerror(errno));
     return 0;
   }
-  return 1;
+  return bk_save_file_commit(path, e);
 }
 
 static int photo_path(BkCaptureFiles *f,const char *name,char path[1288],char e[256]) {
@@ -276,5 +276,5 @@ int bk_capture_file_remove_photo(BkCaptureFiles *f,const char *name,char e[256])
   if (unlink(path) && errno!=ENOENT) {
     snprintf(e,256,"capture files: remove photo: %s",strerror(errno));return 0;
   }
-  return 1;
+  return bk_save_file_commit(path,e);
 }

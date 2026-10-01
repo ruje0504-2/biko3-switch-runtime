@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-02",
+  "format": "BKPT2 within inline PP; per-resource zlib level 1",
+  "legacy_format_supported": "BKPT1",
+  "old_patch_bytes": 79134055,
+  "patch_bytes": 37165253,
+  "size_reduction_percent": 53.0350706784835,
+  "patch_sha256": "5aa69af72f240d6cf2fa1d12293564256bef120b1c1a70cb210e597927df9f42",
+  "resources": 203,
+  "full_replacements": 109,
+  "range_edits": 94,
+  "resource_checks": {
+    "normal_resources": 203,
+    "asan_resources": 203,
+    "decoded_bytes_each": 875617033,
+    "equal_to_legacy": true,
+    "independent_sha256_all_entries": true
+  },
+  "resource_overlay_ctest": {
+    "normal": "passed",
+    "asan": "passed",
+    "cases": "legacy/new format; full/range/loose; truncated stream, incorrect expanded length, checksum failure, trailing bytes"
+  },
+  "payload_read_benchmarks": [
+    {
+      "variant": "original-v1",
+      "resources": 203,
+      "payload_bytes_read": 946871669,
+      "fread_calls": 406,
+      "host_read_seconds": 0.43413258604414295,
+      "full_replacements": {
+        "resources": 109,
+        "payload_bytes_read": 89861931,
+        "fread_calls": 218,
+        "host_read_seconds": 0.04038275399943814
+      }
+    },
+    {
+      "variant": "skip-base-v1",
+      "resources": 203,
+      "payload_bytes_read": 905877821,
+      "fread_calls": 297,
+      "host_read_seconds": 0.07613955101987813,
+      "full_replacements": {
+        "resources": 109,
+        "payload_bytes_read": 48868083,
+        "fread_calls": 109,
+        "host_read_seconds": 0.013171170008718036
+      }
+    },
+    {
+      "variant": "optimized-v2",
+      "resources": 203,
+      "payload_bytes_read": 863909019,
+      "fread_calls": 297,
+      "host_read_seconds": 0.1591367588553112,
+      "full_replacements": {
+        "resources": 109,
+        "payload_bytes_read": 19690003,
+        "fread_calls": 109,
+        "host_read_seconds": 0.06197016993246507
+      }
+    }
+  ],
+  "full_replacement_payload_reduction_percent": 78.08860461723218,
+  "text_entries": 27,
+  "text_payload_bytes": 158047,
+  "title_selection_opening": {
+    "frames": 1100,
+    "build": "normal",
+    "new_output_matches_legacy": true,
+    "rgba_sha256": "c222321b13ef270858c1ef93d8cbfb680febfc97970dd24c8c958daccd24340e"
+  },
+  "storage_tests": {
+    "normal": 10,
+    "asan": 10
+  },
+  "architecture_tests": 2,
+  "nro_bytes": 16404140,
+  "nro_sha256": "6688db9532718ac533839d1e3f92feaeda9a2d6f82c23606b5c295515c0e223f",
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "undefined_symbols": 0,
+  "delivery_patch_copies": [
+    "交付/汉化与去码外挂-20261001/patch.pp",
+    "交付/汉化与去码外挂-20261001/switch/biko3/game/patch.pp"
+  ],
+  "hardware_timing_measured": false,
+  "scope": "I/O volume and resource equivalence verified. Compression adds CPU work; M4 warm-cache timings are not Switch speed measurements. No expanded story audit."
+}

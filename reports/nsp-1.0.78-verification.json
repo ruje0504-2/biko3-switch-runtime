@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-02",
+  "title_id": "01094F68D7333000",
+  "name": "尾行3",
+  "author": "ILLUSION",
+  "version": "1.0.78",
+  "nsp_bytes": 2957145304,
+  "nsp_sha256": "2e6f56f56cd78260e226eebe107f8813561e3765cb0c22271937a3e16235b8b5",
+  "format": "native NSO base Application (CNMT type 0x80, version 0)",
+  "data_files_verified": 168,
+  "data_bytes": 2945456435,
+  "patch_included": false,
+  "romfs_root_entries": [
+    "Data"
+  ],
+  "nacp_languages_checked": 16,
+  "icons_checked": 16,
+  "icon_sha256": "20abf966280409650ef0a4a9a0a743934b9bcad17a153720e39ae0c010a90568",
+  "selected_user_required": true,
+  "user_save_bytes": 2147483648,
+  "user_save_journal_bytes": 67108864,
+  "save_root": "save:/biko3",
+  "elf_sha256": "d3a3fa49cfdfd6a6d66c313daf4b23121cca058300f6946e0625785302f220b1",
+  "nso_matches_current_elf": true,
+  "nso_sha256": "33c33c838db0f63aa7dbdf09cd8a5d7dd79b40052c5112e63d4e4bc53b17e045",
+  "npdm_title_id_and_range_match": true,
+  "cnmt_entries": [
+    {
+      "type": 1,
+      "bytes": 2956580864,
+      "sha256": "f14ce1a444df21621a09dec1fdeaddd1d30835fb73d695671125a4d4d05c8fb5"
+    },
+    {
+      "type": 3,
+      "bytes": 560128,
+      "sha256": "3d8bb71dfad440e50f02442d3ad29a2b9f81f7073c30112bbee811ed60977cfe"
+    }
+  ],
+  "cnmt_referenced_content_hashes_verified": true,
+  "cnmt_digest_trailer": "Zero-filled by hacBrewPack cnmt_create; not a SHA-256 of the CNMT bytes. Enclosing Meta NCA integrity verified.",
+  "cnmt_format_reference": "https://github.com/pplatoon/hacBrewPack/blob/master/cnmt.c#L31-L35",
+  "verification_correction": "First local check incorrectly required a CNMT trailer hash. Upstream cnmt_create and both reference-project base CNMTs confirm the deliberate zero trailer; the actual NCA and content checks were retained.",
+  "nca_content_ids_match_hashes": true,
+  "non_signature_hash_failures": 0,
+  "signatures": "Homebrew: official fixed-key and NPDM ACID signatures are unsigned/FAIL as expected; Program NCA NPDM-key signature GOOD. All content/section integrity hashes GOOD.",
+  "nro_bytes": 16404140,
+  "nro_sha256": "6688db9532718ac533839d1e3f92feaeda9a2d6f82c23606b5c295515c0e223f",
+  "nro_populated_languages_checked": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "undefined_symbols": 0,
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "storage_checks": {
+    "normal": 10,
+    "asan": 10,
+    "save_commit": "photo write/reopen/delete; pause backup recovery; checkpoint; failure propagation; SD no-op"
+  },
+  "hardware_run": false,
+  "scope": "Actual NSP extracted and checked independently; Switch install/launch/save persistence is left to the user as requested.",
+  "nsp": "biko3-01094F68D7333000.nsp"
+}
