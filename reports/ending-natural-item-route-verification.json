@@ -18,6 +18,19 @@
     "asan_same_process": "PASS natural-pickup-save-reload area2 item1",
     "asan_new_process": "PASS natural-pickup-disk-reload area2 item1"
   },
+  "maintained_probe": {
+    "source": "tools/natural_item_save_probe.c",
+    "cmake_target": "natural-item-save-probe",
+    "host": [
+      "PASS natural-item produce group0 area2 inventory01000",
+      "PASS natural-item reload group0 area2 inventory01000"
+    ],
+    "asan_ubsan": [
+      "PASS natural-item produce group0 area2 inventory01000",
+      "PASS natural-item reload group0 area2 inventory01000"
+    ],
+    "sanitizer_diagnostics": 0
+  },
   "logs": [
     "local/ending-third-natural-next/run10.log",
     "local/ending-third-natural-next/run11.log",

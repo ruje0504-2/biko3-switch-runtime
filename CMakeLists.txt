@@ -616,6 +616,8 @@ if(BK_WITH_VULKAN)
     target_link_libraries(save-menu-probe PRIVATE bk_app)
     add_executable(save-flow-probe tools/save_flow_probe.c)
     target_link_libraries(save-flow-probe PRIVATE bk_app)
+    add_executable(natural-item-save-probe tools/natural_item_save_probe.c)
+    target_link_libraries(natural-item-save-probe PRIVATE bk_app)
     add_executable(save-flow-switch-fs-probe tools/save_flow_probe.c
       tools/no_replace_rename.c ${BK_SAVE_SOURCES})
     target_compile_definitions(save-flow-switch-fs-probe PRIVATE rename=bk_test_rename)
