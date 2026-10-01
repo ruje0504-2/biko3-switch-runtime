@@ -17,11 +17,11 @@
 
 `build-switch/biko3-runtime.nro`，版本字段1.0.78，16,408,236字节；SHA256 `11afda078af0f9d0479b83057d1469e708ada317ea790326552fba1327ac9fb9`，ELF未解析符号0。名称/作者为 `biko3-runtime` / `ILLUSION`，图标来自本地 `icon.jpg`。
 
-`交付/biko3-01094F68D7333000.nsp`，名称「尾行3」、TitleID `01094F68D7333000`，2,957,146,840字节，SHA256 `dd8eb121782f37e915342139c152b98d862e4e6a95c4e888e7fb25e39232941e`。内含原版日文Data，不含外挂；NRO与NSP成品字段见[打包核对](../reports/nsp-1.0.78-verification.json)。
+`交付/biko3-01094F68D7330000.nsp`，名称「尾行3」、TitleID `01094F68D7330000`，2,957,146,840字节，SHA256 `85b4cf4706fd43284ab35dff0e78986334a6eb9b7ebecbbfcbf8b5978f428df6`。内含原版日文Data，不含外挂；NRO与NSP成品字段见[打包核对](../reports/nsp-1.0.78-verification.json)。
 
 包含可选汉化/去码外挂、关闭 Switch 日志生成，以及[渲染绑定缓存](../reports/vulkan-bindings.md)、[藏身退出修复](../reports/hiding-exit.md)和[NPC无效遮挡检查优化](../reports/npc-occlusion-performance.md)。本次外挂改为37,165,253字节的逐资源压缩格式，完整替换跳过原载荷；计数下降只代表相应路径工作量减少，不能当作实机FPS或加载耗时收益。
 
-`交付/biko3-01094F68D7333800-update.nsp` 是关联本体的完整资源 Patch 更新，2,994,387,680 字节，包含新版程序及合并汉化/去码补丁。内容版本65536，显示版本1.0.78；Program和存档owner仍为本体ID。见[更新包核对](../reports/nsp-update-1.0.78-verification.json)。
+`交付/biko3-01094F68D7330800-update.nsp` 是关联新本体的 BKTR 差分 Patch 更新，49,003,232 字节，复用全部168原版Data文件，包含程序及合并汉化/去码补丁。内容版本131072，显示版本1.0.78cn；Program和存档owner仍为本体ID。见[更新包核对](../reports/nsp-update-1.0.78-verification.json)。
 
 最新追加[中文流程文字修复](../reports/chinese-dialogue.md)：实际字形高度取代字节估算，消除短对白多消耗一次 A 的情况；中文对白、世界开场/失败/道具提示放大30%、按完整行裁切，日文、菜单及按键说明不变。共用文字纹理改为复用。121段文本242裁切、中文UI及中日文字/流程提示普通与ASan配对通过，未扩大剧情审核。
 

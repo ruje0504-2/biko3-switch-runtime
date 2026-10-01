@@ -1,86 +1,100 @@
 {
   "date": "2026-10-02",
-  "title_id": "01094F68D7333800",
+  "format": "BKTR Patch RomFS update",
   "name": "尾行3",
   "author": "ILLUSION",
-  "version": "1.0.78",
-  "nsp": "biko3-01094F68D7333800-update.nsp",
-  "nsp_bytes": 2994387680,
-  "nsp_sha256": "9297d1cc2b218ffafaf5f1eebbdaa8e6c3b7eaabb7e05889b240bcfdede16023",
-  "application_id": "01094F68D7333000",
-  "format": "native NSO full-resource Patch (CNMT type 0x81, version 65536)",
-  "data_files_verified": 168,
-  "data_bytes": 2945456435,
-  "patch_included": true,
-  "romfs_root_entries": [
-    "Data",
-    "patch.pp"
-  ],
-  "nacp_languages_checked": 16,
-  "icons_checked": 16,
-  "icon_sha256": "20abf966280409650ef0a4a9a0a743934b9bcad17a153720e39ae0c010a90568",
-  "selected_user_required": true,
-  "user_save_bytes": 2147483648,
-  "user_save_journal_bytes": 67108864,
-  "save_root": "save:/biko3",
-  "elf_sha256": "7bf9f35165f314af804fd875399d3dd4dbf88cb1bbe810b9a9560dd6aae0f88f",
-  "nso_matches_current_elf": true,
-  "nso_sha256": "42bdfdad85b77bdc87a437245f41c79468b497e2f33769ba3aafa2e3abb37236",
-  "npdm_title_id_and_range_match": true,
-  "cnmt_entries": [
-    {
-      "type": 1,
-      "bytes": 2993823232,
-      "sha256": "879cde3212644844d5c4e0764bb0b88eb666b84afa332075a936d7d160ce586c"
-    },
-    {
-      "type": 3,
-      "bytes": 560128,
-      "sha256": "37f6eb7182b82917518909b83b81d3106657185178a1007cfc03223d23b77067"
-    }
-  ],
-  "cnmt_referenced_content_hashes_verified": true,
-  "cnmt_digest_trailer": "SHA256 of the preceding CNMT bytes, verified.",
-  "cnmt_format_reference": "https://github.com/DarkMatterCore/nxdumptool/blob/rewrite/include/core/cnmt.h",
-  "nca_content_ids_match_hashes": true,
-  "non_signature_hash_failures": 0,
-  "signatures": "Homebrew: official fixed-key and NPDM ACID signatures are unsigned/FAIL as expected; Program NCA NPDM-key signature GOOD. All content/section integrity hashes GOOD.",
-  "nro_bytes": 16408236,
-  "nro_sha256": "11afda078af0f9d0479b83057d1469e708ada317ea790326552fba1327ac9fb9",
-  "nro_populated_languages_checked": [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11
-  ],
-  "undefined_symbols": 0,
-  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
-  "storage_checks": {
-    "normal": 10,
-    "asan": 10,
-    "save_commit": "photo write/reopen/delete; pause backup recovery; checkpoint; failure propagation; SD no-op",
-    "provenance": "Earlier in this change batch; storage code unchanged by the subsequent text fix."
+  "application_id": "01094F68D7330000",
+  "title_id": "01094F68D7330800",
+  "version": "1.0.78cn",
+  "base_version": "1.0.78",
+  "content_version": 131072,
+  "nsp": "biko3-01094F68D7330800-update.nsp",
+  "nsp_bytes": 49003232,
+  "nsp_sha256": "d3a6af50bef874684000001b517c932d45dafc59606e4eb7876399a40a156b7e",
+  "base_nsp_sha256": "85b4cf4706fd43284ab35dff0e78986334a6eb9b7ebecbbfcbf8b5978f428df6",
+  "bktr": {
+    "virtual_bytes": 2988539904,
+    "base_files": 168,
+    "base_bytes_reused": 2945457344,
+    "patch_payload_bytes": 43082560,
+    "section_bytes": 43155456,
+    "indirect_entries": 3,
+    "indirect_offset": 43089920,
+    "aes_ctr_ex_offset": 43122688,
+    "aes_ctr_ex_entries": 1,
+    "ranges": [
+      {
+        "virtual": 0,
+        "physical": 0,
+        "storage": 1,
+        "bytes": 5898752
+      },
+      {
+        "virtual": 5898752,
+        "physical": 5833216,
+        "storage": 0,
+        "bytes": 2945457344
+      },
+      {
+        "virtual": 2951356096,
+        "physical": 5898752,
+        "storage": 1,
+        "bytes": 37183808
+      }
+    ]
   },
-  "hardware_run": false,
-  "scope": "Actual NSP extracted and checked independently; Switch install/launch/save persistence is left to the user as requested.",
-  "base_patch_association_verified": true,
+  "independent_merger": "hactool --basenca=<actual base Program NCA> -y; actual delivered NSP extracted first",
+  "merged_data_files_verified": 168,
+  "merged_data_bytes": 2945456435,
   "patch": {
-    "path": "patch.pp",
     "bytes": 37165253,
     "sha256": "5aa69af72f240d6cf2fa1d12293564256bef120b1c1a70cb210e597927df9f42",
     "flags": 3
   },
+  "romfs_root_entries": [
+    "Data",
+    "patch.pp"
+  ],
+  "romfs_crypt_type": 4,
+  "ivfc_levels_good": 6,
+  "cnmt_type": 129,
+  "cnmt_history_bytes": 156,
+  "base_history_entries": 3,
+  "cnmt_history_matches_actual_base": true,
+  "cnmt_digest_trailer": "zero, matching production format in reference project",
+  "cnmt_entries": [
+    {
+      "type": 1,
+      "bytes": 48438784,
+      "sha256": "1d58a3e480f76324543219e16b7e70f60a4e3508004dade01cafa6d74f6d8503"
+    },
+    {
+      "type": 3,
+      "bytes": 560128,
+      "sha256": "aabc1ae3cbe7a9b2948d7e0e1609f4282cdb7ea2b79bcd97757119b74ef39dd0"
+    }
+  ],
+  "nso_sha256": "42bdfdad85b77bdc87a437245f41c79468b497e2f33769ba3aafa2e3abb37236",
+  "nso_matches_current_elf": true,
+  "npdm_title_id_and_range_match": true,
+  "nacp_only_display_version_changed_from_base": true,
+  "nacp_languages_checked": 16,
+  "icons_checked": 16,
+  "icon_sha256": "20abf966280409650ef0a4a9a0a743934b9bcad17a153720e39ae0c010a90568",
+  "user_save_bytes": 2147483648,
+  "user_save_journal_bytes": 67108864,
+  "save_root": "save:/biko3",
+  "non_signature_hash_failures": 0,
+  "signatures": "Homebrew fixed-key/ACID signatures unsigned as for base; Program NPDM signature and actual content/integrity hashes GOOD.",
   "packager": {
     "name": "hacPack",
-    "commit": "e506cb58b7843d86df7518156debd28f3b575638"
+    "commit": "e506cb58b7843d86df7518156debd28f3b575638",
+    "patch": "tools/hacpack-bktr.patch"
   },
-  "full_romfs": "Original Data plus patch.pp; ordinary complete RomFS, no BKTR/delta tables."
+  "nro_sha256": "11afda078af0f9d0479b83057d1469e708ada317ea790326552fba1327ac9fb9",
+  "nro_bytes": 16408236,
+  "nro_version": "1.0.78",
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "hardware_run": false,
+  "scope": "Package-only: exact base association, BKTR merge and all 169 recovered files checked. No runtime changes, no new story audit or Switch install claim."
 }

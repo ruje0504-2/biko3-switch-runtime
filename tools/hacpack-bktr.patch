@@ -1,0 +1,44 @@
+diff --git a/nca.c b/nca.c
+index ee35057..76d6fc2 100644
+--- a/nca.c
++++ b/nca.c
+@@ -274,7 +274,38 @@ void nca_create_program(hp_settings_t *settings)
+     printf("Calculating Section hash\n");
+     nca_calculate_section_hash(&nca_header.fs_headers[0], nca_header.section_hashes[0]);
+ 
+-    if (settings->romfs_dir.valid == VALIDITY_VALID)
++    /* Biko3: use a prepared generation-zero BKTR section. The existing
++     * hacPack signing/key-area/CTR path remains responsible for the NCA. */
++    const char *bktr_data = getenv("HACPACK_BKTR_DATA");
++    const char *bktr_header = getenv("HACPACK_BKTR_HEADER");
++    if (bktr_data || bktr_header)
++    {
++        if (!bktr_data || !bktr_header || settings->plaintext ||
++            settings->romfs_dir.valid != VALIDITY_VALID)
++        {
++            fprintf(stderr, "BKTR needs both inputs, encryption and a RomFS argument.\n");
++            exit(EXIT_FAILURE);
++        }
++        FILE *header = fopen(bktr_header, "rb");
++        if (!header || fread(&nca_header.fs_headers[1], 1, 0x200, header) != 0x200 ||
++            fgetc(header) != EOF || nca_header.fs_headers[1].crypt_type != CRYPT_BKTR ||
++            memcmp(nca_header.fs_headers[1].section_ctr, (unsigned char[8]){0}, 8))
++        {
++            fprintf(stderr, "Invalid generation-zero BKTR header.\n");
++            exit(EXIT_FAILURE);
++        }
++        fclose(header);
++        filepath_t section;
++        filepath_init(&section);
++        filepath_set(&section, bktr_data);
++        nca_write_file(program_nca_file, &section);
++        nca_write_padding(program_nca_file);
++        nca_header.section_entries[1].media_start_offset = nca_header.section_entries[0].media_end_offset;
++        nca_header.section_entries[1].media_end_offset = (uint32_t)(ftello64(program_nca_file) / 0x200);
++        nca_header.section_entries[1]._0x8[0] = 1;
++        nca_calculate_section_hash(&nca_header.fs_headers[1], nca_header.section_hashes[1]);
++    }
++    else if (settings->romfs_dir.valid == VALIDITY_VALID)
+     {
+ 
+         printf("\n---> Creating Section 1:");
