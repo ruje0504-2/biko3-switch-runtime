@@ -1,0 +1,49 @@
+{
+  "resources_verified": 203,
+  "decoded": {
+    "tga": 72,
+    "bmp": 45,
+    "txt": 27,
+    "ftt": 2,
+    "x": 57
+  },
+  "dialogue_codes": 2059,
+  "missing_nonspace_glyphs": [],
+  "date": "2026-10-01",
+  "resource_store_unit": {
+    "normal": "PASS",
+    "asan_ubsan": "PASS"
+  },
+  "gpu_lifecycles": {
+    "normal": 80,
+    "asan_ubsan": 80,
+    "selection_special_draw_frames_each": 30,
+    "movie_archive_mounted": false,
+    "gpu_allocations_returned_to_baseline": true
+  },
+  "application": {
+    "path": "title -> selection -> opening dialogue",
+    "normal_frames": 1100,
+    "asan_ubsan_frames": 1100,
+    "rgba_sha256": "c222321b13ef270858c1ef93d8cbfb680febfc97970dd24c8c958daccd24340e"
+  },
+  "help_pages": {
+    "chinese": 15,
+    "japanese": 15
+  },
+  "architecture_tests": 2,
+  "switch": {
+    "nro_bytes": 16343096,
+    "nro_sha256": "aa2f9d1ea034719bd8d796efcc38d6b963f7659bb28a804dc9f182266f8209bb",
+    "undefined_symbols": 0,
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "hardware_tested": false
+  },
+  "patch": {
+    "resources": 203,
+    "bytes": 79134055,
+    "sha256": "9ffca626ed98250823a507ce2246ed3ec509fd37ef88acde8d1a296b0a316090"
+  },
+  "delivery": "交付/汉化与去码外挂-20261001",
+  "scope": "Patch decoding, resource/GPU lifecycle, opening text and controls; not complete story routes. Windows installers not executed, original assets and SD unchanged."
+}

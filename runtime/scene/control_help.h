@@ -11,6 +11,7 @@ typedef struct BkControlHelp BkControlHelp;
 /* One immutable font atlas and prebuilt meshes. Draw after scene captures;
  * only the left 4:3 pillarbox is writable. No per-frame uploads or allocation. */
 BkControlHelp *bk_control_help_create(BkRenderer *, char error[256]);
+BkControlHelp *bk_control_help_create_language(BkRenderer *, int chinese, char error[256]);
 int bk_control_help_draw(BkControlHelp *, BkControlHelpPage, char error[256]);
 void bk_control_help_destroy(BkControlHelp *);
 #endif

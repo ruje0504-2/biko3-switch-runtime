@@ -29,7 +29,8 @@ static int frame(BkRenderer *r, BkTexture *white, BkControlHelp *help, BkControl
   return bk_renderer_draw(r,white,marker,3,bk_identity,e) && bk_renderer_end(r,e);
 }
 int main(int argc,char **argv) {
-  if (argc!=2) return 2;
+  if (argc!=2 && (argc!=3 || strcmp(argv[2],"zh"))) return 2;
+  int chinese=argc==3;
   char error[256]={0}, path[2048]; int result=1;
   BkRenderer *r=NULL; BkControlHelp *help=NULL;
   BkTexture *white=NULL;
@@ -41,7 +42,7 @@ int main(int argc,char **argv) {
   uint8_t texel[4]={255,255,255,255};
   CHECK(white=bk_texture_create(r,&(BkImage){1,1,texel},error));
   BkRenderStats empty=bk_renderer_stats(r);
-  CHECK(help=bk_control_help_create(r,error));
+  CHECK(help=bk_control_help_create_language(r,chinese,error));
   CHECK(frame(r,white,help,BK_HELP_NONE,error));
   CHECK(bk_renderer_readback(r,baseline,size,error));
   unsigned checks=0;
@@ -74,7 +75,7 @@ int main(int argc,char **argv) {
   /* No black bar: do not allocate legend GPU resources or cover the picture. */
   CHECK(r=bk_renderer_create(960,720,stdout,error));
   empty=bk_renderer_stats(r);
-  CHECK(help=bk_control_help_create(r,error));
+  CHECK(help=bk_control_help_create_language(r,chinese,error));
   CHECK(bk_renderer_begin(r,error) && bk_control_help_draw(help,BK_HELP_ENDING,error) && bk_renderer_end(r,error));
   released=bk_renderer_stats(r);
   CHECK(released.live_allocations==empty.live_allocations && released.live_bytes==empty.live_bytes && released.draws==empty.draws);

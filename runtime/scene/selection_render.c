@@ -11,6 +11,7 @@ struct BkSelectionRender {
   BkActorRenderBatch *batches[2];
   BkLightSet *lights[2];
   BkAviTexture *movie;
+  int uncensored;
   BkActorRenderVisit *visits;
   uint32_t capacity;
   int ready;
@@ -35,7 +36,7 @@ BkSelectionRender *bk_selection_render_create(BkRenderer *renderer,
                                               BkResourceStore *store,
                                               BkSelectionWorld *world,
                                               char error[256]) {
-  if (world &&
+  if (world && !(bk_resources_patch_flags(store) & BK_PATCH_UNCENSORED) &&
       bk_selection_actor_assets_needs_movie(bk_selection_world_body(world))) {
     fail(error, "alternate61 requires an explicit movie clock (create_at)");
     return NULL;
@@ -87,7 +88,8 @@ BkSelectionRender *bk_selection_render_create_at(BkRenderer *renderer,
     if (!r->actors[i] || !r->batches[i] || !r->lights[i])
       goto bad;
   }
-  if (bk_selection_actor_assets_needs_movie(body)) {
+  r->uncensored = !!(bk_resources_patch_flags(store) & BK_PATCH_UNCENSORED);
+  if (!r->uncensored && bk_selection_actor_assets_needs_movie(body)) {
     const BkModel *m =
         bk_actor_pose_model(bk_selection_world_pose(world, BK_SELECTION_BODY));
     uint32_t target = BK_MODEL_NONE;
@@ -124,6 +126,7 @@ bad:
 }
 int bk_selection_render_movie_step(BkSelectionRender *r, int32_t now,
                                    int32_t restart, char error[256]) {
+  if (r && r->uncensored && r->body == bk_selection_world_body(r->world)) return 1;
   if (!r || !r->movie || r->body != bk_selection_world_body(r->world))
     return fail(error, "missing movie or retired body");
   return bk_avi_texture_step(r->movie, now, restart, error);

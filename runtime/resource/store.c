@@ -15,7 +15,86 @@ typedef struct {
 struct BkResourceStore {
   Mount mounts[BK_MAX_MOUNTS];
   unsigned count;
+  BkArchive patch;
+  unsigned patch_flags;
 };
+static uint32_t patch_word(const uint8_t *p) {
+  return (uint32_t)p[0] | (uint32_t)p[1] << 8 | (uint32_t)p[2] << 16 |
+         (uint32_t)p[3] << 24;
+}
+int bk_resources_load_patch(BkResourceStore *s, const char *path, char e[256]) {
+  if (!s || !path || s->patch.file) {
+    snprintf(e, 256, "invalid or duplicate resource patch"); return 0;
+  }
+  struct stat info;
+  if (stat(path, &info)) {
+    if (errno == ENOENT) return 1;
+    snprintf(e, 256, "cannot inspect resource patch"); return 0;
+  }
+  BkArchive patch = {0};
+  if (!bk_archive_open(&patch, path, e)) return 0;
+  const BkEntry *entry = bk_archive_find(&patch, "patch.cfg");
+  uint8_t *raw = NULL;
+  if (!entry || entry->size != 12 || !bk_archive_read(&patch, entry, &raw, e) ||
+      memcmp(raw, "BKPT", 4) || patch_word(raw + 4) != 1 ||
+      !patch_word(raw + 8) || (patch_word(raw + 8) & ~3u)) {
+    free(raw); bk_archive_close(&patch);
+    snprintf(e, 256, "invalid resource patch metadata"); return 0;
+  }
+  s->patch_flags = patch_word(raw + 8);
+  s->patch = patch;
+  free(raw);
+  return 1;
+}
+unsigned bk_resources_patch_flags(const BkResourceStore *s) {
+  return s ? s->patch_flags : 0;
+}
+static BkResourceResult apply_patch(BkResourceStore *s, const char *pack,
+                                    const char *name, BkBlob *out, char e[256]) {
+  if (!s->patch.file) return BK_RESOURCE_OK;
+  char key[100];
+  int n = snprintf(key, sizeof(key), "%s.%s", pack, name);
+  if (n < 0 || n >= (int)sizeof(key)) return BK_RESOURCE_OK;
+  const BkEntry *entry = bk_archive_find(&s->patch, key);
+  if (!entry) return BK_RESOURCE_OK;
+  uint8_t *raw = NULL, *next = NULL;
+  if (!bk_archive_read(&s->patch, entry, &raw, e)) goto bad;
+  if (entry->size < 12 || patch_word(raw) != out->size) goto invalid;
+  uint32_t size = patch_word(raw + 4), count = patch_word(raw + 8);
+  if (!size || !count || count > (entry->size - 12) / 8) goto invalid;
+  size_t cursor = 12;
+  for (uint32_t i = 0; i < count; ++i) {
+    if (entry->size - cursor < 8) goto invalid;
+    uint32_t offset = patch_word(raw + cursor), length = patch_word(raw + cursor + 4);
+    cursor += 8;
+    if (offset > size || length > size - offset || length > entry->size - cursor)
+      goto invalid;
+    /* A size-changing replacement must supply the complete new resource. */
+    if (size != out->size && (count != 1 || offset || length != size)) goto invalid;
+    cursor += length;
+  }
+  if (cursor != entry->size) goto invalid;
+  /* Model ranges keep their size: apply in place after validating every
+   * segment, avoiding a second large model buffer on Switch. */
+  next = size == out->size ? out->data : malloc(size);
+  if (!next) { snprintf(e, 256, "resource patch allocation failed"); goto bad; }
+  cursor = 12;
+  for (uint32_t i = 0; i < count; ++i) {
+    uint32_t offset = patch_word(raw + cursor), length = patch_word(raw + cursor + 4);
+    cursor += 8;
+    memcpy(next + offset, raw + cursor, length);
+    cursor += length;
+  }
+  free(raw);
+  if (next != out->data) free(out->data);
+  *out = (BkBlob){next, size};
+  return BK_RESOURCE_OK;
+invalid:
+  snprintf(e, 256, "resource patch incompatible/corrupt: %.32s/%.64s", pack, name);
+bad:
+  free(raw); free(next); bk_blob_free(out);
+  return BK_RESOURCE_ERROR;
+}
 static int valid_pack(const char *pack) {
   if (!pack || !*pack || strlen(pack) > 32)
     return 0;
@@ -38,6 +117,7 @@ void bk_resources_destroy(BkResourceStore *store) {
     bk_archive_close(&store->mounts[i].archive);
     free(store->mounts[i].directory);
   }
+  bk_archive_close(&store->patch);
   free(store);
 }
 int bk_resources_mount(BkResourceStore *store, const char *pack,
@@ -178,6 +258,8 @@ BkResourceResult bk_resources_read(BkResourceStore *store, const char *pack,
       continue;
     if (mount->directory) {
       BkResourceResult result = read_loose(mount, name, out, error);
+      if (result == BK_RESOURCE_OK)
+        return apply_patch(store, pack, name, out, error);
       if (result != BK_RESOURCE_MISSING)
         return result;
       continue;
@@ -188,7 +270,7 @@ BkResourceResult bk_resources_read(BkResourceStore *store, const char *pack,
     if (!bk_archive_read(&mount->archive, entry, &out->data, error))
       return BK_RESOURCE_ERROR;
     out->size = entry->size;
-    return BK_RESOURCE_OK;
+    return apply_patch(store, pack, name, out, error);
   }
   snprintf(error, 256, "resource missing: %.32s/%.64s", pack, name);
   return BK_RESOURCE_MISSING;

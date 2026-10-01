@@ -10,6 +10,7 @@ struct BkSpecialRender {
   BkActorRenderBatch *batch;
   BkLightSet *lights;
   BkAviTexture *movie;
+  int uncensored;
   BkActorRenderVisit *visits;
   uint32_t capacity;
   int ready;
@@ -50,7 +51,8 @@ static BkSpecialRender *create(BkRenderer *renderer,
   r->batch = bk_actor_render_batch_create(renderer, (uint32_t)capacity, e);
   r->lights = bk_light_set_create(renderer, &(BkLighting){0}, e);
   if (!r->actor || !r->batch || !r->lights) goto bad;
-  if (bk_special_world_needs_movie(world)) {
+  r->uncensored = !!(bk_resources_patch_flags(store) & BK_PATCH_UNCENSORED);
+  if (!r->uncensored && bk_special_world_needs_movie(world)) {
     uint32_t target = BK_MODEL_NONE;
     for (uint32_t i = 0; i < m->texture_count; ++i)
       if (!strcmp(m->textures[i].filename, "D_moza.bmp")) {
@@ -80,10 +82,12 @@ BkSpecialRender *bk_special_render_create_clock(BkRenderer *r, BkResourceStore *
   return create(r, store, world, 0, read, context, e);
 }
 int bk_special_render_movie_step(BkSpecialRender *r, int32_t now, int32_t restart, char e[256]) {
+  if (r && r->uncensored) return 1;
   return r && r->movie ? bk_avi_texture_step(r->movie, now, restart, e)
                         : fail(e, "movie is not loaded");
 }
 int bk_special_render_movie_poll(BkSpecialRender *r, BkAviClockRead read, void *context, char e[256]) {
+  if (r && r->uncensored) return 1;
   return r && r->movie ? bk_avi_texture_poll(r->movie, read, context, e)
                         : fail(e, "movie is not loaded");
 }

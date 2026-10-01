@@ -26,6 +26,11 @@ int bk_resources_mount(BkResourceStore *store, const char *pack,
 int bk_resources_mount_directory(BkResourceStore *store, const char *pack,
                                  const char *directory, size_t size_limit,
                                  char error[256]);
+enum { BK_PATCH_CHINESE = 1, BK_PATCH_UNCENSORED = 2 };
+/* Optional, read-only patch.pp. Uses the existing PP container with keyed
+ * replacement/range records; absent files leave the Japanese assets intact. */
+int bk_resources_load_patch(BkResourceStore *, const char *path, char error[256]);
+unsigned bk_resources_patch_flags(const BkResourceStore *);
 BkResourceResult bk_resources_read(BkResourceStore *store, const char *pack,
                                    const char *name, BkBlob *out,
                                    char error[256]);

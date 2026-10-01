@@ -1,4 +1,4 @@
-"""Bake the small fixed Japanese control legend, not a runtime font dependency.
+"""Bake the fixed Japanese/Chinese control legends, not a runtime font dependency.
 
 Input: Noto Sans CJK JP Regular (Sans2.004), licensed under SIL OFL1.1.
 Download URL and upstream SHA256 are recorded in the generated header.
@@ -20,7 +20,7 @@ def main():
     parser.add_argument('font', type=Path)
     args = parser.parse_args()
     source = (ROOT/'runtime/scene/control_help.c').read_text()
-    body = source.split('pages[BK_HELP_COUNT] = {', 1)[1].split('\n};', 1)[0]
+    body = '\n'.join(re.findall(r'pages(?:_zh)?\[BK_HELP_COUNT\] = \{(.*?)\n\};', source, re.S))
     strings = [ast.literal_eval(s) for s in re.findall(r'"(?:[^"\\]|\\.)*"', body)]
     chars = sorted(set(''.join(strings)) - {'\n', '\t'})
     font = ImageFont.truetype(str(args.font), 16)

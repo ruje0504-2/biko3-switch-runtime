@@ -34,7 +34,7 @@ struct BkEndingNormalRender {
   float *held_world;
   BkEndingNormalRender *secondary;
   BkViewport viewports[2];
-  int ready, secondary_view, special_ready, staged_geometry;
+  int ready, secondary_view, special_ready, staged_geometry, uncensored;
 };
 static BkActorPose *asset_pose(BkEndingNormalRender *r, unsigned actor) {
   if (r->phase3_assets) {
@@ -234,6 +234,7 @@ static BkEndingNormalRender *with_special_view(BkEndingNormalRender *r,
   s->light_count = r->light_count;
   memcpy(s->light_indices, r->light_indices, sizeof(s->light_indices));
   s->movie = r->movie;
+  s->uncensored = r->uncensored;
   s->capacity = r->capacity;
   memcpy(s->poses, r->poses, sizeof(s->poses));
   memcpy(s->roots, r->roots, sizeof(s->roots));
@@ -405,6 +406,7 @@ static BkEndingNormalRender *create_render(
     return NULL;
   }
   r->renderer = renderer;
+  r->uncensored = !!(bk_resources_patch_flags(store) & BK_PATCH_UNCENSORED);
   r->assets = assets;
   r->phase2_assets = phase2;
   r->phase3_assets = phase3;
@@ -504,6 +506,9 @@ static BkEndingNormalRender *create_render(
     if (!r->batches[i] || !r->lights[i])
       goto bad;
   }
+  /* 3DH skips the five D_moza movie bindings; its resource ranges supply
+   * the matching model/texture changes. */
+  if (r->uncensored) return r;
   BkBlob blob = {0};
   if (bk_resources_read(store, "bk3_18", "poi.avi", &blob, e) != BK_RESOURCE_OK)
     goto bad;
@@ -561,6 +566,7 @@ bk_ending_auxiliary_render_create(BkRenderer *renderer, BkResourceStore *store,
 }
 int bk_ending_normal_render_movie_step(BkEndingNormalRender *r, int32_t now,
                                        int32_t restart, char e[256]) {
+  if (r && r->uncensored) return 1;
   return r ? bk_avi_texture_step(r->movie, now, restart, e)
            : fail(e, "missing movie owner");
 }

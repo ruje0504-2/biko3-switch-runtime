@@ -240,6 +240,11 @@ int bk_application_run(int argc, char **argv) {
   resources = bk_resources_create(error);
   if (!resources)
     goto done;
+  char patch_path[1024];
+  if (snprintf(patch_path, sizeof(patch_path), "%s/patch.pp", config.game_root) >=
+          (int)sizeof(patch_path) ||
+      !bk_resources_load_patch(resources, patch_path, error))
+    goto done;
   renderer = bk_renderer_create(1280, 720, log, error);
   if (!renderer)
     goto done;
@@ -288,7 +293,8 @@ int bk_application_run(int argc, char **argv) {
                      &mounted, error);
   if (!scene)
     goto done;
-  control_help = bk_control_help_create(renderer, error);
+  control_help = bk_control_help_create_language(
+      renderer, bk_resources_patch_flags(resources) & BK_PATCH_CHINESE, error);
   if (!control_help)
     goto done;
   int show_fps = config.show_fps != 0;

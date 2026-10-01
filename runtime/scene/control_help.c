@@ -23,6 +23,24 @@ static const char *const pages[BK_HELP_COUNT] = {
   [BK_HELP_INSPECTION] = "右スティック\n視点を動かす\nB タイトルへ\nX 軌道切替\nY キャラ切替\n+ 終了\n\n− FPS表示切替"
 };
 
+static const char *const pages_zh[BK_HELP_COUNT] = {
+  [BK_HELP_TITLE] = "左摇杆 移动鼠标\nZL 慢速移动\n方向键 选择\nA 确认\n\n触屏移动鼠标\nA 确认\n\n− 切换帧率显示",
+  [BK_HELP_SELECTION] = "左摇杆 移动鼠标\nZL 慢速移动\n方向键 选择\nA 选择／操作\n+ 确认角色\nB 返回\n\n触屏移动鼠标\nA 确认\n\n− 切换帧率显示",
+  [BK_HELP_DIALOGUE] = "A 推进对白\n按住 R\n强制快进\n\n− 切换帧率显示",
+  [BK_HELP_GAME] = "左摇杆／方向键\n移动角色\n右摇杆 调整视角\n\nA 调查／操作\nB 切换姿态\nX 切换镜头\nY 拍照\nZL 慢走\n+ 暂停\n\n− 切换帧率显示",
+  [BK_HELP_PAUSE] = "左摇杆 移动鼠标\nZL 慢速移动\n方向键 选择\nA 确认\nB 返回游戏\n确认框中为取消\n\n触屏移动鼠标\nA 确认\n\n− 切换帧率显示",
+  [BK_HELP_CHOICE] = "方向键 选择\nA 确认\n\n触屏移动鼠标\nA 确认\n\n− 切换帧率显示",
+  [BK_HELP_SAVE] = "左摇杆 移动鼠标\nZL 慢速移动\n方向键 选择\nA 选择存档位\nA 确认\nB 取消／返回\n\n触屏移动鼠标\nA 确认\n\n− 切换帧率显示",
+  [BK_HELP_GALLERY] = "左摇杆／方向键\n移动鼠标\nA 选择／确认\nB 返回\nZL 慢速移动\n\n触屏移动鼠标\nA 确认\n\n− 切换帧率显示",
+  [BK_HELP_VOLUME] = "方向键上下\n选择音量／项目\n方向键左右\n微调音量\nA 确认\n\n左摇杆 移动鼠标\n按住 A 拖动滑块\nZL 慢速移动\n\n触屏选择\n手指直接拖动滑块\n\nB 保存并返回\n+ 恢复默认\n\n− 切换帧率显示",
+  [BK_HELP_ENDING] = "左摇杆／方向键\n移动鼠标\nA 确认／操作\nB 取消／返回\nZL 慢速移动\n\nL + 右摇杆\n旋转镜头\nR + 右摇杆\n距离／高度\n\n触屏移动鼠标\nA 确认\n按住 A 滑动\n拖动操作目标\n\n右侧边缘打开菜单\n\n− 切换帧率显示",
+  [BK_HELP_SPECIAL] = "左摇杆／方向键\n移动鼠标\nA 确认／跳过\nY 拍照\nZL 慢速移动\n\nL + 右摇杆\n旋转镜头\nR + 右摇杆\n距离／高度\n\n触屏移动鼠标\nA 确认\n\n右侧边缘打开菜单\n从菜单退出\n\n− 切换帧率显示",
+  [BK_HELP_LOADING] = "出现确认提示后\n按 A 继续\n\n− 切换帧率显示",
+  [BK_HELP_FAILURE] = "出现确认提示后\n按 A 继续\n\n− 切换帧率显示",
+  [BK_HELP_ALBUM] = "左摇杆／方向键\n移动鼠标\nA 选择／确认\nZL 慢速移动\n\nB 关闭照片\n取消删除\n停止幻灯片\n\n触屏移动鼠标\nA 确认\n\n目录中 B 返回\n\n− 切换帧率显示",
+  [BK_HELP_INSPECTION] = "右摇杆 调整视角\nB 返回标题\nX 切换轨道\nY 切换角色\n+ 退出\n\n− 切换帧率显示",
+};
+
 struct BkControlHelp {
   BkRenderer *renderer;
   BkTexture *font;
@@ -96,6 +114,9 @@ done:
   free(vertices); free(indices); return mesh;
 }
 BkControlHelp *bk_control_help_create(BkRenderer *r, char e[256]) {
+  return bk_control_help_create_language(r, 0, e);
+}
+BkControlHelp *bk_control_help_create_language(BkRenderer *r, int chinese, char e[256]) {
   BkControlHelp *s = calloc(1, sizeof(*s));
   if (!s) { snprintf(e,256,"control help allocation failed"); return NULL; }
   s->renderer = r;
@@ -119,7 +140,7 @@ BkControlHelp *bk_control_help_create(BkRenderer *r, char e[256]) {
   bk_image_free(&image);
   if (!s->font) goto bad;
   for (unsigned i=1;i<BK_HELP_COUNT;++i)
-    if (!(s->pages[i]=page_mesh(s,pages[i],e))) goto bad;
+    if (!(s->pages[i]=page_mesh(s,chinese ? pages_zh[i] : pages[i],e))) goto bad;
   return s;
 bad:
   bk_control_help_destroy(s); return NULL;
