@@ -1,26 +1,16 @@
 {
   "date": "2026-10-01",
   "passed": true,
-  "scope": "Group0/item1 pickup, area2 checkpoint save/load, successful area2-to-area3 continuation and area3 checkpoint save/load. Four independent application processes per build.",
+  "scope": "Group0/item1 pickup, area2/3/4 saves and fresh-process reloads. Six application runs per build; initial area1 and random seed are fixtures.",
   "fixtures": [
-    "Production area loader enters group0 area1 for produce mode",
+    "Production area loader enters group0 area1 in produce mode",
     "Initial random seed 0x50caa2 set once before input"
   ],
   "later_state_injection": false,
   "source": "tools/natural_item_save_probe.c",
   "runner": "tests/check_natural_item_route.py",
-  "command": "python3 tests/check_natural_item_route.py local/game/MAINDIR/Data",
-  "evidence_root": "build/validation/natural-item-9w7crmuy",
-  "steps": [
-    "produce: actual pickup, exit, save area2, close menu and continue (not a disk reload)",
-    "reload: new-process pause/load menu reads area2 from disk",
-    "continue: new-process area2 disk load, wait for NPC exit, move around obstacles, cross Mesh_End_Hantei4, save area3 and continue",
-    "reload: new-process pause/load menu reads area3 from disk"
-  ],
-  "frames_per_build": {
-    "host": 29229,
-    "asan": 29229
-  },
+  "evidence_root": "build/validation/natural-item-nc7pi1ah",
+  "interruption": "Original driver was interrupted during the last ASan area4 reload. Eleven completed stages have PASS/teardown logs and were accepted by the sequential driver before it launched the next stage. Only the incomplete final reload was rerun; original partial log retained. Intermediate checkpoint hashes were not recovered.",
   "runs": [
     {
       "mode": "host",
@@ -33,10 +23,13 @@
         0,
         0
       ],
-      "frames": 16967,
-      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
-      "checkpoint_sha256": "f240a6ed62ff40482e6e1ba8bdcc7591614a4edca8b4e3bb6e575df5143de9ca",
-      "summary": "PASS natural-item produce group0 area2 inventory01000 frames16967"
+      "frames": 16486,
+      "summary": "PASS natural-item produce group0 area2 inventory01000 frames16486",
+      "log": "host-produce-2.log",
+      "log_sha256": "9bfbef96c26f84dbae14f03450ec8ef69195aacd0419005bec218cd8ff1d3ab3",
+      "binary_sha256": "04506a31eb5d709400b1902ac7460c300702247450b5904e1f782e09abc67e4f",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
     },
     {
       "mode": "host",
@@ -50,9 +43,12 @@
         0
       ],
       "frames": 2441,
-      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
-      "checkpoint_sha256": "f240a6ed62ff40482e6e1ba8bdcc7591614a4edca8b4e3bb6e575df5143de9ca",
-      "summary": "PASS natural-item reload group0 area2 inventory01000 frames2441"
+      "summary": "PASS natural-item reload group0 area2 inventory01000 frames2441",
+      "log": "host-reload-2.log",
+      "log_sha256": "ff66dde35b04e565d4ed5d380bf4964a526416ce251e3b4f7524e27db475cf7b",
+      "binary_sha256": "04506a31eb5d709400b1902ac7460c300702247450b5904e1f782e09abc67e4f",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
     },
     {
       "mode": "host",
@@ -66,9 +62,12 @@
         0
       ],
       "frames": 7368,
-      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
-      "checkpoint_sha256": "6ee0d56176d66b7ecae371e922dbd5518c41932b63d03418a3e78d25bb21c58a",
-      "summary": "PASS natural-item continue group0 area3 inventory01000 frames7368"
+      "summary": "PASS natural-item continue group0 area3 inventory01000 frames7368",
+      "log": "host-continue-3.log",
+      "log_sha256": "1f7b6f9495f8c738b0cb88d11af8262c20d1e0ce528d478574c6072cb5c2d09b",
+      "binary_sha256": "04506a31eb5d709400b1902ac7460c300702247450b5904e1f782e09abc67e4f",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
     },
     {
       "mode": "host",
@@ -82,9 +81,50 @@
         0
       ],
       "frames": 2453,
-      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
-      "checkpoint_sha256": "6ee0d56176d66b7ecae371e922dbd5518c41932b63d03418a3e78d25bb21c58a",
-      "summary": "PASS natural-item reload group0 area3 inventory01000 frames2453"
+      "summary": "PASS natural-item reload group0 area3 inventory01000 frames2453",
+      "log": "host-reload-3.log",
+      "log_sha256": "1f992890c0d5d563f7dc6c8a93b0fd85217a97b9bb3c1f7d4b3911e54a609846",
+      "binary_sha256": "04506a31eb5d709400b1902ac7460c300702247450b5904e1f782e09abc67e4f",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
+    },
+    {
+      "mode": "host",
+      "operation": "continue",
+      "area": 4,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 7088,
+      "summary": "PASS natural-item continue group0 area4 inventory01000 frames7088",
+      "log": "host-continue-4.log",
+      "log_sha256": "5e11c96f05663d6ddba885cc9caf316655f08aa74e79c365c28e4903aaacd92c",
+      "binary_sha256": "04506a31eb5d709400b1902ac7460c300702247450b5904e1f782e09abc67e4f",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
+    },
+    {
+      "mode": "host",
+      "operation": "reload",
+      "area": 4,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 2447,
+      "summary": "PASS natural-item reload group0 area4 inventory01000 frames2447",
+      "log": "host-reload-4.log",
+      "log_sha256": "a737570b08c428cf4b72a1d7a93dd464c0dc47b9ed38902b02480a4024c59b4d",
+      "binary_sha256": "04506a31eb5d709400b1902ac7460c300702247450b5904e1f782e09abc67e4f",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
     },
     {
       "mode": "asan",
@@ -97,10 +137,13 @@
         0,
         0
       ],
-      "frames": 16967,
-      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
-      "checkpoint_sha256": "c2997391aac17f6b646c3e9d28def665d8c6f601073d92ebfb3480e216012103",
-      "summary": "PASS natural-item produce group0 area2 inventory01000 frames16967"
+      "frames": 16486,
+      "summary": "PASS natural-item produce group0 area2 inventory01000 frames16486",
+      "log": "asan-produce-2.log",
+      "log_sha256": "9bfbef96c26f84dbae14f03450ec8ef69195aacd0419005bec218cd8ff1d3ab3",
+      "binary_sha256": "e7b9151c6eb9d71d9d0304d3c650b08c3bafba44daa45abbc237a1fe14851779",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
     },
     {
       "mode": "asan",
@@ -114,9 +157,12 @@
         0
       ],
       "frames": 2441,
-      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
-      "checkpoint_sha256": "c2997391aac17f6b646c3e9d28def665d8c6f601073d92ebfb3480e216012103",
-      "summary": "PASS natural-item reload group0 area2 inventory01000 frames2441"
+      "summary": "PASS natural-item reload group0 area2 inventory01000 frames2441",
+      "log": "asan-reload-2.log",
+      "log_sha256": "ff66dde35b04e565d4ed5d380bf4964a526416ce251e3b4f7524e27db475cf7b",
+      "binary_sha256": "e7b9151c6eb9d71d9d0304d3c650b08c3bafba44daa45abbc237a1fe14851779",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
     },
     {
       "mode": "asan",
@@ -130,9 +176,12 @@
         0
       ],
       "frames": 7368,
-      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
-      "checkpoint_sha256": "4d3b813516dcb061519ba1eaae61b1595fcf1963d2de47c219ceb41727b61cb8",
-      "summary": "PASS natural-item continue group0 area3 inventory01000 frames7368"
+      "summary": "PASS natural-item continue group0 area3 inventory01000 frames7368",
+      "log": "asan-continue-3.log",
+      "log_sha256": "1f7b6f9495f8c738b0cb88d11af8262c20d1e0ce528d478574c6072cb5c2d09b",
+      "binary_sha256": "e7b9151c6eb9d71d9d0304d3c650b08c3bafba44daa45abbc237a1fe14851779",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
     },
     {
       "mode": "asan",
@@ -146,29 +195,70 @@
         0
       ],
       "frames": 2453,
-      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
-      "checkpoint_sha256": "4d3b813516dcb061519ba1eaae61b1595fcf1963d2de47c219ceb41727b61cb8",
-      "summary": "PASS natural-item reload group0 area3 inventory01000 frames2453"
+      "summary": "PASS natural-item reload group0 area3 inventory01000 frames2453",
+      "log": "asan-reload-3.log",
+      "log_sha256": "1f992890c0d5d563f7dc6c8a93b0fd85217a97b9bb3c1f7d4b3911e54a609846",
+      "binary_sha256": "e7b9151c6eb9d71d9d0304d3c650b08c3bafba44daa45abbc237a1fe14851779",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
+    },
+    {
+      "mode": "asan",
+      "operation": "continue",
+      "area": 4,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 7088,
+      "summary": "PASS natural-item continue group0 area4 inventory01000 frames7088",
+      "log": "asan-continue-4.log",
+      "log_sha256": "5e11c96f05663d6ddba885cc9caf316655f08aa74e79c365c28e4903aaacd92c",
+      "binary_sha256": "e7b9151c6eb9d71d9d0304d3c650b08c3bafba44daa45abbc237a1fe14851779",
+      "exit_code": 0,
+      "exit_code_evidence": "sequential driver accepted this run and launched its successor"
+    },
+    {
+      "mode": "asan",
+      "operation": "reload",
+      "area": 4,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 2447,
+      "summary": "PASS natural-item reload group0 area4 inventory01000 frames2447",
+      "log": "asan-reload-4-resumed.log",
+      "log_sha256": "a737570b08c428cf4b72a1d7a93dd464c0dc47b9ed38902b02480a4024c59b4d",
+      "binary_sha256": "e7b9151c6eb9d71d9d0304d3c650b08c3bafba44daa45abbc237a1fe14851779",
+      "exit_code": 0,
+      "exit_code_evidence": "resumed subprocess result"
     }
   ],
-  "checks": {
-    "inventory": [
-      0,
-      1,
-      0,
-      0,
-      0
-    ],
-    "read_only_reloads_preserved_file": true,
-    "all_eight_gpu_teardowns_at_renderer_baseline": true,
-    "sanitizer_diagnostics": 0
+  "resumed_final_check": {
+    "exit_code": 0,
+    "binary_sha256": "e7b9151c6eb9d71d9d0304d3c650b08c3bafba44daa45abbc237a1fe14851779",
+    "checkpoint_before": "db0222c46ff96849669560e07f9b4812e61cf9aca5b76bf525fe564ad13d7365",
+    "checkpoint_after": "db0222c46ff96849669560e07f9b4812e61cf9aca5b76bf525fe564ad13d7365",
+    "log": "asan-reload-4-resumed.log",
+    "passed": true
   },
-  "correction": "An earlier area2 exploration entered failure flow40; that was not successful story continuation. The maintained continue mode now requires successful area3 handoff.",
-  "not_covered": [
-    "Title-to-area1 natural playthrough",
-    "Area3 onward full story and ending",
-    "Other characters/items natural branches",
-    "Pixel equivalence (probe render size is 80x48)",
-    "Switch hardware acceptance"
+  "frames_per_build": {
+    "host": 38283,
+    "asan": 38283
+  },
+  "read_only_reload_preserved_files": true,
+  "gpu_allocations_returned_to_renderer_baseline": true,
+  "asan_ubsan_diagnostics": false,
+  "limits": [
+    "Not a title-to-ending walkthrough",
+    "Other characters/items not covered by this natural chain",
+    "No new Switch hardware or full visual acceptance"
   ]
 }

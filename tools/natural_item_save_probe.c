@@ -1,5 +1,5 @@
 /* Group0 area1 -> item1 -> actual exit/save -> fresh-process menu load,
- * then area2 -> area3 save/continue and fresh-process load.
+ * then area2 -> area3 -> area4 save/continue and fresh-process loads.
  * Only the incoming area1 loader and initial random seed are fixtures.
  * All later movement, inventory, outcomes and flow transitions belong to the
  * application. This is not a title-to-ending walkthrough. */
@@ -145,23 +145,29 @@ static int idle_tracking(Run *r, unsigned frames, char e[256]) {
   return tracking(bk_play_session_state(r->scene),
                    bk_play_session_flow(r->scene), e);
 }
-static int drive_area2_exit(Run *r, char e[256]) {
-  /* Let the NPC leave before following. The eastern end is the incoming
-   * boundary; the south route passes west of the small box at z85..97. */
+static int drive_exit(Run *r, char e[256]) {
+  unsigned area = bk_play_session_state(r->scene)->area;
+  /* Both routes allow the NPC to leave before the player follows. */
   for (unsigned i = 0; i < 18000; ++i) {
     const BkGameFrameState *s = bk_play_session_state(r->scene);
     if (s->npc.ai.point.motion.hidden) break;
     if (!idle_tracking(r, 1, e)) return 0;
   }
   if (!bk_play_session_state(r->scene)->npc.ai.point.motion.hidden) {
-    snprintf(e, 256, "area2 NPC did not leave");
+    snprintf(e, 256, "area%u NPC did not leave", area);
     return 0;
   }
-  const float path[][2] = {{-103, 118}, {-103, 60}, {-92, 60}};
-  for (unsigned i = 0; i < sizeof(path) / sizeof(*path); ++i) {
-    if (!move(r, path[i][0], path[i][1], 1800, POINT, e)) return 0;
+  if (area == 2) {
+    /* South exit, west of the small box at z85..97. */
+    const float path[][2] = {{-103, 118}, {-103, 60}, {-92, 60}};
+    for (unsigned i = 0; i < sizeof(path) / sizeof(*path); ++i)
+      if (!move(r, path[i][0], path[i][1], 1800, POINT, e)) return 0;
+    return move(r, -92, -15, 1800, EXIT, e);
   }
-  return move(r, -92, -15, 1800, EXIT, e);
+  /* Area3 west exit at x=-258.76, z=-317.18..-257.18. */
+  return move(r, -197, -280, 1800, POINT, e) &&
+      move(r, -220, -280, 1800, POINT, e) &&
+      move(r, -280, -280, 1800, EXIT, e);
 }
 
 int main(int argc, char **argv) {
@@ -200,7 +206,8 @@ int main(int argc, char **argv) {
   if (!produce) {
     expected_area = bank.slots[0].area;
     CHECK(bank.slots[0].stamp[0] &&
-        (expected_area == 2 || (!continue_mode && expected_area == 3)) &&
+        (expected_area == 2 || expected_area == 3 ||
+         (!continue_mode && expected_area == 4)) &&
         !memcmp(bank.slots[0].inventory, expected, sizeof(expected)));
   }
   CHECK(r.renderer = bk_renderer_create(80, 48, stderr, e));
@@ -255,15 +262,15 @@ int main(int argc, char **argv) {
   CHECK(s->game_state.area == expected_area &&
       !memcmp(s->game_state.pickup.collected, expected, sizeof(expected)));
   if (continue_mode) {
-    if (!drive_area2_exit(&r, e)) {
-      dump_state("AREA2 continuation failed", &s->game_state, &s->flow);
+    if (!drive_exit(&r, e)) {
+      dump_state("Area continuation failed", &s->game_state, &s->flow);
       goto done;
     }
     CHECK(wait_flow(&r, 0x20, e) && settle(&r, e));
     CHECK(click(&r, 496, 548, e) && wait_flow(&r, 0x28, e) && settle(&r, e));
     CHECK(click(&r, 750, 250, e) && click(&r, 496, 548, e));
     CHECK(bk_checkpoint_file_read(files, 0, &bank, e) == BK_RESOURCE_OK);
-    expected_area = 3;
+    ++expected_area;
     CHECK(click(&r, 1100, 908, e) && wait_flow(&r, 2, e) && ready(&r, e));
   }
   CHECK(bank.slots[0].area == expected_area && bank.slots[0].stamp[0] &&

@@ -1,4 +1,4 @@
-"""Group0 item1 pickup -> area2 save/load -> area3 save/load, host/ASan.
+"""Group0 item1 pickup -> area2/3/4 save/load, host/ASan.
 
 The incoming area1 loader and initial random seed are fixtures. Later
 transitions use production movement, NPC visibility, collision, menus and disk
@@ -61,7 +61,8 @@ def main():
             files = out / (mode + '-files')
             checkpoint = files / 'save/checkpoint-0.bks'
             for operation, area in [('produce', 2), ('reload', 2),
-                                    ('continue', 3), ('reload', 3)]:
+                                    ('continue', 3), ('reload', 3),
+                                    ('continue', 4), ('reload', 4)]:
                 before = digest(checkpoint) if checkpoint.exists() else None
                 text = run(f'{mode}-{operation}-{area}',
                            [binary, args.data.resolve(), files, operation])

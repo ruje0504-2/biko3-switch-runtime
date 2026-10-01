@@ -33,20 +33,22 @@
 
 ## 自然 item1 路线
 
-2026-10-01，维护工具 `tools/natural_item_save_probe.c` 已完成第一角色 group0/item1 的实际拾取、area2 保存/读档，以及读档后继续到 area3 再次保存/读档。入口使用生产 area loader 进入 area1，并固定一次初始随机种子；之后不写 phase、progress、action、outcome 或背包。NPC 视线、碰撞、拾取、出口和菜单均走生产代码。
+2026-10-01，维护工具 `tools/natural_item_save_probe.c` 已完成第一角色 group0/item1 的实际拾取，以及 area2、area3、area4 的连续交接、保存和独立读档。入口使用生产 area loader 进入 area1，并固定一次初始随机种子；之后不写 phase、progress、action、outcome 或背包。NPC 视线、碰撞、拾取、出口和菜单均走生产代码。
 
-`python3 tests/check_natural_item_route.py local/game/MAINDIR/Data` 已接入 `test-host.sh`，普通/ASan 各启动四个独立进程：
+`python3 tests/check_natural_item_route.py local/game/MAINDIR/Data` 已接入 `test-host.sh`，普通/ASan 各完成六个独立进程：
 
-- `produce`：16,967 帧，拾取 item1，保存 area2 后关闭菜单并继续到 area2；此步不称为从磁盘读档。
+- `produce`：16,486 帧，拾取 item1，保存 area2 后关闭菜单并继续到 area2；此步不称为从磁盘读档。
 - `reload`：2,441 帧，通过暂停/读取菜单从磁盘恢复 area2。
 - `continue`：7,368 帧，从磁盘恢复 area2，等待 NPC 离开，绕过路障，经 `Mesh_End_Hantei4` 完成下一场景交接；覆盖保存 area3，关闭菜单后继续运行。
-- `reload`：2,453 帧，新进程从磁盘恢复 area3。两次只读加载均不修改存档文件。
+- `reload`：2,453 帧，新进程从磁盘恢复 area3。
+- `continue`：7,088 帧，从磁盘恢复 area3，等待 NPC 离开，经西侧 `Mesh_End_Hantei3` 交接并保存 area4。
+- `reload`：2,447 帧，新进程从磁盘恢复 area4。三次只读加载均不修改存档文件。
 
-每构建 29,229 帧，五个背包字节始终为 `01000`；全部八个进程退出时 GPU 分配回到 renderer 基线，无 ASan/UBSan 诊断。终态日志为 `build/validation/natural-item-9w7crmuy/verification.json`，摘要见 `reports/ending-natural-item-route-verification.json`。较早探针误把进入失败流程当作 continue 成功，已改成只接受 area3 成功交接；不以失败分支替代此项验证。
+每构建 38,283 帧，五个背包字节始终为 `01000`；十二个完成的进程退出时 GPU 分配回到 renderer 基线，无 ASan/UBSan 诊断。原运行在最后一个 ASan 读档进程中断，前十一项已由顺序驱动器接受；仅补跑未完成的最后一项，保留原部分日志。恢复记录为 `build/validation/natural-item-nc7pi1ah/verification-resumed.json`，摘要见 `reports/ending-natural-item-route-verification.json`；没有将未生成的原总报告称为通过。较早探针误把进入失败流程当作 continue 成功，已改成只接受下一场景成功交接。
 
 ## 尚未完成
 
-本批已完成显式库存入口下的 phase4 实际交互、state5/6/7 交接和五角色普通/ASan 矩阵；另已完成 group0/item1 的自然拾取→area2 保存/读档→area3 保存/读档路线。
+本批已完成显式库存入口下的 phase4 实际交互、state5/6/7 交接和五角色普通/ASan 矩阵；另已完成 group0/item1 的自然拾取→area2→area3→area4 连续保存/读档路线。
 
 单角色无道具的完整第三类流程在本地探索中已普通/ASan 配对完成：13,955 录制/保存/结束对话帧、13,473 新进程回放帧、两次选择资源加载；记录与解锁文件逐字节相同。该工具尚未纳入维护入口，不能扩展为五角色全分支验收。详细接续：`local/ending-third-natural-next/next.md`。
 
@@ -54,4 +56,4 @@
 
 phase4 验证时的指定 Mesa NVK 产物为 16,240,696 字节，SHA-256 `24a5de85d24861e629f57340627f1d02f1cb0327c2d7b5e8f6183ec0768e4271`，ELF 未解析符号零。这是后续 NEON 优化前的历史产物；本次仅维护主机探针，没有重新生成 NRO。
 
-本轮授权的一次 GitHub 增量已推至 `6fbe62e`；之后只做本地提交，不追加推送、不整包。完整目标未完成，当前防休眠 PID 69780 保持。
+本轮授权的一次 GitHub 增量已推至 `6fbe62e`；之后只做本地提交，不追加推送、不整包。完整目标未完成，中断后恢复的防休眠 PID 9101 保持。
