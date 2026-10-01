@@ -399,6 +399,28 @@ int bk_entry_assets_step_player_control(BkEntryAssets *a,
   BkPlayerControlEffects out;
   if (!bk_player_control_step(&next, collision, &in, &out, error))
     return 0;
+  if (state->interaction.script_phase == 2 &&
+      next.interaction.script_phase == 0 &&
+      (state->spatial.movement.action == in.spatial.movement.actions[12] ||
+       state->spatial.movement.action == in.spatial.movement.actions[14])) {
+    /* The original prop exit only interpolates during part of its clip.
+     * Its remaining offset can leave the player inside a prop corner when
+     * wall collision resumes. Finish at the saved entry position instead. */
+    BkPlayerMovement *movement = &next.spatial.movement;
+    for (unsigned axis = 0; axis < 3; axis += 2) {
+      float origin = state->interaction.trigger.origin[axis];
+      movement->position[axis] = movement->previous[axis] = origin;
+      movement->velocity[axis] = 0;
+      next.spatial.scene.wall.position[axis] = origin;
+    }
+    if (!out.placements)
+      out.placements = 1;
+    if (!bk_actor_placement(&out.roots[out.placements - 1],
+                            movement->position, movement->yaw)) {
+      snprintf(error, 256, "entry player: invalid prop exit position");
+      return 0;
+    }
+  }
   for (unsigned i = 0; i < out.placements; ++i)
     if (!bk_actor_pose_place(a->player, out.roots[i].position,
                              out.roots[i].yaw_degrees, error))

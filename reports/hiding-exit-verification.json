@@ -1,0 +1,335 @@
+{
+  "date": "2026-10-01",
+  "scope": "Shared prop exit landing; no further story or other-location audit requested",
+  "reported_location": {
+    "group": 4,
+    "area": 4,
+    "prop": "h98_20.xan",
+    "kind": 18,
+    "position": [
+      155,
+      48,
+      110
+    ],
+    "screenshot_confirmed_by_user": true
+  },
+  "reproduction": {
+    "real_assets": true,
+    "initial_position_fixture": true,
+    "approach_uses_collision": true,
+    "direction_checks_use_explicit_heading": true,
+    "hz": 60,
+    "entry": [
+      164.7959,
+      48.3,
+      96.1
+    ],
+    "old_exit": [
+      163.9681,
+      48.3,
+      97.27464
+    ],
+    "before_hide_distance": [
+      0,
+      24.25862,
+      31.1474,
+      0.00050354
+    ],
+    "old_after_hide_distance": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "new_after_hide_distance": [
+      0,
+      24.25862,
+      31.1474,
+      0.00050354
+    ],
+    "old_log": "local/hide-exit-work/approach-before.log"
+  },
+  "movement_checks": [
+    {
+      "mode": "host",
+      "angle": 0,
+      "hz": 30,
+      "exit": 0,
+      "before_hide": [
+        12.97392,
+        24.26187,
+        0.01922607,
+        32.00036
+      ],
+      "after_hide": [
+        12.97392,
+        24.26187,
+        0.01922607,
+        32.00036
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/host-angle0-hz30.log"
+    },
+    {
+      "mode": "host",
+      "angle": 0,
+      "hz": 60,
+      "exit": 0,
+      "before_hide": [
+        12.97389,
+        24.2623,
+        0.01831055,
+        31.99967
+      ],
+      "after_hide": [
+        12.97389,
+        24.2623,
+        0.01831055,
+        31.99967
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/host-angle0-hz60.log"
+    },
+    {
+      "mode": "host",
+      "angle": 0,
+      "hz": 120,
+      "exit": 0,
+      "before_hide": [
+        12.97389,
+        24.2624,
+        0.01831055,
+        31.99953
+      ],
+      "after_hide": [
+        12.97389,
+        24.2624,
+        0.01831055,
+        31.99953
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/host-angle0-hz120.log"
+    },
+    {
+      "mode": "host",
+      "angle": 7,
+      "hz": 30,
+      "exit": 0,
+      "before_hide": [
+        32.24347,
+        24.22293,
+        31.15613,
+        0.4556639
+      ],
+      "after_hide": [
+        32.24347,
+        24.22293,
+        31.15613,
+        0.4556639
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/host-angle7-hz30.log"
+    },
+    {
+      "mode": "host",
+      "angle": 7,
+      "hz": 60,
+      "exit": 0,
+      "before_hide": [
+        0.0,
+        24.25862,
+        31.1474,
+        0.00050354
+      ],
+      "after_hide": [
+        0.0,
+        24.25862,
+        31.1474,
+        0.00050354
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/host-angle7-hz60.log"
+    },
+    {
+      "mode": "host",
+      "angle": 7,
+      "hz": 120,
+      "exit": 0,
+      "before_hide": [
+        32.25991,
+        24.22623,
+        31.14645,
+        0.1723774
+      ],
+      "after_hide": [
+        32.25991,
+        24.22623,
+        31.14645,
+        0.1723774
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/host-angle7-hz120.log"
+    },
+    {
+      "mode": "asan",
+      "angle": 0,
+      "hz": 30,
+      "exit": 0,
+      "before_hide": [
+        12.97392,
+        24.26187,
+        0.01922607,
+        32.00036
+      ],
+      "after_hide": [
+        12.97392,
+        24.26187,
+        0.01922607,
+        32.00036
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/asan-angle0-hz30.log"
+    },
+    {
+      "mode": "asan",
+      "angle": 0,
+      "hz": 60,
+      "exit": 0,
+      "before_hide": [
+        12.97389,
+        24.2623,
+        0.01831055,
+        31.99967
+      ],
+      "after_hide": [
+        12.97389,
+        24.2623,
+        0.01831055,
+        31.99967
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/asan-angle0-hz60.log"
+    },
+    {
+      "mode": "asan",
+      "angle": 0,
+      "hz": 120,
+      "exit": 0,
+      "before_hide": [
+        12.97389,
+        24.2624,
+        0.01831055,
+        31.99953
+      ],
+      "after_hide": [
+        12.97389,
+        24.2624,
+        0.01831055,
+        31.99953
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/asan-angle0-hz120.log"
+    },
+    {
+      "mode": "asan",
+      "angle": 7,
+      "hz": 30,
+      "exit": 0,
+      "before_hide": [
+        32.24347,
+        24.22293,
+        31.15613,
+        0.4556639
+      ],
+      "after_hide": [
+        32.24347,
+        24.22293,
+        31.15613,
+        0.4556639
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/asan-angle7-hz30.log"
+    },
+    {
+      "mode": "asan",
+      "angle": 7,
+      "hz": 60,
+      "exit": 0,
+      "before_hide": [
+        0.0,
+        24.25862,
+        31.1474,
+        0.00050354
+      ],
+      "after_hide": [
+        0.0,
+        24.25862,
+        31.1474,
+        0.00050354
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/asan-angle7-hz60.log"
+    },
+    {
+      "mode": "asan",
+      "angle": 7,
+      "hz": 120,
+      "exit": 0,
+      "before_hide": [
+        32.25991,
+        24.22623,
+        31.14645,
+        0.1723774
+      ],
+      "after_hide": [
+        32.25991,
+        24.22623,
+        31.14645,
+        0.1723774
+      ],
+      "pass": true,
+      "log": "local/hide-exit-work/asan-angle7-hz120.log"
+    }
+  ],
+  "application": {
+    "modes": [
+      "host",
+      "asan+ubsan"
+    ],
+    "frames_each": 566,
+    "initial_player_position_and_main_phase_fixture": true,
+    "entry_exit_then_backward_via_actual_application_input": true,
+    "exit_horizontal_residual": 0,
+    "backward_frames": 120,
+    "backward_distance": 15.9993,
+    "final_rgba_sha256": {
+      "host": "d43a00a713bc07aabcf1dae7769af080c074e91a124182ff6528ea1806dc99b5",
+      "asan": "d43a00a713bc07aabcf1dae7769af080c074e91a124182ff6528ea1806dc99b5"
+    }
+  },
+  "ctest": {
+    "host": [
+      "player-interaction",
+      "player-wall"
+    ],
+    "asan+ubsan": [
+      "player-interaction",
+      "player-wall"
+    ],
+    "passed": true
+  },
+  "switch": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "c3c94564d4f139863caf37a60700163b59acec24db4b58a50494fda83c0493d7",
+    "undefined_symbols": 0,
+    "bytes": 16318520,
+    "path": "build-switch/biko3-preview.nro",
+    "hardware_verified": false
+  },
+  "publication": {
+    "github_push": false,
+    "full_package": false,
+    "sd_write": false
+  }
+}
