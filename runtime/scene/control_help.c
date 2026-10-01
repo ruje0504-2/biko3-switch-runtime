@@ -6,20 +6,20 @@
 /* These describe the Switch adapters, including menus without a B shortcut.
  * Touch positions the original cursor; only the volume page synthesizes clicks. */
 static const char *const pages[BK_HELP_COUNT] = {
-  [BK_HELP_TITLE] = "タイトル\n\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定",
-  [BK_HELP_SELECTION] = "キャラ選択\n\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n戻る項目で終了",
-  [BK_HELP_DIALOGUE] = "会話\n\nA 次へ",
-  [BK_HELP_GAME] = "追跡・探索\n\n左スティック\n十字キー：移動\n右スティック\n視点を動かす\n\nA 調べる・操作\nB 姿勢切替\nX カメラ切替\nY 撮影\nZL ゆっくり歩く\n+ 一時停止",
-  [BK_HELP_PAUSE] = "一時停止\n\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n再開の項目を\n選んで戻る",
-  [BK_HELP_CHOICE] = "選択肢\n\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定",
-  [BK_HELP_SAVE] = "セーブ／ロード\n\n十字キー 選択\nA スロット決定\nA 確認\n\nタッチで移動\nA で決定\n\n戻る項目で取消",
-  [BK_HELP_GALLERY] = "鑑賞メニュー\n\n左スティック\n十字キー\nカーソル移動\nA 選択・決定\nB 戻る\nZL ゆっくり移動\n\nタッチで移動\nA で決定",
-  [BK_HELP_VOLUME] = "音量設定\n\n十字キー上下\n音量・項目選択\n十字キー左右\n音量を微調整\nA 決定\n\n左スティック\nカーソル移動\nA を押しながら\nスライダー操作\nZL ゆっくり移動\n\nタッチで選択\nスライダーは\n指で直接動かす\n\n調整後に保存",
-  [BK_HELP_ENDING] = "エンディング\n\n左スティック\n十字キー\nカーソル移動\nA 決定・操作\nB 取消・戻る\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\n\tタッチ操作\nタッチで移動\nA で決定\nA を押しながら\n指で対象を動かす\n\n右端でメニュー",
-  [BK_HELP_SPECIAL] = "特殊イベント\n\n左スティック\n十字キー\nカーソル移動\nA 決定・スキップ\nY 撮影\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\n\tタッチ操作\nタッチで移動\nA で決定\n\n右端でメニュー\nメニューから終了",
-  [BK_HELP_LOADING] = "場面切替\n\n確認表示が出たら\nA で進む",
-  [BK_HELP_FAILURE] = "イベント進行中\n\n確認表示が出たら\nA で進む",
-  [BK_HELP_INSPECTION] = "シーン確認\n\n右スティック\n視点を動かす\nB タイトルへ\nX 軌道切替\nY キャラ切替\n+ 終了"
+  [BK_HELP_TITLE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定",
+  [BK_HELP_SELECTION] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n戻る項目で終了",
+  [BK_HELP_DIALOGUE] = "A 次へ",
+  [BK_HELP_GAME] = "左スティック\n十字キー：移動\n右スティック\n視点を動かす\n\nA 調べる・操作\nB 姿勢切替\nX カメラ切替\nY 撮影\nZL ゆっくり歩く\n+ 一時停止",
+  [BK_HELP_PAUSE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n再開の項目を\n選んで戻る",
+  [BK_HELP_CHOICE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定",
+  [BK_HELP_SAVE] = "十字キー 選択\nA スロット決定\nA 確認\n\nタッチで移動\nA で決定\n\n戻る項目で取消",
+  [BK_HELP_GALLERY] = "左スティック\n十字キー\nカーソル移動\nA 選択・決定\nB 戻る\nZL ゆっくり移動\n\nタッチで移動\nA で決定",
+  [BK_HELP_VOLUME] = "十字キー上下\n音量・項目選択\n十字キー左右\n音量を微調整\nA 決定\n\n左スティック\nカーソル移動\nA を押しながら\nスライダー操作\nZL ゆっくり移動\n\nタッチで選択\nスライダーは\n指で直接動かす\n\n調整後に保存",
+  [BK_HELP_ENDING] = "左スティック\n十字キー\nカーソル移動\nA 決定・操作\nB 取消・戻る\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\nタッチで移動\nA で決定\nA を押しながら\n指で対象を動かす\n\n右端でメニュー",
+  [BK_HELP_SPECIAL] = "左スティック\n十字キー\nカーソル移動\nA 決定・スキップ\nY 撮影\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\nタッチで移動\nA で決定\n\n右端でメニュー\nメニューから終了",
+  [BK_HELP_LOADING] = "確認表示が出たら\nA で進む",
+  [BK_HELP_FAILURE] = "確認表示が出たら\nA で進む",
+  [BK_HELP_INSPECTION] = "右スティック\n視点を動かす\nB タイトルへ\nX 軌道切替\nY キャラ切替\n+ 終了"
 };
 
 struct BkControlHelp {
@@ -47,19 +47,29 @@ static int glyph(unsigned cp) {
     if (bk_help_glyphs[i].codepoint == cp) return (int)i;
   return -1;
 }
+static float line_width(const char *text) {
+  float width = 0;
+  while (*text && *text != '\n') {
+    int g = glyph(codepoint(&text));
+    if (g < 0) return -1;
+    width += bk_help_glyphs[g].advance;
+  }
+  return width;
+}
 static BkGpuMesh *page_mesh(BkControlHelp *s, const char *text, char e[256]) {
   size_t capacity = strlen(text);
   BkVertex *vertices = calloc(capacity * 4, sizeof(*vertices));
   uint16_t *indices = calloc(capacity * 6, sizeof(*indices));
   BkGpuMesh *mesh = NULL;
   if (!vertices || !indices) { snprintf(e, 256, "control help allocation failed"); goto done; }
-  float x = 12, y = 30;
+  unsigned lines = 1;
+  for (const char *p = text; *p; ++p) lines += *p == '\n';
+  float x = (160 - line_width(text)) * .5f;
+  float y = (720 - ((lines - 1) * 26 + BK_HELP_CELL)) * .5f;
   unsigned count = 0, line = 0;
-  int accent = 1;
   for (const char *p = text; *p;) {
     unsigned cp = codepoint(&p);
-    if (cp == '\n') { x = 12; y += 26; ++line; accent = 0; continue; }
-    if (cp == '\t') { accent = 1; continue; }
+    if (cp == '\n') { x = (160 - line_width(p)) * .5f; y += 26; ++line; continue; }
     int g = glyph(cp);
     if (g < 0 || x + bk_help_glyphs[g].advance > 148 || y + BK_HELP_CELL > 710) {
       snprintf(e, 256, "control help: missing glyph or text overflow at line%u", line); goto done;
@@ -70,7 +80,7 @@ static BkGpuMesh *page_mesh(BkControlHelp *s, const char *text, char e[256]) {
       float u0 = (float)(g % BK_HELP_COLUMNS) / BK_HELP_COLUMNS;
       float v0 = (float)(g / BK_HELP_COLUMNS) / BK_HELP_ROWS;
       float u1 = u0 + 1.f/BK_HELP_COLUMNS, v1 = v0 + 1.f/BK_HELP_ROWS;
-      float red = accent ? .50f : .83f, green = accent ? .85f : .85f, blue = accent ? 1.f : .88f;
+      const float red = 226.f/255, green = 191.f/255, blue = 114.f/255;
       BkVertex q[4] = {{x0,y0,0,u0,v0,red,green,blue,1}, {x1,y0,0,u1,v0,red,green,blue,1},
                        {x1,y1,0,u1,v1,red,green,blue,1}, {x0,y1,0,u0,v1,red,green,blue,1}};
       memcpy(vertices+count*4, q, sizeof q);

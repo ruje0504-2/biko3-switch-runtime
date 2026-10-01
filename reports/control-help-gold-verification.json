@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "language": "Japanese",
+  "gold_rgb": [
+    226,
+    191,
+    114
+  ],
+  "titles": false,
+  "multiplier_text": false,
+  "alignment": "horizontal lines and full block vertically centered in left 4:3 pillarbox",
+  "pages": [
+    {
+      "page": "page-01.rgba",
+      "pixel_bounds": [
+        31,
+        301,
+        131,
+        421
+      ]
+    },
+    {
+      "page": "page-02.rgba",
+      "pixel_bounds": [
+        25,
+        275,
+        135,
+        447
+      ]
+    },
+    {
+      "page": "page-03.rgba",
+      "pixel_bounds": [
+        58,
+        353,
+        104,
+        369
+      ]
+    },
+    {
+      "page": "page-04.rgba",
+      "pixel_bounds": [
+        21,
+        223,
+        137,
+        499
+      ]
+    },
+    {
+      "page": "page-05.rgba",
+      "pixel_bounds": [
+        31,
+        262,
+        131,
+        460
+      ]
+    },
+    {
+      "page": "page-06.rgba",
+      "pixel_bounds": [
+        31,
+        301,
+        131,
+        421
+      ]
+    },
+    {
+      "page": "page-07.rgba",
+      "pixel_bounds": [
+        25,
+        262,
+        136,
+        461
+      ]
+    },
+    {
+      "page": "page-08.rgba",
+      "pixel_bounds": [
+        21,
+        249,
+        140,
+        473
+      ]
+    },
+    {
+      "page": "page-09.rgba",
+      "pixel_bounds": [
+        21,
+        145,
+        140,
+        577
+      ]
+    },
+    {
+      "page": "page-10.rgba",
+      "pixel_bounds": [
+        17,
+        132,
+        144,
+        590
+      ]
+    },
+    {
+      "page": "page-11.rgba",
+      "pixel_bounds": [
+        18,
+        145,
+        144,
+        577
+      ]
+    },
+    {
+      "page": "page-12.rgba",
+      "pixel_bounds": [
+        17,
+        340,
+        143,
+        382
+      ]
+    },
+    {
+      "page": "page-13.rgba",
+      "pixel_bounds": [
+        17,
+        340,
+        143,
+        382
+      ]
+    },
+    {
+      "page": "page-14.rgba",
+      "pixel_bounds": [
+        33,
+        288,
+        129,
+        434
+      ]
+    }
+  ],
+  "probe_log": "build/validation/control-help-gold-20261001/host.log",
+  "nro": {
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16289848,
+    "sha256": "f91a8f77c8b2c72f50e1d1d18dbb6e382e7c0f05dd52b7cea4ab92ff263dff38",
+    "undefined_symbols": 0
+  },
+  "scope": "UI-only change; host 14-page pixel/viewport/GPU lifetime checks and NVK cross build. Prior gameplay/ASan evidence retained; not rerun. No new Switch hardware validation."
+}
