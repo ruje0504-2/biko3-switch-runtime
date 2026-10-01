@@ -460,6 +460,14 @@ int bk_front_end_step(BkFrontEnd *s, double seconds, double wall,
     BkGalleryMenuInput input = {
         buttons(in) | ((in->pressed & BK_BUTTON_BACK) ? BK_GALLERY_BACK : 0),
         dt, scale, s->c.viewport.height};
+    if ((in->pressed & BK_BUTTON_BACK) && !s->c.common->blocked &&
+        !s->gallery.image_view) {
+      /* The original menu reads last frame's pointer before sampling it. */
+      const float *q = s->gallery.sprites[12].rect;
+      warp(s,q[0]+q[2]/2,q[1]+q[3]/2,e);
+      memcpy(s->gallery.pointer,s->pointer,sizeof(s->pointer));
+      input.buttons = BK_PAUSE_CONFIRM;
+    }
     BkGalleryMenuFrame frame;
     BkGalleryDispatchOps dispatch = {s, release, gallery_story};
     bk_gallery_menu_render_begin(s->gallery_render);
@@ -477,13 +485,21 @@ int bk_front_end_step(BkFrontEnd *s, double seconds, double wall,
   if (s->active == 0x38) {
     BkSelectionSessionInput input = {
         .ui = {buttons(in), now, dt, scale, bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900), bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_VOICE, -700), 0, 1},
-        .camera_buttons = ((in->held & BK_BUTTON_CONFIRM) ? 1u : 0) |
-                          ((in->held & BK_BUTTON_BACK) ? 2u : 0),
+        .camera_buttons = (in->held & BK_BUTTON_CONFIRM) ? 1u : 0,
         .face_clocks = {now, now, now},
         .reload_clocks = {now, now, now, now},
         .movie_clock_ms = (int32_t)now,
         .movie_restart_clock_ms = (int32_t)now,
         .reload_movie_clock_ms = (int32_t)now};
+    if (!s->c.common->blocked &&
+        (in->pressed & (BK_BUTTON_BACK | BK_BUTTON_PAUSE))) {
+      unsigned slot = (in->pressed & BK_BUTTON_BACK) ? 25 : 23;
+      const float *q = s->selection.sprites[slot].rect;
+      warp(s,q[0]+q[2]/2,q[1]+q[3]/2,e);
+      memset(s->motion,0,sizeof(s->motion));
+      input.ui.buttons = BK_PAUSE_CONFIRM;
+      input.camera_buttons = 0;
+    }
     if (!bk_selection_session_step(s->selection_session, &input, e))
       return 0;
     *s->c.group = (uint32_t)s->group;

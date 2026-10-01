@@ -65,8 +65,34 @@ static int redraw(Run *r,char e[256]) {
     ok=!memcmp(a,b,size) && !memcmp(&before,bk_play_session_state(r->scene),sizeof(before)) && !memcmp(&common,bk_play_session_common(r->scene),sizeof(common)) && pcm==r->hash;
   free(a);free(b);if(ok)++r->redraws;return ok;
 }
-static int save_return(Run *r,BkVolumeFile *v,const int32_t wanted[3],unsigned target,char e[256]) {
-  if(target==1) {
+static int system_cursor(Run *r,char e[256]) {
+  const size_t bytes=1280*720*4;uint8_t *a=malloc(bytes),*b=malloc(bytes);int ok=0;
+  if(!a || !b || !tick(r,point(320,200,0),e) || !idle(r,720,e) || flow(r)!=4 ||
+     !bk_renderer_readback(r->r,a,bytes,e) || !tick(r,(BkInput){.move_x=1},e) ||
+     !bk_renderer_readback(r->r,b,bytes,e))goto done;
+  unsigned changes=0;
+  for(unsigned y=0;y<720;++y)for(unsigned x=0;x<1280;++x)
+    if(memcmp(a+(y*1280+x)*4,b+(y*1280+x)*4,4)) {
+      if(x<380 || x>=480 || y<130 || y>=220)goto done;
+      ++changes;
+    }
+  if(changes<5 || !tick(r,(BkInput){.held=BK_BUTTON_SLOW,.move_x=1},e) ||
+     !tick(r,(BkInput){.move_x=-1},e) ||
+     !tick(r,(BkInput){.held=BK_BUTTON_SLOW,.move_x=-1},e) ||
+     !tick(r,(BkInput){.move_y=1},e) || !tick(r,(BkInput){.move_y=-1},e) ||
+     !bk_renderer_readback(r->r,b,bytes,e) || memcmp(a,b,bytes))goto done;
+  if(!tick(r,(BkInput){.pressed=BK_BUTTON_DOWN,.held=BK_BUTTON_DOWN},e) ||
+     !idle(r,2,e) || !bk_renderer_readback(r->r,a,bytes,e))goto done;
+  for(unsigned i=0;i<24;++i)if(!tick(r,(BkInput){.held=BK_BUTTON_DOWN},e))goto done;
+  if(!bk_renderer_readback(r->r,b,bytes,e) || memcmp(a,b,bytes) || !redraw(r,e))goto done;
+  ok=1;
+done:
+  free(a);free(b);if(!ok && !*e)snprintf(e,256,"SYSTEM cursor idle/motion/dpad pixels mismatch");return ok;
+}
+static int save_return(Run *r,BkVolumeFile *v,const int32_t wanted[3],unsigned target,int back,char e[256]) {
+  if(back) {
+    if(!tick(r,(BkInput){.pressed=BK_BUTTON_BACK,.held=BK_BUTTON_BACK},e))return 0;
+  } else if(target==1) {
     for(unsigned i=0;i<4;++i)
       if(!tick(r,(BkInput){.pressed=BK_BUTTON_UP},e) || !idle(r,1,e))return 0;
     for(unsigned i=0;i<3;++i)
@@ -74,7 +100,7 @@ static int save_return(Run *r,BkVolumeFile *v,const int32_t wanted[3],unsigned t
     /* Right from save must not focus the native invisible debug button. */
     if(!tick(r,(BkInput){.pressed=BK_BUTTON_RIGHT},e) || !idle(r,1,e) ||
        !tick(r,(BkInput){.pressed=BK_BUTTON_CONFIRM,.held=BK_BUTTON_CONFIRM},e))return 0;
-  } else if(!tick(r,point(1104,908,1),e))return 0;
+  } else if(!tick(r,(BkInput){.pressed=BK_BUTTON_BACK},e))return 0;
   if(memcmp(bk_volume_file_values(v),wanted,12) || !redraw(r,e))return 0;
   if(!wait_flow(r,target,600,e) || !idle(r,180,e))return 0;
   for(unsigned i=40;i<46;++i) {int32_t vol,pan;if(bk_audio_get_gain(r->audio,i,&vol,&pan))return 0;}
@@ -111,7 +137,7 @@ int main(int argc,char **argv) {
     /* Lower all three, then use the actual default button, preview controls
      * and save/return path. No menu-state injection. */
     CHECK(adjust(r,second,e) && idle(r,1,e));
-    CHECK(tick(r,point(824,908,1),e) && idle(r,1,e) && redraw(r,e));
+    CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_PAUSE,.held=BK_BUTTON_PAUSE},e) && idle(r,1,e) && redraw(r,e));
     static const unsigned preview_y[]={278,424,571};
     for(unsigned i=0;i<3;++i) {
       unsigned attempts=0;
@@ -121,7 +147,7 @@ int main(int argc,char **argv) {
       } while(i==2 && !bk_audio_get_gain(r->audio,42,&gain,&pan) && attempts<8);
       CHECK(bk_audio_get_gain(r->audio,40+i,&gain,&pan) && gain==0 && pan==0);
     }
-    CHECK(save_return(r,volume,maximum,1,e));
+    CHECK(save_return(r,volume,maximum,1,1,e));
     CHECK(bk_audio_get_gain(r->audio,60,&gain,&pan) && gain==0);
     goto success;
   }
@@ -134,7 +160,7 @@ int main(int argc,char **argv) {
   CHECK(!memcmp(old,bk_volume_file_values(volume),12)); /*private edits until save*/
   if(reject) {
     snprintf(path,sizeof(path),"%s/save/volume.cfg.part",argv[2]);CHECK(!mkdir(path,0777));
-    CHECK(!tick(r,point(1104,908,1),e) && strstr(e,"temporary settings") && flow(r)==0x30);
+    CHECK(!tick(r,(BkInput){.pressed=BK_BUTTON_BACK},e) && strstr(e,"temporary settings") && flow(r)==0x30);
     CHECK(!memcmp(old,bk_volume_file_values(volume),12));e[0]=0;CHECK(!rmdir(path));goto success;
   }
   /* Real sample voices use their category values. First two previews are
@@ -143,14 +169,14 @@ int main(int argc,char **argv) {
   CHECK(tick(r,(BkInput){0},e));
   CHECK(tick(r,point(990,424,1),e) && bk_audio_get_gain(r->audio,41,&gain,&pan) && gain==first[1]);
   CHECK(tick(r,(BkInput){0},e));
-  CHECK(save_return(r,volume,first,1,e) && bk_audio_get_gain(r->audio,60,&gain,&pan) && gain==first[1]);
+  CHECK(save_return(r,volume,first,1,0,e) && bk_audio_get_gain(r->audio,60,&gain,&pan) && gain==first[1]);
   /* Verify the original title->selection->story path still accepts settings. */
   for(unsigned i=0;i<600 && flow(r)==1;++i)CHECK(tick(r,point(1084,53,i%20==19),e));
   CHECK(wait_flow(r,0x38,600,e));unsigned speech_checks=0;
   for(unsigned i=0;i<600 && flow(r)==0x38;++i) {
     /* Open the character profile, then its voice-replay icon. Merely
      * selecting the already selected character does not play speech. */
-    BkInput in=i<130?point(112,903,i==100):i<180?point(357,639,i==140):point(832,908,i%20==19);
+    BkInput in=i<130?point(112,903,i==100):i<180?point(357,639,i==140):(BkInput){.pressed=i%20==19?BK_BUTTON_PAUSE:0};
     CHECK(tick(r,in,e));
     if(bk_audio_get_gain(r->audio,61,&gain,&pan)) {CHECK(gain==first[0]);++speech_checks;}
   }
@@ -160,16 +186,22 @@ int main(int argc,char **argv) {
   for(unsigned i=0;i<3600 && bk_play_session_state(r->scene)->camera.phase!=1;++i)CHECK(tick(r,(BkInput){.pressed=i%30==29?BK_BUTTON_CONFIRM:0},e));
   CHECK(bk_play_session_state(r->scene)->camera.phase==1 && idle(r,60,e));
   CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_PAUSE},e) && flow(r)==4);
+  CHECK(system_cursor(r,e));
   BkGameFrameState frozen=*bk_play_session_state(r->scene);
-  CHECK(open_volume(r,4,e) && adjust(r,second,e) && save_return(r,volume,second,4,e));
+  CHECK(open_volume(r,4,e) && adjust(r,second,e) && save_return(r,volume,second,4,1,e));
   BkGameFrameState held=*bk_play_session_state(r->scene);frozen.background.music_volume=held.background.music_volume;
   CHECK(!memcmp(&held,&frozen,sizeof(held)) && redraw(r,e));
-  /* Resume using the authored pause row, then ensure actual game updates. */
-  for(unsigned i=0;i<180 && flow(r)==4;++i)CHECK(tick(r,point(640,480,i%20==19),e));
+  /* Cancel a SYSTEM confirmation first. Holding B must not also resume. */
+  CHECK(tick(r,point(640,552,0),e) && tick(r,point(640,552,1),e) && idle(r,45,e));
+  CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_BACK,.held=BK_BUTTON_BACK},e));
+  for(unsigned i=0;i<30;++i)CHECK(tick(r,(BkInput){.held=BK_BUTTON_BACK},e));
+  CHECK(flow(r)==4 && idle(r,1,e));
+  CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_BACK,.held=BK_BUTTON_BACK},e));
+  for(unsigned i=0;i<180 && flow(r)==4;++i)CHECK(tick(r,(BkInput){.held=BK_BUTTON_BACK},e));
   CHECK(flow(r)==2 && idle(r,60,e));
   CHECK(bk_audio_get_gain(r->audio,8,&gain,&pan) && gain==second[1]);
   CHECK(bk_audio_get_gain(r->audio,48,&gain,&pan) && gain==second[2]);
-  printf("volume-flow categories speech_checks=%u resumed_music=%d effect=%d\n",speech_checks,second[1],second[2]);
+  printf("volume-flow shortcuts Plus-selection Plus-defaults B-save-return SYSTEM-visible-stick-touch-B; categories speech_checks=%u resumed_music=%d effect=%d\n",speech_checks,second[1],second[2]);
 success:
   CHECK(run.nonzero && run.frames && (!reject || flow(r)==0x30));
   bk_scene_destroy(r->scene);r->scene=NULL;

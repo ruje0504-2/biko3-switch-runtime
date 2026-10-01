@@ -110,7 +110,7 @@ int main(int argc,char **argv) {
     snprintf(path,sizeof(path),"%s/%s.rgba",argv[2],page?"selection":"title");CHECK(capture(&r,path,e));
     /* Stick-only focus then A dispatches the real native button. */
     CHECK(move_to(&r,(page?1104:1084)*.75f,(page?908:53)*.75f,e));
-    CHECK(tick(&r,(BkInput){.pressed=BK_BUTTON_CONFIRM},e));
+    CHECK(tick(&r,(BkInput){.pressed=page?BK_BUTTON_BACK:BK_BUTTON_CONFIRM},e));
     for(unsigned i=0;i<240 && r.flow.current==flow;++i)CHECK(tick(&r,(BkInput){0},e));
     CHECK(r.flow.current==0x50 && r.flow.target==(page?1:0x38));
     bk_front_end_collect(r.front);
@@ -118,7 +118,7 @@ int main(int argc,char **argv) {
   bk_front_end_destroy(r.front);r.front=NULL;bk_curtain_render_destroy(curtain);curtain=NULL;
   CHECK(bk_renderer_stats(r.renderer).live_allocations==baseline.live_allocations &&
         bk_renderer_stats(r.renderer).live_bytes==baseline.live_bytes);
-  printf("PASS menu-cursor frames=%u visible=%u axes=%u idle-seconds=12x2 stick-touch-dpad-confirm redraw=2 GPU-baseline\n",r.frames,r.visible,movements);
+  printf("PASS menu-cursor frames=%u visible=%u axes=%u idle-seconds=12x2 stick-touch-dpad-confirm selection-B redraw=2 GPU-baseline\n",r.frames,r.visible,movements);
   result=0;
 done:
   if(result)fprintf(stderr,"menu-cursor FAIL frame%u: %s\n",r.frames,e);

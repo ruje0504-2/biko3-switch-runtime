@@ -192,6 +192,15 @@ static int step(void *p, double seconds, const BkInput *input, char e[256]) {
              .now_ms = (uint32_t)(uint64_t)(s->elapsed * 1000),
              .scale = s->viewport.width / 1280.f},
       .current_group = *s->game.group};
+  if ((input->pressed & BK_BUTTON_BACK) && !s->bindings.common->blocked &&
+      s->state->control.page <= 1) {
+    const float *q = s->state->control.page ? s->state->control.no
+                                           : s->state->control.back;
+    s->pointer.position[0] = q[0]+q[2]/2;
+    s->pointer.position[1] = q[1]+q[3]/2;
+    memset(s->pointer.motion,0,sizeof(s->pointer.motion));
+    in.ui.buttons = BK_PAUSE_CONFIRM;
+  }
   for (unsigned g = 0; g < 5; ++g)
     for (unsigned k = 0; k < 10; ++k)
       in.occupied[g][k] = s->records[g][k].occupied;

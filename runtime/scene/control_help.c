@@ -3,23 +3,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* These describe the Switch adapters, including menus without a B shortcut.
+/* These describe the Switch menu adapters and their context-specific shortcuts.
  * Touch positions the original cursor; only the volume page synthesizes clicks. */
 static const char *const pages[BK_HELP_COUNT] = {
   [BK_HELP_TITLE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
-  [BK_HELP_SELECTION] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n戻る項目で終了\n\n− FPS表示切替",
+  [BK_HELP_SELECTION] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 選択・操作\n+ 決定\nB 戻る\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
   [BK_HELP_DIALOGUE] = "A 次へ\n\n− FPS表示切替",
   [BK_HELP_GAME] = "左スティック\n十字キー：移動\n右スティック\n視点を動かす\n\nA 調べる・操作\nB 姿勢切替\nX カメラ切替\nY 撮影\nZL ゆっくり歩く\n+ 一時停止\n\n− FPS表示切替",
-  [BK_HELP_PAUSE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n再開の項目を\n選んで戻る\n\n− FPS表示切替",
+  [BK_HELP_PAUSE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 決定\nB ゲームに戻る\n確認中は取消\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
   [BK_HELP_CHOICE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
-  [BK_HELP_SAVE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA スロット決定\nA 確認\n\nタッチで移動\nA で決定\n\n戻る項目で取消\n\n− FPS表示切替",
+  [BK_HELP_SAVE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA スロット決定\nA 確認\n\nタッチで移動\nA で決定\n\nB 取消・戻る\n\n− FPS表示切替",
   [BK_HELP_GALLERY] = "左スティック\n十字キー\nカーソル移動\nA 選択・決定\nB 戻る\nZL ゆっくり移動\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
-  [BK_HELP_VOLUME] = "十字キー上下\n音量・項目選択\n十字キー左右\n音量を微調整\nA 決定\n\n左スティック\nカーソル移動\nA を押しながら\nスライダー操作\nZL ゆっくり移動\n\nタッチで選択\nスライダーは\n指で直接動かす\n\n調整後に保存\n\n− FPS表示切替",
+  [BK_HELP_VOLUME] = "十字キー上下\n音量・項目選択\n十字キー左右\n音量を微調整\nA 決定\n\n左スティック\nカーソル移動\nA を押しながら\nスライダー操作\nZL ゆっくり移動\n\nタッチで選択\nスライダーは\n指で直接動かす\n\nB 保存して戻る\n+ 初期設定に戻す\n\n− FPS表示切替",
   [BK_HELP_ENDING] = "左スティック\n十字キー\nカーソル移動\nA 決定・操作\nB 取消・戻る\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\nタッチで移動\nA で決定\nA を押しながら\n指で対象を動かす\n\n右端でメニュー\n\n− FPS表示切替",
   [BK_HELP_SPECIAL] = "左スティック\n十字キー\nカーソル移動\nA 決定・スキップ\nY 撮影\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\nタッチで移動\nA で決定\n\n右端でメニュー\nメニューから終了\n\n− FPS表示切替",
   [BK_HELP_LOADING] = "確認表示が出たら\nA で進む\n\n− FPS表示切替",
   [BK_HELP_FAILURE] = "確認表示が出たら\nA で進む\n\n− FPS表示切替",
-  [BK_HELP_ALBUM] = "左スティック\n十字キー\nカーソル移動\nA 選択・決定\nZL ゆっくり移動\n\nB 写真を閉じる\n削除の取消\nスライド停止\n\nタッチで移動\nA で決定\n\n終了の項目で戻る\n\n− FPS表示切替",
+  [BK_HELP_ALBUM] = "左スティック\n十字キー\nカーソル移動\nA 選択・決定\nZL ゆっくり移動\n\nB 写真を閉じる\n削除の取消\nスライド停止\n\nタッチで移動\nA で決定\n\n一覧で B 戻る\n\n− FPS表示切替",
   [BK_HELP_INSPECTION] = "右スティック\n視点を動かす\nB タイトルへ\nX 軌道切替\nY キャラ切替\n+ 終了\n\n− FPS表示切替"
 };
 

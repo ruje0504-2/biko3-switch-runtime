@@ -139,6 +139,15 @@ int bk_album_session_step(BkAlbumSession *s,double seconds,double wall,const BkI
   uint32_t now=(uint32_t)(uint64_t)(wall*1000),dt=now-s->last_ms;s->last_ms=now;
   BkAlbumInput input={(int32_t)s->pointer.position[0],(int32_t)s->pointer.position[1],dt>100?100:dt,
                        key(in,BK_BUTTON_CONFIRM),key(in,BK_BUTTON_BACK)};
+  if((in->pressed & BK_BUTTON_BACK) && s->c.menu->state==0 && !s->c.menu->erase) {
+    const float *q=s->c.menu->sprites[3].rect;
+    s->pointer.position[0]=q[0]+q[2]/2;
+    s->pointer.position[1]=q[1]+q[3]/2;
+    input.x=(int32_t)s->pointer.position[0];input.y=(int32_t)s->pointer.position[1];
+    input.confirm=3;input.back=0;
+  } else if(in->pressed & BK_BUTTON_BACK) {
+    input.confirm=0; /* Cancel wins over a simultaneous A/delete click. */
+  }
   BkAlbumFrame frame;bk_album_render_begin(s->render);
   return bk_album_menu_step(s->c.menu,&input,&s->ops,&frame,e) &&
       bk_album_render_prepare(s->render,&frame,s->c.viewport.width,s->c.viewport.height,e);

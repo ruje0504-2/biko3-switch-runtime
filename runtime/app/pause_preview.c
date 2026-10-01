@@ -20,6 +20,7 @@ typedef struct {
   BkAudio *audio;
   BkAudioSink sink;
   float pointer[2], motion[2];
+  BkVirtualPointer menu_pointer;
   uint32_t now_ms;
   double elapsed;
   int prepared, finished;
@@ -75,12 +76,17 @@ static int step(void *context, double seconds, const BkInput *input,
     snprintf(error, 256, "pause preview: invalid fixed step");
     return 0;
   }
-  if (input->pointer_active) {
-    p->pointer[0] = input->pointer_x - p->viewport.x;
-    p->pointer[1] = input->pointer_y - p->viewport.y;
-  }
-  p->motion[0] = input->pointer_motion_x;
-  p->motion[1] = input->pointer_motion_y;
+  BkInput pointer_input = *input;
+  pointer_input.held &= ~(BK_BUTTON_UP | BK_BUTTON_DOWN |
+                          BK_BUTTON_LEFT | BK_BUTTON_RIGHT);
+  memcpy(p->menu_pointer.position,p->pointer,sizeof(p->pointer));
+  if (!bk_virtual_pointer_step(&p->menu_pointer,&p->viewport,&pointer_input,
+                                seconds,error)) return 0;
+  memcpy(p->pointer,p->menu_pointer.position,sizeof(p->pointer));
+  memcpy(p->motion,p->menu_pointer.motion,sizeof(p->motion));
+  BkMenuCursor *cursor = p->bindings.cursor;
+  cursor->wanted=1;cursor->idle.armed=0;
+  cursor->sprite.fade.alpha=1;cursor->sprite.fade.stage=3;
   p->elapsed += seconds;
   p->now_ms = (uint32_t)(uint64_t)(p->elapsed * 1000);
   BkPauseInput in = {
@@ -93,6 +99,15 @@ static int step(void *context, double seconds, const BkInput *input,
       .seconds = (float)seconds,
       .scale = p->viewport.width / 1280.f,
       .special = 0};
+  if ((input->pressed & BK_BUTTON_BACK) && !p->bindings.common->blocked &&
+      p->state->action == 0) {
+    const float *q = p->state->sprites[p->state->page >= 2 ? 16 : 4].rect;
+    p->pointer[0]=q[0]+q[2]/2;p->pointer[1]=q[1]+q[3]/2;
+    /* Native pause hit tests use the preceding pointer sample. */
+    memcpy(p->state->cursor,p->pointer,sizeof(p->pointer));
+    memset(p->motion,0,sizeof(p->motion));
+    in.buttons=BK_PAUSE_CONFIRM;
+  }
   if (p->owns_audio && !bk_audio_poll(p->audio, error))
     return 0;
   BkPauseFrame snapshot;

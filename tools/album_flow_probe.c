@@ -91,15 +91,20 @@ int main(int argc,char **argv) {
   CHECK(click(r,1130,50,e) && photo_color(files,live.names[0],color,e) && pixel(r,a,640,360,color,e));
   CHECK(idle(r,130,e) && photo_color(files,live.names[1],color,e) && pixel(r,a,640,360,color,e));
   CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_BACK,.held=BK_BUTTON_BACK},e) && redraw(r,a,b,e) && idle(r,1,e));
-  CHECK(click(r,1104,908,e) && wait_flow(r,1,300,e) && idle(r,90,e));
+  CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_BACK},e) && wait_flow(r,1,300,e) && idle(r,90,e));
   CHECK(!memcmp(bk_play_session_state(r->scene)->hotkeys.photos,counts,sizeof(counts)));
   /* Reentry rebuilds the grid from the surviving files, not stale indices. */
   CHECK(open_album(r,e) && photo_color(files,live.names[0],color,e) && pixel(r,a,400,195,color,e));
   CHECK(tick(r,(BkInput){.move_x=.8f},e) && tick(r,(BkInput){.held=BK_BUTTON_DOWN|BK_BUTTON_SLOW},e));
   CHECK(redraw(r,a,b,e));
-  CHECK(click(r,1104,908,e) && wait_flow(r,1,300,e) && idle(r,90,e));
+  CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_BACK},e) && wait_flow(r,1,300,e) && idle(r,90,e));
+  /* The gallery root now also has B return, without entering locked items. */
+  for(unsigned i=0;i<180 && flow(r)==1;++i)CHECK(tick(r,point(1084,262,i%20==19),e));
+  CHECK(wait_flow(r,0x18,300,e) && idle(r,90,e));
+  CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_BACK},e));
+  CHECK(wait_flow(r,1,300,e) && idle(r,90,e));
   bk_scene_destroy(r->scene);r->scene=NULL;CHECK(bk_renderer_stats(r->r).live_allocations==baseline);
-  printf("PASS album-flow frames%u groups5 pages%u photos%u deletes1 slideshow2 reentries1 redraws%u PCM%016" PRIx64 " GPU_baseline\n",r->frames,pages,pictures,r->redraws,r->hash);result=0;
+  printf("PASS album-flow frames%u groups5 pages%u photos%u deletes1 slideshow2 reentries1 album-B gallery-B redraws%u PCM%016" PRIx64 " GPU_baseline\n",r->frames,pages,pictures,r->redraws,r->hash);result=0;
 done:
   if(result)fprintf(stderr,"FAILED album-flow frame%u flow%02x: %s\n",r->frames,r->scene?flow(r):0,e);
   bk_scene_destroy(r->scene);bk_audio_destroy(r->audio);bk_renderer_destroy(r->r);bk_resources_destroy(store);

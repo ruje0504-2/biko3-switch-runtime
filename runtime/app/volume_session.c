@@ -72,6 +72,16 @@ int bk_volume_session_step(BkVolumeSession *s,double seconds,const BkInput *in,c
   /* Native row5 is a hidden debug button. Keep its strict core behavior, but
    * prevent the Switch d-pad from placing focus on an invisible control. */
   if(s->menu.row==4) input.right=0;
+  if(!s->c.common->blocked &&
+     (in->pressed & (BK_BUTTON_BACK | BK_BUTTON_PAUSE))) {
+    unsigned row=(in->pressed & BK_BUTTON_BACK)?4:3;
+    const float *q=s->menu.rect[10+2*row];
+    s->pointer.position[0]=q[0]+q[2]/2;
+    s->pointer.position[1]=q[1]+q[3]/2;
+    memset(s->menu.dragging,0,sizeof(s->menu.dragging));
+    input=(BkVolumeMenuInput){.x=(int32_t)s->pointer.position[0],
+                             .y=(int32_t)s->pointer.position[1],.mouse=3};
+  }
   BkVolumeMenuFrame frame;BkVolumeMenuOps ops={s,play,stop,gain,playing,random_value,warp};
   int action;
   if(!bk_volume_menu_prepare(&s->menu,&frame,e) ||

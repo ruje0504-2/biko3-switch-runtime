@@ -1,0 +1,164 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "runtime/app/album_session.c": "0617e7a450190036fb7211e3258af374ca38cb26f80ffacef715a211dbb8f20a",
+    "runtime/app/front_end.c": "8a57b10318671134560b527a4c2a2dd972c720154f1b74d8310731602ee00f5e",
+    "runtime/app/pause_preview.c": "f66dc3f7c7f16505826ba57d4cdb6c78cf7fa0224f5791f3287c2f5397539bf6",
+    "runtime/app/save_preview.c": "d926ba68299633470bbde31eee42ccd7ce3ab7220db033a92a956689d7a37c84",
+    "runtime/app/volume_session.c": "ab4c77bdd0a9945e568f1aed7d3ba5cbd23cc6129969d52ee4bc898614c3adae",
+    "runtime/scene/control_help.c": "0f53faecf2a3f1009698c7936c824d0278eb3bf2489800387291cee682a3d811",
+    "runtime/ui/control_help_font.h": "625780e4821ecee73c2473d5357a6ac5650ea642be15f366f3dab8cebb3816af",
+    "tools/album_flow_probe.c": "e2194899d31c36c21514561db10ca3a9e5b717eb0a3ffe1ccb367b742d378d7f",
+    "tools/menu_cursor_probe.c": "6641287889d37927449463eecdc7450d5e0e463d33652bb35aa16ddd5b19c4b1",
+    "tools/save_menu_probe.c": "9b2a985255440ce2933a65ffd22e5821436dc3acc0ff6b8a1a9d209690bdd876",
+    "tools/volume_flow_probe.c": "e3783500ea693d1b0f99b604310c2ba9fb4d15a7cdab287052750ffdb158c5c6"
+  },
+  "scope": "Switch menu input adapters; original menu controllers unchanged",
+  "system": {
+    "cursor_always_visible": true,
+    "idle_seconds_tested": 12,
+    "left_stick": true,
+    "touch": true,
+    "zl_slow": true,
+    "dpad_no_continuous_pointer_motion": true,
+    "back": "resume game; cancel confirmation first",
+    "held_back_does_not_dismiss_two_levels": true,
+    "gpu_pixels_checked": true
+  },
+  "selection_plus": "activate start for current selected character",
+  "volume_plus": "reset three categories to MAX",
+  "volume_back": "save and return to title or SYSTEM",
+  "other_back": [
+    "selection to title",
+    "save/load confirmation cancel or list return",
+    "gallery picture close or root return",
+    "album photo/erase/slideshow cancel or grid return"
+  ],
+  "volume_flow_evidence": "build/validation/volume-flow-n1mce632/result.json",
+  "volume_flow_checks": [
+    {
+      "mode": "host",
+      "kind": "produce",
+      "result": "volume-flow PASS mode=produce frames=5874 redraws=5 volumes=-1500,-6000,-3000 PCM=11278080 nonzero=10793455 hash=3ce139d55b75e852",
+      "binary_sha256": "e21029184fc2ec37b4e122dcc1c21b1360ee3efded6332c48c9da1eaf83a1d73",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "host",
+      "kind": "reload",
+      "result": "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=294014 hash=3ad402aa6e5bda6e",
+      "binary_sha256": "e21029184fc2ec37b4e122dcc1c21b1360ee3efded6332c48c9da1eaf83a1d73",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "host",
+      "kind": "reject",
+      "result": "volume-flow PASS mode=reject frames=529 redraws=1 volumes=0,0,0 PCM=1013760 nonzero=997416 hash=3e134de37d3da578",
+      "binary_sha256": "e21029184fc2ec37b4e122dcc1c21b1360ee3efded6332c48c9da1eaf83a1d73"
+    },
+    {
+      "mode": "host",
+      "kind": "defaults",
+      "result": "volume-flow PASS mode=defaults frames=750 redraws=3 volumes=0,0,0 PCM=1440000 nonzero=1419941 hash=c4ea4d4d1d6f6220",
+      "binary_sha256": "e21029184fc2ec37b4e122dcc1c21b1360ee3efded6332c48c9da1eaf83a1d73",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    },
+    {
+      "mode": "host",
+      "kind": "reload-max",
+      "result": "volume-flow PASS mode=reload-max frames=180 redraws=0 volumes=0,0,0 PCM=345600 nonzero=345241 hash=8098ab92ab5e2932",
+      "binary_sha256": "e21029184fc2ec37b4e122dcc1c21b1360ee3efded6332c48c9da1eaf83a1d73",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    },
+    {
+      "mode": "asan",
+      "kind": "produce",
+      "result": "volume-flow PASS mode=produce frames=5874 redraws=5 volumes=-1500,-6000,-3000 PCM=11278080 nonzero=10793455 hash=3ce139d55b75e852",
+      "binary_sha256": "8dcf012663d19cc0c90abd5ce338bf0e8b718e11b6ff3e18f0c8de36e2ae30b7",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "asan",
+      "kind": "reload",
+      "result": "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=294014 hash=3ad402aa6e5bda6e",
+      "binary_sha256": "8dcf012663d19cc0c90abd5ce338bf0e8b718e11b6ff3e18f0c8de36e2ae30b7",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "asan",
+      "kind": "reject",
+      "result": "volume-flow PASS mode=reject frames=529 redraws=1 volumes=0,0,0 PCM=1013760 nonzero=997416 hash=3e134de37d3da578",
+      "binary_sha256": "8dcf012663d19cc0c90abd5ce338bf0e8b718e11b6ff3e18f0c8de36e2ae30b7"
+    },
+    {
+      "mode": "asan",
+      "kind": "defaults",
+      "result": "volume-flow PASS mode=defaults frames=750 redraws=3 volumes=0,0,0 PCM=1440000 nonzero=1419941 hash=c4ea4d4d1d6f6220",
+      "binary_sha256": "8dcf012663d19cc0c90abd5ce338bf0e8b718e11b6ff3e18f0c8de36e2ae30b7",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    },
+    {
+      "mode": "asan",
+      "kind": "reload-max",
+      "result": "volume-flow PASS mode=reload-max frames=180 redraws=0 volumes=0,0,0 PCM=345600 nonzero=345241 hash=8098ab92ab5e2932",
+      "binary_sha256": "8dcf012663d19cc0c90abd5ce338bf0e8b718e11b6ff3e18f0c8de36e2ae30b7",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    }
+  ],
+  "checks": [
+    {
+      "mode": "host",
+      "name": "cursor",
+      "result": "PASS menu-cursor frames=1927 visible=1927 axes=8 idle-seconds=12x2 stick-touch-dpad-confirm selection-B redraw=2 GPU-baseline",
+      "log": "build/validation/menu-shortcuts-current/host-cursor.log"
+    },
+    {
+      "mode": "asan",
+      "name": "cursor",
+      "result": "PASS menu-cursor frames=1927 visible=1927 axes=8 idle-seconds=12x2 stick-touch-dpad-confirm selection-B redraw=2 GPU-baseline",
+      "log": "build/validation/menu-shortcuts-current/asan-cursor.log"
+    },
+    {
+      "mode": "host",
+      "name": "save",
+      "result": "PASS save-menu saves=100 loads=50 empty=1 frames=1434 releases=57 pause-game-releases=25 B-list-and-confirm cursor-save-load-confirm=12s stick-slow-touch redraw-identical corrupt-rejected",
+      "log": "build/validation/menu-shortcuts-current/host-save.log"
+    },
+    {
+      "mode": "asan",
+      "name": "save",
+      "result": "PASS save-menu saves=100 loads=50 empty=1 frames=1434 releases=57 pause-game-releases=25 B-list-and-confirm cursor-save-load-confirm=12s stick-slow-touch redraw-identical corrupt-rejected",
+      "log": "build/validation/menu-shortcuts-current/asan-save.log"
+    },
+    {
+      "mode": "host",
+      "name": "album",
+      "result": "PASS album-flow frames1478 groups5 pages5 photos10 deletes1 slideshow2 reentries1 album-B gallery-B redraws12 PCMaa204ff4aa62565a GPU_baseline",
+      "log": "build/validation/menu-shortcuts-current/host-album.log"
+    },
+    {
+      "mode": "asan",
+      "name": "album",
+      "result": "PASS album-flow frames1478 groups5 pages5 photos10 deletes1 slideshow2 reentries1 album-B gallery-B redraws12 PCMaa204ff4aa62565a GPU_baseline",
+      "log": "build/validation/menu-shortcuts-current/asan-album.log"
+    }
+  ],
+  "help_pages": 15,
+  "visual_review_pages": [
+    "selection",
+    "SYSTEM",
+    "volume"
+  ],
+  "architecture_tests": 2,
+  "nro": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "d8f2801e282c638c2bc3dd8f4e2bf6b7c72d4043c7e1cf96fbb4edee810bbc00",
+    "undefined_symbols": 0,
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16314424
+  },
+  "switch_hardware_validation": false,
+  "full_port_complete": false,
+  "github_push": false
+}

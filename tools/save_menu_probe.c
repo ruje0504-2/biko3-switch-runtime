@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
           CHECK(n == 640 * 480 * 4 && !closed);
         }
       }
-    CHECK(tick(scene, renderer, audio, click(1100, 908), e));
+    CHECK(tick(scene, renderer, audio, (BkInput){.pressed=BK_BUTTON_BACK}, e));
     for (unsigned i = 0; i < 12 && flow.current == 0x28; ++i)
       CHECK(tick(scene, renderer, audio, (BkInput){0}, e));
     CHECK(flow.current == 0x50 && flow.target == 2 && flow.mode == 3);
@@ -199,6 +199,11 @@ int main(int argc, char **argv) {
       CHECK(state.control.tab == (int)g + 3);
       CHECK(tick(scene, renderer, audio, click(750, 250 + 54 * slot), e));
       CHECK(state.control.page == 1);
+      uint32_t old_group=group,old_area=area;
+      CHECK(tick(scene,renderer,audio,(BkInput){.pressed=BK_BUTTON_BACK|BK_BUTTON_CONFIRM},e));
+      CHECK(state.control.page==0 && group==old_group && area==old_area);
+      CHECK(tick(scene,renderer,audio,(BkInput){.held=BK_BUTTON_BACK},e) && flow.current==0x28);
+      CHECK(tick(scene,renderer,audio,click(750,250+54*slot),e) && state.control.page==1);
       CHECK(tick(scene, renderer, audio, click(496, 548), e));
       CHECK(group == g && area == (slot + 1) % 9);
       for (unsigned i = 0; i < 5; ++i)
@@ -218,7 +223,7 @@ int main(int argc, char **argv) {
     scene = bk_save_preview_create(&services, files, &state, &bindings, &game,
                                    &ops, 0, e);
     CHECK(scene);
-    CHECK(tick(scene, renderer, audio, click(1100, 908), e));
+    CHECK(tick(scene, renderer, audio, (BkInput){.pressed=BK_BUTTON_BACK}, e));
     for (unsigned i = 0; i < 12 && flow.current == 0x28; ++i)
       CHECK(tick(scene, renderer, audio, (BkInput){0}, e));
     CHECK(flow.current == 0x50 && flow.target == previous && flow.mode == 0);
@@ -248,7 +253,7 @@ int main(int argc, char **argv) {
                                  &ops, 0, e);
   CHECK(!scene);
   printf("PASS save-menu saves=%u loads=%u empty=%u frames=%u releases=%u "
-         "pause-game-releases=%u cursor-save-load-confirm=12s stick-slow-touch redraw-identical corrupt-rejected\n",
+         "pause-game-releases=%u B-list-and-confirm cursor-save-load-confirm=12s stick-slow-touch redraw-identical corrupt-rejected\n",
          saves, loads, empty, frames, events.release28, events.release2);
   result = 0;
 done:
