@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-02",
+  "filename": "biko3-runtime.nro",
+  "name": "biko3-runtime",
+  "author": "ILLUSION",
+  "version": "1.0.78",
+  "populated_language_entries_checked": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "tool_default_empty_entries": [
+    12,
+    13,
+    14,
+    15
+  ],
+  "nro_bytes": 16371372,
+  "nro_sha256": "6d32498be6a256b62acbaf72ae573237c20f52f6fbfd2d7f852242acc738c024",
+  "icon_source": "icon.jpg",
+  "source_icon_sha256": "83aa1993665456381a933dfbffd12b0c492af7325f4fc72f11ed0a5640d95b21",
+  "embedded_icon_sha256": "20abf966280409650ef0a4a9a0a743934b9bcad17a153720e39ae0c010a90568",
+  "embedded_icon_size": [
+    256,
+    256
+  ],
+  "embedded_icon_bytes": 28276,
+  "embedded_icon_progressive": false,
+  "undefined_symbols": 0,
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "verification": "NRO0/ASET sections and NACP name/author/version checked; all populated and supported language fields match. Embedded icon equals converted source and decodes. Packaging/version only; no new gameplay or hardware test."
+}

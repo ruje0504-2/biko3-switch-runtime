@@ -1,3 +1,5 @@
+2026-10-02 按用户指定重新打包NRO：文件/名称biko3-runtime，NACP作者ILLUSION、版本1.0.78；icon.jpg原图650×650保持原样，打包生成256×256 baseline JPEG。CMake的Switch输出/校验/package_sd路径同步，主机目标仍biko3-preview；Pillow转换器依赖已接，当前Switch Python为local/venv。实际NRO0/ASET回读确认图标字节、NACP所有已填/支持语言及版本，NVK构建/nm0通过；NRO 6d32498b…/16371372，交付/biko3-runtime.nro及既有汉化外挂目录已更新，后者旧NRO移除、校验/说明更新、Mac垃圾清理。见reports/nro-1.0.78-verification.json。此轮仅打包/版本元数据，不重新审核剧情；本地提交、不推送、不整包，防休眠9101保持，实机结果仍缺。
+
 2026-10-01 用户要求汉化与去码合并外挂，已完成 game/patch.pp＋配套NVK NRO增量，见 reports/combined-patch.md / verification JSON。原汉化80图/27文本/2合并字库，3DH的341资源操作归入94资源，21 EXE写入对应原生停用视频纹理；共203项79134055字节、SHA9ffca626…，原Data只读。203项实际C读取摘要、57模型/117图片/2字库、2059文字码无缺字；普通/ASan各80 GPU生命周期与30绘制帧、1100帧标题→选人→汉化开场同图、15中/15日说明、store单测及架构2通过。NRO aa2f9d1e…/16343096、nm0，继承关闭Switch日志，已复制交付/汉化与去码外挂-20261001，无新实机、不整包、不推送。用户另要标题原图，已从op_00.bmp提取1280×960 BMP及同像素PNG至交付/icon素材，未裁缩。此前一次GitHub到fd0f24f，本轮本地提交；防休眠9101保持，不扩大剧情审核。
 
 2026-10-01 用户要求停止继续功能排查并关闭Switch日志。platform/switch已删除nvk.log创建/轮换/关闭文件逻辑，诊断流保留stderr，错误页仍显示原因和B返回且不再提示日志路径；既有日志未动。指定NVK构建/nm0通过，NRO f357cba1…/16318520仅构建目录。用户新要求研究原汉化与去码补丁，能外挂则合并到交付，原素材只读；一次GitHub已在fd0f24f完成，本轮不自动推送，不整包。防休眠9101保持。

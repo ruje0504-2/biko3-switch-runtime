@@ -1,6 +1,6 @@
 # 尾行3 / Biko3 — Switch 原生移植工程
 
-**当前为开发版 0.3.5，主要游戏功能已接入，可选汉化与去码外挂。** 使用 Nintendo Switch 原生输入、音频和 Vulkan NVK 渲染，画面保持 4:3，在 1280×720 输出中居中显示为 960×720。
+**当前为版本 1.0.78，主要游戏功能已接入，可选汉化与去码外挂。** 使用 Nintendo Switch 原生输入、音频和 Vulkan NVK 渲染，画面保持 4:3，在 1280×720 输出中居中显示为 960×720。
 
 已接通原标题、五人选择、开场剧情、游戏跟踪、失败与重试、暂停与返回标题；结局、特殊场景、鉴赏回放、音量设置和相册均有实际应用入口。游戏支持动态角色、跟随镜头、碰撞、雨雪、HUD 与拍照，存读档、下一段剧情交接、动作记录、解锁、照片和音量配置也已接入。
 
@@ -17,10 +17,10 @@
 
 以上调用量变化不是总 CPU 用量或实机 FPS 的降幅。Switch 矩阵与 CPU 蒙皮也已使用 NEON intrinsics 和少量内联汇编预取，并完成 ARM64 原版数值对照；具体范围见 [NEON 验证](reports/neon-skinning.md)。最新 Switch 性能收益尚未测量。
 
-当前本地构建为 `build-switch/biko3-preview.nro`，16,343,096 字节，ELF 未解析符号为 0；SHA256：
+NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.78`，使用本地 `icon.jpg` 生成的图标。当前本地构建为 `build-switch/biko3-runtime.nro`，16,371,372 字节，ELF 未解析符号为 0；SHA256：
 
 ```text
-aa2f9d1ea034719bd8d796efcc38d6b963f7659bb28a804dc9f182266f8209bb
+6d32498be6a256b62acbaf72ae573237c20f52f6fbfd2d7f852242acc738c024
 ```
 
 本次增量位于 `交付/汉化与去码外挂-20261001`，包含新版 NRO 和外挂。旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。更新已有安装时可单独替换 NRO；只有所需数据文件发生变化时才需要补充素材。
@@ -39,12 +39,15 @@ aa2f9d1ea034719bd8d796efcc38d6b963f7659bb28a804dc9f182266f8209bb
 
 ## 构建
 
-需要 CMake 3.24+、现有 devkitPro/devkitA64、libnx、Switch expat/zstd/zlib、Python 3.12+、glslangValidator。版本和下载摘要统一在 `config/dependencies.lock.json`；依赖放在本项目 `local/`，不会替换系统的旧 Mesa。
+需要 CMake 3.24+、现有 devkitPro/devkitA64、libnx、Switch expat/zstd/zlib、Python 3.12+（带 Pillow）以及 glslangValidator。版本和下载摘要统一在 `config/dependencies.lock.json`；依赖放在本项目 `local/`，不会替换系统的旧 Mesa。
 
 ```sh
 python3 tools/fetch_sdk.py
+# 将自己的正方形图标放在 icon.jpg，构建时自动转换为 256×256 JPEG。
 ./build-switch.sh
 ```
+
+图标素材保留在本地，不随源码分发；可用 CMake 的 `BK_NRO_ICON` 指定其他源文件。图标转换使用 CMake 选中的 Python/Pillow；本机为 `local/venv/bin/python`，更换环境可用 `-DPython3_EXECUTABLE=/path/to/python` 指定。
 
 官方 CI SDK 的静态库没有带齐 Rust 标准库。构建使用与 SDK 完全一致的 `nightly-2026-09-23` AArch64 标准库；下载包校验 SHA-256。GitHub Actions 附件有保留期限，建议保留已验证的 `local/mesa-sdk.zip` 与 `local/rust-std.tar.xz`。附件过期时脚本明确失败，不会静默升级依赖。
 
@@ -65,7 +68,7 @@ python3 tools/bk3_assets.py local/game/MAINDIR/Data --json local/resource-index.
 
 ## 汉化与去码外挂
 
-将本次增量交付中的 `switch` 文件夹合并到 SD 卡根目录，同时更新 NRO 和 `switch/biko3/game/patch.pp`。保留已有 `game/Data`，无需重新复制完整游戏。外挂为 79,134,055 字节，启用汉化界面、剧情、字库、中文按键说明及原去码补丁；退出后移除 `patch.pp`，下次启动恢复日文与原版效果。旧 NRO 不支持此文件。
+将本次增量交付中的 `switch` 文件夹合并到 SD 卡根目录，同时更新 NRO 和 `switch/biko3/game/patch.pp`；安装新文件名后移除 SD 卡同目录中旧的 `biko3-preview.nro`。保留已有 `game/Data`，无需重新复制完整游戏。外挂为 79,134,055 字节，启用汉化界面、剧情、字库、中文按键说明及原去码补丁；退出后移除 `patch.pp`，下次启动恢复日文与原版效果。旧 NRO 不支持此文件。
 
 从自有原补丁重新生成：
 
@@ -83,7 +86,7 @@ python3 tools/prepare_combined_patch.py \
 python3 tools/package_sd.py local/game/MAINDIR
 ```
 
-以**完整内存的应用模式**打开新构建的 `switch/biko3/biko3-preview.nro`。默认进入原版标题，Switch 版不再创建、写入或轮换 `.log` 文件；发生错误时仍在屏幕显示原因，可按 B 返回。照片和临时暂停截图写入 `sdmc:/switch/biko3` 下的独立输出目录。
+以**完整内存的应用模式**打开新构建的 `switch/biko3/biko3-runtime.nro`。默认进入原版标题，Switch 版不再创建、写入或轮换 `.log` 文件；发生错误时仍在屏幕显示原因，可按 B 返回。照片和临时暂停截图写入 `sdmc:/switch/biko3` 下的独立输出目录。
 
 | 操作 | 当前作用 |
 | --- | --- |

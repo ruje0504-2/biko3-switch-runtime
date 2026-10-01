@@ -1,6 +1,6 @@
 # 当前路线与收尾状态
 
-更新：2026-10-01。当前使用指定 Mesa NVK，保留日文基础数据并支持汉化与去码外挂。主要游戏功能已经接入生产应用；当前工作是修复实际问题和确认最新 Switch 构建，不能再沿用早期“M2/M3/M4未开始”的状态。
+更新：2026-10-02。当前使用指定 Mesa NVK，保留日文基础数据并支持汉化与去码外挂。主要游戏功能已经接入生产应用；当前工作是修复实际问题和确认最新 Switch 构建，不能再沿用早期“M2/M3/M4未开始”的状态。
 
 | 阶段 | 当前实现 | 主要证据与范围 |
 | --- | --- | --- |
@@ -15,7 +15,7 @@
 
 ## 当前构建
 
-`build-switch/biko3-preview.nro`，版本字段0.3.5，16,343,096字节；SHA256 `aa2f9d1ea034719bd8d796efcc38d6b963f7659bb28a804dc9f182266f8209bb`，ELF未解析符号0。
+`build-switch/biko3-runtime.nro`，版本字段1.0.78，16,371,372字节；SHA256 `6d32498be6a256b62acbaf72ae573237c20f52f6fbfd2d7f852242acc738c024`，ELF未解析符号0。名称/作者为 `biko3-runtime` / `ILLUSION`，图标来自本地 `icon.jpg`，成品内嵌字段见[打包核对](../reports/nro-1.0.78-verification.json)。
 
 包含可选汉化/去码外挂、关闭 Switch 日志生成，以及[渲染绑定缓存](../reports/vulkan-bindings.md)、[藏身退出修复](../reports/hiding-exit.md)和[NPC无效遮挡检查优化](../reports/npc-occlusion-performance.md)。计数下降只代表相应测试路径的工作量减少，不能当作实机FPS提升。
 

@@ -593,14 +593,26 @@ if(BK_WITH_VULKAN)
   add_executable(biko3-preview runtime/app/main.c)
   target_link_libraries(biko3-preview PRIVATE bk_app)
   if(BK_SWITCH)
-    set_target_properties(biko3-preview PROPERTIES SUFFIX ".elf")
-    target_link_options(biko3-preview PRIVATE "-Wl,-Map,${CMAKE_BINARY_DIR}/biko3-preview.map")
+    set(BK_NRO_ICON "${CMAKE_SOURCE_DIR}/icon.jpg" CACHE FILEPATH "Local artwork for the Switch icon")
+    set(BK_PACKED_ICON "${CMAKE_BINARY_DIR}/generated/icon.jpg")
+    add_custom_command(OUTPUT "${BK_PACKED_ICON}"
+      COMMAND "${Python3_EXECUTABLE}" "${CMAKE_SOURCE_DIR}/tools/prepare_nro_icon.py"
+              "${BK_NRO_ICON}" "${BK_PACKED_ICON}"
+      DEPENDS "${BK_NRO_ICON}" "${CMAKE_SOURCE_DIR}/tools/prepare_nro_icon.py"
+      VERBATIM)
+    add_custom_target(biko3-nro-icon DEPENDS "${BK_PACKED_ICON}")
+    add_dependencies(biko3-preview biko3-nro-icon)
+    set_target_properties(biko3-preview PROPERTIES OUTPUT_NAME "biko3-runtime" SUFFIX ".elf"
+                          LINK_DEPENDS "${BK_PACKED_ICON}")
+    target_link_options(biko3-preview PRIVATE "-Wl,-Map,${CMAKE_BINARY_DIR}/biko3-runtime.map")
     add_custom_command(TARGET biko3-preview POST_BUILD
-      COMMAND "${DEVKITPRO}/tools/bin/nacptool" --create "Biko3 NVK - Development" "Biko3 port project"
-              "${BK_VERSION}" "${CMAKE_BINARY_DIR}/biko3-preview.nacp"
+      COMMAND "${DEVKITPRO}/tools/bin/nacptool" --create "biko3-runtime" "ILLUSION"
+              "${BK_VERSION}" "${CMAKE_BINARY_DIR}/biko3-runtime.nacp"
       COMMAND "${DEVKITPRO}/tools/bin/elf2nro" "$<TARGET_FILE:biko3-preview>"
-              "${CMAKE_BINARY_DIR}/biko3-preview.nro" "--nacp=${CMAKE_BINARY_DIR}/biko3-preview.nacp"
+              "${CMAKE_BINARY_DIR}/biko3-runtime.nro" "--nacp=${CMAKE_BINARY_DIR}/biko3-runtime.nacp"
+              "--icon=${BK_PACKED_ICON}"
       COMMAND "${CMAKE_COMMAND}" "-DNM=${CMAKE_NM}" "-DELF=$<TARGET_FILE:biko3-preview>"
+              "-DNRO=${CMAKE_BINARY_DIR}/biko3-runtime.nro"
               "-DOUTPUT=${CMAKE_BINARY_DIR}" "-DVERSION=${BK_VERSION}" "-DMESA_COMMIT=${BK_MESA_COMMIT}"
               -P "${CMAKE_SOURCE_DIR}/cmake/verify-switch.cmake"
       VERBATIM)

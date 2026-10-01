@@ -37,7 +37,7 @@ def main():
     target=args.output.resolve()/'switch/biko3'
     if target.is_relative_to(game) or game.is_relative_to(target):
         raise ValueError('Output must be separate from original game data')
-    nro=ROOT/'build-switch/biko3-preview.nro'
+    nro=ROOT/'build-switch/biko3-runtime.nro'
     if not nro.is_file():
         raise ValueError('Run build-switch.sh first')
     packs = ['bk3_00', 'bk3_01', 'bk3_02', 'bk3_03', 'bk3_04',
@@ -85,7 +85,7 @@ def main():
               'pending':['ending unlock persistence', 'gallery', 'other mission destinations',
                          'full media', 'settings', 'new front-end hardware validation'],
               'mesa_commit':build_info['mesa_commit'],'files':[]}
-    manifest['files'].append({'path':'biko3-preview.nro','sha256':copy_verified(nro,target/'biko3-preview.nro',replace=True),'size':nro.stat().st_size})
+    manifest['files'].append({'path':nro.name,'sha256':copy_verified(nro,target/nro.name,replace=True),'size':nro.stat().st_size})
     for path in paths:
         items=[path]
         if not args.complete_data and path.suffix.lower() == '.pp' and path.with_suffix('.tbl').exists():
