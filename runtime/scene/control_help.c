@@ -6,13 +6,13 @@
 /* These describe the Switch adapters, including menus without a B shortcut.
  * Touch positions the original cursor; only the volume page synthesizes clicks. */
 static const char *const pages[BK_HELP_COUNT] = {
-  [BK_HELP_TITLE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定",
-  [BK_HELP_SELECTION] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n戻る項目で終了",
+  [BK_HELP_TITLE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定",
+  [BK_HELP_SELECTION] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n戻る項目で終了",
   [BK_HELP_DIALOGUE] = "A 次へ",
   [BK_HELP_GAME] = "左スティック\n十字キー：移動\n右スティック\n視点を動かす\n\nA 調べる・操作\nB 姿勢切替\nX カメラ切替\nY 撮影\nZL ゆっくり歩く\n+ 一時停止",
   [BK_HELP_PAUSE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n再開の項目を\n選んで戻る",
   [BK_HELP_CHOICE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定",
-  [BK_HELP_SAVE] = "十字キー 選択\nA スロット決定\nA 確認\n\nタッチで移動\nA で決定\n\n戻る項目で取消",
+  [BK_HELP_SAVE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA スロット決定\nA 確認\n\nタッチで移動\nA で決定\n\n戻る項目で取消",
   [BK_HELP_GALLERY] = "左スティック\n十字キー\nカーソル移動\nA 選択・決定\nB 戻る\nZL ゆっくり移動\n\nタッチで移動\nA で決定",
   [BK_HELP_VOLUME] = "十字キー上下\n音量・項目選択\n十字キー左右\n音量を微調整\nA 決定\n\n左スティック\nカーソル移動\nA を押しながら\nスライダー操作\nZL ゆっくり移動\n\nタッチで選択\nスライダーは\n指で直接動かす\n\n調整後に保存",
   [BK_HELP_ENDING] = "左スティック\n十字キー\nカーソル移動\nA 決定・操作\nB 取消・戻る\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\nタッチで移動\nA で決定\nA を押しながら\n指で対象を動かす\n\n右端でメニュー",

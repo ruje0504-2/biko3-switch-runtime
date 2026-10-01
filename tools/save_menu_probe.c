@@ -65,6 +65,25 @@ static BkInput click(float x, float y) {
                    .pointer_y = y * .5f,
                    .pressed = BK_BUTTON_CONFIRM};
 }
+static int persistent_pointer(BkScene *scene, BkRenderer *r, BkAudio *audio,
+                              BkSavePreviewState *state, BkMenuCursor *cursor,
+                              char e[256]) {
+  cursor->wanted = 0;
+  cursor->sprite.fade.alpha = 0;
+  cursor->sprite.fade.stage = 0;
+  for (unsigned i = 0; i < 48; ++i)
+    if (!tick(scene, r, audio, (BkInput){0}, e) ||
+        cursor->sprite.fade.alpha != 1 || !cursor->wanted) return 0;
+  if (!tick(scene, r, audio, (BkInput){.pointer_active = 1,
+              .pointer_x = 300, .pointer_y = 200}, e) ||
+      !tick(scene, r, audio, (BkInput){.move_x = 1}, e) ||
+      state->control.cursor[0] != 380 || state->control.cursor[1] != 200 ||
+      !tick(scene, r, audio, (BkInput){.move_y = 1, .held = BK_BUTTON_SLOW}, e) ||
+      state->control.cursor[0] != 380 || state->control.cursor[1] != 180 ||
+      !tick(scene, r, audio, (BkInput){.move_x = -1, .move_y = -1}, e) ||
+      state->control.cursor[0] >= 380 || state->control.cursor[1] <= 180) return 0;
+  return 1;
+}
 int main(int argc, char **argv) {
   if (argc != 3) {
     fprintf(stderr, "save-menu-probe DATA OUTPUT.rgba\n");
@@ -114,6 +133,7 @@ int main(int argc, char **argv) {
     scene = bk_save_preview_create(&services, files, &state, &bindings, &game,
                                    &ops, 0, e);
     CHECK(scene);
+    if (g == 0) CHECK(persistent_pointer(scene, renderer, audio, &state, &cursor, e));
     for (unsigned i = 0; i < 8; ++i)
       CHECK(tick(scene, renderer, audio, (BkInput){0}, e));
     for (unsigned pass = 0; pass < 2; ++pass)
@@ -125,6 +145,11 @@ int main(int argc, char **argv) {
           tail[i] = (uint8_t)(0x90 + g + slot + i + pass);
         CHECK(tick(scene, renderer, audio, click(750, 250 + 54 * slot), e));
         CHECK(state.control.page == 1 && state.control.hover == (int)slot + 21);
+        if (g == 0 && pass == 0 && slot == 0)
+          for (unsigned i = 0; i < 48; ++i) {
+            CHECK(tick(scene, renderer, audio, (BkInput){0}, e));
+            CHECK(cursor.sprite.fade.alpha == 1 && cursor.wanted);
+          }
         CHECK(tick(scene, renderer, audio, click(496, 548), e));
         CHECK(state.control.page == 0);
         BkCheckpointBank bank;
@@ -169,6 +194,7 @@ int main(int argc, char **argv) {
       scene = bk_save_preview_create(&services, files, &state, &bindings, &game,
                                      &ops, 0, e);
       CHECK(scene);
+      if (g == 0 && slot == 0) CHECK(persistent_pointer(scene, renderer, audio, &state, &cursor, e));
       CHECK(tick(scene, renderer, audio, click(514 + 168 * g, 170), e));
       CHECK(state.control.tab == (int)g + 3);
       CHECK(tick(scene, renderer, audio, click(750, 250 + 54 * slot), e));
@@ -222,7 +248,7 @@ int main(int argc, char **argv) {
                                  &ops, 0, e);
   CHECK(!scene);
   printf("PASS save-menu saves=%u loads=%u empty=%u frames=%u releases=%u "
-         "pause-game-releases=%u redraw-identical corrupt-rejected\n",
+         "pause-game-releases=%u cursor-save-load-confirm=12s stick-slow-touch redraw-identical corrupt-rejected\n",
          saves, loads, empty, frames, events.release28, events.release2);
   result = 0;
 done:

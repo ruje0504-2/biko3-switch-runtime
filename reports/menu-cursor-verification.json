@@ -1,0 +1,219 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "CMakeLists.txt": "61d396e438f634789b3fb3fd95744ca8fa7c88d1ea14e8d73d064253c72e1ed9",
+    "runtime/app/front_end.c": "247fbd4e3ba0512a8943f26f3e6cf40defc638510eb0e6d298dc820c43f7a6bd",
+    "runtime/app/save_preview.c": "8105e81638ac23e32d9e53cb4cde9609338f3fb5ba777484881786114c47b7d4",
+    "runtime/scene/control_help.c": "b9469866d874125fb27ba0fcc0875f158a2d8417745c22812570622de754322d",
+    "runtime/ui/control_help_font.h": "7f04812393f1a1dad4f96f16f5796ec67015a2666dbd5006ba3d84fd3e0023c8",
+    "tools/menu_cursor_probe.c": "29378d67c9ef24f75dd3bf88d4bf336ee2abf20a36ead58e463e09d02fef642c",
+    "tools/save_menu_probe.c": "b511c68149574921cdd86f2f9906a1626a5cff13f8d6061f95875c136b5820c4",
+    "tools/control_help_probe.c": "4d2f92810ac798782b32648c151542f29c60b0be1efec4789346a20cb864378f"
+  },
+  "checks": [
+    {
+      "mode": "host",
+      "kind": "menu",
+      "summary": "PASS menu-cursor frames=1927 visible=1927 axes=8 idle-seconds=12x2 stick-touch-dpad-confirm redraw=2 GPU-baseline",
+      "log": "build/validation/menu-cursor-74dxjimx/menu-host.log"
+    },
+    {
+      "mode": "host",
+      "kind": "save",
+      "summary": "PASS save-menu saves=100 loads=50 empty=1 frames=1431 releases=57 pause-game-releases=25 cursor-save-load-confirm=12s stick-slow-touch redraw-identical corrupt-rejected",
+      "log": "build/validation/menu-cursor-74dxjimx/save-host.log"
+    },
+    {
+      "mode": "host",
+      "kind": "help",
+      "summary": "PASS control-help pages14 redraws14 center/right unchanged; no uploads/allocations; viewport restored; 4:3 hidden; GPU baseline",
+      "log": "build/validation/menu-cursor-74dxjimx/help-host.log"
+    },
+    {
+      "mode": "asan",
+      "kind": "menu",
+      "summary": "PASS menu-cursor frames=1927 visible=1927 axes=8 idle-seconds=12x2 stick-touch-dpad-confirm redraw=2 GPU-baseline",
+      "log": "build/validation/menu-cursor-74dxjimx/menu-asan.log"
+    },
+    {
+      "mode": "asan",
+      "kind": "save",
+      "summary": "PASS save-menu saves=100 loads=50 empty=1 frames=1431 releases=57 pause-game-releases=25 cursor-save-load-confirm=12s stick-slow-touch redraw-identical corrupt-rejected",
+      "log": "build/validation/menu-cursor-74dxjimx/save-asan.log"
+    },
+    {
+      "mode": "asan",
+      "kind": "help",
+      "summary": "PASS control-help pages14 redraws14 center/right unchanged; no uploads/allocations; viewport restored; 4:3 hidden; GPU baseline",
+      "log": "build/validation/menu-cursor-74dxjimx/help-asan.log"
+    }
+  ],
+  "pages": [
+    {
+      "page": "page-01.rgba",
+      "sha256": "d16c0947f212ce600efd6367cba7a3c41628860928d36aa1c8acb0f3605e9ff4",
+      "pixel_bounds": [
+        21,
+        262,
+        139,
+        459
+      ]
+    },
+    {
+      "page": "page-02.rgba",
+      "sha256": "ff9020142f0b10b5414c4c698509473e25b079d37b0b1fabf66fd7a14d25b201",
+      "pixel_bounds": [
+        21,
+        236,
+        139,
+        485
+      ]
+    },
+    {
+      "page": "page-03.rgba",
+      "sha256": "febc535797e7296d7c5e2a665656aa6db5275f0e1e088aed8d217c73875a688c",
+      "pixel_bounds": [
+        58,
+        353,
+        103,
+        368
+      ]
+    },
+    {
+      "page": "page-04.rgba",
+      "sha256": "2f8ace1c602971529432290eeae084108f428fe4f569b5653e151d5884363fab",
+      "pixel_bounds": [
+        21,
+        223,
+        136,
+        498
+      ]
+    },
+    {
+      "page": "page-05.rgba",
+      "sha256": "c41a331491b587836d2211fd4b8a1a4456d143e2d2bdada820182576b6c6c63e",
+      "pixel_bounds": [
+        31,
+        262,
+        130,
+        459
+      ]
+    },
+    {
+      "page": "page-06.rgba",
+      "sha256": "5778b5d8c5e4619dafdf9d4d8cb52cb306fe405ef7b5d8ef86d34309ca5b239e",
+      "pixel_bounds": [
+        31,
+        301,
+        130,
+        420
+      ]
+    },
+    {
+      "page": "page-07.rgba",
+      "sha256": "928e0d2803d0727b683d8722c7dc557f77b148edf9e13058114c69f4d721fc48",
+      "pixel_bounds": [
+        21,
+        223,
+        139,
+        499
+      ]
+    },
+    {
+      "page": "page-08.rgba",
+      "sha256": "ef1642efed2e98cb2a666a23e0e9ead80e6fd721d09d51cb04e94285dff8bae8",
+      "pixel_bounds": [
+        21,
+        249,
+        139,
+        472
+      ]
+    },
+    {
+      "page": "page-09.rgba",
+      "sha256": "66f44318cde40cd71b088955b7e19e0303f413072ee5b35a92667d6cb0ffed6b",
+      "pixel_bounds": [
+        21,
+        145,
+        139,
+        576
+      ]
+    },
+    {
+      "page": "page-10.rgba",
+      "sha256": "bcb9d854f06049feeba362ce9de32349a3182c4958ad0c4b4c248be1b5664cf7",
+      "pixel_bounds": [
+        17,
+        132,
+        143,
+        589
+      ]
+    },
+    {
+      "page": "page-11.rgba",
+      "sha256": "06faef0cb282b4f3b1b3db730684bb87ee3a4e38c5b3a55855302be19421a3b6",
+      "pixel_bounds": [
+        18,
+        145,
+        143,
+        576
+      ]
+    },
+    {
+      "page": "page-12.rgba",
+      "sha256": "dee3ac2f918227571f887dd45f11a8f9d0d1595a5deb1da51029f0333699dc63",
+      "pixel_bounds": [
+        17,
+        340,
+        142,
+        381
+      ]
+    },
+    {
+      "page": "page-13.rgba",
+      "sha256": "dee3ac2f918227571f887dd45f11a8f9d0d1595a5deb1da51029f0333699dc63",
+      "pixel_bounds": [
+        17,
+        340,
+        142,
+        381
+      ]
+    },
+    {
+      "page": "page-14.rgba",
+      "sha256": "bb9a79b862c234a6714662ebedf23f13e1cf1e9a1a4b9007e4c998f4e15fcaa1",
+      "pixel_bounds": [
+        33,
+        288,
+        128,
+        433
+      ]
+    }
+  ],
+  "menu_screenshots_identical": true,
+  "scope": "Actual front-end title/selection and save-preview adapters; original UI/rendering and real assets. Loader boundary is supplied by menu probe; not full story or Switch hardware acceptance.",
+  "persistent_cursor_flows": [
+    "1 title",
+    "38 selection",
+    "28 save/load"
+  ],
+  "input_policy": "Left stick free pointer; ZL quarter speed; d-pad original item/slot navigation; touch positions pointer, A confirms. No new B shortcut.",
+  "help_style": "Japanese, centered in left pillarbox, gold, instructions only, no titles or speed multiplier",
+  "first_attempt": "menu-host-first.log/menu-asan-first.log: test redraw incorrectly invoked after_present twice. Corrected probe only; reran title/selection; production unchanged.",
+  "build_logs": [
+    "local/menu-flow-next/menu-cursor-build.log",
+    "local/menu-flow-next/menu-cursor-build-asan.log"
+  ],
+  "architecture_tests": 2,
+  "architecture_log": "build/validation/menu-cursor-74dxjimx/architecture.log",
+  "leak_detection": false,
+  "switch_hardware_validation": false,
+  "nro": {
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16289848,
+    "sha256": "0145427ba43f6e8bf9ecc86ae7b6556a4de7ba38b21fb23c7b1d15317228c1a9",
+    "elf_sha256": "49e42dd0d56e2a776bedb26492635969ca1783c28648f89941a9323c00770750",
+    "undefined_symbols": 0,
+    "build_log": "build/validation/menu-cursor-74dxjimx/nvk-build.log"
+  }
+}

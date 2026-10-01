@@ -17,7 +17,7 @@ struct BkFrontEnd {
   BkDialogueResult result;
   BkGalleryMenu gallery;
   BkGalleryMenuSelection gallery_result;
-  BkVirtualPointer gallery_pointer;
+  BkVirtualPointer menu_pointer;
   int gallery_result_valid, music_playing;
   uint8_t backdrop_wanted;
   BkUnlockTable unlocked;
@@ -385,25 +385,38 @@ int bk_front_end_step(BkFrontEnd *s, double seconds, double wall,
     return fail(e, "invalid frame input");
   if (s->active == 0x30)
     return bk_volume_session_step(s->volume_session,seconds,in,e);
-  if (s->active == 0x18) {
-    memcpy(s->gallery_pointer.position, s->pointer, sizeof(s->pointer));
-    if (!bk_virtual_pointer_step(&s->gallery_pointer, &s->c.viewport, in,
-                                  seconds, e))
+  int persistent_cursor = s->active == 1 || s->active == 0x38;
+  if (persistent_cursor || s->active == 0x18) {
+    BkInput pointer_input = *in;
+    /* These menus already use d-pad edges to navigate and warp to items. */
+    if (persistent_cursor)
+      pointer_input.held &= ~(BK_BUTTON_UP | BK_BUTTON_DOWN |
+                              BK_BUTTON_LEFT | BK_BUTTON_RIGHT);
+    memcpy(s->menu_pointer.position, s->pointer, sizeof(s->pointer));
+    if (!bk_virtual_pointer_step(&s->menu_pointer, &s->c.viewport,
+                                  &pointer_input, seconds, e))
       return 0;
-    memcpy(s->pointer, s->gallery_pointer.position, sizeof(s->pointer));
-    /*The gallery polls position only. Wake the shared cursor when the
-     *Switch stick/d-pad or touch moves it after a title idle timeout.*/
-    if (s->gallery_pointer.motion[0] != 0 || s->gallery_pointer.motion[1] != 0 ||
-        in->pointer_active) {
+    memcpy(s->pointer, s->menu_pointer.position, sizeof(s->pointer));
+    memcpy(s->motion, s->menu_pointer.motion, sizeof(s->motion));
+    if (persistent_cursor) {
+      /* Switch menu policy: show immediately, including after another flow
+       * left the shared cursor hidden. Keep the original UI core unchanged. */
+      s->c.cursor->wanted = 1;
+      s->c.cursor->idle.armed = 0;
+      s->c.cursor->sprite.fade.alpha = 1;
+      s->c.cursor->sprite.fade.stage = 3;
+    } else if (s->motion[0] != 0 || s->motion[1] != 0 || in->pointer_active) {
       s->c.cursor->wanted = 1;
       s->c.cursor->idle.armed = 0;
     }
-  } else if (in->pointer_active) {
-    s->pointer[0] = in->pointer_x - s->c.viewport.x;
-    s->pointer[1] = in->pointer_y - s->c.viewport.y;
+  } else {
+    if (in->pointer_active) {
+      s->pointer[0] = in->pointer_x - s->c.viewport.x;
+      s->pointer[1] = in->pointer_y - s->c.viewport.y;
+    }
+    s->motion[0] = in->pointer_motion_x;
+    s->motion[1] = in->pointer_motion_y;
   }
-  s->motion[0] = in->pointer_motion_x;
-  s->motion[1] = in->pointer_motion_y;
   uint32_t now = (uint32_t)(uint64_t)(wall * 1000);
   float dt = (float)seconds, scale = s->c.viewport.width / 1280.f;
   if (s->active == 1) {

@@ -21,7 +21,7 @@ typedef struct {
   size_t lengths[5];
   BkSystemAudio *sounds[6];
   BkViewport viewport;
-  float point[2], motion[2];
+  BkVirtualPointer pointer;
   double elapsed;
   unsigned mode, text_group;
   int prepared, retired;
@@ -95,20 +95,20 @@ static int store(void *p, unsigned group, unsigned slot, char e[256]) {
 static int warp(void *p, float x, float y, char e[256]) {
   (void)e;
   SavePreview *s = p;
-  s->point[0] = x;
-  s->point[1] = y;
+  s->pointer.position[0] = x;
+  s->pointer.position[1] = y;
   return 1;
 }
 static int pointer(void *p, float position[2], float motion[2], char e[256]) {
   (void)e;
   SavePreview *s = p;
-  memcpy(position, s->point, sizeof(s->point));
-  memcpy(motion, s->motion, sizeof(s->motion));
+  memcpy(position, s->pointer.position, sizeof(s->pointer.position));
+  memcpy(motion, s->pointer.motion, sizeof(s->pointer.motion));
   return 1;
 }
 static int motion(void *p, float out[2], char e[256]) {
   (void)e;
-  memcpy(out, ((SavePreview *)p)->motion, sizeof(float) * 2);
+  memcpy(out, ((SavePreview *)p)->pointer.motion, sizeof(float) * 2);
   return 1;
 }
 static int sound(void *p, unsigned slot, char e[256]) {
@@ -168,12 +168,18 @@ static int step(void *p, double seconds, const BkInput *input, char e[256]) {
     snprintf(e, 256, "save preview: invalid step/retired scene");
     return 0;
   }
-  if (input->pointer_active) {
-    s->point[0] = input->pointer_x - s->viewport.x;
-    s->point[1] = input->pointer_y - s->viewport.y;
-  }
-  s->motion[0] = input->pointer_motion_x;
-  s->motion[1] = input->pointer_motion_y;
+  BkInput pointer_input = *input;
+  /* D-pad retains slot/tab navigation; the left stick moves freely. */
+  pointer_input.held &= ~(BK_BUTTON_UP | BK_BUTTON_DOWN |
+                          BK_BUTTON_LEFT | BK_BUTTON_RIGHT);
+  if (!bk_virtual_pointer_step(&s->pointer, &s->viewport, &pointer_input,
+                                seconds, e))
+    return 0;
+  BkMenuCursor *cursor = s->bindings.cursor;
+  cursor->wanted = 1;
+  cursor->idle.armed = 0;
+  cursor->sprite.fade.alpha = 1;
+  cursor->sprite.fade.stage = 3;
   s->elapsed += seconds;
   BkSaveMenuInput in = {
       .ui = {.buttons =
@@ -291,7 +297,7 @@ BkScene *bk_save_preview_create(const BkSceneServices *services,
       goto bad;
   }
   /* The native constructor does not warp the shared pointer. */
-  memcpy(s->point, state->control.cursor, sizeof(s->point));
+  memcpy(s->pointer.position, state->control.cursor, sizeof(s->pointer.position));
   BkScene *scene =
       bk_scene_custom_create(s, (BkSceneCustomOps){step, draw, destroy}, e);
   if (scene)
