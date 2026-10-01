@@ -238,15 +238,19 @@ static int hover(BkEndingTertiaryControlState *s,
     cue = 8; assigned = 1;
   }
   if (!assigned) {
-    /*4771d6/477243 reach477305 without initializing the cue. Actual cursor
-     * motion can hit these disabled targets. The playable path suppresses
-     * only that undefined hover sound; UI and confirm/choose still run with
-     * the original target, so disabled actions remain disabled. */
+    /*4771d6/477243 reach477305 without initializing the cue. The opening
+     * target also remains pickable in clip4, which has no cue/action for it.
+     * Suppress only these undefined hover sounds in the playable path;
+     * retain the actual target and the original confirm/choose processing. */
     if (playable &&
         ((b->frame->camera_cached == b->actions[5] && b->unavailable[0]) ||
-         (b->frame->camera_cached == b->actions[10] && b->unavailable[1])))
+         (b->frame->camera_cached == b->actions[10] && b->unavailable[1]) ||
+         b->frame->camera_cached == b->initial_targets[b->frame->group]))
       return 1;
-    return fail(e, "native hover cue reads an uninitialized local");
+    if (e) snprintf(e, 256, "tertiary ending control: native hover cue reads "
+        "an uninitialized local (group%u target%d progress%.9g)",
+        b->frame->group, b->frame->camera_cached, b->auxiliary->progress);
+    return 0;
   }
   *b->face_mode = 0;
   b->voice_latches[2] = 0;

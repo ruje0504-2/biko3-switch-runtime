@@ -223,7 +223,9 @@ int bk_special_session_step(BkSpecialSession *s, float seconds,
   if (!bk_special_ui_render_begin(s->ui, e) ||
       !bk_virtual_pointer_step(&s->pointer, &s->c.viewport, in, seconds, e)) return 0;
   s->seconds = seconds; s->input = *in;
-  float camera_motion[] = {-in->look_x, -in->look_y};
+  /* Match the ending session's sixfold manual stick gain. Authored opening,
+   * tracking and preset cameras do not consume these motion values. */
+  float camera_motion[] = {-in->look_x * 6.f, -in->look_y * 6.f};
   unsigned buttons = ((in->held & BK_BUTTON_CAMERA_ORBIT) ? 1u : 0u) |
                      ((in->held & BK_BUTTON_CAMERA_ADJUST) ? 2u : 0u);
   BkSpecialWorldServices services = {s, world_key, present, audio_call, movie, clock_read, level};

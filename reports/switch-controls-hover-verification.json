@@ -1,0 +1,251 @@
+{
+  "date": "2026-10-01",
+  "passed": true,
+  "scope": "Japanese left-bar controls; shared sixfold special camera; reproduced tertiary hover abort fix. No new Switch hardware acceptance.",
+  "ui": {
+    "passed": true,
+    "language": "Japanese",
+    "multiplier_label": false,
+    "pages": 14,
+    "paired_images": [
+      {
+        "page": "page-01.rgba",
+        "sha256": "89bc4242ca95ee43ed875b98961b6ffce0e4a1d6de79399b3406cfb9eb4c78ae"
+      },
+      {
+        "page": "page-02.rgba",
+        "sha256": "ec6f041f910235e9fc59175ae05a94201881cfe794b35a29004a4ec3c836e60a"
+      },
+      {
+        "page": "page-03.rgba",
+        "sha256": "3fa19b6fe3915dbfd87fddb5859d737ef69274daf5fc5e49a8b2a958329a41b6"
+      },
+      {
+        "page": "page-04.rgba",
+        "sha256": "beca88c11559c49cbf761b0d1723569091035c37f98a2b7eea1c3d49e0664e0a"
+      },
+      {
+        "page": "page-05.rgba",
+        "sha256": "a6d7df8d4fc5b496637cb21d0863d676a14707769b2c9d52af717421ae131740"
+      },
+      {
+        "page": "page-06.rgba",
+        "sha256": "eb8b8a3fcf8bc7ba0ce6c77665f9dff989bcfd893a8af6263ddc61d627434303"
+      },
+      {
+        "page": "page-07.rgba",
+        "sha256": "b5a98a60da4b2eac0c4f7bfa0bec37bf428dcd258625d134669d7d216d51049b"
+      },
+      {
+        "page": "page-08.rgba",
+        "sha256": "0f79a876ec188da71ff1d78fe3821346579dd850201d07e7348c61025a4b0320"
+      },
+      {
+        "page": "page-09.rgba",
+        "sha256": "79b4545aa3b1571b8d7cbf9733f89d9330f51aeb4261bf05525fda29a8422a58"
+      },
+      {
+        "page": "page-10.rgba",
+        "sha256": "83d1623139cc171bacec2e522a93d20e42dae2ae15ad04d6d014e4aaf25d5e87"
+      },
+      {
+        "page": "page-11.rgba",
+        "sha256": "e3e88d807a981969bda5166e9dc9dd16588c8f5db6584992ddf7a7f697a128f1"
+      },
+      {
+        "page": "page-12.rgba",
+        "sha256": "76a85380bd58be158d758d649d2d01928a102a8dc04854928c65cc68a4e95ff9"
+      },
+      {
+        "page": "page-13.rgba",
+        "sha256": "76011130f05252945ff12f6ef99d30c3cd224457dd3ff86bcfce066a7dfd7217"
+      },
+      {
+        "page": "page-14.rgba",
+        "sha256": "55a928ec3328fbf1a73835dfa75db3bae853ddc5b299a57a990693bd9ab4c682"
+      }
+    ],
+    "application_title_black_bar_matches": true,
+    "viewport_and_gpu_lifetime_passed": true,
+    "preview": "build/validation/control-help-japanese-20261001/legends.png",
+    "logs": [
+      "build/validation/control-help-japanese-20261001/host.log",
+      "build/validation/control-help-japanese-20261001/asan.log",
+      "build/validation/control-help-japanese-20261001/application.log"
+    ]
+  },
+  "runs": {
+    "third_session": {
+      "report": "build/validation/ending-runtime-najs3_x6/result.json",
+      "sha256": "6eca1445190bac6f5e75da7a3ba3683eaee651a9705e3698f2ecf82dd0f86706",
+      "checks": [
+        {
+          "name": "third-session",
+          "suite": "third-session",
+          "passed": true,
+          "runs": [
+            {
+              "kind": "host",
+              "binary_sha256": "a72930b72c2dacc4e17ffce954d6d74ed435e348a88e217f2d80a7b3895eb08f",
+              "summary": "PASS third session entries5 frames10984 menus20 drags247 zooms33 frozen40 states59 redraws24 retired5 hovers10 state=5d8a12a112897dce pcm=b154fd258281912c"
+            },
+            {
+              "kind": "asan",
+              "binary_sha256": "1a1dafd06acfce7e4efaf384e80ccc89112f69a71e494b4e6df7b2de01d00231",
+              "summary": "PASS third session entries5 frames10984 menus20 drags247 zooms33 frozen40 states59 redraws24 retired5 hovers10 state=5d8a12a112897dce pcm=b154fd258281912c"
+            }
+          ]
+        }
+      ]
+    },
+    "hover_cpu": {
+      "report": "build/validation/ending-tertiary-cpu-_k1rg6he/result.json",
+      "sha256": "75013406e4f021f832f2b029de9943de9a2e27baf94e4e4a077576ff50a3e97c",
+      "checks": [
+        {
+          "name": "hover",
+          "passed": true,
+          "runs": [
+            {
+              "mode": "host",
+              "result": {
+                "passed": true,
+                "scope": "Inactive-target hover compatibility, separate from strict476720 equivalence.\n\nDefined frames execute the original unmodified CPU controller. For the two\nundefined disabled-target branches and the opening target still pickable in\nclip4, the comparison skips477305..4773A9\nin the x86 controller. This deliberately suppresses an uninitialized hover\ncue, preserving the actual target and subsequent key/selection processing.\nIt is not evidence of equivalence to the original undefined behavior.\n",
+                "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+                "defined_frames": 1200,
+                "disabled_frames": 720,
+                "opening_target_frames": 120,
+                "confirmations": 630,
+                "failure_prefixes": 38,
+                "patched_native_skips": 862,
+                "unrelated_rejections": 1,
+                "state_sha256": "a79a6b4a44697f15f9dfc36887986303cfd34a39e3335b220382b9a54060f8d4"
+              },
+              "summary": "PASS tertiary hover compatibility: {\"confirmations\": 630, \"defined_frames\": 1200, \"disabled_frames\": 720, \"exe_sha256\": \"a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e\", \"failure_prefixes\": 38, \"opening_target_frames\": 120, \"passed\": true, \"patched_native_skips\": 862, \"scope\": \"Inactive-target hover compatibility, separate from strict476720 equivalence.\\n\\nDefined frames execute the original unmodified CPU controller. For the two\\nundefined disabled-target branches and the opening target still pickable in\\nclip4, the comparison skips477305..4773A9\\nin the x86 controller. This deliberately suppresses an uninitialized hover\\ncue, preserving the actual target and subsequent key/selection processing.\\nIt is not evidence of equivalence to the original undefined behavior.\\n\", \"state_sha256\": \"a79a6b4a44697f15f9dfc36887986303cfd34a39e3335b220382b9a54060f8d4\", \"unrelated_rejections\": 1}",
+              "report": "build/validation/ending-tertiary-cpu-_k1rg6he/hover-host.json",
+              "python_sha256": "87d4df53fd91304be5bac391fb204643c36b7df2023c04a0953bcbc7d4fdf634"
+            },
+            {
+              "mode": "asan",
+              "result": {
+                "passed": true,
+                "scope": "Inactive-target hover compatibility, separate from strict476720 equivalence.\n\nDefined frames execute the original unmodified CPU controller. For the two\nundefined disabled-target branches and the opening target still pickable in\nclip4, the comparison skips477305..4773A9\nin the x86 controller. This deliberately suppresses an uninitialized hover\ncue, preserving the actual target and subsequent key/selection processing.\nIt is not evidence of equivalence to the original undefined behavior.\n",
+                "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+                "defined_frames": 1200,
+                "disabled_frames": 720,
+                "opening_target_frames": 120,
+                "confirmations": 630,
+                "failure_prefixes": 38,
+                "patched_native_skips": 862,
+                "unrelated_rejections": 1,
+                "state_sha256": "a79a6b4a44697f15f9dfc36887986303cfd34a39e3335b220382b9a54060f8d4"
+              },
+              "summary": "PASS tertiary hover compatibility: {\"confirmations\": 630, \"defined_frames\": 1200, \"disabled_frames\": 720, \"exe_sha256\": \"a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e\", \"failure_prefixes\": 38, \"opening_target_frames\": 120, \"passed\": true, \"patched_native_skips\": 862, \"scope\": \"Inactive-target hover compatibility, separate from strict476720 equivalence.\\n\\nDefined frames execute the original unmodified CPU controller. For the two\\nundefined disabled-target branches and the opening target still pickable in\\nclip4, the comparison skips477305..4773A9\\nin the x86 controller. This deliberately suppresses an uninitialized hover\\ncue, preserving the actual target and subsequent key/selection processing.\\nIt is not evidence of equivalence to the original undefined behavior.\\n\", \"state_sha256\": \"a79a6b4a44697f15f9dfc36887986303cfd34a39e3335b220382b9a54060f8d4\", \"unrelated_rejections\": 1}",
+              "report": "build/validation/ending-tertiary-cpu-_k1rg6he/hover-asan.json",
+              "python_sha256": "500e6b8af57183594f278e7a5004c001c96d8fa01223c693f1fc82a660f8a923"
+            }
+          ]
+        }
+      ]
+    },
+    "special_stress": {
+      "report": "build/validation/ending-runtime-wld7qf5m/result.json",
+      "sha256": "915955d4ad85adb267aa7c826a7c1c982490d03521dd70bd6e8216ad1eada06d",
+      "checks": [
+        {
+          "name": "special-stress",
+          "suite": "special-stress",
+          "passed": true,
+          "runs": [
+            {
+              "kind": "host",
+              "binary_sha256": "a6edd60bf8b5f3b1b30066512a93023a6c492460d7443d22b5f4beb6d9b762b1",
+              "summary": "PASS special-app entries10 returns10 photos10 frames33309 redraws58 clocks84517/29272/11423 state52e190803996d5c4 PCM483a38eba937ee92 samples61937280 nonzero58954055"
+            },
+            {
+              "kind": "asan",
+              "binary_sha256": "54955e06a36935445218ea176022e82482300640899052397d023130143e97fb",
+              "summary": "PASS special-app entries10 returns10 photos10 frames33309 redraws58 clocks84517/29272/11423 state52e190803996d5c4 PCM483a38eba937ee92 samples61937280 nonzero58954055"
+            }
+          ]
+        },
+        {
+          "name": "third-session",
+          "suite": "third-session",
+          "passed": true,
+          "runs": [
+            {
+              "kind": "host",
+              "binary_sha256": "e26f0a4ce084f5f80eec50508a1331d69aa6e7f846ef68ee8e5775b82a168ef5",
+              "summary": "PASS third session entries5 frames10971 menus20 drags247 zooms30 frozen40 states59 redraws24 retired5 state=bc244741ca0c7a65 pcm=2f9cc0ea835d63ad"
+            },
+            {
+              "kind": "asan",
+              "binary_sha256": "3e98071e753e3a0b952b3b6fd3cefc6d65e0a2d30b865f0e73486d88f796d76d",
+              "summary": "PASS third session entries5 frames10971 menus20 drags247 zooms30 frozen40 states59 redraws24 retired5 state=bc244741ca0c7a65 pcm=2f9cc0ea835d63ad"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "sd": {
+    "data": {
+      "passed": true,
+      "files": 168,
+      "data_bytes": 2945456435,
+      "missing": [],
+      "size_mismatch": [],
+      "sha256_mismatch": [],
+      "seconds": 93.81
+    },
+    "logs": {
+      "nvk.log": {
+        "bytes": 29279,
+        "sha256": "b72dc540c6304d0b6c77d1835f676e9a9bf612386fced10c5bcb7734acb90a91",
+        "last_error": "FAILED: tertiary ending control: native hover cue reads an uninitialized local"
+      },
+      "nvk.previous.log": {
+        "bytes": 231540,
+        "sha256": "63607fab3daa91bbd03c6b48a5845105f04fa09271efa18b44a5b36f2a7ffb3a",
+        "last_error": "FAILED: tertiary ending control: native hover cue reads an uninitialized local"
+      }
+    },
+    "original_nro_sha256": "d8873a4ea515ba90a14ad4b22b99327b0b2b25a32d05d2548c1834357e9f230e",
+    "logs_backed_up_then_removed_per_user_request": true,
+    "saves_and_data_modified": false,
+    "nro_modified": false
+  },
+  "reproduction": {
+    "group": 3,
+    "method": "Real scene opening then input hover over still-pickable initial target during clip4; no stage injection",
+    "log": "local/sd-crash-20261001/hover-before.log",
+    "exit_code": 1,
+    "same_error_as_switch": true
+  },
+  "switch_build": {
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16298040,
+    "sha256": "a6f6525048d19f3823b3599724f59e215267b2b65e9799c324da0f092c362a51",
+    "undefined_symbols": 0,
+    "linked_symbols": [
+      "nvk_CreateDevice",
+      "bk_control_help_draw",
+      "bk_special_session_step",
+      "bk_ending_tertiary_control_play"
+    ],
+    "build_log": "local/sd-crash-20261001/switch-build.log"
+  },
+  "limitations": [
+    "Original undefined hover behavior is replaced only for disabled targets and the initial target; strict CPU entry still rejects it.",
+    "Special-event stress passed locally; the two SD logs both fail in tertiary ending control, so other distinct hardware failures remain unconfirmed.",
+    "ASan/UBSan ran with leak detection disabled.",
+    "Full natural story, album flow60, full 3D pixel equivalence and hardware acceptance remain open."
+  ],
+  "discarded_attempts": [
+    {
+      "report": "build/validation/ending-tertiary-cpu-pobtpopt/result.json",
+      "reason": "Wrong original EXE input; pinned SHA check rejected it before any comparison. Retried with the established pinned EXE."
+    }
+  ]
+}

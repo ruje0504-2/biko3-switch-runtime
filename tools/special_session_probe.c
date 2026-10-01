@@ -14,6 +14,8 @@ typedef struct {
 static unsigned frames, redraws, entries, returns, clock_calls[3], photos;
 static uint32_t fixture_ms = 100000;
 static int fail_movie_clock;
+static int stress_active;
+static unsigned stress_frames;
 static int clock_fixture(void *p, int timer, uint32_t *out, char e[256]) {
   (void)p; (void)e; if (timer < 0 || timer > 2) return 0;
   ++clock_calls[timer];
@@ -75,11 +77,21 @@ static int again(BkScene *scene, BkRenderer *r, BkAudio *a, char e[256]) {
 static int tick(BkScene *scene, BkRenderer *r, BkAudio *a, Sink *sink,
                  BkInput in, char e[256]) {
   PlaySession *s = bk_scene_custom_context(scene);
-  fixture_ms += 50;
-  sink->consumed += 800;
+  double game_seconds=1./60., wall_seconds=.05;
+  uint32_t elapsed_ms=50;
+  if (stress_active) {
+    /* Real Switch uses independently sampled wall time and variable native
+     * game time, with a220ms cap and approximately2x game/wall pacing. */
+    static const double steps[]={1./120.,1./60.,1./30.,.05,.1,.22};
+    game_seconds=steps[stress_frames++ % 6];
+    elapsed_ms=(uint32_t)ceil(game_seconds*500);
+    wall_seconds=elapsed_ms/1000.;
+  }
+  fixture_ms += elapsed_ms;
+  sink->consumed += stress_active ? elapsed_ms*48 : 800;
   if (sink->consumed > sink->submitted) sink->consumed = sink->submitted;
   if (!bk_audio_poll(a, e) ||
-      !bk_play_session_step_at(scene, 1. / 60., s->elapsed + .05, &in, e) ||
+      !bk_play_session_step_at(scene, game_seconds, s->elapsed + wall_seconds, &in, e) ||
       !present(scene, r, a, e)) return 0;
   int32_t values[] = {s->flow.current, s->flow.previous, s->flow.target,
       s->ending_state.frame.phase, s->ending_state.frame.group,
@@ -150,7 +162,8 @@ static int stick_click(BkScene *scene, BkRenderer *r, BkAudio *a, Sink *sink,
   snprintf(e, 256, "gallery stick failed to reach actual menu button"); return 0;
 }
 int main(int argc, char **argv) {
-  if (argc != 3) return 2;
+  if (argc != 3 && (argc != 4 || strcmp(argv[3],"--stress"))) return 2;
+  int stress=argc==4;
   char error[256] = {0}, path[2048]; int result = 1;
   BkResourceStore *store = NULL; BkRenderer *renderer = NULL;
   BkAudio *audio = NULL; BkUnlockFile *unlocks = NULL;
@@ -240,6 +253,23 @@ int main(int argc, char **argv) {
     BkMenuCamera before=s->menu_camera;
     CHECK(tick(scene,renderer,audio,&sink,confirm,error));
     CHECK(s->menu_camera.yaw == before.yaw && s->menu_camera.radius == before.radius);
+    if (stress && visit<5) {
+      stress_active=1;
+      for (unsigned i=0;i<3600;++i) {
+        BkInput varied=pointer(4,920);
+        varied.held=(i/120)%3==0 ? BK_BUTTON_CAMERA_ORBIT :
+                    (i/120)%3==1 ? BK_BUTTON_CAMERA_ADJUST : 0;
+        varied.look_x=(i/90)%2 ? -.8f : .8f;
+        varied.look_y=(i/150)%2 ? -.6f : .6f;
+        CHECK(tick(scene,renderer,audio,&sink,varied,error));
+        CHECK(s->flow.current==0x48 && s->special_process.phase==2);
+      }
+      stress_active=0;
+      /* The real second-group effect switches to its later clip after30s. */
+      CHECK(g!=1 || s->special_process.event.sequence==2);
+      CHECK(again(scene,renderer,audio,error));
+      printf("special-app sustained group%u variable_frames3600 sequence%d\n",g,s->special_process.event.sequence);fflush(stdout);
+    }
     BkInput photo={.pressed=BK_BUTTON_PHOTO};
     unsigned written=photos;
     CHECK(tick(scene,renderer,audio,&sink,photo,error));

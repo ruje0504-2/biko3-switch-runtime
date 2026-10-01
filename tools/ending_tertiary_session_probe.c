@@ -8,7 +8,7 @@
 
 typedef struct { uint64_t submitted, consumed, hash; int freeze; } ThirdSink;
 typedef struct {
-  unsigned entries, frames, menus, drags, zooms, frozen, states, redraws, retired;
+  unsigned entries, frames, menus, drags, zooms, frozen, states, redraws, retired, hovers;
   uint64_t pcm, state;
 } ThirdResult;
 static uint64_t third_hash(uint64_t h, const void *data, size_t size) {
@@ -142,7 +142,7 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
   bk_renderer_extent(renderer, &width, &height);
   size_t pixel_bytes = (size_t)width * height * 4;
   VERIFY((pixels = malloc(pixel_bytes)) && (again = malloc(pixel_bytes)));
-  unsigned frame = 0, operations = 0, drag_frames = 0, zooms = 0, frozen = 0;
+  unsigned frame = 0, operations = 0, drag_frames = 0, zooms = 0, frozen = 0, hovers = 0;
   for (; frame < 20000 && !state->frame.curtain_wanted; ++frame) {
     BkClipState clip;
     VERIFY(bk_actor_pose_state(scene_primary(s), &clip));
@@ -153,15 +153,26 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
     if (sink.freeze) { ++frozen; ++out->frozen; }
     BkInput input = {.pointer_active = 1,
         .pointer_x = (float)s->viewport.x + 3, .pointer_y = (float)s->viewport.y + 3};
+    int check_hover = 0;
+    int32_t record_count = records->groups[group].count;
     if (frame == 1) input.pressed = input.held = BK_BUTTON_CONFIRM;
     if (state->stage3_state == 1 && !playing && (clip.slot == 1 || clip.slot == 4)) {
       const BkEndingTertiaryConfig *config = bk_ending_tertiary_assets_config(s->tertiary_assets);
-      int wanted = clip.slot == 1 ? bk_ending_tertiary_initial_targets()[group]
+      int early_target = clip.slot == 4 && hovers < 2;
+      int wanted = clip.slot == 1 || early_target ? bk_ending_tertiary_initial_targets()[group]
           : operations < 2 ? config->actions[5] : !state->unavailable[0] ? config->actions[10]
           : !state->unavailable[1] ? config->actions[15] : 6;
       int found = third_gesture(s, wanted, &input, e);
       VERIFY(found >= 0);
-      if (found) input.pressed = input.held = BK_BUTTON_CONFIRM;
+      if (found) {
+        if (early_target) {
+          /* The opening target remains pickable after the initial action,
+           * but clip4 has no hover voice or action for it. Move there with
+           * real input, then confirm; neither should terminate the scene. */
+          if (hovers) input.pressed = input.held = BK_BUTTON_CONFIRM;
+          check_hover = 1;
+        } else input.pressed = input.held = BK_BUTTON_CONFIRM;
+      }
       else {
         VERIFY(state->frame.camera_mode == 0 && s->camera.radius < 120 && zooms < 120);
         /* Current public controls: R and leftward input zoom out. The
@@ -193,6 +204,12 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
       out->states |= 1u << (unsigned)state->stage3_state;
     VERIFY(bk_audio_poll(audio, e) && bk_scene_step(scene, 1.0 / 60.0, &input, e) &&
            bk_audio_fill(audio, e) && third_present(scene, renderer, e));
+    if (check_hover) {
+      VERIFY(state->stage3_state == 1 && state->frame.camera_cached ==
+          bk_ending_tertiary_initial_targets()[group] &&
+          records->groups[group].count == record_count);
+      ++hovers; ++out->hovers;
+    }
     out->state = third_hash(out->state, state, sizeof(*state));
     ++out->frames;
     if (frame % 512 == 0) {
@@ -213,7 +230,7 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
     }
   }
   VERIFY(frame < 20000 && state->frame.transition_action == 7 &&
-         state->auxiliary.progress >= .39f && operations >= 4 && drag_frames && frozen == 8);
+         state->auxiliary.progress >= .39f && operations >= 4 && drag_frames && frozen == 8 && hovers == 2);
   VERIFY(records->groups[group].count >= 4);
   /*Explicit outer-entry boundary: logically stop the third scene, prepare
    * the next entry, then redraw/destroy the old immutable snapshot. */
@@ -270,9 +287,9 @@ int main(int argc, char **argv) {
     }
   }
   if ((result.states & 59u) != 59u) { snprintf(e, sizeof(e), "missing third states: %u", result.states); goto done; }
-  printf("PASS third session entries%u frames%u menus%u drags%u zooms%u frozen%u states%u redraws%u retired%u state=%016llx pcm=%016llx\n",
+  printf("PASS third session entries%u frames%u menus%u drags%u zooms%u frozen%u states%u redraws%u retired%u hovers%u state=%016llx pcm=%016llx\n",
       result.entries, result.frames, result.menus, result.drags, result.zooms, result.frozen,
-      result.states, result.redraws, result.retired, (unsigned long long)result.state, (unsigned long long)result.pcm);
+      result.states, result.redraws, result.retired, result.hovers, (unsigned long long)result.state, (unsigned long long)result.pcm);
   rc = 0;
 done:
   if (rc) fprintf(stderr, "%s\n", e);

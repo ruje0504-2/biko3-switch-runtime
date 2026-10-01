@@ -53,6 +53,7 @@ SUITES = {
         ("play-flow", "play-flow-probe", ["{output}", "{output}.rgba"]),
     ],
     "special-session": [("special-session", "special-session-probe", ["{output}"])],
+    "special-stress": [("special-stress", "special-session-probe", ["{output}", "--stress"])],
     "special-ui-media": [
         ("special-ui-media", "special-ui-media-probe", ["{output}"]),
         ("screenshot", "screenshot-probe", ["{output}"]),
@@ -117,7 +118,7 @@ def main() -> int:
     if "capture-lifecycle" in suites:
         packs.update(["bk3_00", "bk3_01", "bk3_02", "bk3_03", "bk3_04",
                       "bk3_05", "bk3_06", "bk3_07", "bk3_15", "bk3_16", "bk3_20"])
-    if "special-session" in suites:
+    if "special-session" in suites or "special-stress" in suites:
         packs.update(["bk3_00", "bk3_01", "bk3_02", "bk3_03", "bk3_04", "bk3_06",
                       "bk3_08", "bk3_09", "bk3_10", "bk3_11", "bk3_12", "bk3_13",
                       "bk3_14", "bk3_15", "bk3_18", "fambom"])

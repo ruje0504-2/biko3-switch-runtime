@@ -7,6 +7,7 @@
 #include "platform/platform.h"
 #include "save/capture_file.h"
 #include "scene/fps_overlay.h"
+#include "scene/control_help.h"
 #include "scene/ending_normal_session.h"
 #include "scene/scene.h"
 #include <inttypes.h>
@@ -186,6 +187,28 @@ static int offline_poll(void *context, uint64_t *consumed, char error[256]) {
   *consumed = *(uint64_t *)context;
   return 1;
 }
+static BkControlHelpPage help_page(BkSceneKind kind, BkScene *scene) {
+  if (kind == BK_SCENE_ENDING_PREVIEW) return BK_HELP_ENDING;
+  if (kind == BK_SCENE_PAUSE_PREVIEW) return BK_HELP_PAUSE;
+  if (kind == BK_SCENE_TITLE_PREVIEW) return BK_HELP_TITLE;
+  if (kind != BK_SCENE_GAME) return BK_HELP_INSPECTION;
+  switch (bk_play_session_displayed_flow(scene)) {
+  case 1: return BK_HELP_TITLE;
+  case 2: return BK_HELP_GAME;
+  case 4: return BK_HELP_PAUSE;
+  case 8: return BK_HELP_DIALOGUE;
+  case 0x10: return BK_HELP_ENDING;
+  case 0x18: return BK_HELP_GALLERY;
+  case 0x20: case 0x68: return BK_HELP_CHOICE;
+  case 0x28: return BK_HELP_SAVE;
+  case 0x30: return BK_HELP_VOLUME;
+  case 0x38: return BK_HELP_SELECTION;
+  case 0x40: return BK_HELP_FAILURE;
+  case 0x48: return BK_HELP_SPECIAL;
+  case 0x50: return BK_HELP_LOADING;
+  default: return BK_HELP_NONE;
+  }
+}
 int bk_application_run(int argc, char **argv) {
   char error[256] = {0};
   BkLaunchConfig config = {0};
@@ -195,6 +218,8 @@ int bk_application_run(int argc, char **argv) {
   BkScene *scene = NULL;
   BkAudio *audio = NULL;
   BkFpsOverlay *fps_overlay = NULL;
+  BkControlHelp *control_help = NULL;
+  BkSceneKind kind = BK_SCENE_TITLE_PREVIEW;
   uint64_t offline_submitted = 0;
   BkAudioOutput *audio_output = NULL;
   BkCaptureFiles *capture_files = NULL;
@@ -249,7 +274,7 @@ int bk_application_run(int argc, char **argv) {
   volume_file = bk_volume_file_create(config.capture_root,config.game_root,error);
   if (!volume_file)goto done;
   BkSceneServices services = {resources, renderer, log, audio, capture_files, bk_volume_file_values(volume_file)};
-  BkSceneKind kind = !strcmp(config.scene, "camera-track")
+  kind = !strcmp(config.scene, "camera-track")
                          ? BK_SCENE_CAMERA_TRACK
                      : !strcmp(config.scene, "actor")  ? BK_SCENE_ACTOR_PREVIEW
                      : !strcmp(config.scene, "pause")  ? BK_SCENE_PAUSE_PREVIEW
@@ -261,6 +286,9 @@ int bk_application_run(int argc, char **argv) {
   scene = load_scene(kind, &services, save_files, unlock_file, record_file, volume_file, config.game_root,
                      &mounted, error);
   if (!scene)
+    goto done;
+  control_help = bk_control_help_create(renderer, error);
+  if (!control_help)
     goto done;
   if (config.show_fps) {
     fps_overlay = bk_fps_overlay_create(renderer, error);
@@ -385,6 +413,7 @@ int bk_application_run(int argc, char **argv) {
     if ((!audio_output && audio && !bk_audio_fill(audio, error)) ||
         !bk_renderer_begin(renderer, error) ||
         !bk_scene_draw(scene, &frame, error) ||
+        !bk_control_help_draw(control_help, help_page(kind, scene), error) ||
         (fps_overlay &&
          !bk_fps_overlay_draw(fps_overlay, game_clock.fps,
                               kind != BK_SCENE_GAME ||
@@ -444,6 +473,8 @@ int bk_application_run(int argc, char **argv) {
           kind == BK_SCENE_GAME ? game_clock.clamped_seconds
                                 : clock.dropped_seconds,
           kind == BK_SCENE_GAME ? bk_play_session_flow(scene)->current : 0xff);
+      if (kind == BK_SCENE_GAME)
+        bk_play_session_log_state(scene, log);
       fflush(log);
       profile_start = frame_end;
       window_frames = 0;
@@ -486,11 +517,14 @@ done:
    * teardown must not erase the useful cause from the SD log. */
   if (result && platform) {
     fprintf(bk_platform_log(platform), "FAILED before cleanup: %s\n", error);
+    if (kind == BK_SCENE_GAME && scene)
+      bk_play_session_log_state(scene, bk_platform_log(platform));
     fflush(bk_platform_log(platform));
   }
   /* Reverse lifetime order also handles partially constructed sessions. */
   bk_audio_output_stop(audio_output);
   bk_fps_overlay_destroy(fps_overlay);
+  bk_control_help_destroy(control_help);
   bk_scene_destroy(scene);
   bk_audio_destroy(audio);
   bk_audio_output_close(audio_output);

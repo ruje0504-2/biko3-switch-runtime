@@ -43,6 +43,10 @@ int bk_play_session_after_present(BkScene *, char error[256]);
 const BkGameFrameState *bk_play_session_state(BkScene *);
 const BkCommonHudState *bk_play_session_common(BkScene *);
 const BkFlowTransition *bk_play_session_flow(BkScene *);
+/* The prepared picture can still show the previous flow during a transition. */
+uint8_t bk_play_session_displayed_flow(BkScene *);
+/* Crash diagnostics use process-owned scalars; never touch retired resources. */
+void bk_play_session_log_state(BkScene *, FILE *);
 /* Original466448 terminal flow58, after the final loading snapshot. */
 int bk_play_session_finished(BkScene *);
 #endif

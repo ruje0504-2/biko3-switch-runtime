@@ -561,6 +561,25 @@ double bk_play_session_wall_seconds(BkScene *scene) {
   PlaySession *s = bk_scene_custom_context(scene);
   return s ? s->elapsed : 0;
 }
+uint8_t bk_play_session_displayed_flow(BkScene *scene) {
+  PlaySession *s = bk_scene_custom_context(scene);
+  return s ? s->shown : 0;
+}
+void bk_play_session_log_state(BkScene *scene, FILE *log) {
+  PlaySession *s = bk_scene_custom_context(scene);
+  if (!s || !log) return;
+  fprintf(log, "Scene state shown=%02x group=%u area=%u ending_phase=%d "
+      "ending_state=%d tertiary_state=%d target=%d progress=%.9g "
+      "selected=%d variant=%d camera=%d/%d "
+      "special_phase=%d sequence=%d\n", s->shown,
+      s->game_state.group, s->game_state.area, s->ending_state.frame.phase,
+      s->ending_state.frame.state_721ee0, s->ending_state.stage3_state,
+      s->ending_state.frame.camera_cached, s->ending_state.auxiliary.progress,
+      s->ending_state.selected,
+      s->ending_state.control.variant, s->ending_state.frame.camera_mode,
+      s->ending_state.frame.camera_clip, s->special_process.phase,
+      s->special_process.event.sequence);
+}
 static int draw(void *context, const BkSceneFrame *frame, char error[256]) {
   PlaySession *s = context;
   if (s->shown == 2 || s->shown == 0x40) {
