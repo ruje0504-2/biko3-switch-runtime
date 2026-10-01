@@ -87,6 +87,8 @@ static uint32_t buttons(uint64_t raw) {
     result |= BK_BUTTON_CAMERA_ORBIT;
   if (raw & HidNpadButton_R)
     result |= BK_BUTTON_CAMERA_ADJUST;
+  if (raw & HidNpadButton_Minus)
+    result |= BK_BUTTON_FPS;
   return result;
 }
 int bk_platform_poll(BkPlatform *p, BkInput *input) {

@@ -253,8 +253,9 @@ int bk_application_run(int argc, char **argv) {
     fprintf(log, "Audio: explicit offline host sink\n");
   }
   audio = bk_audio_create(&sink, error);
-  if (!audio)
+  if (!audio || !bk_audio_set_output_gain(audio, 1.5f, error))
     goto done;
+  fprintf(log, "Audio output baseline: 1.5x for music, voice and effects.\n");
   if (audio_output && !bk_audio_output_start(audio_output, audio, error))
     goto done;
   if (config.capture_root) {
@@ -290,12 +291,12 @@ int bk_application_run(int argc, char **argv) {
   control_help = bk_control_help_create(renderer, error);
   if (!control_help)
     goto done;
-  if (config.show_fps) {
-    fps_overlay = bk_fps_overlay_create(renderer, error);
-    if (!fps_overlay)
-      goto done;
+  int show_fps = config.show_fps != 0;
+  fps_overlay = bk_fps_overlay_create(renderer, error);
+  if (!fps_overlay)
+    goto done;
+  if (show_fps)
     fprintf(log, "Original FPS counter enabled (portable bitmap glyphs).\n");
-  }
   BkGameClock game_clock = {0};
   double clock_origin = bk_platform_seconds(platform);
   /* The session constructor prepares its first snapshot and advances its
@@ -321,6 +322,14 @@ int bk_application_run(int argc, char **argv) {
     fprintf(log, "Audio pump: independent thread, priority0x2b,2ms poll; "
                  "cache-flushed PCM.\n");
   while (bk_platform_poll(platform, &sample)) {
+    if (sample.pressed & BK_BUTTON_FPS) {
+      show_fps = !show_fps;
+      fprintf(log, "Original FPS counter: %s\n", show_fps ? "on" : "off");
+    }
+    /* Handle this global edge once per poll, outside the simulation gate. */
+    sample.held &= ~BK_BUTTON_FPS;
+    sample.pressed &= ~BK_BUTTON_FPS;
+    sample.released &= ~BK_BUTTON_FPS;
     if ((sample.pressed & BK_BUTTON_PAUSE) && kind != BK_SCENE_GAME &&
         kind != BK_SCENE_PAUSE_PREVIEW)
       break;
@@ -414,7 +423,7 @@ int bk_application_run(int argc, char **argv) {
         !bk_renderer_begin(renderer, error) ||
         !bk_scene_draw(scene, &frame, error) ||
         !bk_control_help_draw(control_help, help_page(kind, scene), error) ||
-        (fps_overlay &&
+        (show_fps &&
          !bk_fps_overlay_draw(fps_overlay, game_clock.fps,
                               kind != BK_SCENE_GAME ||
                                   bk_play_session_flow(scene)->current == 1,

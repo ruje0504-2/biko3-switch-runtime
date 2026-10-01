@@ -1,0 +1,224 @@
+{
+  "passed": true,
+  "validation_directory": "build/validation/audio-fps-7a62nztp",
+  "source_sha256": {
+    "runtime/app/application.c": "d1c08cc9588d6895e07588c5cadfb34f7eeaaa7eaff4b31813ccd3a5a431263d",
+    "runtime/core/input.h": "3790934ed606a6cb75c670b3e26e8cba23a46144d4431d68ea8b2aea5b6c2d00",
+    "runtime/media/audio.c": "e695a7d85702cc65099ff53fe8cf52516128312c6ea84cc9ece84ab555571070",
+    "runtime/media/audio.h": "5059d6c461b881717ee9ae194aa016045a83fdb656638a7d5969b841a8e8acee",
+    "runtime/media/pcm_mix.c": "dcac16accbe782b2787c2bb2fa25b1572004b6b2c25624a48320cbed414455fe",
+    "runtime/media/pcm_mix.h": "480bc30a3e87f04584a78c27b2b6d8d5d4303ef1c1ee106a149181a9892020d9",
+    "runtime/platform/platform.h": "6598cec8c481f66a0c3b4e07b3d3a336fc9cfffa41c19d5ac19f0173f3f8e9fb",
+    "runtime/platform/switch.c": "daf99b027075d5b20558c5f099045531b73d482629b9eb93b93efe6ddc8f9c49",
+    "runtime/scene/control_help.c": "a5d0b6809cfc458c6642d4eee2094ede1f787ec6dea85e7e1c40b40579a4b30b",
+    "runtime/ui/control_help_font.h": "a74c18e18fd7a4335e92e0ec40259764230ae309223af941c9c08d00ab4de545",
+    "tests/test_audio.c": "ca2177b5c50ddb9250c8456e16ea8c2c00025fc03bf5b2dbd872e19c292db1a2",
+    "tools/volume_flow_probe.c": "a9dba584f9e0505802fe0a44d856261d6e7716c5c51f460aa41703c624c43502"
+  },
+  "audio": {
+    "linear_output_baseline": 1.5,
+    "placement": "after all voices are mixed, before signed16 saturation and quantization",
+    "applies_to": "production music, voice and effects including menu preview",
+    "config_rewritten": false,
+    "gain_units_envelopes_cursor_unchanged": true,
+    "all_64_voice_slots_checked": true,
+    "mute_cancellation_signed_rounding_saturation_checked": true,
+    "ordinary_asan_frames_each": 5240,
+    "ordinary_asan_pcm_scalars_each": 10060800,
+    "produce_pcm_digest": "e45f8681e766ab83",
+    "reload_pcm_digest": "59fee111332660bd",
+    "ordinary_asan_identical": true
+  },
+  "fps": {
+    "switch_button": "Minus",
+    "default_switch_visibility": true,
+    "toggle_on": "pressed edge once per platform poll, then consumed before scene input",
+    "sampling": "unchanged core/game_clock original sampler",
+    "host": {
+      "frames_per_case": 24,
+      "cases": 5,
+      "toggle_events": 4,
+      "changed_pixels": 1597,
+      "only_fps_pixels_changed": true,
+      "hold_does_not_repeat": true
+    },
+    "asan": {
+      "frames_per_case": 24,
+      "cases": 5,
+      "toggle_events": 4,
+      "changed_pixels": 1597,
+      "only_fps_pixels_changed": true,
+      "hold_does_not_repeat": true
+    },
+    "ordinary_asan_pixels_identical": true
+  },
+  "help": {
+    "pages": 14,
+    "language": "Japanese",
+    "added_text": "− FPS表示切替",
+    "gold_rgb": [
+      226,
+      191,
+      114
+    ],
+    "alignment": "horizontal and vertical center of left pillarbox",
+    "ordinary_asan_pixels_identical": true,
+    "visual_review_pages": [
+      1,
+      4,
+      9,
+      10
+    ],
+    "draw_uploads": 0,
+    "draw_allocations": 0,
+    "outside_left_bar_unchanged": true,
+    "gpu_returns_to_baseline": true
+  },
+  "checks": [
+    {
+      "name": "python-pcm",
+      "log": "python-pcm.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "architecture",
+      "log": "architecture.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "host-audio",
+      "log": "host-audio.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "host-help",
+      "log": "host-help.log",
+      "exit_code": 0,
+      "terminal_lines": [
+        "PASS control-help pages14 redraws14 center/right unchanged; no uploads/allocations; viewport restored; 4:3 hidden; GPU baseline"
+      ]
+    },
+    {
+      "name": "host-volume-produce",
+      "log": "host-volume-produce.log",
+      "exit_code": 0,
+      "terminal_lines": [
+        "volume-flow PASS mode=produce frames=5060 redraws=4 volumes=-1500,-6000,-3000 PCM=9715200 nonzero=9356313 hash=e45f8681e766ab83"
+      ]
+    },
+    {
+      "name": "host-volume-reload",
+      "log": "host-volume-reload.log",
+      "exit_code": 0,
+      "terminal_lines": [
+        "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=310917 hash=59fee111332660bd"
+      ]
+    },
+    {
+      "name": "host-fps-off",
+      "log": "host-fps-off.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "host-fps-on",
+      "log": "host-fps-on.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "host-fps-hide",
+      "log": "host-fps-hide.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "host-fps-show",
+      "log": "host-fps-show.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "host-fps-double",
+      "log": "host-fps-double.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "asan-audio",
+      "log": "asan-audio.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "asan-help",
+      "log": "asan-help.log",
+      "exit_code": 0,
+      "terminal_lines": [
+        "PASS control-help pages14 redraws14 center/right unchanged; no uploads/allocations; viewport restored; 4:3 hidden; GPU baseline"
+      ]
+    },
+    {
+      "name": "asan-volume-produce",
+      "log": "asan-volume-produce.log",
+      "exit_code": 0,
+      "terminal_lines": [
+        "volume-flow PASS mode=produce frames=5060 redraws=4 volumes=-1500,-6000,-3000 PCM=9715200 nonzero=9356313 hash=e45f8681e766ab83"
+      ]
+    },
+    {
+      "name": "asan-volume-reload",
+      "log": "asan-volume-reload.log",
+      "exit_code": 0,
+      "terminal_lines": [
+        "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=310917 hash=59fee111332660bd"
+      ]
+    },
+    {
+      "name": "asan-fps-off",
+      "log": "asan-fps-off.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "asan-fps-on",
+      "log": "asan-fps-on.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "asan-fps-hide",
+      "log": "asan-fps-hide.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "asan-fps-show",
+      "log": "asan-fps-show.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    },
+    {
+      "name": "asan-fps-double",
+      "log": "asan-fps-double.log",
+      "exit_code": 0,
+      "terminal_lines": []
+    }
+  ],
+  "nro": {
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16293944,
+    "sha256": "455b097a8f7d908b8818cb852ce727a2cca6c02ebb0231a073d53a6224cffbd6",
+    "elf_sha256": "2d072dffc09ceb059bbc55495487a730fc592303f18b1db30562a827c31e68cf",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0,
+    "build_log": "build/validation/audio-fps-7a62nztp/build-nvk.log"
+  },
+  "switch_hardware_validation": false,
+  "leak_detection": false,
+  "full_port_complete": false,
+  "scope": "Output baseline and FPS UI only; unfinished album drafts excluded from production build and commit."
+}

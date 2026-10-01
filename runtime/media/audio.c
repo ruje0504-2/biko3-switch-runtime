@@ -1,5 +1,6 @@
 #include "media/audio.h"
 #include "media/pcm_mix.h"
+#include <math.h>
 #include <stdatomic.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,6 +26,7 @@ struct BkAudio {
   Epoch *first[BK_AUDIO_VOICES], *last[BK_AUDIO_VOICES];
   float *mix;
   int16_t *output;
+  float output_gain;
 };
 static int fail(char *error, const char *message) {
   snprintf(error, 256, "audio: %s", message);
@@ -83,6 +85,7 @@ BkAudio *bk_audio_create(const BkAudioSink *sink, char error[256]) {
     return NULL;
   }
   audio->sink = *sink;
+  audio->output_gain = 1.f;
   audio->mix = calloc(sink->block_frames * 2, sizeof(*audio->mix));
   audio->output = calloc(sink->block_frames * 2, sizeof(*audio->output));
   if (!audio->mix || !audio->output) {
@@ -91,6 +94,13 @@ BkAudio *bk_audio_create(const BkAudioSink *sink, char error[256]) {
     return NULL;
   }
   return audio;
+}
+int bk_audio_set_output_gain(BkAudio *audio, float gain, char error[256]) {
+  if (!audio || audio->stats.failed || audio->stats.submitted ||
+      !isfinite(gain) || gain < 0)
+    return fail(error, "invalid output gain or playback already started");
+  audio->output_gain = gain;
+  return 1;
 }
 void bk_audio_destroy(BkAudio *audio) {
   if (!audio)
@@ -296,7 +306,8 @@ static int audio_fill(BkAudio *audio, char error[256]) {
         return 0;
       }
     }
-    if (!bk_pcm_quantize(audio->mix, audio->output, frames)) {
+    if (!bk_pcm_quantize_gain(audio->mix, audio->output, frames,
+                              audio->output_gain)) {
       audio->stats.failed = 1;
       return fail(error, "mixed samples are invalid");
     }

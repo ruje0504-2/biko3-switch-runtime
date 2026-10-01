@@ -33,4 +33,7 @@ int bk_pcm_mix_phase(const BkPcm *, uint32_t output_rate, uint32_t hz,
                      float *stereo, size_t frames, char error[256]);
 /* Saturating nearest-integer (ties away from0) stereo output conversion. */
 int bk_pcm_quantize(const float *stereo, int16_t *out, size_t frames);
+/* Apply the output gain before the same final saturation/quantization. */
+int bk_pcm_quantize_gain(const float *stereo, int16_t *out, size_t frames,
+                          float gain);
 #endif

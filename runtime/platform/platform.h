@@ -10,7 +10,7 @@ typedef struct {
       *scene;       /* "title" or "office"; application resolves the factory. */
   int audio_device; /* Native output; offscreen host previews remain silent. */
   const char *capture_root; /* Pause screenshot root; app owns the adapter. */
-  int show_fps; /* Original FPS counter enabled by default on Switch. */
+  int show_fps; /* Initial visibility; Switch Minus toggles the original FPS. */
 } BkLaunchConfig;
 /* Options borrow argv strings until close. Platform owns its input/log handles.
  */

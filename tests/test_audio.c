@@ -399,7 +399,64 @@ static void cursor_lifetime(void) {
   assert(bk_audio_cursor(audio, 0, &cursor) && !cursor.pcm);
   bk_audio_destroy(audio);
 }
+static void output_baseline(void) {
+  char error[256];
+  Sink sink = {0};
+  BkAudio *audio = create(&sink, error);
+  assert(bk_audio_set_output_gain(audio, 1.5f, error));
+  assert(!bk_audio_set_output_gain(audio, -1, error));
+  assert(!bk_audio_set_output_gain(audio, NAN, error));
+  assert(!bk_audio_set_output_gain(audio, INFINITY, error));
+  BkAudioClip *positive = clip(1, error), *negative = clip(-1, error);
+  /* Every slot uses the same output baseline, including persistent UI/music
+   * and late ending voices. Output gain must not affect the audible cursor. */
+  for (unsigned voice = 0; voice < BK_AUDIO_VOICES; ++voice) {
+    int sign = voice % 2 ? -1 : 1;
+    uint64_t start = sink.submitted;
+    assert(bk_audio_play(audio, voice, sign > 0 ? positive : negative,
+                         1, 0, 0, error));
+    assert(bk_audio_fill(audio, error));
+    assert(sink.submitted == start + 32);
+    for (unsigned i = 0; i < 32; ++i)
+      for (unsigned channel = 0; channel < 2; ++channel)
+        assert(sink.samples[2 * (start + i) + channel] ==
+               sign * ((3 * (1000 + (int)i) + 1) / 2));
+    sink.consumed = sink.submitted;
+    assert(bk_audio_poll(audio, error));
+    BkAudioCursor cursor;
+    assert(bk_audio_cursor(audio, voice, &cursor) && cursor.source_frame == 32);
+    assert(bk_audio_clear(audio, voice, error));
+  }
+  assert(!bk_audio_set_output_gain(audio, 2, error));
+  /* Sum before boosting/clipping. Opposite voices cancel; mute stays silent. */
+  assert(bk_audio_play(audio, 0, positive, 1, 0, 0, error));
+  assert(bk_audio_play(audio, 1, negative, 1, 0, 0, error));
+  assert(bk_audio_play(audio, 2, positive, 1, -10000, 0, error));
+  uint64_t start = sink.submitted;
+  assert(bk_audio_fill(audio, error));
+  for (unsigned i = 0; i < 64; ++i) assert(sink.samples[2 * start + i] == 0);
+  for (unsigned voice = 0; voice < 3; ++voice)
+    assert(bk_audio_clear(audio, voice, error));
+  sink.consumed = sink.submitted;
+  assert(bk_audio_poll(audio, error));
+  /* The boost crosses full scale in both signs and must saturate, never wrap. */
+  for (unsigned sign = 0; sign < 2; ++sign) {
+    for (unsigned voice = 0; voice < 22; ++voice)
+      assert(bk_audio_play(audio, voice, sign ? negative : positive, 1, 0, 0, error));
+    start = sink.submitted;
+    assert(bk_audio_fill(audio, error));
+    for (unsigned i = 0; i < 64; ++i)
+      assert(sink.samples[2 * start + i] == (sign ? -32768 : 32767));
+    sink.consumed = sink.submitted;
+    assert(bk_audio_poll(audio, error));
+  }
+  bk_audio_clip_release(positive);
+  bk_audio_clip_release(negative);
+  bk_audio_destroy(audio);
+  puts("PASS output baseline1.5: all64 voices, signed rounding, cursor, mute, cancellation and saturation");
+}
 int main(void) {
+  output_baseline();
   cursor_lifetime();
   epochs();
   frequencies();

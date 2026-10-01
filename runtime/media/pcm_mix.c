@@ -114,13 +114,18 @@ int bk_pcm_mix(const BkPcm *pcm, uint32_t rate, uint64_t elapsed, int loop,
                           out, frames, error);
 }
 int bk_pcm_quantize(const float *in, int16_t *out, size_t frames) {
-  if ((frames && (!in || !out)) || frames > SIZE_MAX / (2 * sizeof(*in)))
+  return bk_pcm_quantize_gain(in, out, frames, 1.f);
+}
+int bk_pcm_quantize_gain(const float *in, int16_t *out, size_t frames,
+                          float gain) {
+  if (!isfinite(gain) || gain < 0 || (frames && (!in || !out)) ||
+      frames > SIZE_MAX / (2 * sizeof(*in)))
     return 0;
   for (size_t i = 0; i < frames * 2; i++)
     if (!isfinite(in[i]))
       return 0;
   for (size_t i = 0; i < frames * 2; i++) {
-    float v = in[i];
+    float v = in[i] * gain;
     out[i] = v <= -32768 ? -32768 : v >= 32767 ? 32767 : (int16_t)lroundf(v);
   }
   return 1;

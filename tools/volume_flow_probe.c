@@ -94,6 +94,7 @@ int main(int argc,char **argv) {
   r->r=bk_renderer_create(1280,720,stderr,e);CHECK(r->r);
   captures=bk_capture_files_create(argv[2],e);saves=bk_checkpoint_files_create(argv[2],e);unlocks=bk_unlock_file_create(argv[2],e);records=bk_record_file_create(argv[2],e);volume=bk_volume_file_create(argv[2],NULL,e);CHECK(captures && saves && unlocks && records && volume);
   BkAudioSink sink={r,48000,240,960,submit,poll};r->audio=bk_audio_create(&sink,e);CHECK(r->audio);
+  CHECK(bk_audio_set_output_gain(r->audio,1.5f,e)); /* Production baseline. */
   uint64_t baseline=bk_renderer_stats(r->r).live_allocations;
   BkSceneServices services={store,r->r,stderr,r->audio,captures,bk_volume_file_values(volume)};
   r->scene=bk_play_session_create_with_progress(&services,saves,unlocks,records,volume,e);CHECK(r->scene && present(r,e));
