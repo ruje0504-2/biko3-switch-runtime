@@ -46,6 +46,8 @@
 
 每构建 38,283 帧，五个背包字节始终为 `01000`；十二个完成的进程退出时 GPU 分配回到 renderer 基线，无 ASan/UBSan 诊断。原运行在最后一个 ASan 读档进程中断，前十一项已由顺序驱动器接受；仅补跑未完成的最后一项，保留原部分日志。恢复记录为 `build/validation/natural-item-nc7pi1ah/verification-resumed.json`，摘要见 `reports/ending-natural-item-route-verification.json`；没有将未生成的原总报告称为通过。较早探针误把进入失败流程当作 continue 成功，已改成只接受下一场景成功交接。
 
+另以这次生成的 area4 存档补齐 `story` 模式：从原标题读档，实际移动触发 NPC 特殊剧情，经原侧栏退出后返回同一区域。普通/ASan 各 12,579 帧通过，存档不变、背包保留、GPU 回基线，见 `reports/ending-natural-story-verification.json`。已纳入维护驱动器的第七步；本次只运行新增步骤，前六步证据保持上述独立记录，不将两批不同二进制混称为一次整套运行。
+
 ## 尚未完成
 
 本批已完成显式库存入口下的 phase4 实际交互、state5/6/7 交接和五角色普通/ASan 矩阵；另已完成 group0/item1 的自然拾取→area2→area3→area4 连续保存/读档路线。

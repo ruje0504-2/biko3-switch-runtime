@@ -1,5 +1,9 @@
 # 特殊剧情应用入口与资源生命周期
 
+2026-10-01 补充：第一角色 area4 的自然故事入口和返回也已通过。维护工具 `natural-item-save-probe ... story` 从原标题读取此前实际拾取、连续保存到 area4 的存档，沿真实碰撞路径靠近 NPC 的两处等待点，再于 cursor67 接触触发 `flow02→flow48`；用确认键跳过开场，打开侧栏退出，经 `flow48→flow02` 返回同一角色/区域。没有写入剧情 phase、NPC cursor、背包或 flow；只固定一次初始 RNG，音频 sink 消费为诊断夹具。
+
+普通/ASan 各 12,579 帧，包含返回后的 120 帧游戏；背包 `01000` 保留，源存档 SHA-256 不变，特殊场景 phase/UI 已释放，最终 GPU 分配回 renderer 基线，无 ASan/UBSan 诊断。证据见 `reports/ending-natural-story-verification.json` / `build/validation/natural-story-ub4fy759/verification.json`。本次只新增维护探针，未改生产逻辑，也没有重新构建 NRO。现有多角色鉴赏入口验证与本次单角色自然入口证据分别保留；其他角色自然接触和后续完整故事未因此验收。防休眠 PID9101 保持。以下为 2026-09-30 的历史实现记录，动作记录、解锁持久化的后续实现见 `reports/record-storage.md`。
+
 2026-09-30。`front_end` / `PlaySession` 已注册原版 flow48 的加载、更新、绘制、提交后退出及下一真实帧回收。鉴赏菜单 action8 现在进入实际日文角色场景；相册库存读取真实交付数据目录中的照片，缺少可写截图服务仍明确失败。
 
 `scene/special_session` 组合既有主体、FAM/眼、音频、视频、相机、灯光、UI和截图组件。加载顺序为照片库存/计数、UI、主体与面部、媒体、灯光、显隐清零、相机/目标和光标定位。相机文件提前只做解码以分配森林，实际挂接/推进留到媒体和灯光之后；因此不声称任意损坏资源的失败顺序都等价于原加载器。失败会先释放已经创建的媒体，再释放其借用的CPU对象。

@@ -1,4 +1,4 @@
-"""Group0 item1 pickup -> area2/3/4 save/load, host/ASan.
+"""Group0 item1 pickup -> area2/3/4 save/load -> special story, host/ASan.
 
 The incoming area1 loader and initial random seed are fixtures. Later
 transitions use production movement, NPC visibility, collision, menus and disk
@@ -62,7 +62,7 @@ def main():
             checkpoint = files / 'save/checkpoint-0.bks'
             for operation, area in [('produce', 2), ('reload', 2),
                                     ('continue', 3), ('reload', 3),
-                                    ('continue', 4), ('reload', 4)]:
+                                    ('continue', 4), ('reload', 4), ('story', 4)]:
                 before = digest(checkpoint) if checkpoint.exists() else None
                 text = run(f'{mode}-{operation}-{area}',
                            [binary, args.data.resolve(), files, operation])
@@ -72,7 +72,7 @@ def main():
                 if not match or 'PASS GPU allocations returned to renderer baseline' not in text:
                     raise RuntimeError('missing route/teardown assertion: ' + expected)
                 after = digest(checkpoint)
-                if operation == 'reload' and before != after:
+                if operation in ('reload', 'story') and before != after:
                     raise RuntimeError('read-only reload changed the saved file')
                 report['runs'].append(dict(mode=mode, operation=operation,
                     area=area, inventory=[0, 1, 0, 0, 0], frames=int(match[1]),

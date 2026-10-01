@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "scope": "Group0 area4 title disk load, actual NPC route/contact to flow48, real sidebar return to flow02. Save produced by the maintained area1-to-area4 pickup chain; no state injection after initial RNG seed.",
+  "input_chain": "build/validation/natural-item-nc7pi1ah",
+  "source_sha256": "9ba8c9067771209ca7cc433dcd25a7b83e31274d8a62b3f6f93c163fd50e4445",
+  "runs": [
+    {
+      "mode": "host",
+      "exit_code": 0,
+      "argv": [
+        "build/natural-item-save-probe",
+        "local/game/MAINDIR/Data",
+        "build/validation/natural-story-ub4fy759/host-files",
+        "story"
+      ],
+      "log": "host.log",
+      "binary_sha256": "007fdef1172f65aadaad13cd52b7ce08a740b58c2e6bf77712e851777beca008",
+      "checkpoint_before": "2c88f01f7cb49bcedcbf8ae27ca390b1977f2e71ad8063e7a6563fddfa4727e7",
+      "checkpoint_after": "2c88f01f7cb49bcedcbf8ae27ca390b1977f2e71ad8063e7a6563fddfa4727e7",
+      "frames": 12579,
+      "passed": true,
+      "log_sha256": "33f62801663327662ecc8b84ed10b11c59e927cdb623e0a5a87b004b62ade639"
+    },
+    {
+      "mode": "asan",
+      "exit_code": 0,
+      "argv": [
+        "build/asan-static/natural-item-save-probe",
+        "local/game/MAINDIR/Data",
+        "build/validation/natural-story-ub4fy759/asan-files",
+        "story"
+      ],
+      "log": "asan.log",
+      "binary_sha256": "0c8c5e72538b1ac991ddde3766e338685eed4de8dac726e9d46186ba1ee80e6e",
+      "checkpoint_before": "db0222c46ff96849669560e07f9b4812e61cf9aca5b76bf525fe564ad13d7365",
+      "checkpoint_after": "db0222c46ff96849669560e07f9b4812e61cf9aca5b76bf525fe564ad13d7365",
+      "frames": 12579,
+      "passed": true,
+      "log_sha256": "33f62801663327662ecc8b84ed10b11c59e927cdb623e0a5a87b004b62ade639"
+    }
+  ],
+  "date": "2026-10-01",
+  "source": "tools/natural_item_save_probe.c",
+  "runner": "tests/check_natural_item_route.py",
+  "evidence_root": "build/validation/natural-story-ub4fy759",
+  "fixtures": [
+    "Initial random seed 0x50caa2 set once before input",
+    "Area4 checkpoint is produced by the maintained actual pickup/exit/save chain; its initial area1 loader was a fixture",
+    "Diagnostic audio sink immediately consumes submitted PCM"
+  ],
+  "state_injection_after_initial_seed": false,
+  "game_inventory": [
+    0,
+    1,
+    0,
+    0,
+    0
+  ],
+  "gpu_allocations_returned_to_renderer_baseline": true,
+  "asan_ubsan_diagnostics": false,
+  "limits": [
+    "Only group0 area4 natural special-story contact and return",
+    "Original checkpoint chain and this new story mode were validated in separate batches/binaries",
+    "Not a full title-to-ending playthrough or a new Switch hardware test"
+  ]
+}
