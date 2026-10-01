@@ -8,7 +8,7 @@
 static const char *const pages[BK_HELP_COUNT] = {
   [BK_HELP_TITLE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
   [BK_HELP_SELECTION] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 選択・操作\n+ 決定\nB 戻る\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
-  [BK_HELP_DIALOGUE] = "A 次へ\n\n− FPS表示切替",
+  [BK_HELP_DIALOGUE] = "A 次へ\nR 長押し\n強制早送り\n\n− FPS表示切替",
   [BK_HELP_GAME] = "左スティック\n十字キー：移動\n右スティック\n視点を動かす\n\nA 調べる・操作\nB 姿勢切替\nX カメラ切替\nY 撮影\nZL ゆっくり歩く\n+ 一時停止\n\n− FPS表示切替",
   [BK_HELP_PAUSE] = "左スティック\nカーソル移動\nZL ゆっくり移動\n十字キー 選択\nA 決定\nB ゲームに戻る\n確認中は取消\n\nタッチで移動\nA で決定\n\n− FPS表示切替",
   [BK_HELP_CHOICE] = "十字キー 選択\nA 決定\n\nタッチで移動\nA で決定\n\n− FPS表示切替",

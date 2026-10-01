@@ -513,7 +513,9 @@ int bk_front_end_step(BkFrontEnd *s, double seconds, double wall,
                                     .timer_clock_ms = now,
                                     .face_clocks = {now, now, now},
                                     .advance =
-                                        !!(in->pressed & BK_BUTTON_CONFIRM),
+                                        !!((in->pressed & BK_BUTTON_CONFIRM) ||
+                                           ((in->held | in->pressed) &
+                                            BK_BUTTON_CAMERA_ADJUST)),
                                     .music_volume = bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900),
                                     .voice_volume = bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_VOICE, -700)};
     return bk_dialogue_session_step(s->dialogue_session, &input, e);

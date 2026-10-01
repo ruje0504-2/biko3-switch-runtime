@@ -59,7 +59,7 @@ BkPlatform *bk_platform_open(int argc, char **argv, BkLaunchConfig *config,
                              "game",
                              1,
                              "sdmc:/switch/biko3/captures",
-                             1};
+                             0};
   return p;
 }
 FILE *bk_platform_log(BkPlatform *p) { return p ? p->log : stderr; }

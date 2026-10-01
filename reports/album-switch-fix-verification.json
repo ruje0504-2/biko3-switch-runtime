@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-01",
+  "status": "passed",
+  "evidence_directory": "build/validation/fps-default-album-r_56zdlg",
+  "scope": [
+    "Switch album image rectangle lifetime",
+    "held-R dialogue advance",
+    "FPS hidden at startup",
+    "Japanese dialogue control help"
+  ],
+  "camera_changed": false,
+  "sd_modified": false,
+  "hardware_validation": false,
+  "switch_compiled_album": {
+    "executor": "Unicorn ARM64 executing devkitA64 GCC 15.1.0 object code",
+    "old_cases": 18,
+    "old_passed": 0,
+    "fixed_cases": 18,
+    "fixed_passed": 18,
+    "asset_kinds": [
+      "catalog",
+      "photo",
+      "slideshow"
+    ],
+    "scales": [
+      0.25,
+      0.75,
+      1.0
+    ],
+    "stack_patterns": [
+      0,
+      165
+    ],
+    "logs": [
+      "switch-album-old.json",
+      "switch-album-fixed.json"
+    ],
+    "probe": "build/validation/fps-default-album-r_56zdlg/check-switch-album.py"
+  },
+  "album_application": {
+    "builds": [
+      "host",
+      "asan"
+    ],
+    "frames_each": 1478,
+    "paired_results": true,
+    "result": "PASS album-flow frames1478 groups5 pages5 photos10 deletes1 slideshow2 reentries1 album-B gallery-B redraws12 PCMaa204ff4aa62565a GPU_baseline",
+    "logs": [
+      "host-album.log",
+      "asan-album.log"
+    ]
+  },
+  "sd_photos": {
+    "valid_bmp_count": 6,
+    "dimensions": [
+      960,
+      720
+    ],
+    "group_counts": [
+      3,
+      0,
+      0,
+      2,
+      1
+    ],
+    "host_application_frames": 134,
+    "local_copies_only": true,
+    "result": "PASS SD-album photos6 frames134 counts3,0,0,2,1 background-visible full-photo-rect nonblack GPU-baseline",
+    "log": "sd-album-probe.log",
+    "probe": "local/sd-album-probe.c"
+  },
+  "dialogue_R": {
+    "builds": [
+      "host",
+      "asan"
+    ],
+    "frames_each": 6171,
+    "groups": 5,
+    "natural_transitions_each": 5,
+    "paired_results": true,
+    "checks": [
+      "hold R advances",
+      "release R stops automatic advancement",
+      "A press advances",
+      "A hold does not repeat",
+      "natural end labels",
+      "GPU allocation baseline"
+    ],
+    "results": [
+      "PASS R-dialogue group0 frames1127 label10200 release-stop A-edge natural-transition",
+      "PASS R-dialogue group1 frames1497 label20205 release-stop A-edge natural-transition",
+      "PASS R-dialogue group2 frames2150 label30228 release-stop A-edge natural-transition",
+      "PASS R-dialogue group3 frames817 label40144 release-stop A-edge natural-transition",
+      "PASS R-dialogue group4 frames580 label50033 release-stop A-edge natural-transition",
+      "PASS R-dialogue total6171 transitions5 GPU-baseline"
+    ],
+    "logs": [
+      "host-dialogue-r.log",
+      "asan-dialogue-r.log"
+    ],
+    "probe": "local/dialogue-r-probe.c",
+    "initial_probe_correction": "Read the final script label in the transition callback before stop releases the script; first failed probe logs retained."
+  },
+  "fps": {
+    "switch_default": false,
+    "host_runs": 3,
+    "host_frames_each": 24,
+    "changed_pixels": 1597,
+    "hold_toggles_once": true,
+    "twice_restores_off_pixels": true,
+    "only_fps_region_changes": true,
+    "log": "checks.json",
+    "note": "FPS checks preceded the unrelated dialogue/album edits; checks.json records intermediate NRO 68c8577f, superseded by switch_build below."
+  },
+  "control_help": {
+    "pages": 15,
+    "result": "PASS control-help pages15 redraws15 center/right unchanged; no uploads/allocations; viewport restored; 4:3 hidden; GPU baseline",
+    "log": "help.log",
+    "inspected_image": "help/page-03.png"
+  },
+  "switch_build": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "cd19dc5b038d44b8ed5fa9693491f8910d3eb2b0c00fd1ad209597b307f1a82c",
+    "undefined_symbols": 0,
+    "bytes": 16318520,
+    "path": "build-switch/biko3-preview.nro",
+    "log": "local/album-fps-dialogue-switch-build.log"
+  },
+  "limitations": [
+    "No new Switch hardware result",
+    "Does not complete natural story or full port acceptance",
+    "SD user photographs and logs were read only"
+  ]
+}

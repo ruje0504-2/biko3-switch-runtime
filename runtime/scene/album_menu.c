@@ -66,8 +66,8 @@ static int image(BkAlbumMenu *s,const BkAlbumOps *o,unsigned slot,
   }
   s->image_generation[slot]=generation;
   BkAlbumSprite *p=&s->sprites[slot];*p=(BkAlbumSprite){.uv={0,0,1,1},.scale={1,1},.alpha=1};
-  const int *q=images[slot].rect;
-  if(kind!=BK_ALBUM_ASSET)q=(const int[]){0,0,1280,960};
+  static const int full_rect[4]={0,0,1280,960};
+  const int *q=kind==BK_ALBUM_ASSET?images[slot].rect:full_rect;
   for(unsigned i=0;i<4;++i)p->rect[i]=(float)(int32_t)((double)q[i]*s->scale);
   s->loaded|=UINT64_C(1)<<slot;return 1;
 }
