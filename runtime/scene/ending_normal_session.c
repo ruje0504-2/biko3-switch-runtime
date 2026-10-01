@@ -623,6 +623,12 @@ static int ui_position(void *context, float out[2], char e[256]) {
   return 1;
 }
 
+static unsigned stick_action_gain(const EndingNormalScene *s) {
+  return !s->input.pointer_active &&
+      !(s->input.held & (BK_BUTTON_CAMERA_ORBIT | BK_BUTTON_CAMERA_ADJUST)) &&
+      hypotf(s->input.move_x, s->input.move_y) > .18f ? 6u : 1u;
+}
+
 static int ui_motion(void *context, float out[2], char e[256]) {
   EndingNormalScene *s = context;
   if (!s || !out || !isfinite(s->pointer.motion[0]) ||
@@ -1924,9 +1930,11 @@ static int selected_drag(void *context, const float motion[2], float *result,
   if (!s || !s->selected_assets || !motion || !result)
     return fail(e, "selected drag owner is missing");
   *result = 0;
+  float gain = (float)stick_action_gain(s);
+  float drag[2] = {motion[0] * gain, motion[1] * gain};
   return bk_ending_selected_assets_drag(s->selected_assets,
       s->selected_plain_scheduled, s->state->retained.auxiliary.word_6ea314,
-      motion, e);
+      drag, e);
 }
 static int selected_hit(void *context, unsigned menu, const int32_t point[2],
                         int *result, char e[256]) {
@@ -2055,7 +2063,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         s->control_rects,
         &scale,
         &s->effect_volume};
-    BkEndingControlOps ops = {s, control_key, control_sound, NULL, warp};
+    BkEndingControlOps ops = {s, control_key, control_sound, selected_manual, warp};
     return bk_ending_control_step(&s->state->control, &bindings,
                                   &call->input, &ops, e);
   }
@@ -2095,7 +2103,7 @@ static int frame_invoke(void *context, const BkEndingCall *call,
         &s->state->retained.normal.direct_node, &s->normal_controller->flip};
     BkEndingPresentationScene presentation = {
         s->assets, s->audio, s->materials, s->disabled, s->disabled_count,
-        s->presentation, s->random, s, frame_clock};
+        s->presentation, s->random, s, frame_clock, stick_action_gain(s)};
     return bk_ending_presentation_scene_step(
         &presentation, &bindings, &call->input, s->active_seconds, e);
   }
@@ -2163,7 +2171,8 @@ static int frame_invoke(void *context, const BkEndingCall *call,
       .action_column = &s->normal_controller->control.action_column,
       .follow_target = &s->state->retained.normal.follow_target,
       .selected = &s->state->selected, .next_mode = &s->state->next_mode,
-      .input_context = s, .key = control_key};
+      .input_context = s, .key = control_key,
+      .stick_motion_gain = stick_action_gain(s)};
     return bk_ending_tertiary_controller_scene_step(
         &controller, &bindings, &call->input, s->active_seconds, e);
   }

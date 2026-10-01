@@ -1,6 +1,6 @@
 # 尾行3 / Biko3 — Switch 原生移植工程
 
-**当前为版本 1.0.78，主要游戏功能已接入，可选汉化与去码外挂。** 使用 Nintendo Switch 原生输入、音频和 Vulkan NVK 渲染，画面保持 4:3，在 1280×720 输出中居中显示为 960×720。
+**当前 NRO 版本 1.0.79，汉化更新版本 1.0.79cn，主要游戏功能已接入，可选汉化与去码外挂。** 使用 Nintendo Switch 原生输入、音频和 Vulkan NVK 渲染，画面保持 4:3，在 1280×720 输出中居中显示为 960×720。
 
 已接通原标题、五人选择、开场剧情、游戏跟踪、失败与重试、暂停与返回标题；结局、特殊场景、鉴赏回放、音量设置和相册均有实际应用入口。游戏支持动态角色、跟随镜头、碰撞、雨雪、HUD 与拍照，存读档、下一段剧情交接、动作记录、解锁、照片和音量配置也已接入。
 
@@ -8,10 +8,11 @@
 
 ## 最近更新
 
+- **结局侧栏与人物动作**：修复物品启用后拖动换姿势、侧栏特殊视图及隐藏背景导致的退出；结局与特殊场景左摇杆手动人物动作加快 6 倍，菜单光标与已有镜头速度不变。[修复与验证](reports/ending-sidebar.md)
 - **中文流程文字**：修复开场空行被误算为滚动、额外消耗 A 键的问题；中文对白、流程开场/失败/道具文字放大 30%，按完整行显示。仅加载汉化时启用，日文及菜单、按键说明不变；共用文字纹理复用以减少换页重复工作。[修复与验证](reports/chinese-dialogue.md)
 - **汉化加载优化**：逐资源压缩，完整替换时跳过原资源读取；外挂由 79.1 MB 缩至 37.2 MB，109 项汉化图片、文本和字库的载荷读取量减少约 78%，全部 203 项最终资源不变。需同时更新 NRO 与 `patch.pp`。[优化与验证](reports/patch-loading.md)
 - **原版直装 NSP**：名称「尾行3」、作者 `ILLUSION`、版本 `1.0.78`、TitleID `01094F68D7330000`，内置完整日文 Data，未装入补丁。游戏内照片及进度写入所选用户的 HOS 存档。[打包与存储验证](reports/nsp-1.0.78.md)
-- **汉化与去码更新 NSP**：Patch TitleID `01094F68D7330800`，显示版本 `1.0.78cn`，包含程序及合并补丁，安装在本体之上，共用新本体的 HOS 存档。采用 BKTR 差分格式，约 49 MB。[更新包检查](reports/nsp-update-1.0.78.md)
+- **汉化与去码更新 NSP**：Patch TitleID `01094F68D7330800`，显示版本 `1.0.79cn`，包含程序及合并补丁，安装在本体之上，共用本体的 HOS 存档。采用 BKTR 差分格式，约 49 MB。[更新包检查](reports/nsp-update-1.0.79.md)
 
 - **减少渲染重复提交**：缓存同一命令缓冲中的图形状态绑定；固定测试片段中，绑定调用从 2,291,089 次降至 1,247,714 次，减少约 **45.5%**，画面和照片保持一致。[验证记录](reports/vulkan-bindings.md)
 - **减少 NPC 无效遮挡计算**：视野外或已经确认被遮挡后停止继续检查视线三角形，地面高度与行为仍正常更新。[验证记录](reports/npc-occlusion-performance.md)
@@ -20,10 +21,10 @@
 
 以上调用量变化不是总 CPU 用量或实机 FPS 的降幅。Switch 矩阵与 CPU 蒙皮也已使用 NEON intrinsics 和少量内联汇编预取，并完成 ARM64 原版数值对照；具体范围见 [NEON 验证](reports/neon-skinning.md)。最新 Switch 性能收益尚未测量。
 
-NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.78`，使用本地 `icon.jpg` 生成的图标。当前本地构建为 `build-switch/biko3-runtime.nro`，16,408,236 字节，ELF 未解析符号为 0；SHA256：
+NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.79`，使用本地 `icon.jpg` 生成的图标。当前本地构建为 `build-switch/biko3-runtime.nro`，16,408,236 字节，ELF 未解析符号为 0；SHA256：
 
 ```text
-11afda078af0f9d0479b83057d1469e708ada317ea790326552fba1327ac9fb9
+25e71e306a55a8572a243a209f5bdda9e688f47339c9a2078482b72691eccdd3
 ```
 
 本次增量位于 `交付/汉化与去码外挂-20261001`，包含新版 NRO 和外挂；独立 NRO 在 `交付/biko3-runtime.nro`，原版直装包在 `交付/biko3-01094F68D7330000.nsp`，更新包在 `交付/biko3-01094F68D7330800-update.nsp`。旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。本次新外挂使用 BKPT2，需要与新版 NRO 一起更新，原 Data 无需重拷。
@@ -34,7 +35,9 @@ NRO 名称为 `biko3-runtime`，作者字段为 `ILLUSION`，版本为 `1.0.78`�
 
 ## 验证与当前范围
 
-本批先完成普通与 ASan 各 203 项补丁资源和 10 项存储检查；封包优化时的汉化开场 1,100 帧与旧补丁逐字节一致。随后文字修复各检查 121 段真实文本 / 242 个裁切、465 帧中文 UI、150 帧日文文字和中日流程提示，另运行 1,100 帧实际开场查看放大后的画面。架构检查和指定 Mesa NVK 交叉构建通过；最终两个 NSP 提取后逐项验证原版 Data、NSO、NACP、NPDM、更新关联和内容哈希，更新包另核对合并补丁。各阶段范围见上方报告。
+本轮侧栏修复通过普通 18 项、ASan 7 项实际资源检查，共 2,624 次点击、30 次拖动换姿势及 375 项增益检查，GPU 资源回到基线。检查使用显式入口/库存夹具；不扩展完整剧情审核。指定 Mesa NVK 交叉构建及最新 BKTR 更新包独立合并校验通过，范围见本轮报告。
+
+此前普通与 ASan 各完成 203 项补丁资源和 10 项存储检查；封包优化时的汉化开场 1,100 帧与旧补丁逐字节一致。随后文字修复各检查 121 段真实文本 / 242 个裁切、465 帧中文 UI、150 帧日文文字和中日流程提示，另运行 1,100 帧实际开场查看放大后的画面。此前两个 NSP 提取后逐项验证原版 Data、NSO、NACP、NPDM、更新关联和内容哈希，更新包另核对合并补丁。各阶段范围见上方报告。
 
 此前渲染优化前后及 ASan 版本各回放 1,054 个游戏帧，最终画面和两张照片逐字节一致；NPC 查询与原版的 1,392 组结果一致；藏身退出修复通过同点边角复现及实际应用回放。这些是各次改动的历史证据，未在本轮扩展重跑剧情。
 
@@ -99,7 +102,7 @@ python3 tools/prepare_combined_patch.py \
 
 若另行启用外挂，Atmosphere 的 RomFS 覆盖位置是 `atmosphere/contents/01094F68D7330000/romfs/patch.pp`，使用同一份优化版文件；这不改变 NSP 本体。该方式依赖用户的 LayeredFS 配置，未新增实机验证。实现依据见 [Atmosphere 变更记录](https://github.com/Atmosphere-NX/Atmosphere/blob/master/docs/changelog.md)。
 
-也可安装 `交付/biko3-01094F68D7330800-update.nsp`，直接启用汉化与去码，无需另放外挂文件。它是关联上述本体的 BKTR Patch 更新（内容版本 131072），显示版本 `1.0.78cn`，大小 49,003,232 字节，SHA256 `d3a6af50bef874684000001b517c932d45dafc59606e4eb7876399a40a156b7e`。安装顺序为本体、更新包。游戏存档属于新本体 ID，旧 `01094F68D7333000` 的 HOS 存档不会自动迁入；安装核对与格式说明见[更新包记录](reports/nsp-update-1.0.78.md)。
+也可安装 `交付/biko3-01094F68D7330800-update.nsp`，直接启用汉化与去码，无需另放外挂文件。它是关联上述本体的 BKTR Patch 更新（内容版本 196608），显示版本 `1.0.79cn`，大小 49,003,232 字节，SHA256 `9d16bf79161e0e4270288067c3dfff38a31629a2d1f935900d8c0d2b9f39bc67`。安装顺序为本体、更新包。游戏存档属于本体 ID，旧 `01094F68D7333000` 的 HOS 存档不会自动迁入；安装核对与格式说明见[更新包记录](reports/nsp-update-1.0.79.md)。
 
 重新打包使用已有 devkitPro 工具、hacBrewPack 和用户本地密钥，不下载或分发密钥：
 
@@ -119,7 +122,7 @@ local/venv/bin/python tools/package_nsp.py local/game/MAINDIR \
   --update-patch local/patch-speed/patch.pp --output local/full-update.nsp
 local/venv/bin/python tools/package_bktr_update.py \
   '交付/biko3-01094F68D7330000.nsp' local/full-update.nsp \
-  --display-version 1.0.78cn --content-version 131072 \
+  --display-version 1.0.79cn --content-version 196608 \
   --workdir local/bktr-build --output '交付/biko3-01094F68D7330800-update.nsp'
 ```
 

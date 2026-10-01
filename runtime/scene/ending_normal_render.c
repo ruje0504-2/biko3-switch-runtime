@@ -555,14 +555,15 @@ BkEndingNormalRender *
 bk_ending_selected_render_create(BkRenderer *renderer, BkResourceStore *store,
                                   BkEndingSelectedAssets *assets,
                                   int32_t movie_clock, char e[256]) {
-  return create_render(renderer, store, NULL, NULL, NULL, assets, NULL, movie_clock, e);
+  return with_special_view(create_render(renderer, store, NULL, NULL, NULL,
+                                         assets, NULL, movie_clock, e), e);
 }
 BkEndingNormalRender *
 bk_ending_auxiliary_render_create(BkRenderer *renderer, BkResourceStore *store,
                                   BkEndingAuxiliaryAssets *assets,
                                   int32_t movie_clock, char e[256]) {
-  return create_render(renderer, store, NULL, NULL, NULL, NULL, assets,
-                       movie_clock, e);
+  return with_special_view(create_render(renderer, store, NULL, NULL, NULL,
+                                         NULL, assets, movie_clock, e), e);
 }
 int bk_ending_normal_render_movie_step(BkEndingNormalRender *r, int32_t now,
                                        int32_t restart, char e[256]) {
@@ -764,16 +765,12 @@ static int prepare_view(BkEndingNormalRender *r, const BkDrawDispatch *dispatch,
     return fail(e, "CPU registry changed before GPU retirement");
   if (!r->secondary_view && dispatch->objects[0]) {
     const BkFrameTree *tree = bk_actor_forest_tree(forest);
-    uint32_t background_actor, background_frame, hidden;
+    uint32_t background_actor, background_frame;
     if (bk_frame_tree_parent(tree, r->roots[2]) != 0 ||
         ((bk_frame_tree_next(tree, r->roots[2]) != BK_FRAME_NONE) !=
           r->staged_geometry) ||
         !bk_actor_forest_binding(forest, r->roots[2], &background_actor,
-                                 &background_frame) ||
-        !bk_actor_pose_hidden(r->poses[2], background_frame, &hidden) ||
-        (!r->phase2_assets && !r->phase3_assets && !r->selected_assets &&
-         !r->auxiliary_assets &&
-         !r->staged_geometry && hidden))
+                                 &background_frame))
       return fail(e,
                   "background order or visibility differs from captured topology");
   }
@@ -807,11 +804,10 @@ static int prepare_view(BkEndingNormalRender *r, const BkDrawDispatch *dispatch,
         return 0;
       const float *view = bk_actor_forest_view(forest);
       /*42273b returns before publishing any nodes when its selected root is
-       * hidden. Secondary endings can hide the background: retain that empty
+       * hidden. The sidebar can hide the background: retain that empty
        * light/queue flush, and wait for the primary walk to publish its cache
        * before uploading. A refresh here would change the next frame's camera
-       * and controller inputs. Normal/BOM snapshots retain their validated
-       * visible-background requirement above. */
+       * and controller inputs. This applies to every ending loader. */
       unsigned prepare_now = 0;
       if (r->staged_geometry) {
         unsigned needed = 0;
@@ -829,7 +825,7 @@ static int prepare_view(BkEndingNormalRender *r, const BkDrawDispatch *dispatch,
           if ((prepare_now & (1u << a)) && !prepare_staged_actor(
                   r, a, view, projection, material, disabled, count, e))
             return 0;
-      } else if (!prepared && (n || (!r->phase2_assets && !r->phase3_assets))) {
+      } else if (!prepared && n) {
         if (!prepare_actors(r, view, projection, material, disabled, count, e))
           return 0;
         for (unsigned a = 0; a < 4; ++a)

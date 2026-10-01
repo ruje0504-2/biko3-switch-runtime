@@ -144,7 +144,7 @@ bk_ending_normal_render_movie_image(const BkEndingNormalRender *);
  * actor walks. A retained background precedes the new actors: geometry is
  * captured after each original draw walk, with a separate auxiliary snapshot
  * for the primary BOM pass. Later publications cannot overwrite that source.
- * Secondary topology also permits a hidden background, retaining its empty
+ * Every ending topology permits a hidden background, retaining its empty
  * flush and delaying upload until the primary walk publishes its cache.
  * Distinct flushes retain independent lights/queues. No allocations per frame.
  * Failure invalidates draw; stateful forest publication is not rolled back. */

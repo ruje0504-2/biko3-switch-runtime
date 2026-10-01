@@ -1,0 +1,318 @@
+{
+  "date": "2026-10-02",
+  "version": "1.0.79",
+  "tool": "tools/ending_sidebar_probe.c",
+  "backend": "Apple M4 / MoltenVK",
+  "viewport": [
+    160,
+    120
+  ],
+  "logic_hz": 60,
+  "before_errors": [
+    "special view storage unavailable",
+    "missing actual auxiliary transition495d92",
+    "background order or visibility differs from captured topology / later flush changed prepared actor worlds"
+  ],
+  "host": {
+    "passed": 18,
+    "clicks": 1891,
+    "pose_changes": 22,
+    "motion_checks": 270,
+    "cases": [
+      {
+        "group": 1,
+        "mode": "auxiliary",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 0,
+        "mode": "normal",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "normal",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 2,
+        "mode": "normal",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 3,
+        "mode": "normal",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 4,
+        "mode": "normal",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 0,
+        "mode": "selected",
+        "variant": 0,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 0,
+        "mode": "selected",
+        "variant": 1,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "selected",
+        "variant": 0,
+        "patched": true,
+        "clicks": 105,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "selected",
+        "variant": 1,
+        "patched": false,
+        "clicks": 105,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "selected",
+        "variant": 1,
+        "patched": true,
+        "clicks": 105,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 2,
+        "mode": "selected",
+        "variant": 0,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 2,
+        "mode": "selected",
+        "variant": 1,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 3,
+        "mode": "selected",
+        "variant": 0,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 3,
+        "mode": "selected",
+        "variant": 1,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 4,
+        "mode": "selected",
+        "variant": 0,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 4,
+        "mode": "selected",
+        "variant": 1,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "third",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      }
+    ]
+  },
+  "asan": {
+    "passed": 7,
+    "clicks": 733,
+    "pose_changes": 8,
+    "motion_checks": 105,
+    "cases": [
+      {
+        "group": 1,
+        "mode": "auxiliary",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "normal",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "selected",
+        "variant": 0,
+        "patched": true,
+        "clicks": 105,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "selected",
+        "variant": 1,
+        "patched": false,
+        "clicks": 105,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "selected",
+        "variant": 1,
+        "patched": true,
+        "clicks": 105,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 4,
+        "mode": "selected",
+        "variant": 1,
+        "patched": true,
+        "clicks": 106,
+        "pose_changes": 2,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      },
+      {
+        "group": 1,
+        "mode": "third",
+        "variant": 0,
+        "patched": true,
+        "clicks": 104,
+        "pose_changes": 0,
+        "motion_checks": 15,
+        "gpu_baseline": true
+      }
+    ]
+  },
+  "matching_paired_cases": 7,
+  "asan_options": "detect_leaks=0",
+  "unit_tests": [
+    "ending-control",
+    "ending-pointer",
+    "ending-special"
+  ],
+  "stick_motion_gain": 6,
+  "gain_check_hz": [
+    30,
+    60,
+    120
+  ],
+  "fixtures": [
+    "scene entry",
+    "inventory",
+    "manual action state"
+  ],
+  "natural_story_review": false,
+  "hardware_run": false,
+  "undefined_symbols": 0,
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "binaries": {
+    "build/ending-sidebar-probe": {
+      "bytes": 1146264,
+      "sha256": "54c060fc0d0f38619a3b3e3792ae6e79081318e5fdf3337287e66ccd4ceccc96"
+    },
+    "build/asan-vk/ending-sidebar-probe": {
+      "bytes": 12028984,
+      "sha256": "d9496d9d535d6c181f8105b76cc9ccbeedd109b421c6edeaadd370ec4b2f724b"
+    },
+    "build-switch/biko3-runtime.nro": {
+      "bytes": 16408236,
+      "sha256": "25e71e306a55a8572a243a209f5bdda9e688f47339c9a2078482b72691eccdd3"
+    }
+  }
+}

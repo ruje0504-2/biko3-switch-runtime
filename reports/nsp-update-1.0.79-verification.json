@@ -1,0 +1,128 @@
+{
+  "type": "bktr-update",
+  "application_id": "01094F68D7330000",
+  "title_id": "01094F68D7330800",
+  "display_version": "1.0.79cn",
+  "content_version": 196608,
+  "base_nsp_sha256": "85b4cf4706fd43284ab35dff0e78986334a6eb9b7ebecbbfcbf8b5978f428df6",
+  "source_update_sha256": "db6619b1325423ab080ad6cd4abfff53c93e7c126c9e3c7a28d2138b769d7a6b",
+  "nsp": "biko3-01094F68D7330800-update.nsp",
+  "nsp_bytes": 49003232,
+  "nsp_sha256": "9d16bf79161e0e4270288067c3dfff38a31629a2d1f935900d8c0d2b9f39bc67",
+  "bktr": {
+    "virtual_bytes": 2988539904,
+    "base_files": 168,
+    "base_bytes_reused": 2945457344,
+    "patch_payload_bytes": 43082560,
+    "section_bytes": 43155456,
+    "indirect_entries": 3,
+    "indirect_offset": 43089920,
+    "aes_ctr_ex_offset": 43122688,
+    "aes_ctr_ex_entries": 1,
+    "ranges": [
+      {
+        "virtual": 0,
+        "physical": 0,
+        "storage": 1,
+        "bytes": 5898752
+      },
+      {
+        "virtual": 5898752,
+        "physical": 5833216,
+        "storage": 0,
+        "bytes": 2945457344
+      },
+      {
+        "virtual": 2951356096,
+        "physical": 5898752,
+        "storage": 1,
+        "bytes": 37183808
+      }
+    ]
+  },
+  "patch_history_bytes": 156,
+  "contents": [
+    {
+      "type": 0,
+      "name": "bc64e7e3a4590db4ae172eb249d65927.cnmt.nca",
+      "sha256": "bc64e7e3a4590db4ae172eb249d65927dc575e542ceec0887c5ea37af354b2b5",
+      "bytes": 4096
+    },
+    {
+      "type": 1,
+      "name": "ab2a8ebaef4844ac0a1f3ed241992bbc.nca",
+      "sha256": "ab2a8ebaef4844ac0a1f3ed241992bbc7c7459e4cf191d18e62ab5b3521c0c89",
+      "bytes": 48438784
+    },
+    {
+      "type": 3,
+      "name": "744e208e933794a8e6586b4526df379d.nca",
+      "sha256": "744e208e933794a8e6586b4526df379dfb274181ec05f4c8e0f9fe8910f8c172",
+      "bytes": 560128
+    }
+  ],
+  "date": "2026-10-02",
+  "base_version": "1.0.78",
+  "merged_data_files_verified": 168,
+  "ivfc_levels_good": 6,
+  "checks": [
+    {
+      "type": "meta",
+      "markers": [
+        "Fixed-Key Index (GOOD):             0x0",
+        "Fixed-Key Signature (FAIL):         0000000000000000000000000000000000000000000000000000000000000000",
+        "Superblock Hash (GOOD):     D12D9196B3A3C4A4934A70A4D3E64C5C6DC0FDB5CBBB9B0DDE0E9F6BC04B4EC5",
+        "Hash Table (GOOD):"
+      ],
+      "non_signature_hash_failures": 0
+    },
+    {
+      "type": "program",
+      "markers": [
+        "Fixed-Key Index (GOOD):             0x0",
+        "Fixed-Key Signature (FAIL):         0000000000000000000000000000000000000000000000000000000000000000",
+        "NPDM Signature (GOOD):              692B2E7F326345DA3E9F1B5291698D5EF1B4610256B936F8B6F63F005AB55002",
+        "Signature Key (GOOD):       0",
+        "Signature (FAIL):           0000000000000000000000000000000000000000000000000000000000000000",
+        "Superblock Hash (GOOD):     DFCB25817D6C223467135F192239FD6AA86F597262C359EA779A16B73F830ABD",
+        "Hash Table (GOOD):",
+        "Superblock Hash (GOOD):     68130F13B50D7C6541EE612CDA4C4011845FDB76262DE681C85DAE7AB2667E8F",
+        "Level 0 (GOOD):",
+        "Level 1 (GOOD):",
+        "Level 2 (GOOD):",
+        "Level 3 (GOOD):",
+        "Level 4 (GOOD):",
+        "Level 5 (GOOD):"
+      ],
+      "non_signature_hash_failures": 0
+    },
+    {
+      "type": "control",
+      "markers": [
+        "Fixed-Key Index (GOOD):             0x0",
+        "Fixed-Key Signature (FAIL):         0000000000000000000000000000000000000000000000000000000000000000",
+        "Superblock Hash (GOOD):     8279F563AF528156B8A3AF288B1A636D3D1575F81A8B4F5F287F29FAEB3FD8E3",
+        "Level 0 (GOOD):",
+        "Level 1 (GOOD):",
+        "Level 2 (GOOD):",
+        "Level 3 (GOOD):",
+        "Level 4 (GOOD):",
+        "Level 5 (GOOD):"
+      ],
+      "non_signature_hash_failures": 0
+    }
+  ],
+  "nso_sha256": "6e58d3c6b2c38d3404e214809a200fd1fff511db5afad9b2daaa5ea1b734d855",
+  "nso_matches_current_elf": true,
+  "icon_sha256": "20abf966280409650ef0a4a9a0a743934b9bcad17a153720e39ae0c010a90568",
+  "icons_checked": 16,
+  "nacp_only_display_version_changed_from_base": true,
+  "user_save_bytes": 2147483648,
+  "user_save_journal_bytes": 67108864,
+  "patch_sha256": "5aa69af72f240d6cf2fa1d12293564256bef120b1c1a70cb210e597927df9f42",
+  "nro_version": "1.0.79",
+  "nro_sha256": "25e71e306a55a8572a243a209f5bdda9e688f47339c9a2078482b72691eccdd3",
+  "nro_bytes": 16408236,
+  "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+  "hardware_run": false
+}

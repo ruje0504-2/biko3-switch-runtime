@@ -254,8 +254,12 @@ static int drag(void *p, unsigned role, const uint32_t words[2],
   BkEndingTertiaryMotionState next = c->scene->retained->motion;
   int32_t motion[2];
   memcpy(motion, words, sizeof(motion));
-  if (!motion_clip(pose, &state, &clip, e) ||
-      !bk_ending_tertiary_motion_drag(&next, c->bindings->control.frame->group,
+  if (!motion_clip(pose, &state, &clip, e))
+    return 0;
+  /*Scale only this manual seek. Keep the original motion cap and tick time,
+   * so full-stick input still advances sixfold instead of hitting that cap.*/
+  clip.rate *= c->scene->stick_motion_gain ? c->scene->stick_motion_gain : 1;
+  if (!bk_ending_tertiary_motion_drag(&next, c->bindings->control.frame->group,
           mode, c->seconds, motion, &clip, e) ||
       !bk_actor_pose_set_clock(pose, (unsigned)state.slot, clip.elapsed, clip.source, e))
     return 0;
