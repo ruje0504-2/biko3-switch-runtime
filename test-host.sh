@@ -28,6 +28,7 @@ fi
 if [ "$#" -ge 1 ]; then
     python=${BK3_TEST_PYTHON:-local/venv/bin/python}
     "$python" tests/check_checkpoint_chain.py "$1/Data"
+    "$python" tests/check_natural_item_route.py "$1/Data"
     "$python" tests/check_ending_natural_record.py "$1/Data"
     if [ -n "${BK3_ORIGINAL_EXE:-}" ]; then
         "$python" tests/original_checkpoint_route_flags_oracle.py "$BK3_ORIGINAL_EXE" "$1/Data" local/original-checkpoint-route-flags.json

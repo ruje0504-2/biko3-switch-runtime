@@ -1,50 +1,174 @@
 {
   "date": "2026-10-01",
-  "scope": "Group0 first-character item1 natural pickup, production area handoff, checkpoint write, same-process reload, and independent-process disk reload.",
   "passed": true,
-  "entry_boundary": "Production area loader enters group0 area1; movement and every operation after entry are real application input.",
-  "production_state_writes": false,
-  "steps": [
-    "Move through m00_11 with production collision and NPC visibility checks",
-    "Pick item1 through the production item segment query",
-    "Reach Mesh_End_Hantei2 and load the production area-save prompt",
-    "Write flow28 checkpoint slot0 with area2 and inventory[1]=1",
-    "Reload in the same process through flow50 and flow02",
-    "Start a new process, open pause/load, confirm slot0, and restore area2/item1 from disk"
+  "scope": "Group0/item1 pickup, area2 checkpoint save/load, successful area2-to-area3 continuation and area3 checkpoint save/load. Four independent application processes per build.",
+  "fixtures": [
+    "Production area loader enters group0 area1 for produce mode",
+    "Initial random seed 0x50caa2 set once before input"
   ],
-  "results": {
-    "host_same_process": "PASS natural-pickup-save-reload area2 item1",
-    "host_new_process": "PASS natural-pickup-disk-reload area2 item1",
-    "asan_same_process": "PASS natural-pickup-save-reload area2 item1",
-    "asan_new_process": "PASS natural-pickup-disk-reload area2 item1"
+  "later_state_injection": false,
+  "source": "tools/natural_item_save_probe.c",
+  "runner": "tests/check_natural_item_route.py",
+  "command": "python3 tests/check_natural_item_route.py local/game/MAINDIR/Data",
+  "evidence_root": "build/validation/natural-item-9w7crmuy",
+  "steps": [
+    "produce: actual pickup, exit, save area2, close menu and continue (not a disk reload)",
+    "reload: new-process pause/load menu reads area2 from disk",
+    "continue: new-process area2 disk load, wait for NPC exit, move around obstacles, cross Mesh_End_Hantei4, save area3 and continue",
+    "reload: new-process pause/load menu reads area3 from disk"
+  ],
+  "frames_per_build": {
+    "host": 29229,
+    "asan": 29229
   },
-  "maintained_probe": {
-    "source": "tools/natural_item_save_probe.c",
-    "cmake_target": "natural-item-save-probe",
-    "host": [
-      "PASS natural-item produce group0 area2 inventory01000",
-      "PASS natural-item reload group0 area2 inventory01000"
+  "runs": [
+    {
+      "mode": "host",
+      "operation": "produce",
+      "area": 2,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 16967,
+      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
+      "checkpoint_sha256": "f240a6ed62ff40482e6e1ba8bdcc7591614a4edca8b4e3bb6e575df5143de9ca",
+      "summary": "PASS natural-item produce group0 area2 inventory01000 frames16967"
+    },
+    {
+      "mode": "host",
+      "operation": "reload",
+      "area": 2,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 2441,
+      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
+      "checkpoint_sha256": "f240a6ed62ff40482e6e1ba8bdcc7591614a4edca8b4e3bb6e575df5143de9ca",
+      "summary": "PASS natural-item reload group0 area2 inventory01000 frames2441"
+    },
+    {
+      "mode": "host",
+      "operation": "continue",
+      "area": 3,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 7368,
+      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
+      "checkpoint_sha256": "6ee0d56176d66b7ecae371e922dbd5518c41932b63d03418a3e78d25bb21c58a",
+      "summary": "PASS natural-item continue group0 area3 inventory01000 frames7368"
+    },
+    {
+      "mode": "host",
+      "operation": "reload",
+      "area": 3,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 2453,
+      "binary_sha256": "23633f3344b6ea9bb5728f741eaaed674bbaba4cd3332400eacb3949d580719b",
+      "checkpoint_sha256": "6ee0d56176d66b7ecae371e922dbd5518c41932b63d03418a3e78d25bb21c58a",
+      "summary": "PASS natural-item reload group0 area3 inventory01000 frames2453"
+    },
+    {
+      "mode": "asan",
+      "operation": "produce",
+      "area": 2,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 16967,
+      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
+      "checkpoint_sha256": "c2997391aac17f6b646c3e9d28def665d8c6f601073d92ebfb3480e216012103",
+      "summary": "PASS natural-item produce group0 area2 inventory01000 frames16967"
+    },
+    {
+      "mode": "asan",
+      "operation": "reload",
+      "area": 2,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 2441,
+      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
+      "checkpoint_sha256": "c2997391aac17f6b646c3e9d28def665d8c6f601073d92ebfb3480e216012103",
+      "summary": "PASS natural-item reload group0 area2 inventory01000 frames2441"
+    },
+    {
+      "mode": "asan",
+      "operation": "continue",
+      "area": 3,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 7368,
+      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
+      "checkpoint_sha256": "4d3b813516dcb061519ba1eaae61b1595fcf1963d2de47c219ceb41727b61cb8",
+      "summary": "PASS natural-item continue group0 area3 inventory01000 frames7368"
+    },
+    {
+      "mode": "asan",
+      "operation": "reload",
+      "area": 3,
+      "inventory": [
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "frames": 2453,
+      "binary_sha256": "39ec173c16b4c04b91316a53d86e81701ac677606b60558f9633cb038b88c6b3",
+      "checkpoint_sha256": "4d3b813516dcb061519ba1eaae61b1595fcf1963d2de47c219ceb41727b61cb8",
+      "summary": "PASS natural-item reload group0 area3 inventory01000 frames2453"
+    }
+  ],
+  "checks": {
+    "inventory": [
+      0,
+      1,
+      0,
+      0,
+      0
     ],
-    "asan_ubsan": [
-      "PASS natural-item produce group0 area2 inventory01000",
-      "PASS natural-item reload group0 area2 inventory01000"
-    ],
+    "read_only_reloads_preserved_file": true,
+    "all_eight_gpu_teardowns_at_renderer_baseline": true,
     "sanitizer_diagnostics": 0
   },
-  "logs": [
-    "local/ending-third-natural-next/run10.log",
-    "local/ending-third-natural-next/run11.log",
-    "local/ending-third-natural-next/run-asan-natural.log",
-    "local/ending-third-natural-next/run-asan-disk.log"
-  ],
-  "saved_files": {
-    "host_checkpoint_sha256": "9ec9cefb6f21e5b2b575984c6767762da72c6ad4c8efd58da109e7f4e4d4843e",
-    "asan_checkpoint_sha256": "753386548f4e603e31c7cce49a36068fd05e64a079c6569bd4ce9db97e488cae"
-  },
+  "correction": "An earlier area2 exploration entered failure flow40; that was not successful story continuation. The maintained continue mode now requires successful area3 handoff.",
   "not_covered": [
     "Title-to-area1 natural playthrough",
-    "Other characters and item branches",
-    "Complete story ending handoff after the restored area",
+    "Area3 onward full story and ending",
+    "Other characters/items natural branches",
+    "Pixel equivalence (probe render size is 80x48)",
     "Switch hardware acceptance"
   ]
 }

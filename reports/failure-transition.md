@@ -6,4 +6,6 @@
 
 原EXE隔离对照：HUD12,000帧，438次消息绑定、4,596次release调用，状态/绘制门控/alpha/副作用顺序一致；五种镜头12,000步、4,061次完成，世界矩阵与平滑位置最大相对误差0，sin/cos、瞄准、世界设置和完成分支均执行原指令，仅FOV设备服务替换。普通与ASan/UBSan两个单元测试通过，覆盖服务失败前缀、无定义输入原子拒绝、负向完成判据；架构检查与Switch构建通过。
 
-两组件尚未接入应用失败流程，NRO因未引用被裁剪，摘要仍107d86f9…；不能据此宣称flow40或失败重试已经可玩。后续继续4EB0EE失败资源/动作初始化、51B244角色表现，再把40→68失败重试菜单装配到play_session。51B244原指令及五相机反汇编已保存local/next-51b244.asm和local/failure-camera-*.asm。应用/开发包现状见play-session.md。存档、后续任务、媒体、汉化及实机仍未完成，防休眠保持。
+应用失败流程已经接入 `play_session`。group0/area0 的普通和 ASan/UBSan `failure-flow-probe` 均以真实输入完成 `flow02→flow40→flow68→flow02`，再次失败后回到标题；整个 session 销毁后 GPU 分配回到 renderer 基线。日志分别为 `local/ending-third-natural-next/failure-chain-20261001-host/run.log` 与 `failure-chain-20261001-asan/run.log`。两构建首次失败类型分别为 3、2，第二次均为 3；随机种子来自运行时，因此不声称逐帧状态相同。
+
+另一次 group0/item1 的 area2 读档后探索进入了 `flow40`，它只是失败入口证据，不能当作成功剧情继续。随后已单独完成 area2→area3 的成功保存与新进程读档，见 `reports/ending-natural-item-route-verification.json`。其他角色、Switch 实机和完整媒体验收仍未完成。

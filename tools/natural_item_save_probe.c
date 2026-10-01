@@ -1,4 +1,5 @@
-/* Group0 area1 -> item1 -> actual exit/save -> fresh-process menu load.
+/* Group0 area1 -> item1 -> actual exit/save -> fresh-process menu load,
+ * then area2 -> area3 save/continue and fresh-process load.
  * Only the incoming area1 loader and initial random seed are fixtures.
  * All later movement, inventory, outcomes and flow transitions belong to the
  * application. This is not a title-to-ending walkthrough. */
@@ -89,6 +90,20 @@ static int tracking(const BkGameFrameState *s, const BkFlowTransition *f,
       f->current, s->interaction.outcome);
   return 0;
 }
+static void dump_state(const char *tag, const BkGameFrameState *s,
+                       const BkFlowTransition *f) {
+  fprintf(stderr,
+      "%s flow%02x prev%02x area%u pos%.2f/%.2f yaw%.1f npc%.2f/%.2f "
+      "cursor%u hidden%u visible%u outcome%u action%d mode%d wall=%s near%d\n", tag,
+      f->current, f->previous,
+      s->area, s->player.spatial.movement.position[0],
+      s->player.spatial.movement.position[2], s->player.spatial.movement.yaw,
+      s->npc.path.position[0], s->npc.path.position[2], s->npc.path.cursor,
+      s->npc.ai.point.motion.hidden, s->npc.visible, s->interaction.outcome,
+      s->player.spatial.movement.action, s->player.spatial.movement.interaction_mode,
+      s->player.spatial.scene.wall_name,
+      s->player.spatial.scene.wall.near_wall);
+}
 enum Destination { POINT, WALL_WAIT, PICKUP, EXIT };
 static int move(Run *r, float x, float z, unsigned limit,
                 enum Destination goal, char e[256]) {
@@ -130,19 +145,42 @@ static int idle_tracking(Run *r, unsigned frames, char e[256]) {
   return tracking(bk_play_session_state(r->scene),
                    bk_play_session_flow(r->scene), e);
 }
+static int drive_area2_exit(Run *r, char e[256]) {
+  /* Let the NPC leave before following. The eastern end is the incoming
+   * boundary; the south route passes west of the small box at z85..97. */
+  for (unsigned i = 0; i < 18000; ++i) {
+    const BkGameFrameState *s = bk_play_session_state(r->scene);
+    if (s->npc.ai.point.motion.hidden) break;
+    if (!idle_tracking(r, 1, e)) return 0;
+  }
+  if (!bk_play_session_state(r->scene)->npc.ai.point.motion.hidden) {
+    snprintf(e, 256, "area2 NPC did not leave");
+    return 0;
+  }
+  const float path[][2] = {{-103, 118}, {-103, 60}, {-92, 60}};
+  for (unsigned i = 0; i < sizeof(path) / sizeof(*path); ++i) {
+    if (!move(r, path[i][0], path[i][1], 1800, POINT, e)) return 0;
+  }
+  return move(r, -92, -15, 1800, EXIT, e);
+}
 
 int main(int argc, char **argv) {
-  if (argc != 4 || (strcmp(argv[3], "produce") && strcmp(argv[3], "reload"))) {
-    fprintf(stderr, "usage: natural-item-save-probe DATA OUTPUT produce|reload\n");
+  if (argc != 4 || (strcmp(argv[3], "produce") && strcmp(argv[3], "reload") &&
+                    strcmp(argv[3], "continue"))) {
+    fprintf(stderr,
+        "usage: natural-item-save-probe DATA OUTPUT produce|reload|continue\n");
     return 2;
   }
-  int produce = !strcmp(argv[3], "produce"), result = 1;
+  int produce = !strcmp(argv[3], "produce");
+  int continue_mode = !strcmp(argv[3], "continue"), result = 1;
   char e[256] = {0}, path[2048];
   uint64_t submitted = 0;
   BkResourceStore *resources = NULL;
   BkCaptureFiles *captures = NULL;
   BkCheckpointFiles *files = NULL;
   BkCheckpointBank bank = {0};
+  const uint8_t expected[5] = {0, 1, 0, 0, 0};
+  uint32_t expected_area = 2;
   BkRenderStats baseline = {0};
   Run r = {0};
   CHECK(resources = bk_resources_create(e));
@@ -159,6 +197,12 @@ int main(int argc, char **argv) {
   CHECK(files = bk_checkpoint_files_create(argv[2], e));
   CHECK(bk_checkpoint_file_read(files, 0, &bank, e) ==
       (produce ? BK_RESOURCE_MISSING : BK_RESOURCE_OK));
+  if (!produce) {
+    expected_area = bank.slots[0].area;
+    CHECK(bank.slots[0].stamp[0] &&
+        (expected_area == 2 || (!continue_mode && expected_area == 3)) &&
+        !memcmp(bank.slots[0].inventory, expected, sizeof(expected)));
+  }
   CHECK(r.renderer = bk_renderer_create(80, 48, stderr, e));
   baseline = bk_renderer_stats(r.renderer);
   BkAudioSink sink = {&submitted, 48000, 480, 1920, submit, poll};
@@ -208,16 +252,30 @@ int main(int argc, char **argv) {
     CHECK(click(&r, 750, 250, e) && click(&r, 496, 548, e));
     CHECK(wait_flow(&r, 2, e) && ready(&r, e));
   }
-  const uint8_t expected[5] = {0, 1, 0, 0, 0};
-  CHECK(bank.slots[0].area == 2 && bank.slots[0].stamp[0] &&
+  CHECK(s->game_state.area == expected_area &&
+      !memcmp(s->game_state.pickup.collected, expected, sizeof(expected)));
+  if (continue_mode) {
+    if (!drive_area2_exit(&r, e)) {
+      dump_state("AREA2 continuation failed", &s->game_state, &s->flow);
+      goto done;
+    }
+    CHECK(wait_flow(&r, 0x20, e) && settle(&r, e));
+    CHECK(click(&r, 496, 548, e) && wait_flow(&r, 0x28, e) && settle(&r, e));
+    CHECK(click(&r, 750, 250, e) && click(&r, 496, 548, e));
+    CHECK(bk_checkpoint_file_read(files, 0, &bank, e) == BK_RESOURCE_OK);
+    expected_area = 3;
+    CHECK(click(&r, 1100, 908, e) && wait_flow(&r, 2, e) && ready(&r, e));
+  }
+  CHECK(bank.slots[0].area == expected_area && bank.slots[0].stamp[0] &&
       !memcmp(bank.slots[0].inventory, expected, sizeof(expected)));
-  CHECK(s->game_state.area == 2 &&
+  CHECK(s->game_state.area == expected_area &&
       !memcmp(s->game_state.pickup.collected, expected, sizeof(expected)));
   CHECK(idle_tracking(&r, 120, e));
   BkCheckpointBank after = {0};
   CHECK(bk_checkpoint_file_read(files, 0, &after, e) == BK_RESOURCE_OK);
   CHECK(!memcmp(&bank, &after, sizeof(bank)));
-  printf("PASS natural-item %s group0 area2 inventory01000 frames%u\n", argv[3], r.frames);
+  printf("PASS natural-item %s group0 area%u inventory01000 frames%u\n",
+         argv[3], expected_area, r.frames);
   result = 0;
 done:
   bk_scene_destroy(r.scene);

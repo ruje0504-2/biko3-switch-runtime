@@ -33,21 +33,25 @@
 
 ## 自然 item1 路线
 
-2026-10-01，第一角色 group0 的 item1 已用生产输入完成从 area1 实际移动到道具、拾取、出口保存、下一场景和读档恢复。探针只把进入 area1 作为生产 area loader 边界；之后没有写入 phase、progress 或 action。NPC 视线、碰撞、道具线段拾取、`Mesh_End_Hantei2` 出口、flow50→flow20、flow28 写盘和 flow02 重建均由应用代码执行。
+2026-10-01，维护工具 `tools/natural_item_save_probe.c` 已完成第一角色 group0/item1 的实际拾取、area2 保存/读档，以及读档后继续到 area3 再次保存/读档。入口使用生产 area loader 进入 area1，并固定一次初始随机种子；之后不写 phase、progress、action、outcome 或背包。NPC 视线、碰撞、拾取、出口和菜单均走生产代码。
 
-- 普通构建 `local/ending-third-natural-next/run10.log`：`PASS natural-pickup-save-reload area2 item1`；保存槽恢复为 area2、inventory[1]=1。
-- 普通新进程 `run11.log`：从同一 `checkpoint-0.bks` 目录进入暂停读档菜单，真实确认后通过 flow50→flow02，`PASS natural-pickup-disk-reload area2 item1`。
-- ASan/UBSan `run-asan-natural.log` 和 `run-asan-disk.log` 同样通过，未出现 sanitizer 报告。
-- 机器可读摘要见 `reports/ending-natural-item-route-verification.json`。这是 group0/item1 的自然路线证据，不能扩展为标题到该场景的完整流程、五角色全分支或 Switch 实机验收。
+`python3 tests/check_natural_item_route.py local/game/MAINDIR/Data` 已接入 `test-host.sh`，普通/ASan 各启动四个独立进程：
+
+- `produce`：16,967 帧，拾取 item1，保存 area2 后关闭菜单并继续到 area2；此步不称为从磁盘读档。
+- `reload`：2,441 帧，通过暂停/读取菜单从磁盘恢复 area2。
+- `continue`：7,368 帧，从磁盘恢复 area2，等待 NPC 离开，绕过路障，经 `Mesh_End_Hantei4` 完成下一场景交接；覆盖保存 area3，关闭菜单后继续运行。
+- `reload`：2,453 帧，新进程从磁盘恢复 area3。两次只读加载均不修改存档文件。
+
+每构建 29,229 帧，五个背包字节始终为 `01000`；全部八个进程退出时 GPU 分配回到 renderer 基线，无 ASan/UBSan 诊断。终态日志为 `build/validation/natural-item-9w7crmuy/verification.json`，摘要见 `reports/ending-natural-item-route-verification.json`。较早探针误把进入失败流程当作 continue 成功，已改成只接受 area3 成功交接；不以失败分支替代此项验证。
 
 ## 尚未完成
 
-本批已完成显式库存入口下的 phase4 实际交互、state5/6/7 交接和五角色普通/ASan 矩阵；另已完成 group0/item1 的自然拾取→保存→独立读档路线。
+本批已完成显式库存入口下的 phase4 实际交互、state5/6/7 交接和五角色普通/ASan 矩阵；另已完成 group0/item1 的自然拾取→area2 保存/读档→area3 保存/读档路线。
 
 单角色无道具的完整第三类流程在本地探索中已普通/ASan 配对完成：13,955 录制/保存/结束对话帧、13,473 新进程回放帧、两次选择资源加载；记录与解锁文件逐字节相同。该工具尚未纳入维护入口，不能扩展为五角色全分支验收。详细接续：`local/ending-third-natural-next/next.md`。
 
 自然路线的完整故事交接、其他角色/道具的自然路线、完整原版三维像素对照与本批 Switch 实机仍未验收。用户确认的原版 PC 光影闪烁修复保持关闭，不能重新列为未解决。
 
-指定 Mesa NVK 产物只在 `build-switch/biko3-preview.nro`：16,240,696 字节，SHA-256 `24a5de85d24861e629f57340627f1d02f1cb0327c2d7b5e8f6183ec0768e4271`。ELF 未解析符号零，新生产入口已链接。Mesa 静态库摘要 `d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256`。
+phase4 验证时的指定 Mesa NVK 产物为 16,240,696 字节，SHA-256 `24a5de85d24861e629f57340627f1d02f1cb0327c2d7b5e8f6183ec0768e4271`，ELF 未解析符号零。这是后续 NEON 优化前的历史产物；本次仅维护主机探针，没有重新生成 NRO。
 
-用户本次授权向 `ruje0504-2/biko3-switch-runtime` 增量推送一次；完成后恢复不自动推送。不打完整交付包，不上传游戏资源。完整目标未完成，防休眠 PID 64008 保持。
+本轮授权的一次 GitHub 增量已推至 `6fbe62e`；之后只做本地提交，不追加推送、不整包。完整目标未完成，当前防休眠 PID 69780 保持。
