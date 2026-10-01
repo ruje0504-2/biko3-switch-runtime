@@ -34,6 +34,7 @@ if [ "$#" -ge 1 ]; then
         "$python" tests/original_checkpoint_route_flags_oracle.py "$BK3_ORIGINAL_EXE" "$1/Data" local/original-checkpoint-route-flags.json
         "$python" tests/check_record_storage.py "$BK3_ORIGINAL_EXE" "$1/Data"
         "$python" tests/check_gallery_menu.py "$BK3_ORIGINAL_EXE" "$1/Data" --host-python "$python"
+        "$python" tests/check_volume_menu.py "$BK3_ORIGINAL_EXE" "$1/Data" --host-python "$python"
         "$python" tests/check_ending_tertiary_cpu.py "$BK3_ORIGINAL_EXE" --host-python "$python" --data "$1/Data"
         "$python" tests/check_bom_dual_assets.py "$BK3_ORIGINAL_EXE" "$1/Data" --with-ending-assets
         "$python" tests/check_ending_selected_assets.py "$BK3_ORIGINAL_EXE" "$1/Data"

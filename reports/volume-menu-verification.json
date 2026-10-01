@@ -1,0 +1,229 @@
+{
+  "passed": true,
+  "started_at": "2026-10-01T09:29:28.015075+00:00",
+  "source_sha256": {
+    "CMakeLists.txt": "29fc7cbbd31caaf71ea0aa25595d3acc4c71548bc807fe8b463ef1ea201fde21",
+    "config/dependencies.lock.json": "a3c4d3edd9a73a32d6ef5fd4e9e5383ba22de0bb02c1c63dd91e4bbed8afa2c8",
+    "runtime/media/audio.c": "0ebc06699c98e78e36fb1b26af472ed34b9d137bb3a83b040705267c9b844921",
+    "runtime/media/pcm.c": "f1888e6ecf08afe325282d088355f0158ba1eb275e229a3206bceb170685ed10",
+    "runtime/render/vulkan/renderer.c": "3ab0447e07f8daef4341b270e9bc0068aadfcf0a30e2e58ae8385a7271bc8359",
+    "runtime/scene/volume_menu.c": "777cda501d9e4ff499d8fdbc8390b935aea6d7c137e3a8d16312aecc8b9691c4",
+    "runtime/scene/volume_menu.h": "929af3209c10087343d391c767244cab2a1dfce2df065491f3d2bfd86cf50279",
+    "runtime/scene/volume_menu_audio.c": "c4d3985a9acb95cbcb686f5ac4c43ffecd8623e63fae88a8e5f876fd4b7bca52",
+    "runtime/scene/volume_menu_audio.h": "3ce563bbf25125afc93f356cfa273fd59c593509661ea23ee0138abf6c1a74ce",
+    "runtime/scene/volume_menu_render.c": "995daae203a2fa439ea3825ec92c09c61c038391eacc4e62f0e1cb8d600d2cce",
+    "runtime/scene/volume_menu_render.h": "56b8471ff99664f7ddad8a7a9f0d157d1abaab56f36eabf030bcc8ac9913c76f",
+    "test-host.sh": "250af461fe9fd2213385ddefd2ad4af9fefa80246031d1eeb095cc1068d79c31",
+    "tests/check_volume_menu.py": "63a86541127ac8ba8948c8973347c0bd52447aa12065f74fb45d64149c4a662e",
+    "tests/model_binding.py": "08bf220e7c22a562e57b2ef891119a89ed5346b3540e0139bc590620608e6783",
+    "tests/original_matrix_oracle.py": "ed3da1a4936fd3fad04065962edb2587bf91af396c21ba80a30f6caed81d766a",
+    "tests/original_player_hud_oracle.py": "5f5fab8e960c153c3a66bb82bb9eddd6c437af5b77dc92e06680a7ba4d394a48",
+    "tests/original_prop_route_oracle.py": "be6aa7c81ba64f8c15deb5bf64b738a5d6ec110ca61d69679273f3b104b078bc",
+    "tests/original_volume_menu_oracle.py": "694af5275bbee3ce8d6ac81951fdbe87cf69c3ec3c15311d15ce8fa3e33a26e0",
+    "tests/original_zoom_sprite_oracle.py": "b8fc686cfb4e304a067c08e09c4b2977c2b82f5f0e0de92594639d1032c98834",
+    "tools/volume_menu_probe.c": "5272def81ccb60e9489ed94518919dd7ba1bca875cf6046aa30d7c73d51ee5c4"
+  },
+  "archive_sha256": {
+    "bk3_00": "bd20b2d0a83be7ea9075cb4faea12774e15e07f57e7abde08b857c518ea12dfd",
+    "bk3_02": "32790a9436ee5070c30639d56001d334d0b372ce2fde3c380fc15791a1454854"
+  },
+  "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+  "commands": [
+    {
+      "name": "python-site",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/local/venv/bin/python",
+        "-c",
+        "import sysconfig;print(sysconfig.get_paths()[\"purelib\"])"
+      ],
+      "log": "python-site.log",
+      "exit_code": 0
+    },
+    {
+      "name": "configure-host",
+      "argv": [
+        "cmake",
+        "-S",
+        ".",
+        "-B",
+        "build",
+        "-DBK_BUILD_TESTS=ON",
+        "-DBK_SANITIZE=OFF",
+        "-DBK_WITH_VULKAN=ON",
+        "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+      ],
+      "log": "configure-host.log",
+      "exit_code": 0
+    },
+    {
+      "name": "build-host",
+      "argv": [
+        "cmake",
+        "--build",
+        "build",
+        "--target",
+        "model-test",
+        "volume-menu-probe",
+        "--parallel",
+        "4"
+      ],
+      "log": "build-host.log",
+      "exit_code": 0
+    },
+    {
+      "name": "configure-asan",
+      "argv": [
+        "cmake",
+        "-S",
+        ".",
+        "-B",
+        "build/asan-static",
+        "-DBK_BUILD_TESTS=ON",
+        "-DBK_SANITIZE=ON",
+        "-DBK_WITH_VULKAN=ON",
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "log": "configure-asan.log",
+      "exit_code": 0
+    },
+    {
+      "name": "build-asan",
+      "argv": [
+        "cmake",
+        "--build",
+        "build/asan-static",
+        "--target",
+        "model-test",
+        "volume-menu-probe",
+        "--parallel",
+        "4"
+      ],
+      "log": "build-asan.log",
+      "exit_code": 0
+    },
+    {
+      "name": "host-native",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/local/venv/bin/python",
+        "/Users/rujian/Documents/Codex/WX3/tests/original_volume_menu_oracle.py",
+        "/Users/rujian/Documents/Codex/WX3/\u5c3e\u884c3 [\u6c49\u5316]/\u53bb\u7801\u6c49\u5316\u8865\u4e01/\u6c49\u5316/\u5c3e\u884c3\u4e2d\u6587\u7248.exe",
+        "--output",
+        "/Users/rujian/Documents/Codex/WX3/build/validation/volume-menu-cax5trsb/host-native.json"
+      ],
+      "log": "host-native.log",
+      "exit_code": 0
+    },
+    {
+      "name": "asan-native",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/build/asan/ending-oracle-python",
+        "/Users/rujian/Documents/Codex/WX3/tests/original_volume_menu_oracle.py",
+        "/Users/rujian/Documents/Codex/WX3/\u5c3e\u884c3 [\u6c49\u5316]/\u53bb\u7801\u6c49\u5316\u8865\u4e01/\u6c49\u5316/\u5c3e\u884c3\u4e2d\u6587\u7248.exe",
+        "--output",
+        "/Users/rujian/Documents/Codex/WX3/build/validation/volume-menu-cax5trsb/asan-native.json"
+      ],
+      "log": "asan-native.log",
+      "exit_code": 0
+    },
+    {
+      "name": "host-gpu",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/build/volume-menu-probe",
+        "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+      ],
+      "log": "host-gpu.log",
+      "exit_code": 0
+    },
+    {
+      "name": "asan-gpu",
+      "argv": [
+        "/Users/rujian/Documents/Codex/WX3/build/asan-static/volume-menu-probe",
+        "/Users/rujian/Documents/Codex/WX3/local/game/MAINDIR/Data"
+      ],
+      "log": "asan-gpu.log",
+      "exit_code": 0
+    }
+  ],
+  "checks": [
+    {
+      "kind": "native",
+      "mode": "host",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "constructors": 21,
+        "frames": 6282,
+        "boundary_frames": 522,
+        "draws": 87948,
+        "service_calls": 45376,
+        "max_geometry_error": 0,
+        "max_volume_delta_hundredths_db": 1,
+        "digest": "b0800ac5590b98b74160534824a9711938c88f793d815f47c5b2847ca1db4790",
+        "scope": "Original4ab0c0/4a0590 construction,4ac224/43ed45 vertices and4ac6a7 controls.\nOnly asset creation, device draw/lock, DirectSound, rand and pointer warp are\nboundaries. Native menu hit testing, slider math and event order execute.\nThis is a CPU/geometry oracle, not application/storage or Switch acceptance.\n"
+      },
+      "library_sha256": "8ace0c074741cb892e2f801d0dded706dea91668fdccbaab6f728e77a90aef17"
+    },
+    {
+      "kind": "native",
+      "mode": "asan",
+      "result": {
+        "passed": true,
+        "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+        "constructors": 21,
+        "frames": 6282,
+        "boundary_frames": 522,
+        "draws": 87948,
+        "service_calls": 45376,
+        "max_geometry_error": 0,
+        "max_volume_delta_hundredths_db": 1,
+        "digest": "b0800ac5590b98b74160534824a9711938c88f793d815f47c5b2847ca1db4790",
+        "scope": "Original4ab0c0/4a0590 construction,4ac224/43ed45 vertices and4ac6a7 controls.\nOnly asset creation, device draw/lock, DirectSound, rand and pointer warp are\nboundaries. Native menu hit testing, slider math and event order execute.\nThis is a CPU/geometry oracle, not application/storage or Switch acceptance.\n"
+      },
+      "library_sha256": "4af949458fff60607ea8f448ea28088be6ef779121b5a0a2575c5d699827c1fb"
+    },
+    {
+      "kind": "gpu",
+      "mode": "host",
+      "result": "volume-menu GPU PASS frames=600 samples=2692173 worst=1 redraws=22 plays=20 actions=2,2,4,2,2,0 rejects=4 pixels=49b862e53f7c2b75 PCM=1152000 nonzero=738902 hash=145ba42884509601",
+      "binary_sha256": "2869a104fa9d8e6555d4d23b2dc73ba9a84a5f9ff1ea9c925282d952c2047ca4"
+    },
+    {
+      "kind": "gpu",
+      "mode": "asan",
+      "result": "volume-menu GPU PASS frames=600 samples=2692173 worst=1 redraws=22 plays=20 actions=2,2,4,2,2,0 rejects=4 pixels=49b862e53f7c2b75 PCM=1152000 nonzero=738902 hash=145ba42884509601",
+      "binary_sha256": "13861389be126b4e0b3974ac8981382aa5572665e26f9f50acb146d88a12e481"
+    }
+  ],
+  "leak_detection": false,
+  "real_assets": true,
+  "application_flow30": false,
+  "switch_validation": false,
+  "scope": "Pair the original volume UI oracle and Japanese Vulkan/PCM probe.\nWrites a new validation directory, checks source/archive stability, and never\nclaims application flow30 integration, full Windows pixels or Switch results.\n",
+  "finished_at": "2026-10-01T09:29:41.196914+00:00",
+  "validation_directory": "build/validation/volume-menu-cax5trsb",
+  "switch_build": {
+    "nro_bytes": 16240696,
+    "nro_sha256": "d8873a4ea515ba90a14ad4b22b99327b0b2b25a32d05d2548c1834357e9f230e",
+    "elf_sha256": "40e5955e159b17b188a9e52ef76c5497adc3831662eee08934c1abcdca42afa4",
+    "undefined_symbols": 0,
+    "volume_in_production_elf": false,
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212"
+  },
+  "other_checks": {
+    "architecture": {
+      "tests": 2,
+      "passed": true,
+      "log": "local/menu-flow-next/architecture.log"
+    },
+    "python": {
+      "tests": 29,
+      "passed": true,
+      "log": "local/menu-flow-next/python-tests.log"
+    }
+  },
+  "limitations": [
+    "No flow30 application registration or volume file persistence in this increment",
+    "No full-story or new Switch hardware acceptance",
+    "Original x87 volume truncation differs from double by at most one hundredth of a dB in tested cases"
+  ]
+}
