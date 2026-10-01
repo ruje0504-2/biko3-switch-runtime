@@ -34,7 +34,7 @@ BkSelectionAudio *bk_selection_audio_create(BkResourceStore *store,
   a->audio = audio;
   a->music = music;
   a->speech = speech;
-  a->music_clip = bk_audio_clip_load_music(store, "bk3_02", "bg002.wav", error);
+  a->music_clip = bk_audio_clip_load(store, "bk3_02", "bg002.wav", error);
   if (!a->music_clip)
     goto bad;
   if (!bk_audio_clear(audio, speech, error) ||

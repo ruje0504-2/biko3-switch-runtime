@@ -77,7 +77,15 @@ int bk_volume_session_step(BkVolumeSession *s,double seconds,const BkInput *in,c
   if(!bk_volume_menu_prepare(&s->menu,&frame,e) ||
      !bk_volume_menu_render_prepare(s->render,&frame,s->c.viewport.width,s->c.viewport.height,e) ||
      !bk_volume_menu_step(&s->menu,&input,&ops,&action,e))return 0;
-  if(action==4) {
+  if(action==3) {
+    /* Switch defaults are MAX for all categories. The original controller
+     * remains unchanged; reset has stopped previews, and the next tick
+     * applies these slider values before any new preview or save. */
+    for(unsigned i=0;i<3;++i) {
+      s->menu.values[i]=0;
+      s->menu.slider[i]=s->menu.maximum;
+    }
+  } else if(action==4) {
     if(!bk_volume_file_store(s->c.file,s->menu.values,e))return 0;
     s->c.common->blocked=1;
   }

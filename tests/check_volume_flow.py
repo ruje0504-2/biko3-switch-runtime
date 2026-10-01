@@ -1,4 +1,5 @@
 """Pair real title/pause volume flows, fresh-process reload and failed writes.
+Also checks MAX defaults, reset, previews and saved MAX reload.
 Uses an initial RNG seed fixture, then real application input. Host Vulkan
 and ASan checks do not establish Switch hardware or complete story acceptance.
 """
@@ -69,24 +70,27 @@ def main():
             binary = build/'volume-flow-probe'
             saved = out/(label+'-saved'); saved.mkdir()
             rejected = out/(label+'-rejected'); rejected.mkdir()
-            saved_hash = None
-            for mode, port in [('produce', saved), ('reload', saved), ('reject', rejected)]:
+            defaults = out/(label+'-defaults'); defaults.mkdir()
+            saved_hash = {}
+            for mode, port in [('produce', saved), ('reload', saved), ('reject', rejected),
+                               ('defaults', defaults), ('reload-max', defaults)]:
                 text = run(label+'-'+mode, [binary, data, port, mode])
                 lines = [l for l in text.splitlines() if l.startswith('volume-flow PASS ')]
                 if len(lines) != 1: raise RuntimeError('missing terminal pass: '+label+'/'+mode)
                 record = dict(mode=label, kind=mode, result=lines[0], binary_sha256=digest(binary))
                 settings = port/'save/volume.cfg'
                 if mode != 'reject':
-                    if settings.read_bytes() != struct.pack('<3i', -1500, -6000, -3000):
+                    wanted = (0, 0, 0) if mode in ('defaults', 'reload-max') else (-1500, -6000, -3000)
+                    if settings.read_bytes() != struct.pack('<3i', *wanted):
                         raise RuntimeError('unexpected persisted settings')
-                    if mode == 'produce': saved_hash = digest(settings)
-                    elif saved_hash != digest(settings): raise RuntimeError('reload changed settings')
+                    if mode in ('produce', 'defaults'): saved_hash[port] = digest(settings)
+                    elif saved_hash[port] != digest(settings): raise RuntimeError('reload changed settings')
                     record['settings_sha256'] = digest(settings)
                 elif settings.exists(): raise RuntimeError('failed store published a file')
                 if list(port.rglob('*.part')): raise RuntimeError('temporary file remains')
                 report['checks'].append(record)
                 print(label+' '+lines[0], flush=True)
-        for kind in ['produce', 'reload', 'reject']:
+        for kind in ['produce', 'reload', 'reject', 'defaults', 'reload-max']:
             results = [c['result'] for c in report['checks'] if c['kind'] == kind]
             if len(results) != 2 or results[0] != results[1]:
                 raise RuntimeError(kind+' ordinary/ASan output or PCM mismatch')

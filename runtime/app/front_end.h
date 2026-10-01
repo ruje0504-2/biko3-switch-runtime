@@ -35,7 +35,7 @@ typedef struct {
    * actual UI/audio, album inventory, group, viewport and scheduler.*/
   BkSpecialSessionConfig special;
 } BkFrontEndConfig;
-/* Retail title1/selection38/dialogue8/gallery18/volume30/special48 owner. Retains menu globals
+/* Retail title1/selection38/dialogue8/gallery18/volume30/special48/album60 owner. Retains menu globals
  * between entries; collects released GPU snapshots on the following step.
  * Unimplemented destination flows still fail in the application's loader.
  */

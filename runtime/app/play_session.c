@@ -112,7 +112,7 @@ static void record_views(PlaySession *s, BkRecordView v[BK_RECORD_GROUPS]) {
 static int release(void *context, uint8_t flow, char error[256]) {
   PlaySession *s = context;
   log_line(s, "Flow release begin");
-  if (s->front && (flow == 1 || flow == 0x38 || flow == 8 || flow == 0x18 || flow == 0x48 || flow == 0x30))
+  if (s->front && (flow == 1 || flow == 0x38 || flow == 8 || flow == 0x18 || flow == 0x48 || flow == 0x30 || flow == 0x60))
     return bk_front_end_stop(s->front, flow, error);
   if (flow == 0x40 && s->failure_active && s->game) {
     if (!bk_game_preview_release_failure_audio(s->game, error))
@@ -279,7 +279,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
      * this byte. Actual process teardown is owned by application.c. */
     return 1;
   }
-  if (s->front && (target == 1 || target == 0x38 || target == 8 || target == 0x18 || target == 0x48 || target == 0x30)) {
+  if (s->front && (target == 1 || target == 0x38 || target == 8 || target == 0x18 || target == 0x48 || target == 0x30 || target == 0x60)) {
     if (!bk_front_end_load(s->front, target, s->flow.previous,
                            s->game_state.interaction.response, s->elapsed,
                            s->pending_seconds, error))
@@ -524,6 +524,7 @@ static int step(void *context, double seconds, const BkInput *input,
   case 0x18:
   case 0x48:
   case 0x30:
+  case 0x60:
     if (s->front) {
       if (!bk_front_end_step(s->front, seconds, s->elapsed, input, error))
         return 0;
@@ -603,7 +604,7 @@ static int draw(void *context, const BkSceneFrame *frame, char error[256]) {
   } else if (s->shown == 0x10) {
     if (!bk_scene_draw(s->ending, frame, error))
       return 0;
-  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48 || s->shown == 0x30) {
+  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48 || s->shown == 0x30 || s->shown == 0x60) {
     if (!(s->front ? bk_front_end_draw(s->front, error)
                    : bk_scene_draw(s->title, frame, error)))
       return 0;
@@ -627,7 +628,7 @@ int bk_play_session_after_present(BkScene *scene, char error[256]) {
   }
   if (!s->pending)
     return 1;
-  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48 || s->shown == 0x30) &&
+  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48 || s->shown == 0x30 || s->shown == 0x60) &&
       !bk_front_end_after_present(s->front, error))
     return 0;
   if (s->shown == 2) {

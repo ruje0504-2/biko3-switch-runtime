@@ -51,7 +51,7 @@ static int command(void *context, const BkDialogueMediaCommand *c,
   case BK_DIALOGUE_MUSIC_PAUSE:
     return bk_audio_pause(a->audio, a->music, e);
   case BK_DIALOGUE_MUSIC_LOAD: {
-    BkAudioClip *next = bk_audio_clip_load_music(a->store, c->pack, c->name, e);
+    BkAudioClip *next = bk_audio_clip_load(a->store, c->pack, c->name, e);
     if (!next)
       return 0;
     if (!bk_audio_play(a->audio, a->music, next, c->loop, c->volume, 0, e)) {

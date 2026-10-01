@@ -36,23 +36,19 @@ static int read_values(const char *path,int32_t values[3],char e[256]) {
   if(!valid(next)) {fail(e,"settings outside original slider range");return -1;}
   memcpy(values,next,sizeof(next));return 1;
 }
-BkVolumeFile *bk_volume_file_create(const char *root,const char *game,char e[256]) {
-  if((root && (!*root || strlen(root)>980)) || (game && (!*game || strlen(game)>980))) {
+BkVolumeFile *bk_volume_file_create(const char *root,char e[256]) {
+  if(root && (!*root || strlen(root)>980)) {
     fail(e,"invalid root");return NULL;
   }
   BkVolumeFile *s=calloc(1,sizeof(*s));
   if(!s) {fail(e,"allocation failed");return NULL;}
-  int read=0;char path[1100];
+  char path[1100];
   if(root) {
     snprintf(path,sizeof(path),"%s/save",root);
     if(!directory(root,e) || !directory(path,e))goto bad;
     snprintf(s->path,sizeof(s->path),"%s/save/volume.cfg",root);
     if(!bk_save_file_recover(s->path,e))goto bad;
-    read=read_values(s->path,s->values,e);if(read<0)goto bad;
-  }
-  if(!read && game) {
-    snprintf(path,sizeof(path),"%s/Data/volsetting.cfg",game);
-    if(read_values(path,s->values,e)<0)goto bad;
+    if(read_values(s->path,s->values,e)<0)goto bad;
   }
   return s;
 bad:free(s);return NULL;

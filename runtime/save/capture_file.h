@@ -18,6 +18,17 @@ void bk_capture_files_destroy(BkCaptureFiles *);
  * A missing album is explicitly empty; other I/O failures preserve output. */
 int bk_capture_files_count_photos(BkCaptureFiles *, int32_t counts[5],
                                    char error[256]);
+typedef struct { char (*names)[256]; size_t count; } BkPhotoList;
+/* Snapshot enumeration order, retaining complete basenames across deletion.
+ * group0..4; limit100/101 for the original grid, INT32_MAX for live slides.
+ * Missing directory is empty. Output must be empty; failures preserve it. */
+int bk_capture_files_list_photos(BkCaptureFiles *, unsigned group, size_t limit,
+                                  BkPhotoList *, char error[256]);
+void bk_photo_list_free(BkPhotoList *);
+BkResourceResult bk_capture_file_read_photo(BkCaptureFiles *, const char *name,
+                                            size_t limit, BkBlob *, char[256]);
+/* Only the selected album basename; missing is already deleted. */
+int bk_capture_file_remove_photo(BkCaptureFiles *, const char *name, char[256]);
 /* Native49cf48 stamp and49c7e3 group prefix. Clock supplied at capture time,
  * including the signed low32-bit tick remainder from original timeGetTime. */
 int bk_capture_photo_name(char out[128], unsigned album_group,

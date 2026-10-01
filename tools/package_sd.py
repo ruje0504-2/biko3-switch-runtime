@@ -41,7 +41,7 @@ def main():
     if not nro.is_file():
         raise ValueError('Run build-switch.sh first')
     packs = ['bk3_00', 'bk3_01', 'bk3_02', 'bk3_03', 'bk3_04',
-             'bk3_05', 'bk3_06', 'bk3_07', 'bk3_15', 'bk3_16', 'bk3_18', 'bk3_20']
+             'bk3_05', 'bk3_06', 'bk3_07', 'bk3_15', 'bk3_16', 'bk3_18', 'bk3_20', 'bk3_19']
     data_dir = game/'Data'
     if args.complete_data:
         paths=sorted(p for p in data_dir.iterdir() if p.is_file())

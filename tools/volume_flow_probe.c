@@ -81,9 +81,11 @@ static int save_return(Run *r,BkVolumeFile *v,const int32_t wanted[3],unsigned t
   return 1;
 }
 int main(int argc,char **argv) {
-  if(argc!=4 || (strcmp(argv[3],"produce") && strcmp(argv[3],"reload") && strcmp(argv[3],"reject")))return 2;
-  const int32_t first[]={-6000,-3000,0},second[]={-1500,-6000,-3000};
-  int reject=!strcmp(argv[3],"reject"),reload=!strcmp(argv[3],"reload"),result=1;
+  if(argc!=4 || (strcmp(argv[3],"produce") && strcmp(argv[3],"reload") && strcmp(argv[3],"reject") &&
+                strcmp(argv[3],"defaults") && strcmp(argv[3],"reload-max")))return 2;
+  const int32_t first[]={-6000,-3000,0},second[]={-1500,-6000,-3000},maximum[]={0,0,0};
+  int reject=!strcmp(argv[3],"reject"),reload=!strcmp(argv[3],"reload"),
+      defaults=!strcmp(argv[3],"defaults"),reload_max=!strcmp(argv[3],"reload-max"),result=1;
   char e[256]={0},path[1200];Run run={.hash=UINT64_C(14695981039346656037)};Run *r=&run;
   BkResourceStore *store=bk_resources_create(e);BkCaptureFiles *captures=NULL;BkCheckpointFiles *saves=NULL;BkUnlockFile *unlocks=NULL;BkRecordFile *records=NULL;BkVolumeFile *volume=NULL;
   CHECK(store);
@@ -92,9 +94,8 @@ int main(int argc,char **argv) {
   const char *loose[]={"routes","faces","collision","fonts"};
   for(unsigned i=0;i<4;++i) CHECK(bk_resources_mount_directory(store,loose[i],argv[1],16*1024*1024,e));
   r->r=bk_renderer_create(1280,720,stderr,e);CHECK(r->r);
-  captures=bk_capture_files_create(argv[2],e);saves=bk_checkpoint_files_create(argv[2],e);unlocks=bk_unlock_file_create(argv[2],e);records=bk_record_file_create(argv[2],e);volume=bk_volume_file_create(argv[2],NULL,e);CHECK(captures && saves && unlocks && records && volume);
+  captures=bk_capture_files_create(argv[2],e);saves=bk_checkpoint_files_create(argv[2],e);unlocks=bk_unlock_file_create(argv[2],e);records=bk_record_file_create(argv[2],e);volume=bk_volume_file_create(argv[2],e);CHECK(captures && saves && unlocks && records && volume);
   BkAudioSink sink={r,48000,240,960,submit,poll};r->audio=bk_audio_create(&sink,e);CHECK(r->audio);
-  CHECK(bk_audio_set_output_gain(r->audio,1.5f,e)); /* Production baseline. */
   uint64_t baseline=bk_renderer_stats(r->r).live_allocations;
   BkSceneServices services={store,r->r,stderr,r->audio,captures,bk_volume_file_values(volume)};
   r->scene=bk_play_session_create_with_progress(&services,saves,unlocks,records,volume,e);CHECK(r->scene && present(r,e));
@@ -102,8 +103,28 @@ int main(int argc,char **argv) {
   CHECK(idle(r,180,e));
   int32_t gain,pan;CHECK(bk_audio_get_gain(r->audio,60,&gain,&pan) && gain==bk_volume_file_values(volume)[1]);
   if(reload) {CHECK(!memcmp(bk_volume_file_values(volume),second,12));goto success;}
+  CHECK(!memcmp(bk_volume_file_values(volume),maximum,12));
+  if(reload_max)goto success;
   int32_t old[3];memcpy(old,bk_volume_file_values(volume),12);
   CHECK(open_volume(r,1,e) && redraw(r,e));
+  if(defaults) {
+    /* Lower all three, then use the actual default button, preview controls
+     * and save/return path. No menu-state injection. */
+    CHECK(adjust(r,second,e) && idle(r,1,e));
+    CHECK(tick(r,point(824,908,1),e) && idle(r,1,e) && redraw(r,e));
+    static const unsigned preview_y[]={278,424,571};
+    for(unsigned i=0;i<3;++i) {
+      unsigned attempts=0;
+      do {
+        CHECK(tick(r,point(990,preview_y[i],1),e) && idle(r,1,e));
+        ++attempts;
+      } while(i==2 && !bk_audio_get_gain(r->audio,42,&gain,&pan) && attempts<8);
+      CHECK(bk_audio_get_gain(r->audio,40+i,&gain,&pan) && gain==0 && pan==0);
+    }
+    CHECK(save_return(r,volume,maximum,1,e));
+    CHECK(bk_audio_get_gain(r->audio,60,&gain,&pan) && gain==0);
+    goto success;
+  }
   CHECK(tick(r,(BkInput){.pressed=BK_BUTTON_UP},e) && idle(r,1,e));
   for(unsigned i=0;i<3;++i)CHECK(tick(r,(BkInput){.held=BK_BUTTON_LEFT},e));
   CHECK(idle(r,1,e));

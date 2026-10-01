@@ -31,14 +31,6 @@ int bk_pcm_phase_advance(const BkPcm *, uint32_t output_rate, uint32_t hz,
 int bk_pcm_mix_phase(const BkPcm *, uint32_t output_rate, uint32_t hz,
                      BkPcmPhase, int loop, int32_t volume, int32_t pan,
                      float *stereo, size_t frames, char error[256]);
-/* Linear clip baseline applied with attenuation, before voices are summed. */
-int bk_pcm_mix_phase_gain(const BkPcm *, uint32_t output_rate, uint32_t hz,
-                          BkPcmPhase, int loop, int32_t volume, int32_t pan,
-                          float gain, float *stereo, size_t frames,
-                          char error[256]);
 /* Saturating nearest-integer (ties away from0) stereo output conversion. */
 int bk_pcm_quantize(const float *stereo, int16_t *out, size_t frames);
-/* Apply the output gain before the same final saturation/quantization. */
-int bk_pcm_quantize_gain(const float *stereo, int16_t *out, size_t frames,
-                          float gain);
 #endif

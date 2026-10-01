@@ -37,17 +37,9 @@ typedef struct {
 BkAudioClip *bk_audio_clip_decode(const void *, size_t, char error[256]);
 BkAudioClip *bk_audio_clip_load(BkResourceStore *, const char *pack,
                                 const char *name, char error[256]);
-/* Music-only baseline: 1.5x during mixing, before final saturation. Does not
- * change decoded PCM, DirectSound volume, envelope or playback position. */
-BkAudioClip *bk_audio_clip_load_music(BkResourceStore *, const char *pack,
-                                      const char *name, char error[256]);
 void bk_audio_clip_release(BkAudioClip *);
 uint32_t bk_audio_clip_rate(const BkAudioClip *);
 BkAudio *bk_audio_create(const BkAudioSink *, char error[256]);
-/* Linear output baseline, initially1. Set before starting the pump or
- * submitting samples, with no concurrent calls. Voice gains/cursors and
- * envelopes keep their original units; final signed16 output saturates. */
-int bk_audio_set_output_gain(BkAudio *, float gain, char error[256]);
 void bk_audio_destroy(BkAudio *);
 /* Install/remove before starting/after joining the pump, with no concurrent
  * API calls. Hooks serialize every command, pump and status/cursor operation.

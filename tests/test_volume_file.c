@@ -23,23 +23,27 @@ int main(void) {
   assert(!mkdir(game,0777) && !mkdir(data,0777));
   snprintf(original,sizeof(original),"%s/volsetting.cfg",data);snprintf(path,sizeof(path),"%s/volume.cfg",save);snprintf(part,sizeof(part),"%s.part",path);
   const int32_t zero[]={0,0,0},old[]={-1500,-2500,-1999},next[]={-5999,-4137,-27};
-  BkVolumeFile *f=bk_volume_file_create(NULL,game,e);same(f,zero);assert(!bk_volume_file_store(f,next,e));same(f,zero);bk_volume_file_destroy(f);
+  BkVolumeFile *f=bk_volume_file_create(NULL,e);same(f,zero);assert(!bk_volume_file_store(f,next,e));same(f,zero);bk_volume_file_destroy(f);
   write_values(original,old);
-  f=bk_volume_file_create(port,game,e);same(f,old);const int32_t *stable=bk_volume_file_values(f);
-  assert(!bk_volume_file_store(f,(int32_t[]){-6001,0,0},e));same(f,old);
+  f=bk_volume_file_create(port,e);same(f,zero);const int32_t *stable=bk_volume_file_values(f);
+  assert(!bk_volume_file_store(f,(int32_t[]){-6001,0,0},e));same(f,zero);
   assert(bk_volume_file_store(f,next,e));same(f,next);assert(stable==bk_volume_file_values(f));
-  BkVolumeFile *read=bk_volume_file_create(port,game,e);same(read,next);bk_volume_file_destroy(read);
-  read=bk_volume_file_create(NULL,game,e);same(read,old);bk_volume_file_destroy(read);
+  BkVolumeFile *read=bk_volume_file_create(port,e);same(read,next);bk_volume_file_destroy(read);
+  read=bk_volume_file_create(NULL,e);same(read,zero);bk_volume_file_destroy(read);
   assert(!mkdir(part,0777));assert(!bk_volume_file_store(f,old,e));same(f,next);assert(!rmdir(part));
-  read=bk_volume_file_create(port,game,e);same(read,next);bk_volume_file_destroy(read);
+  read=bk_volume_file_create(port,e);same(read,next);bk_volume_file_destroy(read);
   assert(bk_volume_file_store(f,old,e));same(f,old);bk_volume_file_destroy(f);
   for(unsigned n=0;n<14;++n) {
     if(n==12)continue;
     FILE *out=fopen(path,"wb");assert(out);for(unsigned i=0;i<n;++i)assert(fputc(0,out)!=EOF);assert(!fclose(out));
-    assert(!bk_volume_file_create(port,game,e)); /* no corrupt-port fallback */
+    assert(!bk_volume_file_create(port,e)); /* no corrupt-port fallback */
   }
-  write_values(path,(int32_t[]){1,-500,-300});assert(!bk_volume_file_create(port,game,e));
-  assert(!remove(path));f=bk_volume_file_create(port,game,e);same(f,old);bk_volume_file_destroy(f);
+  write_values(path,(int32_t[]){1,-500,-300});assert(!bk_volume_file_create(port,e));
+  assert(!remove(path));f=bk_volume_file_create(port,e);same(f,zero);bk_volume_file_destroy(f);
+  uint8_t expected[12],unchanged[12];
+  for(unsigned i=0;i<3;++i)for(unsigned j=0;j<4;++j)expected[i*4+j]=(uint8_t)((uint32_t)old[i]>>(j*8));
+  FILE *source=fopen(original,"rb");assert(source && fread(unchanged,1,12,source)==12 && !fclose(source));
+  assert(!memcmp(expected,unchanged,12));
   assert(!remove(original) && !rmdir(save) && !rmdir(port) && !rmdir(data) && !rmdir(game) && !rmdir(root));
-  puts("volume file PASS independent settings/readonly source/reload/failure/length/range");return 0;
+  puts("volume file PASS MAX defaults/independent settings/readonly source/reload/failure/length/range");return 0;
 }

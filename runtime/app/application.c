@@ -48,8 +48,8 @@ static BkScene *load_scene(BkSceneKind kind, const BkSceneServices *services,
   }
   if (kind == BK_SCENE_GAME) {
     const char *extra[] = {"bk3_02", "bk3_05", "bk3_07", "bk3_16",
-                           "bk3_15", "bk3_06", "bk3_18", "bk3_20"};
-    const unsigned bits[] = {6, 8, 9, 10, 11, 7, 14, 15};
+                           "bk3_15", "bk3_06", "bk3_18", "bk3_20", "bk3_19"};
+    const unsigned bits[] = {6, 8, 9, 10, 11, 7, 14, 15, 24};
     for (unsigned i = 0; i < sizeof(extra) / sizeof(extra[0]); ++i) {
       if (*mounted & (1u << bits[i]))
         continue;
@@ -206,6 +206,7 @@ static BkControlHelpPage help_page(BkSceneKind kind, BkScene *scene) {
   case 0x40: return BK_HELP_FAILURE;
   case 0x48: return BK_HELP_SPECIAL;
   case 0x50: return BK_HELP_LOADING;
+  case 0x60: return BK_HELP_ALBUM;
   default: return BK_HELP_NONE;
   }
 }
@@ -253,9 +254,8 @@ int bk_application_run(int argc, char **argv) {
     fprintf(log, "Audio: explicit offline host sink\n");
   }
   audio = bk_audio_create(&sink, error);
-  if (!audio || !bk_audio_set_output_gain(audio, 1.5f, error))
+  if (!audio)
     goto done;
-  fprintf(log, "Audio output baseline: 1.5x; music clips have an additional 1.5x baseline.\n");
   if (audio_output && !bk_audio_output_start(audio_output, audio, error))
     goto done;
   if (config.capture_root) {
@@ -272,7 +272,7 @@ int bk_application_run(int argc, char **argv) {
     if (!record_file)
       goto done;
   }
-  volume_file = bk_volume_file_create(config.capture_root,config.game_root,error);
+  volume_file = bk_volume_file_create(config.capture_root,error);
   if (!volume_file)goto done;
   BkSceneServices services = {resources, renderer, log, audio, capture_files, bk_volume_file_values(volume_file)};
   kind = !strcmp(config.scene, "camera-track")

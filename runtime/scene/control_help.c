@@ -19,6 +19,7 @@ static const char *const pages[BK_HELP_COUNT] = {
   [BK_HELP_SPECIAL] = "左スティック\n十字キー\nカーソル移動\nA 決定・スキップ\nY 撮影\nZL ゆっくり移動\n\nL + 右スティック\n回転\nR + 右スティック\n距離・高さ\n\nタッチで移動\nA で決定\n\n右端でメニュー\nメニューから終了\n\n− FPS表示切替",
   [BK_HELP_LOADING] = "確認表示が出たら\nA で進む\n\n− FPS表示切替",
   [BK_HELP_FAILURE] = "確認表示が出たら\nA で進む\n\n− FPS表示切替",
+  [BK_HELP_ALBUM] = "左スティック\n十字キー\nカーソル移動\nA 選択・決定\nZL ゆっくり移動\n\nB 写真を閉じる\n削除の取消\nスライド停止\n\nタッチで移動\nA で決定\n\n終了の項目で戻る\n\n− FPS表示切替",
   [BK_HELP_INSPECTION] = "右スティック\n視点を動かす\nB タイトルへ\nX 軌道切替\nY キャラ切替\n+ 終了\n\n− FPS表示切替"
 };
 

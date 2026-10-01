@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "CMakeLists.txt": "061fcf0b7041ef2712b0d7dd140c375f321d143bfeada37a213af32cb3c2a8cc",
+    "runtime/app/album_session.c": "8854aa25f9887ded42d45bebf868465adf6dc1bff9432745bbe493dcb87b54e6",
+    "runtime/app/album_session.h": "86450c13524d4ccd6bc81bf511a69ea141b4c8a7b8403c912ae4cc1aa342617f",
+    "runtime/app/application.c": "8598fe45dca25714df439cc6ecda9a54b8fbf4636cedfa0d228c3189600e75ad",
+    "runtime/app/front_end.c": "5bc36c181e745b0adcb2d9aa8583a19c7f9b959a6609d6e4efdfd21b060feb7a",
+    "runtime/app/front_end.h": "5371d1991e73bd4b63ec9e6616049757b51c1bc999294fa8bba90d7fdd5dd9e5",
+    "runtime/app/play_session.c": "1e89b144df288f3756f2a7f13d46b7f53ea92d4db02e845044db83465b25906b",
+    "runtime/save/capture_file.c": "1abbf1edd16206b3b49ff67783fff0abc50a11b09efd7ad8832007d53b9750b9",
+    "runtime/save/capture_file.h": "d2118a13719bb7662a9b5c8a74211281fedb6ac10ce2d7a42bc8c1216e33e957",
+    "runtime/scene/album_catalog.c": "62a3d7417aef032a7776d8625fce7869402f14327b44954f47df5072e2cee5f0",
+    "runtime/scene/album_catalog.h": "9bc266ceb91dc0cd998f2739f1825dc5a34ef59ffde0f21fe175666060c6b69b",
+    "runtime/scene/album_menu.c": "731c87004ee322f08643bd4be60eef19f3656a84ae0c1b3f070c5072844d3f47",
+    "runtime/scene/album_menu.h": "605619e4413d0dd24ce69cbdbaf7385601c3dfadd0d85b473bd4af04f87d7c9c",
+    "runtime/scene/album_render.c": "3cf893ca511649df51ef39e7b4d9b919ad747dc585710f6eb4ddc16a2acc2614",
+    "runtime/scene/album_render.h": "5df38dd96f47f1a749958a3a800b52f48adc76cfe5c0c2c859945baf8f59cfbf",
+    "runtime/scene/control_help.c": "5105140fe334771a8d320d54be725ed19742f41d892ef55c88343c36c5a9c7ed",
+    "runtime/scene/control_help.h": "e99fd99edd25e59aa5ba284d1ac3ca4ac140a309dff2bd71ba659adde64beab5",
+    "runtime/ui/control_help_font.h": "4f0b24d26b1d64543631eb6fcdb893fd323a17b638b1be55d4e20ef2bb0c47a7",
+    "tools/album_flow_probe.c": "e20437e90f30f2ad03b3243b69a39a82da0bc2bc8b40d3d187246c28991e6ad3",
+    "tools/package_sd.py": "854337f480a403225021c60846ecf3e728bf78639c8a4f45bb7c890443325eb7",
+    "tests/test_album_file.c": "2cc083e9db391944065187019c4c7ebe89b2f6034976b2420f3dc6e83cca9f47",
+    "tests/original_album_catalog_oracle.py": "c243266075c8841375cbe17eca4ef86b1f1f65a3f639543f0016c3185fc97f9f",
+    "tests/original_album_menu_oracle.py": "3ce444e70e4f8833da2f8333788adea8608325cfec0a205d345bf4c18a5b14ed"
+  },
+  "original_cpu": {
+    "passed": true,
+    "exe_sha256": "a3c9360321d4e4687b1a8a095f514c6c38c327119d8f52aafe664f02bc51679e",
+    "constructors": 8,
+    "releases": 136,
+    "frames": 3400,
+    "draws": 20032,
+    "vertices": 120192,
+    "service_calls": 2643,
+    "max_geometry_error": 0,
+    "digest": "41a7776f610aafba94476bddec9526195db9f0b5d19e767baa42f8560da80a49",
+    "scope": "Original46EB86/47011B/46FEB7/471A3F/47204F album controls and43ED45 vertices.\nFilesystem/catalog generation, texture allocation, device draw and system audio\nare explicit services. Native hit testing, page/tab logic, fades, deletion\nselection and slideshow timing execute unchanged. No application acceptance.\n"
+  },
+  "original_cpu_host_asan_match": true,
+  "catalog": {
+    "passed": true,
+    "pages": 25,
+    "native_blits": 845,
+    "pixels": 19660800,
+    "max_error": 0,
+    "digest": "b0c8188900aa619ec9d4d97692a15c8091277bbe2ec95007d84bc1177982f02a",
+    "scope": "Run472DCF's actual catalog blit decisions/rectangles in the pinned EXE.\nDevice surfaces, decoded images and file output are services. Compare portable\nRGBA composition to an independent nearest sampler driven by those native\nblits, including black-key borders. This is not Windows driver pixel equality.\n"
+  },
+  "catalog_host_asan_match": true,
+  "application_checks": [
+    {
+      "build": "host",
+      "log": "build/validation/album-current/host-baseline.log",
+      "result": "PASS album-flow frames1150 groups5 pages5 photos10 deletes1 slideshow2 reentries1 redraws12 PCM82d3c96a02ca4084 GPU_baseline",
+      "binary_sha256": "b1c4cbb62b8d748f059531e161ccbaad23fb367a3ae2d8e8474f7049ab0b7a27"
+    },
+    {
+      "build": "asan",
+      "log": "build/validation/album-current/asan-baseline.log",
+      "result": "PASS album-flow frames1150 groups5 pages5 photos10 deletes1 slideshow2 reentries1 redraws12 PCM82d3c96a02ca4084 GPU_baseline",
+      "binary_sha256": "2d7c64a624d52f34ce0c4cad3ef6552350a6e965a193196158bac3e18d56b0b1"
+    }
+  ],
+  "application_frames_per_build": 1150,
+  "application_photos_per_build": 10,
+  "application_pages_per_build": 5,
+  "application_deletes_per_build": 1,
+  "application_reentries_per_build": 1,
+  "application_redraws_per_build": 12,
+  "application_pcm_hash": "82d3c96a02ca4084",
+  "application_fixture": "105 synthetic BMP photos (21 per group), real original UI assets, actual title/menu input; no direct menu-state injection",
+  "storage_tests_per_build": [
+    "album-file",
+    "capture-file"
+  ],
+  "help_pages": 15,
+  "help_log": "build/validation/album-current/help.log",
+  "bk3_19_sha256": "9b1e421c7ca2469acfd5444ff0ae55676a5ca5e0272963be054192d975f38c17",
+  "gpu_lifetime_baseline": true,
+  "leak_detection": false,
+  "nro": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "a98cbb5c0c613f80bb99700b68ed24067a871c265b78dbeebbc65232f4820a34",
+    "undefined_symbols": 0,
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16314424,
+    "elf_sha256": "81a59281c323d92626fe306f4c75d980d5f8db4a4f63899fc4394efca4d3f1e9"
+  },
+  "switch_hardware_validation": false,
+  "full_port_complete": false,
+  "application_slideshow_photos_per_build": 2,
+  "production_symbols_present": [
+    "bk_album_session_create",
+    "bk_album_menu_step",
+    "bk_album_catalog_build"
+  ]
+}

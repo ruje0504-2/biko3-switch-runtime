@@ -1,5 +1,6 @@
 #include "app/front_end.h"
 #include "app/volume_session.h"
+#include "app/album_session.h"
 #include "save/capture_file.h"
 #include <math.h>
 #include <stdlib.h>
@@ -32,6 +33,8 @@ struct BkFrontEnd {
   BkDialogueSession *dialogue_session;
   BkSpecialSession *special_session;
   BkVolumeSession *volume_session;
+  BkAlbumMenu album;
+  BkAlbumSession *album_session;
   uint8_t active;
   int released;
 };
@@ -61,6 +64,12 @@ static int sound(void *p, unsigned slot, char e[256]) {
   return slot < 8 && s->sounds[slot]
              ? bk_system_audio_restart(s->sounds[slot], e)
              : fail(e, "missing system sound");
+}
+static int album_playing(void *p, unsigned slot, int *active, char e[256]) {
+  BkFrontEnd *s = p;
+  return slot < 8 && s->sounds[slot] &&
+         bk_audio_playing(s->c.services.audio, 48 + slot, active)
+             ? 1 : fail(e, "missing album system sound");
 }
 static int gain(void *p, int32_t volume, char e[256]) {
   return bk_audio_gain(((BkFrontEnd *)p)->c.services.audio, 60, volume, 0, e);
@@ -128,6 +137,7 @@ BkFrontEnd *bk_front_end_create(const BkFrontEndConfig *c, char e[256]) {
     return NULL;
   }
   s->c = *c;
+  bk_album_menu_initialize(&s->album);
   s->camera_owner = c->camera ? c->camera : &s->camera;
   s->envelope_owner = c->envelope ? c->envelope : &s->envelope;
   if (c->unlock_file &&
@@ -167,6 +177,10 @@ int bk_front_end_stop(BkFrontEnd *s, uint8_t flow, char e[256]) {
       if(s->sounds[i] && !bk_system_audio_bind_volume(s->sounds[i],
           &s->c.services.audio_volumes[BK_VOLUME_EFFECT],e)) return 0;
   }
+  if (flow == 0x60 &&
+      (!bk_album_session_stop(s->album_session,e) ||
+       !bk_capture_files_count_photos(s->c.services.capture_files,s->c.photos,e)))
+    return 0;
   if (flow == 0x18)
     s->gallery.loaded = 0;
   if (flow == 8 && !bk_dialogue_session_stop(s->dialogue_session, e))
@@ -193,6 +207,8 @@ void bk_front_end_collect(BkFrontEnd *s) {
   s->selection_session = NULL;
   bk_dialogue_session_destroy(s->dialogue_session);
   s->dialogue_session = NULL;
+  bk_album_session_destroy(s->album_session);
+  s->album_session = NULL;
   bk_volume_session_destroy(s->volume_session);
   s->volume_session = NULL;
   bk_special_session_destroy(s->special_session);
@@ -245,7 +261,7 @@ int bk_front_end_load(BkFrontEnd *s, uint8_t flow, uint8_t previous,
   uint32_t now = (uint32_t)(uint64_t)(wall * 1000);
   if (flow == 1) {
     s->title_music =
-        bk_audio_clip_load_music(s->c.services.resources, "bk3_02", "bg001.wav", e);
+        bk_audio_clip_load(s->c.services.resources, "bk3_02", "bg001.wav", e);
     if (!s->title_music ||
         !bk_audio_play(s->c.services.audio, 60, s->title_music, 1, bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900), 0, e))
       goto bad;
@@ -273,11 +289,18 @@ int bk_front_end_load(BkFrontEnd *s, uint8_t flow, uint8_t previous,
                                     bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900), &ops, e))
       goto bad;
     s->gallery_music =
-        bk_audio_clip_load_music(s->c.services.resources, "bk3_02", "bg002.wav", e);
+        bk_audio_clip_load(s->c.services.resources, "bk3_02", "bg002.wav", e);
     if (!s->gallery_music ||
         !bk_audio_play(s->c.services.audio, 60, s->gallery_music, 1, bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900), 0, e))
       goto bad;
     s->music_playing = 1;
+  } else if (flow == 0x60) {
+    BkAlbumSessionConfig config={.services=s->c.services,.menu=&s->album,
+        .viewport=s->c.viewport,.wall_seconds=wall,.context=s,
+        .sound=sound,.playing=album_playing,.schedule=schedule};
+    memcpy(config.pointer,s->pointer,sizeof(config.pointer));
+    s->album_session=bk_album_session_create(&config,e);
+    if(!s->album_session)goto bad;
   } else if (flow == 0x30) {
     BkVolumeSessionConfig config={.services=s->c.services,.file=s->c.volume_file,
         .viewport=s->c.viewport,.common=s->c.common,.curtain=s->c.curtain,
@@ -383,6 +406,8 @@ int bk_front_end_step(BkFrontEnd *s, double seconds, double wall,
   if (!s || !in || s->released || !s->active || !isfinite(seconds) ||
       seconds <= 0 || seconds > 1 || !isfinite(wall) || wall < 1 || wall > 1e12)
     return fail(e, "invalid frame input");
+  if (s->active == 0x60)
+    return bk_album_session_step(s->album_session,seconds,wall,in,e);
   if (s->active == 0x30)
     return bk_volume_session_step(s->volume_session,seconds,in,e);
   int persistent_cursor = s->active == 1 || s->active == 0x38;
@@ -492,6 +517,7 @@ int bk_front_end_draw(BkFrontEnd *s, char e[256]) {
            : s->active == 0x38
                ? bk_selection_session_draw(s->selection_session, e)
            : s->active == 8 ? bk_dialogue_session_draw(s->dialogue_session, e)
+           : s->active == 0x60 ? bk_album_session_draw(s->album_session, e)
            : s->active == 0x30 ? bk_volume_session_draw(s->volume_session, e)
            : s->active == 0x48 ? bk_special_session_draw(s->special_session, e)
                             : 0;
@@ -500,6 +526,10 @@ int bk_front_end_draw(BkFrontEnd *s, char e[256]) {
 int bk_front_end_after_present(BkFrontEnd *s, char e[256]) {
   if (!s || !s->active)
     return fail(e, "no submitted frame");
+  if (s->active == 0x60) {
+    memcpy(s->pointer,bk_album_session_pointer(s->album_session)->position,sizeof(s->pointer));
+    return 1;
+  }
   if (s->active == 0x30) {
     memcpy(s->pointer,bk_volume_session_pointer(s->volume_session)->position,sizeof(s->pointer));
     return 1;

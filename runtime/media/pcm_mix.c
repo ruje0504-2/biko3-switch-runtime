@@ -66,16 +66,8 @@ int bk_pcm_phase_advance(const BkPcm *pcm, uint32_t rate, uint32_t hz,
 int bk_pcm_mix_phase(const BkPcm *pcm, uint32_t rate, uint32_t hz,
                      BkPcmPhase start, int loop, int32_t volume, int32_t pan,
                      float *out, size_t frames, char error[256]) {
-  return bk_pcm_mix_phase_gain(pcm, rate, hz, start, loop, volume, pan, 1.f,
-                                out, frames, error);
-}
-int bk_pcm_mix_phase_gain(const BkPcm *pcm, uint32_t rate, uint32_t hz,
-                          BkPcmPhase start, int loop, int32_t volume, int32_t pan,
-                          float baseline, float *out, size_t frames,
-                          char error[256]) {
   BkPcmPhase checked;
-  if (!isfinite(baseline) || baseline < 0 ||
-      volume > 0 || volume < -10000 || pan < -10000 || pan > 10000 ||
+  if (volume > 0 || volume < -10000 || pan < -10000 || pan > 10000 ||
       (frames && !out) || frames > SIZE_MAX / (2 * sizeof(*out)) ||
       !bk_pcm_phase_advance(pcm, rate, hz, 0, loop, start, &checked)) {
     snprintf(error, 256, "PCM mix: invalid input/format/phase");
@@ -86,7 +78,7 @@ int bk_pcm_mix_phase_gain(const BkPcm *pcm, uint32_t rate, uint32_t hz,
       snprintf(error, 256, "PCM mix: nonfinite destination");
       return 0;
     }
-  double gain = attenuation(volume) * baseline;
+  double gain = attenuation(volume);
   double gains[2] = {gain * attenuation(pan > 0 ? -pan : 0),
                      gain * attenuation(pan < 0 ? pan : 0)};
   size_t at = checked.frame, count = bk_pcm_frames(pcm);
@@ -122,18 +114,13 @@ int bk_pcm_mix(const BkPcm *pcm, uint32_t rate, uint64_t elapsed, int loop,
                           out, frames, error);
 }
 int bk_pcm_quantize(const float *in, int16_t *out, size_t frames) {
-  return bk_pcm_quantize_gain(in, out, frames, 1.f);
-}
-int bk_pcm_quantize_gain(const float *in, int16_t *out, size_t frames,
-                          float gain) {
-  if (!isfinite(gain) || gain < 0 || (frames && (!in || !out)) ||
-      frames > SIZE_MAX / (2 * sizeof(*in)))
+  if ((frames && (!in || !out)) || frames > SIZE_MAX / (2 * sizeof(*in)))
     return 0;
   for (size_t i = 0; i < frames * 2; i++)
     if (!isfinite(in[i]))
       return 0;
   for (size_t i = 0; i < frames * 2; i++) {
-    float v = in[i] * gain;
+    float v = in[i];
     out[i] = v <= -32768 ? -32768 : v >= 32767 ? 32767 : (int16_t)lroundf(v);
   }
   return 1;

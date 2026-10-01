@@ -1,0 +1,146 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "runtime/media/audio.c": "0ebc06699c98e78e36fb1b26af472ed34b9d137bb3a83b040705267c9b844921",
+    "runtime/media/audio.h": "e0033a6e54fe05a44c8b24d2619ed3eb3a7f479883d84f25284bbd71034c6841",
+    "runtime/media/pcm_mix.c": "eac492c48ec306d8e9ade6e74fc7e4f7c4612912fbd4762344d263b681702ba6",
+    "runtime/media/pcm_mix.h": "3f0b5aac59066b43d1bde5e26d440e66b7f83ed616fd35557875bb9125fb80f5",
+    "tests/test_audio.c": "ed9fd94956ee61c1e7f1d3cb67479305882f6cbf5620d9a225bf473bf1a82fe8",
+    "runtime/scene/background_audio.c": "c896d88a512b2be2d1d8525a5344dcdf5f24221d738fa9ff23833e7599c0430f",
+    "runtime/scene/dialogue_audio.c": "83f95f1d52d558a233c2c8668cbb9b44a91523f6232dee18866e1d442632b20c",
+    "runtime/scene/ending_audio.c": "26cb6c4b8c8d669d9a7ad19beffe7b951b930e7a292d368edb9efca29c70ba11",
+    "runtime/scene/selection_audio.c": "a7ecb5cb47e917d6d9b6b70f07961e90f2b6887365121cf270fdb832486824f0",
+    "runtime/scene/special_audio.c": "707c9930204f05c52411410b267c4213999c4e244ea96340cd715e86a12b62ab",
+    "runtime/scene/volume_menu_audio.c": "c4d3985a9acb95cbcb686f5ac4c43ffecd8623e63fae88a8e5f876fd4b7bca52",
+    "runtime/app/application.c": "8598fe45dca25714df439cc6ecda9a54b8fbf4636cedfa0d228c3189600e75ad",
+    "runtime/app/front_end.c": "5bc36c181e745b0adcb2d9aa8583a19c7f9b959a6609d6e4efdfd21b060feb7a",
+    "runtime/app/volume_session.c": "4889285b2e97b257f8c9a8a36c8d8fded7673e59ccaddb763f44ef1ecca2d0a0",
+    "runtime/save/volume_file.c": "0931255bf483faabaa825407a6bd144e3f803711880fba5af485ffb1f5f384f9",
+    "runtime/save/volume_file.h": "9dfb2b919a88128a0c931c537a0b3951abca4e5ef39fe15f1608b3ccc45f5bbb",
+    "tests/test_volume_file.c": "feb1a171d50d1743aef0b12594dff8b761ce5b6017fd0305d69de69f5b1b5e67",
+    "tools/volume_flow_probe.c": "d54444b51513db6d3ebf3112f83e83ebe46a6f6fa524cf4c83d42f1bc1d061b9",
+    "tests/check_volume_flow.py": "bea6f8c333d279951f459e466de0f878ea57affa3502ae1f0c2088e3589705ea"
+  },
+  "original_baseline_commit": "f3236ae",
+  "restored_byte_identical_files": [
+    "runtime/media/audio.c",
+    "runtime/media/audio.h",
+    "runtime/media/pcm_mix.c",
+    "runtime/media/pcm_mix.h",
+    "tests/test_audio.c",
+    "runtime/scene/background_audio.c",
+    "runtime/scene/dialogue_audio.c",
+    "runtime/scene/ending_audio.c",
+    "runtime/scene/selection_audio.c",
+    "runtime/scene/special_audio.c",
+    "runtime/scene/volume_menu_audio.c"
+  ],
+  "output_gain": 1,
+  "music_gain": 1,
+  "initial_menu_values": [
+    0,
+    0,
+    0
+  ],
+  "reset_menu_values": [
+    0,
+    0,
+    0
+  ],
+  "saved_port_settings_preserved": true,
+  "original_pc_config_imported": false,
+  "strict_original_menu_core_unchanged": true,
+  "flow_validation": "build/validation/volume-flow-pbzmqznv/result.json",
+  "checks": [
+    {
+      "mode": "host",
+      "kind": "produce",
+      "result": "volume-flow PASS mode=produce frames=5060 redraws=4 volumes=-1500,-6000,-3000 PCM=9715200 nonzero=9324141 hash=918f7afdd0a92ef0",
+      "binary_sha256": "fb6d14a66c3d35a86d18aec496ffe185286ccb2319249a9aa2d4a86b775deaae",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "host",
+      "kind": "reload",
+      "result": "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=294014 hash=3ad402aa6e5bda6e",
+      "binary_sha256": "fb6d14a66c3d35a86d18aec496ffe185286ccb2319249a9aa2d4a86b775deaae",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "host",
+      "kind": "reject",
+      "result": "volume-flow PASS mode=reject frames=529 redraws=1 volumes=0,0,0 PCM=1013760 nonzero=997416 hash=3e134de37d3da578",
+      "binary_sha256": "fb6d14a66c3d35a86d18aec496ffe185286ccb2319249a9aa2d4a86b775deaae"
+    },
+    {
+      "mode": "host",
+      "kind": "defaults",
+      "result": "volume-flow PASS mode=defaults frames=766 redraws=3 volumes=0,0,0 PCM=1470720 nonzero=1450661 hash=8683427842197d36",
+      "binary_sha256": "fb6d14a66c3d35a86d18aec496ffe185286ccb2319249a9aa2d4a86b775deaae",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    },
+    {
+      "mode": "host",
+      "kind": "reload-max",
+      "result": "volume-flow PASS mode=reload-max frames=180 redraws=0 volumes=0,0,0 PCM=345600 nonzero=345241 hash=8098ab92ab5e2932",
+      "binary_sha256": "fb6d14a66c3d35a86d18aec496ffe185286ccb2319249a9aa2d4a86b775deaae",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    },
+    {
+      "mode": "asan",
+      "kind": "produce",
+      "result": "volume-flow PASS mode=produce frames=5060 redraws=4 volumes=-1500,-6000,-3000 PCM=9715200 nonzero=9324141 hash=918f7afdd0a92ef0",
+      "binary_sha256": "3e282e556d20db3169785e67e69bfc9540150a6a6b5493b73ce92c6a44eb720d",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "asan",
+      "kind": "reload",
+      "result": "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=294014 hash=3ad402aa6e5bda6e",
+      "binary_sha256": "3e282e556d20db3169785e67e69bfc9540150a6a6b5493b73ce92c6a44eb720d",
+      "settings_sha256": "7b0cb9dbe0247c6226a80f38119bc2cdeb852a2425d045be0c828a1fb865bc7f"
+    },
+    {
+      "mode": "asan",
+      "kind": "reject",
+      "result": "volume-flow PASS mode=reject frames=529 redraws=1 volumes=0,0,0 PCM=1013760 nonzero=997416 hash=3e134de37d3da578",
+      "binary_sha256": "3e282e556d20db3169785e67e69bfc9540150a6a6b5493b73ce92c6a44eb720d"
+    },
+    {
+      "mode": "asan",
+      "kind": "defaults",
+      "result": "volume-flow PASS mode=defaults frames=766 redraws=3 volumes=0,0,0 PCM=1470720 nonzero=1450661 hash=8683427842197d36",
+      "binary_sha256": "3e282e556d20db3169785e67e69bfc9540150a6a6b5493b73ce92c6a44eb720d",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    },
+    {
+      "mode": "asan",
+      "kind": "reload-max",
+      "result": "volume-flow PASS mode=reload-max frames=180 redraws=0 volumes=0,0,0 PCM=345600 nonzero=345241 hash=8098ab92ab5e2932",
+      "binary_sha256": "3e282e556d20db3169785e67e69bfc9540150a6a6b5493b73ce92c6a44eb720d",
+      "settings_sha256": "15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b"
+    }
+  ],
+  "frames_per_build": 6715,
+  "pcm_scalars_per_build": 12890880,
+  "unit_tests_per_build": [
+    "audio-queue",
+    "audio-libnx-boundary",
+    "volume-file",
+    "volume-switch-fs"
+  ],
+  "python_pcm_tests": 4,
+  "architecture_tests": 2,
+  "nro": {
+    "version": "0.3.5",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "sha256": "a98cbb5c0c613f80bb99700b68ed24067a871c265b78dbeebbc65232f4820a34",
+    "undefined_symbols": 0,
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16314424,
+    "elf_sha256": "81a59281c323d92626fe306f4c75d980d5f8db4a4f63899fc4394efca4d3f1e9"
+  },
+  "switch_hardware_validation": false,
+  "full_port_complete": false,
+  "boost_symbols_absent_from_elf": true
+}
