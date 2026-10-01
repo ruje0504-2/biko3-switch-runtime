@@ -31,13 +31,22 @@
 
 应用配对日志在 `build/validation/ending-runtime-0f5two7o/`。12 项背包检查普通/ASan 共 24 次全部通过；持有 item1 的五角色均从 phase4 完成到 phase6 handoff，其余字节进入 phase6，状态与 PCM 摘要逐项一致。测试跟踪实际动画目标并保留必要镜头输入，不修改生产逻辑来满足断言。
 
+## 自然 item1 路线
+
+2026-10-01，第一角色 group0 的 item1 已用生产输入完成从 area1 实际移动到道具、拾取、出口保存、下一场景和读档恢复。探针只把进入 area1 作为生产 area loader 边界；之后没有写入 phase、progress 或 action。NPC 视线、碰撞、道具线段拾取、`Mesh_End_Hantei2` 出口、flow50→flow20、flow28 写盘和 flow02 重建均由应用代码执行。
+
+- 普通构建 `local/ending-third-natural-next/run10.log`：`PASS natural-pickup-save-reload area2 item1`；保存槽恢复为 area2、inventory[1]=1。
+- 普通新进程 `run11.log`：从同一 `checkpoint-0.bks` 目录进入暂停读档菜单，真实确认后通过 flow50→flow02，`PASS natural-pickup-disk-reload area2 item1`。
+- ASan/UBSan `run-asan-natural.log` 和 `run-asan-disk.log` 同样通过，未出现 sanitizer 报告。
+- 机器可读摘要见 `reports/ending-natural-item-route-verification.json`。这是 group0/item1 的自然路线证据，不能扩展为标题到该场景的完整流程、五角色全分支或 Switch 实机验收。
+
 ## 尚未完成
 
-本批已完成显式库存入口下的 phase4 实际交互、state5/6/7 交接和五角色普通/ASan 矩阵；这仍不等于从游戏中自然拾取道具后的完整路线。
+本批已完成显式库存入口下的 phase4 实际交互、state5/6/7 交接和五角色普通/ASan 矩阵；另已完成 group0/item1 的自然拾取→保存→独立读档路线。
 
 单角色无道具的完整第三类流程在本地探索中已普通/ASan 配对完成：13,955 录制/保存/结束对话帧、13,473 新进程回放帧、两次选择资源加载；记录与解锁文件逐字节相同。该工具尚未纳入维护入口，不能扩展为五角色全分支验收。详细接续：`local/ending-third-natural-next/next.md`。
 
-自然拾取道具→存档/重载→完整故事交接、完整原版三维像素对照与本批 Switch 实机仍未验收。用户确认的原版 PC 光影闪烁修复保持关闭，不能重新列为未解决。
+自然路线的完整故事交接、其他角色/道具的自然路线、完整原版三维像素对照与本批 Switch 实机仍未验收。用户确认的原版 PC 光影闪烁修复保持关闭，不能重新列为未解决。
 
 指定 Mesa NVK 产物只在 `build-switch/biko3-preview.nro`：16,240,696 字节，SHA-256 `24a5de85d24861e629f57340627f1d02f1cb0327c2d7b5e8f6183ec0768e4271`。ELF 未解析符号零，新生产入口已链接。Mesa 静态库摘要 `d77231522a7338bbb016cbaa9bd364a41d5484e1becac8569dfcc1fbea87c256`。
 

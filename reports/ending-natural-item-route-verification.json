@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-01",
+  "scope": "Group0 first-character item1 natural pickup, production area handoff, checkpoint write, same-process reload, and independent-process disk reload.",
+  "passed": true,
+  "entry_boundary": "Production area loader enters group0 area1; movement and every operation after entry are real application input.",
+  "production_state_writes": false,
+  "steps": [
+    "Move through m00_11 with production collision and NPC visibility checks",
+    "Pick item1 through the production item segment query",
+    "Reach Mesh_End_Hantei2 and load the production area-save prompt",
+    "Write flow28 checkpoint slot0 with area2 and inventory[1]=1",
+    "Reload in the same process through flow50 and flow02",
+    "Start a new process, open pause/load, confirm slot0, and restore area2/item1 from disk"
+  ],
+  "results": {
+    "host_same_process": "PASS natural-pickup-save-reload area2 item1",
+    "host_new_process": "PASS natural-pickup-disk-reload area2 item1",
+    "asan_same_process": "PASS natural-pickup-save-reload area2 item1",
+    "asan_new_process": "PASS natural-pickup-disk-reload area2 item1"
+  },
+  "logs": [
+    "local/ending-third-natural-next/run10.log",
+    "local/ending-third-natural-next/run11.log",
+    "local/ending-third-natural-next/run-asan-natural.log",
+    "local/ending-third-natural-next/run-asan-disk.log"
+  ],
+  "saved_files": {
+    "host_checkpoint_sha256": "9ec9cefb6f21e5b2b575984c6767762da72c6ad4c8efd58da109e7f4e4d4843e",
+    "asan_checkpoint_sha256": "753386548f4e603e31c7cce49a36068fd05e64a079c6569bd4ce9db97e488cae"
+  },
+  "not_covered": [
+    "Title-to-area1 natural playthrough",
+    "Other characters and item branches",
+    "Complete story ending handoff after the restored area",
+    "Switch hardware acceptance"
+  ]
+}
