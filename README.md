@@ -1,33 +1,39 @@
 # 尾行3 / Biko3 — Switch 原生移植工程
 
-**当前优先移植日文版，默认已接入原标题→五人选择→原版开场剧情→游戏，完整移植仍未完成。** 保留玩家与 NPC 更新、跟随镜头、碰撞、动态角色、HUD、拍照、暂停/恢复、返回标题和确认退出。公共黑幕、暂停菜单和加载页共享持久状态；暂停期间仅更新持续背景声音的音量，动画、计时与随机数保持。新入口已通过主机真实素材、Vulkan 与内存检查回放，尚未获得这版入口的 Switch 实机反馈；此前存档和撞车修正已获用户实机确认。
+**当前为日文开发版 0.3.5，主要游戏功能已接入。** 使用 Nintendo Switch 原生输入、音频和 Vulkan NVK 渲染，画面保持 4:3，在 1280×720 输出中居中显示为 960×720。
 
-失败与重试、区域完成保存询问、50 槽保存/覆盖/读取，以及保存后继续下一区域已接入。暂停菜单第一项进入读取页；取消返回原暂停状态，确认读取会重建所选角色的区域入口。存档写入独立输出目录的 `save/checkpoint-0..4.bks`，含版本、组别和 CRC；损坏文件明确失败。2026-10-01 的自然输入检查已覆盖第一角色实际拾取道具后，连续进入 area2、area3、area4 并分别保存、独立进程读档，见[存档连续交接](reports/ending-inventory.md)。入口 area1 和初始随机种子仍为显式夹具，这不是从标题到结局的完整路线。
+已接通原标题、五人选择、开场剧情、游戏跟踪、失败与重试、暂停与返回标题；结局、特殊场景、鉴赏回放、音量设置和相册均有实际应用入口。游戏支持动态角色、跟随镜头、碰撞、雨雪、HUD 与拍照，存读档、下一段剧情交接、动作记录、解锁、照片和音量配置也已接入。
 
-鉴赏菜单、五类结局回放、独立特殊场景，以及动作记录和解锁持久化已接入应用；详见[鉴赏入口](reports/gallery-application.md)、[特殊场景](reports/special-session.md)、[动作记录保存](reports/record-storage.md)。实际游戏已有原版雨幕、雪花，雨天已获实机确认；用户也已确认物体表面光影闪烁修复，该问题在 PC 原版存在。标题和暂停的音量页 `0x30` 已接三类音量、试听、独立配置保存和返回（[报告](reports/volume-application.md)）；标题相册 `0x60` 已接五组照片、翻页、查看、删除、幻灯片和返回（[报告](reports/album-application.md)）；完整自然故事、其他角色/道具的自然路线、剩余三维画面对照和最新构建的 Switch 实机验收仍未完成。主机 MoltenVK 检查不能替代 Switch NVK 实机验证。
+这是持续修复中的开发版本，尚未完成全部角色自然路线和最新构建的 Switch 整体验收。已有主机检查按各报告的范围记录，不等同于实机验收；后续优先修复实际反馈的问题。当前继续使用日文资源和日文操作说明，中文补丁另行更新。
 
-Switch 的矩阵与 CPU 蒙皮已使用 NEON intrinsics 和少量内联汇编预取，并补齐实际 ARM64 普通/ASan 原版数值对照；为保持原版精度采用双精度向量累加。M4 的矩阵函数微基准约减少 20% 耗时，尚不能声称 Switch 帧率收益，见[NEON 验证](reports/neon-skinning.md)。
+## 最近更新
 
-构建版本字段仍为 **0.3.5**，原 `交付/SD卡根目录` 为该版本的历史诊断包；新源码的开发包应输出到独立目录。阶段历史保留于 `reports/`，较早报告中的“尚未接应用”等描述仅指该报告当时的范围。整体设计见 [架构与模块边界](docs/architecture.md)，实施顺序见 [分阶段路线](docs/roadmap.md)。
+- **减少渲染重复提交**：缓存同一命令缓冲中的图形状态绑定；固定测试片段中，绑定调用从 2,291,089 次降至 1,247,714 次，减少约 **45.5%**，画面和照片保持一致。[验证记录](reports/vulkan-bindings.md)
+- **减少 NPC 无效遮挡计算**：视野外或已经确认被遮挡后停止继续检查视线三角形，地面高度与行为仍正常更新。[验证记录](reports/npc-occlusion-performance.md)
+- **修复藏身退出卡住**：共用退出逻辑在动画结束时将水平位置归回进入点，修复剑道少女第五关藏身物边角退出后无法移动的问题。[验证记录](reports/hiding-exit.md)
+- **修复相册与补充操作**：修复 Switch 相册黑底和照片打不开；剧情中按住 R 强制快进，FPS 默认关闭，可用 − 切换。[验证记录](reports/album-switch-fix.md)
 
-《尾行3》是 Direct3D 时代的 3D 游戏，与《鬼作》的 AI6WIN 不同。本项目参考 [kisaku-switch-runtime](https://github.com/ruje0504-2/kisaku-switch-runtime) 的本地素材隔离、主机验证和 Switch 打包方式；没有把它的 VM 或可玩性结论套用到本游戏。
+以上调用量变化不是总 CPU 用量或实机 FPS 的降幅。Switch 矩阵与 CPU 蒙皮也已使用 NEON intrinsics 和少量内联汇编预取，并完成 ARM64 原版数值对照；具体范围见 [NEON 验证](reports/neon-skinning.md)。最新 Switch 性能收益尚未测量。
 
-渲染器直接静态链接 [danfromtico/mesa-switch](https://github.com/danfromtico/mesa-switch) 的 NVK，使用 `VK_NN_vi_surface` / `NWindow`。没有 OpenGL、Zink、deko3d 回退。2026-09-27 核对主分支最新提交为 `5dba7886c56460ff47c3038e323d07b9547d6212`，Mesa 26.2.2。启动会把设备名称及 driver ID 写入日志，并拒绝非 NVK 的 Switch 驱动。
+当前本地构建为 `build-switch/biko3-preview.nro`，16,318,520 字节，ELF 未解析符号为 0；SHA256：
 
-## 验证记录
+```text
+da16a25a097169dc0d027a4999c79e42a8c0fe2a8bdba561a96b0c6539ac68fc
+```
 
-- 22 个归档、7,081 个条目：C 与 Python 索引逐条一致。
-- 4,162 张 BMP/TGA：原生解码结果与 Pillow 逐像素一致。
-- 15 个 TBL：与原 EXE 的隔离解码函数对照，全部表数据一致。
-- 合成图、原版标题、透明按钮：各连续 16 帧真实 Vulkan 绘制，回读误差不超过 1/255。主机使用 MoltenVK，不能当作 Switch NVK 实机结果。
-- 12,000 组畸形图片/TBL：AddressSanitizer / UBSan 通过；资源测试和架构边界检查见验证记录。
-- Switch NRO 生成，最终 ELF 无未解析符号。
-- 0.2.0 架构重构：8 项 Python 测试、4 项主机 CTest、3 项 ASan/UBSan CTest 通过；标题连续 16 帧后回读与 0.1.0 基线逐像素一致。
-- 0.2.1 模型/材质基础：17 项 Python、6 项主机 CTest 通过；CPU 模型变异检查和原版材质加载通过 ASan/UBSan。新增索引网格、混合、深度、采样与状态恢复的 GPU 回读检查；标题回归不变。光照/场景和实机验证仍未完成。
-- 0.3.0 静态场景：20 项 Python、8 项主机 CTest、8 项 ASan/UBSan CTest 通过；原版办公室也通过 sanitizer 下的加载/绘制/切换检查。原 EXE 隔离队列分支 1,324 次、排序 102 组对照通过。连续 16 帧一致；相机移动改变画面、重置后逐字节恢复；三轮办公室/标题切换通过，标题与旧基线完全一致。测试范围与限制见 [机器可读记录](reports/static-scene-verification.json)。
-- 0.3.1 点光照：23 项 Python、9 项主机 CTest、9 项 ASan/UBSan CTest 通过；新增 71 次原版光源提交/变换、128 次环境光量化对照，10 组独立公式 GPU 回读及光源描述符隔离检查。办公室连续帧、移动/重置、三轮场景切换也通过 sanitizer；标题仍与旧基线逐字节相同。GPU 公式检查不代表 Windows 原版画面对照，详见 [该阶段验证记录](reports/lighting-verification.json)。
+旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。更新已有安装时可单独替换 NRO；只有所需数据文件发生变化时才需要补充素材。
 
-- 0.3.2 相机基础：259 组投影、277 组视图矩阵（含 21 个原资源相机节点）、45 组初始化选择及 128 组相机动画推进量对照通过。主机和 ASan/UBSan 各 11 项 CTest 通过；修正最终裁剪参数后，受影响的相机/几何检查及原办公室生命周期检查再次通过。新增三种画幅的逐像素视口/裁剪、UI 和下一帧恢复检查；标题仍保持旧基线。范围见 [该阶段验证记录](reports/camera-verification.json)。
+《尾行3》是 Direct3D 时代的 3D 游戏，与《鬼作》的 AI6WIN 不同。本项目参考 [kisaku-switch-runtime](https://github.com/ruje0504-2/kisaku-switch-runtime) 的本地素材隔离、主机验证和 Switch 打包方式。
+
+渲染器直接静态链接 [danfromtico/mesa-switch](https://github.com/danfromtico/mesa-switch) 的 NVK，使用 `VK_NN_vi_surface` / `NWindow`。当前锁定提交 `5dba7886c56460ff47c3038e323d07b9547d6212`，Mesa 26.2.2；启动日志记录设备名称和 driver ID，并校验 Switch 使用 NVK。依赖版本见 [锁定文件](config/dependencies.lock.json)。
+
+## 验证与当前范围
+
+本批代码已完成针对性的普通与 ASan/UBSan 检查、真实素材输入回放和指定 Mesa NVK 交叉构建。渲染优化前后及 ASan 版本各回放 1,054 个游戏帧，最终画面和两张照片逐字节一致；NPC 查询与原版的 1,392 组结果一致；藏身退出修复通过同点边角复现及实际应用回放。详细数据分别见上方报告。
+
+此前雨天、存档和撞车修复已获用户实机确认；物体表面光影闪烁也已确认修复，该问题在 PC 原版存在。它们不代表最新 NRO 的整体稳定性已经验收。主机 MoltenVK 跨视口原点的微小光栅差异仍保留为[单独诊断](reports/ending-raster-origin.md)，没有通过放宽阈值将其改为通过。
+
+整体设计见 [架构与模块边界](docs/architecture.md)，各阶段当前状态见 [路线与收尾清单](docs/roadmap.md)。`reports/` 保存历次实现与验证记录，旧报告中的“尚未接应用”等描述只代表当时状态。
 
 ## 构建
 
@@ -119,4 +125,4 @@ local/venv/bin/python tests/original_camera_oracle.py \
   '尾行3 [汉化]/去码汉化补丁/汉化/尾行3中文版.exe' local/game/MAINDIR/Data
 ```
 
-后续按 [分阶段路线](docs/roadmap.md) 继续完整任务生命周期、音视频、存档及中文。原版证据见 [移植记录](reports/porting.md)，M0 快照见 [架构验证](reports/architecture-verification.json)。通用资源覆盖规则已接通；应用尚未挂载汉化包。
+原版分析与阶段证据见 [移植记录](reports/porting.md)，当前功能及验证范围以 [收尾清单](docs/roadmap.md) 为准。任务流程、音视频和存档已接入；应用当前不挂载汉化包。

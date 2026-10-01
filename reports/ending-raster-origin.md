@@ -1,5 +1,16 @@
 # 结局画面剩余差异：视口原点隔离
 
+## 2026-10-01 当前结论
+
+在 `3e2a0f5` 源码上，只复查之前未通过的 mode2 / 1280×720 配对：各326场景帧，2,073,600个捕获像素中77个RGB像素变化，仅1个未满足原诊断边界，位于capture1的(445,288)，RGB最大分量差9；全部画面最大RGB差49。UI像素、镜头/投影、演员矩阵和绘制队列完全一致。将两次绘制的视口原点设为0后，保持各自帧缓冲尺寸，完整RGB差异为0。
+
+查阅 [Vulkan 不变性规范](https://docs.vulkan.org/spec/latest/appendices/invariance.html)，其中明确说明：OpenGL 的整数窗口平移不变性规则不适用于 Vulkan。[视口变换规范](https://docs.vulkan.org/spec/latest/chapters/vertexpostproc.html)也说明光栅坐标精度有限。因此，这个跨视口原点的诊断差异不足以判定场景未实现或渲染算法错误；具体驱动内部原因仍未确定。
+
+保留原阈值和 `DIFFERENCE` 结果，不将其改写为通过；也不再仅凭这项额外的主机一致性要求，把静态场景功能标为“未完成”。本次没有修改生产渲染器、4:3布局或NRO，没有扩大到其余剧情审核。旧12组汇总未重跑，不能改称当前12/12通过。当前机器记录见 `ending-raster-origin-current.json`；日志在 `local/port-closeout/`。
+
+下方保留2026-09-29的实验记录与当时判断。
+
+
 日期：2026-09-29。机器可读结果：`ending-raster-origin-verification.json`。
 
 生产布局和渲染器未修改，画幅仍为 4:3。生产路径仍只有 9/12 完整三维配对通过，不能将以下诊断描述为画面修复或 Switch/Windows 对照通过。

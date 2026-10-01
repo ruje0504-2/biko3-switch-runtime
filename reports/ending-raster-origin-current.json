@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-01",
+  "source_commit": "3e2a0f5",
+  "case": {
+    "mode": 2,
+    "output": [
+      1280,
+      720
+    ],
+    "content": [
+      960,
+      720
+    ],
+    "frames_per_pair": 326,
+    "compared_pixels_per_pair": 2073600
+  },
+  "production_viewport": {
+    "ui_equal": true,
+    "camera_projection_actor_matrices_and_queues_equal": true,
+    "changed_rgb_pixels": 77,
+    "unmatched_rgb_pixels": 1,
+    "unmatched_coordinate": [
+      1,
+      445,
+      288
+    ],
+    "unmatched_rgb_error": 9,
+    "max_rgb_error": 49,
+    "within_existing_diagnostic_bounds": false
+  },
+  "zero_origin_fixture": {
+    "ui_equal": true,
+    "scene_equal": true,
+    "max_rgb_error": 0,
+    "production_layout_modified": false
+  },
+  "interpretation": "The only varied raster state is viewport origin. Vulkan explicitly excludes integer window-translation invariance. This diagnostic difference is retained, not relabeled a pass or used as evidence of an unfinished scene. No proof of a particular driver-internal cause.",
+  "sources": [
+    "https://docs.vulkan.org/spec/latest/appendices/invariance.html",
+    "https://docs.vulkan.org/spec/latest/chapters/vertexpostproc.html"
+  ],
+  "limits": [
+    "Only the previously unresolved mode2/1280x720 case was rerun; this is not a new 12-case aggregate.",
+    "Host MoltenVK, not a Switch/Windows pixel comparison.",
+    "No production source, renderer, tolerance or NRO change."
+  ],
+  "nro": {
+    "sha256": "da16a25a097169dc0d027a4999c79e42a8c0fe2a8bdba561a96b0c6539ac68fc",
+    "bytes": 16318520
+  },
+  "evidence": {
+    "viewport-current.log": "0c73b1808e56febdddb9df815b8f1b20819e553ab319527a673548e3f54d87a4",
+    "viewport-zero-origin.log": "61b0ebc9b96ce45a268d2a057d6ffa67eb46cf08d9be5f15cbeeb38605040129"
+  }
+}

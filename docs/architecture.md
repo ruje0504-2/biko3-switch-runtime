@@ -1,3 +1,5 @@
+> 当前实现状态以[路线与收尾清单](roadmap.md)为准。下方带日期的段落是阶段记录，早期“未接应用”或“未实现”不代表当前状态；模块职责与依赖边界继续适用。
+
 2026-10-01 音量flow30由app/volume_session装配，save/volume_file唯一持有三项进程值；scene仅借用services.audio_volumes，不依赖save。生产启动必供音量，NULL仅保留旧独立诊断参数。保存成功才发布，原数据只读；复用现有文件替换，试听独占40..45，退出停音后快照下一tick退役。原距离/包络及私有加载时音量规则保持，常驻系统音借用效果音活值。标题/暂停实际输入与普通/ASan验证见 reports/volume-application.md。
 
 2026-10-01 结局背包由`PlaySession.game_state.pickup.collected[5]`唯一持有，`BkEndingNormalFlow`借用；UI/控制/加载器读活值，鉴赏第二/三字节在逻辑停止清理一次，失败构造恢复，迟退GPU快照不重复写入。game保留严格第三类step，生产play仅隔离两个禁用目标的未初始化hover语音；明确兼容边界见 `reports/ending-inventory.md`。背包后续phase4仍有state1字段误读待修，不宣称完整路线通过。光影闪烁已获用户确认关闭。
