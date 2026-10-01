@@ -13,4 +13,9 @@
 int bk_text_image(const BkFont *, const uint8_t *text, size_t size,
                   const BkTextLayout *, uint32_t width, uint32_t height,
                   BkImage *out, char error[256]);
+/* Same raster, additionally returns the last ink row plus one (zero when
+ * empty). Used by translated dialogue to exclude trailing blank lines. */
+int bk_text_image_with_height(const BkFont *, const uint8_t *, size_t,
+                              const BkTextLayout *, uint32_t, uint32_t,
+                              BkImage *, uint32_t *ink_height, char error[256]);
 #endif

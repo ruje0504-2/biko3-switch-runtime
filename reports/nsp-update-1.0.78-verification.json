@@ -1,19 +1,20 @@
 {
   "date": "2026-10-02",
-  "title_id": "01094F68D7333000",
+  "title_id": "01094F68D7333800",
   "name": "尾行3",
   "author": "ILLUSION",
   "version": "1.0.78",
-  "nsp": "biko3-01094F68D7333000.nsp",
-  "nsp_bytes": 2957146840,
-  "nsp_sha256": "dd8eb121782f37e915342139c152b98d862e4e6a95c4e888e7fb25e39232941e",
+  "nsp": "biko3-01094F68D7333800-update.nsp",
+  "nsp_bytes": 2994387680,
+  "nsp_sha256": "9297d1cc2b218ffafaf5f1eebbdaa8e6c3b7eaabb7e05889b240bcfdede16023",
   "application_id": "01094F68D7333000",
-  "format": "native NSO base Application (CNMT type 0x80, version 0)",
+  "format": "native NSO full-resource Patch (CNMT type 0x81, version 65536)",
   "data_files_verified": 168,
   "data_bytes": 2945456435,
-  "patch_included": false,
+  "patch_included": true,
   "romfs_root_entries": [
-    "Data"
+    "Data",
+    "patch.pp"
   ],
   "nacp_languages_checked": 16,
   "icons_checked": 16,
@@ -29,19 +30,18 @@
   "cnmt_entries": [
     {
       "type": 1,
-      "bytes": 2956582400,
-      "sha256": "f95329d3d2b0e29d1ba1a01c35ca6ecec427da79f1eaa3b053f0058d12c0eed4"
+      "bytes": 2993823232,
+      "sha256": "879cde3212644844d5c4e0764bb0b88eb666b84afa332075a936d7d160ce586c"
     },
     {
       "type": 3,
       "bytes": 560128,
-      "sha256": "3d8bb71dfad440e50f02442d3ad29a2b9f81f7073c30112bbee811ed60977cfe"
+      "sha256": "37f6eb7182b82917518909b83b81d3106657185178a1007cfc03223d23b77067"
     }
   ],
   "cnmt_referenced_content_hashes_verified": true,
-  "cnmt_digest_trailer": "Zero-filled by hacBrewPack cnmt_create; not a SHA-256 of the CNMT bytes. Enclosing Meta NCA integrity verified.",
-  "cnmt_format_reference": "https://github.com/pplatoon/hacBrewPack/blob/master/cnmt.c#L31-L35",
-  "verification_correction": "First local check incorrectly required a CNMT trailer hash. Upstream cnmt_create and both reference-project base CNMTs confirm the deliberate zero trailer; the actual NCA and content checks were retained.",
+  "cnmt_digest_trailer": "SHA256 of the preceding CNMT bytes, verified.",
+  "cnmt_format_reference": "https://github.com/DarkMatterCore/nxdumptool/blob/rewrite/include/core/cnmt.h",
   "nca_content_ids_match_hashes": true,
   "non_signature_hash_failures": 0,
   "signatures": "Homebrew: official fixed-key and NPDM ACID signatures are unsigned/FAIL as expected; Program NCA NPDM-key signature GOOD. All content/section integrity hashes GOOD.",
@@ -70,5 +70,17 @@
     "provenance": "Earlier in this change batch; storage code unchanged by the subsequent text fix."
   },
   "hardware_run": false,
-  "scope": "Actual NSP extracted and checked independently; Switch install/launch/save persistence is left to the user as requested."
+  "scope": "Actual NSP extracted and checked independently; Switch install/launch/save persistence is left to the user as requested.",
+  "base_patch_association_verified": true,
+  "patch": {
+    "path": "patch.pp",
+    "bytes": 37165253,
+    "sha256": "5aa69af72f240d6cf2fa1d12293564256bef120b1c1a70cb210e597927df9f42",
+    "flags": 3
+  },
+  "packager": {
+    "name": "hacPack",
+    "commit": "e506cb58b7843d86df7518156debd28f3b575638"
+  },
+  "full_romfs": "Original Data plus patch.pp; ordinary complete RomFS, no BKTR/delta tables."
 }

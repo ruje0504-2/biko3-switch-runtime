@@ -1,3 +1,5 @@
+2026-10-02 追加：以下成品已用[中文流程文字修复](chinese-dialogue.md)后的 ELF 重新打包、提取和校验；本体原版 Data 与 HOS 存储实现不变。下列存储单测为本批此前的结果，没有为对白改动扩大重跑。
+
 2026-10-02：按用户指定，在汉化加载优化完成后制作不带补丁的原版直装 NSP。名称「尾行3」、作者字段 `ILLUSION`、版本 `1.0.78`、图标来自用户 `icon.jpg`；TitleID 使用用户确认的 `01094F68D7333000`。`尾行3` 的 CP932 字节为 `94F68D7333`，加 `010` 前缀和 `000` 对齐后作为本体 ID。
 
 `tools/package_nsp.py` 使用当前 ELF 生成原生 NSO，配套 NPDM / NACP、Program / Control / Meta NCA。完整 168 个原版日文 Data 文件（2,945,456,435 字节）放进 RomFS；不包含 `patch.pp`、Windows EXE、原存档或 macOS 杂项。无需依赖 SD 上的 NRO 或 Data 目录。版本与 Mesa 锁由既有构建清单检查，密钥、素材和二进制不进 Git。
@@ -18,4 +20,4 @@ NSO 启动时挂载自身 RomFS，读取 HOME 所选用户，调用 `IApplicatio
 - 新 NRO 的 NRO0 / ASET / NACP / 图标重新回读通过，仍是 `biko3-runtime` / `ILLUSION` / `1.0.78`；指定 Mesa NVK，ELF 未解析符号 0。
 - 普通与 ASan 各 10 项存储检查通过，包括照片写入后重开 / 删除、暂停图备份恢复、进度、提交失败和 SD 无操作路径。这是主机注入提交函数验证，不是 HOS 实机持久性测试。
 
-最终 `交付/biko3-01094F68D7333000.nsp` 为 2,957,145,304 字节，SHA256 `2e6f56f56cd78260e226eebe107f8813561e3765cb0c22271937a3e16235b8b5`。详细字段见 [verification JSON](nsp-1.0.78-verification.json)。后续安装、运行和照片跨重启保留由用户自行验证，按本次要求不再作为交付阻塞项。本批只本地提交，未推送 GitHub。
+最终 `交付/biko3-01094F68D7333000.nsp` 为 2,957,146,840 字节，SHA256 `dd8eb121782f37e915342139c152b98d862e4e6a95c4e888e7fb25e39232941e`。详细字段见 [verification JSON](nsp-1.0.78-verification.json)。后续安装、运行和照片跨重启保留由用户自行验证，按本次要求不再作为交付阻塞项。本批只本地提交，未推送 GitHub。

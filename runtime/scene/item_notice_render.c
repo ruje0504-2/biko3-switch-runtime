@@ -99,8 +99,9 @@ BkItemNoticeRender *bk_item_notice_render_create(BkRenderer *renderer,
   n->message = &n->empty;
   if (!bk_item_notice_render_reload(n, store, group, 0, error))
     goto bad;
-  n->text =
-      bk_text_render_create(renderer, store, "Type_S.FTT", 316, 268, error);
+  float zoom = (bk_resources_patch_flags(store) & BK_PATCH_CHINESE) ? 1.3f : 1;
+  n->text = bk_text_render_create_scaled(renderer, store, "Type_S.FTT", 316,
+                                          268, zoom, error);
   if (!n->text)
     goto bad;
   const BkVertex v[4] = {{0, 0, 0, 0, 0, 1, 1, 1, 1},
@@ -191,9 +192,10 @@ static int recreate(void *context, BkNoticeTextKind kind, char error[256]) {
   BkTextStyle style;
   if (!n || !bk_notice_text_style(kind, &style))
     return fail(error, "invalid font kind");
-  BkTextRender *text = bk_text_render_create(
+  float zoom = (bk_resources_patch_flags(n->store) & BK_PATCH_CHINESE) ? 1.3f : 1;
+  BkTextRender *text = bk_text_render_create_scaled(
       n->renderer, n->store, "Type_S.FTT", (uint32_t)style.width,
-      (uint32_t)style.height, error);
+      (uint32_t)style.height, zoom, error);
   if (!text)
     return 0;
   bk_text_render_destroy(n->text);

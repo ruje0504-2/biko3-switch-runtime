@@ -29,6 +29,14 @@ BkTextRender *bk_text_render_create(BkRenderer *renderer,
                                     BkResourceStore *store, const char *font,
                                     uint32_t width, uint32_t height,
                                     char error[256]) {
+  return bk_text_render_create_scaled(renderer, store, font, width, height, 1,
+                                       error);
+}
+BkTextRender *bk_text_render_create_scaled(BkRenderer *renderer,
+                                           BkResourceStore *store,
+                                           const char *font, uint32_t width,
+                                           uint32_t height, float zoom,
+                                           char error[256]) {
   if (!renderer || !store || !font) {
     fail(error, "missing services/font");
     return NULL;
@@ -50,7 +58,8 @@ BkTextRender *bk_text_render_create(BkRenderer *renderer,
   t->font = bk_font_decode(blob.data, blob.size, error);
   bk_blob_free(&blob);
   if (!t->font ||
-      !(t->canvas = bk_text_canvas_create(t->font, width, height, error)))
+      !(t->canvas = bk_text_canvas_create_scaled(t->font, width, height, zoom,
+                                                 error)))
     goto bad;
   const BkVertex vertices[4] = {{0, 0, 0, 0, 0, 1, 1, 1, 1},
                                 {1, 0, 0, 1, 0, 1, 1, 1, 1},
@@ -83,14 +92,15 @@ int bk_text_render_prepare(BkTextRender *t, const BkTextStyle *style,
   if (!bk_text_canvas_prepare(t->canvas, style, text, size, seconds, width,
                               flow, &draw, &upload, error))
     return 0;
-  if (upload || !t->texture) {
+  if (!t->texture) {
     BkTexture *texture =
         bk_texture_create(t->renderer, bk_text_canvas_image(t->canvas), error);
     if (!texture)
       return 0;
-    bk_texture_destroy(t->renderer, t->texture);
     t->texture = texture;
-  }
+  } else if (upload && !bk_texture_update(t->renderer, t->texture,
+                                          bk_text_canvas_image(t->canvas), error))
+    return 0;
   for (unsigned i = 0; i < draw.count; ++i) {
     const BkTextPass *p = &draw.passes[i];
     float r = ((p->argb >> 16) & 255) / 255.f,

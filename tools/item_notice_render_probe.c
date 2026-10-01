@@ -102,7 +102,7 @@ static int poll(void *ctx, uint64_t *consumed, char *error) {
   return 1;
 }
 int main(int argc, char **argv) {
-  if (argc != 2 && argc != 3)
+  if (argc < 2 || argc > 4)
     return 2;
   char error[256] = {0}, path[1024];
   int rc = 1;
@@ -128,6 +128,8 @@ int main(int argc, char **argv) {
           (int)sizeof(path));
     CHECK(bk_resources_mount(store, packs[i], path, error));
   }
+  if (argc == 4)
+    CHECK(bk_resources_load_patch(store, argv[3], error));
   Sink sink = {0};
   BkAudioSink output = {&sink, 22050, 147, 588, submit, poll};
   audio = bk_audio_create(&output, error);
@@ -219,7 +221,7 @@ int main(int argc, char **argv) {
             changed +=
                 pixels[p] != 70 || pixels[p + 1] != 110 || pixels[p + 2] != 160;
           }
-        if (argc == 3 && group == 0 && item == 0 && frame == 11) {
+        if (argc >= 3 && group == 0 && item == 0 && frame == 11) {
           FILE *f = fopen(argv[2], "wb");
           CHECK(f);
           int ok = fprintf(f, "P6\n%d %d\n255\n", W, H) > 0;
@@ -340,7 +342,7 @@ int main(int argc, char **argv) {
           }
           samples++;
         }
-      if (argc == 3 && group == 0 && frame == 5) {
+      if (argc >= 3 && group == 0 && frame == 5) {
         char filename[1024];
         snprintf(filename, sizeof(filename), "%s-opening.ppm", argv[2]);
         FILE *f = fopen(filename, "wb");

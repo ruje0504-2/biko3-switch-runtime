@@ -156,7 +156,7 @@ static int draw(Probe *q, const BkDialogueUiFrame *f, int prepare,
   return 1;
 }
 int main(int argc, char **argv) {
-  if (argc != 2)
+  if (argc < 2 || argc > 3)
     return 2;
   char e[256] = {0}, path[1024];
   int rc = 1;
@@ -174,6 +174,8 @@ int main(int argc, char **argv) {
   }
   CHECK(bk_resources_mount_directory(store, "fonts", argv[1], 4 * 1024 * 1024,
                                      e));
+  if (argc == 3)
+    CHECK(bk_resources_load_patch(store, argv[2], e));
   CHECK(bk_resources_read(store, "bk3_05", "i00_00.txt", &script, e) ==
         BK_RESOURCE_OK);
   const char *names[] = {"ma_04.tga", "ma_05.tga", "ma_01.tga"};

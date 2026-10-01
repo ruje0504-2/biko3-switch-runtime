@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Build an installed base title with original Japanese Data and HOS saves.
+"""Build a base title or a full-resource update with the combined patch.
 
 Requires the existing Switch ELF, devkitPro tools, hacbrewpack and local keys.
 Game assets, keys, intermediate NCAs and the resulting NSP stay out of Git.
 """
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -25,18 +26,65 @@ DATA_EXTENSIONS = {'.pp', '.tbl', '.ckp', '.atr', '.fam', '.ftt', '.ix',
                    '.b3f', '.mpg', '.cfg', '.tbf'}
 
 
+def write_patch_cnmt(path, application_id, update_id, content_version, contents):
+    # NcmPackagedContentMetaHeader + NcmPatchMetaExtendedHeader. A full
+    # replacement has no delta/history extended data. Program IDs and save
+    # ownership remain the base ID; only the Patch metadata uses base + 0x800.
+    header = struct.pack('<QIBBHHHBBBBI4x', update_id, content_version,
+                         0x81, 0, 0x18, len(contents), 0, 0, 0, 0, 0, 0)
+    data = header + struct.pack('<QII8x', application_id, 0, 0)
+    for kind, nca in contents:
+        checksum = bytes.fromhex(digest(nca))
+        data += (checksum + checksum[:16] + nca.stat().st_size.to_bytes(6, 'little')
+                 + bytes((kind, 0)))
+    path.write_bytes(data + hashlib.sha256(data).digest())
+
+
+def package_update(run, args, work, exefs, control, romfs, title_id, update_id):
+    ncas = work/'ncas'
+    ncas.mkdir()
+    common = [args.hacpack.resolve(), '-k', args.keyset.resolve(),
+              '--tempdir', work/'hacpack-temp', '--backupdir', work/'backup']
+    contents = []
+    for kind, number, directory in [('program', 1, romfs), ('control', 3, control)]:
+        before = set(ncas.glob('*.nca'))
+        command = common + ['--type', 'nca', '--ncatype', kind,
+                            '--titleid', title_id, '--romfsdir', directory, '-o', ncas]
+        if kind == 'program':
+            command += ['--exefsdir', exefs]
+        run(command)
+        created = set(ncas.glob('*.nca')) - before
+        if len(created) != 1:
+            raise ValueError(f'Expected one {kind} NCA')
+        contents.append((number, created.pop()))
+    cnmt = work/'patch.cnmt'
+    write_patch_cnmt(cnmt, int(title_id, 16), int(update_id, 16), 0x10000, contents)
+    run(common + ['--type', 'nca', '--ncatype', 'meta', '--titletype', 'patch',
+                  '--titleid', update_id, '--titleversion', '00010000',
+                  '--cnmt', cnmt, '-o', ncas])
+    out = work/'nsp'
+    run(common + ['--type', 'nsp', '--titleid', update_id, '--ncadir', ncas, '-o', out])
+    return list(out.glob('*.nsp'))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('game', type=Path, help='unmodified Japanese game root')
     parser.add_argument('--output', type=Path)
     parser.add_argument('--keyset', type=Path, default=Path.home()/'.switch/prod.keys')
     parser.add_argument('--hacbrewpack', type=Path, default=Path.home()/'bin/hacbrewpack')
+    parser.add_argument('--update-patch', type=Path,
+                        help='build a Patch update containing this combined patch.pp')
+    parser.add_argument('--hacpack', type=Path, default=ROOT/'local/hacpack/hacpack')
     parser.add_argument('--devkitpro', type=Path,
                         default=Path(os.environ.get('DEVKITPRO', '/opt/devkitpro')))
     args = parser.parse_args()
     title = json.loads((ROOT/'config/switch-title.json').read_text())
     version = LOCK['project_version']
-    output = (args.output or ROOT/f'交付/biko3-{title["title_id"]}.nsp').resolve()
+    update = args.update_patch is not None
+    package_id = f'{int(title["title_id"], 16) + 0x800:016X}' if update else title['title_id']
+    suffix = '-update' if update else ''
+    output = (args.output or ROOT/f'交付/biko3-{package_id}{suffix}.nsp').resolve()
     game = args.game.resolve()
     data = game/'Data'
     if output.is_relative_to(game):
@@ -48,9 +96,15 @@ def main():
     build = json.loads((ROOT/'build-switch/build-manifest.json').read_text())
     if build['version'] != version or build['mesa_commit'] != LOCK['mesa']['commit'] or build['sha256'] != digest(nro):
         raise ValueError('Switch build/lock mismatch; run build-switch.sh first')
-    for path in (elf, ROOT/'icon.jpg', args.keyset, args.hacbrewpack):
+    for path in (elf, ROOT/'icon.jpg', args.keyset, args.hacpack if update else args.hacbrewpack):
         if not path.is_file():
             raise ValueError(f'Missing required local file: {path}')
+    if update:
+        args.update_patch = args.update_patch.resolve()
+        patch = Archive(args.update_patch)
+        cfg = next((e for e in patch.entries if e.name == 'patch.cfg'), None)
+        if cfg is None or patch.read(cfg) != b'BKPT' + struct.pack('<II', 2, 3):
+            raise ValueError('Expected a BKPT2 combined Chinese/uncensor patch')
     files = sorted(p for p in data.iterdir()
                    if p.is_file() and not p.name.startswith('.')
                    and p.suffix.lower() in DATA_EXTENSIONS)
@@ -63,18 +117,19 @@ def main():
     output.parent.mkdir(parents=True, exist_ok=True)
     work_root = ROOT/'local/nsp'
     work_root.mkdir(parents=True, exist_ok=True)
-    manifest = {'title_id': title['title_id'], 'name': title['name'],
+    manifest = {'title_id': package_id, 'application_id': title['title_id'], 'name': title['name'],
                 'author': title['author'], 'version': version,
-                'type': 'base-application', 'patch_included': False,
+                'type': 'full-resource-update' if update else 'base-application',
+                'content_version': 0x10000 if update else 0, 'patch_included': update,
                 'game_root': 'romfs:', 'save_root': 'save:/biko3',
                 'user_save_bytes': title['user_save_bytes'],
                 'user_save_journal_bytes': title['user_save_journal_bytes'],
                 'mesa_commit': build['mesa_commit'], 'elf_sha256': digest(elf),
                 'data_files': []}
     tools = args.devkitpro/'tools/bin'
-    with tempfile.TemporaryDirectory(prefix='base-', dir=work_root) as folder:
+    with tempfile.TemporaryDirectory(prefix='update-' if update else 'base-', dir=work_root) as folder:
         work = Path(folder)
-        log_path = work_root/'package.log'
+        log_path = work_root/('package-update.log' if update else 'package.log')
         def run(command):
             with log_path.open('ab') as log:
                 subprocess.run([str(x) for x in command], cwd=work,
@@ -128,7 +183,7 @@ def main():
         for language in LANGUAGES:
             shutil.copyfile(work/'icon.jpg', control/f'icon_{language}.dat')
         manifest['icon_sha256'] = digest(work/'icon.jpg')
-        print(f'Copying {len(files)} original Data files (no patch.pp)', flush=True)
+        print(f'Copying {len(files)} original Data files', flush=True)
         for source in files:
             destination = romfs/'Data'/source.name
             shutil.copyfile(source, destination)
@@ -138,11 +193,21 @@ def main():
             manifest['data_files'].append({'path': 'Data/'+source.name,
                                            'bytes': source.stat().st_size,
                                            'sha256': checksum})
-        print('Building Program, Control and Application Meta NCAs', flush=True)
-        run([args.hacbrewpack.resolve(), '--keyset', args.keyset.resolve(),
-             '--titleid', title['title_id'], '--titlename', title['name'],
-             '--titlepublisher', title['author'], '--nologo'])
-        results = list((work/'hacbrewpack_nsp').glob('*.nsp'))
+        if update:
+            shutil.copyfile(args.update_patch, romfs/'patch.pp')
+            manifest['patch'] = {'path': 'patch.pp', 'bytes': args.update_patch.stat().st_size,
+                                 'sha256': digest(args.update_patch), 'flags': 3}
+            if digest(romfs/'patch.pp') != manifest['patch']['sha256']:
+                raise ValueError('Patch copy checksum mismatch')
+            print('Building Program, Control and Patch Meta NCAs', flush=True)
+            results = package_update(run, args, work, exefs, control, romfs,
+                                     title['title_id'], package_id)
+        else:
+            print('Building Program, Control and Application Meta NCAs', flush=True)
+            run([args.hacbrewpack.resolve(), '--keyset', args.keyset.resolve(),
+                 '--titleid', title['title_id'], '--titlename', title['name'],
+                 '--titlepublisher', title['author'], '--nologo'])
+            results = list((work/'hacbrewpack_nsp').glob('*.nsp'))
         if len(results) != 1:
             raise ValueError('Packager did not produce exactly one NSP')
         shutil.move(results[0], output)

@@ -11,6 +11,12 @@ typedef struct BkTextCanvas BkTextCanvas;
  */
 BkTextCanvas *bk_text_canvas_create(const BkFont *, uint32_t width,
                                     uint32_t height, char error[256]);
+/* Translated dialogue: magnify original bitmap glyphs inside the same panel,
+ * wrap to its reduced raster width and scroll only to real text. zoom=1
+ * retains the strict original layout/scroll policy. */
+BkTextCanvas *bk_text_canvas_create_scaled(const BkFont *, uint32_t width,
+                                           uint32_t height, float zoom,
+                                           char error[256]);
 void bk_text_canvas_destroy(BkTextCanvas *);
 /*4758f7 has distinct full-raster and last-displayed text caches. Always
  * remember the latest input, even when flow suppresses refresh. Re-rasterize

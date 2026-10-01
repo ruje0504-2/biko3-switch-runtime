@@ -61,7 +61,9 @@ BkDialogueUiRender *bk_dialogue_ui_render_create(BkRenderer *gpu,
         !(r->meshes[i] = bk_mesh_create(gpu, v, 4, ix, 6, e)))
       goto bad;
   }
-  r->text = bk_text_render_create(gpu, store, "Type_S.FTT", 432, 64, e);
+  float zoom = (bk_resources_patch_flags(store) & BK_PATCH_CHINESE) ? 1.3f : 1;
+  r->text = bk_text_render_create_scaled(gpu, store, "Type_S.FTT", 432, 64,
+                                         zoom, e);
   if (!r->text)
     goto bad;
   return r;

@@ -11,6 +11,10 @@ typedef struct BkTextRender BkTextRender;
 BkTextRender *bk_text_render_create(BkRenderer *, BkResourceStore *,
                                     const char *font, uint32_t width,
                                     uint32_t height, char error[256]);
+BkTextRender *bk_text_render_create_scaled(BkRenderer *, BkResourceStore *,
+                                           const char *font, uint32_t width,
+                                           uint32_t height, float zoom,
+                                           char error[256]);
 void bk_text_render_destroy(BkTextRender *);
 /* CPU and earlier GPU updates remain applied on a GPU failure; terminate
  * that frame. Caller owns the global flow state and notice visibility policy.
