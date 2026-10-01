@@ -172,7 +172,7 @@ BkScene *bk_pause_preview_create_shared(const BkSceneServices *services,
   for (unsigned i = 0; i < sizeof(slots) / sizeof(slots[0]); ++i) {
     unsigned slot = slots[i];
     p->sounds[slot] = bk_system_audio_create_slot(services->resources, p->audio,
-                                                  48 + slot, slot, -600, error);
+                                                  48 + slot, slot, bk_volume_get(services->audio_volumes, BK_VOLUME_EFFECT, -600), error);
     if (!p->sounds[slot])
       goto fail;
   }

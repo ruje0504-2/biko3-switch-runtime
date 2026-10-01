@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
   renderer = bk_renderer_create(1280, 720, stderr, error);
   files = bk_capture_files_create(argv[2], error);
   REQUIRE(renderer && files);
-  BkSceneServices services = {store, renderer, stderr, NULL, files};
+  BkSceneServices services = {store, renderer, stderr, NULL, files, NULL};
   scene = bk_game_preview_create(&services, error);
   REQUIRE(scene);
   unsigned active_frames = 0, handovers = 0, total = 0;

@@ -108,7 +108,7 @@ static int third_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
   ThirdSink sink = {.hash = UINT64_C(14695981039346656037)};
   BkAudioSink output = {&sink, 48000, 480, 1920, third_submit, third_poll};
   VERIFY(state && records && (audio = bk_audio_create(&output, e)));
-  BkSceneServices services = {store, renderer, stdout, audio, NULL};
+  BkSceneServices services = {store, renderer, stdout, audio, NULL, NULL};
   BkCommonHudState common = {0};
   bk_common_hud_initialize(&common);
   BkEndingAuxiliaryCycle cycle = bk_ending_auxiliary_cycle_initial();

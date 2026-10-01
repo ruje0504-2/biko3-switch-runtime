@@ -286,7 +286,7 @@ BkScene *bk_save_preview_create(const BkSceneServices *services,
   for (unsigned i = 0; i < 4; ++i) {
     unsigned slot = slots[i];
     s->sounds[slot] = bk_system_audio_create_slot(
-        services->resources, services->audio, 48 + slot, slot, -600, e);
+        services->resources, services->audio, 48 + slot, slot, bk_volume_get(services->audio_volumes, BK_VOLUME_EFFECT, -600), e);
     if (!s->sounds[slot])
       goto bad;
   }

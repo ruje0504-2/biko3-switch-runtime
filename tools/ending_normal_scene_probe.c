@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
   }
   BkAudioSink sink = {&sink_state, 48000, 240, 960, submit, poll};
   CHECK(audio = bk_audio_create(&sink, error));
-  services = (BkSceneServices){store, renderer, stdout, audio, NULL};
+  services = (BkSceneServices){store, renderer, stdout, audio, NULL, NULL};
   BkRenderStats baseline = bk_renderer_stats(renderer);
   if (story) {
     CHECK(records = calloc(1, sizeof(*records)));

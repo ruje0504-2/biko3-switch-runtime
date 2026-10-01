@@ -2,6 +2,7 @@
 #define BK_SCENE_H
 #include "core/clock.h"
 #include "core/input.h"
+#include "core/audio_volume.h"
 #include "media/audio.h"
 #include "render/renderer.h"
 #include "resource/store.h"
@@ -22,6 +23,7 @@ typedef struct {
   FILE *log;
   BkAudio *audio; /* Borrowed; NULL only for explicitly silent diagnostics. */
   struct BkCaptureFiles *capture_files; /* Borrowed pause-output adapter. */
+  const int32_t *audio_volumes; /* Borrowed process voice/BGM/effect values. */
 } BkSceneServices;
 typedef struct {
   BkClockFrame clock;

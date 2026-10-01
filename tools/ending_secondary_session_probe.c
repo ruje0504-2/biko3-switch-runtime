@@ -175,7 +175,7 @@ static int secondary_profile(BkRenderer *renderer, BkResourceStore *store,
   SecondarySchedule scheduled = {0};
   BkAudioSink output = {&sink, 48000, 480, 1920, secondary_submit, secondary_poll};
   VERIFY(mixer = bk_audio_create(&output, e));
-  BkSceneServices services = {store, renderer, stdout, mixer, NULL};
+  BkSceneServices services = {store, renderer, stdout, mixer, NULL, NULL};
   /*The constructor retains transition/timer words. The real application's
    * process allocation clears them before this first initialization.*/
   BkCommonHudState common = {0};

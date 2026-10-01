@@ -141,7 +141,7 @@ static BkScene *create(const BkSceneServices *services, BkRetryState *state,
   for (unsigned i = 0; i < 3; ++i) {
     unsigned slot = slots[i];
     r->sounds[slot] = bk_system_audio_create_slot(
-        services->resources, services->audio, 48 + slot, slot, -600, error);
+        services->resources, services->audio, 48 + slot, slot, bk_volume_get(services->audio_volumes, BK_VOLUME_EFFECT, -600), error);
     if (!r->sounds[slot])
       goto bad;
   }

@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
   BkAudioSink sink = {&submitted, 48000, 240, 960, submit, poll};
   audio = bk_audio_create(&sink, e);
   CHECK(files && renderer && audio);
-  BkSceneServices services = {resources, renderer, stderr, audio, NULL};
+  BkSceneServices services = {resources, renderer, stderr, audio, NULL, NULL};
   BkSavePreviewState state = {.control.tab = 3};
   BkCommonHudState common = {0};
   BkMenuCursor cursor = {0};

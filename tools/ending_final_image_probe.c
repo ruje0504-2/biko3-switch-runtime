@@ -202,7 +202,7 @@ static int image_profile(BkRenderer *renderer, BkResourceStore *store, unsigned 
   float *background_pose = NULL;
   BkInput input = {0};
   VERIFY(records && pixels && redraw && (audio = bk_audio_create(&output, e)));
-  BkSceneServices services = {store, renderer, stdout, audio, NULL};
+  BkSceneServices services = {store, renderer, stdout, audio, NULL, NULL};
   uint8_t unlocked[5][8] = {{0}};
   scene = bk_ending_normal_scene_create_story(
       &services, group, source == 3, records, unlocked, NULL, e);
@@ -393,7 +393,7 @@ static int image_resource_failure(BkRenderer *renderer, BkResourceStore *store,
     VERIFY(closed == 0);
     VERIFY(bk_resources_mount_directory(fault, "bk3_00", directory, 1024, e));
   }
-  BkSceneServices services = {store, renderer, stdout, audio, NULL};
+  BkSceneServices services = {store, renderer, stdout, audio, NULL, NULL};
   scene = bk_ending_normal_scene_create_story(&services, group, source == 3,
                                               records, unlocked, NULL, e);
   VERIFY(scene);

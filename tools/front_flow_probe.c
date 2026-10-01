@@ -93,7 +93,7 @@ int main(int argc, char **argv) {
                       960,        offline_submit, offline_poll};
   audio = bk_audio_create(&sink, error);
   REQUIRE(audio);
-  BkSceneServices services = {store, renderer, stderr, audio, files};
+  BkSceneServices services = {store, renderer, stderr, audio, files, NULL};
   if (getenv("BK_FRONT_UNLOCKS")) {
     /* Explicit fixture of already completed gallery flags, never a runtime
      * unlock shortcut. Reopen the file owner before creating the session. */

@@ -99,7 +99,7 @@ static int originals(BkRenderer *r, const char *root, const char *prefix,
         !bk_resources_mount(store, packs[i], path, error))
       goto done;
   }
-  BkSceneServices services = {store, r, stderr, NULL, NULL};
+  BkSceneServices services = {store, r, stderr, NULL, NULL, NULL};
   scene = bk_scene_create(BK_SCENE_STATIC_WORLD, &services, error);
   if (!scene || !capture(r, scene, baseline, error) ||
       !save(prefix, "office", baseline, error))

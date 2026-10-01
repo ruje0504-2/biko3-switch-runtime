@@ -2762,7 +2762,7 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
   if (!s->audio)
     s->audio = bk_ending_audio_create_entry(
         s->services.resources, s->services.audio, 0, s->state->frame.group, variant,
-        -900, e);
+        bk_volume_get(s->services.audio_volumes, BK_VOLUME_MUSIC, -900), e);
   if (!s->audio)
     goto bad;
   unsigned width = s->viewport.width;
@@ -2783,7 +2783,7 @@ static int normal_load(void *context, BkEndingLoader loader, int32_t argument,
   for (unsigned i = 0; i < 4; ++i) {
     if (!s->control_audio[i])
       s->control_audio[i] = bk_system_audio_create_slot(
-          s->services.resources, s->services.audio, 57 + i, control_slots[i], -600, e);
+          s->services.resources, s->services.audio, 57 + i, control_slots[i], bk_volume_get(s->services.audio_volumes, BK_VOLUME_EFFECT, -600), e);
     if (!s->control_audio[i])
       goto bad;
   }
@@ -3179,8 +3179,8 @@ static BkScene *create_entry(const BkSceneServices *services, unsigned group,
   s->state = flow ? flow->state : &s->diagnostic_state;
   if (!flow)
     bk_ending_state_initialize(s->state);
-  s->voice_volume = -1000;
-  s->effect_volume = -600;
+  s->voice_volume = bk_volume_get(services->audio_volumes, BK_VOLUME_VOICE, -1000);
+  s->effect_volume = bk_volume_get(services->audio_volumes, BK_VOLUME_EFFECT, -600);
   s->group = group;
   s->variant = variant;
   s->records = records;

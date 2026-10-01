@@ -175,7 +175,7 @@ int main(int argc, char **argv) {
   run.audio = bk_audio_create(&sink, e);
   CHECK(captures && files && run.renderer && run.audio);
   BkSceneServices services = {resources, run.renderer, stderr, run.audio,
-                              captures};
+                              captures, NULL};
   run.scene = bk_play_session_create_development(&services, files, e);
   CHECK(run.scene && present(&run, e));
   CHECK(ready(&run, e));

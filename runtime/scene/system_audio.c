@@ -5,6 +5,7 @@ struct BkSystemAudio {
   BkAudioClip *clip;
   unsigned voice;
   int32_t volume;
+  const int32_t *master;
 };
 const char *bk_system_audio_name(unsigned slot) {
   static const char *const names[] = {"se000.wav", "se001.wav", "se002.wav",
@@ -49,12 +50,21 @@ void bk_system_audio_destroy(BkSystemAudio *a) {
 int bk_system_audio_wait(BkSystemAudio *a, char error[256]) {
   return bk_system_audio_restart(a, error);
 }
+int bk_system_audio_bind_volume(BkSystemAudio *a, const int32_t *master, char error[256]) {
+  if (!a || (master && (*master < -10000 || *master > 0))) {
+    snprintf(error,256,"system audio: invalid shared volume");return 0;
+  }
+  a->master = master;
+  int32_t volume,pan;
+  return !bk_audio_get_gain(a->audio,a->voice,&volume,&pan) ||
+      bk_audio_gain(a->audio,a->voice,master ? *master : a->volume,pan,error);
+}
 int bk_system_audio_restart(BkSystemAudio *a, char error[256]) {
   if (!a) {
     snprintf(error, 256, "system audio: missing instance");
     return 0;
   }
-  return bk_audio_play(a->audio, a->voice, a->clip, 0, a->volume, 0, error);
+  return bk_audio_play(a->audio, a->voice, a->clip, 0, a->master ? *a->master : a->volume, 0, error);
 }
 int bk_system_audio_stop(BkSystemAudio *a, char error[256]) {
   if (!a) {

@@ -16,6 +16,9 @@ BkSystemAudio *bk_system_audio_create(BkResourceStore *, BkAudio *,
 BkSystemAudio *bk_system_audio_create_slot(BkResourceStore *, BkAudio *,
                                            unsigned voice, unsigned slot,
                                            int32_t volume, char error[256]);
+/* Optional process master, borrowed for the instance lifetime. Refreshes an
+ * already loaded buffer without restarting; restart reads the current value. */
+int bk_system_audio_bind_volume(BkSystemAudio *, const int32_t *, char error[256]);
 int bk_system_audio_restart(BkSystemAudio *, char error[256]);
 void bk_system_audio_destroy(BkSystemAudio *);
 int bk_system_audio_wait(BkSystemAudio *, char error[256]);

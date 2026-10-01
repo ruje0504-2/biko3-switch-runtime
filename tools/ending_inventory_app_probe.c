@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
   BkRenderStats baseline = bk_renderer_stats(renderer);
   BkAudioSink output = {&sink, 48000, 480, 1920, submit, poll};
   CHECK(audio = bk_audio_create(&output, error));
-  BkSceneServices services = {store, renderer, stdout, audio, NULL};
+  BkSceneServices services = {store, renderer, stdout, audio, NULL, NULL};
   CHECK(scene = bk_play_session_create(&services, error));
   PlaySession *s = bk_scene_custom_context(scene);
   CHECK(present(scene, renderer, audio, error));

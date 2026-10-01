@@ -26,6 +26,7 @@ typedef struct {
   BkRenderer *renderer;
   BkResourceStore *resources;
   BkAudio *audio;
+  const int32_t *volumes;
   int owns_audio;
   BkAudioSink sink;
   uint64_t submitted;
@@ -368,8 +369,8 @@ static int step(void *context, double seconds, const BkInput *device,
   g->input.now_ms = g->now_ms;
   g->input.face_clocks[0] = g->input.face_clocks[1] = g->input.face_clocks[2] =
       g->input.face_clocks[3] = g->now_ms;
-  g->input.music_volume = -900;
-  g->input.effect_volume = -600;
+  g->input.music_volume = bk_volume_get(g->volumes, BK_VOLUME_MUSIC, -900);
+  g->input.effect_volume = bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600);
   g->input.interface_mode = 2;
   g->input.weather_enabled = 1;
   g->input.hud_blocked = g->blocked;
@@ -611,6 +612,7 @@ static int load(GamePreview *g, const BkSceneServices *services,
       !(g->forest = bk_entry_forest_create(g->entry, g->background, g->props,
                                            g->items, error)))
     return 0;
+  g->volumes = services->audio_volumes;
   g->audio = services->audio;
   if (!g->audio) {
     g->sink = (BkAudioSink){g, 48000, 240, 960, submit, poll};
@@ -619,15 +621,15 @@ static int load(GamePreview *g, const BkSceneServices *services,
   }
   if (!g->audio ||
       !(g->system = bk_system_audio_create(services->resources, g->audio, 0,
-                                           -600, error)) ||
+                                           bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)) ||
       !(g->limit = bk_system_audio_create_slot(services->resources, g->audio,
-                                               34, 5, -600, error)) ||
+                                               34, 5, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)) ||
       !(g->shutter = bk_system_audio_create_slot(services->resources, g->audio,
-                                                 35, 7, -600, error)) ||
+                                                 35, 7, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)) ||
       !(g->confirm = bk_system_audio_create_slot(services->resources, g->audio,
-                                                 33, 0, -600, error)) ||
+                                                 33, 0, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)) ||
       !(g->click = bk_system_audio_create_slot(services->resources, g->audio,
-                                               36, 4, -600, error)) ||
+                                               36, 4, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)) ||
       !(g->player_audio =
             bk_player_audio_create(services->resources, g->audio, 1, error)) ||
       !(g->npc_audio =
@@ -635,17 +637,23 @@ static int load(GamePreview *g, const BkSceneServices *services,
       !(g->area_audio = bk_area_audio_create(services->resources, g->audio, 4,
                                              g->player_audio, error)) ||
       !(g->npc_events =
-            bk_npc_event_audio_create(services->resources, g->audio, 5, 6, -600,
+            bk_npc_event_audio_create(services->resources, g->audio, 5, 6, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600),
                                       g->area_audio, g->system, error)) ||
       !(g->item_feedback = bk_item_feedback_create(services->resources,
-                                                   g->audio, 7, -600, error)) ||
+                                                   g->audio, 7, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)) ||
       !(g->background_audio = bk_background_audio_create(
             services->resources, g->audio, 8,
             bk_background_assets_config(g->background), &g->state->background,
-            -600, error)) ||
+            bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)) ||
       !(g->prop_audio = bk_prop_audio_create(services->resources, g->audio, 17,
-                                             g->props, NULL, 0, -600, error)))
+                                             g->props, NULL, 0, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error)))
     return 0;
+  if (g->volumes) {
+    const int32_t *effect=&g->volumes[BK_VOLUME_EFFECT];
+    BkSystemAudio *sounds[]={g->system,g->limit,g->shutter,g->confirm,g->click};
+    for(unsigned i=0;i<5;++i)
+      if(!bk_system_audio_bind_volume(sounds[i],effect,error))return 0;
+  }
   g->services = (BkGameFrameServices){
       .entry = g->entry,
       .background = g->background,
@@ -822,8 +830,8 @@ int bk_game_preview_background_step(BkScene *scene, double seconds,
                              .seconds = (float)seconds,
                              .group = (int32_t)s->group,
                              .area = (int32_t)s->area,
-                             .music_master = -900,
-                             .effect_master = -600,
+                             .music_master = bk_volume_get(g->volumes, BK_VOLUME_MUSIC, -900),
+                             .effect_master = bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600),
                              .player_yaw = s->player.spatial.movement.yaw,
                              .weather_enabled = 1,
                              .ambient_gate = (int8_t)s->boundary.ambient_gate};
@@ -856,7 +864,7 @@ static BkFailureServices failure_services(GamePreview *g) {
                              &g->dialogue,
                              g->item_feedback,
                              bk_item_notice_render_text_ops(g->notice_render),
-                             -600};
+                             bk_volume_get(g->volumes, BK_VOLUME_VOICE, -600)};
 }
 int bk_game_preview_load_failure(BkScene *scene, char error[256]) {
   GamePreview *g = bk_scene_custom_context(scene);
@@ -945,8 +953,8 @@ int bk_game_preview_failure_step(BkScene *scene, BkFailureHudState *failure,
   g->now_ms = (uint32_t)(uint64_t)(elapsed * 1000);
   BkGameFrameInput input = {.seconds = (float)seconds,
                             .now_ms = g->now_ms,
-                            .music_volume = -900,
-                            .effect_volume = -600,
+                            .music_volume = bk_volume_get(g->volumes, BK_VOLUME_MUSIC, -900),
+                            .effect_volume = bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600),
                             .interface_mode = 0x40,
                             .weather_enabled = 1};
   for (unsigned i = 0; i < 4; ++i)
@@ -1121,9 +1129,9 @@ int bk_game_preview_advance_area(BkScene *scene, uint8_t previous_flow,
     return 0;
   g->background_audio = bk_background_audio_create(
       g->resources, g->audio, 8, bk_background_assets_config(g->background),
-      &s->background, -600, error);
+      &s->background, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error);
   g->prop_audio = bk_prop_audio_create(g->resources, g->audio, 17, g->props,
-                                       g->retained_prop_sound, 16, -600, error);
+                                       g->retained_prop_sound, 16, bk_volume_get(g->volumes, BK_VOLUME_EFFECT, -600), error);
   g->forest = bk_entry_forest_create(g->entry, g->background, g->props,
                                      g->items, error);
   if (!g->background_audio || !g->prop_audio || !g->forest ||

@@ -130,7 +130,7 @@ int main(int argc, char **argv) {
       row[i] = (uint8_t)(3 + group * 31 + i * 11);
     CHECK(bk_unlock_file_store(unlocks, group, row, &saved, error));
   }
-  BkSceneServices services = {store, renderer, stdout, audio, NULL};
+  BkSceneServices services = {store, renderer, stdout, audio, NULL, NULL};
   CHECK(scene = bk_play_session_create_with_storage(&services, NULL, unlocks,
                                                     error));
   CHECK(probe_present(scene, renderer, audio, error));

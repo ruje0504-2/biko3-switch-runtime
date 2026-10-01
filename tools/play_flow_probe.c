@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
                       960,        offline_submit, offline_poll};
   audio = bk_audio_create(&sink, error);
   REQUIRE(audio);
-  BkSceneServices services = {store, renderer, stderr, audio, files};
+  BkSceneServices services = {store, renderer, stderr, audio, files, NULL};
   scene = bk_play_session_create_development(&services, NULL, error);
   REQUIRE(scene && present(scene, renderer, audio, error));
   const BkCommonHudState *common = bk_play_session_common(scene);

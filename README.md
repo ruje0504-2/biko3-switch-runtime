@@ -4,7 +4,7 @@
 
 失败与重试、区域完成保存询问、50 槽保存/覆盖/读取，以及保存后继续下一区域已接入。暂停菜单第一项进入读取页；取消返回原暂停状态，确认读取会重建所选角色的区域入口。存档写入独立输出目录的 `save/checkpoint-0..4.bks`，含版本、组别和 CRC；损坏文件明确失败。2026-10-01 的自然输入检查已覆盖第一角色实际拾取道具后，连续进入 area2、area3、area4 并分别保存、独立进程读档，见[存档连续交接](reports/ending-inventory.md)。入口 area1 和初始随机种子仍为显式夹具，这不是从标题到结局的完整路线。
 
-鉴赏菜单、五类结局回放、独立特殊场景，以及动作记录和解锁持久化已接入应用；详见[鉴赏入口](reports/gallery-application.md)、[特殊场景](reports/special-session.md)、[动作记录保存](reports/record-storage.md)。实际游戏已有原版雨幕、雪花，雨天已获实机确认；用户也已确认物体表面光影闪烁修复，该问题在 PC 原版存在。标题音量 `0x30` 的控制/显示/试听组件已完成对照（[报告](reports/volume-menu.md)），应用入口和配置保存仍未接入；标题相册 `0x60` 尚无加载器；完整自然故事、其他角色/道具的自然路线、剩余三维画面对照和最新构建的 Switch 实机验收仍未完成。主机 MoltenVK 检查不能替代 Switch NVK 实机验证。
+鉴赏菜单、五类结局回放、独立特殊场景，以及动作记录和解锁持久化已接入应用；详见[鉴赏入口](reports/gallery-application.md)、[特殊场景](reports/special-session.md)、[动作记录保存](reports/record-storage.md)。实际游戏已有原版雨幕、雪花，雨天已获实机确认；用户也已确认物体表面光影闪烁修复，该问题在 PC 原版存在。标题和暂停的音量页 `0x30` 已接三类音量、试听、独立配置保存和返回（[报告](reports/volume-application.md)）；标题相册 `0x60` 尚无加载器；完整自然故事、其他角色/道具的自然路线、剩余三维画面对照和最新构建的 Switch 实机验收仍未完成。主机 MoltenVK 检查不能替代 Switch NVK 实机验证。
 
 Switch 的矩阵与 CPU 蒙皮已使用 NEON intrinsics 和少量内联汇编预取，并补齐实际 ARM64 普通/ASan 原版数值对照；为保持原版精度采用双精度向量累加。M4 的矩阵函数微基准约减少 20% 耗时，尚不能声称 Switch 帧率收益，见[NEON 验证](reports/neon-skinning.md)。
 

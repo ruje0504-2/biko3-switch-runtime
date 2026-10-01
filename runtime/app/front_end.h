@@ -6,10 +6,12 @@
 #include "scene/title_menu_render.h"
 #include "scene/gallery_menu_render.h"
 #include "save/unlock_file.h"
+#include "save/volume_file.h"
 #include "scene/special_session.h"
 typedef struct BkFrontEnd BkFrontEnd;
 typedef struct {
   BkSceneServices services;
+  BkVolumeFile *volume_file; /* borrowed, publishes services.audio_volumes */
   BkViewport viewport;
   BkCommonHudState *common;
   BkCurtainRender *curtain;
@@ -33,7 +35,7 @@ typedef struct {
    * actual UI/audio, album inventory, group, viewport and scheduler.*/
   BkSpecialSessionConfig special;
 } BkFrontEndConfig;
-/* Original retail title1/selection38/dialogue8/gallery18 owner. Retains menu globals
+/* Retail title1/selection38/dialogue8/gallery18/volume30/special48 owner. Retains menu globals
  * between entries; collects released GPU snapshots on the following step.
  * Unimplemented destination flows still fail in the application's loader.
  */

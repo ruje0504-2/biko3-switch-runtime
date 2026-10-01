@@ -112,7 +112,7 @@ static void record_views(PlaySession *s, BkRecordView v[BK_RECORD_GROUPS]) {
 static int release(void *context, uint8_t flow, char error[256]) {
   PlaySession *s = context;
   log_line(s, "Flow release begin");
-  if (s->front && (flow == 1 || flow == 0x38 || flow == 8 || flow == 0x18 || flow == 0x48))
+  if (s->front && (flow == 1 || flow == 0x38 || flow == 8 || flow == 0x18 || flow == 0x48 || flow == 0x30))
     return bk_front_end_stop(s->front, flow, error);
   if (flow == 0x40 && s->failure_active && s->game) {
     if (!bk_game_preview_release_failure_audio(s->game, error))
@@ -279,7 +279,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
      * this byte. Actual process teardown is owned by application.c. */
     return 1;
   }
-  if (s->front && (target == 1 || target == 0x38 || target == 8 || target == 0x18 || target == 0x48)) {
+  if (s->front && (target == 1 || target == 0x38 || target == 8 || target == 0x18 || target == 0x48 || target == 0x30)) {
     if (!bk_front_end_load(s->front, target, s->flow.previous,
                            s->game_state.interaction.response, s->elapsed,
                            s->pending_seconds, error))
@@ -410,7 +410,7 @@ static int load_target(void *context, uint8_t target, char error[256]) {
     if (!s->game)
       return 0;
     s->outcome = bk_outcome_audio_create(
-        s->services.resources, s->services.audio, 37, 38, -900, error);
+        s->services.resources, s->services.audio, 37, 38, bk_volume_get(s->services.audio_volumes, BK_VOLUME_MUSIC, -900), error);
     if (!s->outcome)
       return 0;
     bk_common_hud_entry_reset(&s->common);
@@ -523,6 +523,7 @@ static int step(void *context, double seconds, const BkInput *input,
   case 8:
   case 0x18:
   case 0x48:
+  case 0x30:
     if (s->front) {
       if (!bk_front_end_step(s->front, seconds, s->elapsed, input, error))
         return 0;
@@ -583,7 +584,7 @@ static int draw(void *context, const BkSceneFrame *frame, char error[256]) {
   } else if (s->shown == 0x10) {
     if (!bk_scene_draw(s->ending, frame, error))
       return 0;
-  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48) {
+  } else if (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48 || s->shown == 0x30) {
     if (!(s->front ? bk_front_end_draw(s->front, error)
                    : bk_scene_draw(s->title, frame, error)))
       return 0;
@@ -607,7 +608,7 @@ int bk_play_session_after_present(BkScene *scene, char error[256]) {
   }
   if (!s->pending)
     return 1;
-  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48) &&
+  if (s->front && (s->shown == 1 || s->shown == 0x38 || s->shown == 8 || s->shown == 0x18 || s->shown == 0x48 || s->shown == 0x30) &&
       !bk_front_end_after_present(s->front, error))
     return 0;
   if (s->shown == 2) {
@@ -662,7 +663,7 @@ static void destroy(void *context) {
 }
 static BkScene *create(const BkSceneServices *services,
                        BkCheckpointFiles *files, BkUnlockFile *unlock_file,
-                       BkRecordFile *record_file, int require_record_file,
+                       BkRecordFile *record_file, BkVolumeFile *volume_file, int require_record_file,
                        int development,
                        char error[256]) {
   if (!services || !services->renderer || !services->resources ||
@@ -676,6 +677,7 @@ static BkScene *create(const BkSceneServices *services,
     return NULL;
   }
   s->services = *services;
+  if (volume_file) s->services.audio_volumes=bk_volume_file_values(volume_file);
   s->record_file = record_file;
   s->require_record_file = require_record_file;
   s->special_clock_read = platform_clock;
@@ -718,11 +720,14 @@ static BkScene *create(const BkSceneServices *services,
   s->loading_render = bk_flow_loading_render_create(
       services->renderer, services->resources, 0, error);
   s->confirm = bk_system_audio_create_slot(services->resources, services->audio,
-                                           56, 1, -600, error);
-  if (!s->curtain || !s->loading_render || !s->confirm)
+                                           56, 1, bk_volume_get(s->services.audio_volumes, BK_VOLUME_EFFECT, -600), error);
+  if (!s->curtain || !s->loading_render || !s->confirm ||
+      (s->services.audio_volumes && !bk_system_audio_bind_volume(s->confirm,
+          &s->services.audio_volumes[BK_VOLUME_EFFECT],error)))
     goto bad;
   if (!development) {
     BkFrontEndConfig c = {.services = s->services,
+                          .volume_file = volume_file,
                           .viewport = s->viewport,
                           .common = &s->common,
                           .curtain = s->curtain,
@@ -778,23 +783,23 @@ bad:
 BkScene *bk_play_session_create_with_saves(const BkSceneServices *services,
                                            BkCheckpointFiles *files,
                                            char error[256]) {
-  return create(services, files, NULL, NULL, 0, 0, error);
+  return create(services, files, NULL, NULL, NULL, 0, 0, error);
 }
 BkScene *bk_play_session_create_with_storage(const BkSceneServices *services,
                                              BkCheckpointFiles *files,
                                              BkUnlockFile *unlock_file,
                                              char error[256]) {
-  return create(services, files, unlock_file, NULL, 0, 0, error);
+  return create(services, files, unlock_file, NULL, NULL, 0, 0, error);
 }
 BkScene *bk_play_session_create_with_progress(const BkSceneServices *services,
     BkCheckpointFiles *files, BkUnlockFile *unlock_file, BkRecordFile *record_file,
-    char error[256]) {
-  return create(services, files, unlock_file, record_file, 1, 0, error);
+    BkVolumeFile *volume_file, char error[256]) {
+  return create(services, files, unlock_file, record_file, volume_file, 1, 0, error);
 }
 BkScene *bk_play_session_create_development(const BkSceneServices *services,
                                             BkCheckpointFiles *files,
                                             char error[256]) {
-  return create(services, files, NULL, NULL, 0, 1, error);
+  return create(services, files, NULL, NULL, NULL, 0, 1, error);
 }
 BkScene *bk_play_session_create(const BkSceneServices *services,
                                 char error[256]) {

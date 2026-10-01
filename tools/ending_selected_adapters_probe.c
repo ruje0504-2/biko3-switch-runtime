@@ -21,7 +21,7 @@ static int adapter_profile(BkRenderer *renderer, BkResourceStore *store,
   SelectedSink sink = {.hash = UINT64_C(14695981039346656037)};
   BkAudioSink output = {&sink, 48000, 480, 1920, probe_submit, probe_poll};
   CHECK(audio = bk_audio_create(&output, e));
-  BkSceneServices services = {store, renderer, stdout, audio, NULL};
+  BkSceneServices services = {store, renderer, stdout, audio, NULL, NULL};
   uint8_t unlocked[5][8] = {{0}};
   CHECK(scene = bk_ending_selected_scene_create_gallery(&services, group,
       variant, variant ? 5 : 2, unlocked, NULL, e));

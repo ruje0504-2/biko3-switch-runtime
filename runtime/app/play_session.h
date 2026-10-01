@@ -3,6 +3,7 @@
 #include "save/checkpoint_file.h"
 #include "save/unlock_file.h"
 #include "save/record_file.h"
+#include "save/volume_file.h"
 #include "scene/common_hud.h"
 #include "scene/flow_loading.h"
 #include "scene/game_frame.h"
@@ -26,7 +27,7 @@ BkScene *bk_play_session_create_with_storage(const BkSceneServices *,
  * all records before stopping flow10. Missing writable records at exit is
  * an explicit error. Legacy constructors above are in-memory diagnostics. */
 BkScene *bk_play_session_create_with_progress(const BkSceneServices *,
-    BkCheckpointFiles *, BkUnlockFile *, BkRecordFile *, char error[256]);
+    BkCheckpointFiles *, BkUnlockFile *, BkRecordFile *, BkVolumeFile *, char error[256]);
 /* Explicit diagnostic entry for existing game/save/failure regressions.
  * Bypasses title/selection/dialogue; never the normal Switch startup. */
 BkScene *bk_play_session_create_development(const BkSceneServices *,

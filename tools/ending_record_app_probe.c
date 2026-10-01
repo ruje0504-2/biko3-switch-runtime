@@ -64,8 +64,8 @@ int main(int argc,char **argv) {
   CHECK(renderer=bk_renderer_create(80,48,stdout,error));BkRenderStats baseline=bk_renderer_stats(renderer);
   BkAudioSink output={&sink,48000,480,1920,submit,poll};CHECK(audio=bk_audio_create(&output,error));
   CHECK(unlocks=bk_unlock_file_create(argv[2],error));CHECK(records=bk_record_file_create(argv[2],error));
-  BkSceneServices services={store,renderer,stdout,audio,NULL};
-  CHECK(scene=bk_play_session_create_with_progress(&services,NULL,unlocks,records,error));
+  BkSceneServices services={store,renderer,stdout,audio,NULL, NULL};
+  CHECK(scene=bk_play_session_create_with_progress(&services,NULL,unlocks,records,NULL,error));
   PlaySession *s=bk_scene_custom_context(scene);s->game_state.random=0x50caa2;
   CHECK(present(scene,renderer,audio,error));
   if(produce) {

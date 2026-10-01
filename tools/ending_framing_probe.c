@@ -102,7 +102,7 @@ static int framing_run(const char *data, unsigned group, unsigned width,
   }
   BkAudioSink output = {&sink, 48000, 240, 960, framing_submit, framing_poll};
   VERIFY(audio = bk_audio_create(&output, e));
-  BkSceneServices services = {store, renderer, NULL, audio, NULL};
+  BkSceneServices services = {store, renderer, NULL, audio, NULL, NULL};
   BkRenderStats baseline = bk_renderer_stats(renderer);
   size_t size = (size_t)width * height * 4;
   VERIFY(clear = malloc(size));

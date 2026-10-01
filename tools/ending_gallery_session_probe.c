@@ -49,7 +49,7 @@ static int gallery_profile(BkRenderer *renderer, BkResourceStore *store,
     }
   }
   uint64_t record_hash = selected_hash(0, records, sizeof(*records));
-  BkSceneServices services = {store, renderer, stdout, audio, NULL};
+  BkSceneServices services = {store, renderer, stdout, audio, NULL, NULL};
   uint8_t unlocked[5][8] = {{0}};
   GALLERY_CHECK(scene = bk_ending_replay_scene_create(&services, group, variant,
                                                       records, unlocked, NULL, e));

@@ -287,7 +287,7 @@ int main(int argc, char **argv) {
   baseline = bk_renderer_stats(r.renderer);
   BkAudioSink sink = {&submitted, 48000, 480, 1920, submit, poll};
   CHECK(r.audio = bk_audio_create(&sink, e));
-  BkSceneServices services = {resources, r.renderer, stderr, r.audio, captures};
+  BkSceneServices services = {resources, r.renderer, stderr, r.audio, captures, NULL};
   CHECK(r.scene = story ? bk_play_session_create_with_saves(&services, files, e)
                        : bk_play_session_create_development(&services, files, e));
   PlaySession *s = bk_scene_custom_context(r.scene);
