@@ -18,7 +18,7 @@
 当前本地构建为 `build-switch/biko3-preview.nro`，16,318,520 字节，ELF 未解析符号为 0；SHA256：
 
 ```text
-da16a25a097169dc0d027a4999c79e42a8c0fe2a8bdba561a96b0c6539ac68fc
+f357cba107b3d676555a176a845210f20e223b5aa98c04fcf10abc0b0f072bcb
 ```
 
 旧的 `交付/SD卡根目录` 是历史包，不会随源码或 GitHub 推送自动更新。更新已有安装时可单独替换 NRO；只有所需数据文件发生变化时才需要补充素材。
@@ -67,7 +67,7 @@ python3 tools/bk3_assets.py local/game/MAINDIR/Data --json local/resource-index.
 python3 tools/package_sd.py local/game/MAINDIR
 ```
 
-以**完整内存的应用模式**打开新构建的 `switch/biko3/biko3-preview.nro`。默认进入原版标题，日志为 `sdmc:/switch/biko3/nvk.log`；照片和临时暂停截图写入 `sdmc:/switch/biko3` 下的独立输出目录。
+以**完整内存的应用模式**打开新构建的 `switch/biko3/biko3-preview.nro`。默认进入原版标题，Switch 版不再创建、写入或轮换 `.log` 文件；发生错误时仍在屏幕显示原因，可按 B 返回。照片和临时暂停截图写入 `sdmc:/switch/biko3` 下的独立输出目录。
 
 | 操作 | 当前作用 |
 | --- | --- |

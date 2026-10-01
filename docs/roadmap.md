@@ -15,7 +15,7 @@
 
 ## 当前构建
 
-`build-switch/biko3-preview.nro`，版本字段0.3.5，16,318,520字节；SHA256 `da16a25a097169dc0d027a4999c79e42a8c0fe2a8bdba561a96b0c6539ac68fc`，ELF未解析符号0。
+`build-switch/biko3-preview.nro`，版本字段0.3.5，16,318,520字节；SHA256 `f357cba107b3d676555a176a845210f20e223b5aa98c04fcf10abc0b0f072bcb`，ELF未解析符号0。
 
 包含[渲染绑定缓存](../reports/vulkan-bindings.md)、[藏身退出修复](../reports/hiding-exit.md)和[NPC无效遮挡检查优化](../reports/npc-occlusion-performance.md)。计数下降只代表相应测试路径的工作量减少，不能当作实机FPS提升。
 

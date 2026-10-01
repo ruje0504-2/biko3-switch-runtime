@@ -1,11 +1,9 @@
 #include "platform/platform.h"
-#include <errno.h>
 #include <stdlib.h>
 #include <switch.h>
 #include <sys/stat.h>
 #include <time.h>
 struct BkPlatform {
-  FILE *log;
   PadState pad;
 };
 static uint64_t runtime_origin_ms;
@@ -34,23 +32,6 @@ BkPlatform *bk_platform_open(int argc, char **argv, BkLaunchConfig *config,
     return NULL;
   }
   mkdir("sdmc:/switch/biko3", 0777);
-  /* Keep the preceding session's error across one relaunch. fsdev rename
-   * cannot replace a destination, so retire only this owned log slot first.
-   * If rotation fails, append instead of truncating the useful old log. */
-  const char *current_log = "sdmc:/switch/biko3/nvk.log";
-  const char *previous_log = "sdmc:/switch/biko3/nvk.previous.log";
-  const char *log_mode = "a";
-  struct stat log_info;
-  if (!stat(current_log, &log_info)) {
-    if (S_ISREG(log_info.st_mode) &&
-        (!remove(previous_log) || errno == ENOENT) &&
-        !rename(current_log, previous_log))
-      log_mode = "w";
-  } else if (errno == ENOENT)
-    log_mode = "w";
-  p->log = fopen(current_log, log_mode);
-  if (!p->log)
-    p->log = stderr;
   padConfigureInput(1, HidNpadStyleSet_NpadStandard);
   padInitializeDefault(&p->pad);
   hidInitializeTouchScreen();
@@ -62,7 +43,11 @@ BkPlatform *bk_platform_open(int argc, char **argv, BkLaunchConfig *config,
                              0};
   return p;
 }
-FILE *bk_platform_log(BkPlatform *p) { return p ? p->log : stderr; }
+FILE *bk_platform_log(BkPlatform *p) {
+  (void)p;
+  /* Keep the shared diagnostic stream API without creating SD log files. */
+  return stderr;
+}
 static uint32_t buttons(uint64_t raw) {
   uint32_t result = 0;
   const uint64_t native[] = {HidNpadButton_A,     HidNpadButton_B,
@@ -143,8 +128,7 @@ void bk_platform_report_error(BkPlatform *p, const char *error) {
   padConfigureInput(1, HidNpadStyleSet_NpadStandard);
   padInitializeDefault(&pad);
   consoleInit(NULL);
-  printf("Biko3 development preview\n\n%s\n\nLog: "
-         "sdmc:/switch/biko3/nvk.log\nPress B to return.\n",
+  printf("Biko3 development preview\n\n%s\n\nPress B to return.\n",
          error);
   while (appletMainLoop()) {
     padUpdate(&pad);
@@ -157,7 +141,5 @@ void bk_platform_report_error(BkPlatform *p, const char *error) {
 void bk_platform_close(BkPlatform *p) {
   if (!p)
     return;
-  if (p->log != stderr)
-    fclose(p->log);
   free(p);
 }
