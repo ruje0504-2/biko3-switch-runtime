@@ -66,8 +66,16 @@ int bk_pcm_phase_advance(const BkPcm *pcm, uint32_t rate, uint32_t hz,
 int bk_pcm_mix_phase(const BkPcm *pcm, uint32_t rate, uint32_t hz,
                      BkPcmPhase start, int loop, int32_t volume, int32_t pan,
                      float *out, size_t frames, char error[256]) {
+  return bk_pcm_mix_phase_gain(pcm, rate, hz, start, loop, volume, pan, 1.f,
+                                out, frames, error);
+}
+int bk_pcm_mix_phase_gain(const BkPcm *pcm, uint32_t rate, uint32_t hz,
+                          BkPcmPhase start, int loop, int32_t volume, int32_t pan,
+                          float baseline, float *out, size_t frames,
+                          char error[256]) {
   BkPcmPhase checked;
-  if (volume > 0 || volume < -10000 || pan < -10000 || pan > 10000 ||
+  if (!isfinite(baseline) || baseline < 0 ||
+      volume > 0 || volume < -10000 || pan < -10000 || pan > 10000 ||
       (frames && !out) || frames > SIZE_MAX / (2 * sizeof(*out)) ||
       !bk_pcm_phase_advance(pcm, rate, hz, 0, loop, start, &checked)) {
     snprintf(error, 256, "PCM mix: invalid input/format/phase");
@@ -78,7 +86,7 @@ int bk_pcm_mix_phase(const BkPcm *pcm, uint32_t rate, uint32_t hz,
       snprintf(error, 256, "PCM mix: nonfinite destination");
       return 0;
     }
-  double gain = attenuation(volume);
+  double gain = attenuation(volume) * baseline;
   double gains[2] = {gain * attenuation(pan > 0 ? -pan : 0),
                      gain * attenuation(pan < 0 ? pan : 0)};
   size_t at = checked.frame, count = bk_pcm_frames(pcm);

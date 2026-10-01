@@ -48,7 +48,7 @@ BkSpecialAudio *bk_special_audio_create(BkResourceStore *store, BkAudio *audio,
   if (!a) { fail(e, "allocation failed"); return NULL; }
   a->store = store; a->audio = audio; a->first = first; a->loops = loops;
   a->volume[4] = -6000; a->volume[0] = volume;
-  a->clips[4] = bk_audio_clip_load(store, "bk3_02", bk_special_audio_music(group), e);
+  a->clips[4] = bk_audio_clip_load_music(store, "bk3_02", bk_special_audio_music(group), e);
   if (!a->clips[4]) goto bad;
   const char *effect = bk_special_audio_initial_effect(group);
   if (effect) {

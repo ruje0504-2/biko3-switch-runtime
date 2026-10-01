@@ -51,7 +51,7 @@ BkEndingAudio *bk_ending_audio_create_entry(BkResourceStore *store,
   if (!a)
     return NULL;
   a->clips[BK_ENDING_SOUND_MUSIC] =
-      bk_audio_clip_load(store, "bk3_02", music, e);
+      bk_audio_clip_load_music(store, "bk3_02", music, e);
   if (!a->clips[BK_ENDING_SOUND_MUSIC])
     goto failed;
   for (unsigned i = 0; i < BK_ENDING_EFFECTS; i++) {

@@ -37,6 +37,10 @@ typedef struct {
 BkAudioClip *bk_audio_clip_decode(const void *, size_t, char error[256]);
 BkAudioClip *bk_audio_clip_load(BkResourceStore *, const char *pack,
                                 const char *name, char error[256]);
+/* Music-only baseline: 1.5x during mixing, before final saturation. Does not
+ * change decoded PCM, DirectSound volume, envelope or playback position. */
+BkAudioClip *bk_audio_clip_load_music(BkResourceStore *, const char *pack,
+                                      const char *name, char error[256]);
 void bk_audio_clip_release(BkAudioClip *);
 uint32_t bk_audio_clip_rate(const BkAudioClip *);
 BkAudio *bk_audio_create(const BkAudioSink *, char error[256]);

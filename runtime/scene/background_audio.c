@@ -54,7 +54,8 @@ BkBackgroundAudio *bk_background_audio_create(BkResourceStore *store,
     const char *name = i ? config->ambient[i - 1].file : config->music;
     if (!name)
       continue;
-    a->clips[i] = bk_audio_clip_load(store, "bk3_02", name, error);
+    a->clips[i] = i ? bk_audio_clip_load(store, "bk3_02", name, error)
+                      : bk_audio_clip_load_music(store, "bk3_02", name, error);
     if (!a->clips[i]) {
       bk_background_audio_destroy(a);
       return NULL;

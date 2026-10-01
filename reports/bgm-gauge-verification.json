@@ -1,0 +1,160 @@
+{
+  "passed": true,
+  "source_sha256": {
+    "CMakeLists.txt": "63a28d6a0eaf3e89f24ae9b4d5c39381d056fa2b878237556e0a638712cc0945",
+    "runtime/app/application.c": "61002e69450cc0c12759a6ef338edabd9faa95b4f2b5d18f7154b884acb20914",
+    "runtime/app/front_end.c": "96879dda9fe0ccbd3419168f6e0543fb2002090719ec2e82c423942ae2ed0db3",
+    "runtime/media/audio.c": "3f7ec888ceb73bdb4624dcfbe6ae1771e0486fb8c8bd71e373a2a449fdb1a175",
+    "runtime/media/audio.h": "b8eae1aee64454937c653c6ea2057392e4bf97d39308b2ffda2319dc8c61d8e4",
+    "runtime/media/pcm_mix.c": "c709047aba7a6b3743c1f4c1f8a7a35245ba0cf689beb3e6da3d5fbb732933c2",
+    "runtime/media/pcm_mix.h": "985fc9f3a7e91c1c7f77cf2a7f44591c2f1d8ee93d82d81bde6a3bed814d2f57",
+    "runtime/scene/background_audio.c": "fcb555b42be0406512be22de50f19cfd4b0533c7d296c6c09d4d8d5ff54b1f9a",
+    "runtime/scene/dialogue_audio.c": "08d0d21f9d6eb5271eb044326721babe9b15d192ee580c3207460921ed1a5fea",
+    "runtime/scene/ending_audio.c": "0a7ef886c333f7f02e78059ec79dcfb1aa203ec796b0546b6ccc44843053784c",
+    "runtime/scene/ending_normal_session.c": "1ca8be00afe9c9c911d875048623caa11471646d2dcc7fb2088814839bb13850",
+    "runtime/scene/ending_ui.c": "0cd616865c8196c53a26e9a40149f14c57a908d2d5fbd5293893663c37db891d",
+    "runtime/scene/ending_ui.h": "7c058ad092da1a765fd7949b90dba38e4defb7663dfdb98ef57ad841a7bfc4aa",
+    "runtime/scene/selection_audio.c": "3c9a87f19573bc382b02f8d053fda3919a8c6d601f69879099192942d3fc61df",
+    "runtime/scene/special_audio.c": "be0af94c5a6c7c32492d475c279014b0a9f6296d1b65984d0275dee6658ce68b",
+    "runtime/scene/volume_menu_audio.c": "3f768a131fee62d7afbafba75a17a88657af8f0276999ff986c7c399488df4b1",
+    "tests/test_audio.c": "ec42c51916b651674b30997fbe743e82a29fe68be0fad04a72d51918951d8d8e",
+    "tests/test_ending_ui_tail.c": "85236123982d902287de492845da3e374f59b7b654638e3bfe791d0183d0a6f8",
+    "tools/ending_gauge_probe.c": "e63dbd87fb2d0c80a11d96e2aaeaaecfa682cbfaab20bdeb51d705bef1bea2fd"
+  },
+  "audio": {
+    "additional_bgm_baseline": 1.5,
+    "existing_output_baseline": 1.5,
+    "total_bgm_relative_to_original": 2.25,
+    "voice_effect_relative_to_original": 1.5,
+    "volume_config_modified": false,
+    "original_volume_file_sha256": "d02589fc93460f17d9450999bb1c5f42af87b4491654f8e7d34a18896ae1ef88",
+    "unit_cases_each_build": 36,
+    "unit_pcm_scalars_each_build": 2304,
+    "checks": "actual music loader vs ordinary loader, simultaneous cancellation before clipping, mute/pan/volume, original PCM and cursor",
+    "integration_frames_each_build": 5240,
+    "integration_pcm_scalars_each_build": 10060800,
+    "produce_digest": "a0b88e4eb76f81c3",
+    "reload_digest": "2fc10a37f07f7a32",
+    "host_asan_identical": true
+  },
+  "gauge": {
+    "position": "upper left",
+    "scope": "shared flow10 ending/special-story UI",
+    "fix": "display-only: anchor captured fill height to authored bottom251, clamp to0..200 scaled by viewport width/1280",
+    "original_gameplay_progress_and_y_unchanged": true,
+    "actual_native_tail_reproduction": "progress .98 + .1 clamps to1 but Y55 -20 becomes35 instead of51",
+    "gpu_cases_each_build": 63,
+    "viewport_widths": [
+      640,
+      960,
+      1280
+    ],
+    "old_wrong_frames": 42,
+    "old_outside_pixels": 40350,
+    "new_outside_pixels": 0,
+    "reference_pixel_error": 0,
+    "host_asan_pixels_identical": true,
+    "redraw_no_upload": true,
+    "gpu_returns_to_baseline": true,
+    "visual_review": "actual GPU before/after crops, 960x720, half-full +80 authored-pixel Y drift"
+  },
+  "checks": [
+    {
+      "name": "asan-unit",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/asan-unit.log",
+      "terminal_lines": []
+    },
+    {
+      "name": "gauge-asan",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/gauge-asan.log",
+      "terminal_lines": [
+        "PASS gauge cases63 old_wrong_frames42 old_outside_pixels40350 new_outside0 reference_pixel_error0 redraws1 GPU_baseline"
+      ]
+    },
+    {
+      "name": "host-volume-produce",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/host-volume-produce.log",
+      "terminal_lines": [
+        "volume-flow PASS mode=produce frames=5060 redraws=4 volumes=-1500,-6000,-3000 PCM=9715200 nonzero=9373321 hash=a0b88e4eb76f81c3"
+      ]
+    },
+    {
+      "name": "host-volume-reload",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/host-volume-reload.log",
+      "terminal_lines": [
+        "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=322207 hash=2fc10a37f07f7a32"
+      ]
+    },
+    {
+      "name": "host-ending-normal",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/host-ending-normal.log",
+      "terminal_lines": [
+        "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+      ]
+    },
+    {
+      "name": "host-ending-third",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/host-ending-third.log",
+      "terminal_lines": [
+        "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+      ]
+    },
+    {
+      "name": "asan-volume-produce",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/asan-volume-produce.log",
+      "terminal_lines": [
+        "volume-flow PASS mode=produce frames=5060 redraws=4 volumes=-1500,-6000,-3000 PCM=9715200 nonzero=9373321 hash=a0b88e4eb76f81c3"
+      ]
+    },
+    {
+      "name": "asan-volume-reload",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/asan-volume-reload.log",
+      "terminal_lines": [
+        "volume-flow PASS mode=reload frames=180 redraws=0 volumes=-1500,-6000,-3000 PCM=345600 nonzero=322207 hash=2fc10a37f07f7a32"
+      ]
+    },
+    {
+      "name": "asan-ending-normal",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/asan-ending-normal.log",
+      "terminal_lines": [
+        "PASS ending application kind0 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+      ]
+    },
+    {
+      "name": "asan-ending-third",
+      "exit_code": 0,
+      "log": "build/validation/bgm-gauge-current/asan-ending-third.log",
+      "terminal_lines": [
+        "PASS ending application kind1 entries2 confirmation196 fades124 pcm436800 rng3/3/32/38 shared-state/curtain/retirement verified"
+      ]
+    }
+  ],
+  "additional_checks": {
+    "host_ctest": "audio-queue, audio-libnx-boundary, ending-ui-tail: 3/3",
+    "asan_ctest": "same: 3/3",
+    "pcm_python": "4/4",
+    "architecture": "2/2",
+    "ending_application_each_build": "kind0 and kind1, each entries2 confirmation196 fades124 pcm436800; matching state, curtain, retirement"
+  },
+  "nro": {
+    "path": "build-switch/biko3-preview.nro",
+    "bytes": 16293944,
+    "sha256": "d52fd5f30815ac458dc0bf86376188872aac18c3fe90fc32283da0addd6fc578",
+    "elf_sha256": "96dbcc08e141b8702ee46a59fe38d79ef83b91f7d2144402c27462a4dd5b90d9",
+    "mesa_commit": "5dba7886c56460ff47c3038e323d07b9547d6212",
+    "undefined_symbols": 0
+  },
+  "validation_directory": "build/validation/bgm-gauge-current",
+  "switch_hardware_validation": false,
+  "full_port_complete": false,
+  "album_wip": "preserved in local/album-pending-bgm-gauge; excluded from build and commit"
+}

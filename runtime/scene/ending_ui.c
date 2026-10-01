@@ -135,6 +135,25 @@ int bk_ending_ui_initialize(BkEndingUi *s, unsigned width, uint8_t flags[6],
   *gauge = next.sprites[9].rect[1];
   return 1;
 }
+int bk_ending_ui_fit_gauge(BkEndingUiFrame *f, unsigned width, char e[256]) {
+  if (!f || f->count > BK_ENDING_UI_DRAWS || !width || width > 16384)
+    return fail(e, "invalid gauge frame/width");
+  float scale = (float)((double)width / 1280);
+  float bottom = layout[9].rect[1] * scale;
+  float full = layout[9].rect[3] * scale;
+  for (unsigned i = 0; i < f->count; ++i) {
+    BkEndingUiDraw *d = &f->draws[i];
+    if (d->slot != 9)
+      continue;
+    float height = d->xy[5] - d->xy[1];
+    if (!isfinite(height))
+      return fail(e, "invalid gauge height");
+    height = fminf(full, fmaxf(0, height));
+    d->xy[1] = d->xy[3] = bottom - height;
+    d->xy[5] = d->xy[7] = bottom;
+  }
+  return 1;
+}
 int bk_ending_ui_control_rects(const BkEndingUi *s, BkEndingControlRect r[13]) {
   static const unsigned slots[13] = {12, 29, 38, 21, 17, 19, 23,
                                      25, 27, 36, 34, 45, 47};

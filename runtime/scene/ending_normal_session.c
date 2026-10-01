@@ -1032,6 +1032,7 @@ static int prepare_ui_frame(EndingNormalScene *s, float seconds, unsigned width,
                           &bindings, &ops, scale, seconds, &s->ui_frame, e) ||
       !bk_ending_state_import_frame_aliases(s->state, s->common,
                                             &s->stage_ui) ||
+      !bk_ending_ui_fit_gauge(&s->ui_frame.sprites, width, e) ||
       !bk_ending_ui_batch_prepare(s->ui_batch, &s->ui_frame, s->ui_render,
                                   s->ui_stage_render, width, height, e))
     return 0;

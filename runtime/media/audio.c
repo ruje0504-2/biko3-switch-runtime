@@ -7,6 +7,7 @@
 #include <string.h>
 struct BkAudioClip {
   BkPcm *pcm;
+  float baseline;
   atomic_size_t references;
 };
 typedef struct Epoch {
@@ -44,6 +45,7 @@ BkAudioClip *bk_audio_clip_decode(const void *bytes, size_t size,
     return NULL;
   }
   clip->pcm = pcm;
+  clip->baseline = 1.f;
   atomic_init(&clip->references, 1);
   return clip;
 }
@@ -54,6 +56,14 @@ BkAudioClip *bk_audio_clip_load(BkResourceStore *resources, const char *pack,
     return NULL;
   BkAudioClip *clip = bk_audio_clip_decode(blob.data, blob.size, error);
   bk_blob_free(&blob);
+  return clip;
+}
+BkAudioClip *bk_audio_clip_load_music(BkResourceStore *resources,
+                                      const char *pack, const char *name,
+                                      char error[256]) {
+  BkAudioClip *clip = bk_audio_clip_load(resources, pack, name, error);
+  if (clip)
+    clip->baseline = 1.5f;
   return clip;
 }
 void bk_audio_clip_release(BkAudioClip *clip) {
@@ -299,9 +309,9 @@ static int audio_fill(BkAudio *audio, char error[256]) {
       BkPcmPhase phase;
       if (e && e->clip && !e->paused &&
           (!epoch_phase(audio, e, audio->stats.submitted, &phase) ||
-           !bk_pcm_mix_phase(e->clip->pcm, audio->sink.rate, e->frequency,
-                             phase, e->loop, e->volume, e->pan, audio->mix,
-                             frames, error))) {
+           !bk_pcm_mix_phase_gain(e->clip->pcm, audio->sink.rate, e->frequency,
+                                  phase, e->loop, e->volume, e->pan,
+                                  e->clip->baseline, audio->mix, frames, error))) {
         audio->stats.failed = 1;
         return 0;
       }

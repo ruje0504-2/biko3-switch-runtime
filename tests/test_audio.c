@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 typedef struct {
   int16_t samples[131072];
@@ -455,7 +457,72 @@ static void output_baseline(void) {
   bk_audio_destroy(audio);
   puts("PASS output baseline1.5: all64 voices, signed rounding, cursor, mute, cancellation and saturation");
 }
+
+static void music_baseline(void) {
+  char e[256], root[] = "/tmp/bk-bgm-XXXXXX", path[256];
+  assert(mkdtemp(root));
+  const int16_t values[8] = {1000,-1000,20000,-20000,1,-1,32760,-32760};
+  uint8_t wave[60] = {0};
+  memcpy(wave,"RIFF",4); u32(wave+4,sizeof(wave)-8);
+  memcpy(wave+8,"WAVEfmt ",8); u32(wave+16,16);
+  wave[20]=wave[22]=1; u32(wave+24,48000); u32(wave+28,96000);
+  wave[32]=2; wave[34]=16; memcpy(wave+36,"data",4); u32(wave+40,16);
+  for (unsigned sign=0; sign<2; ++sign) {
+    for (unsigned i=0;i<8;++i) {
+      uint16_t value=(uint16_t)(sign ? -values[i] : values[i]);
+      wave[44+2*i]=(uint8_t)value; wave[45+2*i]=(uint8_t)(value>>8);
+    }
+    snprintf(path,sizeof(path),"%s/%u.wav",root,sign);
+    FILE *file=fopen(path,"wb");
+    assert(file && fwrite(wave,1,sizeof(wave),file)==sizeof(wave));
+    assert(!fclose(file));
+  }
+  BkResourceStore *store=bk_resources_create(e);
+  assert(store && bk_resources_mount_directory(store,"fixture",root,1024,e));
+  BkAudioClip *music=bk_audio_clip_load_music(store,"fixture","0.wav",e);
+  BkAudioClip *ordinary=bk_audio_clip_load(store,"fixture","0.wav",e);
+  BkAudioClip *negative=bk_audio_clip_load(store,"fixture","1.wav",e);
+  assert(music && ordinary && negative);
+  unsigned samples=0;
+  for (unsigned boosted=0;boosted<2;++boosted)
+    for (unsigned mix=0;mix<2;++mix)
+      for (unsigned level=0;level<3;++level)
+        for (int pan=-2500;pan<=2500;pan+=2500) {
+          Sink sink={0}; BkAudio *audio=create(&sink,e);
+          int32_t volume=(int32_t[]){0,-2500,-10000}[level], got, got_pan;
+          assert(bk_audio_set_output_gain(audio,1.5f,e));
+          assert(bk_audio_play(audio,0,boosted?music:ordinary,1,volume,pan,e));
+          if (mix) assert(bk_audio_play(audio,1,negative,1,volume,pan,e));
+          assert(bk_audio_fill(audio,e));
+          assert(bk_audio_get_gain(audio,0,&got,&got_pan));
+          assert(got==volume && got_pan==pan);
+          BkAudioCursor cursor;
+          assert(bk_audio_cursor(audio,0,&cursor));
+          assert(cursor.source_frame==0 && cursor.playing);
+          assert(!memcmp(bk_pcm_samples(cursor.pcm),values,sizeof(values)));
+          for (unsigned i=0;i<32;++i) for (unsigned channel=0;channel<2;++channel) {
+            int shift=channel==0 && pan>0 ? -pan : channel==1 && pan<0 ? pan : 0;
+            double gain=volume==-10000 ? 0 : pow(10.,volume/2000.);
+            double side=pow(10.,shift/2000.);
+            float sample=(float)(values[i%8]*((gain*(boosted?1.5:1))*side));
+            if (mix) sample+=(float)(-values[i%8]*(gain*side));
+            sample*=1.5f;
+            int16_t wanted=sample>=32767?32767:sample<=-32768?-32768:(int16_t)lroundf(sample);
+            assert(sink.samples[2*i+channel]==wanted); ++samples;
+          }
+          bk_audio_destroy(audio);
+        }
+  bk_audio_clip_release(music);bk_audio_clip_release(ordinary);bk_audio_clip_release(negative);
+  bk_resources_destroy(store);
+  for(unsigned sign=0;sign<2;++sign) {
+    snprintf(path,sizeof(path),"%s/%u.wav",root,sign); assert(!unlink(path));
+  }
+  assert(!rmdir(root));
+  printf("PASS music baseline: 1.5x, %u samples; ordinary/PCM/gains/cursors unchanged; mix before saturation\n",samples);
+}
+
 int main(void) {
+  music_baseline();
   output_baseline();
   cursor_lifetime();
   epochs();

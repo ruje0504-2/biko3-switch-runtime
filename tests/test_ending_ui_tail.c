@@ -5,6 +5,7 @@
 #endif
 #include <assert.h>
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 int main(void) {
@@ -53,6 +54,31 @@ int main(void) {
   assert(
       bk_ending_ui_tail(&ui, &stage, &normal, &aux, &b, NULL, 1, .1f, &out, e));
   assert(a.progress == .1f); /* consume once */
+  /* Native full-value clamp still subtracts the complete Y increment. */
+  for (unsigned width=640;width<=1280;width+=320) {
+    float scale=width/1280.f;
+    assert(bk_ending_ui_initialize(&ui,width,c.pause_flags,&gauge,e));
+    a.progress=.98f; gauge=55*scale; processed[5]=0; out.count=0;
+    assert(bk_ending_ui_tail(&ui,&stage,&normal,&aux,&b,NULL,scale,0,&out,e));
+    assert(a.progress==1 && gauge==35*scale);
+    ui.sprites[9].rect[1]=gauge;ui.sprites[9].transform.scale[1]=a.progress;
+    out.count=1;
+    assert(bk_ending_ui_sprite_step(&ui,9,0,&out.draws[0],e));
+    assert(out.draws[0].xy[1]<51*scale); /* reproduced above-frame fill */
+    BkEndingUi saved=ui;
+    assert(bk_ending_ui_fit_gauge(&out,width,e));
+    assert(out.draws[0].xy[1]==51*scale && out.draws[0].xy[5]==251*scale);
+    assert(a.progress==1 && gauge==35*scale && !memcmp(&saved,&ui,sizeof(ui)));
+    /* A retained value with the layout's initial Y puts the bar too low. */
+    ui.sprites[9].rect[1]=251*scale;ui.sprites[9].transform.scale[1]=.5f;
+    assert(bk_ending_ui_sprite_step(&ui,9,0,&out.draws[0],e));
+    assert(out.draws[0].xy[5]==351*scale);
+    assert(bk_ending_ui_fit_gauge(&out,width,e));
+    assert(out.draws[0].xy[1]==151*scale && out.draws[0].xy[5]==251*scale);
+  }
+  puts("PASS gauge overflow/low-position reproduction and display-only correction at 640/960/1280");
+  out.count=0; a.progress=.1f;
+
   ui.sprites[53].transform.fade.stage = 3;
   normal.cycles = 3;
   assert(!bk_ending_ui_tail(&ui, &stage, &normal, &aux, &b, NULL, 1, .1f, &out,

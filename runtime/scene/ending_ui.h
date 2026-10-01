@@ -24,6 +24,10 @@ typedef struct {
   unsigned count;
   BkEndingUiDraw draws[BK_ENDING_UI_DRAWS];
 } BkEndingUiFrame;
+/* Display compatibility after native UI dispatch: anchor the gauge to its
+ * authored bottom and clamp its captured height to the frame interior.
+ * Gameplay progress, legacy gauge_y, draw order, UVs and alpha stay intact. */
+int bk_ending_ui_fit_gauge(BkEndingUiFrame *, unsigned width, char error[256]);
 /* One original50e6ba primary call: advance once and capture immutable draw
  * values. Does not choose visibility/order, or stand in for full4d499b. */
 int bk_ending_ui_sprite_step(BkEndingUi *, unsigned slot, float seconds,

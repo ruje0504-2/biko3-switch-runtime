@@ -32,7 +32,8 @@ BkVolumeMenuAudio *bk_volume_menu_audio_create(BkResourceStore *store, BkAudio *
     const char *name=bk_volume_menu_sound(slot);
     if (!name) continue;
     int i=index_of(slot);
-    s->clips[i]=bk_audio_clip_load(store,"bk3_02",name,e);
+    s->clips[i] = slot == 3 ? bk_audio_clip_load_music(store,"bk3_02",name,e)
+                          : bk_audio_clip_load(store,"bk3_02",name,e);
     if (!s->clips[i]) {bk_volume_menu_audio_destroy(s);return NULL;}
   }
   return s;

@@ -245,7 +245,7 @@ int bk_front_end_load(BkFrontEnd *s, uint8_t flow, uint8_t previous,
   uint32_t now = (uint32_t)(uint64_t)(wall * 1000);
   if (flow == 1) {
     s->title_music =
-        bk_audio_clip_load(s->c.services.resources, "bk3_02", "bg001.wav", e);
+        bk_audio_clip_load_music(s->c.services.resources, "bk3_02", "bg001.wav", e);
     if (!s->title_music ||
         !bk_audio_play(s->c.services.audio, 60, s->title_music, 1, bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900), 0, e))
       goto bad;
@@ -273,7 +273,7 @@ int bk_front_end_load(BkFrontEnd *s, uint8_t flow, uint8_t previous,
                                     bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900), &ops, e))
       goto bad;
     s->gallery_music =
-        bk_audio_clip_load(s->c.services.resources, "bk3_02", "bg002.wav", e);
+        bk_audio_clip_load_music(s->c.services.resources, "bk3_02", "bg002.wav", e);
     if (!s->gallery_music ||
         !bk_audio_play(s->c.services.audio, 60, s->gallery_music, 1, bk_volume_get(s->c.services.audio_volumes, BK_VOLUME_MUSIC, -900), 0, e))
       goto bad;

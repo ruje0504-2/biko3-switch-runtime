@@ -255,7 +255,7 @@ int bk_application_run(int argc, char **argv) {
   audio = bk_audio_create(&sink, error);
   if (!audio || !bk_audio_set_output_gain(audio, 1.5f, error))
     goto done;
-  fprintf(log, "Audio output baseline: 1.5x for music, voice and effects.\n");
+  fprintf(log, "Audio output baseline: 1.5x; music clips have an additional 1.5x baseline.\n");
   if (audio_output && !bk_audio_output_start(audio_output, audio, error))
     goto done;
   if (config.capture_root) {
