@@ -218,3 +218,15 @@ local/venv/bin/python tests/original_camera_oracle.py \
 ```
 
 原版分析与阶段证据见 [移植记录](reports/porting.md)，当前功能及验证范围以 [收尾清单](docs/roadmap.md) 为准。任务流程、音视频和存档已接入；汉化与去码可通过上述可选外挂启用。
+
+## 许可
+
+本仓库源码以 **0BSD**（BSD Zero Clause License）发布，SPDX 标识 `0BSD`，Copyright (C) 2025–2026 ruje0504-2 及贡献者。全文见 [LICENSE](LICENSE)，共三段：允许使用、复制、修改、分发，任何目的、收费与否均可，**不附加任何条件**。
+
+0BSD 是现行开源许可里义务最少的一种：不要求署名，不要求公开修改，可以闭源再分发，可以商用，也可以把本项目名称从代码里删掉。唯一保留的是免责声明，保护作者不为使用者的构建、运行或分发结果负责。
+
+**两个例外文件不适用 0BSD**：`tools/hacpack-bktr.patch` 衍生自 [hacPack](https://github.com/DarkMatterCore/hacPack)（GPL-2.0），沿用 GPL-2.0，仅用于本地打包 NSP，不链接进 NRO 或 NSP；[licenses/NotoSansCJK-OFL.txt](licenses/NotoSansCJK-OFL.txt) 为 Noto Sans CJK 的 SIL OFL 1.1 原文，随 16 像素字体子集位图一并保留。
+
+以下内容不在本许可范围内：原版《尾行3》程序、模型、图片、音视频与字体，汉化及去码补丁，以及[来源与依赖](THIRD_PARTY.md)所列第三方组件（Mesa/NVK、libnx、expat、zstd、zlib、Rust 标准库、Noto Sans CJK 等），它们保留各自许可；分发二进制时须随附其中 MIT / BSD / OFL 部分的版权与许可声明。
+
+参考项目 [kisaku-switch-runtime](https://github.com/ruje0504-2/kisaku-switch-runtime) 为 GPL-2.0-or-later，本项目未复制其代码。若以后合并其中的代码，相关文件须按 GPL-2.0-or-later 保留，不能按 0BSD 发布。
